@@ -48,13 +48,12 @@
   "lock_wait_seconds": 180,
   "profiles": {
     "fast": {
-      "description": "Small local team for quick answers and light changes while still starting with a shared plan.",
+      "description": "Lowest-cost local profile: shared plan first, then only the highest-ROI roles for quick answers and light changes.",
       "team_order": [
         "researcher",
         "retriever",
         "planner",
         "implementer",
-        "reviewer",
         "summarizer"
       ],
       "group_order": [
@@ -69,19 +68,16 @@
           "implementer"
         ],
         [
-          "reviewer"
-        ],
-        [
           "summarizer"
         ]
       ],
       "max_parallel_roles": 2,
-      "num_ctx": 12288,
+      "num_ctx": 8192,
       "temperature": 0.1,
       "retry_generic_output": 1
     },
     "balanced": {
-      "description": "Full local team with shared planning and moderate parallel critique under the 70 percent machine budget.",
+      "description": "ROI-balanced local team: full build path, but with lighter critique and fewer low-yield side roles under the 70 percent machine budget.",
       "team_order": [
         "researcher",
         "retriever",
@@ -91,10 +87,7 @@
         "tester",
         "reviewer",
         "debugger",
-        "optimizer",
-        "benchmarker",
         "qa",
-        "user_acceptance",
         "summarizer"
       ],
       "group_order": [
@@ -115,10 +108,7 @@
           "debugger"
         ],
         [
-          "optimizer",
-          "benchmarker",
-          "qa",
-          "user_acceptance"
+          "qa"
         ],
         [
           "summarizer"
@@ -130,7 +120,7 @@
       "retry_generic_output": 1
     },
     "deep": {
-      "description": "Higher-quality local team path with stronger critique, plan-first execution, and shared artifacts.",
+      "description": "Higher-quality ROI path: keep the strong critique loop, but reserve expensive depth for roles that materially change output quality.",
       "team_order": [
         "researcher",
         "retriever",
@@ -143,7 +133,6 @@
         "optimizer",
         "benchmarker",
         "qa",
-        "user_acceptance",
         "summarizer"
       ],
       "group_order": [
@@ -166,15 +155,14 @@
         [
           "optimizer",
           "benchmarker",
-          "qa",
-          "user_acceptance"
+          "qa"
         ],
         [
           "summarizer"
         ]
       ],
       "max_parallel_roles": 2,
-      "num_ctx": 32768,
+      "num_ctx": 28672,
       "temperature": 0.1,
       "retry_generic_output": 2
     },
@@ -262,17 +250,17 @@
   },
   "team": {
     "researcher": {
-      "model": "llama3.2:3b",
+      "model": "qwen2.5:3b",
       "fallback_models": [
-        "qwen2.5:3b"
+        "llama3.2:3b"
       ],
       "label": "Researcher",
       "weight": 5
     },
     "retriever": {
-      "model": "llama3.2:3b",
+      "model": "qwen2.5:3b",
       "fallback_models": [
-        "qwen2.5:3b"
+        "llama3.2:3b"
       ],
       "label": "Retriever",
       "weight": 7
@@ -287,9 +275,9 @@
       "weight": 7
     },
     "architect": {
-      "model": "deepseek-r1:8b",
+      "model": "qwen2.5-coder:7b",
       "fallback_models": [
-        "qwen2.5-coder:7b",
+        "deepseek-r1:8b",
         "qwen2.5:3b"
       ],
       "label": "Architect",
@@ -323,15 +311,16 @@
       "weight": 8
     },
     "debugger": {
-      "model": "gemma3:4b",
+      "model": "qwen2.5-coder:7b",
       "fallback_models": [
+        "deepseek-r1:8b",
         "qwen2.5:3b"
       ],
       "label": "Debugger",
       "weight": 7
     },
     "optimizer": {
-      "model": "gemma3:4b",
+      "model": "qwen2.5:3b",
       "fallback_models": [
         "qwen2.5:3b"
       ],
@@ -357,9 +346,9 @@
       "weight": 8
     },
     "user_acceptance": {
-      "model": "gemma3:4b",
+      "model": "qwen2.5:3b",
       "fallback_models": [
-        "qwen2.5:3b"
+        "gemma3:4b"
       ],
       "label": "User Acceptance",
       "weight": 8
