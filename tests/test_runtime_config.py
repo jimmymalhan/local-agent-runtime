@@ -14,11 +14,11 @@ class RuntimeConfigTests(unittest.TestCase):
         cfg = json.loads((REPO_ROOT / "config" / "runtime.json").read_text())
         self.assertEqual(cfg["resource_limits"]["takeover_wait_seconds"], 30)
         self.assertEqual(cfg["resource_limits"]["max_resource_wait_events"], 4)
-        self.assertEqual(cfg["resource_limits"]["parallel_headroom_cpu_percent"], 70)
-        self.assertEqual(cfg["resource_limits"]["parallel_headroom_memory_percent"], 70)
+        self.assertEqual(cfg["resource_limits"]["parallel_headroom_cpu_percent"], 90)
+        self.assertEqual(cfg["resource_limits"]["parallel_headroom_memory_percent"], 90)
         self.assertEqual(cfg["lock_wait_seconds"], 15)
-        self.assertEqual(cfg["resource_limits"]["model_downgrade_cpu_percent"], 60)
-        self.assertEqual(cfg["resource_limits"]["model_downgrade_memory_percent"], 60)
+        self.assertEqual(cfg["resource_limits"]["model_downgrade_cpu_percent"], 75)
+        self.assertEqual(cfg["resource_limits"]["model_downgrade_memory_percent"], 75)
         self.assertTrue(cfg["roi"]["kill_switch_enabled"])
         self.assertEqual(cfg["roi"]["negative_trend_window"], 6)
         self.assertEqual(cfg["roi"]["negative_trend_threshold"], 3)
@@ -31,8 +31,8 @@ class RuntimeConfigTests(unittest.TestCase):
         self.assertEqual(fast["resource_limits"]["takeover_wait_seconds"], 8)
         self.assertEqual(fast["resource_limits"]["max_resource_wait_events"], 3)
         self.assertEqual(fast["resource_limits"]["poll_seconds"], 1)
-        self.assertEqual(fast["resource_limits"]["parallel_headroom_cpu_percent"], 65)
-        self.assertEqual(fast["resource_limits"]["parallel_headroom_memory_percent"], 65)
+        self.assertEqual(fast["resource_limits"]["parallel_headroom_cpu_percent"], 85)
+        self.assertEqual(fast["resource_limits"]["parallel_headroom_memory_percent"], 85)
 
     def test_roi_model_assignment_uses_heavy_reasoning_only_on_high_leverage_roles(self):
         cfg = json.loads((REPO_ROOT / "config" / "runtime.json").read_text())
@@ -40,7 +40,8 @@ class RuntimeConfigTests(unittest.TestCase):
 
         cheap_roles = {"researcher", "retriever", "optimizer", "user_acceptance"}
         coder_roles = {"architect", "implementer", "tester", "debugger"}
-        reasoning_roles = {"planner", "reviewer", "benchmarker", "qa", "summarizer"}
+        executive_roles = {"manager", "director", "cto", "ceo"}
+        reasoning_roles = {"planner", "reviewer", "benchmarker", "qa", "summarizer"} | executive_roles
 
         for role in cheap_roles:
             self.assertEqual(team[role]["model"], "qwen2.5:3b")
@@ -49,10 +50,20 @@ class RuntimeConfigTests(unittest.TestCase):
         for role in reasoning_roles:
             self.assertEqual(team[role]["model"], "deepseek-r1:8b")
 
+    def test_fast_profile_includes_manager_and_ceo_escalation_roles(self):
+        cfg = json.loads((REPO_ROOT / "config" / "runtime.json").read_text())
+        fast = cfg["profiles"]["fast"]
+        self.assertIn("manager", fast["team_order"])
+        self.assertIn("ceo", fast["team_order"])
+
+    def test_team_order_starts_with_executive_decision_roles(self):
+        cfg = json.loads((REPO_ROOT / "config" / "runtime.json").read_text())
+        self.assertEqual(cfg["team_order"][:4], ["manager", "director", "cto", "ceo"])
+
     def test_high_pressure_prefers_cheaper_models_before_waiting(self):
         cfg = json.loads((REPO_ROOT / "config" / "runtime.json").read_text())
         available = ["deepseek-r1:8b", "qwen2.5-coder:7b", "qwen2.5:3b", "llama3.2:3b", "gemma3:4b"]
-        high_pressure = {"cpu_percent": 24.0, "memory_percent": 84.0}
+        high_pressure = {"cpu_percent": 24.0, "memory_percent": 92.0}
 
         self.assertEqual(
             local_team_run.choose_model_for_stage(cfg, "retriever", available, high_pressure),
@@ -95,8 +106,8 @@ class RuntimeConfigTests(unittest.TestCase):
             "CLAWBOT_MODEL": "openclaw/fast",
         }
         with mock.patch.dict(local_team_run.os.environ, env, clear=False):
-            order = local_team_run.provider_order_for_stage(cfg, "researcher", {"cpu_percent": 25.0, "memory_percent": 90.0})
-            provider, model = local_team_run.resolve_execution_target(cfg, "researcher", ["qwen2.5:3b"], {"cpu_percent": 25.0, "memory_percent": 90.0})
+            order = local_team_run.provider_order_for_stage(cfg, "researcher", {"cpu_percent": 25.0, "memory_percent": 92.0})
+            provider, model = local_team_run.resolve_execution_target(cfg, "researcher", ["qwen2.5:3b"], {"cpu_percent": 25.0, "memory_percent": 92.0})
         self.assertEqual(order[0], "clawbot")
         self.assertEqual(provider, "clawbot")
         self.assertEqual(model, "openclaw/fast")
