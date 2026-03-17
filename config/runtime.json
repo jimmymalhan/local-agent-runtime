@@ -127,12 +127,12 @@
       "lock_wait_seconds": 8,
       "resource_limits": {
         "poll_seconds": 1,
-        "takeover_wait_seconds": 4,
-        "max_resource_wait_events": 2,
-        "parallel_headroom_cpu_percent": 45,
-        "parallel_headroom_memory_percent": 45,
-        "model_downgrade_cpu_percent": 40,
-        "model_downgrade_memory_percent": 40
+        "takeover_wait_seconds": 8,
+        "max_resource_wait_events": 3,
+        "parallel_headroom_cpu_percent": 65,
+        "parallel_headroom_memory_percent": 65,
+        "model_downgrade_cpu_percent": 55,
+        "model_downgrade_memory_percent": 55
       }
     },
     "balanced": {
@@ -434,17 +434,17 @@
     "none": "Respond neutrally without personality instructions."
   },
   "resource_limits": {
-    "cpu_percent": 70,
-    "memory_percent": 70,
-    "poll_seconds": 2,
-    "takeover_wait_seconds": 45,
-    "max_resource_wait_events": 6,
-    "parallel_headroom_cpu_percent": 55,
-    "parallel_headroom_memory_percent": 55,
-    "model_downgrade_cpu_percent": 50,
-    "model_downgrade_memory_percent": 50,
-    "ollama_num_parallel": 3,
-    "ollama_max_loaded_models": 3,
-    "ollama_keep_alive": "10m"
+    "cpu_percent": 85,
+    "memory_percent": 85,
+    "poll_seconds": 1,
+    "takeover_wait_seconds": 30,
+    "max_resource_wait_events": 4,
+    "parallel_headroom_cpu_percent": 70,
+    "parallel_headroom_memory_percent": 70,
+    "model_downgrade_cpu_percent": 60,
+    "model_downgrade_memory_percent": 60,
+    "ollama_num_parallel": 2,
+    "ollama_max_loaded_models": 2,
+    "ollama_keep_alive": "5m"
   }
 }

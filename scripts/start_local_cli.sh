@@ -79,6 +79,8 @@ Slash commands:
   /lessons                   show runtime lessons learned from failures
   /teach                     ingest lessons from feedback logs
   /takeover-monitor          start cloud takeover monitor (background)
+  /resolve                   auto-resolve current blockers (picks fastest option)
+  /blockers                  show all blockers with 2-3 resolution options each
   /exit | /quit              leave the session
 
   Codex-style commands:
@@ -957,6 +959,12 @@ while true; do
       ;;
     /teach)
       python3 "$SCRIPT_DIR/runtime_teacher.py" ingest
+      ;;
+    /resolve)
+      python3 "$SCRIPT_DIR/blocker_resolver.py" resolve
+      ;;
+    /blockers)
+      python3 "$SCRIPT_DIR/blocker_resolver.py"
       ;;
     /takeover-monitor)
       echo "Starting cloud takeover monitor in background..."
