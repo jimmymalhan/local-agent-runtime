@@ -16,6 +16,10 @@
       "default_model": "openai/gpt-4.1-mini",
       "role_models": {
         "planner": "openai/gpt-4.1",
+        "manager": "openai/gpt-4.1",
+        "director": "openai/gpt-4.1",
+        "cto": "openai/gpt-4.1",
+        "ceo": "openai/gpt-4.1",
         "reviewer": "openai/gpt-4.1",
         "benchmarker": "openai/gpt-4.1",
         "qa": "openai/gpt-4.1",
@@ -53,6 +57,10 @@
   },
   "default_profile": "fast",
   "team_order": [
+    "manager",
+    "director",
+    "cto",
+    "ceo",
     "researcher",
     "retriever",
     "planner",
@@ -102,7 +110,9 @@
         "researcher",
         "retriever",
         "planner",
+        "manager",
         "implementer",
+        "ceo",
         "summarizer"
       ],
       "group_order": [
@@ -111,10 +121,14 @@
           "retriever"
         ],
         [
-          "planner"
+          "planner",
+          "manager"
         ],
         [
           "implementer"
+        ],
+        [
+          "ceo"
         ],
         [
           "summarizer"
@@ -129,24 +143,31 @@
         "poll_seconds": 1,
         "takeover_wait_seconds": 8,
         "max_resource_wait_events": 3,
-        "parallel_headroom_cpu_percent": 65,
-        "parallel_headroom_memory_percent": 65,
-        "model_downgrade_cpu_percent": 55,
-        "model_downgrade_memory_percent": 55
+        "parallel_headroom_cpu_percent": 85,
+        "parallel_headroom_memory_percent": 85,
+        "model_downgrade_cpu_percent": 70,
+        "model_downgrade_memory_percent": 70
       }
     },
     "balanced": {
       "description": "ROI-balanced local team: full build path, but with lighter critique and fewer low-yield side roles under the 70 percent machine budget.",
-      "team_order": [
-        "researcher",
-        "retriever",
-        "planner",
-        "architect",
-        "implementer",
-        "tester",
+  "team_order": [
+    "manager",
+    "director",
+    "cto",
+    "ceo",
+    "researcher",
+    "retriever",
+    "planner",
+    "architect",
+    "implementer",
+    "tester",
         "reviewer",
         "debugger",
+        "director",
+        "cto",
         "qa",
+        "ceo",
         "summarizer"
       ],
       "group_order": [
@@ -155,7 +176,8 @@
           "retriever"
         ],
         [
-          "planner"
+          "planner",
+          "manager"
         ],
         [
           "architect",
@@ -167,9 +189,12 @@
           "debugger"
         ],
         [
+          "director",
+          "cto",
           "qa"
         ],
         [
+          "ceo",
           "summarizer"
         ]
       ],
@@ -184,6 +209,7 @@
         "researcher",
         "retriever",
         "planner",
+        "manager",
         "architect",
         "implementer",
         "tester",
@@ -191,7 +217,10 @@
         "debugger",
         "optimizer",
         "benchmarker",
+        "director",
+        "cto",
         "qa",
+        "ceo",
         "summarizer"
       ],
       "group_order": [
@@ -200,7 +229,8 @@
           "retriever"
         ],
         [
-          "planner"
+          "planner",
+          "manager"
         ],
         [
           "architect",
@@ -214,9 +244,12 @@
         [
           "optimizer",
           "benchmarker",
+          "director",
+          "cto",
           "qa"
         ],
         [
+          "ceo",
           "summarizer"
         ]
       ],
@@ -231,24 +264,26 @@
         "researcher",
         "retriever",
         "planner",
+        "manager",
         "architect",
         "implementer",
         "tester",
         "reviewer",
         "debugger",
         "optimizer",
-        "benchmarker",
-        "qa",
-        "user_acceptance",
-        "summarizer"
-      ],
+    "benchmarker",
+    "qa",
+    "user_acceptance",
+    "summarizer"
+  ],
       "group_order": [
         [
           "researcher",
           "retriever"
         ],
         [
-          "planner"
+          "planner",
+          "manager"
         ],
         [
           "architect",
@@ -261,11 +296,14 @@
         ],
         [
           "optimizer",
-          "benchmarker"
+          "benchmarker",
+          "director",
+          "cto"
         ],
         [
           "qa",
-          "user_acceptance"
+          "user_acceptance",
+          "ceo"
         ],
         [
           "summarizer"
@@ -339,6 +377,15 @@
       "label": "Planner",
       "weight": 7
     },
+    "manager": {
+      "model": "deepseek-r1:8b",
+      "fallback_models": [
+        "qwen2.5-coder:7b",
+        "qwen2.5:3b"
+      ],
+      "label": "Manager",
+      "weight": 5
+    },
     "architect": {
       "model": "qwen2.5-coder:7b",
       "fallback_models": [
@@ -401,6 +448,24 @@
       "label": "Benchmarker",
       "weight": 7
     },
+    "director": {
+      "model": "deepseek-r1:8b",
+      "fallback_models": [
+        "qwen2.5-coder:7b",
+        "qwen2.5:3b"
+      ],
+      "label": "Director",
+      "weight": 5
+    },
+    "cto": {
+      "model": "deepseek-r1:8b",
+      "fallback_models": [
+        "qwen2.5-coder:7b",
+        "qwen2.5:3b"
+      ],
+      "label": "CTO",
+      "weight": 5
+    },
     "qa": {
       "model": "deepseek-r1:8b",
       "fallback_models": [
@@ -417,6 +482,15 @@
       ],
       "label": "User Acceptance",
       "weight": 8
+    },
+    "ceo": {
+      "model": "deepseek-r1:8b",
+      "fallback_models": [
+        "qwen2.5-coder:7b",
+        "qwen2.5:3b"
+      ],
+      "label": "CEO",
+      "weight": 4
     },
     "summarizer": {
       "model": "deepseek-r1:8b",
@@ -439,10 +513,10 @@
     "poll_seconds": 1,
     "takeover_wait_seconds": 30,
     "max_resource_wait_events": 4,
-    "parallel_headroom_cpu_percent": 70,
-    "parallel_headroom_memory_percent": 70,
-    "model_downgrade_cpu_percent": 60,
-    "model_downgrade_memory_percent": 60,
+    "parallel_headroom_cpu_percent": 90,
+    "parallel_headroom_memory_percent": 90,
+    "model_downgrade_cpu_percent": 75,
+    "model_downgrade_memory_percent": 75,
     "ollama_num_parallel": 2,
     "ollama_max_loaded_models": 2,
     "ollama_keep_alive": "5m"
