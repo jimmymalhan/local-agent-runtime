@@ -202,6 +202,14 @@ def main():
             f"{lane.upper():7} {render_bar(lane_data['percent'], 24)} {lane_data['percent']:5.1f}% | "
             f"done {lane_data['done']} / total {lane_data['total']} | open {lane_data['open']}"
         )
+    for use_case in ("product", "business", "technical", "general"):
+        bucket = todo["use_cases"][use_case]
+        if bucket["total"] == 0:
+            continue
+        print(
+            f"{use_case[:7].upper():7} {render_bar(bucket['percent'], 24)} {bucket['percent']:5.1f}% | "
+            f"done {bucket['done']} / total {bucket['total']} | open {bucket['open']}"
+        )
     print("")
     print("ROLE BREAKDOWN")
 
