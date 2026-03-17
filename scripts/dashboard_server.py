@@ -244,6 +244,26 @@ def _project_board(todo: dict) -> dict:
     }
 
 
+def _ops_summary(todo: dict, blocker_resolution: dict, lessons: list[dict], etas: dict, session_board: list[dict]) -> list[dict]:
+    stats = todo.get("stats", {})
+    total = max(1, stats.get("total", 0))
+    blocker_count = len(todo.get("blockers", []))
+    decision_count = sum(1 for item in session_board if item.get("active"))
+    lesson_count = len(lessons)
+    complete_pct = float(stats.get("percent", 0.0))
+    blocker_pct = round((blocker_count / total) * 100.0, 1)
+    decision_pct = round((decision_count / max(1, len(session_board))) * 100.0, 1)
+    lesson_pct = round(min(100.0, lesson_count * 12.5), 1)
+    roi_pct = round(max(0.0, min(100.0, complete_pct - blocker_pct + (decision_pct * 0.25))), 1)
+    return [
+        {"id": "complete", "label": "All tasks", "percent": complete_pct, "detail": etas.get("todo_eta_display", "--"), "subtitle": f"{stats.get('open', 0)} open", "color": "p"},
+        {"id": "blockers", "label": "Blockers faced", "percent": blocker_pct, "detail": blocker_resolution.get("type", "none"), "subtitle": f"{blocker_count} active", "color": "r"},
+        {"id": "decisions", "label": "Decisions made", "percent": decision_pct, "detail": f"{decision_count} active owners", "subtitle": "exec + session lanes", "color": "b"},
+        {"id": "lessons", "label": "Lessons made", "percent": lesson_pct, "detail": f"{lesson_count} recorded", "subtitle": "runtime memory", "color": "y"},
+        {"id": "roi", "label": "Maximum ROI", "percent": roi_pct, "detail": "ship fastest value", "subtitle": "completion vs blocker drag", "color": "g"},
+    ]
+
+
 def collect_state() -> dict:
     progress = load_json(REPO_ROOT / "state" / "progress.json")
     session = load_json(REPO_ROOT / "state" / "session-state.json")
@@ -282,6 +302,11 @@ def collect_state() -> dict:
         ],
         "task_flow": _task_flow(progress, blocker_resolution, todo, session_board),
         "project_board": _project_board(todo),
+        "ops_summary": _ops_summary(todo, blocker_resolution, _load_lessons(), etas, session_board),
+        "completion": _completion_tracker(
+            todo, progress, _load_lessons(), blocker_resolution, etas,
+            load_json(REPO_ROOT / "state" / "roi-metrics.json"),
+        ),
         "server_time": datetime.now().isoformat(timespec="seconds"),
     }
 
@@ -311,6 +336,78 @@ def _compute_etas() -> dict:
         return estimate_completion(progress, todo.get("stats", {}), session_count=max(1, len(sessions)))
     except Exception:
         return {}
+
+
+def _completion_tracker(todo: dict, progress: dict, lessons: list, blocker_resolution: dict, etas: dict, roi: dict) -> dict:
+    """Build comprehensive completion tracker with bars, decisions, blockers, lessons, ROI."""
+    stats = todo.get("stats", {})
+    total = stats.get("total", 0) or 1
+    done = stats.get("done", 0)
+    open_count = stats.get("open", 0)
+    pct = round(done / total * 100, 1)
+
+    # Blocker history from todo items that are done + had blocker keywords
+    blocker_kw = ["fix", "block", "stall", "fail", "stuck", "ceiling", "kill switch", "timeout", "error", "broken"]
+    resolved_blockers = [i for i in todo.get("items", []) if i.get("done") and any(k in (i.get("text") or "").lower() for k in blocker_kw)]
+    active_blockers = todo.get("blockers", [])
+
+    # Decisions made = resolved blockers + lessons applied + completed pipeline stages
+    stages = progress.get("stages", [])
+    completed_stages = [s for s in stages if s.get("status") == "completed"]
+    decisions = []
+    for b in resolved_blockers[:5]:
+        decisions.append({"type": "blocker_resolved", "text": b.get("text", "")[:80], "icon": "✓"})
+    for s in completed_stages:
+        decisions.append({"type": "stage_done", "text": f"{s.get('label', s.get('id', ''))} completed", "icon": "✓"})
+    for l in lessons[:5]:
+        decisions.append({"type": "lesson", "text": f"[{l.get('category', '')}] {l.get('lesson', '')[:60]}", "icon": "⚡"})
+
+    # ROI metrics
+    roi_events = roi.get("events", [])
+    positive = sum(1 for e in roi_events if e.get("outcome") == "positive")
+    negative = sum(1 for e in roi_events if e.get("outcome") == "negative")
+    roi_score = round(positive / max(1, positive + negative) * 100) if roi_events else 100
+
+    # Phase breakdown
+    phases = [
+        {"name": "Research & Planning", "roles": ["researcher", "retriever", "planner", "manager"], "weight": 20},
+        {"name": "Build & Implement", "roles": ["architect", "implementer", "cto"], "weight": 35},
+        {"name": "Test & Review", "roles": ["tester", "reviewer", "debugger", "director"], "weight": 25},
+        {"name": "Quality & Ship", "roles": ["optimizer", "benchmarker", "qa", "user_acceptance", "ceo", "summarizer"], "weight": 20},
+    ]
+    stage_map = {s.get("id"): s for s in stages}
+    for phase in phases:
+        phase_stages = [stage_map.get(r) for r in phase["roles"] if stage_map.get(r)]
+        if phase_stages:
+            phase["percent"] = round(sum(s.get("percent", 0) for s in phase_stages) / len(phase_stages), 1)
+            phase["done"] = sum(1 for s in phase_stages if s.get("status") == "completed")
+            phase["total"] = len(phase_stages)
+        else:
+            phase["percent"] = 0
+            phase["done"] = 0
+            phase["total"] = 0
+
+    return {
+        "overall_percent": pct,
+        "total_tasks": total,
+        "done_tasks": done,
+        "open_tasks": open_count,
+        "pipeline_eta": etas.get("pipeline_eta_display", "--"),
+        "todo_eta": etas.get("todo_eta_display", "--"),
+        "active_blockers": len(active_blockers),
+        "resolved_blockers": len(resolved_blockers),
+        "blocker_type": blocker_resolution.get("type", "none"),
+        "blocker_options": blocker_resolution.get("options", []),
+        "decisions": decisions[:12],
+        "total_decisions": len(decisions),
+        "lessons_count": len(lessons),
+        "lessons_recent": [{"category": l.get("category", ""), "text": l.get("lesson", "")[:80]} for l in lessons[-5:]],
+        "roi_score": roi_score,
+        "roi_positive": positive,
+        "roi_negative": negative,
+        "roi_trend": roi.get("trend", "healthy"),
+        "phases": phases,
+    }
 
 
 def _local_agent_activity() -> list[dict]:
@@ -432,6 +529,40 @@ table{width:100%;border-collapse:collapse;font-size:11px}td,th{padding:3px 6px;t
   <div><h1>Local Agent Runtime</h1><div class="task" id="task">Loading...</div></div>
   <div class="timer" id="timer">--</div>
 </div>
+<!-- COMPLETION TRACKER - Full width master bar -->
+<div id="completion-tracker" style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:12px;margin-bottom:10px">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+    <h2 style="margin:0">COMPLETION TRACKER</h2>
+    <div style="display:flex;gap:12px;font-size:12px">
+      <span id="ct-eta-pipe" style="color:var(--blue)">Pipeline: --</span>
+      <span id="ct-eta-todo" style="color:var(--purple)">All tasks: --</span>
+      <span id="ct-roi-score" style="color:var(--green)">ROI: --%</span>
+    </div>
+  </div>
+  <div style="position:relative;height:28px;background:#21262d;border-radius:4px;overflow:hidden;margin-bottom:8px">
+    <div id="ct-bar" style="height:100%;border-radius:4px;background:linear-gradient(90deg,var(--green),var(--blue));width:0%;transition:width .5s"></div>
+    <div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:bold;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.5)">
+      <span id="ct-pct">0%</span>&nbsp;complete&nbsp;|&nbsp;<span id="ct-done">0</span>/<span id="ct-total">0</span>&nbsp;tasks
+    </div>
+  </div>
+  <div id="ct-phases" style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px"></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+    <div>
+      <h2 style="margin:4px 0">Blockers <span class="count" id="ct-blk-count"></span></h2>
+      <div id="ct-blockers" style="max-height:150px;overflow-y:auto;font-size:11px">--</div>
+    </div>
+    <div>
+      <h2 style="margin:4px 0">Decisions Made <span class="count" id="ct-dec-count"></span></h2>
+      <div id="ct-decisions" style="max-height:150px;overflow-y:auto;font-size:11px">--</div>
+    </div>
+    <div>
+      <h2 style="margin:4px 0">ROI & Lessons <span class="count" id="ct-les-count"></span></h2>
+      <div id="ct-roi-bar" style="margin-bottom:4px"></div>
+      <div id="ct-lessons" style="max-height:120px;overflow-y:auto;font-size:11px">--</div>
+    </div>
+  </div>
+</div>
+
 <div class="grid">
   <!-- Row 1: Progress + Resources + Sessions -->
   <div class="card">
@@ -448,6 +579,10 @@ table{width:100%;border-collapse:collapse;font-size:11px}td,th{padding:3px 6px;t
       <div style="font-size:12px" id="eta-blockers">Blocker fix: --</div>
       <div style="font-size:12px" id="blocker-wait">Wait budget: --</div>
     </div>
+  </div>
+  <div class="card">
+    <h2>Maximum ROI</h2>
+    <div id="ops-summary" style="display:flex;flex-direction:column;gap:6px">Loading...</div>
   </div>
   <div class="card">
     <h2>Resources</h2>
@@ -513,6 +648,11 @@ table{width:100%;border-collapse:collapse;font-size:11px}td,th{padding:3px 6px;t
     <h2>Task Flow Graph</h2>
     <div id="task-flow" style="display:flex;gap:8px;overflow-x:auto">Loading...</div>
   </div>
+
+  <div class="card full">
+    <h2>Completion Forecast</h2>
+    <div id="completion-forecast" style="display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:8px">Loading...</div>
+  </div>
 </div>
 <div class="refresh" id="refresh">Refreshing every 2s</div>
 <script>
@@ -528,9 +668,48 @@ async function R(){
  const p=d.progress||{},o=p.overall||{},st=o.status||'idle',pct=o.percent||0;
  const td=d.todo||{},ts=td.stats||{};const br=d.blocker_resolution||{};const etas=d.etas||{};const stages=p.stages||[];
  let ok=0,fail=0;
+ // --- Completion Tracker ---
+ try{const c=d.completion||{};
+  $('ct-bar').style.width=(c.overall_percent||0)+'%';
+  $('ct-pct').textContent=(c.overall_percent||0).toFixed(1)+'%';
+  $('ct-done').textContent=c.done_tasks||0;$('ct-total').textContent=c.total_tasks||0;
+  $('ct-eta-pipe').textContent='Pipeline: '+(c.pipeline_eta||'--');
+  $('ct-eta-todo').textContent='All tasks: '+(c.todo_eta||'--');
+  const rs2=c.roi_score||0;
+  $('ct-roi-score').textContent='ROI: '+rs2+'%';
+  $('ct-roi-score').style.color=rs2>=80?'var(--green)':rs2>=50?'var(--yellow)':'var(--red)';
+  // Phase bars
+  let phH='';(c.phases||[]).forEach(ph=>{
+    const pc=ph.percent||0;const col=pc>=80?'var(--green)':pc>=40?'var(--blue)':'var(--dim)';
+    phH+='<div style="background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:6px"><div style="font-size:10px;color:var(--dim)">'+esc(ph.name)+'</div><div class="bar" style="height:10px;margin:4px 0"><div class="bf" style="width:'+pc+'%;background:'+col+';height:100%;border-radius:3px"></div></div><div style="font-size:11px;display:flex;justify-content:space-between"><span>'+pc.toFixed(0)+'%</span><span style="color:var(--dim)">'+ph.done+'/'+ph.total+'</span></div></div>';
+  });$('ct-phases').innerHTML=phH;
+  // Blockers summary
+  $('ct-blk-count').textContent='('+c.active_blockers+' active, '+c.resolved_blockers+' resolved)';
+  let bH='';
+  if(c.blocker_type&&c.blocker_type!=='default'&&c.blocker_type!=='none'){
+    bH+='<div style="color:var(--red);font-weight:bold;margin-bottom:4px">ACTIVE: '+c.blocker_type.toUpperCase().replace(/_/g,' ')+'</div>';
+    (c.blocker_options||[]).forEach((o,i)=>{bH+='<div style="color:'+(i===0?'var(--green)':'var(--dim)')+'">'+(i===0?'>>> ':'')+esc(S(o.option,35))+' ('+(o.eta_seconds||'?')+'s)</div>'});
+  }
+  if(c.resolved_blockers>0)bH+='<div style="color:var(--green);margin-top:4px">'+c.resolved_blockers+' blockers resolved</div>';
+  if(!bH)bH='<div style="color:var(--green)">No blockers</div>';
+  $('ct-blockers').innerHTML=bH;
+  // Decisions
+  $('ct-dec-count').textContent='('+c.total_decisions+')';
+  let decH='';(c.decisions||[]).slice(0,8).forEach(dc=>{
+    const col2=dc.type==='lesson'?'var(--yellow)':dc.type==='blocker_resolved'?'var(--green)':'var(--blue)';
+    decH+='<div style="padding:2px 0;border-bottom:1px solid var(--border)"><span style="color:'+col2+'">'+dc.icon+'</span> '+esc(S(dc.text,70))+'</div>';
+  });$('ct-decisions').innerHTML=decH||'<div style="color:var(--dim)">No decisions yet</div>';
+  // ROI bar + Lessons
+  const rPct=c.roi_score||0;const rCol=rPct>=80?'g':rPct>=50?'y':'r';
+  $('ct-roi-bar').innerHTML='<div class="bw"><span class="bl" style="min-width:40px">ROI</span><div class="bar"><div class="bf '+rCol+'" style="width:'+rPct+'%"></div></div><span class="bp">'+rPct+'% ('+c.roi_positive+'↑ '+c.roi_negative+'↓)</span></div>';
+  $('ct-les-count').textContent='('+c.lessons_count+' lessons, ROI '+c.roi_trend+')';
+  let lsH='';(c.lessons_recent||[]).forEach(l=>{lsH+='<div class="lesson">['+esc(l.category)+'] '+esc(S(l.text,70))+'</div>'});
+  $('ct-lessons').innerHTML=lsH||'<div style="color:var(--dim)">No lessons</div>';
+  ok++}catch(e){fail++;console.error('ct',e)}
  try{$('task').textContent=p.task||'idle';$('timer').textContent=st==='running'?el(p.started_at):st;$('timer').className='timer'+(st!=='running'?' idle':'');ok++}catch(e){fail++;console.error('hdr',e)}
  try{$('os').className='dot '+st;sb('ob',pct,'g');$('op').textContent=pct.toFixed(1)+'%';const ex=(d.session||{}).execution||{};const lp=parseFloat(ex.local_models||(st==='running'?100:0)),cp2=parseFloat(ex.cloud_session||0);sb('lb',lp,'b');sb('cb',cp2,'y');$('lp').textContent=lp.toFixed(1)+'%';$('cp').textContent=cp2.toFixed(1)+'%';sb('tb',ts.percent||0,'p');$('tp').textContent=(ts.percent||0).toFixed(1)+'%';$('todo-count').textContent='('+(ts.done||0)+'/'+(ts.total||0)+' done, '+(ts.open||0)+' open)';const roi=d.roi||{};$('roi').innerHTML=roi.kill_switch?'<span style="color:var(--red)">ROI KILL SWITCH ACTIVE</span>':'<span style="color:var(--green)">ROI: healthy</span>';ok++}catch(e){fail++;console.error('prog',e)}
  try{$('eta-pipeline').textContent='Pipeline: '+(etas.pipeline_eta_display||'--')+' ('+(etas.remaining_roles||0)+' roles left)';$('eta-todo').textContent='All tasks: '+(etas.todo_eta_display||'--')+' ('+(etas.open_tasks||0)+' open)';const bO=br.options||[];$('eta-blockers').textContent='Blocker fix: '+(bO.length&&br.type!=='default'&&br.type!=='none'?(bO[0].eta_seconds||10)+'s (auto: '+S(bO[0].option,30)+')':'no active blockers');ok++}catch(e){fail++;console.error('eta',e)}
+ try{const ops=d.ops_summary||[];let oH='';ops.forEach(item=>{oH+='<div><div style="display:flex;justify-content:space-between;font-size:11px"><span>'+esc(item.label||'')+'</span><span>'+Number(item.percent||0).toFixed(1)+'%</span></div><div class="bar" style="margin-top:2px"><div class="bf '+(item.color||'g')+'" style="width:'+(item.percent||0)+'%"></div></div><div class="mini-meta">'+esc((item.detail||'')+' • '+(item.subtitle||''))+'</div></div>'});$('ops-summary').innerHTML=oH||'<div style="color:var(--dim)">No ROI summary</div>';ok++}catch(e){fail++;console.error('ops',e)}
  try{const rs=d.resource||{},cpu=parseFloat(rs.cpu_percent||0),mem=parseFloat(rs.memory_percent||0);sb('cpub',cpu,bc(cpu));sb('memb',mem,bc(mem));$('cpup').textContent=cpu.toFixed(1)+'%';$('memp').textContent=mem.toFixed(1)+'%';ok++}catch(e){fail++;console.error('res',e)}
  try{const team=(d.runtime||{}).team||{},provs={};stages.forEach(s=>{if(s.id==='preflight')return;let pr='ollama';const dt=s.detail||'';if(dt.includes('github_models'))pr='github_models';else if(dt.includes('clawbot'))pr='clawbot';else if(dt.includes('openclaw'))pr='openclaw';if(!provs[pr])provs[pr]={t:0,c:0,m:new Set()};provs[pr].t++;if(s.status==='completed')provs[pr].c++;provs[pr].m.add((team[s.id]||{}).model||'?')});const tt=Object.values(provs).reduce((a,v)=>a+v.t,0)||1;let mH='<table><tr><th>Provider</th><th>%</th><th>Models</th><th>Done</th></tr>';Object.entries(provs).sort().forEach(([n,v])=>{const pp=(v.t/tt*100).toFixed(0);const tg=n==='ollama'?'local':'cloud';mH+='<tr><td><span class="tag '+tg+'">'+n+'</span></td><td>'+pp+'%</td><td style="font-size:10px">'+[...v.m].join(', ')+'</td><td>'+v.c+'/'+v.t+'</td></tr>'});mH+='</table>';$('mu').innerHTML=mH;ok++}catch(e){fail++;console.error('mu',e)}
  try{const sess=d.sessions||[];let sH='';if(sess.length){sess.forEach(s=>{const tg=(s.type||'').replace('local-','');sH+='<div class="sess"><span class="dot '+(s.status||'active')+'"></span><span class="tag '+tg+'">'+esc(s.type)+'</span><span>'+esc(S(s.detail,60))+'</span></div>'})}else{sH='<div style="color:var(--dim)">No active sessions</div>'}$('sessions').innerHTML=sH;ok++}catch(e){fail++;console.error('sess',e)}
@@ -545,6 +724,7 @@ async function R(){
  try{const doneItems=(td.items||[]).filter(i=>i.done);$('done-count').textContent='('+doneItems.length+')';$('done-items').innerHTML=doneItems.length?doneItems.slice(-15).map(i=>'<div class="item done">'+esc(S(i.text,100))+'</div>').join(''):'<div style="color:var(--dim)">None yet</div>';ok++}catch(e){fail++;console.error('done',e)}
  try{const allItems=td.items||[];let curSec='',todoHtml='';allItems.forEach(i=>{if(i.section!==curSec){curSec=i.section;todoHtml+='<div style="color:var(--blue);margin-top:6px;font-weight:bold">'+esc(curSec)+'</div>'}const cls=i.done?'item done':'item open';const icon=i.done?'✓':'○';todoHtml+='<div class="'+cls+'"><span>'+icon+'</span> '+esc(S(i.text,150))+'</div>'});$('todo-list').innerHTML=todoHtml||'<div style="color:var(--dim)">No items</div>';ok++}catch(e){fail++;console.error('todo',e)}
  try{const les=d.lessons||[];$('lesson-count').textContent='('+les.length+')';$('lessons').innerHTML=les.length?les.slice(-8).map(l=>'<div class="lesson">['+esc(l.category||'')+'] '+esc(S(l.lesson,100))+'</div>').join(''):'<div style="color:var(--dim)">No lessons yet</div>';ok++}catch(e){fail++;console.error('les',e)}
+ try{const c=d.completion||{};let cH='<div style="background:#1c2128;border:1px solid var(--border);border-radius:6px;padding:8px"><div style="display:flex;justify-content:space-between;font-size:12px"><b>All Tasks</b><span>'+Number(c.overall_percent||0).toFixed(1)+'%</span></div><div class="bar" style="margin-top:4px"><div class="bf p" style="width:'+(c.overall_percent||0)+'%"></div></div><div class="mini-meta">ETA '+esc(c.todo_eta||'--')+' • '+(c.open_tasks||0)+' open • ROI '+(c.roi_score||0)+'%</div></div>';cH+='<div style="background:#1c2128;border:1px solid var(--border);border-radius:6px;padding:8px"><div style="font-weight:bold;font-size:12px;margin-bottom:4px">Blockers Faced</div>'+((c.blocker_options||[]).length?(c.blocker_options||[]).map((b,i)=>'<div class=\"item blocker\">'+(i===0?'>>> ':'')+esc(S(b.option||'',50))+'<br><small>'+esc((b.eta_seconds||'?')+'s • '+S(b.detail||'',60))+'</small></div>').join(''):'<div style=\"color:var(--green)\">No active blockers</div>')+'</div>';cH+='<div style="background:#1c2128;border:1px solid var(--border);border-radius:6px;padding:8px"><div style="font-weight:bold;font-size:12px;margin-bottom:4px">Decisions + Lessons</div>'+((c.decisions||[]).slice(0,5).map(d2=>'<div class=\"item working\"><span>'+esc(d2.icon||'•')+'</span> '+esc(S(d2.text||'',80))+'</div>').join(''))+((c.lessons_recent||[]).slice(0,4).map(l=>'<div class=\"lesson\">['+esc(l.category||'')+'] '+esc(S(l.text||'',80))+'</div>').join('')||''))+'</div>';$('completion-forecast').innerHTML=cH;ok++}catch(e){fail++;console.error('completion',e)}
  try{const tl=d.timeline||[];$('timeline').innerHTML=tl.length?tl.slice(-12).reverse().map(e=>{const t=(e.timestamp||'').split('T')[1]||'';return '<div class="tl-item"><span class="time">'+t+'</span><span class="role">'+esc(e.role||'')+'</span><span class="msg">'+esc(S(e.content,60))+'</span></div>'}).join(''):'<div style="color:var(--dim)">No events</div>';ok++}catch(e){fail++;console.error('tl',e)}
  try{const flow=d.task_flow||{},nodes=flow.nodes||[];let fH='';if(nodes.length){nodes.forEach((n,i)=>{const sc=n.status==='completed'?'var(--green)':n.status==='running'?'var(--blue)':n.status==='blocked'?'var(--red)':'var(--border)';fH+='<div style="min-width:140px;background:#1c2128;border:2px solid '+sc+';border-radius:6px;padding:8px"><div style="font-size:10px;color:var(--dim)">STEP '+(i+1)+'</div><div style="font-size:11px;margin-top:3px;font-weight:bold">'+esc(n.label||n.id||'')+'</div><div style="font-size:10px;color:var(--dim);margin-top:2px">'+esc(n.owner||'')+'</div><div style="font-size:10px;color:var(--yellow);margin-top:2px">'+esc(n.eta||'')+'</div></div>';if(i<nodes.length-1)fH+='<div style="align-self:center;color:var(--blue);font-size:18px;padding:0 4px">→</div>'})}else{fH='<div style="color:var(--dim)">No task flow</div>'}$('task-flow').innerHTML=fH;ok++}catch(e){fail++;console.error('flow',e)}
  $('refresh').textContent='Last: '+new Date().toLocaleTimeString()+' | 2s | '+ok+' OK'+(fail?' | '+fail+' ERR':'');
