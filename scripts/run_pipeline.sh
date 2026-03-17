@@ -18,6 +18,10 @@ export LOCAL_AGENT_AUTO_REVIEW=1
 
 echo "Running pipeline for prompt: $PROMPT"
 echo "Execution mode: $LOCAL_AGENT_MODE"
+if ! python3 "$SCRIPT_DIR/roi_guard.py" check; then
+  echo "ROI kill switch tripped. Re-plan before scaling this run." >&2
+  exit 2
+fi
 # Checkpoints only for external projects with DB integration; skip for this repo and model runs
 TARGET_CANON=$(cd "$TARGET_REPO" 2>/dev/null && pwd || echo "")
 REPO_CANON=$(cd "$REPO_ROOT" 2>/dev/null && pwd || echo "")
@@ -31,10 +35,12 @@ PIPELINE_EXIT=0
 if python3 "$SCRIPT_DIR/local_team_run.py" "$PROMPT" "$TARGET_REPO"; then
   bash "$SCRIPT_DIR/update_todo.sh" done "$PROMPT" >/dev/null || true
   bash "$SCRIPT_DIR/update_ledger.sh" "local-team-run" >/dev/null || true
+  python3 "$SCRIPT_DIR/roi_guard.py" record --status success >/dev/null || true
   [ -n "$CHECKPOINT_PATH" ] && echo "Checkpoint: $CHECKPOINT_PATH"
   echo "Pipeline execution complete."
 else
   PIPELINE_EXIT=1
+  python3 "$SCRIPT_DIR/roi_guard.py" record --status failure >/dev/null || true
   [ -n "$CHECKPOINT_PATH" ] && echo "Local pipeline failed. Checkpoint available at: $CHECKPOINT_PATH" >&2
 fi
 # Always run review at the end (success or failure)
