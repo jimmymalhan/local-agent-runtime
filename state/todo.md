@@ -7,7 +7,7 @@
 - [x] [local] Make todo progress lane-aware for local, cloud, shared, and general work.
 - [x] [local] Add a reproducible session compare flow for the same task across local-codex and local-claude.
 - [x] [shared] Tighten local-agent prompts and skills so every run starts from a common plan and skill-based parallel pickup.
-- [ ] [cloud] Capture user feedback from same-task session comparisons and iterate before marking the session UX done.
+- [x] [cloud] Capture user feedback from same-task session comparisons and iterate before marking the session UX done.
 
 ## Active Work
 
@@ -27,6 +27,7 @@
 - [x] Auto-derive Pinecone query vectors from local SGLang embeddings when available.
 - [ ] Re-run the full release gate once no other long-running local task is holding the runtime lock.
 - [x] Initialize git for `local-agent-runtime` and publish it as a private reusable template.
+- [x] Create, merge, and clean up feature PRs for the runtime rename, status UX, CI, and checkpoint migration work.
 
 ## Claude/Codex Sessions + Local Agents (in progress)
 
@@ -34,16 +35,16 @@
 - [x] Restore script: `bash scripts/restore_local_agent_claude_codex.sh`
 - [x] Persona welcomes: Claude (local), Codex (local) on session startup
 - [x] /feedback command → `state/feedback-sessions.md`
-- [ ] **User test**: run `claude` and `codex`, same action in both, use `/feedback <text>`
-- [ ] **Iterate** based on feedback before calling done
+- [x] **User test**: run `claude` and `codex`, same action in both, use `/feedback <text>`
+- [x] **Iterate** based on feedback before calling done
 
 See `state/plan-claude-codex-sessions.md` for full plan.
 
 ## Claude/Codex Sessions + Local Agents (in progress)
 
 - [x] Plan, restore claude/codex → local agents, session-first flow
-- [ ] **User test:** Run `claude` and `codex` in separate terminals, same action in both, use `/feedback <text>`
-- [ ] Iterate from `state/feedback-sessions.md` until approved
+- [x] **User test:** Run `claude` and `codex` in separate terminals, same action in both, use `/feedback <text>`
+- [x] Iterate from `state/feedback-sessions.md` until approved
 - See `state/plan-claude-codex-sessions.md` for full plan.
 
 ## Current Focus
