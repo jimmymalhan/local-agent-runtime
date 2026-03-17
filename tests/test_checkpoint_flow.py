@@ -90,6 +90,17 @@ class CheckpointFlowTests(unittest.TestCase):
             self.assertTrue(migrated_dir.exists())
             self.assertEqual((target / "restored.txt").read_text(), "from legacy\n")
 
+    def test_create_checkpoint_skips_runtime_repo_itself(self):
+        result = subprocess.run(
+            ["bash", str(REPO_ROOT / "scripts" / "create_checkpoint.sh"), "unit-test", str(REPO_ROOT)],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+
+        self.assertEqual(result.stdout.strip(), "(skipped)")
+        self.assertFalse((REPO_ROOT / ".local-agent" / "checkpoints").exists())
+
 
 if __name__ == "__main__":
     unittest.main()
