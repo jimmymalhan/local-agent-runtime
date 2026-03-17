@@ -1,0 +1,38 @@
+# Session Execution Policy
+
+Use the user-selected session by default. The local runtime is opt-in for implementation work.
+
+## PRIORITY: User Session Choice (applies first)
+
+**When the user types "claude", "codex", "cursor", or asks to open them**—help them open that app/session. Do NOT call `run_local_pipeline`. Do NOT invoke `bash ./Local`.
+
+- "claude", "open claude", "start claude" → help open Claude (app, claude.ai, or Claude CLI)
+- "codex", "open codex", "start codex" → help open Codex
+- "cursor", "open cursor", "cursor session" → help open Cursor (new window, Composer, etc.)
+
+**Never route session-open requests to local agent.** Codex, Claude, and Cursor are independent; the local agent (Local, local-codex) is opt-in only when the user explicitly says "local", "local agent", "Local", "local-codex", "Ollama", etc.
+
+## MANDATORY Agent Behavior (for implementation tasks only)
+
+- If the user is already in a Codex, Claude, or Cursor session and asks for implementation work there, execute the work in-session end to end.
+- Do not stop at a generated command or ask the user to run the local runtime manually when the current session can perform the task.
+- Route implementation to the local runtime only when the user explicitly asks for Local, local-codex, local agent, or Ollama.
+- If a local-runtime workflow is chosen, invoke it directly rather than telling the user to do it.
+
+## Do NOT Use (for implementation)
+
+- Unrequested local-runtime handoffs
+- Manual "run this yourself" responses when the current session can act
+- Any external model APIs or rate-limited APIs when a local-runtime path was explicitly chosen
+
+## Chat Cost (Cursor)
+
+To minimize cost when using Cursor chat: use **Cursor Settings > Models > Add local model (Ollama)** and prefer local models in the model picker. This keeps chat usage local and near-zero cost.
+
+## Local Runtime Entrypoints
+
+- `bash ./Local` — interactive CLI; use `/pipeline <task>` or plain text
+- `scripts/run_pipeline.sh "<task>"` — batch pipeline (auto-review at end)
+- `scripts/local_team_run.py "<task>" <target_repo>` — low-level
+
+**Review always runs at the end** of each pipeline run.

@@ -1,0 +1,7 @@
+# Local Quality Output
+
+- Prefer the highest-signal answer over the longest answer.
+- Optimize for concrete commands, exact files, real risks, and project-aware guidance.
+- Compare local outputs against a Codex/Claude-class quality bar without calling external services.
+- Use the benchmarker and debugger stages to tighten weak answers before final output.
+- If the output is vague, missing validation, or missing recovery steps, treat it as incomplete.

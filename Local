@@ -1,0 +1,10 @@
+#!/bin/bash
+set -euo pipefail
+
+TARGET_REPO=${LOCAL_AGENT_TARGET_REPO:-$PWD}
+REPO_ROOT=$(cd "$(dirname "$0")" && pwd)
+cd "$REPO_ROOT"
+export LOCAL_AGENT_TARGET_REPO="$TARGET_REPO"
+export SESSION_PERSONA=${SESSION_PERSONA:-local}
+
+exec bash "$REPO_ROOT/scripts/start_local_cli.sh"

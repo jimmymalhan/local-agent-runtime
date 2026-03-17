@@ -1,0 +1,11 @@
+roles:
+  - name: CEO
+    description: Chief Executive Officer overseeing the company’s strategy and growth.
+  - name: CTO
+    description: Chief Technology Officer responsible for technology strategy and product development.
+  - name: CFO
+    description: Chief Financial Officer managing financial planning and revenue optimisation.
+  - name: COO
+    description: Chief Operating Officer ensuring operations are efficient and scalable.
+  - name: Marketing Manager
+    description: Leads marketing initiatives to drive revenue and brand awareness.

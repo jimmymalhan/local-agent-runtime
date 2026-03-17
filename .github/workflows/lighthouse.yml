@@ -1,0 +1,101 @@
+# FC-007: Lighthouse performance ≥90. Runs on Linux (Node/Chrome arch match).
+name: Lighthouse
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: lighthouse-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write  # to commit lighthouse-score.json
+
+jobs:
+  lighthouse:
+    name: Lighthouse FC-007
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Chrome (Lighthouse)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser
+          export CHROME_PATH=/usr/bin/chromium-browser
+
+      - name: Start server
+        run: node src/server.js &
+        env:
+          PORT: 3000
+
+      - name: Wait for server
+        run: sleep 5
+
+      - name: Run Lighthouse
+        id: lighthouse
+        run: |
+          mkdir -p .claude/local
+          npx lighthouse http://localhost:3000 \
+            --output=json \
+            --output-path=.claude/local/lighthouse-report.json \
+            --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" \
+            --only-categories=performance,accessibility \
+            --quiet || true
+          PERF=0
+          if [ -f .claude/local/lighthouse-report.json ]; then
+            PERF=$(node -e "
+              const d=require('./.claude/local/lighthouse-report.json');
+              const s=d.categories?.performance?.score;
+              console.log(s!=null?Math.round(s*100):0);
+            ")
+          fi
+          echo "performance=$PERF" >> $GITHUB_OUTPUT
+          echo "pass=$([ "$PERF" -ge 90 ] && echo true || echo false)" >> $GITHUB_OUTPUT
+          echo "Performance score: $PERF"
+          if [ "$PERF" -lt 90 ]; then
+            echo "::warning::Lighthouse performance $PERF < 90 (FC-007)"
+          fi
+
+      - name: Write lighthouse-score.json
+        run: |
+          mkdir -p .claude/local
+          node -e "
+            const fs=require('fs');
+            let perf=0,a11y=0;
+            try {
+              const d=JSON.parse(fs.readFileSync('.claude/local/lighthouse-report.json','utf8'));
+              perf=Math.round((d.categories?.performance?.score||0)*100);
+              a11y=Math.round((d.categories?.accessibility?.score||0)*100);
+            } catch(e){}
+            fs.writeFileSync('.claude/local/lighthouse-score.json', JSON.stringify({
+              performance:perf,
+              accessibility:a11y,
+              timestamp:new Date().toISOString(),
+              url:'http://localhost:3000'
+            },null,2));
+          "
+
+      - name: Commit lighthouse-score.json (FC-007 pass)
+        if: steps.lighthouse.outputs.pass == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .claude/local/lighthouse-score.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore(ci): update lighthouse score [skip ci]"
+            git push origin main
+          fi

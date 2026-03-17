@@ -1,0 +1,390 @@
+{
+  "backend": "ollama",
+  "base_url": "http://127.0.0.1:11434",
+  "default_model": "qwen2.5-coder:7b",
+  "default_profile": "fast",
+  "team_order": [
+    "researcher",
+    "retriever",
+    "planner",
+    "architect",
+    "implementer",
+    "tester",
+    "reviewer",
+    "debugger",
+    "optimizer",
+    "benchmarker",
+    "qa",
+    "user_acceptance",
+    "summarizer"
+  ],
+  "prompt_budget": {
+    "project_context_chars": 160000,
+    "rag_context_chars": 20000,
+    "tool_registry_chars": 30000,
+    "history_chars": 40000,
+    "prior_output_chars": 80000,
+    "mentioned_files_chars": 30000,
+    "latest_response_chars": 12000,
+    "review_report_chars": 12000,
+    "qa_report_chars": 15000,
+    "session_summary_chars": 8000,
+    "common_plan_chars": 20000
+  },
+  "prompt_budget_exhaustive": {
+    "project_context_chars": 600000,
+    "rag_context_chars": 60000,
+    "tool_registry_chars": 60000,
+    "history_chars": 120000,
+    "prior_output_chars": 180000,
+    "mentioned_files_chars": 80000,
+    "latest_response_chars": 30000,
+    "review_report_chars": 25000,
+    "qa_report_chars": 30000,
+    "session_summary_chars": 15000,
+    "common_plan_chars": 60000
+  },
+  "num_ctx": 32768,
+  "lock_wait_seconds": 180,
+  "profiles": {
+    "fast": {
+      "description": "Small local team for quick answers and light changes while still starting with a shared plan.",
+      "team_order": [
+        "researcher",
+        "retriever",
+        "planner",
+        "implementer",
+        "reviewer",
+        "summarizer"
+      ],
+      "group_order": [
+        [
+          "researcher",
+          "retriever"
+        ],
+        [
+          "planner"
+        ],
+        [
+          "implementer"
+        ],
+        [
+          "reviewer"
+        ],
+        [
+          "summarizer"
+        ]
+      ],
+      "max_parallel_roles": 2,
+      "num_ctx": 12288,
+      "temperature": 0.1,
+      "retry_generic_output": 1
+    },
+    "balanced": {
+      "description": "Full local team with shared planning and moderate parallel critique under the 70 percent machine budget.",
+      "team_order": [
+        "researcher",
+        "retriever",
+        "planner",
+        "architect",
+        "implementer",
+        "tester",
+        "reviewer",
+        "debugger",
+        "optimizer",
+        "benchmarker",
+        "qa",
+        "user_acceptance",
+        "summarizer"
+      ],
+      "group_order": [
+        [
+          "researcher",
+          "retriever"
+        ],
+        [
+          "planner"
+        ],
+        [
+          "architect",
+          "implementer"
+        ],
+        [
+          "tester",
+          "reviewer",
+          "debugger"
+        ],
+        [
+          "optimizer",
+          "benchmarker",
+          "qa",
+          "user_acceptance"
+        ],
+        [
+          "summarizer"
+        ]
+      ],
+      "max_parallel_roles": 2,
+      "num_ctx": 24576,
+      "temperature": 0.15,
+      "retry_generic_output": 1
+    },
+    "deep": {
+      "description": "Higher-quality local team path with stronger critique, plan-first execution, and shared artifacts.",
+      "team_order": [
+        "researcher",
+        "retriever",
+        "planner",
+        "architect",
+        "implementer",
+        "tester",
+        "reviewer",
+        "debugger",
+        "optimizer",
+        "benchmarker",
+        "qa",
+        "user_acceptance",
+        "summarizer"
+      ],
+      "group_order": [
+        [
+          "researcher",
+          "retriever"
+        ],
+        [
+          "planner"
+        ],
+        [
+          "architect",
+          "implementer"
+        ],
+        [
+          "tester",
+          "reviewer",
+          "debugger"
+        ],
+        [
+          "optimizer",
+          "benchmarker",
+          "qa",
+          "user_acceptance"
+        ],
+        [
+          "summarizer"
+        ]
+      ],
+      "max_parallel_roles": 2,
+      "num_ctx": 32768,
+      "temperature": 0.1,
+      "retry_generic_output": 2
+    },
+    "exhaustive": {
+      "description": "Most detailed local mode: larger prompt budgets, common-plan-first execution, and coordinated critique while staying within 70 percent CPU and memory.",
+      "team_order": [
+        "researcher",
+        "retriever",
+        "planner",
+        "architect",
+        "implementer",
+        "tester",
+        "reviewer",
+        "debugger",
+        "optimizer",
+        "benchmarker",
+        "qa",
+        "user_acceptance",
+        "summarizer"
+      ],
+      "group_order": [
+        [
+          "researcher",
+          "retriever"
+        ],
+        [
+          "planner"
+        ],
+        [
+          "architect",
+          "implementer"
+        ],
+        [
+          "tester",
+          "reviewer",
+          "debugger"
+        ],
+        [
+          "optimizer",
+          "benchmarker"
+        ],
+        [
+          "qa",
+          "user_acceptance"
+        ],
+        [
+          "summarizer"
+        ]
+      ],
+      "max_parallel_roles": 2,
+      "num_ctx": 49152,
+      "temperature": 0.05,
+      "retry_generic_output": 4,
+      "resource_limits": {
+        "cpu_percent": 70,
+        "memory_percent": 70,
+        "ollama_num_parallel": 3,
+        "ollama_max_loaded_models": 3,
+        "ollama_keep_alive": "10m"
+      },
+      "use_exhaustive_budget": true
+    }
+  },
+  "quality": {
+    "min_response_chars": 320,
+    "generic_phrases": [
+      "i do not have access",
+      "i don't have access",
+      "not enough context",
+      "more context would help",
+      "based on the information provided",
+      "it appears that",
+      "it seems that",
+      "without additional details"
+    ],
+    "concrete_term_markers": [
+      "/",
+      ".py",
+      ".sh",
+      ".md",
+      "git ",
+      "python3 ",
+      "bash "
+    ]
+  },
+  "team": {
+    "researcher": {
+      "model": "llama3.2:3b",
+      "fallback_models": [
+        "qwen2.5:3b"
+      ],
+      "label": "Researcher",
+      "weight": 5
+    },
+    "retriever": {
+      "model": "llama3.2:3b",
+      "fallback_models": [
+        "qwen2.5:3b"
+      ],
+      "label": "Retriever",
+      "weight": 7
+    },
+    "planner": {
+      "model": "deepseek-r1:8b",
+      "fallback_models": [
+        "qwen2.5-coder:7b",
+        "qwen2.5:3b"
+      ],
+      "label": "Planner",
+      "weight": 7
+    },
+    "architect": {
+      "model": "deepseek-r1:8b",
+      "fallback_models": [
+        "qwen2.5-coder:7b",
+        "qwen2.5:3b"
+      ],
+      "label": "Architect",
+      "weight": 8
+    },
+    "implementer": {
+      "model": "qwen2.5-coder:7b",
+      "fallback_models": [
+        "deepseek-r1:8b",
+        "qwen2.5:3b"
+      ],
+      "label": "Implementer",
+      "weight": 15
+    },
+    "tester": {
+      "model": "qwen2.5-coder:7b",
+      "fallback_models": [
+        "qwen2.5:3b",
+        "gemma3:4b"
+      ],
+      "label": "Tester",
+      "weight": 8
+    },
+    "reviewer": {
+      "model": "deepseek-r1:8b",
+      "fallback_models": [
+        "qwen2.5-coder:7b",
+        "qwen2.5:3b"
+      ],
+      "label": "Reviewer",
+      "weight": 8
+    },
+    "debugger": {
+      "model": "gemma3:4b",
+      "fallback_models": [
+        "qwen2.5:3b"
+      ],
+      "label": "Debugger",
+      "weight": 7
+    },
+    "optimizer": {
+      "model": "gemma3:4b",
+      "fallback_models": [
+        "qwen2.5:3b"
+      ],
+      "label": "Optimizer",
+      "weight": 7
+    },
+    "benchmarker": {
+      "model": "deepseek-r1:8b",
+      "fallback_models": [
+        "qwen2.5-coder:7b",
+        "qwen2.5:3b"
+      ],
+      "label": "Benchmarker",
+      "weight": 7
+    },
+    "qa": {
+      "model": "deepseek-r1:8b",
+      "fallback_models": [
+        "qwen2.5-coder:7b",
+        "qwen2.5:3b"
+      ],
+      "label": "QA",
+      "weight": 8
+    },
+    "user_acceptance": {
+      "model": "gemma3:4b",
+      "fallback_models": [
+        "qwen2.5:3b"
+      ],
+      "label": "User Acceptance",
+      "weight": 8
+    },
+    "summarizer": {
+      "model": "deepseek-r1:8b",
+      "fallback_models": [
+        "qwen2.5-coder:7b",
+        "qwen2.5:3b"
+      ],
+      "label": "Summarizer",
+      "weight": 5
+    }
+  },
+  "personalities": {
+    "friendly": "Respond in a warm, conversational way. Use plain language and occasional encouragement.",
+    "pragmatic": "Be direct, terse, and action-focused. Skip pleasantries; prioritize concrete steps.",
+    "none": "Respond neutrally without personality instructions."
+  },
+  "resource_limits": {
+    "cpu_percent": 70,
+    "memory_percent": 70,
+    "poll_seconds": 2,
+    "ollama_num_parallel": 3,
+    "ollama_max_loaded_models": 3,
+    "ollama_keep_alive": "10m"
+  }
+}
