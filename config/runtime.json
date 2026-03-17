@@ -2,6 +2,7 @@
   "backend": "ollama",
   "base_url": "http://127.0.0.1:11434",
   "default_model": "qwen2.5-coder:7b",
+  "local_only_default": true,
   "providers": {
     "ollama": {
       "kind": "ollama",
@@ -55,7 +56,15 @@
       }
     }
   },
-  "default_profile": "fast",
+  "default_profile": "turbo_local",
+  "ui": {
+    "flags": {
+      "enhanced_dashboard": true,
+      "executive_conflict": true,
+      "governance_panel": true,
+      "auto_remediation_panel": true
+    }
+  },
   "team_order": [
     "manager",
     "director",
@@ -104,13 +113,88 @@
   "num_ctx": 32768,
   "lock_wait_seconds": 15,
   "profiles": {
+    "turbo_local": {
+      "description": "Highest-throughput local-only profile: wider parallelism, tighter prompts, and 90 percent headroom targets for backlog burn-down without remote fallback.",
+      "team_order": [
+        "researcher",
+        "retriever",
+        "planner",
+        "architect",
+        "implementer",
+        "tester",
+        "reviewer",
+        "qa",
+        "ceo",
+        "summarizer"
+      ],
+      "group_order": [
+        [
+          "researcher",
+          "retriever"
+        ],
+        [
+          "planner"
+        ],
+        [
+          "architect",
+          "implementer"
+        ],
+        [
+          "tester",
+          "reviewer",
+          "qa"
+        ],
+        [
+          "ceo",
+          "summarizer"
+        ]
+      ],
+      "max_parallel_roles": 4,
+      "num_ctx": 8192,
+      "temperature": 0.1,
+      "retry_generic_output": 0,
+      "lock_wait_seconds": 6,
+      "model_overrides": {
+        "planner": "qwen2.5-coder:7b",
+        "reviewer": "qwen2.5-coder:7b",
+        "qa": "qwen2.5-coder:7b",
+        "ceo": "qwen2.5:3b",
+        "summarizer": "qwen2.5-coder:7b"
+      },
+      "prompt_budget": {
+        "project_context_chars": 32000,
+        "rag_context_chars": 8000,
+        "tool_registry_chars": 10000,
+        "history_chars": 14000,
+        "prior_output_chars": 18000,
+        "mentioned_files_chars": 12000,
+        "latest_response_chars": 5000,
+        "review_report_chars": 5000,
+        "qa_report_chars": 5000,
+        "session_summary_chars": 5000,
+        "common_plan_chars": 10000
+      },
+      "resource_limits": {
+        "cpu_percent": 90,
+        "memory_percent": 90,
+        "poll_seconds": 1,
+        "takeover_wait_seconds": 6,
+        "max_resource_wait_events": 2,
+        "parallel_headroom_cpu_percent": 90,
+        "parallel_headroom_memory_percent": 90,
+        "model_downgrade_cpu_percent": 80,
+        "model_downgrade_memory_percent": 80,
+        "ollama_num_parallel": 4,
+        "ollama_max_loaded_models": 4,
+        "ollama_keep_alive": "8m"
+      }
+    },
     "fast": {
       "description": "Lowest-cost local profile: shared plan first, then only the highest-ROI roles for quick answers and light changes.",
       "team_order": [
         "researcher",
         "retriever",
         "planner",
-        "manager",
         "implementer",
         "ceo",
         "summarizer"
@@ -121,8 +205,7 @@
           "retriever"
         ],
         [
-          "planner",
-          "manager"
+          "planner"
         ],
         [
           "implementer"
@@ -135,18 +218,36 @@
         ]
       ],
       "max_parallel_roles": 2,
-      "num_ctx": 8192,
+      "num_ctx": 4096,
       "temperature": 0.1,
-      "retry_generic_output": 1,
+      "retry_generic_output": 0,
       "lock_wait_seconds": 8,
+      "model_overrides": {
+        "planner": "qwen2.5-coder:7b",
+        "ceo": "qwen2.5:3b",
+        "summarizer": "qwen2.5-coder:7b"
+      },
+      "prompt_budget": {
+        "project_context_chars": 24000,
+        "rag_context_chars": 6000,
+        "tool_registry_chars": 8000,
+        "history_chars": 12000,
+        "prior_output_chars": 16000,
+        "mentioned_files_chars": 10000,
+        "latest_response_chars": 4000,
+        "review_report_chars": 4000,
+        "qa_report_chars": 4000,
+        "session_summary_chars": 4000,
+        "common_plan_chars": 8000
+      },
       "resource_limits": {
         "poll_seconds": 1,
         "takeover_wait_seconds": 8,
         "max_resource_wait_events": 3,
-        "parallel_headroom_cpu_percent": 85,
-        "parallel_headroom_memory_percent": 85,
-        "model_downgrade_cpu_percent": 70,
-        "model_downgrade_memory_percent": 70
+        "parallel_headroom_cpu_percent": 75,
+        "parallel_headroom_memory_percent": 75,
+        "model_downgrade_cpu_percent": 60,
+        "model_downgrade_memory_percent": 60
       }
     },
     "balanced": {
@@ -508,8 +609,8 @@
     "none": "Respond neutrally without personality instructions."
   },
   "resource_limits": {
-    "cpu_percent": 85,
-    "memory_percent": 85,
+    "cpu_percent": 70,
+    "memory_percent": 70,
     "poll_seconds": 1,
     "takeover_wait_seconds": 30,
     "max_resource_wait_events": 4,
