@@ -321,7 +321,7 @@ This is the main answer to "which tool/model is doing what right now."
 Before risky flows, the runtime creates checkpoints under:
 
 ```text
-state/checkpoints/
+<target-project>/.local-agent/checkpoints/
 ```
 
 Manual commands:
