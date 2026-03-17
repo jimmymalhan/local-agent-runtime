@@ -5,10 +5,8 @@ set -euo pipefail
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 REPO_ROOT=$(cd "$SCRIPT_DIR/.." && pwd)
 . "$SCRIPT_DIR/checkpoint_paths.sh"
-CHECKPOINT_ROOT=$(checkpoint_root)
 REPO_CANON=$(cd "$REPO_ROOT" && pwd)
-
-migrate_legacy_checkpoints
+CHECKPOINT_ROOT=$(legacy_runtime_checkpoint_root)
 
 removed=0
 for dir in "$CHECKPOINT_ROOT"/*/; do

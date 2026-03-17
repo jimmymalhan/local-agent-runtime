@@ -3,7 +3,6 @@ set -euo pipefail
 
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 REPO_ROOT=$(cd "$SCRIPT_DIR/.." && pwd)
-. "$SCRIPT_DIR/checkpoint_paths.sh"
 RUNTIME_JSON="$REPO_ROOT/config/runtime.json"
 
 ACTIVE_PROFILE=${LOCAL_AGENT_MODE:-$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1])).get("default_profile", "balanced"))' "$RUNTIME_JSON")}
@@ -51,8 +50,7 @@ print("\n".join(seen))
 PY
 )
 
-mkdir -p "$REPO_ROOT/logs" "$REPO_ROOT/state" "$REPO_ROOT/memory" "$REPO_ROOT/context" "$(checkpoint_root)"
-migrate_legacy_checkpoints
+mkdir -p "$REPO_ROOT/logs" "$REPO_ROOT/state" "$REPO_ROOT/memory" "$REPO_ROOT/context"
 
 export OLLAMA_NUM_PARALLEL
 export OLLAMA_MAX_LOADED_MODELS

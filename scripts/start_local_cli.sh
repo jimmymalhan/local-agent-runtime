@@ -317,6 +317,12 @@ run_release_gate() {
 }
 
 show_doctor() {
+  local target_repo=${LOCAL_AGENT_TARGET_REPO:-$REPO_ROOT}
+  local checkpoint_root_path=""
+  if [ -d "$target_repo" ] && [ "$(cd "$target_repo" 2>/dev/null && pwd || echo '')" != "$(cd "$REPO_ROOT" 2>/dev/null && pwd || echo '')" ]; then
+    migrate_legacy_checkpoints "$target_repo" >/dev/null 2>&1 || true
+    checkpoint_root_path=$(checkpoint_root "$target_repo" 2>/dev/null || true)
+  fi
   echo "== project =="
   show_project
   echo
@@ -336,10 +342,11 @@ show_doctor() {
   show_status || true
   echo
   echo "== latest checkpoint =="
-  local checkpoint_root_path
-  checkpoint_root_path=$(checkpoint_root)
-  migrate_legacy_checkpoints
-  ls -ld "$checkpoint_root_path/latest" 2>/dev/null || echo "No latest checkpoint"
+  if [ -n "$checkpoint_root_path" ]; then
+    ls -ld "$checkpoint_root_path/latest" 2>/dev/null || echo "No latest checkpoint"
+  else
+    echo "Checkpoint storage is disabled for the runtime repo itself."
+  fi
   echo
   echo "== interactive sessions =="
   python3 "$SCRIPT_DIR/session_health.py" || true
@@ -452,7 +459,7 @@ list_matching_files() {
   if command -v rg >/dev/null 2>&1; then
     rg --files "$repo" \
       -g '!checkpoints/**' \
-      -g '!state/checkpoints/**' \
+      -g '!.local-agent/checkpoints/**' \
       -g '!logs/**' \
       -g '!memory/**' \
       -g '!**/__pycache__/**' | rg -i "$pattern" || true
@@ -472,7 +479,7 @@ search_repo() {
     rg -n --hidden \
       --glob '!.git' \
       --glob '!checkpoints/**' \
-      --glob '!state/checkpoints/**' \
+      --glob '!.local-agent/checkpoints/**' \
       --glob '!logs/**' \
       --glob '!memory/**' \
       --glob '!**/__pycache__/**' \
@@ -523,8 +530,13 @@ copy_latest_response() {
 
 undo_latest() {
   local latest
-  migrate_legacy_checkpoints
-  latest="$(checkpoint_root)/latest"
+  local target_repo=${LOCAL_AGENT_TARGET_REPO:-$REPO_ROOT}
+  if [ "$(cd "$target_repo" 2>/dev/null && pwd || echo '')" = "$(cd "$REPO_ROOT" 2>/dev/null && pwd || echo '')" ]; then
+    echo "No checkpoint to restore. Runtime self-checkpoints are intentionally disabled." >&2
+    return 1
+  fi
+  migrate_legacy_checkpoints "$target_repo"
+  latest="$(checkpoint_root "$target_repo")/latest"
   if [ ! -d "$latest" ] || [ ! -L "$latest" ]; then
     echo "No checkpoint to restore. Create one with /checkpoint first." >&2
     return 1
