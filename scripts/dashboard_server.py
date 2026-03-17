@@ -18,9 +18,11 @@ import pathlib
 import sys
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from datetime import datetime
+from socket import error as socket_error
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
+from todo_progress import parse_todo, LANE_ORDER, LANE_LABELS, USE_CASE_ORDER, USE_CASE_LABELS
 
 
 def load_json(path: pathlib.Path) -> dict:
@@ -34,23 +36,19 @@ def load_json(path: pathlib.Path) -> dict:
 
 def _load_todo() -> dict:
     """Parse state/todo.md into structured data for the dashboard."""
-    todo_path = REPO_ROOT / "state" / "todo.md"
-    if not todo_path.exists():
-        return {"sections": [], "items": [], "stats": {"total": 0, "done": 0, "open": 0, "percent": 0.0}}
+    parsed = parse_todo()
     items = []
-    section = "General"
-    for line in todo_path.read_text(errors="ignore").splitlines():
-        stripped = line.strip()
-        if stripped.startswith("## "):
-            section = stripped[3:].strip()
-            continue
-        if stripped.startswith("- [x]"):
-            items.append({"text": stripped[5:].strip(), "done": True, "section": section})
-        elif stripped.startswith("- [ ]"):
-            items.append({"text": stripped[5:].strip(), "done": False, "section": section})
-    done = sum(1 for i in items if i["done"])
-    total = len(items)
-    open_count = total - done
+    for section in parsed.get("sections", []):
+        for item in section.get("items", []):
+            items.append(
+                {
+                    "text": item["text"],
+                    "done": item["done"],
+                    "section": section["name"],
+                    "lane": item.get("lane", "general"),
+                    "use_case": item.get("use_case", "general"),
+                }
+            )
 
     # Classify blockers: open items with blocker-ish keywords
     blocker_kw = ["fix", "block", "stall", "fail", "stuck", "ceiling", "kill switch", "timeout", "error", "broken"]
@@ -61,12 +59,10 @@ def _load_todo() -> dict:
         "items": items,
         "blockers": blockers,
         "working": working[:10],
-        "stats": {
-            "total": total,
-            "done": done,
-            "open": open_count,
-            "percent": round(done / total * 100, 1) if total else 0.0,
-        },
+        "stats": parsed.get("overall", {"total": 0, "done": 0, "open": 0, "percent": 0.0}),
+        "lanes": parsed.get("lanes", {}),
+        "use_cases": parsed.get("use_cases", {}),
+        "focus": parsed.get("focus", {}),
     }
 
 
@@ -128,10 +124,137 @@ def _history_timeline() -> list[dict]:
     return events
 
 
-def collect_state() -> dict:
+def _session_lane_defaults() -> list[dict]:
+    return [
+        {"id": "local-agent", "label": "Local Agents", "kind": "local", "default_work": "Fast local repo work, checkpoints, and self-heal."},
+        {"id": "manager", "label": "Manager", "kind": "executive", "default_work": "Drive daily execution, unblock handoffs, and cut scope fast."},
+        {"id": "director", "label": "Director", "kind": "executive", "default_work": "Prioritize streams, force tradeoffs, and rebalance resources."},
+        {"id": "cto", "label": "CTO", "kind": "executive", "default_work": "Choose architecture, model routing, and technical escalations."},
+        {"id": "ceo", "label": "CEO", "kind": "executive", "default_work": "Make ROI calls, stop low-yield work, and force ship decisions."},
+        {"id": "claude", "label": "Claude", "kind": "cloud", "default_work": "Take over broad reasoning, blocker triage, and release writing."},
+        {"id": "codex", "label": "Codex", "kind": "cloud", "default_work": "Take over code surgery, review, and merge-path fixes."},
+        {"id": "cursor", "label": "Cursor", "kind": "cloud", "default_work": "Own UI polish, dashboard refinement, and frontend repair."},
+    ]
+
+
+def _session_board(progress: dict, session: dict, sessions: list[dict], blocker_resolution: dict, etas: dict, todo: dict) -> list[dict]:
+    by_type = {item["type"]: item for item in sessions}
+    current_task = progress.get("task") or session.get("task") or "No active task"
+    blocker_type = blocker_resolution.get("type", "none")
+    blocker_options = blocker_resolution.get("options", [])[:3]
+    open_focus = todo.get("working", [])[:3]
+    board = []
+    for lane in _session_lane_defaults():
+        detected = by_type.get(lane["id"], {})
+        active = bool(detected)
+        if lane["id"] == "local-agent":
+            assigned_work = current_task
+            eta = etas.get("pipeline_eta_display", "--")
+            active = True
+        elif lane["id"] == "manager":
+            assigned_work = blocker_options[0]["option"] if blocker_options else "Poll progress, choose first action, and force the fastest path."
+            eta = f"{blocker_options[0].get('eta_seconds', 10)}s" if blocker_options else "10s"
+            active = True
+        elif lane["id"] == "director":
+            assigned_work = open_focus[0]["text"] if open_focus else "Re-rank open work by ROI and kill weak tasks."
+            eta = "15s"
+            active = True
+        elif lane["id"] == "cto":
+            assigned_work = blocker_options[0]["detail"] if blocker_options else "Choose local model/provider routing and unblock technical execution."
+            eta = f"{blocker_options[0].get('eta_seconds', 15)}s" if blocker_options else "15s"
+            active = True
+        elif lane["id"] == "ceo":
+            assigned_work = "Approve the shortest path to ship and stop low-yield work."
+            eta = etas.get("todo_eta_display", "--")
+            active = True
+        elif blocker_type not in {"none", "default"} and blocker_options:
+            assigned_work = blocker_options[0]["detail"]
+            eta = f"{blocker_options[0].get('eta_seconds', 0)}s"
+            active = bool(detected)
+        elif open_focus:
+            assigned_work = "Standby. Local executives own this until a real blocker requires takeover."
+            eta = "standby"
+            active = bool(detected)
+        else:
+            assigned_work = "Standby. No cloud takeover needed."
+            eta = "standby"
+            active = bool(detected)
+        board.append(
+            {
+                "id": lane["id"],
+                "label": lane["label"],
+                "kind": lane["kind"],
+                "status": detected.get("status", "idle" if not active else "active"),
+                "active": active,
+                "detail": detected.get("detail", ""),
+                "assigned_work": assigned_work,
+                "eta_display": eta,
+                "decision_deadline_seconds": blocker_options[0].get("eta_seconds", 10) if blocker_options else 10,
+                "blocker_type": blocker_type,
+                "options": blocker_options,
+            }
+        )
+    return board
+
+
+def _task_flow(progress: dict, blocker_resolution: dict, todo: dict, session_board: list[dict]) -> dict:
+    current_stage = progress.get("current_stage") or "backlog"
+    current_task = progress.get("task") or "No active task"
+    blocker_type = blocker_resolution.get("type", "none")
+    owner = next((item for item in session_board if item.get("active")), session_board[0] if session_board else {"label": "Unassigned", "eta_display": "--"})
     return {
-        "progress": load_json(REPO_ROOT / "state" / "progress.json"),
-        "session": load_json(REPO_ROOT / "state" / "session-state.json"),
+        "nodes": [
+            {"id": "todo", "label": f"Todo open: {todo.get('stats', {}).get('open', 0)}"},
+            {"id": "task", "label": current_task[:48]},
+            {"id": "stage", "label": f"Stage: {current_stage}"},
+            {"id": "blocker", "label": f"Blocker: {blocker_type}"},
+            {"id": "owner", "label": f"Owner: {owner.get('label', 'Unassigned')}"},
+            {"id": "finish", "label": f"ETA: {owner.get('eta_display', '--')}"},
+        ],
+        "edges": [
+            {"from": "todo", "to": "task"},
+            {"from": "task", "to": "stage"},
+            {"from": "stage", "to": "blocker"},
+            {"from": "blocker", "to": "owner"},
+            {"from": "owner", "to": "finish"},
+        ],
+    }
+
+
+def _project_board(todo: dict) -> dict:
+    return {
+        "lanes": [
+            {
+                "id": name,
+                "label": LANE_LABELS.get(name, name.title()),
+                **todo.get("lanes", {}).get(name, {"done": 0, "open": 0, "total": 0, "percent": 0.0}),
+            }
+            for name in LANE_ORDER
+            if todo.get("lanes", {}).get(name, {}).get("total", 0)
+        ],
+        "use_cases": [
+            {
+                "id": name,
+                "label": USE_CASE_LABELS.get(name, name.title()),
+                **todo.get("use_cases", {}).get(name, {"done": 0, "open": 0, "total": 0, "percent": 0.0}),
+            }
+            for name in USE_CASE_ORDER
+            if todo.get("use_cases", {}).get(name, {}).get("total", 0)
+        ],
+    }
+
+
+def collect_state() -> dict:
+    progress = load_json(REPO_ROOT / "state" / "progress.json")
+    session = load_json(REPO_ROOT / "state" / "session-state.json")
+    todo = _load_todo()
+    sessions = _detect_sessions()
+    blocker_resolution = _resolve_blockers()
+    etas = _compute_etas()
+    session_board = _session_board(progress, session, sessions, blocker_resolution, etas, todo)
+    return {
+        "progress": progress,
+        "session": session,
         "resource": load_json(REPO_ROOT / "state" / "resource-status.json"),
         "lock": load_json(REPO_ROOT / "state" / "run.lock"),
         "roi": load_json(REPO_ROOT / "state" / "roi-metrics.json"),
@@ -139,12 +262,26 @@ def collect_state() -> dict:
         "takeover": load_json(REPO_ROOT / "state" / "takeover-recommendation.json"),
         "runtime": load_json(REPO_ROOT / "config" / "runtime.json"),
         "lessons": _load_lessons(),
-        "todo": _load_todo(),
-        "sessions": _detect_sessions(),
+        "todo": todo,
+        "sessions": sessions,
         "timeline": _history_timeline(),
-        "blocker_resolution": _resolve_blockers(),
-        "etas": _compute_etas(),
+        "blocker_resolution": blocker_resolution,
+        "etas": etas,
         "local_agent_activity": _local_agent_activity(),
+        "session_board": session_board,
+        "session_matrix": [
+            {
+                "owner": item.get("label", ""),
+                "kind": item.get("kind", ""),
+                "status": item.get("status", ""),
+                "assigned_work": item.get("assigned_work", ""),
+                "eta_display": item.get("eta_display", "--"),
+                "deadline_seconds": item.get("decision_deadline_seconds", 10),
+            }
+            for item in session_board
+        ],
+        "task_flow": _task_flow(progress, blocker_resolution, todo, session_board),
+        "project_board": _project_board(todo),
         "server_time": datetime.now().isoformat(timespec="seconds"),
     }
 
@@ -283,6 +420,11 @@ h2 .count{color:var(--fg);font-size:12px}
 table{width:100%;border-collapse:collapse;font-size:11px}td,th{padding:3px 6px;text-align:left;border-bottom:1px solid var(--border)}th{color:var(--dim);font-weight:normal}
 .tl{display:flex;flex-direction:column;gap:2px;max-height:200px;overflow-y:auto}.tl-item{font-size:10px;color:var(--dim);display:flex;gap:6px}.tl-item .time{min-width:60px;color:var(--dim)}.tl-item .role{min-width:60px;color:var(--blue)}.tl-item .msg{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .refresh{font-size:10px;color:var(--dim);position:fixed;bottom:4px;right:8px}
+.mini-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:6px}
+.mini-card{background:#1c2128;border:1px solid var(--border);border-radius:4px;padding:8px}
+.mini-title{font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:.8px}
+.mini-metric{font-size:18px;font-weight:bold;margin-top:2px}
+.mini-meta{font-size:10px;color:var(--dim);margin-top:3px}
 </style>
 </head>
 <body>
@@ -304,6 +446,7 @@ table{width:100%;border-collapse:collapse;font-size:11px}td,th{padding:3px 6px;t
       <div style="font-size:12px;margin-top:3px" id="eta-pipeline">Pipeline: --</div>
       <div style="font-size:12px" id="eta-todo">All tasks: --</div>
       <div style="font-size:12px" id="eta-blockers">Blocker fix: --</div>
+      <div style="font-size:12px" id="blocker-wait">Wait budget: --</div>
     </div>
   </div>
   <div class="card">
@@ -316,10 +459,22 @@ table{width:100%;border-collapse:collapse;font-size:11px}td,th{padding:3px 6px;t
   <div class="card">
     <h2>Active Sessions</h2>
     <div id="sessions">Scanning...</div>
+    <h2>Session Matrix</h2>
+    <div id="session-matrix">No session matrix</div>
     <h2>Local Agent Activity</h2>
     <div id="agent-activity" style="max-height:200px;overflow-y:auto">No activity</div>
     <h2>Coordination</h2>
     <div id="coord">No claims</div>
+  </div>
+
+  <div class="card full">
+    <h2>Session Command Center <span class="count" id="session-board-count"></span></h2>
+    <div id="session-board" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:6px">Loading...</div>
+  </div>
+
+  <div class="card full">
+    <h2>Project Rollups</h2>
+    <div class="mini-grid" id="project-rollups">Loading...</div>
   </div>
 
   <!-- Row 2: Roles full width -->
@@ -353,150 +508,46 @@ table{width:100%;border-collapse:collapse;font-size:11px}td,th{padding:3px 6px;t
     <h2>Timeline</h2>
     <div class="tl" id="timeline">-</div>
   </div>
+
+  <div class="card full">
+    <h2>Task Flow Graph</h2>
+    <div id="task-flow" style="display:flex;gap:8px;overflow-x:auto">Loading...</div>
+  </div>
 </div>
 <div class="refresh" id="refresh">Refreshing every 2s</div>
 <script>
 function bc(p){return p>85?'r':p>60?'y':'g'}
 function el(s){if(!s)return'--';const d=new Date(s),n=new Date(),t=Math.max(0,Math.floor((n-d)/1e3)),m=Math.floor(t/60),s2=t%60,h=Math.floor(m/60),m2=m%60;return h?h+'h '+m2+'m '+s2+'s':m?m+'m '+s2+'s':s2+'s'}
 function sb(id,p,c){const e=document.getElementById(id);if(e){e.style.width=Math.min(100,Math.max(0,p))+'%';if(c)e.className='bf '+c}}
-function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+function esc(s){if(s==null)return'';const d=document.createElement('div');d.textContent=String(s);return d.innerHTML}
+function S(s,n){return s?String(s).substring(0,n):''}
+function $(id){return document.getElementById(id)}
 
 async function R(){
- try{
-  const r=await fetch('/api/state'),d=await r.json();
-  const p=d.progress||{},o=p.overall||{},st=o.status||'idle',pct=o.percent||0;
-  document.getElementById('task').textContent=p.task||'idle';
-  document.getElementById('timer').textContent=st==='running'?el(p.started_at):st;
-  document.getElementById('timer').className='timer'+(st!=='running'?' idle':'');
-  document.getElementById('os').className='dot '+st;
-  sb('ob',pct,'g');document.getElementById('op').textContent=pct.toFixed(1)+'%';
-  const ex=(d.session||{}).execution||{};
-  const lp=parseFloat(ex.local_models||(st==='running'?100:0)),cp2=parseFloat(ex.cloud_session||0);
-  sb('lb',lp,'b');sb('cb',cp2,'y');
-  document.getElementById('lp').textContent=lp.toFixed(1)+'%';
-  document.getElementById('cp').textContent=cp2.toFixed(1)+'%';
-  const rs=d.resource||{},cpu=parseFloat(rs.cpu_percent||0),mem=parseFloat(rs.memory_percent||0);
-  sb('cpub',cpu,bc(cpu));sb('memb',mem,bc(mem));
-  document.getElementById('cpup').textContent=cpu.toFixed(1)+'%';
-  document.getElementById('memp').textContent=mem.toFixed(1)+'%';
-  const roi=d.roi||{};
-  document.getElementById('roi').innerHTML=roi.kill_switch?'<span style="color:var(--red)">ROI KILL SWITCH ACTIVE</span>':'<span style="color:var(--green)">ROI: healthy</span>';
-
-  // Todo
-  const td=d.todo||{},ts=td.stats||{};
-  sb('tb',ts.percent||0,'p');
-  document.getElementById('tp').textContent=(ts.percent||0).toFixed(1)+'%';
-  document.getElementById('todo-count').textContent='('+ts.done+'/'+ts.total+' done, '+ts.open+' open)';
-
-  // Blockers with ETA
-  const blockers=td.blockers||[];
-  document.getElementById('blocker-count').textContent='('+blockers.length+')';
-  if(blockers.length){
-    let bkH='';
-    if(br.type&&br.type!=='default'&&br.type!=='none'){
-      bkH+='<div style="background:#2d1517;padding:6px;border-radius:4px;margin-bottom:6px"><span style="color:var(--red);font-weight:bold">ACTIVE: '+br.type.toUpperCase().replace(/_/g,' ')+'</span>';
-      (br.options||[]).forEach((o,i)=>{
-        const pick=i===0?' style="color:var(--green);font-weight:bold"':'';
-        bkH+='<div style="font-size:10px;margin-top:2px"'+(i===0?pick:'')+'>'+(i===0?'>>> ':'    ')+'Option '+(i+1)+': '+esc(o.option)+' ('+( o.eta_seconds||'?')+'s)</div>';
-      });
-      bkH+='</div>';
-    }
-    bkH+=blockers.map(b=>'<div class="item blocker">'+esc(b.text.substring(0,120))+'<br><small>'+esc(b.section)+'</small></div>').join('');
-    document.getElementById('blockers').innerHTML=bkH;
-  }else{
-    document.getElementById('blockers').innerHTML='<div style="color:var(--green)">No blockers!</div>';
-  }
-
-  // Working
-  const working=td.working||[];
-  document.getElementById('working-count').textContent='('+working.length+')';
-  document.getElementById('working').innerHTML=working.length?working.map(w=>'<div class="item working">'+esc(w.text.substring(0,120))+'<br><small>'+esc(w.section)+'</small></div>').join(''):'Nothing in progress';
-
-  // Done items
-  const doneItems=(td.items||[]).filter(i=>i.done);
-  document.getElementById('done-count').textContent='('+doneItems.length+')';
-  document.getElementById('done-items').innerHTML=doneItems.length?doneItems.slice(-15).map(i=>'<div class="item done">'+esc(i.text.substring(0,100))+'</div>').join(''):'None yet';
-
-  // Full todo
-  const allItems=td.items||[];
-  let curSec='';let todoHtml='';
-  allItems.forEach(i=>{
-    if(i.section!==curSec){curSec=i.section;todoHtml+='<div style="color:var(--blue);margin-top:6px;font-weight:bold">'+esc(curSec)+'</div>';}
-    const cls=i.done?'item done':'item open';
-    const icon=i.done?'✓':'○';
-    todoHtml+='<div class="'+cls+'"><span>'+icon+'</span> '+esc(i.text.substring(0,150))+'</div>';
-  });
-  document.getElementById('todo-list').innerHTML=todoHtml||'No items';
-
-  // Roles
-  const stages=p.stages||[];
-  document.getElementById('role-count').textContent='('+stages.filter(s=>s.status==='completed').length+'/'+stages.length+' done)';
-  let rH='';stages.forEach(s=>{
-    const sp=s.percent||0,ss=s.status||'pending',det=s.detail||'';
-    rH+='<div class="bw"><span class="bl"><span class="dot '+ss+'"></span>'+(s.label||s.id)+'</span><div class="bar"><div class="bf g" style="width:'+sp+'%"></div></div><span class="bp">'+sp.toFixed(0)+'%</span></div>';
-  });
-  document.getElementById('roles').innerHTML=rH||'No roles';
-
-  // Model usage
-  const team=(d.runtime||{}).team||{},provs={};
-  stages.forEach(s=>{if(s.id==='preflight')return;let pr='ollama';const dt=s.detail||'';if(dt.includes('github_models'))pr='github_models';else if(dt.includes('clawbot'))pr='clawbot';else if(dt.includes('openclaw'))pr='openclaw';if(!provs[pr])provs[pr]={t:0,c:0,m:new Set()};provs[pr].t++;if(s.status==='completed')provs[pr].c++;provs[pr].m.add((team[s.id]||{}).model||'?')});
-  const tt=Object.values(provs).reduce((a,v)=>a+v.t,0)||1;
-  let mH='<table><tr><th>Provider</th><th>%</th><th>Status</th></tr>';
-  Object.entries(provs).sort().forEach(([n,i])=>{const pp=(i.t/tt*100).toFixed(0);const tg=n==='ollama'?'local':'cloud';mH+='<tr><td><span class="tag '+tg+'">'+n+'</span></td><td>'+pp+'%</td><td>'+i.c+'/'+i.t+'</td></tr>'});
-  mH+='</table>';document.getElementById('mu').innerHTML=mH;
-
-  // Sessions
-  const sess=d.sessions||[];
-  let sH='';
-  if(sess.length){sess.forEach(s=>{
-    const tg=s.type.replace('local-','');
-    sH+='<div class="sess"><span class="dot '+(s.status||'active')+'"></span><span class="tag '+tg+'">'+s.type+'</span><span>'+esc((s.detail||'').substring(0,40))+'</span></div>';
-  })}else{sH='<div style="color:var(--dim)">No active sessions detected</div>'}
-  document.getElementById('sessions').innerHTML=sH;
-
-  // ETAs
-  const etas=d.etas||{};
-  document.getElementById('eta-pipeline').textContent='Pipeline: '+(etas.pipeline_eta_display||'--')+' ('+( etas.remaining_roles||0)+' roles left)';
-  document.getElementById('eta-todo').textContent='All tasks: '+(etas.todo_eta_display||'--')+' ('+( etas.open_tasks||0)+' open)';
-  const br=d.blocker_resolution||{};
-  const bOpts=br.options||[];
-  const blockerEta=bOpts.length&&br.type!=='default'?(bOpts[0].eta_seconds||10)+'s (auto-pick: '+bOpts[0].option+')':'no blockers';
-  document.getElementById('eta-blockers').textContent='Blocker fix: '+blockerEta;
-
-  // Local Agent Activity
-  const acts=d.local_agent_activity||[];
-  let aH='';
-  if(acts.length){acts.forEach(a=>{
-    const dot=a.status==='running'?'running':a.status==='completed'?'completed':a.status==='failed'?'failed':'pending';
-    const icon=a.status==='running'?'▶':a.status==='completed'?'✓':a.status==='failed'?'✗':'○';
-    const files=(a.files||[]).length?' ['+a.files.slice(0,2).join(', ')+']':'';
-    const model=a.model?' ('+a.model+')':'';
-    aH+='<div style="font-size:11px;padding:3px 0;border-bottom:1px solid var(--border)"><span class="dot '+dot+'"></span><b>'+esc(a.label)+'</b> '+icon+' '+esc(a.detail.substring(0,50))+model+files+'<div class="bar" style="height:6px;margin-top:2px"><div class="bf g" style="width:'+a.percent+'%"></div></div></div>';
-  })}else{aH='<div style="color:var(--dim)">No local agents active</div>'}
-  document.getElementById('agent-activity').innerHTML=aH;
-
-  // Coordination
-  const co=d.coordination||{},cl=co.claims||[],col=co.collisions||[];
-  let cH='';
-  if(cl.length){cl.forEach(c=>{cH+='<div style="font-size:11px"><span class="tag agent">'+c.role+'</span> '+(c.files||[]).slice(0,3).join(', ')+'</div>'})}
-  else{cH='<div style="color:var(--dim)">No file claims</div>'}
-  if(col.length){col.slice(-3).forEach(c=>{cH+='<div class="collision">'+esc(c.file)+' — '+c.claimed_by+' vs '+c.requested_by+'</div>'})}
-  document.getElementById('coord').innerHTML=cH;
-
-  // Lessons
-  const les=d.lessons||[];
-  document.getElementById('lesson-count').textContent='('+les.length+')';
-  document.getElementById('lessons').innerHTML=les.length?les.slice(-8).map(l=>'<div class="lesson">['+l.category+'] '+esc(l.lesson.substring(0,100))+'</div>').join(''):'No lessons yet';
-
-  // Timeline
-  const tl=d.timeline||[];
-  document.getElementById('timeline').innerHTML=tl.length?tl.slice(-12).reverse().map(e=>{
-    const t=(e.timestamp||'').split('T')[1]||'';
-    return '<div class="tl-item"><span class="time">'+t+'</span><span class="role">'+esc(e.role||'')+'</span><span class="msg">'+esc((e.content||'').substring(0,60))+'</span></div>';
-  }).join(''):'No events';
-
-  document.getElementById('refresh').textContent='Last: '+new Date().toLocaleTimeString()+' • Refreshing every 2s';
- }catch(e){console.error(e)}
+ let d;try{const r=await fetch('/api/state');d=await r.json()}catch(e){$('refresh').textContent='FETCH ERR: '+e.message;return}
+ const p=d.progress||{},o=p.overall||{},st=o.status||'idle',pct=o.percent||0;
+ const td=d.todo||{},ts=td.stats||{};const br=d.blocker_resolution||{};const etas=d.etas||{};const stages=p.stages||[];
+ let ok=0,fail=0;
+ try{$('task').textContent=p.task||'idle';$('timer').textContent=st==='running'?el(p.started_at):st;$('timer').className='timer'+(st!=='running'?' idle':'');ok++}catch(e){fail++;console.error('hdr',e)}
+ try{$('os').className='dot '+st;sb('ob',pct,'g');$('op').textContent=pct.toFixed(1)+'%';const ex=(d.session||{}).execution||{};const lp=parseFloat(ex.local_models||(st==='running'?100:0)),cp2=parseFloat(ex.cloud_session||0);sb('lb',lp,'b');sb('cb',cp2,'y');$('lp').textContent=lp.toFixed(1)+'%';$('cp').textContent=cp2.toFixed(1)+'%';sb('tb',ts.percent||0,'p');$('tp').textContent=(ts.percent||0).toFixed(1)+'%';$('todo-count').textContent='('+(ts.done||0)+'/'+(ts.total||0)+' done, '+(ts.open||0)+' open)';const roi=d.roi||{};$('roi').innerHTML=roi.kill_switch?'<span style="color:var(--red)">ROI KILL SWITCH ACTIVE</span>':'<span style="color:var(--green)">ROI: healthy</span>';ok++}catch(e){fail++;console.error('prog',e)}
+ try{$('eta-pipeline').textContent='Pipeline: '+(etas.pipeline_eta_display||'--')+' ('+(etas.remaining_roles||0)+' roles left)';$('eta-todo').textContent='All tasks: '+(etas.todo_eta_display||'--')+' ('+(etas.open_tasks||0)+' open)';const bO=br.options||[];$('eta-blockers').textContent='Blocker fix: '+(bO.length&&br.type!=='default'&&br.type!=='none'?(bO[0].eta_seconds||10)+'s (auto: '+S(bO[0].option,30)+')':'no active blockers');ok++}catch(e){fail++;console.error('eta',e)}
+ try{const rs=d.resource||{},cpu=parseFloat(rs.cpu_percent||0),mem=parseFloat(rs.memory_percent||0);sb('cpub',cpu,bc(cpu));sb('memb',mem,bc(mem));$('cpup').textContent=cpu.toFixed(1)+'%';$('memp').textContent=mem.toFixed(1)+'%';ok++}catch(e){fail++;console.error('res',e)}
+ try{const team=(d.runtime||{}).team||{},provs={};stages.forEach(s=>{if(s.id==='preflight')return;let pr='ollama';const dt=s.detail||'';if(dt.includes('github_models'))pr='github_models';else if(dt.includes('clawbot'))pr='clawbot';else if(dt.includes('openclaw'))pr='openclaw';if(!provs[pr])provs[pr]={t:0,c:0,m:new Set()};provs[pr].t++;if(s.status==='completed')provs[pr].c++;provs[pr].m.add((team[s.id]||{}).model||'?')});const tt=Object.values(provs).reduce((a,v)=>a+v.t,0)||1;let mH='<table><tr><th>Provider</th><th>%</th><th>Models</th><th>Done</th></tr>';Object.entries(provs).sort().forEach(([n,v])=>{const pp=(v.t/tt*100).toFixed(0);const tg=n==='ollama'?'local':'cloud';mH+='<tr><td><span class="tag '+tg+'">'+n+'</span></td><td>'+pp+'%</td><td style="font-size:10px">'+[...v.m].join(', ')+'</td><td>'+v.c+'/'+v.t+'</td></tr>'});mH+='</table>';$('mu').innerHTML=mH;ok++}catch(e){fail++;console.error('mu',e)}
+ try{const sess=d.sessions||[];let sH='';if(sess.length){sess.forEach(s=>{const tg=(s.type||'').replace('local-','');sH+='<div class="sess"><span class="dot '+(s.status||'active')+'"></span><span class="tag '+tg+'">'+esc(s.type)+'</span><span>'+esc(S(s.detail,60))+'</span></div>'})}else{sH='<div style="color:var(--dim)">No active sessions</div>'}$('sessions').innerHTML=sH;ok++}catch(e){fail++;console.error('sess',e)}
+ try{const acts=d.local_agent_activity||[];let aH='';if(acts.length){acts.forEach(a=>{const dot=a.status==='running'?'running':a.status==='completed'?'completed':a.status==='failed'?'failed':'pending';const icon=a.status==='running'?'▶':a.status==='completed'?'✓':a.status==='failed'?'✗':'○';const files=(a.files||[]).length?' ['+a.files.slice(0,2).join(', ')+']':'';const model=a.model?' ('+a.model+')':'';aH+='<div style="font-size:11px;padding:4px 0;border-bottom:1px solid var(--border)"><span class="dot '+dot+'"></span><b>'+esc(a.label||a.role)+'</b> '+icon+' '+esc(S(a.detail,60))+model+files+'<div class="bar" style="height:6px;margin-top:2px"><div class="bf g" style="width:'+(a.percent||0)+'%"></div></div></div>'})}else{aH='<div style="color:var(--dim)">No local agents active</div>'}$('agent-activity').innerHTML=aH;ok++}catch(e){fail++;console.error('act',e)}
+ try{const co=d.coordination||{},cl=co.claims||[],col=co.collisions||[];let cH='';if(cl.length){cl.forEach(c=>{cH+='<div style="font-size:11px"><span class="tag agent">'+esc(c.role)+'</span> '+(c.files||[]).slice(0,3).join(', ')+'</div>'})}else{cH='<div style="color:var(--dim)">No file claims</div>'}if(col.length){col.slice(-3).forEach(c=>{cH+='<div class="collision">'+esc(c.file)+' — '+esc(c.claimed_by)+' vs '+esc(c.requested_by)+'</div>'})}$('coord').innerHTML=cH;ok++}catch(e){fail++;console.error('coord',e)}
+ try{if($('session-matrix')){const sm=d.session_matrix||[];let smH='';if(sm.length){smH+='<table><tr><th>Owner</th><th>Work</th><th>ETA</th></tr>';sm.forEach(s=>{smH+='<tr><td>'+esc(s.owner)+'</td><td>'+esc(S(s.assigned_work,36))+'</td><td>'+esc(s.eta_display||'--')+'</td></tr>'});smH+='</table>'}else{smH='<div style="color:var(--dim)">No session matrix</div>'}$('session-matrix').innerHTML=smH}ok++}catch(e){fail++;console.error('sm',e)}
+ try{const sbd=d.session_board||[];$('session-board-count').textContent='('+sbd.filter(s=>s.active).length+' active / '+sbd.length+' lanes)';let sbH='';sbd.forEach(s=>{const tag=(s.id||'').replace('local-agent','local')||'agent';const sd2=s.active?'active':'pending';const opts=(s.options||[]).map((o,i)=>'<div style="font-size:10px;margin-top:2px;color:'+(i===0?'var(--green)':'var(--dim)')+'">'+(i===0?'>>> ':'')+esc(S(o.option,40))+' | '+(o.eta_seconds||'?')+'s</div>').join('');sbH+='<div style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:8px"><div style="display:flex;justify-content:space-between;align-items:center"><div><span class="tag '+tag+'">'+esc(s.label||s.id)+'</span> <span class="dot '+sd2+'"></span></div><div style="color:var(--yellow);font-size:12px;font-weight:bold">ETA: '+esc(s.eta_display||'--')+'</div></div><div style="margin-top:6px;font-size:12px">'+esc(S(s.assigned_work||'idle',110))+'</div><div style="margin-top:3px;color:var(--dim);font-size:10px">'+esc(S(s.detail,80)||'idle')+'</div>'+(opts?'<div style="margin-top:6px;padding-top:4px;border-top:1px solid var(--border)"><div style="font-size:10px;color:var(--dim)">Deadline: '+(s.decision_deadline_seconds||10)+'s</div>'+opts+'</div>':'')+'</div>'});$('session-board').innerHTML=sbH||'<div style="color:var(--dim)">No session lanes</div>';ok++}catch(e){fail++;console.error('sboard',e)}
+ try{if($('project-rollups')){const pb=d.project_board||{};const cards=(pb.lanes||[]).concat(pb.use_cases||[]).map(item=>'<div class="mini-card"><div class="mini-title">'+esc(item.label)+'</div><div class="mini-metric">'+Number(item.percent||0).toFixed(1)+'%</div><div class="mini-meta">'+(item.done||0)+'/'+(item.total||0)+' done</div></div>');if($('project-rollups'))$('project-rollups').innerHTML=cards.join('')||'<div style="color:var(--dim)">No rollups</div>'}ok++}catch(e){fail++;console.error('rollups',e)}
+ try{$('role-count').textContent='('+stages.filter(s=>s.status==='completed').length+'/'+stages.length+' done)';let rH='';stages.forEach(s=>{const sp=s.percent||0,ss=s.status||'pending';rH+='<div class="bw" title="'+esc(s.detail)+'"><span class="bl"><span class="dot '+ss+'"></span>'+(s.label||s.id)+'</span><div class="bar"><div class="bf g" style="width:'+sp+'%"></div></div><span class="bp">'+sp.toFixed(0)+'%</span></div>'});$('roles').innerHTML=rH||'<div style="color:var(--dim)">No roles</div>';ok++}catch(e){fail++;console.error('roles',e)}
+ try{const blockers=td.blockers||[];$('blocker-count').textContent='('+blockers.length+')';if(blockers.length){let bkH='';if(br.type&&br.type!=='default'&&br.type!=='none'){bkH+='<div style="background:#2d1517;padding:6px;border-radius:4px;margin-bottom:6px"><span style="color:var(--red);font-weight:bold">ACTIVE: '+br.type.toUpperCase().replace(/_/g,' ')+'</span>';(br.options||[]).forEach((o,i)=>{bkH+='<div style="font-size:10px;margin-top:2px;color:'+(i===0?'var(--green)':'var(--dim)')+'">'+(i===0?'>>> ':'    ')+'Option '+(i+1)+': '+esc(S(o.option,40))+' ('+(o.eta_seconds||'?')+'s)</div>'});bkH+='</div>'}bkH+=blockers.map(b=>'<div class="item blocker">'+esc(S(b.text,120))+'<br><small>'+esc(b.section||'')+'</small></div>').join('');$('blockers').innerHTML=bkH}else{$('blockers').innerHTML='<div style="color:var(--green)">No blockers!</div>'}ok++}catch(e){fail++;console.error('blk',e)}
+ try{const working=td.working||[];$('working-count').textContent='('+working.length+')';$('working').innerHTML=working.length?working.map(w=>'<div class="item working">'+esc(S(w.text,120))+'<br><small>'+esc(w.section||'')+'</small></div>').join(''):'<div style="color:var(--dim)">Nothing in progress</div>';ok++}catch(e){fail++;console.error('work',e)}
+ try{const doneItems=(td.items||[]).filter(i=>i.done);$('done-count').textContent='('+doneItems.length+')';$('done-items').innerHTML=doneItems.length?doneItems.slice(-15).map(i=>'<div class="item done">'+esc(S(i.text,100))+'</div>').join(''):'<div style="color:var(--dim)">None yet</div>';ok++}catch(e){fail++;console.error('done',e)}
+ try{const allItems=td.items||[];let curSec='',todoHtml='';allItems.forEach(i=>{if(i.section!==curSec){curSec=i.section;todoHtml+='<div style="color:var(--blue);margin-top:6px;font-weight:bold">'+esc(curSec)+'</div>'}const cls=i.done?'item done':'item open';const icon=i.done?'✓':'○';todoHtml+='<div class="'+cls+'"><span>'+icon+'</span> '+esc(S(i.text,150))+'</div>'});$('todo-list').innerHTML=todoHtml||'<div style="color:var(--dim)">No items</div>';ok++}catch(e){fail++;console.error('todo',e)}
+ try{const les=d.lessons||[];$('lesson-count').textContent='('+les.length+')';$('lessons').innerHTML=les.length?les.slice(-8).map(l=>'<div class="lesson">['+esc(l.category||'')+'] '+esc(S(l.lesson,100))+'</div>').join(''):'<div style="color:var(--dim)">No lessons yet</div>';ok++}catch(e){fail++;console.error('les',e)}
+ try{const tl=d.timeline||[];$('timeline').innerHTML=tl.length?tl.slice(-12).reverse().map(e=>{const t=(e.timestamp||'').split('T')[1]||'';return '<div class="tl-item"><span class="time">'+t+'</span><span class="role">'+esc(e.role||'')+'</span><span class="msg">'+esc(S(e.content,60))+'</span></div>'}).join(''):'<div style="color:var(--dim)">No events</div>';ok++}catch(e){fail++;console.error('tl',e)}
+ try{const flow=d.task_flow||{},nodes=flow.nodes||[];let fH='';if(nodes.length){nodes.forEach((n,i)=>{const sc=n.status==='completed'?'var(--green)':n.status==='running'?'var(--blue)':n.status==='blocked'?'var(--red)':'var(--border)';fH+='<div style="min-width:140px;background:#1c2128;border:2px solid '+sc+';border-radius:6px;padding:8px"><div style="font-size:10px;color:var(--dim)">STEP '+(i+1)+'</div><div style="font-size:11px;margin-top:3px;font-weight:bold">'+esc(n.label||n.id||'')+'</div><div style="font-size:10px;color:var(--dim);margin-top:2px">'+esc(n.owner||'')+'</div><div style="font-size:10px;color:var(--yellow);margin-top:2px">'+esc(n.eta||'')+'</div></div>';if(i<nodes.length-1)fH+='<div style="align-self:center;color:var(--blue);font-size:18px;padding:0 4px">→</div>'})}else{fH='<div style="color:var(--dim)">No task flow</div>'}$('task-flow').innerHTML=fH;ok++}catch(e){fail++;console.error('flow',e)}
+ $('refresh').textContent='Last: '+new Date().toLocaleTimeString()+' | 2s | '+ok+' OK'+(fail?' | '+fail+' ERR':'');
 }
 R();setInterval(R,2000);
 </script>
@@ -525,8 +576,19 @@ class DashboardHandler(BaseHTTPRequestHandler):
 
 
 def main():
-    port = int(os.environ.get("LOCAL_AGENT_DASHBOARD_PORT", "8411"))
-    server = HTTPServer(("127.0.0.1", port), DashboardHandler)
+    preferred = int(os.environ.get("LOCAL_AGENT_DASHBOARD_PORT", "8411"))
+    server = None
+    port = preferred
+    for candidate in range(preferred, preferred + 5):
+        try:
+            server = HTTPServer(("127.0.0.1", candidate), DashboardHandler)
+            port = candidate
+            break
+        except OSError as exc:
+            if getattr(exc, "errno", None) != 48:
+                raise
+    if server is None:
+        raise socket_error("No dashboard port available in preferred range.")
     print(f"Local Agent Dashboard running at http://localhost:{port}")
     print("Press Ctrl+C to stop.")
     try:

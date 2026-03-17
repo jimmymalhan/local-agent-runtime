@@ -38,6 +38,10 @@ ROI_STATE_PATH = REPO_ROOT / "state" / "roi-metrics.json"
 
 
 ROLE_FILES = {
+    "manager": REPO_ROOT / "roles" / "manager-role.md",
+    "director": REPO_ROOT / "roles" / "director-role.md",
+    "cto": REPO_ROOT / "roles" / "cto-role.md",
+    "ceo": REPO_ROOT / "roles" / "ceo-role.md",
     "researcher": REPO_ROOT / "roles" / "research-role.md",
     "retriever": REPO_ROOT / "skills" / "understand-project.md",
     "planner": REPO_ROOT / "roles" / "planner-role.md",
@@ -54,6 +58,10 @@ ROLE_FILES = {
 }
 
 STAGE_FOCUS = {
+    "manager": "Make immediate execution decisions. Poll blockers, assign one owner, choose the fastest viable fallback, and do not let the run sit idle.",
+    "director": "Prioritize across streams. Cut low-ROI work, rebalance ownership across local, Claude, Codex, and Cursor, and shrink scope when needed.",
+    "cto": "Make technical executive calls. Decide architecture cuts, model/provider routing, and what technical debt to ignore so the feature ships fast.",
+    "ceo": "Make final ROI and release decisions. Approve the fastest path to user value, reject weak work, and force shipment-focused tradeoffs.",
     "researcher": "Map the repo quickly. State what the project does, actual entrypoints, important folders, exact local commands, and notable risks.",
     "retriever": "Pull supporting repo context, tools, workflows, and prior session facts that will help the rest of the team answer well.",
     "planner": "Produce the common plan first. Split work into the smallest useful parallel workstreams, note what already exists, what can be reused, and what later roles must validate.",
@@ -349,7 +357,7 @@ def provider_enabled(runtime, provider_name):
 def role_category(stage_id):
     cheap_roles = {"researcher", "retriever", "optimizer", "user_acceptance"}
     code_roles = {"architect", "implementer", "tester", "debugger"}
-    reasoning_roles = {"planner", "reviewer", "benchmarker", "qa", "summarizer"}
+    reasoning_roles = {"manager", "director", "cto", "ceo", "planner", "reviewer", "benchmarker", "qa", "summarizer"}
     if stage_id in cheap_roles:
         return "cheap"
     if stage_id in code_roles:
@@ -433,6 +441,10 @@ def pressure_level(runtime, resource_state=None):
 
 def downgrade_order_for(stage_id):
     mapping = {
+        "manager": ["qwen2.5-coder:7b", "qwen2.5:3b"],
+        "director": ["qwen2.5-coder:7b", "qwen2.5:3b"],
+        "cto": ["qwen2.5-coder:7b", "qwen2.5:3b"],
+        "ceo": ["qwen2.5-coder:7b", "qwen2.5:3b"],
         "researcher": ["qwen2.5:3b", "llama3.2:3b"],
         "retriever": ["qwen2.5:3b", "llama3.2:3b"],
         "planner": ["qwen2.5-coder:7b", "qwen2.5:3b"],
@@ -981,6 +993,10 @@ def common_plan_context(runtime):
 
 def skill_text_for(stage_id):
     mapping = {
+        "manager": REPO_ROOT / "skills" / "lead-coordination.md",
+        "director": REPO_ROOT / "skills" / "lead-coordination.md",
+        "cto": REPO_ROOT / "skills" / "lead-coordination.md",
+        "ceo": REPO_ROOT / "skills" / "lead-coordination.md",
         "researcher": REPO_ROOT / "skills" / "understand-project.md",
         "retriever": REPO_ROOT / "skills" / "understand-project.md",
         "planner": REPO_ROOT / "skills" / "team-orchestration.md",
@@ -1001,17 +1017,17 @@ def skill_text_for(stage_id):
 def extra_skill_text_for(stage_id, task_text):
     task_l = task_text.lower()
     paths = []
-    if stage_id in {"planner", "architect", "implementer", "optimizer", "qa", "summarizer"}:
+    if stage_id in {"manager", "director", "cto", "ceo", "planner", "architect", "implementer", "optimizer", "qa", "summarizer"}:
         paths.append(REPO_ROOT / "skills" / "lead-coordination.md")
     if any(term in task_l for term in ["upgrade", "better than", "exceed", "cursor", "highest-reasoning", "benchmark"]):
-        if stage_id in {"researcher", "retriever", "planner", "implementer", "benchmarker", "qa"}:
+        if stage_id in {"manager", "director", "cto", "ceo", "researcher", "retriever", "planner", "implementer", "benchmarker", "qa"}:
             paths.append(REPO_ROOT / "skills" / "auto-discover-upgrade-features.md")
-        if stage_id in {"benchmarker", "summarizer"}:
+        if stage_id in {"director", "ceo", "benchmarker", "summarizer"}:
             paths.append(REPO_ROOT / "skills" / "benchmark-against-quality.md")
     if any(term in task_l for term in ["rag", "retrieval", "pinecone", "sglang", "scale", "throughput", "latency", "mcp"]):
-        if stage_id in {"planner", "architect", "optimizer", "benchmarker", "qa"}:
+        if stage_id in {"manager", "director", "cto", "ceo", "planner", "architect", "optimizer", "benchmarker", "qa"}:
             paths.append(REPO_ROOT / "skills" / "lead-coordination.md")
-        if stage_id in {"optimizer", "benchmarker"}:
+        if stage_id in {"cto", "optimizer", "benchmarker"}:
             paths.append(REPO_ROOT / "skills" / "optimize-system.md")
     seen = set()
     chunks = []
