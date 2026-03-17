@@ -1,0 +1,30 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: GitHub Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create release notes
+        run: |
+          echo "## local-agent-runtime ${GITHUB_REF_NAME}" > RELEASE_NOTES.md
+          echo >> RELEASE_NOTES.md
+          sed -n '1,40p' CHANGELOG.md >> RELEASE_NOTES.md
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          body_path: RELEASE_NOTES.md
+          files: |
+            CHANGELOG.md
+            VERSION
