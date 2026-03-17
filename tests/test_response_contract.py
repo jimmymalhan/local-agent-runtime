@@ -16,6 +16,7 @@ class ResponseContractTests(unittest.TestCase):
         content = (REPO_ROOT / "scripts" / "local_team_run.py").read_text()
         self.assertIn("Answer like a strong Codex-style coding assistant.", content)
         self.assertIn("visible progress", content)
+        self.assertIn("takeover_message", content)
 
     def test_runtime_initializes_preflight_progress_before_heavy_bootstrap(self):
         content = (REPO_ROOT / "scripts" / "local_team_run.py").read_text()

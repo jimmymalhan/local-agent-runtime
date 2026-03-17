@@ -158,6 +158,13 @@ def execution_mix(progress, team_order):
     }
 
 
+def focus_text(items):
+    if not items:
+        return "none"
+    item = items[0]
+    return f"{item['section']}: {item['text']}"
+
+
 def main():
     profile_name = active_profile()
     profile = RUNTIME.get("profiles", {}).get(profile_name, {})
@@ -210,6 +217,15 @@ def main():
             f"{use_case[:7].upper():7} {render_bar(bucket['percent'], 24)} {bucket['percent']:5.1f}% | "
             f"done {bucket['done']} / total {bucket['total']} | open {bucket['open']}"
         )
+    focus = todo.get("focus", {})
+    if focus:
+        print("")
+        print("FOCUS")
+        print(f"next={focus_text(focus.get('overall', []))}")
+        print(f"local-next={focus_text(focus.get('lanes', {}).get('local', []))}")
+        print(f"cloud-next={focus_text(focus.get('lanes', {}).get('cloud', []))}")
+        print(f"product-next={focus_text(focus.get('use_cases', {}).get('product', []))}")
+        print(f"business-next={focus_text(focus.get('use_cases', {}).get('business', []))}")
     print("")
     print("ROLE BREAKDOWN")
 

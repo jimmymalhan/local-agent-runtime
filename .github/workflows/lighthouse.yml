@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: write  # to commit lighthouse-score.json
+  contents: read
 
 jobs:
   lighthouse:
@@ -21,30 +21,44 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Detect Lighthouse target
+        id: detect
+        run: |
+          if [ -f package.json ] && [ -f src/server.js ]; then
+            echo "has_target=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_target=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: actions/setup-node@v4
+        if: steps.detect.outputs.has_target == 'true'
         with:
           node-version: 20
-          cache: npm
 
       - name: Install dependencies
+        if: steps.detect.outputs.has_target == 'true'
         run: npm ci
 
       - name: Install Chrome (Lighthouse)
+        if: steps.detect.outputs.has_target == 'true'
         run: |
           sudo apt-get update
           sudo apt-get install -y chromium-browser
           export CHROME_PATH=/usr/bin/chromium-browser
 
       - name: Start server
+        if: steps.detect.outputs.has_target == 'true'
         run: node src/server.js &
         env:
           PORT: 3000
 
       - name: Wait for server
+        if: steps.detect.outputs.has_target == 'true'
         run: sleep 5
 
       - name: Run Lighthouse
         id: lighthouse
+        if: steps.detect.outputs.has_target == 'true'
         run: |
           mkdir -p .claude/local
           npx lighthouse http://localhost:3000 \
@@ -69,17 +83,21 @@ jobs:
           fi
 
       - name: Write lighthouse-score.json
+        if: steps.detect.outputs.has_target == 'true'
         run: |
           mkdir -p .claude/local
           node -e "
             const fs=require('fs');
-            let perf=0,a11y=0;
+            let perf=0,a11y=0,status='measured';
             try {
               const d=JSON.parse(fs.readFileSync('.claude/local/lighthouse-report.json','utf8'));
               perf=Math.round((d.categories?.performance?.score||0)*100);
               a11y=Math.round((d.categories?.accessibility?.score||0)*100);
-            } catch(e){}
+            } catch(e) {
+              status='missing-report';
+            }
             fs.writeFileSync('.claude/local/lighthouse-score.json', JSON.stringify({
+              status,
               performance:perf,
               accessibility:a11y,
               timestamp:new Date().toISOString(),
@@ -87,15 +105,35 @@ jobs:
             },null,2));
           "
 
-      - name: Commit lighthouse-score.json (FC-007 pass)
-        if: steps.lighthouse.outputs.pass == 'true'
+      - name: Write skipped lighthouse-score.json
+        if: steps.detect.outputs.has_target != 'true'
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add .claude/local/lighthouse-score.json
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "chore(ci): update lighthouse score [skip ci]"
-            git push origin main
+          mkdir -p .claude/local
+          python3 - <<'PY'
+          import json
+          from datetime import datetime
+          body = {
+              "status": "skipped",
+              "performance": 0,
+              "accessibility": 0,
+              "timestamp": datetime.utcnow().isoformat(timespec="seconds") + "Z",
+              "url": None,
+              "reason": "No package.json/src/server.js Lighthouse target in this repo",
+          }
+          with open(".claude/local/lighthouse-score.json", "w", encoding="utf-8") as handle:
+              json.dump(body, handle, indent=2)
+              handle.write("\\n")
+          PY
+
+      - name: No Lighthouse target in this repo
+        if: steps.detect.outputs.has_target != 'true'
+        run: |
+          echo "No package.json/src/server.js target found; skipping Lighthouse for this repo."
+
+      - name: Enforce FC-007 threshold when measured
+        if: steps.detect.outputs.has_target == 'true'
+        run: |
+          if [ "${{ steps.lighthouse.outputs.pass }}" != "true" ]; then
+            echo "::error::Lighthouse performance ${{ steps.lighthouse.outputs.performance }} < 90 (FC-007)"
+            exit 1
           fi
