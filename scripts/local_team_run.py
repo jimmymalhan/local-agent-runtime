@@ -31,6 +31,7 @@ MODEL_REGISTRY = REPO_ROOT / "scripts" / "model_registry.py"
 SUMMARY_SCRIPT = REPO_ROOT / "scripts" / "summarize_project.py"
 RAG_SCALE_SCRIPT = REPO_ROOT / "scripts" / "scale_rag_ranking.sh"
 SUMMARY_PATH = REPO_ROOT / "context" / "project-summary.md"
+HOOKS_DIR = REPO_ROOT / "scripts" / "hooks"
 MEMORY_DIR = REPO_ROOT / "memory"
 LOG_DIR = REPO_ROOT / "logs"
 SESSION_STATE = REPO_ROOT / "scripts" / "session_state.py"
@@ -90,6 +91,24 @@ def run(cmd):
 
 def read_text(path):
     return path.read_text(errors="ignore") if path.exists() else ""
+
+
+def run_hook(hook_name, stage_id, target_repo, stamp, artifact_path=""):
+    """Run a stage hook script if it exists in the hooks directory."""
+    hook_path = HOOKS_DIR / hook_name
+    if not hook_path.exists() or not hook_path.is_file():
+        return True
+    try:
+        args = ["bash", str(hook_path), stage_id, str(target_repo), stamp]
+        if artifact_path:
+            args.append(str(artifact_path))
+        result = subprocess.run(args, capture_output=True, text=True, check=False, timeout=30)
+        if result.stdout.strip():
+            for line in result.stdout.strip().split("\n")[-3:]:
+                progress(["tick", "--stage", stage_id, "--percent", "1", "--detail", line.strip()[:120]])
+        return result.returncode == 0
+    except (subprocess.TimeoutExpired, OSError):
+        return True  # Hook timeout is non-fatal
 
 
 def load_runtime():
@@ -1466,10 +1485,59 @@ def run_stage(runtime, stage_id, target_repo, base_prompt, prior_outputs, availa
     update_execution_state(os.environ.get("LOCAL_AGENT_ACTIVE_TASK", ""), target_repo, provider_name)
     if provider_uses_local_resources(provider_name):
         ensure_resource_capacity(runtime)
+    # Run pre-stage hook (file size checks, test filtering, context prep)
+    run_hook("pre_stage.sh", stage_id, target_repo, stamp)
     progress(["start", "--stage", stage_id, "--label", label, "--percent", "1", "--detail", f"Dispatching {provider_name}:{model}"])
     stop_event = threading.Event()
     worker = threading.Thread(target=pulse, args=(stage_id, f"Running via {provider_name}: {model}", stop_event), daemon=True)
     worker.start()
+
+    # Runtime hard memory governor: monitor memory DURING model execution
+    mem_governor_event = threading.Event()
+
+    def _memory_governor():
+        """Background thread that checks memory during model execution.
+        If memory exceeds ceiling: serialize state, unload idle models, downgrade."""
+        limits = runtime.get("resource_limits", {})
+        mem_ceiling = float(limits.get("memory_percent", 70))
+        poll_secs = max(2, int(limits.get("poll_seconds", 1)) * 3)
+        while not mem_governor_event.is_set():
+            mem_governor_event.wait(timeout=poll_secs)
+            if mem_governor_event.is_set():
+                break
+            try:
+                _, mid_data = resource_status_snapshot()
+                mid_mem = float(mid_data.get("memory_percent", 0)) if mid_data else 0
+                if mid_mem > mem_ceiling:
+                    # Step 1: Serialize state to disk
+                    state_dump = REPO_ROOT / "state" / f"governor-{stage_id}-state.json"
+                    state_dump.write_text(json.dumps({
+                        "stage_id": stage_id, "model": model, "provider": provider_name,
+                        "memory_percent": mid_mem, "ceiling": mem_ceiling,
+                        "timestamp": datetime.now().isoformat(timespec="seconds"),
+                    }, indent=2))
+                    # Step 2: Unload idle models
+                    try:
+                        from blocker_resolver import unload_ollama_models
+                        cleanup_msg = unload_ollama_models()
+                        progress(["tick", "--stage", stage_id, "--percent", "50",
+                                  "--detail", f"Governor: mem {mid_mem:.0f}%>{mem_ceiling:.0f}%, unloaded: {cleanup_msg}"])
+                    except Exception:
+                        pass
+                    # Step 3: Record lesson for future downgrade
+                    teach_lesson(
+                        category="resource",
+                        trigger=f"governor_memory_{stage_id}",
+                        lesson=f"Memory {mid_mem:.0f}% exceeded {mem_ceiling:.0f}% ceiling during {stage_id} execution",
+                        fix="Downgrade to smaller model or reduce prompt budget for this stage",
+                        context=f"stage={stage_id} model={model} provider={provider_name}",
+                    )
+            except Exception:
+                pass  # Governor failure must not crash the stage
+
+    governor_thread = threading.Thread(target=_memory_governor, daemon=True)
+    governor_thread.start()
+
     try:
         stage_lessons, lessons_block = stage_lessons_block(stage_id)
         for lesson in stage_lessons:
@@ -1527,7 +1595,9 @@ def run_stage(runtime, stage_id, target_repo, base_prompt, prior_outputs, availa
             )
     finally:
         stop_event.set()
+        mem_governor_event.set()
         worker.join(timeout=1)
+        governor_thread.join(timeout=1)
 
     artifact = MEMORY_DIR / f"{stamp}-{stage_id}.md"
     artifact.write_text(content + "\n")
@@ -1535,6 +1605,8 @@ def run_stage(runtime, stage_id, target_repo, base_prompt, prior_outputs, availa
         COMMON_PLAN_PATH.write_text(content + "\n")
     record_roi_event(runtime, stage_id, "positive", f"completed via {provider_name}:{model}")
     release_files(stage_id)
+    # Run post-stage hook (log output size, check quality, trim context)
+    run_hook("post_stage.sh", stage_id, target_repo, stamp, artifact_path=str(artifact))
     progress(["complete", "--stage", stage_id, "--label", label, "--detail", f"Completed with {provider_name}:{model}"])
     return stage_id, content, f"{provider_name}:{model}", artifact
 
@@ -1652,6 +1724,35 @@ def main():
             except Exception:
                 pass
             run_group(runtime, group, target_repo, user_prompt, outputs, available_models, stamp)
+
+            # Cross-role critique loop: if reviewer marks quality as weak or
+            # score < 60, send a revision request back to implementer before
+            # continuing to QA.
+            if "reviewer" in group and "reviewer" in outputs:
+                reviewer_text = outputs["reviewer"].lower()
+                quality_weak = "weak" in reviewer_text
+                score_match = re.search(r'(?:score|quality)[:\s]*(\d+)', reviewer_text)
+                score_low = score_match and int(score_match.group(1)) < 60
+                if quality_weak or score_low:
+                    reason = "weak quality" if quality_weak else f"score {score_match.group(1)}"
+                    progress(["tick", "--stage", "implementer", "--percent", "80",
+                              "--detail", f"Cross-role critique: reviewer flagged {reason}, requesting revision"])
+                    revision_prompt = (
+                        f"The reviewer flagged your previous output as {reason}. "
+                        f"Reviewer feedback:\n\n{outputs['reviewer']}\n\n"
+                        "Please revise your implementation to address the reviewer's concerns. "
+                        "Focus on the specific issues raised."
+                    )
+                    outputs["_revision_request"] = revision_prompt
+                    if "implementer" in runtime.get("team", {}):
+                        _stage_id, revised, _model, _artifact = run_stage(
+                            runtime, "implementer", target_repo,
+                            user_prompt + "\n\n" + revision_prompt,
+                            outputs, available_models, stamp,
+                        )
+                        outputs["implementer"] = revised
+                        progress(["tick", "--stage", "implementer", "--percent", "100",
+                                  "--detail", "Revision complete after cross-role critique"])
 
         final = outputs.get("summarizer") or next(reversed(outputs.values()))
         if is_repo_usage_task(task):

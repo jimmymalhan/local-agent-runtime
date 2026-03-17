@@ -1,11 +1,28 @@
 # Prompt Log
 
-Each line in this file records a user prompt and timestamp.  Agents should append new prompts here before processing so that the system can learn and evolve over time.
+Each line in this file records a user prompt and timestamp. Agents should append new prompts here before processing so that the system can learn and evolve over time.
 
-Format:
+## Purpose
+
+- Track all user prompts for pattern detection and workflow evolution.
+- Identify recurring task types to inform skill upgrades and prompt tuning.
+- Feed the runtime teaching loop so agents improve over time.
+
+## Format
+
 ```
 YYYY-MM-DD HH:MM:SS – <prompt>
-```2026-03-16 14:14:59 – validate reusable local CLI progress
+```
+
+## Pattern Detection
+
+Agents should periodically scan this log to identify:
+- Repeated task categories (e.g., debugging, feature implementation, config changes).
+- Prompts that triggered takeovers or resource pressure (tagged with `[takeover]` or `[optimize]`).
+- Tasks that completed successfully vs. those that stalled, to refine model/role selection.
+
+## Entries
+2026-03-16 14:14:59 – validate reusable local CLI progress
 2026-03-16 14:22:33 – ls
 2026-03-16 14:23:00 – what do you know about this project
 - 2026-03-16T22:30:55 [takeover] target=/Users/jimmymalhan/Doc/local-agent-runtime

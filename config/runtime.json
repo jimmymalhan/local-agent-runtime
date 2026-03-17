@@ -6,7 +6,8 @@
   "providers": {
     "ollama": {
       "kind": "ollama",
-      "base_url": "http://127.0.0.1:11434"
+      "base_url": "http://127.0.0.1:11434",
+      "chat_path": "/v1/chat/completions"
     },
     "github_models": {
       "kind": "github_models",
@@ -54,7 +55,68 @@
         "coding_env": "OPENCLAW_CODING_MODEL",
         "fast_env": "OPENCLAW_FAST_MODEL"
       }
+    },
+    "sglang": {
+      "kind": "sglang",
+      "base_url_env": "SGLANG_BASE_URL",
+      "base_url": "http://127.0.0.1:30000",
+      "enabled_env": "LOCAL_AGENT_ENABLE_SGLANG",
+      "chat_path": "/v1/chat/completions",
+      "default_model_env": "SGLANG_MODEL",
+      "default_model": "qwen2.5-coder:7b",
+      "continuous_batching": {
+        "enabled": true,
+        "max_batch_size": 32,
+        "max_waiting_tokens": 512,
+        "schedule_policy": "fcfs",
+        "chunked_prefill": true,
+        "chunked_prefill_size": 4096,
+        "overlap_schedule": true,
+        "max_running_requests": 8,
+        "max_prefill_tokens": 16384
+      },
+      "server_flags": {
+        "dp_size": 1,
+        "tp_size": 1,
+        "mem_fraction_static": 0.85,
+        "disable_radix_cache": false,
+        "enable_torch_compile": false,
+        "log_level": "warning"
+      }
     }
+  },
+  "indexing": {
+    "description": "Selective metadata indexing: which fields to index for filtering vs skip to reduce build/query overhead.",
+    "indexed_fields": [
+      "stage_id",
+      "role",
+      "model",
+      "provider",
+      "timestamp",
+      "task_hash",
+      "target_repo",
+      "profile"
+    ],
+    "skip_fields": [
+      "full_prompt_text",
+      "raw_response_body",
+      "system_prompt",
+      "embedding_vector",
+      "debug_trace",
+      "internal_logs"
+    ],
+    "pinecone_metadata_filter_fields": [
+      "stage_id",
+      "role",
+      "target_repo",
+      "profile",
+      "timestamp"
+    ],
+    "pinecone_skip_metadata": [
+      "full_prompt_text",
+      "raw_response_body",
+      "embedding_vector"
+    ]
   },
   "default_profile": "turbo_local",
   "ui": {
@@ -503,7 +565,8 @@
         "qwen2.5:3b"
       ],
       "label": "Implementer",
-      "weight": 15
+      "weight": 15,
+      "structured_output": true
     },
     "tester": {
       "model": "qwen2.5-coder:7b",
@@ -521,7 +584,8 @@
         "qwen2.5:3b"
       ],
       "label": "Reviewer",
-      "weight": 8
+      "weight": 8,
+      "structured_output": true
     },
     "debugger": {
       "model": "qwen2.5-coder:7b",
@@ -621,5 +685,12 @@
     "ollama_num_parallel": 2,
     "ollama_max_loaded_models": 2,
     "ollama_keep_alive": "5m"
+  },
+  "embedding": {
+    "model": "nomic-embed-text:latest",
+    "provider": "ollama",
+    "base_url": "http://127.0.0.1:11434",
+    "dimensions": 768,
+    "usage": "RAG chunk indexing and semantic search"
   }
 }

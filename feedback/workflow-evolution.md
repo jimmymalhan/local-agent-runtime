@@ -1,6 +1,29 @@
 # Workflow Evolution Log
 
-This file captures updates to workflows and skills as the system learns from past prompts.  When a workflow is updated or a new version of a skill is created, record the reason, the change summary, and the version.  These notes drive the automatic evolution of skills and workflows.2026-03-16 14:15:00 – Updated skills and workflows based on prompt: validate reusable local CLI progress
+This file captures updates to workflows and skills as the system learns from past prompts. When a workflow is updated or a new version of a skill is created, record the reason, the change summary, and the version. These notes drive the automatic evolution of skills and workflows.
+
+## Purpose
+
+- Document every workflow or skill change with its trigger and rationale.
+- Enable rollback by keeping version history of skill updates.
+- Feed the runtime teaching loop so new patterns are codified into skills.
+
+## Format
+
+```
+YYYY-MM-DD HH:MM:SS – Updated <skill/workflow> because <reason>
+  Version: <version>
+  Change: <summary>
+```
+
+## Evolution Rules
+
+- A skill should be upgraded when the same feedback pattern appears 3+ times in prompt-log.md.
+- Record the before/after difference so the teaching loop can validate improvements.
+- Tag entries with `[takeover]` or `[optimize]` when triggered by runtime events.
+
+## Entries
+2026-03-16 14:15:00 – Updated skills and workflows based on prompt: validate reusable local CLI progress
 2026-03-16 14:22:35 – Updated skills and workflows based on prompt: ls
 2026-03-16 14:23:02 – Updated skills and workflows based on prompt: what do you know about this project
 - 2026-03-16T22:30:55 [takeover] target=/Users/jimmymalhan/Doc/local-agent-runtime
