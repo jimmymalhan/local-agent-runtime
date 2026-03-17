@@ -50,6 +50,48 @@ class BlockerResolverTests(unittest.TestCase):
         self.assertIn("Option 2", text)
         self.assertIn("Auto-pick", text)
 
+    def test_all_options_have_eta_seconds(self):
+        for blocker_type, options in blocker_resolver.BLOCKER_STRATEGIES.items():
+            for opt in options:
+                self.assertIn("eta_seconds", opt, f"Missing eta_seconds in {blocker_type} option: {opt['option']}")
+                self.assertGreater(opt["eta_seconds"], 0)
+
+    def test_estimate_completion_with_stages(self):
+        progress = {
+            "stages": [
+                {"id": "researcher", "status": "completed"},
+                {"id": "planner", "status": "running"},
+                {"id": "implementer", "status": "pending"},
+                {"id": "summarizer", "status": "pending"},
+            ]
+        }
+        todo_stats = {"total": 50, "done": 20, "open": 30}
+        result = blocker_resolver.estimate_completion(progress, todo_stats)
+        self.assertIn("pipeline_eta_seconds", result)
+        self.assertIn("pipeline_eta_display", result)
+        self.assertIn("todo_eta_display", result)
+        self.assertGreater(result["pipeline_eta_seconds"], 0)
+        self.assertEqual(result["remaining_roles"], 3)
+        self.assertEqual(result["open_tasks"], 30)
+
+    def test_estimate_completion_all_done(self):
+        progress = {
+            "stages": [
+                {"id": "researcher", "status": "completed"},
+                {"id": "summarizer", "status": "completed"},
+            ]
+        }
+        todo_stats = {"total": 10, "done": 10, "open": 0}
+        result = blocker_resolver.estimate_completion(progress, todo_stats)
+        self.assertEqual(result["pipeline_eta_seconds"], 0)
+        self.assertEqual(result["pipeline_eta_display"], "done")
+
+    def test_fmt_eta_formatting(self):
+        self.assertEqual(blocker_resolver._fmt_eta(0), "done")
+        self.assertEqual(blocker_resolver._fmt_eta(30), "30s")
+        self.assertEqual(blocker_resolver._fmt_eta(90), "1m 30s")
+        self.assertEqual(blocker_resolver._fmt_eta(3600), "1h 0m")
+
 
 if __name__ == "__main__":
     unittest.main()

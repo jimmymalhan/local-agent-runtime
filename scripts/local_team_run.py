@@ -613,6 +613,40 @@ def ensure_resource_capacity(runtime):
         if data.get("cpu_percent", 0.0) <= limits["cpu_percent"] and data.get("memory_percent", 0.0) <= limits["memory_percent"]:
             return
         wait_events += 1
+
+        # Aggressive blocker resolution: auto-resolve on first wait event
+        try:
+            from blocker_resolver import auto_resolve, execute_resolution
+            context = {
+                "resource": data,
+                "memory_limit": limits.get("memory_percent", 85),
+                "cpu_limit": limits.get("cpu_percent", 85),
+                "roi": load_roi_metrics(),
+            }
+            resolution = auto_resolve(context)
+            action = resolution["chosen"]["action"]
+            msg = execute_resolution(action, {"task": task, "target_repo": str(target_repo)})
+            stage_label = current_stage_label() or "retriever"
+            progress(
+                [
+                    "tick", "--stage", stage_label, "--percent", "1",
+                    "--detail", f"Auto-resolved {resolution['blocker_type']}: {msg}",
+                ]
+            )
+            teach_lesson(
+                category="resource",
+                trigger=f"auto_resolve_{resolution['blocker_type']}",
+                lesson=f"Auto-resolved {resolution['blocker_type']} with {action}: {msg}",
+                fix=resolution["chosen"]["detail"],
+                context=f"wait_event={wait_events} snapshot={snapshot}",
+            )
+            # If action was model_downgrade or serialize, resource pressure may resolve quickly
+            if action in ("model_downgrade", "serialize", "reset_roi", "kill_stale", "reduce_parallel", "fast_profile"):
+                time.sleep(1)
+                continue  # Re-check resources immediately
+        except Exception:
+            pass  # Fall back to original wait behavior
+
         progress(
             [
                 "tick",
