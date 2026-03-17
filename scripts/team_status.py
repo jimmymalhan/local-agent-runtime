@@ -2,9 +2,13 @@
 import json
 import os
 import pathlib
+import sys
 from datetime import datetime
 
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from todo_progress import parse_todo
+from runtime_teacher import get_lessons_for_stage, load_lessons
+from runtime_env import env_with_runtime, openclaw_status
 
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -31,6 +35,14 @@ def active_profile():
             if line.startswith("LOCAL_AGENT_MODE="):
                 return line.split("=", 1)[1].strip()
     return RUNTIME.get("default_profile", "balanced")
+
+
+def effective_runtime():
+    runtime_env = env_with_runtime()
+    runtime = json.loads((REPO_ROOT / "config" / "runtime.json").read_text())
+    runtime["provider_preference"] = runtime_env.get("LOCAL_AGENT_PROVIDER_PREFERENCE", runtime.get("provider_preference", "ollama"))
+    runtime["remote_fallback_allowed"] = runtime_env.get("LOCAL_AGENT_ALLOW_REMOTE_FALLBACK", "0") in {"1", "true", "yes", "on"}
+    return runtime
 
 
 def load_progress():
@@ -73,6 +85,10 @@ def first_paragraph(path):
 
 def role_description(role):
     role_map = {
+        "manager": REPO_ROOT / "roles" / "manager-role.md",
+        "director": REPO_ROOT / "roles" / "director-role.md",
+        "cto": REPO_ROOT / "roles" / "cto-role.md",
+        "ceo": REPO_ROOT / "roles" / "ceo-role.md",
         "researcher": REPO_ROOT / "roles" / "research-role.md",
         "planner": REPO_ROOT / "roles" / "planner-role.md",
         "architect": REPO_ROOT / "roles" / "architect-role.md",
@@ -202,13 +218,29 @@ def focus_text(items):
     return f"{item['section']}: {item['text']}"
 
 
+def teaching_snapshot(progress):
+    current_stage = progress.get("current_stage", "")
+    all_lessons = load_lessons()
+    stage_lessons = get_lessons_for_stage(current_stage) if current_stage else []
+    applied_total = sum(int(item.get("applied_count", 0) or 0) for item in all_lessons)
+    top_fix = stage_lessons[-1].get("fix", "") if stage_lessons else ""
+    return {
+        "current_stage": current_stage,
+        "stage_lessons": stage_lessons,
+        "all_lessons": all_lessons,
+        "applied_total": applied_total,
+        "top_fix": top_fix,
+    }
+
+
 def main():
+    runtime = effective_runtime()
     profile_name = active_profile()
-    profile = RUNTIME.get("profiles", {}).get(profile_name, {})
+    profile = runtime.get("profiles", {}).get(profile_name, {})
     progress = load_progress()
     overall_status = progress.get("overall", {}).get("status", "")
-    progress_stage_ids = [stage.get("id") for stage in progress.get("stages", []) if stage.get("id") in RUNTIME.get("team", {})]
-    team_order = progress_stage_ids or profile.get("team_order") or RUNTIME.get("team_order") or list(RUNTIME.get("team", {}).keys())
+    progress_stage_ids = [stage.get("id") for stage in progress.get("stages", []) if stage.get("id") in runtime.get("team", {})]
+    team_order = progress_stage_ids or profile.get("team_order") or runtime.get("team_order") or list(runtime.get("team", {}).keys())
     todo = parse_todo()
     installed = installed_models()
 
@@ -241,6 +273,12 @@ def main():
         f"cloud {mix['cloud_session']:5.1f}%"
     )
     print(f"profile={profile_name}")
+    oc = openclaw_status()
+    print(
+        f"openclaw={'configured' if oc.get('configured') else 'missing'} | "
+        f"provider-preference={runtime.get('provider_preference', 'ollama')} | "
+        f"remote-fallback={'on' if runtime.get('remote_fallback_allowed') else 'off'}"
+    )
     for lane in ("local", "cloud", "shared", "general"):
         lane_data = todo["lanes"][lane]
         if lane_data["total"] == 0:
@@ -268,7 +306,7 @@ def main():
         print(f"business-next={focus_text(focus.get('use_cases', {}).get('business', []))}")
     # Model usage breakdown
     from live_dashboard import model_usage_breakdown
-    providers = model_usage_breakdown(progress, RUNTIME)
+    providers = model_usage_breakdown(progress, runtime)
     if providers:
         print("")
         print("MODEL USAGE")
@@ -286,19 +324,34 @@ def main():
                 parts.append(f"{pending} pending")
             print(f"  {name:15} {pct:5.1f}% | {' | '.join(parts)} | {models}")
 
+    teaching = teaching_snapshot(progress)
+    print("")
+    print("TEACHING LOOP")
+    print(
+        f"lessons={len(teaching['all_lessons'])} | applied={teaching['applied_total']} | "
+        f"current-stage={teaching['current_stage'] or 'none'} | stage-lessons={len(teaching['stage_lessons'])}"
+    )
+    if teaching["top_fix"]:
+        print(f"next-fix={teaching['top_fix']}")
+    for lesson in teaching["stage_lessons"][-2:]:
+        print(
+            f"- [{lesson.get('category', 'unknown')}] {lesson.get('lesson', '')[:120]} "
+            f"| fix {lesson.get('fix', '')[:80]} | applied {lesson.get('applied_count', 0)}x"
+        )
+
     print("")
     print("ROLE BREAKDOWN")
 
-    total_weight = sum(float(RUNTIME["team"][role].get("weight", 0.0)) for role in team_order) or 1.0
+    total_weight = sum(float(runtime["team"][role].get("weight", 0.0)) for role in team_order) or 1.0
     for role in team_order:
-        cfg = RUNTIME["team"][role]
+        cfg = runtime["team"][role]
         weight = float(cfg.get("weight", 0.0))
         weight_percent = round((weight / total_weight) * 100.0, 1)
         stage = stage_state(progress, role)
         done_percent = float(stage.get("percent", 0.0))
         contribution_done = round(weight_percent * done_percent / 100.0, 1)
         contribution_left = round(weight_percent - contribution_done, 1)
-        model = cfg.get("model", RUNTIME.get("default_model", "unknown"))
+        model = cfg.get("model", runtime.get("default_model", "unknown"))
         installed_flag = "installed" if model in installed else "missing"
         label = cfg.get("label", role)
         detail = stage.get("detail", "")

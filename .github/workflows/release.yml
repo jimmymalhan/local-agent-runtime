@@ -5,6 +5,9 @@ on:
     tags:
       - "v*"
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 permissions:
   contents: write
 
@@ -15,16 +18,36 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Create release notes
+      - name: Validate semantic version tag
         run: |
-          echo "## local-agent-runtime ${GITHUB_REF_NAME}" > RELEASE_NOTES.md
+          TAG="${GITHUB_REF_NAME}"
+          if ! echo "$TAG" | grep -qE '^v[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "::error::Tag '$TAG' does not match semantic versioning (vMAJOR.MINOR.PATCH)"
+            exit 1
+          fi
+          VERSION="${TAG#v}"
+          FILE_VERSION="$(cat VERSION | tr -d '[:space:]')"
+          if [ "$VERSION" != "$FILE_VERSION" ]; then
+            echo "::error::Tag version '$VERSION' does not match VERSION file '$FILE_VERSION'"
+            exit 1
+          fi
+          echo "RELEASE_VERSION=$VERSION" >> "$GITHUB_ENV"
+
+      - name: Extract changelog notes for this version
+        run: |
+          VERSION="${RELEASE_VERSION}"
+          echo "## local-agent-runtime v${VERSION}" > RELEASE_NOTES.md
           echo >> RELEASE_NOTES.md
-          sed -n '1,40p' CHANGELOG.md >> RELEASE_NOTES.md
+          # Extract the section for this version from CHANGELOG.md
+          awk "/^## ${VERSION} /{found=1; next} /^## [0-9]/{if(found) exit} found" CHANGELOG.md >> RELEASE_NOTES.md
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
+          name: v${{ env.RELEASE_VERSION }}
+          tag_name: ${{ github.ref_name }}
           body_path: RELEASE_NOTES.md
+          generate_release_notes: false
           files: |
             CHANGELOG.md
             VERSION

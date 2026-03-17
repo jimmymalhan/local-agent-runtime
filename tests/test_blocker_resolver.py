@@ -31,6 +31,22 @@ class BlockerResolverTests(unittest.TestCase):
         }
         self.assertEqual(blocker_resolver.classify_blocker(ctx), "stale_progress")
 
+    def test_classify_stale_idle_progress(self):
+        from datetime import datetime, timedelta
+
+        stale = (datetime.now() - timedelta(seconds=45)).isoformat(timespec="seconds")
+        ctx = {
+            "resource": {"cpu_percent": 10, "memory_percent": 10},
+            "roi": {},
+            "progress": {
+                "overall": {"status": "idle"},
+                "updated_at": stale,
+                "stages": [{"id": "researcher", "percent": 1.0, "detail": "Old wait state"}],
+            },
+            "lock": {},
+        }
+        self.assertEqual(blocker_resolver.classify_blocker(ctx), "stale_progress")
+
     def test_resolve_options_returns_2_3_options(self):
         for blocker_type in blocker_resolver.BLOCKER_STRATEGIES:
             options = blocker_resolver.resolve_options(blocker_type)
@@ -54,6 +70,13 @@ class BlockerResolverTests(unittest.TestCase):
                 self.assertIn("reset", msg.lower())
             finally:
                 blocker_resolver.REPO_ROOT = orig
+
+    def test_execute_resolution_unload_ollama_without_models(self):
+        from unittest import mock
+        completed = mock.Mock(stdout="NAME ID SIZE\n", returncode=0)
+        with mock.patch.object(blocker_resolver.subprocess, "run", return_value=completed):
+            msg = blocker_resolver.execute_resolution("unload_ollama", {})
+        self.assertIn("No resident Ollama models", msg)
 
     def test_execute_resolution_refresh_progress(self):
         import tempfile, pathlib, json

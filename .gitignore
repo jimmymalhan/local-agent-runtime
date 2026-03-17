@@ -25,3 +25,5 @@ mcp-local-runtime/__pycache__/
 !state/org_structure.yaml
 !state/todo.md
 !state/workflow-state.json
+state/agent-coordination.lock
+state/openclaw-backups/

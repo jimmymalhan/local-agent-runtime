@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 import pathlib
+import subprocess
 import sys
 from datetime import datetime
 
@@ -16,44 +17,44 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 BLOCKER_STRATEGIES = {
     "memory_ceiling": [
-        {"option": "Downgrade model to 3b", "action": "model_downgrade", "speed": 1, "eta_seconds": 5, "owner": "local", "detail": "Switch to qwen2.5:3b for current stage"},
-        {"option": "Serialize parallel work", "action": "serialize", "speed": 2, "eta_seconds": 10, "owner": "local", "detail": "Run one role at a time to halve memory"},
-        {"option": "Hand off to cloud", "action": "takeover", "speed": 3, "eta_seconds": 30, "owner": "codex/claude", "detail": "Send remaining work to Claude/Codex session"},
+        {"option": "Unload idle Ollama models", "action": "unload_ollama", "speed": 1, "eta_seconds": 3, "owner": "local", "detail": "Stop resident Ollama models first to recover memory now"},
+        {"option": "Downgrade model to 3b", "action": "model_downgrade", "speed": 2, "eta_seconds": 5, "owner": "local", "detail": "Switch to qwen2.5:3b for current stage"},
+        {"option": "Serialize local roles", "action": "serialize", "speed": 3, "eta_seconds": 8, "owner": "local", "detail": "Keep the run local and cut parallel pressure immediately"},
     ],
     "cpu_ceiling": [
         {"option": "Serialize parallel roles", "action": "serialize", "speed": 1, "eta_seconds": 5, "owner": "local", "detail": "Run roles sequentially"},
         {"option": "Reduce Ollama parallelism", "action": "reduce_parallel", "speed": 2, "eta_seconds": 8, "owner": "local", "detail": "Set ollama_num_parallel=1"},
-        {"option": "Cloud takeover", "action": "takeover", "speed": 3, "eta_seconds": 30, "owner": "codex/claude", "detail": "Route to Claude/Codex"},
+        {"option": "Switch to fast local profile", "action": "fast_profile", "speed": 3, "eta_seconds": 12, "owner": "local", "detail": "Use fewer local roles until CPU headroom recovers"},
     ],
     "roi_kill_switch": [
         {"option": "Reset ROI and retry with lighter config", "action": "reset_roi", "speed": 1, "eta_seconds": 3, "owner": "local", "detail": "Clear negative events, switch to fast profile"},
-        {"option": "Skip to cloud session", "action": "takeover", "speed": 2, "eta_seconds": 20, "owner": "codex/claude", "detail": "Cloud session completes while local learns"},
-        {"option": "Re-plan with smaller scope", "action": "replan", "speed": 3, "eta_seconds": 60, "owner": "lead", "detail": "Break task into smaller pieces"},
+        {"option": "Re-plan with smaller scope", "action": "replan", "speed": 2, "eta_seconds": 20, "owner": "local", "detail": "Break task into smaller local pieces"},
+        {"option": "Skip non-critical roles", "action": "skip_roles", "speed": 3, "eta_seconds": 25, "owner": "local", "detail": "Stay local and finish the smallest useful slice"},
     ],
     "stale_lock": [
         {"option": "Kill stale process and release lock", "action": "kill_stale", "speed": 1, "eta_seconds": 2, "owner": "local", "detail": "Remove run.lock, continue"},
         {"option": "Wait 10s then force-release", "action": "wait_release", "speed": 2, "eta_seconds": 12, "owner": "local", "detail": "Grace period then force"},
-        {"option": "Run in parallel cloud session", "action": "takeover", "speed": 3, "eta_seconds": 25, "owner": "cursor/codex/claude", "detail": "Don't wait, start cloud now"},
+        {"option": "Refresh stale progress", "action": "refresh_progress", "speed": 3, "eta_seconds": 15, "owner": "local", "detail": "Reset stale session files and keep the runtime local"},
     ],
     "generic_output": [
-        {"option": "Retry with stronger model", "action": "upgrade_model", "speed": 1, "eta_seconds": 15, "owner": "local/github_models", "detail": "Use deepseek-r1:8b instead of 3b"},
+        {"option": "Retry with stronger local model", "action": "upgrade_model", "speed": 1, "eta_seconds": 15, "owner": "local", "detail": "Use deepseek-r1:8b instead of 3b"},
         {"option": "Inject more context", "action": "expand_context", "speed": 2, "eta_seconds": 20, "owner": "local", "detail": "Increase prompt budget for this stage"},
-        {"option": "Route to cloud model", "action": "takeover", "speed": 3, "eta_seconds": 30, "owner": "github_models", "detail": "Use GPT-4.1 via GitHub Models"},
+        {"option": "Re-plan the current stage", "action": "replan", "speed": 3, "eta_seconds": 25, "owner": "local", "detail": "Tighten the stage scope before retrying locally"},
     ],
     "timeout": [
         {"option": "Switch to fast profile", "action": "fast_profile", "speed": 1, "eta_seconds": 5, "owner": "local", "detail": "Use fast profile with fewer roles"},
         {"option": "Skip non-critical roles", "action": "skip_roles", "speed": 2, "eta_seconds": 8, "owner": "lead", "detail": "Jump to summarizer from current state"},
-        {"option": "Cloud takeover", "action": "takeover", "speed": 3, "eta_seconds": 30, "owner": "codex", "detail": "Hand remaining work to Codex"},
+        {"option": "Reduce parallelism", "action": "reduce_parallel", "speed": 3, "eta_seconds": 12, "owner": "local", "detail": "Keep the timeout path local and lighter"},
     ],
     "stale_progress": [
         {"option": "Clear stale progress and re-run preflight", "action": "refresh_progress", "speed": 1, "eta_seconds": 4, "owner": "local", "detail": "Reset stale session/progress state and restart immediately"},
-        {"option": "Force cloud takeover", "action": "takeover", "speed": 2, "eta_seconds": 20, "owner": "claude/codex", "detail": "Send the stuck remainder to Claude/Codex right now"},
-        {"option": "Force-release stale lock", "action": "kill_stale", "speed": 3, "eta_seconds": 8, "owner": "local", "detail": "Delete stale lock/session leftovers so local can resume"},
+        {"option": "Force-release stale lock", "action": "kill_stale", "speed": 2, "eta_seconds": 8, "owner": "local", "detail": "Delete stale lock/session leftovers so local can resume"},
+        {"option": "Switch to fast local profile", "action": "fast_profile", "speed": 3, "eta_seconds": 12, "owner": "local", "detail": "Retry locally with fewer active roles"},
     ],
     "default": [
         {"option": "Retry with current config", "action": "retry", "speed": 1, "eta_seconds": 10, "owner": "local", "detail": "Simple retry"},
         {"option": "Downgrade and retry", "action": "model_downgrade", "speed": 2, "eta_seconds": 15, "owner": "local", "detail": "Use lighter model"},
-        {"option": "Cloud takeover", "action": "takeover", "speed": 3, "eta_seconds": 30, "owner": "claude/codex", "detail": "Route to Claude/Codex"},
+        {"option": "Re-plan locally", "action": "replan", "speed": 3, "eta_seconds": 20, "owner": "local", "detail": "Cut scope and keep the run fully local"},
     ],
 }
 
@@ -127,13 +128,21 @@ def classify_blocker(context: dict) -> str:
         return "cpu_ceiling"
 
     overall = progress.get("overall", {})
+    updated_at = _parse_iso(progress.get("updated_at"))
+    stale_age = (datetime.now() - updated_at).total_seconds() if updated_at else None
+    has_started_stage = any(
+        stage.get("started_at") or stage.get("percent", 0) or stage.get("detail")
+        for stage in progress.get("stages", [])
+    )
     if overall.get("status") == "running":
-        updated_at = _parse_iso(progress.get("updated_at"))
-        if updated_at and (datetime.now() - updated_at).total_seconds() >= 15 and not lock.get("pid"):
+        if stale_age is not None and stale_age >= 15 and not lock.get("pid"):
             return "stale_progress"
         # Check for stall
         if lock.get("pid") and not _pid_alive(int(lock["pid"])):
             return "stale_lock"
+    if overall.get("status") in {"idle", "pending", "stale", ""} and has_started_stage:
+        if stale_age is not None and stale_age >= 30 and not lock.get("pid"):
+            return "stale_progress"
 
     return "default"
 
@@ -177,14 +186,14 @@ def auto_resolve(context: dict) -> dict:
 
 def execute_resolution(action: str, context: dict) -> str:
     """Execute a resolution action. Returns status message."""
+    if action == "unload_ollama":
+        return unload_ollama_models()
     if action == "model_downgrade":
         return "Switched to lighter model (qwen2.5:3b)"
     elif action == "serialize":
         return "Serialized parallel work to reduce resource pressure"
     elif action == "takeover":
-        task = context.get("task", "")
-        repo = context.get("target_repo", "")
-        return f'Cloud takeover: codex "{repo}" "{task}"'
+        return "Remote takeover disabled. Keeping the blocker on the local path."
     elif action == "reset_roi":
         roi_path = REPO_ROOT / "state" / "roi-metrics.json"
         roi_path.write_text(json.dumps({
@@ -231,6 +240,25 @@ def execute_resolution(action: str, context: dict) -> str:
         return "Re-planning with smaller task scope"
     else:
         return f"Retrying with action: {action}"
+
+
+def unload_ollama_models() -> str:
+    try:
+        result = subprocess.run(["ollama", "ps"], capture_output=True, text=True, check=False)
+    except OSError:
+        return "Ollama CLI unavailable; unable to unload resident models"
+    names = []
+    for line in result.stdout.splitlines()[1:]:
+        parts = line.split()
+        if parts:
+            names.append(parts[0])
+    if not names:
+        return "No resident Ollama models to unload"
+    stopped = []
+    for name in names:
+        subprocess.run(["ollama", "stop", name], capture_output=True, text=True, check=False)
+        stopped.append(name)
+    return f"Unloaded Ollama models: {', '.join(stopped)}"
 
 
 def report(context: dict | None = None) -> str:
