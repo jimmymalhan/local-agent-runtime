@@ -87,6 +87,12 @@ Important note on context:
 
 All modes stay at `70%` CPU and `70%` memory. The difference between modes is orchestration depth, prompt budget, retries, and how much structured critique the team performs.
 
+If the runtime sits above those ceilings for too long, it no longer waits forever. It records the stall in `feedback/prompt-log.md` and `feedback/workflow-evolution.md`, flips the live execution split to cloud takeover, and emits a concrete Codex/Claude handoff command for the unfinished task.
+
+Before it reaches that takeover point, it now also downgrades parallel groups to a single local worker when CPU or memory headroom is already too tight. That teaches the runtime to stop repeating the same “parallelize into a ceiling, then stall” mistake.
+
+`fast` mode is now aggressive about forward motion: short lock waits, short resource waits, and lighter fallback models under pressure. The runtime should either keep moving with a smaller local step or hand off quickly instead of sitting idle.
+
 `exhaustive` is the most detailed mode, but it still respects the same 70 percent ceiling.
 
 ROI profile guidance:

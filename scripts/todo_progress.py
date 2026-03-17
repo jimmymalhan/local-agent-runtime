@@ -91,6 +91,7 @@ def parse_todo(path: pathlib.Path = TODO_PATH):
     total_items = sum(section["total"] for section in sections)
     lanes = lane_summary(sections)
     use_cases = use_case_summary(sections)
+    open_items = open_item_summary(sections)
     return {
         "overall": {
             "done": total_done,
@@ -100,6 +101,7 @@ def parse_todo(path: pathlib.Path = TODO_PATH):
         },
         "lanes": lanes,
         "use_cases": use_cases,
+        "focus": open_items,
         "sections": sections,
     }
 
@@ -155,6 +157,33 @@ def use_case_summary(sections):
     return summary
 
 
+def open_item_summary(sections):
+    items = []
+    for section in sections:
+        for item in section["items"]:
+            if item["done"]:
+                continue
+            items.append(
+                {
+                    "section": section["name"],
+                    "text": item["text"],
+                    "lane": item["lane"],
+                    "use_case": item["use_case"],
+                }
+            )
+    return {
+        "overall": items,
+        "lanes": {name: [item for item in items if item["lane"] == name] for name in LANE_ORDER},
+        "use_cases": {name: [item for item in items if item["use_case"] == name] for name in USE_CASE_ORDER},
+    }
+
+
+def focus_label(item):
+    lane = item["lane"]
+    use_case = item["use_case"]
+    return f"[{lane}/{use_case}] {item['section']}: {item['text']}"
+
+
 def render_report(data) -> str:
     overall = data["overall"]
     lines = [
@@ -183,6 +212,11 @@ def render_report(data) -> str:
         lines.append(
             f"- {section['name']}: {render_bar(section['percent'], 20)} {section['percent']:5.1f}% | done {section['done']} / total {section['total']} | open {section['open']}"
         )
+    focus = data.get("focus", {}).get("overall", [])
+    if focus:
+        lines.append("OPEN FOCUS")
+        for item in focus[:5]:
+            lines.append(f"- {focus_label(item)}")
     return "\n".join(lines)
 
 

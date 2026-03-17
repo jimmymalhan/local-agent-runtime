@@ -45,7 +45,7 @@
     "common_plan_chars": 60000
   },
   "num_ctx": 32768,
-  "lock_wait_seconds": 180,
+  "lock_wait_seconds": 15,
   "profiles": {
     "fast": {
       "description": "Lowest-cost local profile: shared plan first, then only the highest-ROI roles for quick answers and light changes.",
@@ -74,7 +74,16 @@
       "max_parallel_roles": 2,
       "num_ctx": 8192,
       "temperature": 0.1,
-      "retry_generic_output": 1
+      "retry_generic_output": 1,
+      "lock_wait_seconds": 8,
+      "resource_limits": {
+        "poll_seconds": 1,
+        "takeover_wait_seconds": 8,
+        "parallel_headroom_cpu_percent": 45,
+        "parallel_headroom_memory_percent": 45,
+        "model_downgrade_cpu_percent": 40,
+        "model_downgrade_memory_percent": 40
+      }
     },
     "balanced": {
       "description": "ROI-balanced local team: full build path, but with lighter critique and fewer low-yield side roles under the 70 percent machine budget.",
@@ -372,6 +381,11 @@
     "cpu_percent": 70,
     "memory_percent": 70,
     "poll_seconds": 2,
+    "takeover_wait_seconds": 45,
+    "parallel_headroom_cpu_percent": 55,
+    "parallel_headroom_memory_percent": 55,
+    "model_downgrade_cpu_percent": 50,
+    "model_downgrade_memory_percent": 50,
     "ollama_num_parallel": 3,
     "ollama_max_loaded_models": 3,
     "ollama_keep_alive": "10m"
