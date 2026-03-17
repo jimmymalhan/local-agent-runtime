@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.3 - 2026-03-17
+
+- fix(shell): ensure `claude` uses real Claude CLI by default, not local agent
+- add `scripts/fix_shell_claude_codex.sh` to comment out local-agent overrides and restore real CLI
+- add `scripts/use_real_claude.sh` to clear cached claude/codex functions in current shell
+- add `scripts/claude_cli_reinstall.sh` for clean uninstall/reinstall of Claude CLI
+- docs: clarify in SESSION_COMMANDS.md that claude=real CLI by default; local agent is opt-in
+
 ## 0.2.2 - 2026-03-16
 
 - prevent `scripts/session_compare.py` from starting parallel persona runs when another task already holds `state/run.lock`
