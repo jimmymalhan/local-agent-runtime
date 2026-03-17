@@ -32,12 +32,16 @@ This runtime currently uses the local Ollama models installed on this machine:
 
 These models are assigned different roles so they work like a team:
 
-- `Researcher` and `Retriever`: `llama3.2:3b`
-- `Planner`, `Architect`, `Reviewer`, `Benchmarker`, `QA`, `Summarizer`: `deepseek-r1:8b`
-- `Tester`: `qwen2.5-coder:7b`
-- `Debugger`, `Optimizer`, `User Acceptance`: `gemma3:4b`
-- `Implementer`: `qwen2.5-coder:7b`
+- `Researcher`, `Retriever`, `Optimizer`, `User Acceptance`: `qwen2.5:3b`
+- `Planner`, `Reviewer`, `Benchmarker`, `QA`, `Summarizer`: `deepseek-r1:8b`
+- `Architect`, `Implementer`, `Tester`, `Debugger`: `qwen2.5-coder:7b`
 - `Embeddings`: `nomic-embed-text:latest`
+
+This is the current ROI-oriented assignment:
+
+- keep `deepseek-r1:8b` on the highest-leverage reasoning and judgment gates
+- keep `qwen2.5-coder:7b` on code generation, architecture shaping, testing, and final response writing
+- move lower-cost comparison and optimization work onto `qwen2.5:3b`
 
 ## Quick Start
 
@@ -84,6 +88,13 @@ Important note on context:
 All modes stay at `70%` CPU and `70%` memory. The difference between modes is orchestration depth, prompt budget, retries, and how much structured critique the team performs.
 
 `exhaustive` is the most detailed mode, but it still respects the same 70 percent ceiling.
+
+ROI profile guidance:
+
+- `fast` trims the team to planning, implementation, and final answer roles so cheap tasks stay cheap.
+- `balanced` keeps the core build-and-review path, but skips some lower-yield side roles.
+- `deep` keeps stronger critique for user-visible quality, while still avoiding exhaustive-cost behavior.
+- `exhaustive` is still the slow path for maximum local depth when ROI matters less than completeness.
 
 ## Core Commands
 

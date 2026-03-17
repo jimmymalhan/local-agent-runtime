@@ -84,6 +84,33 @@ class TodoProgressTests(unittest.TestCase):
         self.assertEqual(parsed["lanes"]["cloud"]["open"], 1)
         self.assertEqual(parsed["lanes"]["general"]["total"], 1)
 
+    def test_parse_todo_tracks_use_case_breakdown(self):
+        body = textwrap.dedent(
+            """\
+            # TODO List
+
+            ## UX polish
+            - [x] Improve response style for user sessions
+
+            ## Business goals
+            - [ ] keep the runtime free to run the business
+
+            ## Runtime
+            - [x] tighten local runtime review flow
+            """
+        )
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "todo.md"
+            path.write_text(body)
+            parsed = parse_todo(path)
+
+        self.assertEqual(parsed["use_cases"]["product"]["done"], 1)
+        self.assertEqual(parsed["use_cases"]["business"]["open"], 1)
+        self.assertEqual(parsed["use_cases"]["technical"]["done"], 1)
+        report = render_report(parsed)
+        self.assertIn("Product use cases", report)
+        self.assertIn("Business use cases", report)
+
 
 if __name__ == "__main__":
     unittest.main()
