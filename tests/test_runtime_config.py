@@ -12,13 +12,13 @@ REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
 class RuntimeConfigTests(unittest.TestCase):
     def test_resource_wait_takeover_default_is_bounded(self):
         cfg = json.loads((REPO_ROOT / "config" / "runtime.json").read_text())
-        self.assertEqual(cfg["resource_limits"]["takeover_wait_seconds"], 45)
-        self.assertEqual(cfg["resource_limits"]["max_resource_wait_events"], 6)
-        self.assertEqual(cfg["resource_limits"]["parallel_headroom_cpu_percent"], 55)
-        self.assertEqual(cfg["resource_limits"]["parallel_headroom_memory_percent"], 55)
+        self.assertEqual(cfg["resource_limits"]["takeover_wait_seconds"], 30)
+        self.assertEqual(cfg["resource_limits"]["max_resource_wait_events"], 4)
+        self.assertEqual(cfg["resource_limits"]["parallel_headroom_cpu_percent"], 70)
+        self.assertEqual(cfg["resource_limits"]["parallel_headroom_memory_percent"], 70)
         self.assertEqual(cfg["lock_wait_seconds"], 15)
-        self.assertEqual(cfg["resource_limits"]["model_downgrade_cpu_percent"], 50)
-        self.assertEqual(cfg["resource_limits"]["model_downgrade_memory_percent"], 50)
+        self.assertEqual(cfg["resource_limits"]["model_downgrade_cpu_percent"], 60)
+        self.assertEqual(cfg["resource_limits"]["model_downgrade_memory_percent"], 60)
         self.assertTrue(cfg["roi"]["kill_switch_enabled"])
         self.assertEqual(cfg["roi"]["negative_trend_window"], 6)
         self.assertEqual(cfg["roi"]["negative_trend_threshold"], 3)
@@ -28,11 +28,11 @@ class RuntimeConfigTests(unittest.TestCase):
         cfg = json.loads((REPO_ROOT / "config" / "runtime.json").read_text())
         fast = cfg["profiles"]["fast"]
         self.assertEqual(fast["lock_wait_seconds"], 8)
-        self.assertEqual(fast["resource_limits"]["takeover_wait_seconds"], 4)
-        self.assertEqual(fast["resource_limits"]["max_resource_wait_events"], 2)
+        self.assertEqual(fast["resource_limits"]["takeover_wait_seconds"], 8)
+        self.assertEqual(fast["resource_limits"]["max_resource_wait_events"], 3)
         self.assertEqual(fast["resource_limits"]["poll_seconds"], 1)
-        self.assertEqual(fast["resource_limits"]["parallel_headroom_cpu_percent"], 45)
-        self.assertEqual(fast["resource_limits"]["parallel_headroom_memory_percent"], 45)
+        self.assertEqual(fast["resource_limits"]["parallel_headroom_cpu_percent"], 65)
+        self.assertEqual(fast["resource_limits"]["parallel_headroom_memory_percent"], 65)
 
     def test_roi_model_assignment_uses_heavy_reasoning_only_on_high_leverage_roles(self):
         cfg = json.loads((REPO_ROOT / "config" / "runtime.json").read_text())
