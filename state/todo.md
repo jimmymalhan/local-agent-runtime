@@ -29,6 +29,15 @@
 - [x] Initialize git for `local-agent-runtime` and publish it as a private reusable template.
 - [x] Create, merge, and clean up feature PRs for the runtime rename, status UX, CI, and checkpoint migration work.
 
+## Optimization Sprint
+
+- [ ] [shared] Plan the local-runtime hardening pass around project-only checkpoints, common-plan-first coordination, and faster takeover on stalls.
+- [ ] [local] Fix checkpoint scope so only the target project is checkpointed and the runtime repo never self-checkpoints.
+- [ ] [local] Tighten the lead/common-plan/skill-routing prompt contract so local agents coordinate like a Codex-style CLI session.
+- [ ] [local] Reduce idle waiting: stop stalling on resource pressure, downgrade or hand off sooner, and record the runtime lesson.
+- [ ] [shared] Validate the updated live status view so it shows current focus, local-vs-cloud split, and product/business progress from `state/todo.md`.
+- [ ] [cloud] Run the same action through local-codex and local-claude, capture feedback, and iterate before marking the sprint done.
+
 ## Claude/Codex Sessions + Local Agents (in progress)
 
 - [x] Plan: session-first flow, claude/codex run local agents after spinning up
