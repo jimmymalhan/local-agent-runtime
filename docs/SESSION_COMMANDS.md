@@ -1,5 +1,15 @@
 # Session Commands: Codex, Claude, Cursor vs Local Agent
 
+## Default: `claude` = Real Claude CLI
+
+**By default, `claude` should start the real Claude CLI (Anthropic's app), not the local agent.**
+
+- `claude` → real Claude Code CLI (Anthropic)
+- `codex` → real Codex CLI
+- `cursor` → Cursor IDE
+
+Use `./local-claude`, `./local-codex`, or `./Local` **only when you explicitly want** the local Ollama agent.
+
 ## Opening Codex, Claude, or Cursor
 
 Codex, Claude, and Cursor run independently of the local agent. When you type `claude`, `codex`, or `cursor` in chat, the AI should help you open that app, not the local agent.
@@ -20,7 +30,11 @@ bash scripts/fix_shell_claude_codex.sh --fix
 Then either **open a new terminal** or in the same shell run:
 
 ```bash
+# Option A: One-liner (clears cached functions, then reloads .zshrc)
 unset -f codex claude 2>/dev/null; source ~/.zshrc
+
+# Option B: Helper script (must be sourced, not just run)
+source scripts/use_real_claude.sh
 ```
 
 `source ~/.zshrc` alone does *not* remove already-defined functions—they persist until you `unset -f` them or start a fresh shell. After that, `claude` and `codex` resolve to the real apps (or "command not found" if not installed).
