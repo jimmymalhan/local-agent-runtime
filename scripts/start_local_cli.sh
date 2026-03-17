@@ -3,6 +3,7 @@ set -uo pipefail
 
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 REPO_ROOT=$(cd "$SCRIPT_DIR/.." && pwd)
+. "$SCRIPT_DIR/checkpoint_paths.sh"
 TARGET_REPO=${LOCAL_AGENT_TARGET_REPO:-$PWD}
 LOCAL_AGENT_MODE=${LOCAL_AGENT_MODE:-$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1])).get("default_profile", "balanced"))' "$REPO_ROOT/config/runtime.json")}
 LOCAL_AGENT_AUTO_REVIEW=${LOCAL_AGENT_AUTO_REVIEW:-1}
@@ -335,7 +336,10 @@ show_doctor() {
   show_status || true
   echo
   echo "== latest checkpoint =="
-  ls -ld "$REPO_ROOT/checkpoints/latest" 2>/dev/null || echo "No latest checkpoint"
+  local checkpoint_root_path
+  checkpoint_root_path=$(checkpoint_root)
+  migrate_legacy_checkpoints
+  ls -ld "$checkpoint_root_path/latest" 2>/dev/null || echo "No latest checkpoint"
   echo
   echo "== interactive sessions =="
   python3 "$SCRIPT_DIR/session_health.py" || true
@@ -448,6 +452,7 @@ list_matching_files() {
   if command -v rg >/dev/null 2>&1; then
     rg --files "$repo" \
       -g '!checkpoints/**' \
+      -g '!state/checkpoints/**' \
       -g '!logs/**' \
       -g '!memory/**' \
       -g '!**/__pycache__/**' | rg -i "$pattern" || true
@@ -467,6 +472,7 @@ search_repo() {
     rg -n --hidden \
       --glob '!.git' \
       --glob '!checkpoints/**' \
+      --glob '!state/checkpoints/**' \
       --glob '!logs/**' \
       --glob '!memory/**' \
       --glob '!**/__pycache__/**' \
@@ -516,7 +522,9 @@ copy_latest_response() {
 }
 
 undo_latest() {
-  local latest="$REPO_ROOT/checkpoints/latest"
+  local latest
+  migrate_legacy_checkpoints
+  latest="$(checkpoint_root)/latest"
   if [ ! -d "$latest" ] || [ ! -L "$latest" ]; then
     echo "No checkpoint to restore. Create one with /checkpoint first." >&2
     return 1

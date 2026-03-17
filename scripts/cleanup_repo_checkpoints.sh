@@ -4,8 +4,11 @@
 set -euo pipefail
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 REPO_ROOT=$(cd "$SCRIPT_DIR/.." && pwd)
-CHECKPOINT_ROOT="$REPO_ROOT/checkpoints"
+. "$SCRIPT_DIR/checkpoint_paths.sh"
+CHECKPOINT_ROOT=$(checkpoint_root)
 REPO_CANON=$(cd "$REPO_ROOT" && pwd)
+
+migrate_legacy_checkpoints
 
 removed=0
 for dir in "$CHECKPOINT_ROOT"/*/; do
@@ -24,12 +27,7 @@ done
 
 # Fix 'latest' symlink if it pointed to removed checkpoint
 if [ -L "$CHECKPOINT_ROOT/latest" ] && [ ! -e "$CHECKPOINT_ROOT/latest" ]; then
-  newest=$(ls -td "$CHECKPOINT_ROOT"/*/ 2>/dev/null | head -n1)
-  if [ -n "$newest" ]; then
-    ln -sfn "$newest" "$CHECKPOINT_ROOT/latest"
-  else
-    rm -f "$CHECKPOINT_ROOT/latest"
-  fi
+  refresh_latest_checkpoint_link "$CHECKPOINT_ROOT"
 fi
 
 echo "Removed $removed checkpoint(s) for this repo."
