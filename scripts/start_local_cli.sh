@@ -310,7 +310,7 @@ restore_checkpoint() {
     echo "Usage: /restore <checkpoint>" >&2
     return 1
   fi
-  bash "$SCRIPT_DIR/restore_checkpoint.sh" "$ref" "${LOCAL_AGENT_TARGET_REPO:-$REPO_ROOT}"
+  LOCAL_AGENT_APPROVE_ACTIONS=restore bash "$SCRIPT_DIR/restore_checkpoint.sh" "$ref" "${LOCAL_AGENT_TARGET_REPO:-$REPO_ROOT}"
 }
 
 review_current_changes() {
@@ -546,7 +546,7 @@ undo_latest() {
     echo "No checkpoint to restore. Create one with /checkpoint first." >&2
     return 1
   fi
-  bash "$SCRIPT_DIR/restore_checkpoint.sh" "$latest" "${LOCAL_AGENT_TARGET_REPO:-$REPO_ROOT}"
+  LOCAL_AGENT_APPROVE_ACTIONS=restore bash "$SCRIPT_DIR/restore_checkpoint.sh" "$latest" "${LOCAL_AGENT_TARGET_REPO:-$REPO_ROOT}"
   echo "Restored from latest checkpoint."
 }
 
