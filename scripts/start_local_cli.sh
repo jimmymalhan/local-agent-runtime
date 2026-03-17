@@ -55,6 +55,7 @@ Slash commands:
   /repair                    run the local self-repair analysis loop
   /release                   run the final QA + user acceptance gate
   /doctor                    inspect local runtime and session health
+  /governance                show GitHub main-branch protection / ruleset status
   /pipeline <task>           run the local model pipeline
   /diff                      show target repo status and diff summary
   /files <pattern>           list matching files in the target repo
@@ -156,6 +157,10 @@ PY
 
 show_status() {
   python3 "$SCRIPT_DIR/resource_status.py"
+}
+
+show_governance() {
+  python3 "$SCRIPT_DIR/github_governance.py"
 }
 
 watch_progress() {
@@ -882,6 +887,9 @@ while true; do
       ;;
     /doctor)
       show_doctor
+      ;;
+    /governance)
+      show_governance
       ;;
     /plan\ *)
       task=${user_input#"/plan "}
