@@ -24,6 +24,12 @@ class ResponseContractTests(unittest.TestCase):
         self.assertIn('Assembling repo context', content)
         self.assertIn('Runtime ready', content)
 
+    def test_live_status_mentions_elapsed_time_and_execution_mix(self):
+        content = (REPO_ROOT / "scripts" / "team_status.py").read_text()
+        self.assertIn("Working (", content)
+        self.assertIn("EXECUTION", content)
+        self.assertIn("cloud_session", content)
+
 
 if __name__ == "__main__":
     unittest.main()

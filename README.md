@@ -136,6 +136,8 @@ Inside `bash ./Local`:
 /skills
 /workflows
 /todo
+/todo-progress
+/todo-watch
 /ledger
 /compact
 /undo
@@ -146,10 +148,17 @@ Inside `bash ./Local`:
 /personality [style]
 /debug-config
 /mcp
+/session-compare <task>
 /exit
 ```
 
 Plain text input is treated as `/pipeline <task>`.
+
+`/todo-progress` and `/todo-watch` read `state/todo.md` and show project/task completion bars directly from the checklist instead of the active model run. They also split work into `local`, `cloud`, `shared`, and `general` lanes so the terminal can track local-agent work separately from cloud-session takeover work.
+
+`/live` now shows a Codex-style working header with elapsed time plus the current local-vs-cloud execution split.
+
+`/session-compare <task>` runs the same local-only task through `local-codex` and `local-claude`, saves both outputs, and writes a compare report into `logs/session-compare-*/report.md` so you can capture feedback before calling the session UX done.
 
 ## Agent Autopilot
 

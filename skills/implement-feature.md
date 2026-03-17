@@ -12,6 +12,7 @@
 3. Show a diff summary of changes and capture it in `logs/` for review.
 4. Run a focused local review pass after implementation to validate edge cases and catch hallucinations.
 5. Check `/progress`, `/doctor`, or `/review` after large changes to confirm runtime health and output quality.
+6. Update `state/todo.md` when the implementation finishes or when the next blocking gap becomes clear so `/todo-progress` stays truthful.
 
 **Output Format:**
 ```text
