@@ -7,11 +7,26 @@ from scripts import local_team_run
 
 
 class TakeoverPolicyTests(unittest.TestCase):
+    def test_extra_skill_text_includes_codereview_pilot_style_evidence_for_retriever(self):
+        text = local_team_run.extra_skill_text_for("retriever", "diagnose the failure")
+        self.assertIn("Evidence-proof skill for local agents", text)
+        self.assertIn("collect proof, not opinions", text)
+
+    def test_extra_skill_text_includes_counter_analysis_for_reviewer(self):
+        text = local_team_run.extra_skill_text_for("reviewer", "review the change")
+        self.assertIn("Counter-analysis skill for local agents", text)
+        self.assertIn("materially different alternatives", text)
+
+    def test_extra_skill_text_includes_change_safety_for_implementer(self):
+        text = local_team_run.extra_skill_text_for("implementer", "implement the fix")
+        self.assertIn("Change-safety skill for local agents", text)
+        self.assertIn("smallest diff", text)
+
     def test_takeover_message_includes_reason_and_command(self):
         target = pathlib.Path("/tmp/demo")
         message = local_team_run.takeover_message(target, "finish the task", "resource ceiling wait exceeded", "mem high")
         self.assertIn("resource ceiling wait exceeded", message)
-        self.assertIn('codex "/tmp/demo" "finish the task"', message)
+        self.assertIn('Local "/demo" "finish the task"', message)
         self.assertIn("mem high", message)
 
     def test_record_runtime_lesson_appends_feedback_entry(self):
@@ -75,14 +90,14 @@ class TakeoverPolicyTests(unittest.TestCase):
                 "finish the task",
                 target_repo.resolve(),
                 "resource ceiling wait budget exceeded",
-                local_percent=0.0,
-                cloud_percent=100.0,
+                local_percent=100.0,
+                cloud_percent=0.0,
             )
             record_lesson.assert_called_once()
             self.assertIn(str(target_repo.resolve()), str(record_lesson.call_args))
             self.assertIn("reduce parallelism", str(record_lesson.call_args))
-            self.assertIn('codex "', str(ctx.exception))
-            self.assertIn(str(target_repo.resolve()), str(ctx.exception))
+            self.assertIn('Local "/target"', str(ctx.exception))
+            self.assertIn("Recommended next local run", str(ctx.exception))
 
     def test_resource_wait_budget_triggers_takeover_before_long_timeout(self):
         runtime = {
