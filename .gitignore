@@ -9,6 +9,7 @@ state/model-registry.json
 state/session-state.json
 state/session-history.jsonl
 state/run.lock
+state/progress.lock
 state/runtime.env
 state/session-summary.md
 state/common-plan.md
@@ -16,6 +17,7 @@ state/feedback-sessions.md
 state/slowdown.flag
 scripts/__pycache__/
 tests/__pycache__/
+mcp-local-runtime/__pycache__/
 !logs/.gitkeep
 !memory/.gitkeep
 !context/.gitkeep
