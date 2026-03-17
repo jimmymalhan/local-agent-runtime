@@ -29,6 +29,7 @@ class ResponseContractTests(unittest.TestCase):
         self.assertIn("Working (", content)
         self.assertIn("EXECUTION", content)
         self.assertIn("cloud_session", content)
+        self.assertIn('overall_status == "running"', content)
 
 
 if __name__ == "__main__":
