@@ -80,6 +80,7 @@ class CheckpointFlowTests(unittest.TestCase):
                 ["bash", str(REPO_ROOT / "scripts" / "restore_checkpoint.sh"), legacy_dir.name, str(target)],
                 capture_output=True,
                 text=True,
+                env={**__import__("os").environ, "LOCAL_AGENT_APPROVE_ACTIONS": "restore"},
                 check=True,
             )
 
@@ -100,6 +101,64 @@ class CheckpointFlowTests(unittest.TestCase):
 
         self.assertEqual(result.stdout.strip(), "(skipped)")
         self.assertFalse((REPO_ROOT / ".local-agent" / "checkpoints").exists())
+
+    def test_restore_checkpoint_supports_dry_run_preview(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            target = pathlib.Path(tmpdir) / "project"
+            target.mkdir()
+            (target / "sample.txt").write_text("current\n")
+
+            checkpoint = subprocess.run(
+                ["bash", str(REPO_ROOT / "scripts" / "create_checkpoint.sh"), "unit-test", str(target)],
+                capture_output=True,
+                text=True,
+                check=True,
+            )
+            checkpoint_path = pathlib.Path(checkpoint.stdout.strip().splitlines()[-1]).resolve()
+            self.created_paths.append(checkpoint_path)
+            self.created_paths.append(target / ".local-agent")
+            (target / "sample.txt").write_text("modified\n")
+
+            preview = subprocess.run(
+                ["bash", str(REPO_ROOT / "scripts" / "restore_checkpoint.sh"), "--dry-run", str(checkpoint_path), str(target)],
+                capture_output=True,
+                text=True,
+                check=True,
+            )
+
+            preview_path = pathlib.Path(preview.stdout.strip().splitlines()[-1]).resolve()
+            self.created_paths.append(preview_path)
+            self.assertTrue(preview_path.exists())
+            self.assertIn("Restore Dry Run", preview_path.read_text())
+            self.assertEqual((target / "sample.txt").read_text(), "modified\n")
+
+    def test_restore_checkpoint_blocks_without_destructive_approval(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            target = pathlib.Path(tmpdir) / "project"
+            target.mkdir()
+            (target / "keep.txt").write_text("keep\n")
+
+            checkpoint = subprocess.run(
+                ["bash", str(REPO_ROOT / "scripts" / "create_checkpoint.sh"), "unit-test", str(target)],
+                capture_output=True,
+                text=True,
+                check=True,
+            )
+            checkpoint_path = pathlib.Path(checkpoint.stdout.strip().splitlines()[-1]).resolve()
+            self.created_paths.append(checkpoint_path)
+            self.created_paths.append(target / ".local-agent")
+            (target / "delete-me.txt").write_text("remove\n")
+
+            blocked = subprocess.run(
+                ["bash", str(REPO_ROOT / "scripts" / "restore_checkpoint.sh"), str(checkpoint_path), str(target)],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+
+            self.assertEqual(blocked.returncode, 2)
+            self.assertIn("blocked pending approval", blocked.stderr)
+            self.assertTrue((target / "delete-me.txt").exists())
 
 
 if __name__ == "__main__":
