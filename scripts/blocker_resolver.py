@@ -62,7 +62,7 @@ ROLE_ETA_SECONDS = {
 }
 
 
-def estimate_completion(progress: dict, todo_stats: dict) -> dict:
+def estimate_completion(progress: dict, todo_stats: dict, session_count: int = 3) -> dict:
     """Estimate aggressive ETAs for pipeline and todo completion."""
     stages = progress.get("stages", [])
     remaining_roles = [s for s in stages if s.get("status") not in ("completed", "skipped")]
@@ -73,7 +73,7 @@ def estimate_completion(progress: dict, todo_stats: dict) -> dict:
     done = todo_stats.get("done", 0)
     open_count = todo_stats.get("open", 0)
     # Aggressive: assume parallel work across sessions cuts time
-    sessions_active = max(1, 3)  # assume 3 sessions (local + claude + cursor)
+    sessions_active = max(1, session_count)
     todo_eta_minutes = max(1, (open_count * 3) // sessions_active)  # 3 min avg per task, divided by sessions
 
     return {

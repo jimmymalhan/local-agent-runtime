@@ -170,7 +170,8 @@ def _compute_etas() -> dict:
         from blocker_resolver import estimate_completion
         progress = load_json(REPO_ROOT / "state" / "progress.json")
         todo = _load_todo()
-        return estimate_completion(progress, todo.get("stats", {}))
+        sessions = _detect_sessions()
+        return estimate_completion(progress, todo.get("stats", {}), session_count=max(1, len(sessions)))
     except Exception:
         return {}
 
