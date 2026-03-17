@@ -31,11 +31,11 @@
 
 ## Optimization Sprint
 
-- [ ] [shared] Plan the local-runtime hardening pass around project-only checkpoints, common-plan-first coordination, and faster takeover on stalls.
-- [ ] [local] Fix checkpoint scope so only the target project is checkpointed and the runtime repo never self-checkpoints.
-- [ ] [local] Tighten the lead/common-plan/skill-routing prompt contract so local agents coordinate like a Codex-style CLI session.
-- [ ] [local] Reduce idle waiting: stop stalling on resource pressure, downgrade or hand off sooner, and record the runtime lesson.
-- [ ] [shared] Validate the updated live status view so it shows current focus, local-vs-cloud split, and product/business progress from `state/todo.md`.
+- [x] [shared] Plan the local-runtime hardening pass around project-only checkpoints, common-plan-first coordination, and faster takeover on stalls.
+- [x] [local] Fix checkpoint scope so only the target project is checkpointed and the runtime repo never self-checkpoints.
+- [x] [local] Tighten the lead/common-plan/skill-routing prompt contract so local agents coordinate like a Codex-style CLI session.
+- [x] [local] Reduce idle waiting: stop stalling on resource pressure, downgrade or hand off sooner, and record the runtime lesson.
+- [x] [shared] Validate the updated live status view so it shows current focus, local-vs-cloud split, and product/business progress from `state/todo.md`.
 - [ ] [cloud] Run the same action through local-codex and local-claude, capture feedback, and iterate before marking the sprint done.
 
 ## GitHub Governance Sprint
@@ -62,6 +62,14 @@ See `state/plan-claude-codex-sessions.md` for full plan.
 - [x] **User test:** Run `claude` and `codex` in separate terminals, same action in both, use `/feedback <text>`
 - [x] Iterate from `state/feedback-sessions.md` until approved
 - See `state/plan-claude-codex-sessions.md` for full plan.
+
+## Claude = Real CLI (not local agent) — Priority
+
+- [ ] **Plan**: `claude` must open the real Claude CLI by default; local agent only via `./local-claude` or `Local`.
+- [ ] **Fix**: Run `bash scripts/fix_shell_claude_codex.sh --fix`, then `unset -f codex claude 2>/dev/null; source ~/.zshrc` (or open new terminal).
+- [ ] **Verify**: `claude --version` shows real CLI (e.g. 2.1.77); `claude` starts Claude Code, not "Claude (local)".
+- [ ] **Docs**: Update SESSION_COMMANDS.md — claude=real CLI by default; use `./local-claude` for local agent.
+- [ ] **Teach**: Add skill so local agents know: when user asks for "claude", help open real Claude CLI, not local runtime.
 
 ## Current Focus
 

@@ -11,11 +11,19 @@ RC_FILE="${ZDOTDIR:-$HOME}/.zshrc"
 echo "=== Diagnosing claude/codex commands ==="
 echo ""
 echo "Current 'claude' resolves to:"
-(type claude 2>/dev/null || echo "  (not found)")
+CLAUDE_TYPE=$(type claude 2>/dev/null || echo "  (not found)")
+echo "$CLAUDE_TYPE"
 echo ""
 echo "Current 'codex' resolves to:"
-(type codex 2>/dev/null || echo "  (not found)")
+CODEX_TYPE=$(type codex 2>/dev/null || echo "  (not found)")
+echo "$CODEX_TYPE"
 echo ""
+if echo "$CLAUDE_TYPE $CODEX_TYPE" | grep -q "shell function"; then
+  echo "*** claude/codex are SHELL FUNCTIONS - they override the real CLI. ***"
+  echo "*** Run this to fix (or open a NEW terminal):                       ***"
+  echo "***   unset -f codex claude 2>/dev/null; source ~/.zshrc            ***"
+  echo ""
+fi
 echo "Checking $RC_FILE and ~/.local/bin for overrides..."
 echo ""
 
@@ -24,9 +32,18 @@ if [ -f "$RC_FILE" ]; then
 fi
 for cmd in claude codex; do
   p="$HOME/.local/bin/$cmd"
-  if [ -f "$p" ]; then
-    echo "  $p contents:"
-    head -3 "$p" | sed 's/^/    /'
+  if [ -f "$p" ] || [ -L "$p" ]; then
+    echo "  $p:"
+    if [ -L "$p" ]; then
+      echo "    -> $(readlink "$p")"
+    elif [ -f "$p" ]; then
+      sz=$(stat -f%z "$p" 2>/dev/null || stat -c%s "$p" 2>/dev/null || echo 0)
+      if [ "${sz:-0}" -lt 500 ] 2>/dev/null; then
+        head -3 "$p" 2>/dev/null | sed 's/^/    /' || echo "    (binary or unreadable)"
+      else
+        echo "    (binary, ${sz} bytes)"
+      fi
+    fi
   fi
 done
 
@@ -105,11 +122,26 @@ done
 
 if [ "$APPLIED" -eq 1 ]; then
   echo ""
-  echo "Done. Run one of:"
-  echo "  1. Open a NEW terminal (recommended - clears old function definitions)"
-  echo "  2. Run: unset -f codex claude 2>/dev/null; source $RC_FILE"
-  echo "Then: claude -> real Claude, codex -> real Codex"
-  echo "Use local-claude or local-codex when you want the local agent."
-else
+  echo "Done."
+  echo ""
+  echo "IMPORTANT: If claude/codex still opens local agent, the shell function is cached."
+  echo "  Run BOTH commands (in order):"
+  echo "    unset -f codex claude 2>/dev/null"
+  echo "    source ~/.zshrc"
+  echo "  OR open a brand NEW terminal tab/window."
+  echo ""
+  echo "Then: claude -> real Claude CLI, codex -> real Codex"
+  echo "Use ./local-claude or ./local-codex when you want the local Ollama agent."
+fi
+
+# If no changes but claude is a function, warn
+if [ "$APPLIED" -eq 0 ] && type claude 2>/dev/null | grep -q "shell function"; then
+  echo ""
+  echo "claude is a shell function (shadows real CLI). To use real Claude:"
+  echo "  unset -f claude codex 2>/dev/null; source ~/.zshrc"
+  echo "  OR open a new terminal."
+fi
+
+if [ "$APPLIED" -eq 0 ] && ! type claude 2>/dev/null | grep -q "shell function"; then
   echo "  No local-agent overrides found."
 fi
