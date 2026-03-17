@@ -1,0 +1,69 @@
+{
+  "description": "Quality benchmark corpus for local agent evaluation",
+  "version": "1.0.0",
+  "baseline_scores": {
+    "plan_accuracy": 70,
+    "code_correctness": 75,
+    "hallucination_rate": 80,
+    "composite": 74
+  },
+  "eval_cases": [
+    {
+      "id": "plan-accuracy-existing-files",
+      "category": "plan_accuracy",
+      "description": "Planner references only files that exist in the repo",
+      "input_task": "Add a new skill for code review",
+      "expected_paths": ["skills/validate-logic.md", "roles/review-role.md", "scripts/local_team_run.py"],
+      "invalid_paths": ["skills/nonexistent.md", "src/fake-module.js"],
+      "pass_threshold": 80,
+      "check": "All referenced file paths must resolve to real files in the repo tree"
+    },
+    {
+      "id": "file-path-correctness",
+      "category": "plan_accuracy",
+      "description": "Implementation output uses correct relative paths for edits",
+      "input_task": "Update the runtime configuration",
+      "expected_paths": ["config/runtime.json", "scripts/local_team_run.py"],
+      "invalid_paths": ["config/settings.yaml", "src/config.ts"],
+      "pass_threshold": 90,
+      "check": "File paths in code blocks and instructions must match actual repo structure"
+    },
+    {
+      "id": "non-hallucinated-commands",
+      "category": "hallucination_rate",
+      "description": "Output does not invent CLI commands or scripts that do not exist",
+      "input_task": "Show how to run the local agent pipeline",
+      "valid_commands": ["bash ./Local", "python3 scripts/local_team_run.py", "bash scripts/run_pipeline.sh"],
+      "hallucinated_commands": ["npm run local-agent", "python3 src/main.py", "make run-local"],
+      "pass_threshold": 90,
+      "check": "Every command in the output must correspond to a real script or entrypoint in the repo"
+    },
+    {
+      "id": "code-syntax-valid",
+      "category": "code_correctness",
+      "description": "Python code blocks in output have valid syntax",
+      "input_task": "Write a helper function for checkpoint management",
+      "test_blocks": [
+        "def save_checkpoint(state):\n    import json\n    with open('checkpoint.json', 'w') as f:\n        json.dump(state, f)\n",
+        "def load_checkpoint():\n    import json\n    with open('checkpoint.json') as f:\n        return json.load(f)\n"
+      ],
+      "invalid_blocks": [
+        "def broken(:\n    pass\n",
+        "import json\nprint(json.loads()\n"
+      ],
+      "pass_threshold": 85,
+      "check": "All code blocks must parse without SyntaxError via ast.parse()"
+    },
+    {
+      "id": "non-hallucinated-edits",
+      "category": "hallucination_rate",
+      "description": "Proposed file edits target real content that exists in the file",
+      "input_task": "Fix a bug in the progress tracker",
+      "target_file": "scripts/progress_tracker.py",
+      "valid_edit_markers": ["def ", "import ", "class "],
+      "hallucinated_edit_markers": ["function ", "const ", "require("],
+      "pass_threshold": 85,
+      "check": "Edit instructions must reference actual code patterns present in the target file, not invented content"
+    }
+  ]
+}

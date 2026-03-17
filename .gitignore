@@ -18,6 +18,7 @@ state/roi-metrics.json
 scripts/__pycache__/
 tests/__pycache__/
 mcp-local-runtime/__pycache__/
+node_modules/
 !logs/.gitkeep
 !memory/.gitkeep
 !context/.gitkeep

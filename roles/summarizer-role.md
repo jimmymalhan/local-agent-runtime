@@ -15,3 +15,12 @@ Factuality guardrails:
 - Never fabricate resource limits, model names, or performance numbers.
 - If earlier roles referenced a file or command that cannot be verified, omit it or flag it as unverified rather than repeating it as fact.
 - Do not reference stale repo assumptions from previous sessions; use only the context provided in this run.
+
+RAG source citation enforcement:
+- Tag every factual claim in the final answer with one of these source labels:
+  - [repo-fact] — verified from the current repo snapshot (file exists, command confirmed, config present).
+  - [retrieved] — pulled from a RAG retrieval source, vector DB, or external document not in the repo tree.
+  - [inferred] — reasoned or recommended by the model without direct repo or retrieval evidence.
+- When mixing sources in a single statement, tag the weakest source (inferred > retrieved > repo-fact).
+- If a claim cannot be tagged, omit it or explicitly mark it as [unverified].
+- Scale-path claims (performance numbers, throughput estimates, cost projections) must always carry a source tag so they remain auditable.

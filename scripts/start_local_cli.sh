@@ -88,6 +88,7 @@ Slash commands:
   /takeover-monitor          start cloud takeover monitor (background)
   /resolve                   auto-resolve current blockers (picks fastest option)
   /blockers                  show all blockers with 2-3 resolution options each
+  /stats                     show token usage and role statistics
   /exit | /quit              leave the session
 
   Codex-style commands:
@@ -112,6 +113,84 @@ Target repo:
 Execution mode:
   ${LOCAL_AGENT_MODE}
 EOF
+}
+
+show_stats() {
+  python3 - "$REPO_ROOT" <<'PY'
+import json
+import pathlib
+import sys
+
+root = pathlib.Path(sys.argv[1])
+progress_path = root / "state" / "progress.json"
+history_path = root / "state" / "session-history.jsonl"
+config_path = root / "config" / "runtime.json"
+
+print("== Token / Role Stats ==")
+print()
+
+# Progress summary
+if progress_path.exists():
+    try:
+        prog = json.loads(progress_path.read_text())
+        overall = prog.get("overall", {})
+        print(f"Task: {prog.get('task', 'unknown')}")
+        print(f"Overall progress: {overall.get('percent', 0):.0f}%")
+        print(f"Status: {overall.get('status', 'unknown')}")
+        print(f"Current stage: {prog.get('current_stage', 'none')}")
+        print()
+        stages = prog.get("stages", [])
+        if stages:
+            print("Stage breakdown:")
+            for s in stages:
+                pct = s.get("percent", 0)
+                bar = "#" * int(pct / 5) + "-" * (20 - int(pct / 5))
+                print(f"  {s.get('label', s.get('id', '?')):16s} [{bar}] {pct:5.1f}%  {s.get('status', '')}")
+            print()
+    except Exception as e:
+        print(f"Could not read progress: {e}")
+else:
+    print("No progress data yet.")
+    print()
+
+# Role call counts from session history
+if history_path.exists():
+    try:
+        role_counts = {}
+        total_chars = 0
+        for line in history_path.read_text().splitlines():
+            try:
+                item = json.loads(line)
+                role = item.get("role", "unknown")
+                role_counts[role] = role_counts.get(role, 0) + 1
+                total_chars += len(item.get("content", ""))
+            except Exception:
+                continue
+        if role_counts:
+            print("Role invocation counts (this session):")
+            for role, count in sorted(role_counts.items(), key=lambda x: -x[1]):
+                print(f"  {role:16s} {count:4d} calls")
+            print(f"\nTotal output chars: {total_chars:,}")
+            # Rough token estimate (1 token ~ 4 chars)
+            print(f"Estimated tokens:   ~{total_chars // 4:,}")
+            print()
+    except Exception as e:
+        print(f"Could not read history: {e}")
+else:
+    print("No session history yet.")
+    print()
+
+# Model assignments
+if config_path.exists():
+    try:
+        cfg = json.loads(config_path.read_text())
+        team = cfg.get("team", {})
+        print("Model assignments:")
+        for role, info in team.items():
+            print(f"  {role:16s} -> {info.get('model', 'unknown')}")
+    except Exception:
+        pass
+PY
 }
 
 show_progress() {
@@ -875,6 +954,9 @@ while true; do
       ;;
     /session-compare\ *)
       run_session_compare "${user_input#"/session-compare "}"
+      ;;
+    /stats)
+      show_stats
       ;;
     /progress|progress)
       show_progress
