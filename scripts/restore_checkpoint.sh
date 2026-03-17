@@ -12,18 +12,18 @@ if [ -z "$CHECKPOINT_REF" ]; then
   exit 1
 fi
 
-migrate_legacy_checkpoints
-CHECKPOINT_ROOT=$(checkpoint_root)
+migrate_legacy_checkpoints "$TARGET_DIR"
+CHECKPOINT_ROOT=$(checkpoint_root "$TARGET_DIR")
 
 if [ -d "$CHECKPOINT_REF/files" ]; then
-  CHECKPOINT_DIR="$CHECKPOINT_REF"
+  CHECKPOINT_DIR=$(canonical_path "$CHECKPOINT_REF")
 elif [ -d "$CHECKPOINT_ROOT/$CHECKPOINT_REF/files" ]; then
-  CHECKPOINT_DIR="$CHECKPOINT_ROOT/$CHECKPOINT_REF"
+  CHECKPOINT_DIR=$(canonical_path "$CHECKPOINT_ROOT/$CHECKPOINT_REF")
 else
   echo "Checkpoint not found: $CHECKPOINT_REF" >&2
   exit 1
 fi
 
 bash "$SCRIPT_DIR/create_checkpoint.sh" "pre-restore" "$TARGET_DIR" >/dev/null
-rsync -a "$CHECKPOINT_DIR/files"/ "$TARGET_DIR"/
+rsync -a --checksum --delete --exclude '.local-agent/checkpoints' "$CHECKPOINT_DIR/files"/ "$TARGET_DIR"/
 echo "Restored $CHECKPOINT_DIR into $TARGET_DIR"

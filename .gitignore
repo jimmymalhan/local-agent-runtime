@@ -1,7 +1,6 @@
 logs/*
 memory/*
 context/*
-state/checkpoints/*
 state/progress.json
 state/resource-status.json
 state/private-tool-registry.json
@@ -21,7 +20,6 @@ mcp-local-runtime/__pycache__/
 !logs/.gitkeep
 !memory/.gitkeep
 !context/.gitkeep
-!state/checkpoints/.gitkeep
 !state/ledger.md
 !state/org_structure.yaml
 !state/todo.md
