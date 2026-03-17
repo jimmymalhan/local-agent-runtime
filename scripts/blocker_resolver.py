@@ -16,39 +16,44 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 BLOCKER_STRATEGIES = {
     "memory_ceiling": [
-        {"option": "Downgrade model to 3b", "action": "model_downgrade", "speed": 1, "eta_seconds": 5, "detail": "Switch to qwen2.5:3b for current stage"},
-        {"option": "Serialize parallel work", "action": "serialize", "speed": 2, "eta_seconds": 10, "detail": "Run one role at a time to halve memory"},
-        {"option": "Hand off to cloud", "action": "takeover", "speed": 3, "eta_seconds": 30, "detail": "Send remaining work to Claude/Codex session"},
+        {"option": "Downgrade model to 3b", "action": "model_downgrade", "speed": 1, "eta_seconds": 5, "owner": "local", "detail": "Switch to qwen2.5:3b for current stage"},
+        {"option": "Serialize parallel work", "action": "serialize", "speed": 2, "eta_seconds": 10, "owner": "local", "detail": "Run one role at a time to halve memory"},
+        {"option": "Hand off to cloud", "action": "takeover", "speed": 3, "eta_seconds": 30, "owner": "codex/claude", "detail": "Send remaining work to Claude/Codex session"},
     ],
     "cpu_ceiling": [
-        {"option": "Serialize parallel roles", "action": "serialize", "speed": 1, "eta_seconds": 5, "detail": "Run roles sequentially"},
-        {"option": "Reduce Ollama parallelism", "action": "reduce_parallel", "speed": 2, "eta_seconds": 8, "detail": "Set ollama_num_parallel=1"},
-        {"option": "Cloud takeover", "action": "takeover", "speed": 3, "eta_seconds": 30, "detail": "Route to Claude/Codex"},
+        {"option": "Serialize parallel roles", "action": "serialize", "speed": 1, "eta_seconds": 5, "owner": "local", "detail": "Run roles sequentially"},
+        {"option": "Reduce Ollama parallelism", "action": "reduce_parallel", "speed": 2, "eta_seconds": 8, "owner": "local", "detail": "Set ollama_num_parallel=1"},
+        {"option": "Cloud takeover", "action": "takeover", "speed": 3, "eta_seconds": 30, "owner": "codex/claude", "detail": "Route to Claude/Codex"},
     ],
     "roi_kill_switch": [
-        {"option": "Reset ROI and retry with lighter config", "action": "reset_roi", "speed": 1, "eta_seconds": 3, "detail": "Clear negative events, switch to fast profile"},
-        {"option": "Skip to cloud session", "action": "takeover", "speed": 2, "eta_seconds": 20, "detail": "Cloud session completes while local learns"},
-        {"option": "Re-plan with smaller scope", "action": "replan", "speed": 3, "eta_seconds": 60, "detail": "Break task into smaller pieces"},
+        {"option": "Reset ROI and retry with lighter config", "action": "reset_roi", "speed": 1, "eta_seconds": 3, "owner": "local", "detail": "Clear negative events, switch to fast profile"},
+        {"option": "Skip to cloud session", "action": "takeover", "speed": 2, "eta_seconds": 20, "owner": "codex/claude", "detail": "Cloud session completes while local learns"},
+        {"option": "Re-plan with smaller scope", "action": "replan", "speed": 3, "eta_seconds": 60, "owner": "lead", "detail": "Break task into smaller pieces"},
     ],
     "stale_lock": [
-        {"option": "Kill stale process and release lock", "action": "kill_stale", "speed": 1, "eta_seconds": 2, "detail": "Remove run.lock, continue"},
-        {"option": "Wait 10s then force-release", "action": "wait_release", "speed": 2, "eta_seconds": 12, "detail": "Grace period then force"},
-        {"option": "Run in parallel cloud session", "action": "takeover", "speed": 3, "eta_seconds": 25, "detail": "Don't wait, start cloud now"},
+        {"option": "Kill stale process and release lock", "action": "kill_stale", "speed": 1, "eta_seconds": 2, "owner": "local", "detail": "Remove run.lock, continue"},
+        {"option": "Wait 10s then force-release", "action": "wait_release", "speed": 2, "eta_seconds": 12, "owner": "local", "detail": "Grace period then force"},
+        {"option": "Run in parallel cloud session", "action": "takeover", "speed": 3, "eta_seconds": 25, "owner": "cursor/codex/claude", "detail": "Don't wait, start cloud now"},
     ],
     "generic_output": [
-        {"option": "Retry with stronger model", "action": "upgrade_model", "speed": 1, "eta_seconds": 15, "detail": "Use deepseek-r1:8b instead of 3b"},
-        {"option": "Inject more context", "action": "expand_context", "speed": 2, "eta_seconds": 20, "detail": "Increase prompt budget for this stage"},
-        {"option": "Route to cloud model", "action": "takeover", "speed": 3, "eta_seconds": 30, "detail": "Use GPT-4.1 via GitHub Models"},
+        {"option": "Retry with stronger model", "action": "upgrade_model", "speed": 1, "eta_seconds": 15, "owner": "local/github_models", "detail": "Use deepseek-r1:8b instead of 3b"},
+        {"option": "Inject more context", "action": "expand_context", "speed": 2, "eta_seconds": 20, "owner": "local", "detail": "Increase prompt budget for this stage"},
+        {"option": "Route to cloud model", "action": "takeover", "speed": 3, "eta_seconds": 30, "owner": "github_models", "detail": "Use GPT-4.1 via GitHub Models"},
     ],
     "timeout": [
-        {"option": "Switch to fast profile", "action": "fast_profile", "speed": 1, "eta_seconds": 5, "detail": "Use fast profile with fewer roles"},
-        {"option": "Skip non-critical roles", "action": "skip_roles", "speed": 2, "eta_seconds": 8, "detail": "Jump to summarizer from current state"},
-        {"option": "Cloud takeover", "action": "takeover", "speed": 3, "eta_seconds": 30, "detail": "Hand remaining work to Codex"},
+        {"option": "Switch to fast profile", "action": "fast_profile", "speed": 1, "eta_seconds": 5, "owner": "local", "detail": "Use fast profile with fewer roles"},
+        {"option": "Skip non-critical roles", "action": "skip_roles", "speed": 2, "eta_seconds": 8, "owner": "lead", "detail": "Jump to summarizer from current state"},
+        {"option": "Cloud takeover", "action": "takeover", "speed": 3, "eta_seconds": 30, "owner": "codex", "detail": "Hand remaining work to Codex"},
+    ],
+    "stale_progress": [
+        {"option": "Clear stale progress and re-run preflight", "action": "refresh_progress", "speed": 1, "eta_seconds": 4, "owner": "local", "detail": "Reset stale session/progress state and restart immediately"},
+        {"option": "Force cloud takeover", "action": "takeover", "speed": 2, "eta_seconds": 20, "owner": "claude/codex", "detail": "Send the stuck remainder to Claude/Codex right now"},
+        {"option": "Force-release stale lock", "action": "kill_stale", "speed": 3, "eta_seconds": 8, "owner": "local", "detail": "Delete stale lock/session leftovers so local can resume"},
     ],
     "default": [
-        {"option": "Retry with current config", "action": "retry", "speed": 1, "eta_seconds": 10, "detail": "Simple retry"},
-        {"option": "Downgrade and retry", "action": "model_downgrade", "speed": 2, "eta_seconds": 15, "detail": "Use lighter model"},
-        {"option": "Cloud takeover", "action": "takeover", "speed": 3, "eta_seconds": 30, "detail": "Route to Claude/Codex"},
+        {"option": "Retry with current config", "action": "retry", "speed": 1, "eta_seconds": 10, "owner": "local", "detail": "Simple retry"},
+        {"option": "Downgrade and retry", "action": "model_downgrade", "speed": 2, "eta_seconds": 15, "owner": "local", "detail": "Use lighter model"},
+        {"option": "Cloud takeover", "action": "takeover", "speed": 3, "eta_seconds": 30, "owner": "claude/codex", "detail": "Route to Claude/Codex"},
     ],
 }
 
@@ -107,6 +112,7 @@ def classify_blocker(context: dict) -> str:
     resource = context.get("resource", {})
     roi = context.get("roi", {})
     progress = context.get("progress", {})
+    lock = context.get("lock", {})
 
     mem = float(resource.get("memory_percent", 0))
     cpu = float(resource.get("cpu_percent", 0))
@@ -122,12 +128,23 @@ def classify_blocker(context: dict) -> str:
 
     overall = progress.get("overall", {})
     if overall.get("status") == "running":
+        updated_at = _parse_iso(progress.get("updated_at"))
+        if updated_at and (datetime.now() - updated_at).total_seconds() >= 15 and not lock.get("pid"):
+            return "stale_progress"
         # Check for stall
-        lock = context.get("lock", {})
         if lock.get("pid") and not _pid_alive(int(lock["pid"])):
             return "stale_lock"
 
     return "default"
+
+
+def _parse_iso(value: str | None):
+    if not value:
+        return None
+    try:
+        return datetime.fromisoformat(value)
+    except ValueError:
+        return None
 
 
 def _pid_alive(pid: int) -> bool:
@@ -153,6 +170,7 @@ def auto_resolve(context: dict) -> dict:
         "blocker_type": blocker_type,
         "chosen": chosen,
         "alternatives": options[1:],
+        "wait_budget_seconds": chosen.get("eta_seconds", 10),
         "resolved_at": datetime.now().isoformat(timespec="seconds"),
     }
 
@@ -177,6 +195,28 @@ def execute_resolution(action: str, context: dict) -> str:
         lock_path = REPO_ROOT / "state" / "run.lock"
         lock_path.unlink(missing_ok=True)
         return "Stale lock removed. Pipeline can proceed."
+    elif action == "refresh_progress":
+        progress_path = REPO_ROOT / "state" / "progress.json"
+        session_path = REPO_ROOT / "state" / "session-state.json"
+        if progress_path.exists():
+            try:
+                progress = json.loads(progress_path.read_text())
+            except json.JSONDecodeError:
+                progress = {}
+            overall = progress.setdefault("overall", {})
+            overall["status"] = "idle"
+            progress["updated_at"] = datetime.now().isoformat(timespec="seconds")
+            progress_path.write_text(json.dumps(progress, indent=2) + "\n")
+        if session_path.exists():
+            try:
+                session = json.loads(session_path.read_text())
+            except json.JSONDecodeError:
+                session = {}
+            session["status"] = "idle"
+            session["takeover_reason"] = ""
+            session["updated_at"] = datetime.now().isoformat(timespec="seconds")
+            session_path.write_text(json.dumps(session, indent=2) + "\n")
+        return "Stale progress cleared. Ready for a fresh preflight."
     elif action == "reduce_parallel":
         return "Reduced Ollama parallelism to 1"
     elif action == "fast_profile":

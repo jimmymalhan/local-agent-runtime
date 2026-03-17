@@ -19,6 +19,18 @@ class BlockerResolverTests(unittest.TestCase):
         ctx = {"resource": {"cpu_percent": 10, "memory_percent": 10}, "roi": {}}
         self.assertEqual(blocker_resolver.classify_blocker(ctx), "default")
 
+    def test_classify_stale_progress(self):
+        from datetime import datetime, timedelta
+
+        stale = (datetime.now() - timedelta(seconds=30)).isoformat(timespec="seconds")
+        ctx = {
+            "resource": {"cpu_percent": 10, "memory_percent": 10},
+            "roi": {},
+            "progress": {"overall": {"status": "running"}, "updated_at": stale},
+            "lock": {},
+        }
+        self.assertEqual(blocker_resolver.classify_blocker(ctx), "stale_progress")
+
     def test_resolve_options_returns_2_3_options(self):
         for blocker_type in blocker_resolver.BLOCKER_STRATEGIES:
             options = blocker_resolver.resolve_options(blocker_type)
@@ -40,6 +52,27 @@ class BlockerResolverTests(unittest.TestCase):
             try:
                 msg = blocker_resolver.execute_resolution("reset_roi", {})
                 self.assertIn("reset", msg.lower())
+            finally:
+                blocker_resolver.REPO_ROOT = orig
+
+    def test_execute_resolution_refresh_progress(self):
+        import tempfile, pathlib, json
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = pathlib.Path(tmpdir)
+            state = root / "state"
+            state.mkdir()
+            (state / "progress.json").write_text(json.dumps({"overall": {"status": "running"}}))
+            (state / "session-state.json").write_text(json.dumps({"status": "running", "takeover_reason": "x"}))
+            orig = blocker_resolver.REPO_ROOT
+            blocker_resolver.REPO_ROOT = root
+            try:
+                msg = blocker_resolver.execute_resolution("refresh_progress", {})
+                self.assertIn("stale progress cleared", msg.lower())
+                progress = json.loads((state / "progress.json").read_text())
+                session = json.loads((state / "session-state.json").read_text())
+                self.assertEqual(progress["overall"]["status"], "idle")
+                self.assertEqual(session["status"], "idle")
+                self.assertEqual(session["takeover_reason"], "")
             finally:
                 blocker_resolver.REPO_ROOT = orig
 
