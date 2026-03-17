@@ -3,6 +3,7 @@ set -euo pipefail
 
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 REPO_ROOT=$(cd "$SCRIPT_DIR/.." && pwd)
+. "$SCRIPT_DIR/checkpoint_paths.sh"
 LABEL=${1:-manual}
 SOURCE_DIR=${2:-${LOCAL_AGENT_TARGET_REPO:-$PWD}}
 
@@ -16,12 +17,14 @@ fi
 
 STAMP=$(date '+%Y%m%d_%H%M%S')
 SAFE_LABEL=$(printf '%s' "$LABEL" | tr '[:space:]/:' '---' | tr -cd '[:alnum:]-_' | cut -c1-40)
-CHECKPOINT_ROOT="$REPO_ROOT/checkpoints"
+CHECKPOINT_ROOT=$(checkpoint_root)
 DEST="$CHECKPOINT_ROOT/${STAMP}-${SAFE_LABEL}"
 
+mkdir -p "$CHECKPOINT_ROOT"
+migrate_legacy_checkpoints
 mkdir -p "$DEST/files"
 
-RSYNC_ARGS=(-a --exclude '.DS_Store' --exclude 'checkpoints')
+RSYNC_ARGS=(-a --exclude '.DS_Store' --exclude 'checkpoints' --exclude 'state/checkpoints')
 rsync "${RSYNC_ARGS[@]}" "$SOURCE_DIR"/ "$DEST/files"/
 
 cat >"$DEST/metadata.json" <<EOF

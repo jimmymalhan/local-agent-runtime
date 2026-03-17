@@ -35,7 +35,8 @@ capabilities of your local AI stack and to plan further extensions.
   percentage completion of batch processes and writes updates to
   `state/progress.json` and `logs/progress.log`.
 - **Checkpoint Manager** – `create_checkpoint.sh` and
-  `restore_checkpoint.sh` create recoverable snapshots before major
+  `restore_checkpoint.sh` create recoverable snapshots under
+  `state/checkpoints/` before major
   changes or restore operations.
 - **To‑Do Manager** – `state/todo.md` and `update_todo.sh` maintain
   a list of pending tasks and the agents responsible for them.

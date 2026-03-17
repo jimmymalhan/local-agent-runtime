@@ -125,6 +125,15 @@ def elapsed_label(progress):
 
 
 def execution_mix(progress, team_order):
+    fallback = None
+    active_stages = {stage.get("id") for stage in progress.get("stages", []) if stage.get("status") in {"running", "completed"}}
+    local_roles = sum(1 for role in team_order if role in active_stages)
+    overall_status = progress.get("overall", {}).get("status")
+    if local_roles or overall_status == "running":
+        fallback = {
+            "local_models": 100.0,
+            "cloud_session": 0.0,
+        }
     if SESSION_STATE_PATH.exists():
         try:
             session = json.loads(SESSION_STATE_PATH.read_text())
@@ -132,15 +141,19 @@ def execution_mix(progress, team_order):
             session = {}
         execution = session.get("execution", {})
         if execution:
-            return {
+            resolved = {
                 "local_models": float(execution.get("local_models", 0.0)),
                 "cloud_session": float(execution.get("cloud_session", 0.0)),
             }
-    active_stages = {stage.get("id") for stage in progress.get("stages", []) if stage.get("status") in {"running", "completed"}}
-    local_roles = sum(1 for role in team_order if role in active_stages)
-    local_percent = 100.0 if local_roles else 0.0
+            if resolved["local_models"] > 0.0 or resolved["cloud_session"] > 0.0:
+                return resolved
+            if fallback:
+                return fallback
+            return resolved
+    if fallback:
+        return fallback
     return {
-        "local_models": local_percent,
+        "local_models": 0.0,
         "cloud_session": 0.0,
     }
 
@@ -149,18 +162,23 @@ def main():
     profile_name = active_profile()
     profile = RUNTIME.get("profiles", {}).get(profile_name, {})
     progress = load_progress()
+    overall_status = progress.get("overall", {}).get("status", "")
     progress_stage_ids = [stage.get("id") for stage in progress.get("stages", []) if stage.get("id") in RUNTIME.get("team", {})]
     team_order = progress_stage_ids or profile.get("team_order") or RUNTIME.get("team_order") or list(RUNTIME.get("team", {}).keys())
     todo = parse_todo()
     installed = installed_models()
 
-    if progress:
+    if progress and overall_status == "running":
         overall = progress.get("overall", {})
         print(f"Working ({elapsed_label(progress)} • ctrl-c to interrupt • live)")
         print(
             f"TASK {render_bar(overall.get('percent', 0.0), 24)} "
             f"{overall.get('percent', 0.0):5.1f}% | remaining {overall.get('remaining_percent', 100.0):5.1f}%"
         )
+        print(f"task={progress.get('task', '')}")
+    elif progress:
+        overall = progress.get("overall", {})
+        print(f"TASK {render_bar(overall.get('percent', 0.0), 24)} {overall.get('percent', 0.0):5.1f}% | status {overall_status or 'idle'}")
         print(f"task={progress.get('task', '')}")
     else:
         print("TASK [------------------------]   0.0% | remaining 100.0%")
