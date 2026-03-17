@@ -38,6 +38,13 @@
 - [ ] [shared] Validate the updated live status view so it shows current focus, local-vs-cloud split, and product/business progress from `state/todo.md`.
 - [ ] [cloud] Run the same action through local-codex and local-claude, capture feedback, and iterate before marking the sprint done.
 
+## GitHub Governance Sprint
+
+- [ ] [shared] Plan the GitHub governance pass: protect `main`, require real checks, and keep the local runtime honest about repo governance state.
+- [ ] [local] Add a runtime-visible governance check so `/governance` reports whether `main` is protected or blocked by plan limits.
+- [ ] [cloud] Create and merge a governance PR with CI validation after the branch protection path is either applied or explicitly blocked by GitHub plan limits.
+- [ ] [business] Keep the branch protection blocker visible in the runtime until the repository plan supports private-repo protections or the repo visibility changes.
+
 ## Claude/Codex Sessions + Local Agents (in progress)
 
 - [x] Plan: session-first flow, claude/codex run local agents after spinning up
