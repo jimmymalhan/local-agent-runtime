@@ -127,6 +127,13 @@ def takeover_wait_seconds(runtime=None):
     return int(os.environ.get("LOCAL_AGENT_TAKEOVER_WAIT_SECONDS", default))
 
 
+def resource_wait_event_limit(runtime=None):
+    default = "6"
+    if runtime is not None:
+        default = str(runtime.get("resource_limits", {}).get("max_resource_wait_events", default))
+    return int(os.environ.get("LOCAL_AGENT_MAX_RESOURCE_WAIT_EVENTS", default))
+
+
 def active_target_repo():
     return pathlib.Path(os.environ.get("LOCAL_AGENT_TARGET_REPO", REPO_ROOT)).resolve()
 
@@ -377,6 +384,7 @@ def resource_status_snapshot():
 def ensure_resource_capacity(runtime):
     limits = runtime["resource_limits"]
     started = time.time()
+    wait_events = 0
     task = os.environ.get("LOCAL_AGENT_ACTIVE_TASK", "")
     target_repo = active_target_repo()
     while True:
@@ -385,6 +393,7 @@ def ensure_resource_capacity(runtime):
             return
         if data.get("cpu_percent", 0.0) <= limits["cpu_percent"] and data.get("memory_percent", 0.0) <= limits["memory_percent"]:
             return
+        wait_events += 1
         progress(
             [
                 "tick",
@@ -393,14 +402,15 @@ def ensure_resource_capacity(runtime):
                 "--percent",
                 "1",
                 "--detail",
-                f"Waiting for resources: {snapshot}",
+                f"Waiting for resources ({wait_events}/{resource_wait_event_limit(runtime)}): {snapshot}",
             ]
         )
-        if time.time() - started >= takeover_wait_seconds(runtime):
-            reason = "resource ceiling wait exceeded"
+        if time.time() - started >= takeover_wait_seconds(runtime) or wait_events >= resource_wait_event_limit(runtime):
+            reason = "resource ceiling wait budget exceeded"
             detail = (
-                f"{snapshot}; teach local agents to reduce parallelism, shrink prompt budgets, "
-                "or hand the unfinished remainder to Codex/Claude sooner."
+                f"{snapshot}; waited {wait_events} times before progress. "
+                "Teach local agents to reduce parallelism earlier, shrink prompt budgets, select lighter models sooner, "
+                "or hand the unfinished remainder to Codex/Claude before stalling."
             )
             set_takeover_state(task, target_repo, reason, local_percent=0.0, cloud_percent=100.0)
             record_runtime_lesson("takeover", current_stage_label() or "resource-wait", target_repo, reason, detail)
@@ -907,8 +917,9 @@ def build_prompt(runtime, task, target_repo):
         "Default to direct execution-oriented language: concise opening, visible progress, concrete outcomes, and minimal meta commentary.",
         "Start with a common plan, then let the lead route work to matching skills and sub-agents so useful streams run in parallel without duplicating effort.",
         "Teach the local runtime in every answer: prefer local agents, local tools, shared plans, and skill reuse before suggesting new manual steps.",
+        "Checkpoint only the target project when the task changes project state. Never checkpoint the local-agent-runtime repo itself.",
         "Keep the zero-paid-API goal explicit. Default to local-model-only execution unless the current cloud session must take over because the local runtime is stalled or failing.",
-        "If the local runtime stalls, name the exact stalled point and the minimal takeover step a Codex or Claude session should complete to finish on time.",
+        "If the local runtime stalls, name the exact stalled point and the minimal takeover step a Codex or Claude session should complete to finish on time. Do not sit and wait once the resource wait budget is exhausted.",
         "Do not tell the user to clone the repo or use remote APIs unless the task explicitly asks for distribution or publishing.",
         "When retrieved grounding context is present, use it before broad prior assumptions.",
         "If the user asks a yes-or-no verification question, answer yes or no explicitly before the explanation.",
@@ -1082,7 +1093,8 @@ def system_prompt_for(stage_id, task_text):
         "- Pick work by skill and avoid duplicate effort.\n"
         "- Run independent work in parallel when the group order allows it.\n"
         "- Keep answers concrete, repo-aware, and aligned to a strong Codex-style CLI bar.\n"
-        "- Prefer local-only completion. If local execution cannot finish on time, state the exact takeover trigger."
+        "- Checkpoint only the target project, never the runtime repo itself.\n"
+        "- Prefer local-only completion. If local execution cannot finish on time, state the exact takeover trigger and stop waiting once the resource wait budget is spent."
     )
     return "\n\n".join(part for part in [role_text, skill_text, extra_skill_text, coordination] if part)
 

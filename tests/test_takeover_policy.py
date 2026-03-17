@@ -45,7 +45,15 @@ class TakeoverPolicyTests(unittest.TestCase):
                 '{"cpu_percent": 91.0, "memory_percent": 84.0}\n'
             )
 
-            runtime = {"resource_limits": {"cpu_percent": 70, "memory_percent": 70, "poll_seconds": 0, "takeover_wait_seconds": 0}}
+            runtime = {
+                "resource_limits": {
+                    "cpu_percent": 70,
+                    "memory_percent": 70,
+                    "poll_seconds": 0,
+                    "takeover_wait_seconds": 0,
+                    "max_resource_wait_events": 1,
+                }
+            }
             target_repo = temp_root / "target"
             target_repo.mkdir()
 
@@ -66,7 +74,7 @@ class TakeoverPolicyTests(unittest.TestCase):
             set_state.assert_called_once_with(
                 "finish the task",
                 target_repo.resolve(),
-                "resource ceiling wait exceeded",
+                "resource ceiling wait budget exceeded",
                 local_percent=0.0,
                 cloud_percent=100.0,
             )
@@ -75,6 +83,36 @@ class TakeoverPolicyTests(unittest.TestCase):
             self.assertIn("reduce parallelism", str(record_lesson.call_args))
             self.assertIn('codex "', str(ctx.exception))
             self.assertIn(str(target_repo.resolve()), str(ctx.exception))
+
+    def test_resource_wait_budget_triggers_takeover_before_long_timeout(self):
+        runtime = {
+            "resource_limits": {
+                "cpu_percent": 70,
+                "memory_percent": 70,
+                "poll_seconds": 0,
+                "takeover_wait_seconds": 999,
+                "max_resource_wait_events": 2,
+            }
+        }
+        with tempfile.TemporaryDirectory() as tmpdir:
+            target_repo = pathlib.Path(tmpdir) / "target"
+            target_repo.mkdir()
+            with mock.patch.object(local_team_run, "resource_status_snapshot", return_value=("RESOURCE cpu=25.0%/70% mem=84.0%/70%", {"cpu_percent": 25.0, "memory_percent": 84.0})), \
+                 mock.patch.object(local_team_run, "progress"), \
+                 mock.patch.object(local_team_run, "record_runtime_lesson") as record_lesson, \
+                 mock.patch.object(local_team_run, "set_takeover_state") as set_state, \
+                 mock.patch.object(local_team_run, "current_stage_label", return_value="retriever"), \
+                 mock.patch.object(local_team_run.time, "sleep"), \
+                 mock.patch.dict(local_team_run.os.environ, {
+                     "LOCAL_AGENT_ACTIVE_TASK": "finish the task",
+                     "LOCAL_AGENT_TARGET_REPO": str(target_repo),
+                 }, clear=False):
+                with self.assertRaises(SystemExit) as ctx:
+                    local_team_run.ensure_resource_capacity(runtime)
+
+        set_state.assert_called_once()
+        self.assertIn("waited 2 times", str(record_lesson.call_args))
+        self.assertIn("resource ceiling wait budget exceeded", str(ctx.exception))
 
     def test_parallel_work_downgrades_to_serial_when_headroom_is_tight(self):
         runtime = {
