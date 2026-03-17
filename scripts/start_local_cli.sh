@@ -65,6 +65,8 @@ Slash commands:
   /skills                    list skill files
   /workflows                 list workflow files
   /todo                      show state/todo.md
+  /todo-progress             show progress bars derived from state/todo.md
+  /todo-watch                watch todo progress bars in real time
   /todo add <text>           add an item to state/todo.md
   /todo done <text>          mark the first matching todo item complete
   /ledger                    show state/ledger.md
@@ -81,6 +83,7 @@ Slash commands:
   /debug-config              print config and runtime diagnostics
   /mcp                       list detected local MCP descriptors if present
   /feedback [text]           record session feedback (for iteration)
+  /session-compare <task>    run the same task through local-codex and local-claude
 
 Plain text without a slash is treated as /pipeline <task>.
 
@@ -167,6 +170,9 @@ watch_live_status() {
   while true; do
     clear
     python3 "$SCRIPT_DIR/team_status.py" "${LOCAL_AGENT_TARGET_REPO:-$REPO_ROOT}" || true
+    echo
+    echo "TODO LANES"
+    python3 "$SCRIPT_DIR/todo_progress.py" || true
     echo
     echo "RESOURCE SNAPSHOT"
     python3 "$SCRIPT_DIR/resource_status.py" || true
@@ -370,6 +376,11 @@ run_pipeline_task() {
     echo "== auto review =="
     review_current_changes || true
   fi
+}
+
+run_session_compare() {
+  local task=$1
+  python3 "$SCRIPT_DIR/session_compare.py" "$task" "${LOCAL_AGENT_TARGET_REPO:-$REPO_ROOT}"
 }
 
 run_role_task() {
@@ -765,6 +776,9 @@ while true; do
     /feedback\ *)
       record_feedback "${user_input#"/feedback "}"
       ;;
+    /session-compare\ *)
+      run_session_compare "${user_input#"/session-compare "}"
+      ;;
     /progress|progress)
       show_progress
       ;;
@@ -871,6 +885,12 @@ while true; do
       ;;
     /todo)
       sed -n '1,200p' "$REPO_ROOT/state/todo.md"
+      ;;
+    /todo-progress)
+      python3 "$SCRIPT_DIR/todo_progress.py"
+      ;;
+    /todo-watch)
+      python3 "$SCRIPT_DIR/todo_progress.py" --watch
       ;;
     /todo\ add\ *)
       bash "$SCRIPT_DIR/update_todo.sh" add "${user_input#"/todo add "}" "local-session"

@@ -7,207 +7,47 @@ on:
     branches: [main]
 
 concurrency:
-  group: ci-${{ github.ref }}
+  group: local-agent-runtime-ci-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
   contents: read
 
 jobs:
-  # ──────────────────────────────────────────
-  # 1. Validate — fast checks before heavy tests
-  # ──────────────────────────────────────────
   validate:
-    name: Validate
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Check for secrets in committed files
-        run: |
-          echo "Scanning for potential secrets (GitGuardian-aware)..."
-          # Patterns that indicate real leaked secrets (not test placeholders)
-          FAIL=0
-          for pattern in "sk-ant-api03-" "sk-proj-" "ANTHROPIC_API_KEY=sk-ant" "ghp_[a-zA-Z0-9]\{36\}" "AKIA[0-9A-Z]\{16\}"; do
-            if grep -rEn "$pattern" --include="*.js" --include="*.ts" --include="*.json" --include="*.html" --include="*.yml" --include="*.yaml" src/ 2>/dev/null | grep -v "node_modules"; then
-              echo "::error::Potential secret pattern '$pattern' found in source"
-              FAIL=1
-            fi
-          done
-          # Block literal sk- + long alphanumeric in src/ (real API key format)
-          if grep -rEn 'sk-[a-zA-Z0-9]{30,}' --include="*.js" --include="*.ts" src/ 2>/dev/null; then
-            echo "::error::Potential API key (sk-... long) found in source"
-            FAIL=1
-          fi
-          if [ "$FAIL" -eq 1 ]; then
-            exit 1
-          fi
-          echo "No secrets detected."
-
-      - name: Validate package.json
-        run: node -e "JSON.parse(require('fs').readFileSync('package.json'))"
-
-      - name: Verify server starts
-        run: |
-          timeout 10 node src/server.js &
-          SERVER_PID=$!
-          sleep 3
-          STATUS=$(curl -s -o /dev/null -w '%{http_code}' http://localhost:3000/health || echo "000")
-          kill $SERVER_PID 2>/dev/null || true
-          if [ "$STATUS" != "200" ]; then
-            echo "::error::Server health check failed (HTTP $STATUS)"
-            exit 1
-          fi
-          echo "Server health check passed (HTTP 200)."
-
-  # ──────────────────────────────────────────
-  # 2. Test — unit + integration across Node versions
-  # ──────────────────────────────────────────
-  test:
-    name: Test (Node ${{ matrix.node-version }})
+    name: Validate Runtime
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    needs: validate
-    strategy:
-      fail-fast: false
-      matrix:
-        node-version: [18, 20]
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-python@v5
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: npm
+          python-version: "3.11"
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run tests with coverage
-        run: npm run test:ci
-        env:
-          NODE_OPTIONS: '--experimental-vm-modules'
-
-      - name: Upload coverage report
-        if: matrix.node-version == 20 && always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-report
-          path: coverage/
-          retention-days: 14
-
-  # ──────────────────────────────────────────
-  # 3. API Smoke — verify endpoints respond correctly
-  # ──────────────────────────────────────────
-  api-smoke:
-    name: API Smoke Test
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    needs: validate
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Start server
-        run: node src/server.js &
-        env:
-          PORT: 3000
-
-      - name: Wait for server
-        run: sleep 3
-
-      - name: Health endpoint
+      - name: Shell syntax
         run: |
-          response=$(curl -sf http://localhost:3000/health)
-          echo "$response" | node -e "
-            const d = JSON.parse(require('fs').readFileSync('/dev/stdin','utf8'));
-            if (!d.status || !['ok','healthy'].includes(d.status)) {
-              console.error('Health check failed:', d); process.exit(1);
-            }
-            console.log('✓ /health →', d.status);
-          "
-
-      - name: Diagnose endpoint (validation)
-        run: |
-          status=$(curl -s -o /dev/null -w '%{http_code}' \
-            -X POST http://localhost:3000/api/diagnose \
-            -H 'Content-Type: application/json' \
-            -d '{"incident":""}')
-          if [ "$status" != "400" ]; then
-            echo "::error::Expected 400 for empty incident, got $status"
-            exit 1
-          fi
-          echo "✓ POST /api/diagnose (empty) → 400"
-
-      - name: Diagnose endpoint (valid input)
-        run: |
-          response=$(curl -sf \
-            -X POST http://localhost:3000/api/diagnose \
-            -H 'Content-Type: application/json' \
-            -d '{"incident":"Database connection timeout after deploy at 2pm PST"}')
-          echo "$response" | node -e "
-            const d = JSON.parse(require('fs').readFileSync('/dev/stdin','utf8'));
-            if (!d.id || !d.result) { console.error('Invalid response:', d); process.exit(1); }
-            console.log('✓ POST /api/diagnose → id:', d.id);
-          "
-
-      - name: Static pages
-        run: |
-          for path in / /api-reference.html; do
-            status=$(curl -s -o /dev/null -w '%{http_code}' "http://localhost:3000${path}")
-            if [ "$status" != "200" ]; then
-              echo "::error::GET ${path} returned $status"
-              exit 1
-            fi
-            echo "✓ GET ${path} → 200"
+          bash -n Local
+          for file in scripts/*.sh local-codex local-claude; do
+            bash -n "$file"
           done
 
-  # ──────────────────────────────────────────
-  # 4. Security — dependency audit
-  # ──────────────────────────────────────────
-  security:
-    name: Security Audit
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v4
+      - name: Python compile
+        run: python3 -m py_compile scripts/*.py mcp-local-runtime/server.py
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
+      - name: Unit tests
+        run: python3 -m unittest discover -s tests
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Session policy validation
+        run: python3 scripts/validate_session_policy.py
 
-      - name: Audit dependencies
-        run: npm audit --omit=dev --audit-level=high || true
-        continue-on-error: true
+      - name: Todo progress smoke
+        run: python3 scripts/todo_progress.py
 
-      - name: Check for known vulnerabilities
+      - name: CLI smoke
         run: |
-          HIGH=$(npm audit --omit=dev --json 2>/dev/null | node -e "
-            const d = JSON.parse(require('fs').readFileSync('/dev/stdin','utf8'));
-            const v = d.metadata?.vulnerabilities || {};
-            console.log(String((v.high || 0) + (v.critical || 0)));
-          " 2>/dev/null || echo "0")
-          echo "High/Critical vulnerabilities: $HIGH"
-          if [ "$HIGH" -gt 0 ]; then
-            echo "::warning::$HIGH high/critical vulnerabilities found"
-          fi
+          LOCAL_AGENT_MODE=fast bash ./Local <<'EOF'
+          /todo-progress
+          /team
+          /exit
+          EOF
