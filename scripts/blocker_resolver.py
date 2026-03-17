@@ -16,41 +16,90 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 BLOCKER_STRATEGIES = {
     "memory_ceiling": [
-        {"option": "Downgrade model to 3b", "action": "model_downgrade", "speed": 1, "detail": "Switch to qwen2.5:3b for current stage"},
-        {"option": "Serialize parallel work", "action": "serialize", "speed": 2, "detail": "Run one role at a time to halve memory"},
-        {"option": "Hand off to cloud", "action": "takeover", "speed": 3, "detail": "Send remaining work to Claude/Codex session"},
+        {"option": "Downgrade model to 3b", "action": "model_downgrade", "speed": 1, "eta_seconds": 5, "detail": "Switch to qwen2.5:3b for current stage"},
+        {"option": "Serialize parallel work", "action": "serialize", "speed": 2, "eta_seconds": 10, "detail": "Run one role at a time to halve memory"},
+        {"option": "Hand off to cloud", "action": "takeover", "speed": 3, "eta_seconds": 30, "detail": "Send remaining work to Claude/Codex session"},
     ],
     "cpu_ceiling": [
-        {"option": "Serialize parallel roles", "action": "serialize", "speed": 1, "detail": "Run roles sequentially"},
-        {"option": "Reduce Ollama parallelism", "action": "reduce_parallel", "speed": 2, "detail": "Set ollama_num_parallel=1"},
-        {"option": "Cloud takeover", "action": "takeover", "speed": 3, "detail": "Route to Claude/Codex"},
+        {"option": "Serialize parallel roles", "action": "serialize", "speed": 1, "eta_seconds": 5, "detail": "Run roles sequentially"},
+        {"option": "Reduce Ollama parallelism", "action": "reduce_parallel", "speed": 2, "eta_seconds": 8, "detail": "Set ollama_num_parallel=1"},
+        {"option": "Cloud takeover", "action": "takeover", "speed": 3, "eta_seconds": 30, "detail": "Route to Claude/Codex"},
     ],
     "roi_kill_switch": [
-        {"option": "Reset ROI and retry with lighter config", "action": "reset_roi", "speed": 1, "detail": "Clear negative events, switch to fast profile"},
-        {"option": "Skip to cloud session", "action": "takeover", "speed": 2, "detail": "Cloud session completes while local learns"},
-        {"option": "Re-plan with smaller scope", "action": "replan", "speed": 3, "detail": "Break task into smaller pieces"},
+        {"option": "Reset ROI and retry with lighter config", "action": "reset_roi", "speed": 1, "eta_seconds": 3, "detail": "Clear negative events, switch to fast profile"},
+        {"option": "Skip to cloud session", "action": "takeover", "speed": 2, "eta_seconds": 20, "detail": "Cloud session completes while local learns"},
+        {"option": "Re-plan with smaller scope", "action": "replan", "speed": 3, "eta_seconds": 60, "detail": "Break task into smaller pieces"},
     ],
     "stale_lock": [
-        {"option": "Kill stale process and release lock", "action": "kill_stale", "speed": 1, "detail": "Remove run.lock, continue"},
-        {"option": "Wait 10s then force-release", "action": "wait_release", "speed": 2, "detail": "Grace period then force"},
-        {"option": "Run in parallel cloud session", "action": "takeover", "speed": 3, "detail": "Don't wait, start cloud now"},
+        {"option": "Kill stale process and release lock", "action": "kill_stale", "speed": 1, "eta_seconds": 2, "detail": "Remove run.lock, continue"},
+        {"option": "Wait 10s then force-release", "action": "wait_release", "speed": 2, "eta_seconds": 12, "detail": "Grace period then force"},
+        {"option": "Run in parallel cloud session", "action": "takeover", "speed": 3, "eta_seconds": 25, "detail": "Don't wait, start cloud now"},
     ],
     "generic_output": [
-        {"option": "Retry with stronger model", "action": "upgrade_model", "speed": 1, "detail": "Use deepseek-r1:8b instead of 3b"},
-        {"option": "Inject more context", "action": "expand_context", "speed": 2, "detail": "Increase prompt budget for this stage"},
-        {"option": "Route to cloud model", "action": "takeover", "speed": 3, "detail": "Use GPT-4.1 via GitHub Models"},
+        {"option": "Retry with stronger model", "action": "upgrade_model", "speed": 1, "eta_seconds": 15, "detail": "Use deepseek-r1:8b instead of 3b"},
+        {"option": "Inject more context", "action": "expand_context", "speed": 2, "eta_seconds": 20, "detail": "Increase prompt budget for this stage"},
+        {"option": "Route to cloud model", "action": "takeover", "speed": 3, "eta_seconds": 30, "detail": "Use GPT-4.1 via GitHub Models"},
     ],
     "timeout": [
-        {"option": "Switch to fast profile", "action": "fast_profile", "speed": 1, "detail": "Use fast profile with fewer roles"},
-        {"option": "Skip non-critical roles", "action": "skip_roles", "speed": 2, "detail": "Jump to summarizer from current state"},
-        {"option": "Cloud takeover", "action": "takeover", "speed": 3, "detail": "Hand remaining work to Codex"},
+        {"option": "Switch to fast profile", "action": "fast_profile", "speed": 1, "eta_seconds": 5, "detail": "Use fast profile with fewer roles"},
+        {"option": "Skip non-critical roles", "action": "skip_roles", "speed": 2, "eta_seconds": 8, "detail": "Jump to summarizer from current state"},
+        {"option": "Cloud takeover", "action": "takeover", "speed": 3, "eta_seconds": 30, "detail": "Hand remaining work to Codex"},
     ],
     "default": [
-        {"option": "Retry with current config", "action": "retry", "speed": 1, "detail": "Simple retry"},
-        {"option": "Downgrade and retry", "action": "model_downgrade", "speed": 2, "detail": "Use lighter model"},
-        {"option": "Cloud takeover", "action": "takeover", "speed": 3, "detail": "Route to Claude/Codex"},
+        {"option": "Retry with current config", "action": "retry", "speed": 1, "eta_seconds": 10, "detail": "Simple retry"},
+        {"option": "Downgrade and retry", "action": "model_downgrade", "speed": 2, "eta_seconds": 15, "detail": "Use lighter model"},
+        {"option": "Cloud takeover", "action": "takeover", "speed": 3, "eta_seconds": 30, "detail": "Route to Claude/Codex"},
     ],
 }
+
+# Average seconds per role for ETA estimation (aggressive targets)
+ROLE_ETA_SECONDS = {
+    "researcher": 20, "retriever": 15, "planner": 35,
+    "architect": 30, "implementer": 45, "tester": 30,
+    "reviewer": 35, "debugger": 30, "optimizer": 20,
+    "benchmarker": 25, "qa": 30, "user_acceptance": 15,
+    "summarizer": 20,
+}
+
+
+def estimate_completion(progress: dict, todo_stats: dict, session_count: int = 3) -> dict:
+    """Estimate aggressive ETAs for pipeline and todo completion."""
+    stages = progress.get("stages", [])
+    remaining_roles = [s for s in stages if s.get("status") not in ("completed", "skipped")]
+    pipeline_eta_s = sum(ROLE_ETA_SECONDS.get(s.get("id", ""), 30) for s in remaining_roles)
+
+    # For todo: estimate based on open items, ~2 min each for simple, ~5 for complex
+    total = todo_stats.get("total", 0)
+    done = todo_stats.get("done", 0)
+    open_count = todo_stats.get("open", 0)
+    # Aggressive: assume parallel work across sessions cuts time
+    sessions_active = max(1, session_count)
+    todo_eta_minutes = max(1, (open_count * 3) // sessions_active)  # 3 min avg per task, divided by sessions
+
+    return {
+        "pipeline_eta_seconds": pipeline_eta_s,
+        "pipeline_eta_display": _fmt_eta(pipeline_eta_s),
+        "remaining_roles": len(remaining_roles),
+        "todo_eta_minutes": todo_eta_minutes,
+        "todo_eta_display": _fmt_eta(todo_eta_minutes * 60),
+        "total_tasks": total,
+        "done_tasks": done,
+        "open_tasks": open_count,
+    }
+
+
+def _fmt_eta(seconds: int) -> str:
+    if seconds <= 0:
+        return "done"
+    if seconds < 60:
+        return f"{seconds}s"
+    m = seconds // 60
+    s = seconds % 60
+    if m < 60:
+        return f"{m}m {s}s" if s else f"{m}m"
+    h = m // 60
+    m2 = m % 60
+    return f"{h}h {m2}m"
 
 
 def classify_blocker(context: dict) -> str:

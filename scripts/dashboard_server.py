@@ -143,6 +143,8 @@ def collect_state() -> dict:
         "sessions": _detect_sessions(),
         "timeline": _history_timeline(),
         "blocker_resolution": _resolve_blockers(),
+        "etas": _compute_etas(),
+        "local_agent_activity": _local_agent_activity(),
         "server_time": datetime.now().isoformat(timespec="seconds"),
     }
 
@@ -161,6 +163,70 @@ def _resolve_blockers() -> dict:
         return {"type": blocker_type, "options": options}
     except Exception:
         return {"type": "none", "options": []}
+
+
+def _compute_etas() -> dict:
+    try:
+        from blocker_resolver import estimate_completion
+        progress = load_json(REPO_ROOT / "state" / "progress.json")
+        todo = _load_todo()
+        sessions = _detect_sessions()
+        return estimate_completion(progress, todo.get("stats", {}), session_count=max(1, len(sessions)))
+    except Exception:
+        return {}
+
+
+def _local_agent_activity() -> list[dict]:
+    """Detect what each local agent role is actively doing right now."""
+    activities = []
+    progress = load_json(REPO_ROOT / "state" / "progress.json")
+    stages = progress.get("stages", [])
+    for s in stages:
+        if s.get("status") == "running":
+            activities.append({
+                "role": s.get("id", "unknown"),
+                "label": s.get("label", s.get("id", "?")),
+                "status": "running",
+                "detail": s.get("detail", ""),
+                "percent": s.get("percent", 0),
+                "model": s.get("detail", "").split("model=")[-1].split(" ")[0] if "model=" in s.get("detail", "") else "",
+            })
+        elif s.get("status") == "completed":
+            activities.append({
+                "role": s.get("id", "unknown"),
+                "label": s.get("label", s.get("id", "?")),
+                "status": "completed",
+                "detail": s.get("detail", ""),
+                "percent": 100,
+            })
+        elif s.get("status") == "failed":
+            activities.append({
+                "role": s.get("id", "unknown"),
+                "label": s.get("label", s.get("id", "?")),
+                "status": "failed",
+                "detail": s.get("detail", ""),
+                "percent": s.get("percent", 0),
+            })
+
+    # Also check coordination claims for file-level activity
+    coord = load_json(REPO_ROOT / "state" / "agent-coordination.json")
+    claims = coord.get("claims", [])
+    for claim in claims:
+        role = claim.get("role", "")
+        existing = next((a for a in activities if a["role"] == role), None)
+        if existing:
+            existing["files"] = claim.get("files", [])[:5]
+        else:
+            activities.append({
+                "role": role,
+                "label": role.title(),
+                "status": "working",
+                "detail": f"Editing: {', '.join(claim.get('files', [])[:3])}",
+                "files": claim.get("files", [])[:5],
+                "percent": 50,
+            })
+
+    return activities
 
 
 def _load_lessons() -> list:
@@ -233,6 +299,12 @@ table{width:100%;border-collapse:collapse;font-size:11px}td,th{padding:3px 6px;t
     <div class="bw"><span class="bl">Cloud</span><div class="bar"><div class="bf y" id="cb"></div></div><span class="bp" id="cp">0%</span></div>
     <div class="bw"><span class="bl">Todo</span><div class="bar"><div class="bf p" id="tb"></div></div><span class="bp" id="tp">0%</span></div>
     <div id="roi" style="margin-top:4px;font-size:11px"></div>
+    <div id="eta-box" style="margin-top:8px;padding:6px;background:#1c2128;border-radius:4px;border-left:3px solid var(--green)">
+      <div style="color:var(--green);font-weight:bold;font-size:11px">ETA (Aggressive)</div>
+      <div style="font-size:12px;margin-top:3px" id="eta-pipeline">Pipeline: --</div>
+      <div style="font-size:12px" id="eta-todo">All tasks: --</div>
+      <div style="font-size:12px" id="eta-blockers">Blocker fix: --</div>
+    </div>
   </div>
   <div class="card">
     <h2>Resources</h2>
@@ -244,6 +316,8 @@ table{width:100%;border-collapse:collapse;font-size:11px}td,th{padding:3px 6px;t
   <div class="card">
     <h2>Active Sessions</h2>
     <div id="sessions">Scanning...</div>
+    <h2>Local Agent Activity</h2>
+    <div id="agent-activity" style="max-height:200px;overflow-y:auto">No activity</div>
     <h2>Coordination</h2>
     <div id="coord">No claims</div>
   </div>
@@ -314,10 +388,24 @@ async function R(){
   document.getElementById('tp').textContent=(ts.percent||0).toFixed(1)+'%';
   document.getElementById('todo-count').textContent='('+ts.done+'/'+ts.total+' done, '+ts.open+' open)';
 
-  // Blockers
+  // Blockers with ETA
   const blockers=td.blockers||[];
   document.getElementById('blocker-count').textContent='('+blockers.length+')';
-  document.getElementById('blockers').innerHTML=blockers.length?blockers.map(b=>'<div class="item blocker">'+esc(b.text.substring(0,120))+'<br><small>'+esc(b.section)+'</small></div>').join(''):'<div style="color:var(--green)">No blockers!</div>';
+  if(blockers.length){
+    let bkH='';
+    if(br.type&&br.type!=='default'&&br.type!=='none'){
+      bkH+='<div style="background:#2d1517;padding:6px;border-radius:4px;margin-bottom:6px"><span style="color:var(--red);font-weight:bold">ACTIVE: '+br.type.toUpperCase().replace(/_/g,' ')+'</span>';
+      (br.options||[]).forEach((o,i)=>{
+        const pick=i===0?' style="color:var(--green);font-weight:bold"':'';
+        bkH+='<div style="font-size:10px;margin-top:2px"'+(i===0?pick:'')+'>'+(i===0?'>>> ':'    ')+'Option '+(i+1)+': '+esc(o.option)+' ('+( o.eta_seconds||'?')+'s)</div>';
+      });
+      bkH+='</div>';
+    }
+    bkH+=blockers.map(b=>'<div class="item blocker">'+esc(b.text.substring(0,120))+'<br><small>'+esc(b.section)+'</small></div>').join('');
+    document.getElementById('blockers').innerHTML=bkH;
+  }else{
+    document.getElementById('blockers').innerHTML='<div style="color:var(--green)">No blockers!</div>';
+  }
 
   // Working
   const working=td.working||[];
@@ -365,6 +453,27 @@ async function R(){
     sH+='<div class="sess"><span class="dot '+(s.status||'active')+'"></span><span class="tag '+tg+'">'+s.type+'</span><span>'+esc((s.detail||'').substring(0,40))+'</span></div>';
   })}else{sH='<div style="color:var(--dim)">No active sessions detected</div>'}
   document.getElementById('sessions').innerHTML=sH;
+
+  // ETAs
+  const etas=d.etas||{};
+  document.getElementById('eta-pipeline').textContent='Pipeline: '+(etas.pipeline_eta_display||'--')+' ('+( etas.remaining_roles||0)+' roles left)';
+  document.getElementById('eta-todo').textContent='All tasks: '+(etas.todo_eta_display||'--')+' ('+( etas.open_tasks||0)+' open)';
+  const br=d.blocker_resolution||{};
+  const bOpts=br.options||[];
+  const blockerEta=bOpts.length&&br.type!=='default'?(bOpts[0].eta_seconds||10)+'s (auto-pick: '+bOpts[0].option+')':'no blockers';
+  document.getElementById('eta-blockers').textContent='Blocker fix: '+blockerEta;
+
+  // Local Agent Activity
+  const acts=d.local_agent_activity||[];
+  let aH='';
+  if(acts.length){acts.forEach(a=>{
+    const dot=a.status==='running'?'running':a.status==='completed'?'completed':a.status==='failed'?'failed':'pending';
+    const icon=a.status==='running'?'▶':a.status==='completed'?'✓':a.status==='failed'?'✗':'○';
+    const files=(a.files||[]).length?' ['+a.files.slice(0,2).join(', ')+']':'';
+    const model=a.model?' ('+a.model+')':'';
+    aH+='<div style="font-size:11px;padding:3px 0;border-bottom:1px solid var(--border)"><span class="dot '+dot+'"></span><b>'+esc(a.label)+'</b> '+icon+' '+esc(a.detail.substring(0,50))+model+files+'<div class="bar" style="height:6px;margin-top:2px"><div class="bf g" style="width:'+a.percent+'%"></div></div></div>';
+  })}else{aH='<div style="color:var(--dim)">No local agents active</div>'}
+  document.getElementById('agent-activity').innerHTML=aH;
 
   // Coordination
   const co=d.coordination||{},cl=co.claims||[],col=co.collisions||[];
