@@ -5,6 +5,7 @@ import subprocess
 import tempfile
 import unittest
 from unittest import mock
+import datetime
 
 from scripts import roi_guard
 
@@ -40,6 +41,28 @@ class RuntimeSafetyTests(unittest.TestCase):
                 body = json.loads(state_path.read_text())
         self.assertEqual(body["consecutive_negative"], 2)
         self.assertTrue(body["kill_switch"])
+
+    def test_roi_guard_prunes_old_negative_events(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            state_path = pathlib.Path(tmpdir) / "roi-state.json"
+            old = (datetime.datetime.now() - datetime.timedelta(minutes=30)).isoformat(timespec="seconds")
+            state_path.write_text(
+                json.dumps(
+                    {
+                        "events": [
+                            {"timestamp": old, "outcome": "negative", "detail": "stale"},
+                        ],
+                        "kill_switch": True,
+                    }
+                )
+            )
+            runtime_path = pathlib.Path(tmpdir) / "runtime.json"
+            runtime_path.write_text(json.dumps({"roi": {"max_event_age_minutes": 15, "negative_trend_threshold": 3}}))
+            with mock.patch.object(roi_guard, "STATE_PATH", state_path), \
+                 mock.patch.object(roi_guard, "RUNTIME_PATH", runtime_path):
+                body = roi_guard.load_state()
+        self.assertEqual(body["events"], [])
+        self.assertFalse(body["kill_switch"])
 
     def test_restore_checkpoint_blocks_without_explicit_restore_approval(self):
         with tempfile.TemporaryDirectory() as tmpdir:

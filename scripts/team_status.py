@@ -11,6 +11,8 @@ REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
 RUNTIME = json.loads((REPO_ROOT / "config" / "runtime.json").read_text())
 PROGRESS_PATH = REPO_ROOT / "state" / "progress.json"
 SESSION_STATE_PATH = REPO_ROOT / "state" / "session-state.json"
+RUN_LOCK_PATH = REPO_ROOT / "state" / "run.lock"
+STALE_SECONDS = 15
 
 
 def render_bar(percent, width=20):
@@ -109,6 +111,40 @@ def parse_iso(value):
         return None
 
 
+def is_pid_alive(pid):
+    if pid <= 0:
+        return False
+    try:
+        os.kill(pid, 0)
+    except OSError:
+        return False
+    return True
+
+
+def lock_pid():
+    if not RUN_LOCK_PATH.exists():
+        return 0
+    try:
+        body = json.loads(RUN_LOCK_PATH.read_text())
+    except json.JSONDecodeError:
+        return 0
+    return int(body.get("pid", 0) or 0)
+
+
+def progress_is_stale(progress):
+    overall_status = progress.get("overall", {}).get("status", "")
+    if overall_status != "running":
+        return False
+    pid = lock_pid()
+    if pid and is_pid_alive(pid):
+        return False
+    updated_at = parse_iso(progress.get("updated_at", ""))
+    if not updated_at:
+        return True
+    age = (datetime.now() - updated_at).total_seconds()
+    return age >= STALE_SECONDS
+
+
 def elapsed_label(progress):
     started_at = parse_iso(progress.get("started_at", ""))
     if not started_at:
@@ -126,10 +162,11 @@ def elapsed_label(progress):
 
 def execution_mix(progress, team_order):
     fallback = None
+    stale = progress_is_stale(progress)
     active_stages = {stage.get("id") for stage in progress.get("stages", []) if stage.get("status") in {"running", "completed"}}
     local_roles = sum(1 for role in team_order if role in active_stages)
     overall_status = progress.get("overall", {}).get("status")
-    if local_roles or overall_status == "running":
+    if not stale and (local_roles or overall_status == "running"):
         fallback = {
             "local_models": 100.0,
             "cloud_session": 0.0,
@@ -175,7 +212,9 @@ def main():
     todo = parse_todo()
     installed = installed_models()
 
-    if progress and overall_status == "running":
+    stale_progress = progress_is_stale(progress) if progress else False
+
+    if progress and overall_status == "running" and not stale_progress:
         overall = progress.get("overall", {})
         print(f"Working ({elapsed_label(progress)} • ctrl-c to interrupt • live)")
         print(
@@ -185,7 +224,8 @@ def main():
         print(f"task={progress.get('task', '')}")
     elif progress:
         overall = progress.get("overall", {})
-        print(f"TASK {render_bar(overall.get('percent', 0.0), 24)} {overall.get('percent', 0.0):5.1f}% | status {overall_status or 'idle'}")
+        status = "stale" if stale_progress else (overall_status or "idle")
+        print(f"TASK {render_bar(overall.get('percent', 0.0), 24)} {overall.get('percent', 0.0):5.1f}% | status {status}")
         print(f"task={progress.get('task', '')}")
     else:
         print("TASK [------------------------]   0.0% | remaining 100.0%")
@@ -226,6 +266,26 @@ def main():
         print(f"cloud-next={focus_text(focus.get('lanes', {}).get('cloud', []))}")
         print(f"product-next={focus_text(focus.get('use_cases', {}).get('product', []))}")
         print(f"business-next={focus_text(focus.get('use_cases', {}).get('business', []))}")
+    # Model usage breakdown
+    from live_dashboard import model_usage_breakdown
+    providers = model_usage_breakdown(progress, RUNTIME)
+    if providers:
+        print("")
+        print("MODEL USAGE")
+        total_stages = sum(p["total"] for p in providers.values()) or 1
+        for name, info in sorted(providers.items()):
+            pct = round(info["total"] / total_stages * 100, 1)
+            models = ", ".join(sorted(info["models"]))
+            parts = []
+            if info["completed"]:
+                parts.append(f"{info['completed']} done")
+            if info["running"]:
+                parts.append(f"{info['running']} running")
+            pending = info["total"] - info["completed"] - info["running"]
+            if pending > 0:
+                parts.append(f"{pending} pending")
+            print(f"  {name:15} {pct:5.1f}% | {' | '.join(parts)} | {models}")
+
     print("")
     print("ROLE BREAKDOWN")
 
