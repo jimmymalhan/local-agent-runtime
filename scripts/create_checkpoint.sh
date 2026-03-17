@@ -17,14 +17,14 @@ fi
 
 STAMP=$(date '+%Y%m%d_%H%M%S')
 SAFE_LABEL=$(printf '%s' "$LABEL" | tr '[:space:]/:' '---' | tr -cd '[:alnum:]-_' | cut -c1-40)
-CHECKPOINT_ROOT=$(checkpoint_root)
+CHECKPOINT_ROOT=$(checkpoint_root "$SOURCE_DIR")
 DEST="$CHECKPOINT_ROOT/${STAMP}-${SAFE_LABEL}"
 
 mkdir -p "$CHECKPOINT_ROOT"
-migrate_legacy_checkpoints
+migrate_legacy_checkpoints "$SOURCE_DIR"
 mkdir -p "$DEST/files"
 
-RSYNC_ARGS=(-a --exclude '.DS_Store' --exclude 'checkpoints' --exclude 'state/checkpoints')
+RSYNC_ARGS=(-a --exclude '.DS_Store' --exclude 'checkpoints' --exclude '.local-agent/checkpoints')
 rsync "${RSYNC_ARGS[@]}" "$SOURCE_DIR"/ "$DEST/files"/
 
 cat >"$DEST/metadata.json" <<EOF

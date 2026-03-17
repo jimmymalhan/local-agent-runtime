@@ -55,8 +55,8 @@ path = sys.argv[1]
 with open(path) as f:
     s = f.read()
 for name in ("codex", "claude"):
-    # Match: name() { newline bash ...local_agent_repo/local-agent-runtime... }
-    pat = r"^(" + re.escape(name) + r"\(\) \{[^}]*(local_agent_repo|local-agent-runtime)[^}]*\})"
+    # Match: name() { newline bash ...local-agent-runtime... }
+    pat = r"^(" + re.escape(name) + r"\(\) \{[^}]*(local-agent-runtime)[^}]*\})"
     def repl(m, n=name):
         return "# [local-agent-runtime] disabled so real " + n + " works\n# " + m.group(1).replace("\n", "\n# ")
     s = re.sub(pat, lambda m: repl(m), s, flags=re.MULTILINE | re.DOTALL)
@@ -71,7 +71,7 @@ fi
 # 2. Backup ~/.local/bin wrappers that point to local agent
 for cmd in claude codex; do
   p="$HOME/.local/bin/$cmd"
-  if [ -f "$p" ] && grep -Eq "local_agent_repo|local-agent-runtime" "$p" 2>/dev/null; then
+  if [ -f "$p" ] && grep -Eq "local-agent-runtime" "$p" 2>/dev/null; then
     mv "$p" "${p}.local-agent.bak"
     echo "  Backed up $p -> ${p}.local-agent.bak"
     APPLIED=1
