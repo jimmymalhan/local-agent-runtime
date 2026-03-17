@@ -65,6 +65,8 @@ Slash commands:
   /skills                    list skill files
   /workflows                 list workflow files
   /todo                      show state/todo.md
+  /todo-progress             show progress bars derived from state/todo.md
+  /todo-watch                watch todo progress bars in real time
   /todo add <text>           add an item to state/todo.md
   /todo done <text>          mark the first matching todo item complete
   /ledger                    show state/ledger.md
@@ -871,6 +873,12 @@ while true; do
       ;;
     /todo)
       sed -n '1,200p' "$REPO_ROOT/state/todo.md"
+      ;;
+    /todo-progress)
+      python3 "$SCRIPT_DIR/todo_progress.py"
+      ;;
+    /todo-watch)
+      python3 "$SCRIPT_DIR/todo_progress.py" --watch
       ;;
     /todo\ add\ *)
       bash "$SCRIPT_DIR/update_todo.sh" add "${user_input#"/todo add "}" "local-session"

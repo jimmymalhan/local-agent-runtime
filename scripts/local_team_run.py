@@ -673,6 +673,10 @@ def build_prompt(runtime, task, target_repo):
     parts.extend([
         "Answer like a strong Codex-style coding assistant. Be concrete, use repo facts, cite useful files or commands when relevant, and do not expose hidden chain-of-thought.",
         "Default to direct execution-oriented language: concise opening, visible progress, concrete outcomes, and minimal meta commentary.",
+        "Start with a common plan, then let the lead route work to matching skills and sub-agents so useful streams run in parallel without duplicating effort.",
+        "Teach the local runtime in every answer: prefer local agents, local tools, shared plans, and skill reuse before suggesting new manual steps.",
+        "Keep the zero-paid-API goal explicit. Default to local-model-only execution unless the current cloud session must take over because the local runtime is stalled or failing.",
+        "If the local runtime stalls, name the exact stalled point and the minimal takeover step a Codex or Claude session should complete to finish on time.",
         "Do not tell the user to clone the repo or use remote APIs unless the task explicitly asks for distribution or publishing.",
         "When retrieved grounding context is present, use it before broad prior assumptions.",
         "If the user asks a yes-or-no verification question, answer yes or no explicitly before the explanation.",
@@ -737,7 +741,8 @@ def stage_output_contract(runtime, stage_id):
         base = (
             "Return sections named `Existing work to reuse`, `Common plan`, `Parallel workstreams`, and `Validation path`. "
             "The `Common plan` section must be the authoritative handoff for all later roles. "
-            "Every file path, command, and tool name must already exist in the repo context or be clearly marked as missing."
+            "Every file path, command, and tool name must already exist in the repo context or be clearly marked as missing. "
+            "Include `Skill routing` and `Takeover trigger` details when local agents may stall or when cloud-session fallback should be explicit."
         )
         if exhaustive:
             base += " Add `Scaling notes`, `Risk register`, and `Known gaps and next upgrades` when relevant."
@@ -760,6 +765,7 @@ def stage_output_contract(runtime, stage_id):
         base = (
             "Return the final user-facing answer only. Prefer short headings if they help. Include concrete commands, files, or next steps when relevant. "
             "Sound like a pragmatic Codex-style CLI agent: direct, concise, execution-oriented, and low on ceremony. "
+            "Include visible progress or completion state when the task is still running, and state the local-vs-cloud execution split when it is relevant. "
             "Do not mention internal pipeline mechanics unless the user asked. If the task is about understanding or using the repo, include the exact local start command and the most important CLI commands. "
             "Start with a yes-or-no line when the user asked for verification. Never claim the chat transport itself is local-only unless that is actually true."
         )

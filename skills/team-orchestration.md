@@ -15,6 +15,8 @@
 10. When the user asks for verification, answer yes or no explicitly before the detailed explanation.
 11. Prefer concrete commands, artifacts, and checkpoints over generic advice.
 12. Record quality gaps that block the team from matching a stronger reasoning model so they can be added to the roadmap.
+13. Prefer local agents and local tools first. Use cloud-session takeover only when the local runtime stalls, misses the bar, or cannot finish on time.
+14. Keep the user informed with explicit progress percentages, live status, and execution ownership when a task is long-running.
 
 **Output Format:**
 ```text
@@ -31,6 +33,9 @@
 - ...
 
 ## Skill routing
+- ...
+
+## Takeover trigger
 - ...
 
 ## Known gaps and next upgrades

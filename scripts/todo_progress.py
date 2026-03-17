@@ -1,0 +1,135 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import pathlib
+import re
+import time
+
+
+REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
+TODO_PATH = REPO_ROOT / "state" / "todo.md"
+SECTION_RE = re.compile(r"^##\s+(.+)$")
+ITEM_RE = re.compile(r"^- \[(?P<state>[xX ])\] (?P<text>.+)$")
+LANE_RULES = {
+    "cloud": ("cloud", "codex", "claude", "cursor", "paid api", "external api"),
+    "local": ("local", "ollama", "local agent", "local agents", "local runtime", "sglang", "pinecone", "mcp"),
+}
+
+
+def render_bar(percent: float, width: int = 24) -> str:
+    percent = max(0.0, min(100.0, float(percent)))
+    filled = round(width * percent / 100.0)
+    return "[" + "#" * filled + "-" * (width - filled) + "]"
+
+
+def percent(done: int, total: int) -> float:
+    return round((done / total) * 100.0, 1) if total else 0.0
+
+
+def parse_todo(path: pathlib.Path = TODO_PATH):
+    sections = []
+    current = None
+    if not path.exists():
+        return {"overall": {"done": 0, "open": 0, "total": 0, "percent": 0.0}, "sections": []}
+
+    for raw_line in path.read_text().splitlines():
+        line = raw_line.rstrip()
+        section_match = SECTION_RE.match(line)
+        if section_match:
+            current = {"name": section_match.group(1), "items": []}
+            sections.append(current)
+            continue
+        item_match = ITEM_RE.match(line)
+        if item_match and current is not None:
+            done = item_match.group("state").lower() == "x"
+            text = item_match.group("text")
+            current["items"].append({"done": done, "text": text, "lane": lane_for_item(current["name"], text)})
+
+    for section in sections:
+        done = sum(1 for item in section["items"] if item["done"])
+        total = len(section["items"])
+        section["done"] = done
+        section["open"] = total - done
+        section["total"] = total
+        section["percent"] = percent(done, total)
+
+    total_done = sum(section["done"] for section in sections)
+    total_items = sum(section["total"] for section in sections)
+    lanes = lane_summary(sections)
+    return {
+        "overall": {
+            "done": total_done,
+            "open": total_items - total_done,
+            "total": total_items,
+            "percent": percent(total_done, total_items),
+        },
+        "lanes": lanes,
+        "sections": sections,
+    }
+
+
+def lane_for_item(section_name: str, text: str) -> str:
+    blob = f"{section_name} {text}".lower()
+    matches = {lane for lane, markers in LANE_RULES.items() if any(marker in blob for marker in markers)}
+    if len(matches) > 1:
+        return "shared"
+    if len(matches) == 1:
+        return next(iter(matches))
+    return "general"
+
+
+def lane_summary(sections):
+    summary = {lane: {"done": 0, "open": 0, "total": 0, "percent": 0.0} for lane in ("local", "cloud", "shared", "general")}
+    for section in sections:
+        for item in section["items"]:
+            lane = item["lane"]
+            summary[lane]["total"] += 1
+            if item["done"]:
+                summary[lane]["done"] += 1
+            else:
+                summary[lane]["open"] += 1
+    for lane in summary.values():
+        lane["percent"] = percent(lane["done"], lane["total"])
+    return summary
+
+
+def render_report(data) -> str:
+    overall = data["overall"]
+    lines = [
+        f"TODO {render_bar(overall['percent'])} {overall['percent']:5.1f}% | done {overall['done']} / total {overall['total']} | open {overall['open']}"
+    ]
+    lines.append("LANES")
+    for name, lane in data["lanes"].items():
+        if lane["total"] == 0:
+            continue
+        lines.append(
+            f"- {name}: {render_bar(lane['percent'], 20)} {lane['percent']:5.1f}% | done {lane['done']} / total {lane['total']} | open {lane['open']}"
+        )
+    lines.append("SECTIONS")
+    for section in data["sections"]:
+        if section["total"] == 0:
+            continue
+        lines.append(
+            f"- {section['name']}: {render_bar(section['percent'], 20)} {section['percent']:5.1f}% | done {section['done']} / total {section['total']} | open {section['open']}"
+        )
+    return "\n".join(lines)
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--watch", action="store_true", help="Refresh the todo progress view every few seconds.")
+    parser.add_argument("--interval", type=float, default=2.0, help="Refresh interval for --watch.")
+    args = parser.parse_args()
+
+    if args.watch:
+        while True:
+            print("\033[2J\033[H", end="")
+            print(render_report(parse_todo()))
+            time.sleep(max(0.2, args.interval))
+    else:
+        print(render_report(parse_todo()))
+
+
+if __name__ == "__main__":
+    main()

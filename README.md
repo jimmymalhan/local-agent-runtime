@@ -136,6 +136,8 @@ Inside `bash ./Local`:
 /skills
 /workflows
 /todo
+/todo-progress
+/todo-watch
 /ledger
 /compact
 /undo
@@ -150,6 +152,10 @@ Inside `bash ./Local`:
 ```
 
 Plain text input is treated as `/pipeline <task>`.
+
+`/todo-progress` and `/todo-watch` read `state/todo.md` and show project/task completion bars directly from the checklist instead of the active model run. They also split work into `local`, `cloud`, `shared`, and `general` lanes so the terminal can track local-agent work separately from cloud-session takeover work.
+
+`/live` now shows a Codex-style working header with elapsed time plus the current local-vs-cloud execution split.
 
 ## Agent Autopilot
 

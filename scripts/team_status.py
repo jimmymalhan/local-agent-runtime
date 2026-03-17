@@ -3,6 +3,7 @@ import json
 import os
 import pathlib
 import re
+from datetime import datetime
 
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -109,6 +110,40 @@ def stage_state(progress, stage_id):
     return {"percent": 0.0, "status": "pending", "detail": ""}
 
 
+def parse_iso(value):
+    if not value:
+        return None
+    try:
+        return datetime.fromisoformat(value)
+    except ValueError:
+        return None
+
+
+def elapsed_label(progress):
+    started_at = parse_iso(progress.get("started_at", ""))
+    if not started_at:
+        return "0s"
+    delta = datetime.now() - started_at
+    total_seconds = max(0, int(delta.total_seconds()))
+    minutes, seconds = divmod(total_seconds, 60)
+    hours, minutes = divmod(minutes, 60)
+    if hours:
+        return f"{hours}h {minutes}m {seconds}s"
+    if minutes:
+        return f"{minutes}m {seconds}s"
+    return f"{seconds}s"
+
+
+def execution_mix(progress, team_order):
+    active_stages = {stage.get("id") for stage in progress.get("stages", []) if stage.get("status") in {"running", "completed"}}
+    local_roles = sum(1 for role in team_order if role in active_stages)
+    local_percent = 100.0 if local_roles else 0.0
+    return {
+        "local_models": local_percent,
+        "cloud_session": 0.0,
+    }
+
+
 def main():
     profile_name = active_profile()
     profile = RUNTIME.get("profiles", {}).get(profile_name, {})
@@ -120,6 +155,7 @@ def main():
 
     if progress:
         overall = progress.get("overall", {})
+        print(f"Working ({elapsed_label(progress)} • ctrl-c to interrupt)")
         print(
             f"TASK {render_bar(overall.get('percent', 0.0), 24)} "
             f"{overall.get('percent', 0.0):5.1f}% | remaining {overall.get('remaining_percent', 100.0):5.1f}%"
@@ -132,6 +168,11 @@ def main():
     print(
         f"PROJECT {render_bar(todo['percent'], 24)} {todo['percent']:5.1f}% | "
         f"done {todo['done']} / total {todo['total']} | open {todo['open']}"
+    )
+    mix = execution_mix(progress, team_order)
+    print(
+        f"EXECUTION {render_bar(mix['local_models'], 24)} local {mix['local_models']:5.1f}% | "
+        f"cloud {mix['cloud_session']:5.1f}%"
     )
     print(f"profile={profile_name}")
     print("")

@@ -10,6 +10,7 @@
 3. **Resource-aware grouping:** Keep heavy models paired with lighter roles so the total machine load stays under the 70 percent CPU and memory ceilings.
 4. **Simultaneous work:** Roles in the same group run in parallel (`group_order` in `config/runtime.json`). No blocking inside a group.
 5. **Lead handoff:** Summarizer receives all outputs and produces the final answer. Benchmarker compares against the target bar. Review always runs before the final answer is accepted.
+6. **Takeover policy:** If local agents stall, miss validations, or fail to finish in time, the active Codex or Claude session finishes the remaining work and records the gap for the next local upgrade.
 
 **Coordination rules:**
 - Researcher and Retriever run first in parallel; they prepare context.
@@ -17,5 +18,6 @@
 - Implementer, Tester, Reviewer run in parallel where dependencies allow.
 - Subagents never wait for each other within a group—use shared_outputs from prior groups only.
 - The lead must route upgrade, RAG, SGLang, Pinecone, and MCP tasks to the matching skills before execution.
+- Every long-running task should surface progress percent, elapsed time, and whether work is being done by local models or by the active cloud session.
 
 **Skill upgrades:** Each role's output should cite what it learned. The next run inherits improved context. Skills in `skills/` define triggers—agents pick based on task keywords.
