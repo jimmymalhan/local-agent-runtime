@@ -2,6 +2,55 @@
   "backend": "ollama",
   "base_url": "http://127.0.0.1:11434",
   "default_model": "qwen2.5-coder:7b",
+  "providers": {
+    "ollama": {
+      "kind": "ollama",
+      "base_url": "http://127.0.0.1:11434"
+    },
+    "github_models": {
+      "kind": "github_models",
+      "base_url": "https://models.github.ai/inference/chat/completions",
+      "token_env": "GITHUB_MODELS_TOKEN",
+      "enabled_env": "LOCAL_AGENT_ENABLE_GITHUB_MODELS",
+      "api_version": "2022-11-28",
+      "default_model": "openai/gpt-4.1-mini",
+      "role_models": {
+        "planner": "openai/gpt-4.1",
+        "reviewer": "openai/gpt-4.1",
+        "benchmarker": "openai/gpt-4.1",
+        "qa": "openai/gpt-4.1",
+        "summarizer": "openai/gpt-4.1",
+        "architect": "openai/gpt-4.1-mini",
+        "implementer": "openai/gpt-4.1-mini",
+        "tester": "openai/gpt-4.1-mini",
+        "debugger": "openai/gpt-4.1-mini"
+      }
+    },
+    "clawbot": {
+      "kind": "openai_compatible",
+      "base_url_env": "CLAWBOT_BASE_URL",
+      "token_env": "CLAWBOT_API_KEY",
+      "enabled_env": "LOCAL_AGENT_ENABLE_CLAWBOT",
+      "chat_path": "/v1/chat/completions",
+      "default_model_env": "CLAWBOT_MODEL",
+      "default_model": "clawbot/default"
+    },
+    "openclaw": {
+      "kind": "openai_compatible",
+      "base_url_env": "OPENCLAW_BASE_URL",
+      "token_env": "OPENCLAW_GATEWAY_TOKEN",
+      "fallback_token_env": "OPENCLAW_GATEWAY_PASSWORD",
+      "enabled_env": "LOCAL_AGENT_ENABLE_OPENCLAW",
+      "chat_path": "/v1/chat/completions",
+      "default_model_env": "OPENCLAW_MODEL",
+      "default_model": "openclaw/default",
+      "models": {
+        "reasoning_env": "OPENCLAW_REASONING_MODEL",
+        "coding_env": "OPENCLAW_CODING_MODEL",
+        "fast_env": "OPENCLAW_FAST_MODEL"
+      }
+    }
+  },
   "default_profile": "fast",
   "team_order": [
     "researcher",
@@ -257,6 +306,12 @@
       "python3 ",
       "bash "
     ]
+  },
+  "roi": {
+    "kill_switch_enabled": true,
+    "negative_trend_window": 6,
+    "negative_trend_threshold": 3,
+    "max_event_age_minutes": 15
   },
   "team": {
     "researcher": {

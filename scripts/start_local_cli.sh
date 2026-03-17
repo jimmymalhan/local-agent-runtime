@@ -72,6 +72,13 @@ Slash commands:
   /todo add <text>           add an item to state/todo.md
   /todo done <text>          mark the first matching todo item complete
   /ledger                    show state/ledger.md
+  /dashboard                 open the local web UI dashboard (localhost:8411)
+  /dashboard-cli             show Codex-style CLI dashboard (live timer + bars)
+  /dashboard-snapshot        one-shot CLI dashboard snapshot
+  /coordinate                show agent file coordination status
+  /lessons                   show runtime lessons learned from failures
+  /teach                     ingest lessons from feedback logs
+  /takeover-monitor          start cloud takeover monitor (background)
   /exit | /quit              leave the session
 
   Codex-style commands:
@@ -928,6 +935,33 @@ while true; do
       ;;
     /ledger)
       sed -n '1,200p' "$REPO_ROOT/state/ledger.md"
+      ;;
+    /dashboard)
+      echo "Starting local web dashboard at http://localhost:8411 ..."
+      python3 "$SCRIPT_DIR/dashboard_server.py" &
+      DASHBOARD_PID=$!
+      echo "Dashboard running (pid $DASHBOARD_PID). Open http://localhost:8411 in your browser."
+      echo "Use 'kill $DASHBOARD_PID' or Ctrl+C to stop."
+      ;;
+    /dashboard-cli)
+      python3 "$SCRIPT_DIR/live_dashboard.py" 1.0
+      ;;
+    /dashboard-snapshot)
+      python3 "$SCRIPT_DIR/live_dashboard.py" --snapshot
+      ;;
+    /coordinate)
+      python3 "$SCRIPT_DIR/agent_coordinator.py" status
+      ;;
+    /lessons)
+      python3 "$SCRIPT_DIR/runtime_teacher.py" report
+      ;;
+    /teach)
+      python3 "$SCRIPT_DIR/runtime_teacher.py" ingest
+      ;;
+    /takeover-monitor)
+      echo "Starting cloud takeover monitor in background..."
+      python3 "$SCRIPT_DIR/cloud_takeover_monitor.py" &
+      echo "Monitor running (pid $!). It will print a codex command if local agents stall."
       ;;
     /pipeline\ *)
       task=${user_input#"/pipeline "}

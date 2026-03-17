@@ -43,6 +43,24 @@ This is the current ROI-oriented assignment:
 - keep `qwen2.5-coder:7b` on code generation, architecture shaping, testing, and final response writing
 - move lower-cost comparison and optimization work onto `qwen2.5:3b`
 
+Optional hybrid routing is also supported now:
+
+- `ollama` stays the default local-first provider
+- `GitHub Models` can be enabled with `LOCAL_AGENT_ENABLE_GITHUB_MODELS=1` and `GITHUB_MODELS_TOKEN`
+- `clawbot` or OpenClaw-style endpoints can be enabled with `LOCAL_AGENT_ENABLE_CLAWBOT=1`, `CLAWBOT_BASE_URL`, and `CLAWBOT_API_KEY`
+
+When enabled, the runtime routes:
+
+- cheap/context roles to local models first
+- reasoning/judgment roles to GitHub Models first
+- high-pressure fallback to `clawbot` or another OpenAI-compatible endpoint before the run stalls
+
+Runtime safety and ROI guards:
+
+- destructive restore paths now create a dry-run preview before apply
+- restore apply is blocked behind a pre-delete diff and approval gate unless `LOCAL_AGENT_APPROVE_DESTRUCTIVE=1`
+- the runtime tracks recent low-yield events and can trip an ROI kill switch instead of repeating the same stalled local loop
+
 ## Quick Start
 
 Start the local interactive session:

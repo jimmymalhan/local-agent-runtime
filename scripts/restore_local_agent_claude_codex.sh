@@ -8,51 +8,76 @@ REPO_ROOT=$(cd "$(dirname "$0")/.." && pwd)
 
 echo "=== Restoring claude/codex -> local agents ==="
 
-# 1. Uncomment codex() and claude() in .zshrc
-if grep -Eq "# \[local-agent-runtime\] disabled" "$RC_FILE" 2>/dev/null; then
+# 1. Uncomment codex() and claude() in .zshrc (handle both local-agent-runtime and local_agent_repo)
+if grep -Eq "# \[local-agent-runtime\] disabled|# \[local_agent_repo\] disabled" "$RC_FILE" 2>/dev/null; then
   sed -i.bak 's/^# \[local-agent-runtime\] disabled so real \(claude\|codex\) works$//' "$RC_FILE"
+  sed -i.bak 's/^# \[local_agent_repo\] disabled so real \(claude\|codex\) works$//' "$RC_FILE"
   sed -i.bak 's/^# codex() {$/codex() {/' "$RC_FILE"
   sed -i.bak 's/^#   bash /  bash /' "$RC_FILE"
   sed -i.bak 's/^# claude() {$/claude() {/' "$RC_FILE"
   sed -i.bak 's/^# }$/}/' "$RC_FILE"
+  # Fix paths: replace only the repo dir (e.g. .../local_agent_repo) with current REPO_ROOT,
+  # preserving /scripts/... (do not match trailing path)
+  sed -i.bak "s|[^ ]*local_agent_repo|$REPO_ROOT|g" "$RC_FILE" 2>/dev/null || true
+  sed -i.bak "s|[^ ]*local-agent-runtime|$REPO_ROOT|g" "$RC_FILE" 2>/dev/null || true
   echo "  Uncommented functions in $RC_FILE"
 fi
 
-# 1b. Ensure claude calls start_claude_compatible (for Claude persona)
-python3 - "$RC_FILE" <<'PY' 2>/dev/null || true
+# 1b. Fix claude/codex functions: ensure correct script paths
+python3 - "$RC_FILE" "$REPO_ROOT" <<'PY' 2>/dev/null || true
 import sys
-path = sys.argv[1]
+path, repo = sys.argv[1], sys.argv[2]
 s = open(path).read()
-if "claude()" in s and "start_codex_compatible" in s:
-    # Replace only in claude block: claude() { ... start_codex... }
-    in_claude = False
-    lines = s.split("\n")
-    out = []
-    for i, line in enumerate(lines):
-        if line.strip().startswith("claude()"):
-            in_claude = True
-        if in_claude and "start_codex_compatible" in line and "start_claude_compatible" not in line:
-            line = line.replace("start_codex_compatible", "start_claude_compatible")
-            in_claude = False
+lines = s.split("\n")
+out = []
+i = 0
+while i < len(lines):
+    line = lines[i]
+    # Fix claude block: use start_claude_compatible
+    if line.strip().startswith("claude()"):
         out.append(line)
-    open(path, "w").write("\n".join(out))
+        i += 1
+        while i < len(lines) and not line.rstrip().endswith("}"):
+            line = lines[i]
+            if "bash " in line and "scripts/" not in line and repo in line:
+                line = line.replace(repo, repo + "/scripts/start_claude_compatible.sh")
+            elif "start_codex_compatible" in line:
+                line = line.replace("start_codex_compatible", "start_claude_compatible")
+            out.append(line)
+            i += 1
+        continue
+    # Fix codex block: ensure has scripts path
+    if line.strip().startswith("codex()"):
+        out.append(line)
+        i += 1
+        while i < len(lines) and not line.rstrip().endswith("}"):
+            line = lines[i]
+            if "bash " in line and "scripts/" not in line and repo in line:
+                line = line.replace(repo, repo + "/scripts/start_codex_compatible.sh")
+            out.append(line)
+            i += 1
+        continue
+    out.append(line)
+    i += 1
+open(path, "w").write("\n".join(out))
 PY
 
-# 2. Restore ~/.local/bin from backup (claude uses start_claude_compatible)
+# 2. Ensure ~/.local/bin/claude and codex run local agents
+#    Only restore from .local-agent.bak if it's our wrapper (not real Claude/Codex app)
 mkdir -p "$HOME/.local/bin"
 for cmd in claude codex; do
   bak="$HOME/.local/bin/${cmd}.local-agent.bak"
   dest="$HOME/.local/bin/$cmd"
-  if [ -f "$bak" ]; then
-    cp -a "$bak" "$dest"
-    [ "$cmd" = "claude" ] && sed -i.bak3 's|start_codex_compatible|start_claude_compatible|' "$dest" 2>/dev/null || true
-    echo "  Restored $dest from backup"
-  elif [ ! -f "$dest" ]; then
-    start_script="start_codex_compatible.sh"
-    [ "$cmd" = "claude" ] && start_script="start_claude_compatible.sh"
-    printf '%s\n' '#!/bin/bash' "exec bash $REPO_ROOT/scripts/$start_script \"\$@\"" > "$dest"
+  start_script="start_codex_compatible.sh"
+  [ "$cmd" = "claude" ] && start_script="start_claude_compatible.sh"
+  wrapper_content="exec bash $REPO_ROOT/scripts/$start_script \"\$@\""
+  # Always (re)create wrappers with current REPO_ROOT so path is correct
+  if [ -f "$bak" ] && [ -f "$dest" ] && [ ! -L "$dest" ] && grep -q "start_.*_compatible" "$dest" 2>/dev/null && grep -q "$REPO_ROOT" "$dest" 2>/dev/null; then
+    echo "  $dest already points to this repo, skipping"
+  else
+    printf '%s\n' '#!/bin/bash' "$wrapper_content" > "$dest"
     chmod +x "$dest"
-    echo "  Created $dest"
+    echo "  Installed $dest -> Claude (local) / Codex (local) session"
   fi
 done
 
