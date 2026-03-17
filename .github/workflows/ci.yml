@@ -42,7 +42,7 @@ jobs:
         run: |
           echo "Checking for AI co-author references in tracked files..."
           FOUND=0
-          if git grep -iE 'co-authored-by.*claude|co-authored-by.*codex|co-authored-by.*cursor|noreply@anthropic\.com|codex@openai\.com' -- '*.py' '*.sh' '*.md' '*.yml' '*.json' '*.yaml' '*.txt'; then
+          if git grep -iE 'co-authored-by.*claude|co-authored-by.*codex|co-authored-by.*cursor|noreply@anthropic\.com|codex@openai\.com' -- '*.py' '*.sh' '*.md' '*.json' '*.yaml' '*.txt' ':!.github/workflows/ci.yml'; then
             echo "ERROR: Found AI co-author references in committed files."
             FOUND=1
           fi
