@@ -1,6 +1,23 @@
 #!/bin/bash
+# Open the real Claude CLI (Anthropic's Claude Code), not the local agent.
+# Use ./local-claude for the local Ollama agent instead.
 set -euo pipefail
 
-REPO_ROOT=$(cd "$(dirname "$0")" && pwd)
+# Try the real Claude CLI from PATH (skip this script itself)
+SELF="$(cd "$(dirname "$0")" && pwd)/claude"
+while IFS= read -r dir; do
+  candidate="$dir/claude"
+  if [ -x "$candidate" ] && [ "$candidate" != "$SELF" ]; then
+    exec "$candidate" "$@"
+  fi
+done <<< "$(echo "$PATH" | tr ':' '\n')"
 
-exec bash "$REPO_ROOT/scripts/start_claude_compatible.sh" "$@"
+# Fallback: try macOS app
+if [ "$(uname)" = "Darwin" ]; then
+  if open -Ra "Claude" 2>/dev/null; then
+    exec open -a "Claude" "$@"
+  fi
+fi
+
+echo "Real Claude CLI not found in PATH. Install it or use ./local-claude for the local agent." >&2
+exit 1

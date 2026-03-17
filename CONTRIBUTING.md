@@ -30,8 +30,7 @@ If you need to remove or replace something, deprecate it first, keep an older-ve
 
 4. **Run relevant local validation**
    ```bash
-   bash -n scripts/*.sh
-   python3 -m py_compile scripts/*.py
+   bash scripts/merge_gate.sh "$PWD"
    ```
 
 5. **Review the current changes locally**
@@ -64,5 +63,5 @@ Use Conventional Commits:
 - Every work item should end in a PR.
 - Prefer multiple logical commits instead of one large commit.
 - If the work already exists, update it or skip it instead of creating a duplicate implementation.
-- Always run the smallest relevant local validation before handoff.
+- Never merge on red. `bash scripts/merge_gate.sh "$PWD"` must pass locally, and the PR must have a green `Validate Runtime` check before merge.
 - Never hard-delete active behavior first. Deprecate, back up, verify the replacement, then remove.

@@ -21,6 +21,7 @@
 - Start sessions by confirming the local runtime is available; if the local runtime is unavailable, stop instead of silently falling back to an external model path.
 - Keep private local tool inventories out of tracked git content.
 - End each work item with local review, local validation, and a pull request when git hosting is in use.
+- Never merge while local validation or CI is red. `bash scripts/merge_gate.sh "$PWD"` must pass locally, and the PR must have a passing `Validate Runtime` check before merge.
 
 ## Reusable Workflow
 
@@ -37,6 +38,7 @@
 - Show both overall progress and per-stage progress where practical.
 - Save progress state to disk so interrupted runs can be resumed or inspected.
 - Finish interactive task runs with an automatic local review pass.
+- Dashboard and UI progress must update from live backend state. If primary progress sources are stale, the UI must mark them stale immediately, keep ETA/countdown fields live, and fall back to fresh operational state instead of showing frozen completion as if it were current.
 
 ## Recovery Rule
 
