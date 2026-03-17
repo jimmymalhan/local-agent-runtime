@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.3.0 - 2026-03-17
+
+- add real-time dashboard with auto-refresh data polling
+- add executive role panels for Manager, Director, CTO, and CEO
+- add todo completion tracking with progress bars
+- consolidate author to single author: Jimmy Malhan
+- improve CI pipeline reliability and workflow structure
+- enforce resource limit ceiling at 70% for CPU and memory
+- add local agent skill teaching system
+- integrate OpenClaw and GitHub Models as provider backends
+
 ## 0.2.2 - 2026-03-16
 
 - prevent `scripts/session_compare.py` from starting parallel persona runs when another task already holds `state/run.lock`

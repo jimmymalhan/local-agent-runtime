@@ -54,13 +54,20 @@ class LiveDashboardTests(unittest.TestCase):
         session = {"execution": {"local_models": 100.0, "cloud_session": 0.0}}
         resource = {"cpu_percent": 35.0, "memory_percent": 55.0}
         lock = {"pid": 0}
+        roi = {"kill_switch": False, "events": [{"outcome": "positive"}]}
+        lessons = [{"category": "resource", "lesson": "Unload models earlier", "fix": "stop resident ollama"}]
 
-        output = live_dashboard.format_dashboard(progress, runtime, session, resource, lock)
+        output = live_dashboard.format_dashboard(progress, runtime, session, resource, lock, roi, lessons)
         self.assertIn("45.0%", output)
         self.assertIn("test task", output)
         self.assertIn("PROGRESS", output)
         self.assertIn("LOCAL", output)
         self.assertIn("CLOUD", output)
+        self.assertIn("NEXT DECISION", output)
+        self.assertIn("EXECUTIVE NEGOTIATION", output)
+        self.assertIn("Manager", output)
+        self.assertIn("TEACHING LOOP", output)
+        self.assertIn("ROI", output)
 
     def test_snapshot_returns_string(self):
         result = live_dashboard.snapshot()

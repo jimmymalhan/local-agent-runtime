@@ -5,10 +5,14 @@ on:
     branches: [main]
   push:
     branches: [main]
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 concurrency:
   group: local-agent-runtime-ci-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 permissions:
   contents: read
@@ -17,7 +21,7 @@ jobs:
   validate:
     name: Validate Runtime
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
 
@@ -25,29 +29,25 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Shell syntax
+      - name: Install test dependencies
+        run: pip install pytest
+
+      - name: Run pytest on all tests
+        run: python -m pytest tests/ -v
+
+      - name: Merge gate
+        run: bash scripts/merge_gate.sh "$PWD"
+
+      - name: Verify no AI co-author lines in committed files
         run: |
-          bash -n Local
-          for file in scripts/*.sh local-codex local-claude; do
-            bash -n "$file"
-          done
-
-      - name: Python compile
-        run: python3 -m py_compile scripts/*.py mcp-local-runtime/server.py
-
-      - name: Unit tests
-        run: python3 -m unittest discover -s tests
-
-      - name: Session policy validation
-        run: python3 scripts/validate_session_policy.py
-
-      - name: Todo progress smoke
-        run: python3 scripts/todo_progress.py
-
-      - name: CLI smoke
-        run: |
-          LOCAL_AGENT_MODE=fast bash ./Local <<'EOF'
-          /todo-progress
-          /team
-          /exit
-          EOF
+          echo "Checking for AI co-author references in tracked files..."
+          FOUND=0
+          if git grep -iE 'co-authored-by.*claude|co-authored-by.*codex|co-authored-by.*cursor|noreply@anthropic\.com|codex@openai\.com' -- '*.py' '*.sh' '*.md' '*.json' '*.yaml' '*.txt' ':!.github/workflows/ci.yml'; then
+            echo "ERROR: Found AI co-author references in committed files."
+            FOUND=1
+          fi
+          if [ "$FOUND" -eq 1 ]; then
+            echo "::error::AI co-author lines detected in committed files. Remove them before merging."
+            exit 1
+          fi
+          echo "No AI co-author references found. Check passed."

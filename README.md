@@ -48,12 +48,17 @@ Optional hybrid routing is also supported now:
 - `ollama` stays the default local-first provider
 - `GitHub Models` can be enabled with `LOCAL_AGENT_ENABLE_GITHUB_MODELS=1` and `GITHUB_MODELS_TOKEN`
 - `clawbot` or OpenClaw-style endpoints can be enabled with `LOCAL_AGENT_ENABLE_CLAWBOT=1`, `CLAWBOT_BASE_URL`, and `CLAWBOT_API_KEY`
+- `OpenClaw` can be synced from the installed local gateway with `python3 scripts/sync_openclaw_credentials.py`
 
-When enabled, the runtime routes:
+Remote providers are not prioritized by default. Local agents stay first for all tasks, and remote fallback only becomes eligible when you explicitly set `LOCAL_AGENT_ALLOW_REMOTE_FALLBACK=1`.
 
-- cheap/context roles to local models first
-- reasoning/judgment roles to GitHub Models first
-- high-pressure fallback to `clawbot` or another OpenAI-compatible endpoint before the run stalls
+If OpenClaw is installed locally, this repo can now read `~/.openclaw/openclaw.json`, copy the loopback gateway token into ignored `state/runtime.env`, and use that env automatically in the CLI, runtime, and dashboard. Secrets stay local and out of git.
+
+When remote fallback is explicitly enabled, the runtime routes:
+
+- all roles to local Ollama first
+- remote providers only after local routing is already in place
+- high-pressure fallback to `clawbot` or another OpenAI-compatible endpoint only after explicit opt-in
 
 Runtime safety and ROI guards:
 
@@ -69,6 +74,14 @@ Start the local interactive session:
 cd /Users/jimmymalhan/Doc/local-agent-runtime
 bash ./Local
 ```
+
+Before merging any branch, run the exact local merge gate and wait for the PR check to go green:
+
+```bash
+bash scripts/merge_gate.sh "$PWD"
+```
+
+Do not merge if local validation fails or if GitHub `Validate Runtime` is red/cancelled.
 
 Use the local agent (only when you explicitly want local Ollama—does not shadow codex/claude/cursor):
 

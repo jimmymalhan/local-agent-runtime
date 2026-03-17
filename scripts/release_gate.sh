@@ -6,6 +6,47 @@ SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 REPO_ROOT=$(cd "$SCRIPT_DIR/.." && pwd)
 OUT_PATH="$REPO_ROOT/logs/release-gate-report.md"
 STATUS=0
+RUN_LOCK="$REPO_ROOT/state/run.lock"
+
+if [ -f "$RUN_LOCK" ]; then
+  LOCK_STATUS=$(python3 - "$RUN_LOCK" <<'PY'
+import json
+import os
+import pathlib
+import sys
+
+path = pathlib.Path(sys.argv[1])
+try:
+    body = json.loads(path.read_text())
+except Exception:
+    print("malformed")
+    raise SystemExit(0)
+pid = int(body.get("pid", 0) or 0)
+task = body.get("task", "")
+if pid > 0:
+    try:
+        os.kill(pid, 0)
+    except OSError:
+        print("stale")
+    else:
+        print(f"active:{pid}:{task}")
+else:
+    print("stale")
+PY
+)
+  case "$LOCK_STATUS" in
+    active:*)
+      LOCK_PID=$(printf '%s' "$LOCK_STATUS" | cut -d: -f2)
+      LOCK_TASK=$(printf '%s' "$LOCK_STATUS" | cut -d: -f3-)
+      echo "Release gate blocked by active local runtime lock (pid $LOCK_PID): $LOCK_TASK" >&2
+      echo "Run the release gate after the active local task finishes, or clear a stale lock with scripts/repair_runtime_state.py." >&2
+      exit 2
+      ;;
+    stale|malformed)
+      python3 "$SCRIPT_DIR/repair_runtime_state.py" "$TARGET_REPO" >/dev/null || true
+      ;;
+  esac
+fi
 
 bash "$SCRIPT_DIR/create_checkpoint.sh" "release-gate" "$TARGET_REPO" >/dev/null
 python3 "$SCRIPT_DIR/repair_runtime_state.py" "$TARGET_REPO" >/dev/null || true

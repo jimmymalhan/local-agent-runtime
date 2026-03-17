@@ -1,0 +1,13 @@
+{
+  "repo": "jimmymalhan/local-agent-runtime",
+  "visibility": "PUBLIC",
+  "branch": "main",
+  "protected": true,
+  "status": "protected",
+  "required_checks": [
+    "Validate Runtime"
+  ],
+  "blocker": "",
+  "protection_source": "ruleset",
+  "checked_at": "2026-03-17T04:22:26"
+}

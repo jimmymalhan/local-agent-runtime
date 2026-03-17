@@ -11,12 +11,14 @@ import time
 from datetime import datetime
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(REPO_ROOT / "scripts"))
 PROGRESS_PATH = REPO_ROOT / "state" / "progress.json"
 SESSION_STATE_PATH = REPO_ROOT / "state" / "session-state.json"
 RUN_LOCK_PATH = REPO_ROOT / "state" / "run.lock"
 RUNTIME_PATH = REPO_ROOT / "config" / "runtime.json"
 RESOURCE_PATH = REPO_ROOT / "state" / "resource-status.json"
 ROI_STATE_PATH = REPO_ROOT / "state" / "roi-metrics.json"
+LESSONS_PATH = REPO_ROOT / "state" / "runtime-lessons.json"
 
 ANSI_BOLD = "\033[1m"
 ANSI_DIM = "\033[2m"
@@ -114,8 +116,70 @@ def model_usage_breakdown(progress: dict, runtime: dict) -> dict[str, dict]:
     return providers
 
 
-def format_dashboard(progress: dict, runtime: dict, session: dict, resource: dict, lock: dict) -> str:
+def recent_lessons(limit: int = 3) -> list[dict]:
+    lessons = load_json(LESSONS_PATH)
+    if isinstance(lessons, list):
+        return lessons[-limit:]
+    if isinstance(lessons, dict):
+        return lessons.get("lessons", [])[-limit:]
+    return []
+
+
+def live_resource_snapshot() -> dict:
+    try:
+        from resource_status import cpu_percent, memory_percent, threshold_percent
+
+        return {
+            "timestamp": datetime.now().isoformat(timespec="seconds"),
+            "cpu_percent": cpu_percent(),
+            "memory_percent": memory_percent(),
+            "threshold_percent": threshold_percent(),
+        }
+    except Exception:
+        return load_json(RESOURCE_PATH)
+
+
+def next_decision(progress: dict, resource: dict, roi: dict) -> str:
+    cpu = float(resource.get("cpu_percent", 0.0))
+    mem = float(resource.get("memory_percent", 0.0))
+    if roi.get("kill_switch"):
+        return "ROI kill switch: cut scope, re-plan locally, and retry the smallest useful slice."
+    if mem > 70:
+        return "Memory high: unload resident Ollama models or downgrade before dispatch."
+    if cpu > 70:
+        return "CPU high: serialize roles and lower Ollama parallelism."
+    stages = progress.get("stages", [])
+    running = next((stage for stage in stages if stage.get("status") == "running"), None)
+    if running:
+        return f"Push {running.get('label', running.get('id', 'current stage'))} forward with smallest next diff."
+    return "No active blocker: start the next local role immediately."
+
+
+def executive_tension(progress: dict, resource: dict, roi: dict) -> list[str]:
+    cpu = float(resource.get("cpu_percent", 0.0))
+    mem = float(resource.get("memory_percent", 0.0))
+    active = next((stage for stage in progress.get("stages", []) if stage.get("status") == "running"), {})
+    current = active.get("label", active.get("id", "next stage")) if active else "next stage"
+    lines = [
+        f"    Manager  wants immediate progress on {current}",
+        "    Director wants backlog cuts and tighter priority ordering",
+    ]
+    if mem > 70 or cpu > 70:
+        lines.append("    CTO      wants lighter models / serialization before any expansion")
+        lines.append("    CEO      wants the shortest ROI-positive slice shipped now")
+    elif roi.get("kill_switch"):
+        lines.append("    CTO      wants a smaller local plan and stricter routing")
+        lines.append("    CEO      wants low-yield work stopped immediately")
+    else:
+        lines.append("    CTO      wants stable local execution with tighter local-only routing")
+        lines.append("    CEO      wants the next shippable increment, not a big-bang batch")
+    return lines
+
+
+def format_dashboard(progress: dict, runtime: dict, session: dict, resource: dict, lock: dict, roi: dict | None = None, lessons: list[dict] | None = None) -> str:
     lines: list[str] = []
+    roi = roi or {}
+    lessons = lessons or []
 
     overall = progress.get("overall", {})
     overall_pct = overall.get("percent", 0.0)
@@ -160,6 +224,14 @@ def format_dashboard(progress: dict, runtime: dict, session: dict, resource: dic
     mem_color = ANSI_RED if mem > 70 else ANSI_YELLOW if mem > 50 else ANSI_GREEN
     lines.append(f"  CPU      {render_bar(cpu, 30, cpu_color)} {cpu:5.1f}%")
     lines.append(f"  MEMORY   {render_bar(mem, 30, mem_color)} {mem:5.1f}%")
+    roi_score = 100
+    events = roi.get("events", [])
+    if events:
+        positive = sum(1 for item in events if item.get("outcome") == "positive")
+        negative = sum(1 for item in events if item.get("outcome") == "negative")
+        roi_score = round(positive / max(1, positive + negative) * 100)
+    roi_color = ANSI_RED if roi.get("kill_switch") else ANSI_GREEN if roi_score >= 70 else ANSI_YELLOW
+    lines.append(f"  ROI      {render_bar(roi_score, 30, roi_color)} {roi_score:5.1f}%")
     lines.append("")
 
     # Model usage breakdown
@@ -204,6 +276,25 @@ def format_dashboard(progress: dict, runtime: dict, session: dict, resource: dic
             detail_str = f" {ANSI_DIM}| {detail}{ANSI_RESET}" if detail else ""
             lines.append(f"    {icon} {label:18} {render_bar(pct, 15)} {pct:5.1f}%{detail_str}")
 
+    decision = next_decision(progress, resource, roi)
+    lines.append("")
+    lines.append(f"  {ANSI_BOLD}NEXT DECISION{ANSI_RESET}")
+    lines.append(f"    {decision}")
+    lines.append("")
+    lines.append(f"  {ANSI_BOLD}EXECUTIVE NEGOTIATION{ANSI_RESET}")
+    lines.extend(executive_tension(progress, resource, roi))
+
+    if lessons:
+        lines.append("")
+        lines.append(f"  {ANSI_BOLD}TEACHING LOOP{ANSI_RESET}")
+        for lesson in lessons[-3:]:
+            category = lesson.get("category", "lesson")
+            text = lesson.get("lesson", "")[:90]
+            fix = lesson.get("fix", "")[:90]
+            lines.append(f"    [{category}] {text}")
+            if fix:
+                lines.append(f"      fix: {fix}")
+
     return "\n".join(lines)
 
 
@@ -229,10 +320,12 @@ def run_dashboard(poll_interval: float = 1.0) -> None:
     while not stop:
         progress = load_json(PROGRESS_PATH)
         session = load_json(SESSION_STATE_PATH)
-        resource = load_json(RESOURCE_PATH)
+        resource = live_resource_snapshot()
         lock = load_json(RUN_LOCK_PATH)
+        roi = load_json(ROI_STATE_PATH)
+        lessons = recent_lessons()
 
-        output = format_dashboard(progress, runtime, session, resource, lock)
+        output = format_dashboard(progress, runtime, session, resource, lock, roi, lessons)
         line_count = output.count("\n") + 1
 
         if prev_lines > 0:
@@ -259,9 +352,11 @@ def snapshot() -> str:
     runtime = load_json(RUNTIME_PATH)
     progress = load_json(PROGRESS_PATH)
     session = load_json(SESSION_STATE_PATH)
-    resource = load_json(RESOURCE_PATH)
+    resource = live_resource_snapshot()
     lock = load_json(RUN_LOCK_PATH)
-    return format_dashboard(progress, runtime, session, resource, lock)
+    roi = load_json(ROI_STATE_PATH)
+    lessons = recent_lessons()
+    return format_dashboard(progress, runtime, session, resource, lock, roi, lessons)
 
 
 if __name__ == "__main__":

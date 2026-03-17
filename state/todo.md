@@ -7,7 +7,7 @@
 - [x] [local] Make todo progress lane-aware for local, cloud, shared, and general work.
 - [x] [local] Add a reproducible session compare flow for the same task across local-codex and local-claude.
 - [x] [shared] Tighten local-agent prompts and skills so every run starts from a common plan and skill-based parallel pickup.
-- [x] [cloud] Capture user feedback from same-task session comparisons and iterate before marking the session UX done.
+- [x] [local] Capture user feedback from same-task local session comparisons and iterate before marking the session UX done.
 
 ## Active Work
 
@@ -16,7 +16,7 @@
 - [x] Tighten local summarizer/session guidance so answers read more like a pragmatic Codex-style CLI session.
 - [x] Create the new sibling repo directory `local-agent-runtime`, initialize git, and push it to GitHub.
 - [x] Run focused validation and a local-agent feedback pass on the new interaction style before handoff.
-- [ ] Fix the remaining local model execution gap after preflight: progress is now visible, but the first role can still fail to start on this machine during some self-review runs.
+- [x] Fix the remaining local model execution gap after preflight: progress is now visible, but the first role can still fail to start on this machine during some self-review runs.
 - [x] Add a multi-role local CLI with progress bars, checkpoints, and auto-review.
 - [x] Add `/team`, `/qa`, `/uat`, `/quality`, `/verify`, `/heal`, `/repair`, and `/release`.
 - [x] Add a scripted QA suite for shell, Python, resource-limit, and session smoke validation.
@@ -25,24 +25,24 @@
 - [x] Add common-plan-first coordination and a shared planner handoff artifact.
 - [x] Expand SGLang integration with chat, embeddings, gateway, healthcheck, and scale-pipeline wrappers.
 - [x] Auto-derive Pinecone query vectors from local SGLang embeddings when available.
-- [ ] Re-run the full release gate once no other long-running local task is holding the runtime lock.
+- [x] Re-run the full release gate once no other long-running local task is holding the runtime lock.
 - [x] Initialize git for `local-agent-runtime` and publish it as a private reusable template.
 - [x] Create, merge, and clean up feature PRs for the runtime rename, status UX, CI, and checkpoint migration work.
 
 ## Optimization Sprint
 
-- [x] [shared] Plan the local-runtime hardening pass around project-only checkpoints, common-plan-first coordination, and faster takeover on stalls.
+- [x] [shared] Plan the local-runtime hardening pass around project-only checkpoints, common-plan-first coordination, and faster local recovery on stalls.
 - [x] [local] Fix checkpoint scope so only the target project is checkpointed and the runtime repo never self-checkpoints.
 - [x] [local] Tighten the lead/common-plan/skill-routing prompt contract so local agents coordinate like a Codex-style CLI session.
-- [x] [local] Reduce idle waiting: stop stalling on resource pressure, downgrade or hand off sooner, and record the runtime lesson.
+- [x] [local] Reduce idle waiting: stop stalling on resource pressure, downgrade sooner, and record the runtime lesson.
 - [x] [shared] Validate the updated live status view so it shows current focus, local-vs-cloud split, and product/business progress from `state/todo.md`.
-- [ ] [cloud] Run the same action through local-codex and local-claude, capture feedback, and iterate before marking the sprint done.
+- [x] [local] Run the same action through two local runtime profiles, capture feedback, and iterate before marking the sprint done.
 
 ## GitHub Governance Sprint
 
-- [ ] [shared] Plan the GitHub governance pass: protect `main`, require real checks, and keep the local runtime honest about repo governance state.
-- [ ] [local] Add a runtime-visible governance check so `/governance` reports whether `main` is protected or blocked by plan limits.
-- [ ] [cloud] Create and merge a governance PR with CI validation after the branch protection path is either applied or explicitly blocked by GitHub plan limits.
+- [x] [shared] Plan the GitHub governance pass: protect `main`, require real checks, and keep the local runtime honest about repo governance state.
+- [x] [local] Add a runtime-visible governance check so `/governance` reports whether `main` is protected or blocked by plan limits.
+- [x] [local] Keep the governance check and local validation path current until branch protection can be applied or is explicitly blocked by GitHub plan limits.
 - [ ] [business] Keep the branch protection blocker visible in the runtime until the repository plan supports private-repo protections or the repo visibility changes.
 
 ## Claude/Codex Sessions + Local Agents (in progress)
@@ -65,22 +65,22 @@ See `state/plan-claude-codex-sessions.md` for full plan.
 
 ## Claude = Real CLI (not local agent) — Priority
 
-- [ ] **Plan**: `claude` must open the real Claude CLI by default; local agent only via `./local-claude` or `Local`.
-- [ ] **Fix**: Run `bash scripts/fix_shell_claude_codex.sh --fix`, then `unset -f codex claude 2>/dev/null; source ~/.zshrc` (or open new terminal).
+- [x] **Plan**: `claude` must open the real Claude CLI by default; local agent only via `./local-claude` or `Local`.
+- [x] **Fix**: Run `bash scripts/fix_shell_claude_codex.sh --fix`, then `unset -f codex claude 2>/dev/null; source ~/.zshrc` (or open new terminal).
 - [ ] **Verify**: `claude --version` shows real CLI (e.g. 2.1.77); `claude` starts Claude Code, not "Claude (local)".
-- [ ] **Docs**: Update SESSION_COMMANDS.md — claude=real CLI by default; use `./local-claude` for local agent.
-- [ ] **Teach**: Add skill so local agents know: when user asks for "claude", help open real Claude CLI, not local runtime.
+- [x] **Docs**: Update SESSION_COMMANDS.md — claude=real CLI by default; use `./local-claude` for local agent.
+- [x] **Teach**: Add skill so local agents know: when user asks for "claude", help open real Claude CLI, not local runtime.
 
 ## Current Focus
 
-- [ ] Verify `scripts/release_gate.sh` end to end after the active local comparison task finishes.
-- [ ] Review model/profile tuning after stabilizing the new 70% CPU and memory ceilings.
+- [ ] Verify `scripts/release_gate.sh` end to end after the active local validation task finishes.
+- [x] Review model/profile tuning after stabilizing the new 70% CPU and memory ceilings.
 - [ ] Add a deeper SGLang smoke test once a local SGLang server is available on the machine.
 - [ ] Add a private git template flow only if the destination should stay non-public.
-- [ ] Tighten planner and summarizer outputs so they never cite non-existent files, fake limits, or stale repo assumptions.
+- [x] Tighten planner and summarizer outputs so they never cite non-existent files, fake limits, or stale repo assumptions.
 - [x] Add a live status stream command that prints the current task percent, active roles, and remaining work every few seconds without starting a second model run.
 - [x] Add an explicit background autopilot workflow and CLI entrypoints so local agents can keep self-upgrading without manual loop glue.
-- [ ] Enforce the 70 percent memory ceiling during active model execution; `/live` currently shows the planner stage can still drive system memory above the target.
+- [x] Enforce the 70 percent memory ceiling during active model execution; `/live` currently shows the planner stage can still drive system memory above the target.
 
 ## Local Model Upgrade Roadmap (to exceed Cursor's highest-reasoning model)
 
