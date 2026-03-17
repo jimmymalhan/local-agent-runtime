@@ -9,8 +9,8 @@ REPO_ROOT=$(cd "$(dirname "$0")/.." && pwd)
 echo "=== Restoring claude/codex -> local agents ==="
 
 # 1. Uncomment codex() and claude() in .zshrc
-if grep -Eq "# \[(local_agent_repo|local-agent-runtime)\] disabled" "$RC_FILE" 2>/dev/null; then
-  sed -i.bak 's/^# \[\(local_agent_repo\|local-agent-runtime\)\] disabled so real \(claude\|codex\) works$//' "$RC_FILE"
+if grep -Eq "# \[local-agent-runtime\] disabled" "$RC_FILE" 2>/dev/null; then
+  sed -i.bak 's/^# \[local-agent-runtime\] disabled so real \(claude\|codex\) works$//' "$RC_FILE"
   sed -i.bak 's/^# codex() {$/codex() {/' "$RC_FILE"
   sed -i.bak 's/^#   bash /  bash /' "$RC_FILE"
   sed -i.bak 's/^# claude() {$/claude() {/' "$RC_FILE"
