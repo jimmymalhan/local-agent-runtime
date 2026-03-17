@@ -9,8 +9,13 @@ import sys
 import threading
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 from datetime import datetime
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from runtime_teacher import get_lessons_for_stage, format_lessons_for_prompt, record_lesson as teach_lesson
+from agent_coordinator import claim_files, release_files
 
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -29,6 +34,7 @@ MENTIONED_FILES_PATH = REPO_ROOT / "state" / "mentioned-files.txt"
 COMMON_PLAN_PATH = REPO_ROOT / "state" / "common-plan.md"
 PROMPT_LOG_PATH = REPO_ROOT / "feedback" / "prompt-log.md"
 WORKFLOW_EVOLUTION_PATH = REPO_ROOT / "feedback" / "workflow-evolution.md"
+ROI_STATE_PATH = REPO_ROOT / "state" / "roi-metrics.json"
 
 
 ROLE_FILES = {
@@ -93,6 +99,10 @@ def load_runtime():
     return runtime
 
 
+def provider_config(runtime, provider_name):
+    return runtime.get("providers", {}).get(provider_name, {})
+
+
 def parse_selected_roles(profile, runtime):
     default_roles = profile.get("team_order") or runtime.get("team_order") or list(runtime.get("team", {}).keys())
     override = os.environ.get("LOCAL_AGENT_ONLY_ROLES", "").strip()
@@ -134,6 +144,15 @@ def resource_wait_event_limit(runtime=None):
     return int(os.environ.get("LOCAL_AGENT_MAX_RESOURCE_WAIT_EVENTS", default))
 
 
+def parse_iso(value):
+    if not value:
+        return None
+    try:
+        return datetime.fromisoformat(value)
+    except ValueError:
+        return None
+
+
 def active_target_repo():
     return pathlib.Path(os.environ.get("LOCAL_AGENT_TARGET_REPO", REPO_ROOT)).resolve()
 
@@ -162,6 +181,94 @@ def record_runtime_lesson(kind, task, target_repo, reason, detail=""):
         path.parent.mkdir(parents=True, exist_ok=True)
         with path.open("a") as handle:
             handle.write(entry)
+
+
+def load_roi_metrics():
+    if not ROI_STATE_PATH.exists():
+        return {"events": []}
+    try:
+        data = json.loads(ROI_STATE_PATH.read_text())
+    except json.JSONDecodeError:
+        return {"events": []}
+    if "events" not in data or not isinstance(data["events"], list):
+        data["events"] = []
+    return data
+
+
+def save_roi_metrics(data):
+    ROI_STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    ROI_STATE_PATH.write_text(json.dumps(data, indent=2) + "\n")
+
+
+def roi_event_window(runtime):
+    return int(runtime.get("roi", {}).get("negative_trend_window", 6))
+
+
+def roi_negative_threshold(runtime):
+    return int(runtime.get("roi", {}).get("negative_trend_threshold", 3))
+
+
+def roi_event_max_age_minutes(runtime):
+    return int(runtime.get("roi", {}).get("max_event_age_minutes", 15))
+
+
+def prune_roi_events(runtime, events):
+    cutoff_seconds = roi_event_max_age_minutes(runtime) * 60
+    now = datetime.now()
+    kept = []
+    for item in events:
+        stamp = parse_iso(item.get("timestamp", ""))
+        if not stamp:
+            kept.append(item)
+            continue
+        if (now - stamp).total_seconds() <= cutoff_seconds:
+            kept.append(item)
+    return kept
+
+
+def record_roi_event(runtime, stage_id, outcome, detail=""):
+    if not runtime.get("roi", {}).get("kill_switch_enabled", True):
+        return
+    data = load_roi_metrics()
+    events = prune_roi_events(runtime, data.get("events", []))
+    events.append(
+        {
+            "timestamp": datetime.now().isoformat(timespec="seconds"),
+            "stage": stage_id,
+            "outcome": outcome,
+            "detail": detail,
+        }
+    )
+    data["events"] = events[-roi_event_window(runtime):]
+    negatives = sum(1 for item in data["events"] if item.get("outcome") == "negative")
+    positives = sum(1 for item in data["events"] if item.get("outcome") == "positive")
+    data["trend"] = "negative" if negatives >= roi_negative_threshold(runtime) and negatives > positives else "healthy"
+    data["kill_switch"] = data["trend"] == "negative"
+    save_roi_metrics(data)
+
+
+def enforce_roi_kill_switch(runtime, stage_id, target_repo):
+    if not runtime.get("roi", {}).get("kill_switch_enabled", True):
+        return
+    data = load_roi_metrics()
+    data["events"] = prune_roi_events(runtime, data.get("events", []))
+    negatives = sum(1 for item in data["events"] if item.get("outcome") == "negative")
+    positives = sum(1 for item in data["events"] if item.get("outcome") == "positive")
+    data["trend"] = "negative" if negatives >= roi_negative_threshold(runtime) and negatives > positives else "healthy"
+    data["kill_switch"] = data["trend"] == "negative"
+    save_roi_metrics(data)
+    if not data.get("kill_switch"):
+        return
+    reason = "roi kill switch triggered after repeated low-yield runtime events"
+    detail = (
+        f"recent trend={data.get('trend', 'unknown')}; "
+        f"window={roi_event_window(runtime)} threshold={roi_negative_threshold(runtime)}. "
+        "Pause local iteration, hand off the stuck remainder, and teach the runtime from the failure before retrying."
+    )
+    task = os.environ.get("LOCAL_AGENT_ACTIVE_TASK", stage_id)
+    set_takeover_state(task, target_repo, reason, local_percent=0.0, cloud_percent=100.0)
+    record_runtime_lesson("takeover", stage_id, target_repo, reason, detail)
+    raise SystemExit(takeover_message(target_repo, task, reason, detail))
 
 
 def set_takeover_state(task, target_repo, reason, local_percent=15.0, cloud_percent=85.0):
@@ -215,6 +322,85 @@ def installed_models():
         if parts:
             names.append(parts[0])
     return names
+
+
+def env_truthy(name):
+    return os.environ.get(name, "").strip().lower() in {"1", "true", "yes", "on"}
+
+
+def provider_enabled(runtime, provider_name):
+    cfg = provider_config(runtime, provider_name)
+    if not cfg:
+        return False
+    if provider_name == "ollama":
+        return True
+    enabled_env = cfg.get("enabled_env")
+    if enabled_env and not env_truthy(enabled_env):
+        return False
+    token_env = cfg.get("token_env")
+    fallback_token_env = cfg.get("fallback_token_env")
+    if token_env and not (os.environ.get(token_env) or (fallback_token_env and os.environ.get(fallback_token_env))):
+        return False
+    if cfg.get("base_url_env") and not os.environ.get(cfg["base_url_env"]) and not cfg.get("base_url"):
+        return False
+    return True
+
+
+def role_category(stage_id):
+    cheap_roles = {"researcher", "retriever", "optimizer", "user_acceptance"}
+    code_roles = {"architect", "implementer", "tester", "debugger"}
+    reasoning_roles = {"planner", "reviewer", "benchmarker", "qa", "summarizer"}
+    if stage_id in cheap_roles:
+        return "cheap"
+    if stage_id in code_roles:
+        return "code"
+    if stage_id in reasoning_roles:
+        return "reasoning"
+    return "general"
+
+
+def provider_order_for_stage(runtime, stage_id, resource_state=None):
+    pressure = pressure_level(runtime, resource_state)
+    category = role_category(stage_id)
+    fast_remote = "clawbot" if provider_enabled(runtime, "clawbot") else "openclaw"
+    if pressure == "high":
+        if category == "reasoning":
+            order = ["github_models", fast_remote, "ollama"]
+        else:
+            order = [fast_remote, "github_models", "ollama"]
+    elif pressure == "elevated":
+        if category == "cheap":
+            order = ["ollama", fast_remote, "github_models"]
+        elif category == "code":
+            order = ["ollama", "github_models", fast_remote]
+        else:
+            order = ["github_models", "ollama", fast_remote]
+    else:
+        if category == "reasoning":
+            order = ["github_models", "ollama", fast_remote]
+        elif category == "code":
+            order = ["ollama", "github_models", fast_remote]
+        else:
+            order = ["ollama", fast_remote, "github_models"]
+    return [name for name in order if provider_enabled(runtime, name)]
+
+
+def provider_model_for_stage(runtime, provider_name, stage_id):
+    cfg = provider_config(runtime, provider_name)
+    role_models = cfg.get("role_models", {})
+    if stage_id in role_models:
+        return role_models[stage_id]
+    env_models = cfg.get("models", {})
+    if role_category(stage_id) == "reasoning" and env_models.get("reasoning_env") and os.environ.get(env_models["reasoning_env"]):
+        return os.environ[env_models["reasoning_env"]]
+    if role_category(stage_id) == "code" and env_models.get("coding_env") and os.environ.get(env_models["coding_env"]):
+        return os.environ[env_models["coding_env"]]
+    if role_category(stage_id) == "cheap" and env_models.get("fast_env") and os.environ.get(env_models["fast_env"]):
+        return os.environ[env_models["fast_env"]]
+    default_env = cfg.get("default_model_env")
+    if default_env and os.environ.get(default_env):
+        return os.environ[default_env]
+    return cfg.get("default_model", runtime.get("default_model"))
 
 
 def load_resource_state():
@@ -329,6 +515,39 @@ def effective_model_for_stage(runtime, stage_id, available_models):
     return smaller
 
 
+def execution_mix_for_provider(provider_name):
+    if provider_name == "ollama":
+        return 100.0, 0.0
+    return 20.0, 80.0
+
+
+def provider_uses_local_resources(provider_name):
+    return provider_name == "ollama"
+
+
+def update_execution_state(task, target_repo, provider_name):
+    local_percent, cloud_percent = execution_mix_for_provider(provider_name)
+    env = os.environ.copy()
+    env["LOCAL_AGENT_LOCAL_PERCENT"] = str(local_percent)
+    env["LOCAL_AGENT_CLOUD_PERCENT"] = str(cloud_percent)
+    env["LOCAL_AGENT_TAKEOVER_REASON"] = ""
+    subprocess.run(
+        ["python3", str(SESSION_STATE), "running", task, str(target_repo)],
+        check=False,
+        stdout=subprocess.DEVNULL,
+        env=env,
+    )
+
+
+def resolve_execution_target(runtime, stage_id, available_models, resource_state=None):
+    provider_order = provider_order_for_stage(runtime, stage_id, resource_state)
+    for provider_name in provider_order:
+        if provider_name == "ollama":
+            return provider_name, effective_model_for_stage(runtime, stage_id, available_models)
+        return provider_name, provider_model_for_stage(runtime, provider_name, stage_id)
+    return "ollama", effective_model_for_stage(runtime, stage_id, available_models)
+
+
 def write_history(role, content, target_repo):
     HISTORY_PATH.parent.mkdir(parents=True, exist_ok=True)
     entry = {
@@ -412,6 +631,7 @@ def ensure_resource_capacity(runtime):
                 "Teach local agents to reduce parallelism earlier, shrink prompt budgets, select lighter models sooner, "
                 "or hand the unfinished remainder to Codex/Claude before stalling."
             )
+            record_roi_event(runtime, current_stage_label() or "resource-wait", "negative", detail)
             set_takeover_state(task, target_repo, reason, local_percent=0.0, cloud_percent=100.0)
             record_runtime_lesson("takeover", current_stage_label() or "resource-wait", target_repo, reason, detail)
             raise SystemExit(takeover_message(target_repo, task, reason, detail))
@@ -487,6 +707,7 @@ def acquire_lock(runtime, task, target_repo):
                 if time.time() - started >= timeout:
                     reason = f"run lock held too long by pid {pid}"
                     detail = body.get("task", "")
+                    record_roi_event(runtime, "run-lock", "negative", detail or reason)
                     set_takeover_state(task, target_repo, reason)
                     record_runtime_lesson("takeover", task, target_repo, reason, detail)
                     raise SystemExit(takeover_message(target_repo, task, reason, detail))
@@ -524,7 +745,14 @@ def release_lock():
     RUN_LOCK.unlink(missing_ok=True)
 
 
-def call_model(runtime, model, system_prompt, user_prompt):
+def call_model(runtime, provider_name, model, system_prompt, user_prompt):
+    provider = provider_config(runtime, provider_name)
+    if provider_name == "ollama":
+        return call_ollama_model(runtime, model, system_prompt, user_prompt)
+    return call_openai_compatible_model(runtime, provider_name, provider, model, system_prompt, user_prompt)
+
+
+def call_ollama_model(runtime, model, system_prompt, user_prompt):
     opts = {"temperature": runtime["active_temperature"]}
     num_ctx = int(
         runtime.get("active_profile_config", {}).get("num_ctx")
@@ -554,6 +782,51 @@ def call_model(runtime, model, system_prompt, user_prompt):
     with urllib.request.urlopen(req, timeout=timeout) as response:
         data = json.loads(response.read().decode())
     return data["message"]["content"].strip()
+
+
+def call_openai_compatible_model(runtime, provider_name, provider, model, system_prompt, user_prompt):
+    payload = json.dumps(
+        {
+            "model": model,
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
+            "temperature": runtime["active_temperature"],
+        }
+    ).encode()
+    base_url = provider.get("base_url") or os.environ.get(provider.get("base_url_env", ""), "")
+    chat_path = provider.get("chat_path", "")
+    if chat_path and not base_url.rstrip("/").endswith(chat_path):
+        base_url = urllib.parse.urljoin(base_url.rstrip("/") + "/", chat_path.lstrip("/"))
+    headers = {"Content-Type": "application/json"}
+    token_env = provider.get("token_env")
+    fallback_token_env = provider.get("fallback_token_env")
+    token = ""
+    if token_env and os.environ.get(token_env):
+        token = os.environ[token_env]
+    elif fallback_token_env and os.environ.get(fallback_token_env):
+        token = os.environ[fallback_token_env]
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+    if provider_name == "github_models":
+        headers["X-GitHub-Api-Version"] = str(provider.get("api_version", "2022-11-28"))
+    req = urllib.request.Request(
+        base_url,
+        data=payload,
+        headers=headers,
+        method="POST",
+    )
+    timeout = 900
+    with urllib.request.urlopen(req, timeout=timeout) as response:
+        data = json.loads(response.read().decode())
+    content = data["choices"][0]["message"]["content"]
+    if isinstance(content, list):
+        content = "".join(
+            item.get("text", "") if isinstance(item, dict) else str(item)
+            for item in content
+        )
+    return str(content).strip()
 
 
 def pulse(stage_id, detail, stop_event):
@@ -916,9 +1189,13 @@ def build_prompt(runtime, task, target_repo):
         "Answer like a strong Codex-style coding assistant. Be concrete, use repo facts, cite useful files or commands when relevant, and do not expose hidden chain-of-thought.",
         "Default to direct execution-oriented language: concise opening, visible progress, concrete outcomes, and minimal meta commentary.",
         "Start with a common plan, then let the lead route work to matching skills and sub-agents so useful streams run in parallel without duplicating effort.",
+        "Use startup-style role discipline: one lead plan, clear ownership per file group, parallel readers, and single-writer execution so agents do not step on each other.",
         "Teach the local runtime in every answer: prefer local agents, local tools, shared plans, and skill reuse before suggesting new manual steps.",
         "Checkpoint only the target project when the task changes project state. Never checkpoint the local-agent-runtime repo itself.",
+        "Before any destructive restore or delete path, require a pre-delete diff preview and approval gate. Prefer dry-run restore previews before apply.",
+        "Track ROI before scaling depth: if recent runtime events show repeated low-yield waits or takeovers, stop the local pipeline early, re-plan, and hand off the unfinished subset.",
         "Keep the zero-paid-API goal explicit. Default to local-model-only execution unless the current cloud session must take over because the local runtime is stalled or failing.",
+        "Use the right model for the job: cheap local models for lightweight retrieval, stronger local coding models for implementation, and remote reasoning/coding providers only when they materially reduce stalls or improve quality.",
         "If the local runtime stalls, name the exact stalled point and the minimal takeover step a Codex or Claude session should complete to finish on time. Do not sit and wait once the resource wait budget is exhausted.",
         "Do not tell the user to clone the repo or use remote APIs unless the task explicitly asks for distribution or publishing.",
         "When retrieved grounding context is present, use it before broad prior assumptions.",
@@ -1094,26 +1371,41 @@ def system_prompt_for(stage_id, task_text):
         "- Run independent work in parallel when the group order allows it.\n"
         "- Keep answers concrete, repo-aware, and aligned to a strong Codex-style CLI bar.\n"
         "- Checkpoint only the target project, never the runtime repo itself.\n"
-        "- Prefer local-only completion. If local execution cannot finish on time, state the exact takeover trigger and stop waiting once the resource wait budget is spent."
+        "- Prefer local-only completion. If local execution cannot finish on time, state the exact takeover trigger and stop waiting once the resource wait budget is spent.\n"
+        "- Claim files before writing to prevent collisions with parallel agents.\n"
+        "- Learn from prior failures: check runtime lessons before repeating known mistakes."
     )
-    return "\n\n".join(part for part in [role_text, skill_text, extra_skill_text, coordination] if part)
+    lessons = get_lessons_for_stage(stage_id)
+    lessons_block = format_lessons_for_prompt(lessons)
+    return "\n\n".join(part for part in [role_text, skill_text, extra_skill_text, coordination, lessons_block] if part)
 
 
 def run_stage(runtime, stage_id, target_repo, base_prompt, prior_outputs, available_models, stamp):
     stage_cfg = runtime["team"][stage_id]
-    model = effective_model_for_stage(runtime, stage_id, available_models)
+    resource_state = load_resource_state()
+    provider_name, model = resolve_execution_target(runtime, stage_id, available_models, resource_state)
     label = stage_cfg["label"]
-    ensure_resource_capacity(runtime)
-    progress(["start", "--stage", stage_id, "--label", label, "--percent", "1", "--detail", f"Dispatching {model}"])
+    enforce_roi_kill_switch(runtime, stage_id, target_repo)
+    update_execution_state(os.environ.get("LOCAL_AGENT_ACTIVE_TASK", ""), target_repo, provider_name)
+    if provider_uses_local_resources(provider_name):
+        ensure_resource_capacity(runtime)
+    progress(["start", "--stage", stage_id, "--label", label, "--percent", "1", "--detail", f"Dispatching {provider_name}:{model}"])
     stop_event = threading.Event()
-    worker = threading.Thread(target=pulse, args=(stage_id, f"Running locally: {model}", stop_event), daemon=True)
+    worker = threading.Thread(target=pulse, args=(stage_id, f"Running via {provider_name}: {model}", stop_event), daemon=True)
     worker.start()
     try:
         stage_prompt = build_stage_prompt(runtime, stage_id, base_prompt, prior_outputs)
-        content = call_model(runtime, model, system_prompt_for(stage_id, base_prompt), stage_prompt)
+        content = call_model(runtime, provider_name, model, system_prompt_for(stage_id, base_prompt), stage_prompt)
         attempts = runtime["active_retry_generic_output"]
         while attempts > 0 and (looks_generic(runtime, content) or looks_invalid_reference(target_repo, content)):
             attempts -= 1
+            teach_lesson(
+                category="quality",
+                trigger=f"generic_output_{stage_id}",
+                lesson=f"{stage_id} produced generic or invalid output, retrying with refinement prompt",
+                fix="Improve role prompt specificity or use larger model for this stage",
+                context=f"stage={stage_id} model={model} provider={provider_name}",
+            )
             progress(
                 [
                     "tick",
@@ -1122,10 +1414,10 @@ def run_stage(runtime, stage_id, target_repo, base_prompt, prior_outputs, availa
                     "--percent",
                     "60",
                     "--detail",
-                    f"Refining generic output with {model}",
+                    f"Refining generic output with {provider_name}:{model}",
                 ]
             )
-            content = call_model(runtime, model, system_prompt_for(stage_id, base_prompt), build_retry_prompt(stage_id, stage_prompt, content))
+            content = call_model(runtime, provider_name, model, system_prompt_for(stage_id, base_prompt), build_retry_prompt(stage_id, stage_prompt, content))
     finally:
         stop_event.set()
         worker.join(timeout=1)
@@ -1134,8 +1426,10 @@ def run_stage(runtime, stage_id, target_repo, base_prompt, prior_outputs, availa
     artifact.write_text(content + "\n")
     if stage_id == "planner":
         COMMON_PLAN_PATH.write_text(content + "\n")
-    progress(["complete", "--stage", stage_id, "--label", label, "--detail", f"Completed locally with {model}"])
-    return stage_id, content, model, artifact
+    record_roi_event(runtime, stage_id, "positive", f"completed via {provider_name}:{model}")
+    release_files(stage_id)
+    progress(["complete", "--stage", stage_id, "--label", label, "--detail", f"Completed with {provider_name}:{model}"])
+    return stage_id, content, f"{provider_name}:{model}", artifact
 
 
 def run_group(runtime, group, target_repo, base_prompt, outputs, available_models, stamp):
