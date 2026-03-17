@@ -14,8 +14,14 @@ import urllib.request
 from datetime import datetime
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from runtime_teacher import get_lessons_for_stage, format_lessons_for_prompt, record_lesson as teach_lesson
+from runtime_teacher import (
+    get_lessons_for_stage,
+    format_lessons_for_prompt,
+    mark_applied as mark_lesson_applied,
+    record_lesson as teach_lesson,
+)
 from agent_coordinator import claim_files, release_files
+from runtime_env import load_runtime_env
 
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -167,9 +173,7 @@ def active_target_repo():
 
 def takeover_command(target_repo, task):
     escaped_task = task.replace('"', '\\"')
-    return (
-        f'codex "{target_repo}" "{escaped_task}"'
-    )
+    return f'Local "/{pathlib.Path(target_repo).name}" "{escaped_task}"'
 
 
 def record_runtime_lesson(kind, task, target_repo, reason, detail=""):
@@ -182,7 +186,7 @@ def record_runtime_lesson(kind, task, target_repo, reason, detail=""):
     if detail:
         lines.append(f"  detail: {detail}")
     lines.append(
-        "  next-time: detect this earlier, state the takeover trigger explicitly, and route the unfinished subset to the active cloud session."
+        "  next-time: detect this earlier, keep execution local, and shrink scope or model size before the run stalls."
     )
     entry = "\n".join(lines) + "\n"
     for path in (PROMPT_LOG_PATH, WORKFLOW_EVOLUTION_PATH):
@@ -271,10 +275,10 @@ def enforce_roi_kill_switch(runtime, stage_id, target_repo):
     detail = (
         f"recent trend={data.get('trend', 'unknown')}; "
         f"window={roi_event_window(runtime)} threshold={roi_negative_threshold(runtime)}. "
-        "Pause local iteration, hand off the stuck remainder, and teach the runtime from the failure before retrying."
+        "Pause local iteration, re-plan the smallest useful local slice, and teach the runtime from the failure before retrying."
     )
     task = os.environ.get("LOCAL_AGENT_ACTIVE_TASK", stage_id)
-    set_takeover_state(task, target_repo, reason, local_percent=0.0, cloud_percent=100.0)
+    set_takeover_state(task, target_repo, reason, local_percent=100.0, cloud_percent=0.0)
     record_runtime_lesson("takeover", stage_id, target_repo, reason, detail)
     raise SystemExit(takeover_message(target_repo, task, reason, detail))
 
@@ -297,7 +301,7 @@ def takeover_message(target_repo, task, reason, detail=""):
     suffix = f" Detail: {detail}" if detail else ""
     return (
         f"Local runtime stalled: {reason}.{suffix} "
-        f"Recommended takeover: {command}"
+        f"Recommended next local run: {command}"
     )
 
 
@@ -336,12 +340,27 @@ def env_truthy(name):
     return os.environ.get(name, "").strip().lower() in {"1", "true", "yes", "on"}
 
 
+def remote_fallback_allowed(runtime):
+    if env_truthy("LOCAL_AGENT_ALLOW_REMOTE_FALLBACK"):
+        return True
+    return not runtime.get("local_only_default", True)
+
+
+def provider_preference(runtime):
+    preferred = os.environ.get("LOCAL_AGENT_PROVIDER_PREFERENCE", "").strip().lower()
+    if preferred:
+        return preferred
+    return str(runtime.get("provider_preference", "ollama")).strip().lower() or "ollama"
+
+
 def provider_enabled(runtime, provider_name):
     cfg = provider_config(runtime, provider_name)
     if not cfg:
         return False
     if provider_name == "ollama":
         return True
+    if not remote_fallback_allowed(runtime):
+        return False
     enabled_env = cfg.get("enabled_env")
     if enabled_env and not env_truthy(enabled_env):
         return False
@@ -369,27 +388,17 @@ def role_category(stage_id):
 
 def provider_order_for_stage(runtime, stage_id, resource_state=None):
     pressure = pressure_level(runtime, resource_state)
-    category = role_category(stage_id)
     fast_remote = "clawbot" if provider_enabled(runtime, "clawbot") else "openclaw"
-    if pressure == "high":
-        if category == "reasoning":
-            order = ["github_models", fast_remote, "ollama"]
-        else:
-            order = [fast_remote, "github_models", "ollama"]
-    elif pressure == "elevated":
-        if category == "cheap":
-            order = ["ollama", fast_remote, "github_models"]
-        elif category == "code":
-            order = ["ollama", "github_models", fast_remote]
-        else:
-            order = ["github_models", "ollama", fast_remote]
-    else:
-        if category == "reasoning":
-            order = ["github_models", "ollama", fast_remote]
-        elif category == "code":
-            order = ["ollama", "github_models", fast_remote]
-        else:
-            order = ["ollama", fast_remote, "github_models"]
+    preferred = provider_preference(runtime)
+    base_order = ["ollama", fast_remote, "github_models", "openclaw", "clawbot"]
+    order = []
+    if preferred in base_order:
+        order.append(preferred)
+    if pressure in {"high", "elevated"} and preferred != "ollama":
+        order.append("ollama")
+    for name in base_order:
+        if name not in order:
+            order.append(name)
     return [name for name in order if provider_enabled(runtime, name)]
 
 
@@ -463,7 +472,10 @@ def downgrade_order_for(stage_id):
 
 
 def choose_model_for_stage(runtime, stage_id, available_models, resource_state=None):
-    config = runtime["team"][stage_id]
+    config = dict(runtime["team"][stage_id])
+    profile_overrides = runtime.get("active_profile_config", {}).get("model_overrides", {})
+    if stage_id in profile_overrides:
+        config["model"] = profile_overrides[stage_id]
     preferred = [config.get("model")] + list(config.get("fallback_models", []))
     if pressure_level(runtime, resource_state) in {"elevated", "high"}:
         preferred = downgrade_order_for(stage_id) + preferred
@@ -501,7 +513,10 @@ def under_resource_pressure(runtime):
 
 
 def effective_model_for_stage(runtime, stage_id, available_models):
-    config = runtime["team"][stage_id]
+    config = dict(runtime["team"][stage_id])
+    profile_overrides = runtime.get("active_profile_config", {}).get("model_overrides", {})
+    if stage_id in profile_overrides:
+        config["model"] = profile_overrides[stage_id]
     preferred = [name for name in [config.get("model"), *config.get("fallback_models", [])] if name]
     installed = [name for name in preferred if name in available_models]
     candidates = installed or preferred
@@ -674,11 +689,10 @@ def ensure_resource_capacity(runtime):
             reason = "resource ceiling wait budget exceeded"
             detail = (
                 f"{snapshot}; waited {wait_events} times before progress. "
-                "Teach local agents to reduce parallelism earlier, shrink prompt budgets, select lighter models sooner, "
-                "or hand the unfinished remainder to Codex/Claude before stalling."
+                "Teach local agents to reduce parallelism earlier, shrink prompt budgets, and select lighter models sooner before stalling."
             )
             record_roi_event(runtime, current_stage_label() or "resource-wait", "negative", detail)
-            set_takeover_state(task, target_repo, reason, local_percent=0.0, cloud_percent=100.0)
+            set_takeover_state(task, target_repo, reason, local_percent=100.0, cloud_percent=0.0)
             record_runtime_lesson("takeover", current_stage_label() or "resource-wait", target_repo, reason, detail)
             raise SystemExit(takeover_message(target_repo, task, reason, detail))
         time.sleep(int(limits.get("poll_seconds", 5)))
@@ -706,7 +720,7 @@ def effective_max_parallel_roles(runtime, group, available_models):
     roles = ", ".join(group)
     detail = (
         f"{snapshot}; serialize {roles} until headroom recovers. "
-        "next-time: lower max_parallel_roles for this profile, trim prompt budgets, or hand off earlier."
+        "next-time: lower max_parallel_roles for this profile and trim prompt budgets earlier."
     )
     progress(
         [
@@ -1019,6 +1033,16 @@ def extra_skill_text_for(stage_id, task_text):
     paths = []
     if stage_id in {"manager", "director", "cto", "ceo", "planner", "architect", "implementer", "optimizer", "qa", "summarizer"}:
         paths.append(REPO_ROOT / "skills" / "lead-coordination.md")
+    if stage_id in {"retriever", "reviewer", "qa", "summarizer"}:
+        paths.append(REPO_ROOT / "skills" / "evidence-proof.md")
+    if stage_id in {"reviewer", "debugger", "director"}:
+        paths.append(REPO_ROOT / "skills" / "counter-analysis.md")
+    if stage_id in {"qa", "benchmarker", "ceo", "summarizer"}:
+        paths.append(REPO_ROOT / "skills" / "confidence-scoring.md")
+    if stage_id in {"architect", "implementer", "tester"}:
+        paths.append(REPO_ROOT / "skills" / "change-safety.md")
+    if stage_id in {"manager", "director", "optimizer", "benchmarker"}:
+        paths.append(REPO_ROOT / "skills" / "metrics-analysis.md")
     if any(term in task_l for term in ["upgrade", "better than", "exceed", "cursor", "highest-reasoning", "benchmark"]):
         if stage_id in {"manager", "director", "cto", "ceo", "researcher", "retriever", "planner", "implementer", "benchmarker", "qa"}:
             paths.append(REPO_ROOT / "skills" / "auto-discover-upgrade-features.md")
@@ -1410,7 +1434,12 @@ def build_retry_prompt(stage_id, stage_prompt, first_pass):
     )
 
 
-def system_prompt_for(stage_id, task_text):
+def stage_lessons_block(stage_id):
+    lessons = get_lessons_for_stage(stage_id)
+    return lessons, format_lessons_for_prompt(lessons)
+
+
+def system_prompt_for(stage_id, task_text, lessons_block=""):
     role_text = read_text(ROLE_FILES.get(stage_id, REPO_ROOT / "README.md"))
     skill_text = skill_text_for(stage_id)
     extra_skill_text = extra_skill_text_for(stage_id, task_text)
@@ -1425,8 +1454,6 @@ def system_prompt_for(stage_id, task_text):
         "- Claim files before writing to prevent collisions with parallel agents.\n"
         "- Learn from prior failures: check runtime lessons before repeating known mistakes."
     )
-    lessons = get_lessons_for_stage(stage_id)
-    lessons_block = format_lessons_for_prompt(lessons)
     return "\n\n".join(part for part in [role_text, skill_text, extra_skill_text, coordination, lessons_block] if part)
 
 
@@ -1444,8 +1471,32 @@ def run_stage(runtime, stage_id, target_repo, base_prompt, prior_outputs, availa
     worker = threading.Thread(target=pulse, args=(stage_id, f"Running via {provider_name}: {model}", stop_event), daemon=True)
     worker.start()
     try:
+        stage_lessons, lessons_block = stage_lessons_block(stage_id)
+        for lesson in stage_lessons:
+            trigger = lesson.get("trigger", "")
+            if trigger:
+                mark_lesson_applied(trigger)
         stage_prompt = build_stage_prompt(runtime, stage_id, base_prompt, prior_outputs)
-        content = call_model(runtime, provider_name, model, system_prompt_for(stage_id, base_prompt), stage_prompt)
+
+        # Retry logic for first-role startup failures (connection resets, model loading delays)
+        max_start_retries = 3
+        last_err = None
+        for attempt in range(max_start_retries):
+            try:
+                content = call_model(runtime, provider_name, model, system_prompt_for(stage_id, base_prompt, lessons_block), stage_prompt)
+                last_err = None
+                break
+            except (urllib.error.URLError, ConnectionError, OSError) as exc:
+                last_err = exc
+                if attempt < max_start_retries - 1:
+                    backoff = 2 ** attempt
+                    progress(["tick", "--stage", stage_id, "--percent", "2", "--detail", f"Retry {attempt + 1}/{max_start_retries} after startup error: {exc} (wait {backoff}s)"])
+                    time.sleep(backoff)
+                    # Re-check resource state and model availability before retry
+                    resource_state = load_resource_state()
+                    provider_name, model = resolve_execution_target(runtime, stage_id, available_models, resource_state)
+        if last_err is not None:
+            raise last_err
         attempts = runtime["active_retry_generic_output"]
         while attempts > 0 and (looks_generic(runtime, content) or looks_invalid_reference(target_repo, content)):
             attempts -= 1
@@ -1467,7 +1518,13 @@ def run_stage(runtime, stage_id, target_repo, base_prompt, prior_outputs, availa
                     f"Refining generic output with {provider_name}:{model}",
                 ]
             )
-            content = call_model(runtime, provider_name, model, system_prompt_for(stage_id, base_prompt), build_retry_prompt(stage_id, stage_prompt, content))
+            content = call_model(
+                runtime,
+                provider_name,
+                model,
+                system_prompt_for(stage_id, base_prompt, lessons_block),
+                build_retry_prompt(stage_id, stage_prompt, content),
+            )
     finally:
         stop_event.set()
         worker.join(timeout=1)
@@ -1509,6 +1566,7 @@ def run_group(runtime, group, target_repo, base_prompt, outputs, available_model
 def main():
     if len(sys.argv) < 2:
         raise SystemExit("Usage: local_team_run.py '<task>' [target_repo]")
+    load_runtime_env(override=False)
     task = sys.argv[1]
     target_repo = pathlib.Path(sys.argv[2] if len(sys.argv) > 2 else pathlib.Path.cwd()).resolve()
     os.environ["LOCAL_AGENT_ACTIVE_TASK"] = task
@@ -1563,7 +1621,36 @@ def main():
         progress(["complete", "--stage", "preflight", "--label", "Preflight", "--detail", "Runtime ready"])
         stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
+        # Proactive resource cleanup before pipeline execution
+        try:
+            from blocker_resolver import unload_ollama_models
+            snapshot, res_data = resource_status_snapshot()
+            mem_pct = float(res_data.get("memory_percent", 0)) if res_data else 0
+            downgrade_thresh = float(runtime["resource_limits"].get("model_downgrade_memory_percent", 75))
+            if mem_pct > downgrade_thresh:
+                msg = unload_ollama_models()
+                progress(["tick", "--stage", "preflight", "--percent", "99", "--detail", f"Proactive cleanup: {msg}"])
+        except Exception:
+            pass
+
         for group in runtime["active_group_order"]:
+            # Enforce 70% memory ceiling between groups during active execution
+            try:
+                _, mid_data = resource_status_snapshot()
+                mem_ceiling = float(runtime["resource_limits"].get("memory_percent", 70))
+                mid_mem = float(mid_data.get("memory_percent", 0)) if mid_data else 0
+                if mid_mem > mem_ceiling:
+                    try:
+                        from blocker_resolver import unload_ollama_models
+                        cleanup_msg = unload_ollama_models()
+                        progress(["tick", "--stage", group[0], "--percent", "1",
+                                  "--detail", f"Memory {mid_mem:.0f}% > {mem_ceiling:.0f}% ceiling, cleanup: {cleanup_msg}"])
+                    except Exception:
+                        progress(["tick", "--stage", group[0], "--percent", "1",
+                                  "--detail", f"Memory {mid_mem:.0f}% > {mem_ceiling:.0f}% ceiling, waiting for release"])
+                        time.sleep(2)
+            except Exception:
+                pass
             run_group(runtime, group, target_repo, user_prompt, outputs, available_models, stamp)
 
         final = outputs.get("summarizer") or next(reversed(outputs.values()))

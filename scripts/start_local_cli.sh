@@ -10,6 +10,12 @@ LOCAL_AGENT_AUTO_REVIEW=${LOCAL_AGENT_AUTO_REVIEW:-1}
 export LOCAL_AGENT_MODE
 export LOCAL_AGENT_AUTO_REVIEW
 
+if [ -f "$REPO_ROOT/state/runtime.env" ]; then
+  set -a
+  . "$REPO_ROOT/state/runtime.env"
+  set +a
+fi
+
 python3 "$SCRIPT_DIR/private_tool_registry.py" >/dev/null 2>&1 || true
 if [ -d "$TARGET_REPO" ]; then
   export LOCAL_AGENT_TARGET_REPO=$(cd "$TARGET_REPO" && pwd)
@@ -55,6 +61,7 @@ Slash commands:
   /repair                    run the local self-repair analysis loop
   /release                   run the final QA + user acceptance gate
   /doctor                    inspect local runtime and session health
+  /openclaw-sync             sync local OpenClaw gateway credentials into runtime env
   /governance                show GitHub main-branch protection / ruleset status
   /pipeline <task>           run the local model pipeline
   /diff                      show target repo status and diff summary
@@ -185,6 +192,45 @@ watch_live_status() {
   while true; do
     clear
     python3 "$SCRIPT_DIR/team_status.py" "${LOCAL_AGENT_TARGET_REPO:-$REPO_ROOT}" || true
+    echo
+    echo "EXECUTIVE NEGOTIATION"
+    python3 - <<'PY' "$REPO_ROOT"
+import json
+import pathlib
+import sys
+
+root = pathlib.Path(sys.argv[1])
+path = root / "state" / "runtime-lessons.json"
+progress = root / "state" / "progress.json"
+try:
+    from scripts.live_dashboard import executive_tension, load_json
+except Exception:
+    def load_json(path):
+        try:
+            return json.loads(path.read_text())
+        except Exception:
+            return {}
+    def executive_tension(progress, resource, roi):
+        return ["Manager wants the next smallest ship step.", "CEO wants ROI-positive delivery now."]
+
+resource = load_json(root / "state" / "resource-status.json")
+roi = load_json(root / "state" / "roi-metrics.json")
+progress_data = load_json(progress)
+try:
+    from scripts.resource_status import cpu_percent, memory_percent, threshold_percent
+    resource = {
+        "cpu_percent": cpu_percent(),
+        "memory_percent": memory_percent(),
+        "threshold_percent": threshold_percent(),
+    }
+except Exception:
+    pass
+for line in executive_tension(progress_data, resource, roi):
+    print(line)
+PY
+    echo
+    echo "TEACHING LOOP"
+    python3 "$SCRIPT_DIR/runtime_teacher.py" report | sed -n '1,12p' || true
     echo
     echo "TODO LANES"
     python3 "$SCRIPT_DIR/todo_progress.py" || true
@@ -364,6 +410,23 @@ show_doctor() {
   echo
   echo "== interactive sessions =="
   python3 "$SCRIPT_DIR/session_health.py" || true
+  echo
+  echo "== openclaw =="
+  python3 "$SCRIPT_DIR/sync_openclaw_credentials.py" 2>/dev/null || python3 - <<'PY' "$REPO_ROOT"
+import json, pathlib, sys
+sys.path.insert(0, str(pathlib.Path(sys.argv[1]) / "scripts"))
+from runtime_env import openclaw_status
+print(json.dumps(openclaw_status(), indent=2))
+PY
+}
+
+sync_openclaw() {
+  python3 "$SCRIPT_DIR/sync_openclaw_credentials.py"
+  if [ -f "$REPO_ROOT/state/runtime.env" ]; then
+    set -a
+    . "$REPO_ROOT/state/runtime.env"
+    set +a
+  fi
 }
 
 show_tools() {
@@ -896,6 +959,9 @@ while true; do
       ;;
     /doctor)
       show_doctor
+      ;;
+    /openclaw-sync)
+      sync_openclaw
       ;;
     /governance)
       show_governance
