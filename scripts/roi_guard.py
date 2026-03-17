@@ -5,6 +5,7 @@ import argparse
 import json
 import pathlib
 import sys
+from datetime import datetime, timedelta
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from todo_progress import parse_todo
@@ -13,6 +14,7 @@ from todo_progress import parse_todo
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
 STATE_PATH = REPO_ROOT / "state" / "roi-metrics.json"
 LEDGER_PATH = REPO_ROOT / "state" / "ledger.md"
+RUNTIME_PATH = REPO_ROOT / "config" / "runtime.json"
 
 
 def recent_cost_average(limit: int = 6) -> float:
@@ -39,9 +41,46 @@ def load_state() -> dict:
     if not STATE_PATH.exists():
         return {"events": []}
     try:
-        return json.loads(STATE_PATH.read_text())
+        data = json.loads(STATE_PATH.read_text())
     except json.JSONDecodeError:
         return {"events": []}
+    data["events"] = prune_events(data.get("events", []))
+    negatives = sum(1 for item in data["events"] if item.get("outcome") == "negative")
+    positives = sum(1 for item in data["events"] if item.get("outcome") == "positive")
+    threshold = roi_threshold()
+    data["trend"] = "negative" if negatives >= threshold and negatives > positives else "healthy"
+    data["kill_switch"] = data["trend"] == "negative"
+    return data
+
+
+def runtime_config() -> dict:
+    try:
+        return json.loads(RUNTIME_PATH.read_text())
+    except json.JSONDecodeError:
+        return {}
+
+
+def roi_max_age_minutes() -> int:
+    return int(runtime_config().get("roi", {}).get("max_event_age_minutes", 15))
+
+
+def roi_threshold() -> int:
+    return int(runtime_config().get("roi", {}).get("negative_trend_threshold", 3))
+
+
+def prune_events(events: list[dict]) -> list[dict]:
+    cutoff = datetime.now() - timedelta(minutes=roi_max_age_minutes())
+    kept = []
+    for item in events:
+        stamp = item.get("timestamp", "")
+        try:
+            when = datetime.fromisoformat(stamp)
+        except ValueError:
+            kept.append(item)
+            continue
+        if when >= cutoff:
+            kept.append(item)
+    return kept
 
 
 def current_snapshot() -> dict:

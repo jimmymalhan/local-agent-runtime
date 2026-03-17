@@ -1,6 +1,7 @@
 import json
 import pathlib
 import unittest
+from unittest import mock
 
 from scripts import local_team_run
 
@@ -18,6 +19,10 @@ class RuntimeConfigTests(unittest.TestCase):
         self.assertEqual(cfg["lock_wait_seconds"], 15)
         self.assertEqual(cfg["resource_limits"]["model_downgrade_cpu_percent"], 50)
         self.assertEqual(cfg["resource_limits"]["model_downgrade_memory_percent"], 50)
+        self.assertTrue(cfg["roi"]["kill_switch_enabled"])
+        self.assertEqual(cfg["roi"]["negative_trend_window"], 6)
+        self.assertEqual(cfg["roi"]["negative_trend_threshold"], 3)
+        self.assertEqual(cfg["roi"]["max_event_age_minutes"], 15)
 
     def test_fast_profile_prefers_quick_action_over_waiting(self):
         cfg = json.loads((REPO_ROOT / "config" / "runtime.json").read_text())
@@ -61,6 +66,55 @@ class RuntimeConfigTests(unittest.TestCase):
             local_team_run.choose_model_for_stage(cfg, "qa", available, high_pressure),
             "qwen2.5-coder:7b",
         )
+
+    def test_provider_order_stays_local_only_without_external_enablement(self):
+        cfg = json.loads((REPO_ROOT / "config" / "runtime.json").read_text())
+        with mock.patch.dict(local_team_run.os.environ, {}, clear=False):
+            order = local_team_run.provider_order_for_stage(cfg, "planner", {"cpu_percent": 10.0, "memory_percent": 10.0})
+        self.assertEqual(order, ["ollama"])
+
+    def test_reasoning_roles_can_prefer_github_models_when_enabled(self):
+        cfg = json.loads((REPO_ROOT / "config" / "runtime.json").read_text())
+        env = {
+            "LOCAL_AGENT_ENABLE_GITHUB_MODELS": "1",
+            "GITHUB_MODELS_TOKEN": "token",
+        }
+        with mock.patch.dict(local_team_run.os.environ, env, clear=False):
+            order = local_team_run.provider_order_for_stage(cfg, "planner", {"cpu_percent": 10.0, "memory_percent": 10.0})
+            provider, model = local_team_run.resolve_execution_target(cfg, "planner", ["deepseek-r1:8b"])
+        self.assertEqual(order[0], "github_models")
+        self.assertEqual(provider, "github_models")
+        self.assertEqual(model, "openai/gpt-4.1")
+
+    def test_high_pressure_can_route_to_clawbot_when_enabled(self):
+        cfg = json.loads((REPO_ROOT / "config" / "runtime.json").read_text())
+        env = {
+            "LOCAL_AGENT_ENABLE_CLAWBOT": "1",
+            "CLAWBOT_API_KEY": "token",
+            "CLAWBOT_BASE_URL": "https://openclaw.ai/v1/chat/completions",
+            "CLAWBOT_MODEL": "openclaw/fast",
+        }
+        with mock.patch.dict(local_team_run.os.environ, env, clear=False):
+            order = local_team_run.provider_order_for_stage(cfg, "researcher", {"cpu_percent": 25.0, "memory_percent": 90.0})
+            provider, model = local_team_run.resolve_execution_target(cfg, "researcher", ["qwen2.5:3b"], {"cpu_percent": 25.0, "memory_percent": 90.0})
+        self.assertEqual(order[0], "clawbot")
+        self.assertEqual(provider, "clawbot")
+        self.assertEqual(model, "openclaw/fast")
+
+    def test_openclaw_supports_fallback_token_and_model_envs(self):
+        cfg = json.loads((REPO_ROOT / "config" / "runtime.json").read_text())
+        env = {
+            "LOCAL_AGENT_ENABLE_OPENCLAW": "1",
+            "OPENCLAW_GATEWAY_PASSWORD": "token",
+            "OPENCLAW_BASE_URL": "https://openclaw.ai",
+            "OPENCLAW_REASONING_MODEL": "openclaw/reasoning",
+        }
+        with mock.patch.dict(local_team_run.os.environ, env, clear=False):
+            order = local_team_run.provider_order_for_stage(cfg, "planner", {"cpu_percent": 30.0, "memory_percent": 92.0})
+            provider, model = local_team_run.resolve_execution_target(cfg, "planner", ["deepseek-r1:8b"], {"cpu_percent": 30.0, "memory_percent": 92.0})
+        self.assertIn("openclaw", order)
+        self.assertEqual(provider, "openclaw")
+        self.assertEqual(model, "openclaw/reasoning")
 
 
 if __name__ == "__main__":

@@ -157,6 +157,73 @@ class TakeoverPolicyTests(unittest.TestCase):
         self.assertEqual(result, 2)
         record_lesson.assert_not_called()
 
+    def test_roi_kill_switch_blocks_next_stage_after_negative_trend(self):
+        runtime = {
+            "roi": {
+                "kill_switch_enabled": True,
+                "negative_trend_window": 4,
+                "negative_trend_threshold": 2,
+            }
+        }
+        with tempfile.TemporaryDirectory() as tmpdir:
+            state_path = pathlib.Path(tmpdir) / "roi-metrics.json"
+            original = local_team_run.ROI_STATE_PATH
+            target_repo = pathlib.Path(tmpdir) / "target"
+            target_repo.mkdir()
+            state_path.write_text(
+                '{"kill_switch": true, "trend": "negative", "events": [{"outcome": "negative"}, {"outcome": "negative"}]}\n'
+            )
+            try:
+                local_team_run.ROI_STATE_PATH = state_path
+                with mock.patch.object(local_team_run, "set_takeover_state") as set_state, \
+                     mock.patch.object(local_team_run, "record_runtime_lesson") as record_lesson, \
+                     mock.patch.dict(local_team_run.os.environ, {"LOCAL_AGENT_ACTIVE_TASK": "finish the task"}, clear=False):
+                    with self.assertRaises(SystemExit) as ctx:
+                        local_team_run.enforce_roi_kill_switch(runtime, "planner", target_repo)
+            finally:
+                local_team_run.ROI_STATE_PATH = original
+
+        set_state.assert_called_once()
+        record_lesson.assert_called_once()
+        self.assertIn("roi kill switch triggered", str(ctx.exception))
+
+    def test_remote_provider_skips_local_resource_wait(self):
+        runtime = {
+            "team": {
+                "planner": {"label": "Planner"},
+            },
+            "active_retry_generic_output": 0,
+            "roi": {
+                "kill_switch_enabled": False,
+            },
+        }
+        with tempfile.TemporaryDirectory() as tmpdir:
+            target_repo = pathlib.Path(tmpdir) / "target"
+            target_repo.mkdir()
+            memory_dir = pathlib.Path(tmpdir) / "memory"
+            memory_dir.mkdir()
+            original_memory = local_team_run.MEMORY_DIR
+            try:
+                local_team_run.MEMORY_DIR = memory_dir
+                with mock.patch.object(local_team_run, "load_resource_state", return_value={"cpu_percent": 20.0, "memory_percent": 90.0}), \
+                     mock.patch.object(local_team_run, "resolve_execution_target", return_value=("github_models", "openai/gpt-4.1")), \
+                     mock.patch.object(local_team_run, "ensure_resource_capacity") as ensure_capacity, \
+                     mock.patch.object(local_team_run, "update_execution_state"), \
+                     mock.patch.object(local_team_run, "build_stage_prompt", return_value="prompt"), \
+                     mock.patch.object(local_team_run, "system_prompt_for", return_value="system"), \
+                     mock.patch.object(local_team_run, "call_model", return_value="content"), \
+                     mock.patch.object(local_team_run, "progress"), \
+                     mock.patch.object(local_team_run, "record_roi_event"), \
+                     mock.patch.object(local_team_run, "threading") as fake_threading:
+                    fake_threading.Event.return_value = mock.Mock(wait=mock.Mock(return_value=True), set=mock.Mock())
+                    fake_thread = mock.Mock(start=mock.Mock(), join=mock.Mock())
+                    fake_threading.Thread.return_value = fake_thread
+                    local_team_run.run_stage(runtime, "planner", target_repo, "task", {}, ["deepseek-r1:8b"], "stamp")
+            finally:
+                local_team_run.MEMORY_DIR = original_memory
+
+        ensure_capacity.assert_not_called()
+
 
 if __name__ == "__main__":
     unittest.main()
