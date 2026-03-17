@@ -767,7 +767,8 @@ def stage_output_contract(runtime, stage_id):
             "Sound like a pragmatic Codex-style CLI agent: direct, concise, execution-oriented, and low on ceremony. "
             "Include visible progress or completion state when the task is still running, and state the local-vs-cloud execution split when it is relevant. "
             "Do not mention internal pipeline mechanics unless the user asked. If the task is about understanding or using the repo, include the exact local start command and the most important CLI commands. "
-            "Start with a yes-or-no line when the user asked for verification. Never claim the chat transport itself is local-only unless that is actually true."
+            "Start with a yes-or-no line when the user asked for verification. Never claim the chat transport itself is local-only unless that is actually true. "
+            "When work remains, call out what local agents completed, what is left, and whether a cloud-session takeover is warranted."
         )
         if exhaustive:
             base += " Be comprehensive: cover all key points, tradeoffs, and risks. Structure with clear sections."
@@ -843,7 +844,15 @@ def system_prompt_for(stage_id, task_text):
     role_text = read_text(ROLE_FILES.get(stage_id, REPO_ROOT / "README.md"))
     skill_text = skill_text_for(stage_id)
     extra_skill_text = extra_skill_text_for(stage_id, task_text)
-    return "\n\n".join(part for part in [role_text, skill_text, extra_skill_text] if part)
+    coordination = (
+        "Local runtime contract:\n"
+        "- Start from the shared common plan.\n"
+        "- Pick work by skill and avoid duplicate effort.\n"
+        "- Run independent work in parallel when the group order allows it.\n"
+        "- Keep answers concrete, repo-aware, and aligned to a strong Codex-style CLI bar.\n"
+        "- Prefer local-only completion. If local execution cannot finish on time, state the exact takeover trigger."
+    )
+    return "\n\n".join(part for part in [role_text, skill_text, extra_skill_text, coordination] if part)
 
 
 def run_stage(runtime, stage_id, target_repo, base_prompt, prior_outputs, available_models, stamp):

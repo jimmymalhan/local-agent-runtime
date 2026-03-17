@@ -1,5 +1,14 @@
 # TODO List
 
+## Runtime Consolidation + Session Bar
+
+- [ ] [shared] Move all remaining workspace dependencies from `local_agent_repo` to `local-agent-runtime`.
+- [ ] [local] Import or retire any last useful state/log/checkpoint artifacts before deleting `local_agent_repo`.
+- [x] [local] Make todo progress lane-aware for local, cloud, shared, and general work.
+- [x] [local] Add a reproducible session compare flow for the same task across local-codex and local-claude.
+- [x] [shared] Tighten local-agent prompts and skills so every run starts from a common plan and skill-based parallel pickup.
+- [ ] [cloud] Capture user feedback from same-task session comparisons and iterate before marking the session UX done.
+
 ## Active Work
 
 - [x] Create a concrete plan for renaming the runtime around its actual feature set and preserving launcher compatibility.

@@ -11,9 +11,18 @@ REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
 TODO_PATH = REPO_ROOT / "state" / "todo.md"
 SECTION_RE = re.compile(r"^##\s+(.+)$")
 ITEM_RE = re.compile(r"^- \[(?P<state>[xX ])\] (?P<text>.+)$")
+LANE_ORDER = ("local", "cloud", "shared", "general")
+LANE_LABELS = {
+    "local": "Local agents",
+    "cloud": "Cloud/session takeover",
+    "shared": "Shared coordination",
+    "general": "General",
+}
+EXPLICIT_LANE_RE = re.compile(r"^\[(local|cloud|shared|general)\]\s*", re.IGNORECASE)
 LANE_RULES = {
-    "cloud": ("cloud", "codex", "claude", "cursor", "paid api", "external api"),
-    "local": ("local", "ollama", "local agent", "local agents", "local runtime", "sglang", "pinecone", "mcp"),
+    "cloud": ("cloud", "codex session", "claude session", "cursor", "paid api", "external api", "rate limit", "takeover", "take over"),
+    "shared": ("common plan", "feedback", "coordination", "migration", "review", "qa", "uat", "progress", "session"),
+    "local": ("local", "ollama", "local agent", "local agents", "local runtime", "sglang", "pinecone", "mcp", "rag", "skill", "autopilot"),
 }
 
 
@@ -31,7 +40,11 @@ def parse_todo(path: pathlib.Path = TODO_PATH):
     sections = []
     current = None
     if not path.exists():
-        return {"overall": {"done": 0, "open": 0, "total": 0, "percent": 0.0}, "sections": []}
+        return {
+            "overall": {"done": 0, "open": 0, "total": 0, "percent": 0.0},
+            "lanes": lane_summary([]),
+            "sections": [],
+        }
 
     for raw_line in path.read_text().splitlines():
         line = raw_line.rstrip()
@@ -70,17 +83,19 @@ def parse_todo(path: pathlib.Path = TODO_PATH):
 
 
 def lane_for_item(section_name: str, text: str) -> str:
+    explicit = EXPLICIT_LANE_RE.match(text)
+    if explicit:
+        return explicit.group(1).lower()
     blob = f"{section_name} {text}".lower()
-    matches = {lane for lane, markers in LANE_RULES.items() if any(marker in blob for marker in markers)}
-    if len(matches) > 1:
-        return "shared"
-    if len(matches) == 1:
-        return next(iter(matches))
+    for lane in ("cloud", "local", "shared"):
+        markers = LANE_RULES.get(lane, ())
+        if any(marker in blob for marker in markers):
+            return lane
     return "general"
 
 
 def lane_summary(sections):
-    summary = {lane: {"done": 0, "open": 0, "total": 0, "percent": 0.0} for lane in ("local", "cloud", "shared", "general")}
+    summary = {lane: {"done": 0, "open": 0, "total": 0, "percent": 0.0} for lane in LANE_ORDER}
     for section in sections:
         for item in section["items"]:
             lane = item["lane"]
@@ -100,11 +115,12 @@ def render_report(data) -> str:
         f"TODO {render_bar(overall['percent'])} {overall['percent']:5.1f}% | done {overall['done']} / total {overall['total']} | open {overall['open']}"
     ]
     lines.append("LANES")
-    for name, lane in data["lanes"].items():
+    for name in LANE_ORDER:
+        lane = data["lanes"][name]
         if lane["total"] == 0:
             continue
         lines.append(
-            f"- {name}: {render_bar(lane['percent'], 20)} {lane['percent']:5.1f}% | done {lane['done']} / total {lane['total']} | open {lane['open']}"
+            f"- {LANE_LABELS[name]}: {render_bar(lane['percent'], 20)} {lane['percent']:5.1f}% | done {lane['done']} / total {lane['total']} | open {lane['open']}"
         )
     lines.append("SECTIONS")
     for section in data["sections"]:

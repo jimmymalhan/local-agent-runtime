@@ -2,14 +2,15 @@
 import json
 import os
 import pathlib
-import re
 from datetime import datetime
+
+from todo_progress import parse_todo
 
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
 RUNTIME = json.loads((REPO_ROOT / "config" / "runtime.json").read_text())
 PROGRESS_PATH = REPO_ROOT / "state" / "progress.json"
-TODO_PATH = REPO_ROOT / "state" / "todo.md"
+SESSION_STATE_PATH = REPO_ROOT / "state" / "session-state.json"
 
 
 def render_bar(percent, width=20):
@@ -37,17 +38,6 @@ def load_progress():
         return json.loads(PROGRESS_PATH.read_text())
     except json.JSONDecodeError:
         return {}
-
-
-def todo_progress():
-    if not TODO_PATH.exists():
-        return {"total": 0, "done": 0, "open": 0, "percent": 0.0}
-    text = TODO_PATH.read_text()
-    done = len(re.findall(r"^- \[x\] ", text, flags=re.MULTILINE | re.IGNORECASE))
-    open_items = len(re.findall(r"^- \[ \] ", text, flags=re.MULTILINE))
-    total = done + open_items
-    percent = round((done / total) * 100.0, 1) if total else 0.0
-    return {"total": total, "done": done, "open": open_items, "percent": percent}
 
 
 def installed_models():
@@ -135,6 +125,17 @@ def elapsed_label(progress):
 
 
 def execution_mix(progress, team_order):
+    if SESSION_STATE_PATH.exists():
+        try:
+            session = json.loads(SESSION_STATE_PATH.read_text())
+        except json.JSONDecodeError:
+            session = {}
+        execution = session.get("execution", {})
+        if execution:
+            return {
+                "local_models": float(execution.get("local_models", 0.0)),
+                "cloud_session": float(execution.get("cloud_session", 0.0)),
+            }
     active_stages = {stage.get("id") for stage in progress.get("stages", []) if stage.get("status") in {"running", "completed"}}
     local_roles = sum(1 for role in team_order if role in active_stages)
     local_percent = 100.0 if local_roles else 0.0
@@ -150,12 +151,12 @@ def main():
     progress = load_progress()
     progress_stage_ids = [stage.get("id") for stage in progress.get("stages", []) if stage.get("id") in RUNTIME.get("team", {})]
     team_order = progress_stage_ids or profile.get("team_order") or RUNTIME.get("team_order") or list(RUNTIME.get("team", {}).keys())
-    todo = todo_progress()
+    todo = parse_todo()
     installed = installed_models()
 
     if progress:
         overall = progress.get("overall", {})
-        print(f"Working ({elapsed_label(progress)} • ctrl-c to interrupt)")
+        print(f"Working ({elapsed_label(progress)} • ctrl-c to interrupt • live)")
         print(
             f"TASK {render_bar(overall.get('percent', 0.0), 24)} "
             f"{overall.get('percent', 0.0):5.1f}% | remaining {overall.get('remaining_percent', 100.0):5.1f}%"
@@ -166,8 +167,8 @@ def main():
         print("task=no active progress state")
 
     print(
-        f"PROJECT {render_bar(todo['percent'], 24)} {todo['percent']:5.1f}% | "
-        f"done {todo['done']} / total {todo['total']} | open {todo['open']}"
+        f"PROJECT {render_bar(todo['overall']['percent'], 24)} {todo['overall']['percent']:5.1f}% | "
+        f"done {todo['overall']['done']} / total {todo['overall']['total']} | open {todo['overall']['open']}"
     )
     mix = execution_mix(progress, team_order)
     print(
@@ -175,6 +176,14 @@ def main():
         f"cloud {mix['cloud_session']:5.1f}%"
     )
     print(f"profile={profile_name}")
+    for lane in ("local", "cloud", "shared", "general"):
+        lane_data = todo["lanes"][lane]
+        if lane_data["total"] == 0:
+            continue
+        print(
+            f"{lane.upper():7} {render_bar(lane_data['percent'], 24)} {lane_data['percent']:5.1f}% | "
+            f"done {lane_data['done']} / total {lane_data['total']} | open {lane_data['open']}"
+        )
     print("")
     print("ROLE BREAKDOWN")
 
