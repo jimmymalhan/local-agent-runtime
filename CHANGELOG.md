@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.2 - 2026-03-16
+
+- prevent `scripts/session_compare.py` from starting parallel persona runs when another task already holds `state/run.lock`
+- add regression tests for live and stale compare-lock detection so local agents do not step on each other
+
 ## 0.2.1 - 2026-03-16
 
 - fix the Lighthouse workflow so repos without a Node web target skip FC-007 cleanly instead of failing on missing npm lockfiles

@@ -18,6 +18,24 @@ PERSONAS = {
     "codex": REPO_ROOT / "scripts" / "start_codex_compatible.sh",
     "claude": REPO_ROOT / "scripts" / "start_claude_compatible.sh",
 }
+RUN_LOCK = STATE_DIR / "run.lock"
+
+
+def active_run_lock() -> dict | None:
+    if not RUN_LOCK.exists():
+        return None
+    try:
+        body = json.loads(RUN_LOCK.read_text())
+    except json.JSONDecodeError:
+        return None
+    pid = int(body.get("pid", 0) or 0)
+    if pid <= 0:
+        return None
+    try:
+        os.kill(pid, 0)
+    except OSError:
+        return None
+    return body
 
 
 def run_persona(persona: str, script_path: pathlib.Path, task: str, target_repo: pathlib.Path, mode: str) -> dict:
@@ -69,6 +87,30 @@ def main() -> int:
     stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     out_dir = LOG_DIR / f"session-compare-{stamp}"
     out_dir.mkdir(parents=True, exist_ok=True)
+
+    blocker = active_run_lock()
+    if blocker:
+        markdown = [
+            "# Session Compare",
+            "",
+            f"- task: `{args.task}`",
+            f"- target_repo: `{target_repo}`",
+            f"- mode: `{args.mode}`",
+            "",
+            "## Blocked",
+            f"- pid: `{blocker.get('pid', '')}`",
+            f"- active_task: `{blocker.get('task', '')}`",
+            f"- active_target_repo: `{blocker.get('target_repo', '')}`",
+            "",
+            "The compare run did not start because another local runtime task already holds `state/run.lock`.",
+            "This avoids two persona runs stepping on the same target repo at once.",
+            "",
+        ]
+        report_path = out_dir / "report.md"
+        report_path.write_text("\n".join(markdown))
+        (STATE_DIR / "session-compare-last.md").write_text(report_path.read_text())
+        print(report_path)
+        return 2
 
     results = []
     for persona, script_path in PERSONAS.items():
