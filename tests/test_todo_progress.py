@@ -111,6 +111,53 @@ class TodoProgressTests(unittest.TestCase):
         self.assertIn("Product use cases", report)
         self.assertIn("Business use cases", report)
 
+    def test_render_report_includes_open_focus_items(self):
+        body = textwrap.dedent(
+            """\
+            # TODO List
+
+            ## Active Work
+            - [ ] [local] fix the local runtime
+            - [ ] [cloud] add takeover fallback
+            - [x] done item
+            """
+        )
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "todo.md"
+            path.write_text(body)
+            parsed = parse_todo(path)
+
+        self.assertEqual(len(parsed["focus"]["overall"]), 2)
+        report = render_report(parsed)
+        self.assertIn("OPEN FOCUS", report)
+        self.assertIn("[local/technical] Active Work: [local] fix the local runtime", report)
+        self.assertIn("[cloud/general] Active Work: [cloud] add takeover fallback", report)
+
+    def test_parse_todo_exposes_open_focus_items(self):
+        body = textwrap.dedent(
+            """\
+            # TODO List
+
+            ## Active Work
+            - [ ] [local] Fix local runtime start gap
+            - [ ] [cloud] Validate Codex takeover path
+
+            ## Business goals
+            - [ ] improve release ROI for the business
+            """
+        )
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "todo.md"
+            path.write_text(body)
+            parsed = parse_todo(path)
+
+        self.assertEqual(parsed["focus"]["overall"][0]["text"], "[local] Fix local runtime start gap")
+        self.assertEqual(parsed["focus"]["lanes"]["cloud"][0]["section"], "Active Work")
+        self.assertEqual(parsed["focus"]["use_cases"]["business"][0]["section"], "Business goals")
+        report = render_report(parsed)
+        self.assertIn("OPEN FOCUS", report)
+        self.assertIn("[local/technical] Active Work: [local] Fix local runtime start gap", report)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -27,6 +27,8 @@ RUN_LOCK = REPO_ROOT / "state" / "run.lock"
 HISTORY_PATH = REPO_ROOT / "state" / "session-history.jsonl"
 MENTIONED_FILES_PATH = REPO_ROOT / "state" / "mentioned-files.txt"
 COMMON_PLAN_PATH = REPO_ROOT / "state" / "common-plan.md"
+PROMPT_LOG_PATH = REPO_ROOT / "feedback" / "prompt-log.md"
+WORKFLOW_EVOLUTION_PATH = REPO_ROOT / "feedback" / "workflow-evolution.md"
 
 
 ROLE_FILES = {
@@ -118,6 +120,65 @@ def progress(cmd):
     run(["python3", str(PROGRESS), *cmd])
 
 
+def takeover_wait_seconds(runtime=None):
+    default = "45"
+    if runtime is not None:
+        default = str(runtime.get("resource_limits", {}).get("takeover_wait_seconds", default))
+    return int(os.environ.get("LOCAL_AGENT_TAKEOVER_WAIT_SECONDS", default))
+
+
+def active_target_repo():
+    return pathlib.Path(os.environ.get("LOCAL_AGENT_TARGET_REPO", REPO_ROOT)).resolve()
+
+
+def takeover_command(target_repo, task):
+    escaped_task = task.replace('"', '\\"')
+    return (
+        f'codex "{target_repo}" "{escaped_task}"'
+    )
+
+
+def record_runtime_lesson(kind, task, target_repo, reason, detail=""):
+    stamp = datetime.now().isoformat(timespec="seconds")
+    target_repo = str(target_repo)
+    lines = [
+        f"- {stamp} [{kind}] target={target_repo}",
+        f"  reason: {reason}",
+    ]
+    if detail:
+        lines.append(f"  detail: {detail}")
+    lines.append(
+        "  next-time: detect this earlier, state the takeover trigger explicitly, and route the unfinished subset to the active cloud session."
+    )
+    entry = "\n".join(lines) + "\n"
+    for path in (PROMPT_LOG_PATH, WORKFLOW_EVOLUTION_PATH):
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open("a") as handle:
+            handle.write(entry)
+
+
+def set_takeover_state(task, target_repo, reason, local_percent=15.0, cloud_percent=85.0):
+    env = os.environ.copy()
+    env["LOCAL_AGENT_LOCAL_PERCENT"] = str(local_percent)
+    env["LOCAL_AGENT_CLOUD_PERCENT"] = str(cloud_percent)
+    env["LOCAL_AGENT_TAKEOVER_REASON"] = reason
+    subprocess.run(
+        ["python3", str(SESSION_STATE), "running", task, str(target_repo)],
+        check=False,
+        stdout=subprocess.DEVNULL,
+        env=env,
+    )
+
+
+def takeover_message(target_repo, task, reason, detail=""):
+    command = takeover_command(target_repo, task)
+    suffix = f" Detail: {detail}" if detail else ""
+    return (
+        f"Local runtime stalled: {reason}.{suffix} "
+        f"Recommended takeover: {command}"
+    )
+
+
 def prompt_budget(runtime, key, default):
     profile = runtime.get("active_profile_config", {})
     profile_budget = profile.get("prompt_budget", {})
@@ -149,16 +210,116 @@ def installed_models():
     return names
 
 
-def resolve_model(runtime, stage_id, available_models):
+def load_resource_state():
+    path = REPO_ROOT / "state" / "resource-status.json"
+    if not path.exists():
+        return {}
+    try:
+        return json.loads(path.read_text())
+    except json.JSONDecodeError:
+        return {}
+
+
+def pressure_level(runtime, resource_state=None):
+    data = resource_state or load_resource_state()
+    if not data:
+        return "normal"
+    limits = runtime.get("resource_limits", {})
+    cpu = float(data.get("cpu_percent", 0.0))
+    memory = float(data.get("memory_percent", 0.0))
+    cpu_limit = float(limits.get("cpu_percent", 70))
+    memory_limit = float(limits.get("memory_percent", 70))
+    headroom_cpu = float(limits.get("parallel_headroom_cpu_percent", 55))
+    headroom_memory = float(limits.get("parallel_headroom_memory_percent", 55))
+    if cpu >= cpu_limit or memory >= memory_limit:
+        return "high"
+    if cpu >= headroom_cpu or memory >= headroom_memory:
+        return "elevated"
+    return "normal"
+
+
+def downgrade_order_for(stage_id):
+    mapping = {
+        "researcher": ["qwen2.5:3b", "llama3.2:3b"],
+        "retriever": ["qwen2.5:3b", "llama3.2:3b"],
+        "planner": ["qwen2.5-coder:7b", "qwen2.5:3b"],
+        "architect": ["qwen2.5:3b"],
+        "implementer": ["qwen2.5-coder:7b", "qwen2.5:3b"],
+        "tester": ["qwen2.5:3b"],
+        "reviewer": ["qwen2.5-coder:7b", "qwen2.5:3b"],
+        "debugger": ["qwen2.5:3b"],
+        "optimizer": ["qwen2.5:3b"],
+        "benchmarker": ["qwen2.5:3b"],
+        "qa": ["qwen2.5-coder:7b", "qwen2.5:3b"],
+        "user_acceptance": ["qwen2.5:3b", "gemma3:4b"],
+        "summarizer": ["qwen2.5-coder:7b", "qwen2.5:3b"],
+    }
+    return mapping.get(stage_id, [])
+
+
+def choose_model_for_stage(runtime, stage_id, available_models, resource_state=None):
     config = runtime["team"][stage_id]
     preferred = [config.get("model")] + list(config.get("fallback_models", []))
+    if pressure_level(runtime, resource_state) in {"elevated", "high"}:
+        preferred = downgrade_order_for(stage_id) + preferred
+    seen = []
     for name in preferred:
-        if name and name in available_models:
+        if name and name not in seen:
+            seen.append(name)
+    for name in seen:
+        if name in available_models:
             return name
-    for name in preferred:
+    for name in seen:
         if name:
             return name
     return runtime["default_model"]
+
+
+def resolve_model(runtime, stage_id, available_models):
+    return choose_model_for_stage(runtime, stage_id, available_models)
+
+
+def model_size_score(name):
+    match = re.search(r":(\d+(?:\.\d+)?)b", name or "", re.IGNORECASE)
+    return float(match.group(1)) if match else 999.0
+
+
+def under_resource_pressure(runtime):
+    limits = runtime.get("resource_limits", {})
+    snapshot, data = resource_status_snapshot()
+    if not data:
+        return False, snapshot, data
+    memory_limit = float(limits.get("model_downgrade_memory_percent", limits.get("parallel_headroom_memory_percent", limits.get("memory_percent", 70))))
+    cpu_limit = float(limits.get("model_downgrade_cpu_percent", limits.get("parallel_headroom_cpu_percent", limits.get("cpu_percent", 70))))
+    pressured = float(data.get("cpu_percent", 0.0)) > cpu_limit or float(data.get("memory_percent", 0.0)) > memory_limit
+    return pressured, snapshot, data
+
+
+def effective_model_for_stage(runtime, stage_id, available_models):
+    config = runtime["team"][stage_id]
+    preferred = [name for name in [config.get("model"), *config.get("fallback_models", [])] if name]
+    installed = [name for name in preferred if name in available_models]
+    candidates = installed or preferred
+    if not candidates:
+        return runtime["default_model"]
+
+    chosen = candidates[0]
+    pressured, snapshot, _data = under_resource_pressure(runtime)
+    if not pressured or len(candidates) == 1:
+        return chosen
+
+    smaller = sorted(candidates, key=model_size_score)[0]
+    if model_size_score(smaller) >= model_size_score(chosen):
+        return chosen
+
+    task = os.environ.get("LOCAL_AGENT_ACTIVE_TASK", "")
+    target_repo = active_target_repo()
+    detail = (
+        f"{snapshot}; downgrade {stage_id} from {chosen} to {smaller} to keep the run moving. "
+        "next-time: prefer the lighter fallback earlier for this profile when the machine is already constrained."
+    )
+    record_runtime_lesson("optimize", task or stage_id, target_repo, "lighter model selected under pressure", detail)
+    return smaller
 
 
 def write_history(role, content, target_repo):
@@ -204,13 +365,23 @@ def current_stage_label():
     return current
 
 
+def resource_status_snapshot():
+    snapshot = run(["python3", str(REPO_ROOT / "scripts" / "resource_status.py")]).stdout.strip()
+    try:
+        data = json.loads((REPO_ROOT / "state" / "resource-status.json").read_text())
+    except (FileNotFoundError, json.JSONDecodeError):
+        data = {}
+    return snapshot, data
+
+
 def ensure_resource_capacity(runtime):
     limits = runtime["resource_limits"]
+    started = time.time()
+    task = os.environ.get("LOCAL_AGENT_ACTIVE_TASK", "")
+    target_repo = active_target_repo()
     while True:
-        snapshot = run(["python3", str(REPO_ROOT / "scripts" / "resource_status.py")]).stdout.strip()
-        try:
-            data = json.loads((REPO_ROOT / "state" / "resource-status.json").read_text())
-        except (FileNotFoundError, json.JSONDecodeError):
+        snapshot, data = resource_status_snapshot()
+        if not data:
             return
         if data.get("cpu_percent", 0.0) <= limits["cpu_percent"] and data.get("memory_percent", 0.0) <= limits["memory_percent"]:
             return
@@ -225,17 +396,66 @@ def ensure_resource_capacity(runtime):
                 f"Waiting for resources: {snapshot}",
             ]
         )
+        if time.time() - started >= takeover_wait_seconds(runtime):
+            reason = "resource ceiling wait exceeded"
+            detail = (
+                f"{snapshot}; teach local agents to reduce parallelism, shrink prompt budgets, "
+                "or hand the unfinished remainder to Codex/Claude sooner."
+            )
+            set_takeover_state(task, target_repo, reason, local_percent=0.0, cloud_percent=100.0)
+            record_runtime_lesson("takeover", current_stage_label() or "resource-wait", target_repo, reason, detail)
+            raise SystemExit(takeover_message(target_repo, task, reason, detail))
         time.sleep(int(limits.get("poll_seconds", 5)))
 
 
+def effective_max_parallel_roles(runtime, group, available_models):
+    configured = max(1, min(int(runtime["active_max_parallel_roles"]), len(group)))
+    if configured <= 1 or len(group) <= 1:
+        return 1
+
+    limits = runtime.get("resource_limits", {})
+    snapshot, data = resource_status_snapshot()
+    if not data:
+        return configured
+
+    memory_limit = float(limits.get("parallel_headroom_memory_percent", limits.get("memory_percent", 70)))
+    cpu_limit = float(limits.get("parallel_headroom_cpu_percent", limits.get("cpu_percent", 70)))
+    cpu_now = float(data.get("cpu_percent", 0.0))
+    memory_now = float(data.get("memory_percent", 0.0))
+    if cpu_now <= cpu_limit and memory_now <= memory_limit:
+        return configured
+
+    task = os.environ.get("LOCAL_AGENT_ACTIVE_TASK", "")
+    target_repo = active_target_repo()
+    roles = ", ".join(group)
+    detail = (
+        f"{snapshot}; serialize {roles} until headroom recovers. "
+        "next-time: lower max_parallel_roles for this profile, trim prompt budgets, or hand off earlier."
+    )
+    progress(
+        [
+            "tick",
+            "--stage",
+            group[0],
+            "--percent",
+            "1",
+            "--detail",
+            f"Serializing for headroom: {snapshot}",
+        ]
+    )
+    record_runtime_lesson("optimize", task or roles, target_repo, "parallel work reduced for headroom", detail)
+    return 1
+
+
 def lock_wait_seconds(runtime):
-    return int(
+    configured = int(
         os.environ.get(
             "LOCAL_AGENT_WAIT_FOR_IDLE_SECONDS",
             runtime.get("active_profile_config", {}).get("lock_wait_seconds")
             or runtime.get("lock_wait_seconds", 180),
         )
     )
+    return min(configured, takeover_wait_seconds(runtime))
 
 
 def acquire_lock(runtime, task, target_repo):
@@ -255,16 +475,28 @@ def acquire_lock(runtime, task, target_repo):
                 RUN_LOCK.unlink(missing_ok=True)
             else:
                 if time.time() - started >= timeout:
-                    raise SystemExit(
-                        f"Another local run is still active (pid {pid}) for task: {body.get('task', '')}. "
-                        f"Wait for it to finish or increase LOCAL_AGENT_WAIT_FOR_IDLE_SECONDS."
-                    )
+                    reason = f"run lock held too long by pid {pid}"
+                    detail = body.get("task", "")
+                    set_takeover_state(task, target_repo, reason)
+                    record_runtime_lesson("takeover", task, target_repo, reason, detail)
+                    raise SystemExit(takeover_message(target_repo, task, reason, detail))
+                progress(
+                    [
+                        "tick",
+                        "--stage",
+                        "preflight",
+                        "--percent",
+                        "1",
+                        "--detail",
+                        f"Lock busy: pid {pid} running {body.get('task', '')}",
+                    ]
+                )
                 print(
                     f"Waiting for active local run (pid {pid}) to finish: {body.get('task', '')}",
                     file=sys.stderr,
                     flush=True,
                 )
-                time.sleep(2)
+                time.sleep(1)
                 continue
         else:
             RUN_LOCK.unlink(missing_ok=True)
@@ -857,7 +1089,7 @@ def system_prompt_for(stage_id, task_text):
 
 def run_stage(runtime, stage_id, target_repo, base_prompt, prior_outputs, available_models, stamp):
     stage_cfg = runtime["team"][stage_id]
-    model = resolve_model(runtime, stage_id, available_models)
+    model = effective_model_for_stage(runtime, stage_id, available_models)
     label = stage_cfg["label"]
     ensure_resource_capacity(runtime)
     progress(["start", "--stage", stage_id, "--label", label, "--percent", "1", "--detail", f"Dispatching {model}"])
@@ -897,7 +1129,7 @@ def run_stage(runtime, stage_id, target_repo, base_prompt, prior_outputs, availa
 def run_group(runtime, group, target_repo, base_prompt, outputs, available_models, stamp):
     group_outputs = {}
     shared_outputs = dict(outputs)
-    max_workers = max(1, min(runtime["active_max_parallel_roles"], len(group)))
+    max_workers = effective_max_parallel_roles(runtime, group, available_models)
     with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
         futures = {
             executor.submit(
@@ -923,6 +1155,8 @@ def main():
         raise SystemExit("Usage: local_team_run.py '<task>' [target_repo]")
     task = sys.argv[1]
     target_repo = pathlib.Path(sys.argv[2] if len(sys.argv) > 2 else pathlib.Path.cwd()).resolve()
+    os.environ["LOCAL_AGENT_ACTIVE_TASK"] = task
+    os.environ["LOCAL_AGENT_TARGET_REPO"] = str(target_repo)
     runtime = load_runtime()
     acquire_lock(runtime, task, target_repo)
     write_history("user", task, target_repo)
@@ -992,7 +1226,11 @@ if __name__ == "__main__":
     try:
         main()
     except urllib.error.URLError as exc:
-        subprocess.run(["python3", str(SESSION_STATE), "error"], check=False, stdout=subprocess.DEVNULL)
+        reason = "local ollama runtime unavailable"
+        task = os.environ.get("LOCAL_AGENT_ACTIVE_TASK", "")
+        target_repo = os.environ.get("LOCAL_AGENT_TARGET_REPO", REPO_ROOT)
+        set_takeover_state(task, target_repo, reason, local_percent=0.0, cloud_percent=100.0)
+        record_runtime_lesson("takeover", task, target_repo, reason, str(exc))
         raise SystemExit(f"Unable to reach local Ollama runtime: {exc}") from exc
     except KeyboardInterrupt:
         subprocess.run(["python3", str(SESSION_STATE), "idle"], check=False, stdout=subprocess.DEVNULL)
