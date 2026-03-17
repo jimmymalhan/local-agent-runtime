@@ -5,8 +5,9 @@
 - [x] Create a concrete plan for renaming the runtime around its actual feature set and preserving launcher compatibility.
 - [x] Rename the runtime identity to `local-agent-runtime` across the main docs, scripts, and MCP setup.
 - [x] Tighten local summarizer/session guidance so answers read more like a pragmatic Codex-style CLI session.
-- [ ] Create the new sibling repo directory `local-agent-runtime`, initialize git, and push it to GitHub if CLI auth is available.
-- [ ] Run focused validation and a local-agent feedback pass on the new interaction style before handoff.
+- [x] Create the new sibling repo directory `local-agent-runtime`, initialize git, and push it to GitHub.
+- [x] Run focused validation and a local-agent feedback pass on the new interaction style before handoff.
+- [ ] Fix the remaining local model execution gap after preflight: progress is now visible, but the first role can still fail to start on this machine during some self-review runs.
 - [x] Add a multi-role local CLI with progress bars, checkpoints, and auto-review.
 - [x] Add `/team`, `/qa`, `/uat`, `/quality`, `/verify`, `/heal`, `/repair`, and `/release`.
 - [x] Add a scripted QA suite for shell, Python, resource-limit, and session smoke validation.
@@ -16,7 +17,7 @@
 - [x] Expand SGLang integration with chat, embeddings, gateway, healthcheck, and scale-pipeline wrappers.
 - [x] Auto-derive Pinecone query vectors from local SGLang embeddings when available.
 - [ ] Re-run the full release gate once no other long-running local task is holding the runtime lock.
-- [ ] Decide whether to initialize git for `local-agent-runtime` and publish it as a private reusable template.
+- [x] Initialize git for `local-agent-runtime` and publish it as a private reusable template.
 
 ## Claude/Codex Sessions + Local Agents (in progress)
 
