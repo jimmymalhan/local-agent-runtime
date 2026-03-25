@@ -1,0 +1,114 @@
+{
+  "name": "stacky-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbo",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint && prettier --check .",
+    "lint:fix": "next lint --fix && prettier --write .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:e2e": "playwright test",
+    "test:coverage": "vitest --coverage",
+    "analyze": "ANALYZE=true next build",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "dependencies": {
+    "next": "^14.2.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    
+    "three": "^0.164.0",
+    "@react-three/fiber": "^8.16.0",
+    "@react-three/drei": "^9.105.0",
+    "@react-three/postprocessing": "^2.16.0",
+    "@splinetool/react-spline": "^4.0.0",
+    
+    "gsap": "^3.12.5",
+    "framer-motion": "^11.2.0",
+    "lenis": "^1.1.0",
+    
+    "zustand": "^4.5.0",
+    "immer": "^10.1.0",
+    "@tanstack/react-query": "^5.40.0",
+    
+    "react-hook-form": "^7.52.0",
+    "@hookform/resolvers": "^3.6.0",
+    "zod": "^3.23.0",
+    
+    "tailwindcss": "^3.4.0",
+    "tailwind-merge": "^2.3.0",
+    "clsx": "^2.1.0",
+    "class-variance-authority": "^0.7.0",
+    "@tailwindcss/typography": "^0.5.0",
+    "@tailwindcss/forms": "^0.5.0",
+    "@tailwindcss/container-queries": "^0.1.0",
+    
+    "lucide-react": "^0.394.0",
+    "@radix-ui/react-slot": "^1.0.0",
+    "@radix-ui/react-dialog": "^1.0.0",
+    "@radix-ui/react-dropdown-menu": "^2.0.0",
+    "@radix-ui/react-tabs": "^1.0.0",
+    "@radix-ui/react-tooltip": "^1.0.0",
+    "@radix-ui/react-toast": "^1.1.0",
+    "@radix-ui/react-accordion": "^1.1.0",
+    "@radix-ui/react-select": "^2.0.0",
+    "@radix-ui/react-checkbox": "^1.0.0",
+    "@radix-ui/react-switch": "^1.0.0",
+    "@radix-ui/react-popover": "^1.0.0",
+    
+    "recharts": "^2.12.0",
+    "date-fns": "^3.6.0",
+    "nuqs": "^1.17.0",
+    
+    "@t3-oss/env-nextjs": "^0.10.0",
+    "server-only": "^0.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@types/node": "^20.14.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@types/three": "^0.164.0",
+    
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.0",
+    "@typescript-eslint/eslint-plugin": "^7.13.0",
+    "@typescript-eslint/parser": "^7.13.0",
+    "prettier": "^3.3.0",
+    "prettier-plugin-tailwindcss": "^0.6.0",
+    
+    "vitest": "^1.6.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "@testing-library/react": "^15.0.0",
+    "@testing-library/jest-dom": "^6.4.0",
+    "@testing-library/user-event": "^14.5.0",
+    "@vitest/coverage-v8": "^1.6.0",
+    "@vitest/ui": "^1.6.0",
+    "jsdom": "^24.1.0",
+    
+    "@playwright/test": "^1.45.0",
+    "playwright": "^1.45.0",
+    
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0",
+    
+    "@next/bundle-analyzer": "^14.2.0",
+    
+    "@storybook/addon-essentials": "^8.1.0",
+    "@storybook/addon-interactions": "^8.1.0",
+    "@storybook/addon-links": "^8.1.0",
+    "@storybook/blocks": "^8.1.0",
+    "@storybook/nextjs": "^8.1.0",
+    "@storybook/react": "^8.1.0",
+    "@storybook/test": "^8.1.0",
+    "storybook": "^8.1.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
