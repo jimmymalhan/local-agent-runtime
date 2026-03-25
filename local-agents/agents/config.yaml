@@ -1,5 +1,9 @@
-# Default agent configuration — inherited by all agents unless overridden
+# Personal Agent Runtime — Default Configuration
+# Agent name: Jimmy (your personal autonomous coding agent)
 # Each agent can have its own config.yaml in agents/<name>/config.yaml
+
+agent_name: "Jimmy"
+agent_description: "Personal autonomous coding agent — local-first, self-improving, fully private"
 
 model: qwen2.5-coder:7b
 ollama_base: http://127.0.0.1:11434

@@ -1,37 +1,114 @@
-# Personal Agent Runtime
+# Jimmy — Personal Autonomous Agent Runtime
 
-Autonomous self-improving agent system: 10 specialized agents run a 100-task benchmark, self-upgrade every version until they match or exceed the best available LLM baseline. Local agents own 90% of all work. External LLM calls are rescue-only at ≤10% budget, capped at 200 tokens, used only to upgrade failing agents — never to fix tasks directly.
+**Jimmy** is your personal autonomous coding agent. Fully local, fully private, self-improving.
 
-## What This Is
+10 specialized agents run a 100-task benchmark loop every version, self-upgrade until they match the best available LLM. Local agents own 90% of all work. External LLM is rescue-only: ≤10% of tasks, 200-token cap, agent upgrades only — never direct task fixes.
 
-A personal, fully autonomous coding agent platform you run locally — no vendor lock-in, no Cursor, no IDE dependency, no external subscriptions.
+> Jimmy runs on your machine. No vendor, no subscription, no data leaving your device.
+
+## What Jimmy Does
+
+```
+You give Jimmy a task.
+Jimmy routes it to the right specialist (code, debug, architect, test, review...).
+Each specialist spawns up to 1000 sub-agents in parallel.
+All sub-agents read and write simultaneously — like a distributed system.
+Best result wins. Output scored by dynamic execution (code runs + assertions pass).
+If local fails 3×, Jimmy auto-upgrades itself. Goes again. Keeps going.
+Jimmy gets smarter every version. Automatically. Forever.
+```
 
 - **`local-agents/`** — 10 specialized agents + v1→v100 self-upgrade loop + real-time dashboard
 - **`docs/`** — Setup guides and architecture documentation
-- **`.claude/`** — Agent skills, roles, and commands
 
-## Quick Start
+## Setup
 
 ```bash
-# Start the interactive CLI
-bash ./Local
+# 1. Install Ollama (https://ollama.ai)
+ollama pull qwen2.5-coder:7b   # Jimmy's primary brain
 
-# Run 3-task benchmark (local-only, no external API)
-python3 local-agents/orchestrator/main.py --version 1 --quick 3 --local-only
-
-# Full autonomous v1→v100 loop
-python3 local-agents/orchestrator/main.py --auto 1
-
-# Start the real-time dashboard
-bash local-agents/dashboard/launch.sh
-# Open: http://localhost:3001
+# 2. Clone and run
+git clone <this-repo>
+cd local-agent-runtime
+bash ./Local                   # interactive CLI
 ```
 
-## Runtime Policy
+## How to Use Jimmy
 
-- **Local first** — `bash ./Local` activates the local Ollama runtime
-- **External LLM** — Used only when local fails 3× with different approaches (≤10% of tasks)
-- Review runs automatically after every pipeline run
+### One-shot task
+```bash
+bash ./Local "Build a rate limiter with sliding window"
+```
+
+### Benchmark — test Jimmy's quality (local-only, no external API)
+```bash
+python3 local-agents/orchestrator/main.py --version 1 --quick 5 --local-only
+```
+
+### Full autonomous self-upgrade loop (v1→v100)
+```bash
+python3 local-agents/orchestrator/main.py --auto 1
+# Jimmy runs 100 tasks, identifies weaknesses, upgrades itself, repeats
+# Stops when Jimmy beats the best available LLM baseline on all categories
+```
+
+### Deploy Jimmy to any project
+```bash
+python3 local-agents/deploy.py all --to /path/to/your/project
+# Creates .local-agents/ with runner.py entry point
+python3 /path/to/your/project/.local-agents/runner.py "Write a Redis cache wrapper"
+```
+
+### Real-time dashboard (CEO view)
+```bash
+bash local-agents/dashboard/launch.sh
+# Open: http://localhost:3001 (also written to DASHBOARD.txt)
+```
+
+### Supervisor + health monitoring
+```bash
+python3 local-agents/orchestrator/supervisor.py --preflight 1   # pre-flight check
+python3 local-agents/orchestrator/supervisor.py --watch         # background daemon
+python3 local-agents/orchestrator/supervisor.py --watchdog      # restarts supervisor if it crashes
+```
+
+### Check hardware headroom
+```bash
+python3 local-agents/orchestrator/resource_guard.py --check
+python3 local-agents/orchestrator/resource_guard.py --watch 5   # live monitor every 5s
+```
+
+## Jimmy's Model
+
+| Role | Model | Why |
+|------|-------|-----|
+| Code gen, bug fix, TDD, refactor | `qwen2.5-coder:7b` | Fast, code-focused, 6GB RAM |
+| Planning, architecture | `qwen2.5-coder:7b` | Same — reasoning on code |
+| Review, debugging | `deepseek-r1:8b` | Better at step-by-step reasoning |
+| Rescue only (≤10%) | External LLM | Agent upgrades only, 200-token cap |
+
+Jimmy auto-detects your hardware and scales workers to fit. Never exceeds 80% RAM.
+
+## How Jimmy Gets Smarter
+
+```
+v1:  Run 100 tasks → score each → find top 3 failure patterns
+     → auto-inject targeted fix into agent system prompts
+     → A/B test fix vs old prompt (5 sub-agents each)
+     → if fix wins by ≥5pts → commit permanently
+
+v2:  Same loop. New prompts. Better scores.
+
+v100: Jimmy beats baseline on every category. System is done.
+```
+
+Failure patterns Jimmy detects and auto-fixes:
+- `truncated_code` — agent stopped writing mid-function
+- `placeholder_path` — /path/to/ in output (unfilled template)
+- `missing_assertions` — no `if __name__` block with tests
+- `syntax_error` — code doesn't compile
+- `stub_functions` — `def f(): pass` stubs not implemented
+- `hallucinated_import` — importing non-existent packages
 
 ## Local Agent v1→v100 Upgrade System
 
