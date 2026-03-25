@@ -771,7 +771,7 @@ main{position:relative;z-index:1;padding-top:52px;}
         <div id="cb-run"></div>
       </div>
       <div>
-        <div class="col-h" style="color:var(--green);">Done<span class="cn" id="c-done">0</span></div>
+        <div class="col-h" style="color:var(--green);">Done<span class="cn" id="c-done">0</span><span id="done-clean-badge" style="font-size:9px;font-weight:400;color:var(--t3);margin-left:6px;"></span></div>
         <div id="cb-done"></div>
       </div>
       <div>
@@ -1433,25 +1433,66 @@ function updProjects(tasksOrPlan){
   }
 }
 
-let _board=false;
+// ── Done board: 24h localStorage persistence ──────────────────────────────
+const _DONE_TTL = 24 * 60 * 60 * 1000;
+const _DONE_KEY = 'nexus_done_items';
+function _getDoneStore(){try{return JSON.parse(localStorage.getItem(_DONE_KEY)||'[]');}catch(e){return[];}}
+function _saveDoneStore(items){try{localStorage.setItem(_DONE_KEY,JSON.stringify(items));}catch(e){}}
+function _pruneDone(){
+  const now=Date.now();
+  const fresh=_getDoneStore().filter(i=>(now-(i._ts||0))<_DONE_TTL);
+  _saveDoneStore(fresh);return fresh;
+}
+function _relTime(ts){
+  const s=Math.floor((Date.now()-ts)/1000);
+  if(s<60)return s+'s ago';if(s<3600)return Math.floor(s/60)+'m ago';
+  if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago';
+}
+// Run cleanup check on page load
+(function _initDoneCleanup(){
+  const pruned=_pruneDone();
+  const badge=$('done-clean-badge');
+  if(badge)badge.textContent=pruned.length?`(${pruned.length} · clears 24h)`:'(clears 24h)';
+})();
+
 function updBoard(tasks){
-  if(_board||!tasks||!tasks.length)return;_board=true;
+  if(!tasks||!tasks.length)return;
   const cols={todo:[],running:[],done:[],blocked:[]};
   for(const t of tasks){const s=t.status||'todo';if(cols[s])cols[s].push(t);else cols.todo.push(t);}
   $('board-ct').textContent=tasks.length+' tasks total';
+
+  // Merge new done items into localStorage store
+  const doneStore=_pruneDone();
+  const storedIds=new Set(doneStore.map(i=>String(i.task_id)));
+  let newDone=0;
+  for(const t of cols.done){
+    if(!storedIds.has(String(t.task_id))){
+      doneStore.push(Object.assign({},t,{_ts:Date.now()}));
+      newDone++;
+    }
+  }
+  if(newDone)_saveDoneStore(doneStore);
+
   for(const[k,list]of Object.entries(cols)){
-    $('c-'+k).textContent=list.length;
-    const body=$('cb-'+k);if(!body.appendChild)continue;
-    for(const t of list.slice(0,25)){
+    const displayList=(k==='done')?doneStore:list;
+    $('c-'+k).textContent=displayList.length;
+    const body=$('cb-'+k);if(!body)continue;
+    body.innerHTML='';
+    for(const t of displayList.slice(0,50)){
       const q=t.local_quality||t.quality||0;
       const c=document.createElement('div');c.className='tc';c.tabIndex=0;
       c.setAttribute('data-testid','task-'+t.task_id);
+      const ageSpan=(k==='done'&&t._ts)?`<span style="font-size:9px;color:var(--t3);margin-left:4px;">${_relTime(t._ts)}</span>`:'';
       c.innerHTML=`<div class="tc-id">NX-${t.task_id}</div><div class="tc-ttl">${esc((t.title||'').slice(0,80))}</div>
-<div class="tc-row"><span class="tc-cat">${t.category||'—'}</span><span class="tc-ag">${t.agent_used||'—'}</span>${q>0?`<span class="tc-q ${q>=70?'hi':q>=40?'md':'lo'}">${q}/100</span>`:''}</div>`;
-      c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();}});
+<div class="tc-row"><span class="tc-cat">${t.category||'—'}</span><span class="tc-ag">${t.agent_used||'—'}</span>${q>0?`<span class="tc-q ${q>=70?'hi':q>=40?'md':'lo'}">${q}/100</span>`:''}${ageSpan}</div>`;
+      c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')e.preventDefault();});
       body.appendChild(c);
     }
   }
+
+  // Update badge
+  const badge=$('done-clean-badge');
+  if(badge)badge.textContent=`(${doneStore.length} · clears 24h)`;
 }
 
 let _lr='';
