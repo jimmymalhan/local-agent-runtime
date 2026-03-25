@@ -350,6 +350,38 @@ def update_dashboard(state: dict, report: dict, todo_items: list[dict]) -> None:
         "items":      todo_items,
         "counts":     counts,
     }
+    # ── Velocity + ETA calculation ─────────────────────────────────────────
+    cur_version = (state.get("version", {}).get("current", 1)
+                   if isinstance(state.get("version"), dict)
+                   else state.get("version", 1))
+    bm = state.get("benchmark_scores", {})
+    avg_local = bm.get("avg_local", 0) or 0
+    avg_opus  = bm.get("avg_opus", 70) or 70
+    gap = avg_opus - avg_local
+    # Estimate versions needed: 2pts improvement/version → gap/2 versions
+    versions_to_win = max(1, int(gap / 2)) if gap > 0 else 0
+    # Simple velocity from history
+    hist = bm.get("history", [])
+    if len(hist) >= 2:
+        recent_delta = (hist[-1].get("local", 0) - hist[-2].get("local", 0))
+        pts_per_version = max(recent_delta, 0.5)
+    else:
+        pts_per_version = 1.0
+    eta_versions = max(1, int(gap / pts_per_version)) if gap > 0 else 0
+
+    state["velocity"] = {
+        "tasks_per_min":      0,
+        "pts_per_version":    round(pts_per_version, 2),
+        "versions_done":      cur_version,
+        "versions_to_beat_baseline": eta_versions,
+        "current_gap":        round(gap, 1),
+        "avg_local":          avg_local,
+        "avg_baseline":       avg_opus,
+        "eta_human":          (f"~{eta_versions} more versions to beat baseline"
+                               if eta_versions > 0 else "Baseline beaten!"),
+        "last_updated":       report["ts"],
+    }
+
     state["business_summary"] = {
         "headline":           (f"{report['tasks_done']} of {report['tasks_total']} "
                                f"tasks complete ({report['pct_complete']}%)"),
@@ -361,9 +393,9 @@ def update_dashboard(state: dict, report: dict, todo_items: list[dict]) -> None:
         "claude_budget_pct":  report["claude_budget_pct"],
         "health_score":       report["health_score"],
         "dashboard_live":     report["dashboard_live"],
-        "version":            (state.get("version", {}).get("current", 1)
-                               if isinstance(state.get("version"), dict)
-                               else state.get("version", 1)),
+        "version":            cur_version,
+        "eta_versions":       eta_versions,
+        "current_gap":        round(gap, 1),
         "updated_at":         report["ts"],
     }
     _write_state(state)

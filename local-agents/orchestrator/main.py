@@ -90,6 +90,27 @@ except ImportError:
     def _get_error_lib(): return None
     def _auto_fix(error, agent="", context=None): return None
 
+# Self-calibration — 3-task warmup per version before production pool
+try:
+    from orchestrator.calibration import calibrate_all_agents as _calibrate, get_passing_agents
+    _CALIBRATION = True
+except ImportError:
+    _CALIBRATION = False
+    def _calibrate(version, agents): return {}
+    def get_passing_agents(results): return set()
+
+# Self-improving prompt engine — A/B test prompts, auto-improve
+try:
+    from orchestrator.prompt_engine import get_prompt_engine as _get_pe
+    _PROMPT_ENGINE = True
+except ImportError:
+    _PROMPT_ENGINE = False
+    class _FakePE:
+        def record_task(self, *a, **kw): return False
+        def record_ab_result(self, *a, **kw): pass
+        def stats(self): return {}
+    def _get_pe(): return _FakePE()
+
 # Dashboard state writer — non-blocking; failures are silent to not break the loop
 try:
     from dashboard.state_writer import (
@@ -582,6 +603,24 @@ def run_version(version: int, tasks: list, local_only: bool = False,
     cm = _get_cm()
     cm.snapshot_version(version)
 
+    # ── 3. Self-calibration: 3-task warmup, gate agents before task pool ──────
+    pe = _get_pe()
+    if _CALIBRATION:
+        import importlib, sys as _sys
+        agent_mods = {}
+        for aname in ["executor","planner","reviewer","debugger","researcher",
+                      "benchmarker","architect","refactor","test_engineer","doc_writer"]:
+            try:
+                mod = importlib.import_module(f"agents.{aname}")
+                agent_mods[aname] = mod
+            except ImportError:
+                pass
+        cal_results = _calibrate(version, agent_mods)
+        passing_agents = get_passing_agents(cal_results)
+        print(f"[CALIBRATION] Passing agents: {sorted(passing_agents)}")
+    else:
+        passing_agents = set()
+
     guard        = ResourceGuard()
     report_path  = os.path.join(REPORTS_DIR, f"v{version}_compare.jsonl")
     token_path   = os.path.join(REPORTS_DIR, "token_comparison.jsonl")
@@ -680,6 +719,17 @@ def run_version(version: int, tasks: list, local_only: bool = False,
         total_opus_qual  += opus_quality
         if local_quality >= opus_quality - 5:
             local_wins += 1
+
+        # ── Prompt engine: record result, A/B test after low-quality tasks ──
+        if _PROMPT_ENGINE:
+            version_avg_so_far = (total_local_qual / max(completed + 1, 1))
+            improved = pe.record_task(
+                local_result.get("agent_used", "executor"),
+                task, local_result, version_avg=version_avg_so_far
+            )
+            pe.record_ab_result(
+                local_result.get("agent_used", "executor"), local_quality
+            )
 
         # Log comparison
         record = {
