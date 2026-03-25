@@ -78,16 +78,53 @@ python3 local-agents/orchestrator/resource_guard.py --check
 python3 local-agents/orchestrator/resource_guard.py --watch 5   # live monitor every 5s
 ```
 
-## Jimmy's Model
+## Jimmy's Model Architecture
 
-| Role | Model | Why |
-|------|-------|-----|
-| Code gen, bug fix, TDD, refactor | `qwen2.5-coder:7b` | Fast, code-focused, 6GB RAM |
-| Planning, architecture | `qwen2.5-coder:7b` | Same — reasoning on code |
-| Review, debugging | `deepseek-r1:8b` | Better at step-by-step reasoning |
-| Rescue only (≤10%) | External LLM | Agent upgrades only, 200-token cap |
+Jimmy is a **model-agnostic orchestration layer** — it wraps the best available model for each job. You configure which model powers each role. Swap any model by editing `local-agents/agents/config.yaml`.
 
-Jimmy auto-detects your hardware and scales workers to fit. Never exceeds 80% RAM.
+```
+┌─────────────────────────────────────────────────────────┐
+│                        Jimmy                            │
+│           Personal Autonomous Agent Runtime             │
+├─────────────────────────────────────────────────────────┤
+│  Planner → Executor → Reviewer → Debugger → Architect  │
+│  Test Engineer → Researcher → Benchmarker → Doc Writer │
+├─────────────────────────────────────────────────────────┤
+│  Each role wraps the best available model for the job   │
+├──────────────────────┬──────────────────────────────────┤
+│  LOCAL (90%)         │  RESCUE ONLY (≤10%)              │
+│  ─────────────────── │  ──────────────────────────────  │
+│  qwen2.5-coder:7b    │  Any external LLM API            │
+│  deepseek-r1:8b      │  200-token cap per call          │
+│  llama3.2:3b         │  Agent upgrades only — never     │
+│  codestral:22b       │  fixes tasks directly            │
+│  (any Ollama model)  │                                  │
+└──────────────────────┴──────────────────────────────────┘
+```
+
+**Default model assignment:**
+
+| Role | Default Model | Swap to |
+|------|--------------|---------|
+| Code gen, bug fix, TDD | `qwen2.5-coder:7b` | `codestral:22b`, `deepseek-coder-v2` |
+| Reasoning, review, debug | `deepseek-r1:8b` | `qwen2.5-coder:32b` |
+| Planning, architecture | `qwen2.5-coder:7b` | any instruct model |
+| Embeddings, research | `nomic-embed-text` | `mxbai-embed-large` |
+| Rescue (blocked tasks) | External LLM | configure in `config.yaml` |
+
+**To change a model:**
+```yaml
+# local-agents/agents/config.yaml
+model: qwen2.5-coder:7b        # change this to any model you've pulled
+```
+
+Jimmy auto-detects your hardware and scales parallel workers to fit. Never exceeds 80% RAM.
+
+**To use a larger model when hardware allows:**
+```bash
+ollama pull codestral:22b      # better quality, needs 16GB+ RAM
+# edit config.yaml: model: codestral:22b
+```
 
 ## How Jimmy Gets Smarter
 
