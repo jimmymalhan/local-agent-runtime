@@ -1,10 +1,114 @@
 #!/bin/bash
+# local — Single entry point for the local agent runtime.
+# Replaces local-codex and local-claude. Does NOT shadow system codex/claude/cursor.
 set -euo pipefail
 
-TARGET_REPO=${LOCAL_AGENT_TARGET_REPO:-$PWD}
 REPO_ROOT=$(cd "$(dirname "$0")" && pwd)
-cd "$REPO_ROOT"
+TARGET_REPO=${LOCAL_AGENT_TARGET_REPO:-$PWD}
 export LOCAL_AGENT_TARGET_REPO="$TARGET_REPO"
 export SESSION_PERSONA=${SESSION_PERSONA:-local}
 
+MODE=${LOCAL_AGENT_MODE:-$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1])).get("default_profile","balanced"))' "$REPO_ROOT/config/runtime.json" 2>/dev/null || echo "balanced")}
+TASK=""
+
+show_help() {
+cat <<'EOF'
+local — Local Agent Runtime
+
+Usage:
+  local                            interactive session (slash commands)
+  local "<task>"                   run one task
+  local /path/to/repo              set target repo, interactive
+  local /path/to/repo "<task>"     run task in specific repo
+
+Options:
+  --mode fast|balanced|deep|exhaustive   set execution depth (default: balanced)
+  --bench <N>                            benchmark: run N tasks, local-only
+  --bench-auto                           full autonomous v1→v100 upgrade loop
+  --dashboard                            start live dashboard (port 3001)
+  --pipeline "<task>"                    run full local pipeline
+
+Slash commands (inside interactive session):
+  /pipeline <task>    /plan <task>    /run <task>
+  /bench <N>          /bench-auto     /dashboard
+  /progress           /team           /checkpoint     /restore
+  /review             /qa             /uat             /release
+  /heal               /compact        /help
+EOF
+}
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -h|--help)
+      show_help; exit 0 ;;
+    -m|--mode)
+      shift; MODE=$1 ;;
+    --mode=*)
+      MODE=${1#--mode=} ;;
+    --bench)
+      shift
+      N=${1:-3}
+      python3 "$REPO_ROOT/local-agents/orchestrator/main.py" --version 1 --quick "$N" --local-only
+      exit $? ;;
+    --bench-auto)
+      python3 "$REPO_ROOT/local-agents/orchestrator/main.py" --auto 1
+      exit $? ;;
+    --dashboard)
+      bash "$REPO_ROOT/local-agents/dashboard/launch.sh" &
+      cat "$REPO_ROOT/DASHBOARD.txt" 2>/dev/null || echo "Dashboard starting on port 3001"
+      exit 0 ;;
+    --pipeline)
+      shift; TASK=$*; break ;;
+    *)
+      if [ -d "$1" ] && [ -z "${TASK}" ]; then
+        TARGET_REPO=$(cd "$1" && pwd)
+        export LOCAL_AGENT_TARGET_REPO="$TARGET_REPO"
+      elif [ -z "$TASK" ]; then
+        TASK=$1
+      else
+        TASK="$TASK $1"
+      fi ;;
+  esac
+  shift
+done
+
+export LOCAL_AGENT_MODE=$MODE
+
+cd "$REPO_ROOT"
+
+# ── Auto-launch dashboard (background, idempotent) ────────────────────────────
+_launch_dashboard() {
+  local port=3001
+  if ! lsof -ti tcp:"$port" >/dev/null 2>&1; then
+    if [ -f "$REPO_ROOT/local-agents/dashboard/server.py" ]; then
+      python3 "$REPO_ROOT/local-agents/dashboard/server.py" --port "$port" \
+        >/tmp/nexus-dashboard.log 2>&1 &
+      sleep 0.5
+      echo ""
+      echo "  Nexus Dashboard  →  http://localhost:$port"
+      echo ""
+    fi
+  else
+    echo ""
+    echo "  Nexus Dashboard  →  http://localhost:$port  (already running)"
+    echo ""
+  fi
+}
+
+if [ "${NEXUS_NO_DASHBOARD:-0}" != "1" ]; then
+  _launch_dashboard
+fi
+
+if [ -n "$TASK" ]; then
+  # One-shot task run
+  python3 "$REPO_ROOT/scripts/local_team_run.py" "$TASK" "$TARGET_REPO"
+  if [ "${LOCAL_AGENT_AUTO_REVIEW:-1}" = "1" ]; then
+    echo
+    echo "== auto review =="
+    python3 "$REPO_ROOT/scripts/review_current_changes.py" "$TARGET_REPO" 2>/dev/null || true
+  fi
+  exit 0
+fi
+
+# Interactive session
 exec bash "$REPO_ROOT/scripts/start_local_cli.sh"

@@ -10,44 +10,47 @@ TASK=""
 
 show_help() {
 cat <<EOF
-Local agent launcher (use local-codex or Local - does NOT shadow codex/claude)
+Local agent launcher (does NOT shadow codex/claude/cursor)
 
 Usage:
-  local-codex
-  local-codex "<task>"
-  local-codex /path/to/repo
-  local-codex /path/to/repo "<task>"
-  local-codex --mode deep
-  local-codex --mode exhaustive
-  local-codex --mode fast "<task>"
+  local-codex                              interactive session
+  local-codex "<task>"                     one-shot task run
+  local-codex /path/to/repo               set target repo
+  local-codex /path/to/repo "<task>"      task in specific repo
+  local-codex --mode deep "<task>"
+  local-codex --persona claude "<task>"   run with claude persona
+  local-codex --bench 3                   benchmark quick 3 tasks
+  local-codex --bench-auto                full v1→v100 auto loop
+  local-codex --dashboard                 open live dashboard
 
-Behavior:
-  - no task: starts the interactive local session
-  - with task: runs a one-shot local task
-  - if the first non-flag argument is a directory, it becomes the target repo
-
-Modes:
-  fast
-  balanced
-  deep
-  exhaustive
+Modes:  fast | balanced | deep | exhaustive
 EOF
 }
 
 while [ $# -gt 0 ]; do
   case "$1" in
     -h|--help)
-      show_help
-      exit 0
-      ;;
+      show_help; exit 0 ;;
     -m|--mode)
-      shift
-      [ $# -gt 0 ] || { echo "Missing value for --mode" >&2; exit 1; }
-      MODE=$1
-      ;;
+      shift; [ $# -gt 0 ] || { echo "Missing --mode value" >&2; exit 1; }
+      MODE=$1 ;;
     --mode=*)
-      MODE=${1#--mode=}
-      ;;
+      MODE=${1#--mode=} ;;
+    --persona)
+      shift; SESSION_PERSONA=$1 ;;
+    --persona=*)
+      SESSION_PERSONA=${1#--persona=} ;;
+    --bench)
+      shift; BENCH_QUICK=${1:-3}
+      python3 "$REPO_ROOT/local-agents/orchestrator/main.py" --version 1 --quick "$BENCH_QUICK" --local-only
+      exit $? ;;
+    --bench-auto)
+      python3 "$REPO_ROOT/local-agents/orchestrator/main.py" --auto 1
+      exit $? ;;
+    --dashboard)
+      bash "$REPO_ROOT/local-agents/dashboard/launch.sh" &
+      echo "Dashboard starting — URL in DASHBOARD.txt"
+      exit 0 ;;
     *)
       if [ -d "$1" ] && [ -z "${TASK}" ] && [ "${TARGET_REPO}" = "${LOCAL_AGENT_TARGET_REPO:-$PWD}" ]; then
         TARGET_REPO=$(cd "$1" && pwd)
@@ -55,8 +58,7 @@ while [ $# -gt 0 ]; do
         TASK=$1
       else
         TASK="$TASK $1"
-      fi
-      ;;
+      fi ;;
   esac
   shift
 done
