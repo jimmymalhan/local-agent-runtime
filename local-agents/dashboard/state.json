@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-25T15:36:38.570231",
+  "ts": "2026-03-25T16:08:49.711553",
   "version": {
     "current": 5,
     "total": 100,
@@ -81,7 +81,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-25T15:36:38.569713"
+      "last_activity": "2026-03-25T16:08:49.711016"
     },
     "refactor": {
       "status": "idle",
@@ -96,10 +96,8 @@
       "status": "idle",
       "task": "",
       "task_id": null,
-      "elapsed_s": 0,
-      "last_activity": "",
-      "sub_agents": [],
-      "worker_count": 0
+      "elapsed_s": 0.0,
+      "last_activity": "2026-03-25T15:59:42.055138"
     },
     "doc_writer": {
       "status": "idle",
@@ -113,10 +111,10 @@
   },
   "task_queue": {
     "total": 100,
-    "completed": 59,
+    "completed": 78,
     "in_progress": 0,
     "failed": 0,
-    "pending": 41
+    "pending": 22
   },
   "benchmark_scores": {
     "v1": {
@@ -149,8 +147,8 @@
     "hard_limit_hit": true
   },
   "hardware": {
-    "cpu_pct": 27.2,
-    "ram_pct": 53.8,
+    "cpu_pct": 34.7,
+    "ram_pct": 55.2,
     "disk_pct": 0.0,
     "gpu_pct": null,
     "alert_level": "ok"
@@ -210,19 +208,23 @@
     }
   },
   "ceo_report": {
-    "ts": "2026-03-25T22:18:06+00:00",
-    "active_agents": 2,
-    "total_sub_agents": 2,
+    "ts": "2026-03-25T23:03:04",
+    "active_agents": 1,
     "running_sub_agents": 0,
-    "stuck_agents": [
-      "executor",
-      "benchmarker"
-    ],
+    "health_score": 88,
+    "budget_warning": false,
+    "stuck_agents": [],
     "rescue_needed": [],
-    "health_score": 69,
-    "claude_budget_pct": 10.0,
-    "budget_warning": true,
-    "dashboard_live": true
+    "dashboard_live": true,
+    "summary": "Supervisor online. Planning phase: 8 projects queued. Local agents execute 90%. Claude rescue <10%.",
+    "velocity": {
+      "tasks_per_min": 0,
+      "versions_per_hour": 0
+    },
+    "eta": {
+      "versions_to_beat_opus": 20,
+      "est_complete_utc": "2026-03-26T06:00:00"
+    }
   },
   "business_summary": {
     "headline": "26 of 100 tasks complete (26.0%)",
@@ -236,5 +238,96 @@
     "dashboard_live": true,
     "version": 5,
     "updated_at": "2026-03-25T22:18:06+00:00"
+  },
+  "todo_board": {
+    "updated_at": "2026-03-25T23:03:04",
+    "items": [
+      {
+        "id": "P01",
+        "title": "Self-calibration system \u2014 3-task warmup per version",
+        "status": "running",
+        "category": "orchestrator",
+        "agent": "executor",
+        "priority": "critical",
+        "source": "plan"
+      },
+      {
+        "id": "P02",
+        "title": "Self-improving prompt engine \u2014 A/B test every agent",
+        "status": "running",
+        "category": "orchestrator",
+        "agent": "executor",
+        "priority": "critical",
+        "source": "plan"
+      },
+      {
+        "id": "P03",
+        "title": "Dashboard velocity + ETA bar",
+        "status": "running",
+        "category": "dashboard",
+        "agent": "executor",
+        "priority": "high",
+        "source": "plan"
+      },
+      {
+        "id": "P04",
+        "title": "Repo root cleanup \u2014 move stray test files",
+        "status": "running",
+        "category": "devops",
+        "agent": "executor",
+        "priority": "high",
+        "source": "plan"
+      },
+      {
+        "id": "P05",
+        "title": "Opus 4.6 comparison wired into every version",
+        "status": "todo",
+        "category": "benchmarks",
+        "agent": "benchmarker",
+        "priority": "critical",
+        "source": "plan"
+      },
+      {
+        "id": "P06",
+        "title": "Auto-merge clean PRs script",
+        "status": "todo",
+        "category": "devops",
+        "agent": "executor",
+        "priority": "medium",
+        "source": "plan"
+      },
+      {
+        "id": "P07",
+        "title": "State.json compaction (auto when >10mb)",
+        "status": "todo",
+        "category": "orchestrator",
+        "agent": "executor",
+        "priority": "medium",
+        "source": "plan"
+      },
+      {
+        "id": "P08",
+        "title": "v1\u2192v100 autonomous loop \u2014 self-upgrade until beats Opus",
+        "status": "todo",
+        "category": "benchmarks",
+        "agent": "benchmarker",
+        "priority": "critical",
+        "source": "plan"
+      }
+    ],
+    "counts": {
+      "running": 4,
+      "todo": 4,
+      "blocked": 0,
+      "done": 0
+    }
+  },
+  "velocity": {
+    "tasks_per_min": 0,
+    "versions_done": 5,
+    "versions_total": 1000,
+    "pct": 0.5,
+    "eta_human": "~20 versions to beat baseline",
+    "last_updated": "2026-03-25T23:03:04"
   }
 }

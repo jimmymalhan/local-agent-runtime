@@ -540,10 +540,8 @@ main{position:relative;z-index:1;padding-top:52px;}
   <div class="ntabs" role="tablist">
     <button class="ntab active" role="tab" aria-selected="true"  data-tab="overview"   data-testid="tab-overview"   tabindex="0">Overview</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="agents"     data-testid="tab-agents"     tabindex="-1">Agents</button>
-    <button class="ntab"        role="tab" aria-selected="false" data-tab="projects"   data-testid="tab-projects"   tabindex="-1">Projects</button>
-    <button class="ntab"        role="tab" aria-selected="false" data-tab="tasks"      data-testid="tab-tasks"      tabindex="-1">Tasks</button>
+    <button class="ntab"        role="tab" aria-selected="false" data-tab="tasks"      data-testid="tab-tasks"      tabindex="-1">Projects &amp; Tasks</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="ceo"        data-testid="tab-ceo"        tabindex="-1">CEO</button>
-    <button class="ntab"        role="tab" aria-selected="false" data-tab="todo"       data-testid="tab-todo"       tabindex="-1">Todo</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="logs"       data-testid="tab-logs"       tabindex="-1">Logs</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="chat"       data-testid="tab-chat"       tabindex="-1">Chat</button>
   </div>
@@ -749,37 +747,73 @@ main{position:relative;z-index:1;padding-top:52px;}
   </div>
 </div>
 
-<!-- ═══ PROJECTS TAB ═════════════════════════════════════════ -->
-<div id="tab-projects" class="tab-panel" role="tabpanel">
-  <div class="sec" style="padding-top:40px;">
+<!-- ═══ PROJECTS stub (hidden — merged into Tasks tab) ═════════ -->
+<div id="tab-projects" class="tab-panel" style="display:none!important;" role="tabpanel" aria-hidden="true"></div>
+
+<!-- ═══ TASKS TAB (unified Projects + Tasks + Todo) ══════════ -->
+<div id="tab-tasks" class="tab-panel" role="tabpanel">
+  <!-- ── Projects swimlane ──────────────────────────────────── -->
+  <div class="sec" style="padding-top:40px;padding-bottom:0;">
     <div class="sh"><h2 class="st">Projects</h2><span class="ss" id="proj-ct">Workspaces</span></div>
     <div class="pg" id="pg"></div>
   </div>
-</div>
-
-<!-- ═══ TASKS TAB ════════════════════════════════════════════ -->
-<div id="tab-tasks" class="tab-panel" role="tabpanel">
-  <div class="sec" style="padding-top:40px;">
-    <div class="sh"><h2 class="st">Task Board</h2><span class="ss" id="board-ct">—</span></div>
-    <div class="board" role="grid">
+  <!-- ── Tasks Kanban ───────────────────────────────────────── -->
+  <div class="sec" style="padding-top:24px;">
+    <div class="sh">
+      <h2 class="st">Tasks</h2>
+      <span class="ss" id="board-ct">—</span>
+      <span style="font-size:11px;color:var(--t3);margin-left:12px;">Updates every 5s</span>
+    </div>
+    <!-- Live Kanban — 4 columns: Blocked · Running · Backlog · Done -->
+    <div class="board" role="grid" style="grid-template-columns:repeat(4,1fr);">
       <div>
-        <div class="col-h" style="color:var(--t3);">Backlog<span class="cn" id="c-todo">0</span></div>
-        <div id="cb-todo"></div>
-      </div>
-      <div>
-        <div class="col-h" style="color:var(--blue);">Running<span class="cn" id="c-run">0</span></div>
-        <div id="cb-run"></div>
-      </div>
-      <div>
-        <div class="col-h" style="color:var(--green);">Done<span class="cn" id="c-done">0</span></div>
-        <div id="cb-done"></div>
-      </div>
-      <div>
-        <div class="col-h" style="color:var(--red);">Blocked<span class="cn" id="c-bl">0</span></div>
+        <div class="col-h" style="color:var(--red);">
+          Blocked<span class="cn" id="c-bl">0</span>
+          <!-- also mirrors todo-cnt-blocked for compat -->
+          <span id="todo-cnt-blocked" style="display:none;">0</span>
+        </div>
         <div id="cb-bl"></div>
+        <!-- mirror container used by old todo JS -->
+        <div id="todo-col-blocked" style="display:none;"></div>
+      </div>
+      <div>
+        <div class="col-h" style="color:var(--blue);">
+          Running<span class="cn" id="c-run">0</span>
+          <span id="todo-cnt-running" style="display:none;">0</span>
+        </div>
+        <div id="cb-run"></div>
+        <div id="todo-col-running" style="display:none;"></div>
+      </div>
+      <div>
+        <div class="col-h" style="color:var(--t3);">
+          Backlog<span class="cn" id="c-todo">0</span>
+          <span id="todo-cnt-todo" style="display:none;">0</span>
+        </div>
+        <div id="cb-todo"></div>
+        <div id="todo-col-todo" style="display:none;"></div>
+      </div>
+      <div>
+        <div class="col-h" style="color:var(--green);">
+          Done<span class="cn" id="c-done">0</span>
+          <span id="done-clean-badge" style="font-size:9px;font-weight:400;color:var(--t3);margin-left:6px;"></span>
+          <span id="todo-cnt-done" style="display:none;">0</span>
+        </div>
+        <div id="kanban-cb-done"></div>
+        <div id="todo-col-done" style="display:none;"></div>
       </div>
     </div>
+    <div id="tasks-empty" style="display:none;text-align:center;padding:60px 0;color:var(--t3);font-size:13px;">
+      No tasks yet — CEO check populates the board every 60s
+    </div>
+    <div id="todo-ct" style="margin-top:12px;font-size:11px;color:var(--t3);text-align:right;"></div>
   </div>
+  </div>
+</div>
+
+<!-- ═══ TODO stub (hidden — kept for JS compat) ══════════════ -->
+<div id="tab-todo" class="tab-panel" style="display:none!important;" role="tabpanel" aria-hidden="true">
+  <div id="todo-board" style="display:none;"></div>
+  <div id="todo-empty" style="display:none;"></div>
 </div>
 
 <!-- ═══ CEO TAB ═══════════════════════════════════════════════ -->
@@ -787,12 +821,44 @@ main{position:relative;z-index:1;padding-top:52px;}
   <div class="sec" style="padding-top:40px;">
     <div class="ceo-wrap" data-testid="ceo-panel">
       <div class="ceo-ttl">CEO Agent</div>
-      <div class="ceo-sub">Extreme leadership · strategic vision · stays ahead of every curve</div>
+      <div class="ceo-sub">Principal Engineer + CTO · beats Opus 4.6 on every benchmark · drives v1→v1000 convergence</div>
       <div class="ceo-st"><div class="ceo-dot"></div><span id="ceo-st-txt">Monitoring all systems</span></div>
       <div class="ceo-dirs">
-        <div class="ceo-d"><div class="ceo-d-t">Win Rate</div><div class="ceo-d-v" id="ceo-wr">—</div><div class="ceo-d-s">quality score</div></div>
+        <div class="ceo-d"><div class="ceo-d-t">Benchmark vs Opus</div><div class="ceo-d-v" id="ceo-wr">—</div><div class="ceo-d-s">avg quality delta</div></div>
         <div class="ceo-d"><div class="ceo-d-t">Tasks Done</div><div class="ceo-d-v" id="ceo-tasks">—</div><div class="ceo-d-s">this version</div></div>
-        <div class="ceo-d"><div class="ceo-d-t">Budget Used</div><div class="ceo-d-v" id="ceo-bgt" style="color:var(--purple);">—</div><div class="ceo-d-s">Claude rescue</div></div>
+        <div class="ceo-d"><div class="ceo-d-t">Rescue Budget</div><div class="ceo-d-v" id="ceo-bgt" style="color:var(--purple);">—</div><div class="ceo-d-s">Claude 10% cap</div></div>
+        <div class="ceo-d"><div class="ceo-d-t">ETA to Beat Opus</div><div class="ceo-d-v" id="ceo-eta" style="color:var(--green);">—</div><div class="ceo-d-s">versions remaining</div></div>
+      </div>
+
+      <!-- AI Strategic Directives — always visible -->
+      <div style="margin-top:20px;background:var(--card2);border:1px solid var(--bd);border-radius:var(--r);padding:18px 20px;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);margin-bottom:12px;">AI Strategic Directives</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--rsm);padding:10px 12px;">
+            <div style="font-size:9px;color:var(--blue);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Architecture</div>
+            <div style="font-size:11px;color:var(--t2);line-height:1.5;">10 specialized agents → specialist pool pattern. Orchestrator dispatches by task type. No monolithic agents — each agent owns one domain.</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--rsm);padding:10px 12px;">
+            <div style="font-size:9px;color:var(--green);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Self-Improvement Loop</div>
+            <div style="font-size:11px;color:var(--t2);line-height:1.5;">Calibration warmup → A/B prompt engine → quality gate → commit winner. Every version auto-patches regressions before production pool.</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--rsm);padding:10px 12px;">
+            <div style="font-size:9px;color:var(--purple);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Benchmark Strategy</div>
+            <div style="font-size:11px;color:var(--t2);line-height:1.5;">100 real-project tasks (not LeetCode toys): distributed systems, auth refactor, API design, DB migrations. Score Δ vs Opus 4.6 per category.</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--rsm);padding:10px 12px;">
+            <div style="font-size:9px;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Resource Governance</div>
+            <div style="font-size:11px;color:var(--t2);line-height:1.5;">CPU×2 concurrent agents at &lt;80% RAM. Pause spawns 80-85%. Kill lowest-quality agent at &gt;85%. Claude rescue hard-capped at 10%.</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--rsm);padding:10px 12px;">
+            <div style="font-size:9px;color:var(--yellow,#f5a623);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Researcher Pipeline</div>
+            <div style="font-size:11px;color:var(--t2);line-height:1.5;">Every 5 versions: scrape r/LocalLLaMA, HN, Blind → extract failure patterns → inject corrective rules into system prompts automatically.</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--rsm);padding:10px 12px;">
+            <div style="font-size:9px;color:var(--t2);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Stop Condition</div>
+            <div style="font-size:11px;color:var(--t2);line-height:1.5;">Beat Opus 4.6 in ALL categories: code_gen, debug, arch, review, planning. Then retarget to next frontier model. No plateau accepted.</div>
+          </div>
+        </div>
       </div>
 
       <!-- Live CEO report metrics -->
@@ -918,44 +984,6 @@ main{position:relative;z-index:1;padding-top:52px;}
   </div>
 </div>
 
-<!-- ═══ TODO TAB (Jira-style Kanban) ══════════════════════════ -->
-<div id="tab-todo" class="tab-panel" role="tabpanel">
-  <div class="sec" style="padding-top:40px;">
-    <div class="sh">
-      <h2 class="st">Todo Board</h2>
-      <span class="ss" id="todo-ct">Loading…</span>
-    </div>
-    <!-- Kanban columns -->
-    <div id="todo-board" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:20px;">
-      <div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:10px;display:flex;align-items:center;gap:6px;">
-          <span>Blocked</span><span id="todo-cnt-blocked" style="background:var(--red-g);color:var(--red);border-radius:10px;padding:1px 7px;font-size:9px;">0</span>
-        </div>
-        <div id="todo-col-blocked" style="display:flex;flex-direction:column;gap:8px;min-height:60px;"></div>
-      </div>
-      <div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:10px;display:flex;align-items:center;gap:6px;">
-          <span>Running</span><span id="todo-cnt-running" style="background:var(--blue-g);color:var(--blue);border-radius:10px;padding:1px 7px;font-size:9px;">0</span>
-        </div>
-        <div id="todo-col-running" style="display:flex;flex-direction:column;gap:8px;min-height:60px;"></div>
-      </div>
-      <div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t2);margin-bottom:10px;display:flex;align-items:center;gap:6px;">
-          <span>Todo</span><span id="todo-cnt-todo" style="background:rgba(0,0,0,.06);color:var(--t2);border-radius:10px;padding:1px 7px;font-size:9px;">0</span>
-        </div>
-        <div id="todo-col-todo" style="display:flex;flex-direction:column;gap:8px;min-height:60px;"></div>
-      </div>
-      <div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:10px;display:flex;align-items:center;gap:6px;">
-          <span>Done</span><span id="todo-cnt-done" style="background:var(--green-g);color:var(--green);border-radius:10px;padding:1px 7px;font-size:9px;">0</span>
-        </div>
-        <div id="todo-col-done" style="display:flex;flex-direction:column;gap:8px;min-height:60px;"></div>
-      </div>
-    </div>
-    <div id="todo-empty" style="display:none;text-align:center;padding:60px 0;color:var(--t3);font-size:13px;">No tasks yet — CEO check populates this board every 60s</div>
-  </div>
-</div>
-
 <!-- ═══ CHAT TAB ══════════════════════════════════════════════ -->
 <div id="tab-chat" class="tab-panel" role="tabpanel">
   <div class="sec" style="padding-top:40px;max-width:800px;">
@@ -1070,11 +1098,12 @@ main{position:relative;z-index:1;padding-top:52px;}
 const tabs=[...document.querySelectorAll('.ntab')];
 const panels=[...document.querySelectorAll('.tab-panel')];
 function switchTab(id){
+  if(id==='projects'||id==='todo')id='tasks'; // collapsed into Tasks tab
   tabs.forEach(t=>{const a=t.dataset.tab===id;t.classList.toggle('active',a);t.setAttribute('aria-selected',a);t.tabIndex=a?0:-1;});
   panels.forEach(p=>p.classList.toggle('active',p.id==='tab-'+id));
   if(id==='ceo')runCeo();
   if(id==='subagents')buildSubAgentTab();
-  if(id==='todo')buildTodoTab();
+  if(id==='tasks')refreshUnifiedBoard();
   if(id==='logs'){const t=document.getElementById('logs-live-ts');if(t)t.textContent='Live · '+new Date().toLocaleTimeString('en',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'});}
 }
 tabs.forEach(t=>{
@@ -1326,16 +1355,26 @@ function drawBench(hist){
 <!-- CEO -->
 <script>
 const DIRS=[
-  'Nexus must exceed baseline quality across all 7 categories. Every gap is a mission failure.',
-  'Win rate {wr} — push every agent to close remaining gaps this version.',
-  'Claude budget at {bgt}% — well within the 10% hard cap. Maintain discipline.',
-  'Self-improvement loop active: every failure pattern gets a targeted fix, not a workaround.',
-  'Local-first is non-negotiable. 90% of work stays on-device. Zero cloud dependency.',
-  'Sub-agent pool: scale to 1000 sub-agents the moment throughput demands it.',
-  'Rescue watchdog armed. No stuck agent survives 120 seconds undetected.',
-  'Quality threshold: no task passes below 40/100. Raise the bar every version.',
-  'The mission ends at v100 or when local beats Opus across all categories.',
-  'Every rescue call reduces future budget. Fix agents, not individual tasks.',
+  // Architecture directives
+  'ARCH: Specialist pool pattern enforced. Each agent owns exactly one domain. Monolithic agents are a regression — decompose immediately.',
+  'ARCH: Orchestrator routes by task signature (code_gen→executor, arch→architect, review→reviewer). Wrong routing = wrong quality. Audit dispatch table every version.',
+  'ARCH: Agent registry drives all dispatch. Never hardcode agent names in orchestrator. Registry is the single source of truth.',
+  // Benchmark directives
+  'BENCHMARK: Win rate {wr} vs Opus 4.6. Target: positive delta in ALL categories — code_gen, debug, arch, review, planning, refactor, docs.',
+  'BENCHMARK: Reject toy tasks. Every benchmark suite must include distributed systems, API design, DB migrations, auth flows — real-project work at senior IC level.',
+  'BENCHMARK: Category regressions auto-trigger targeted calibration + prompt patch within the same version. No regression ships.',
+  // Self-improvement directives
+  'PROMPT ENGINE: A/B test every improvement. 4-sample minimum. 3pt margin to commit. Rolling back a worse prompt is not failure — it is quality control.',
+  'CALIBRATION: 3-task warmup gates every agent each version. Agents below threshold are excluded from production pool — no exceptions, no overrides.',
+  'RESEARCHER: Every 5 versions, inject real failure patterns from r/LocalLLaMA + HN into system prompts. Community frustrations are the best regression test.',
+  // Resource directives
+  'RESOURCE: Scale to CPU×2 concurrent agents at RAM <80%. Pause spawns at 80-85%. Kill lowest-quality agent at >85%. Hardware sets the ceiling — never exceed it.',
+  'BUDGET: Claude rescue hard-capped at 10% of tasks. Current usage: {bgt}%. Every rescue call is a debt — repay it by fixing the underlying agent, not the task.',
+  'CHECKPOINT: Version snapshot before every upgrade. If avg quality drops >2pts vs prev version — auto-rollback, re-diagnose, patch. Never ship a regression.',
+  // Strategic directives
+  'MISSION: Beat Opus 4.6 in all benchmark categories. Then retarget to the next frontier model. There is no plateau, no finish line, only the next gap to close.',
+  'SCALING: v1→v100→v1000. Each version increases agent specialization, task complexity, and benchmark coverage. Quality compounds — guard it obsessively.',
+  'GOVERNANCE: Every architectural decision must have a measurable quality impact within 5 versions. Decisions without metrics are assumptions — remove them.',
 ];
 let _cIdx=0,_cs={wr:'—',bgt:'0',ver:1};
 function runCeo(){
@@ -1433,25 +1472,66 @@ function updProjects(tasksOrPlan){
   }
 }
 
-let _board=false;
+// ── Done board: 24h localStorage persistence ──────────────────────────────
+const _DONE_TTL = 24 * 60 * 60 * 1000;
+const _DONE_KEY = 'nexus_done_items';
+function _getDoneStore(){try{return JSON.parse(localStorage.getItem(_DONE_KEY)||'[]');}catch(e){return[];}}
+function _saveDoneStore(items){try{localStorage.setItem(_DONE_KEY,JSON.stringify(items));}catch(e){}}
+function _pruneDone(){
+  const now=Date.now();
+  const fresh=_getDoneStore().filter(i=>(now-(i._ts||0))<_DONE_TTL);
+  _saveDoneStore(fresh);return fresh;
+}
+function _relTime(ts){
+  const s=Math.floor((Date.now()-ts)/1000);
+  if(s<60)return s+'s ago';if(s<3600)return Math.floor(s/60)+'m ago';
+  if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago';
+}
+// Run cleanup check on page load
+(function _initDoneCleanup(){
+  const pruned=_pruneDone();
+  const badge=$('done-clean-badge');
+  if(badge)badge.textContent=pruned.length?`(${pruned.length} · clears 24h)`:'(clears 24h)';
+})();
+
 function updBoard(tasks){
-  if(_board||!tasks||!tasks.length)return;_board=true;
+  if(!tasks||!tasks.length)return;
   const cols={todo:[],running:[],done:[],blocked:[]};
   for(const t of tasks){const s=t.status||'todo';if(cols[s])cols[s].push(t);else cols.todo.push(t);}
   $('board-ct').textContent=tasks.length+' tasks total';
+
+  // Merge new done items into localStorage store
+  const doneStore=_pruneDone();
+  const storedIds=new Set(doneStore.map(i=>String(i.task_id)));
+  let newDone=0;
+  for(const t of cols.done){
+    if(!storedIds.has(String(t.task_id))){
+      doneStore.push(Object.assign({},t,{_ts:Date.now()}));
+      newDone++;
+    }
+  }
+  if(newDone)_saveDoneStore(doneStore);
+
   for(const[k,list]of Object.entries(cols)){
-    $('c-'+k).textContent=list.length;
-    const body=$('cb-'+k);if(!body.appendChild)continue;
-    for(const t of list.slice(0,25)){
+    const displayList=(k==='done')?doneStore:list;
+    $('c-'+k).textContent=displayList.length;
+    const body=$(k==='done'?'kanban-cb-done':'cb-'+k);if(!body)continue;
+    body.innerHTML='';
+    for(const t of displayList.slice(0,50)){
       const q=t.local_quality||t.quality||0;
       const c=document.createElement('div');c.className='tc';c.tabIndex=0;
       c.setAttribute('data-testid','task-'+t.task_id);
+      const ageSpan=(k==='done'&&t._ts)?`<span style="font-size:9px;color:var(--t3);margin-left:4px;">${_relTime(t._ts)}</span>`:'';
       c.innerHTML=`<div class="tc-id">NX-${t.task_id}</div><div class="tc-ttl">${esc((t.title||'').slice(0,80))}</div>
-<div class="tc-row"><span class="tc-cat">${t.category||'—'}</span><span class="tc-ag">${t.agent_used||'—'}</span>${q>0?`<span class="tc-q ${q>=70?'hi':q>=40?'md':'lo'}">${q}/100</span>`:''}</div>`;
-      c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();}});
+<div class="tc-row"><span class="tc-cat">${t.category||'—'}</span><span class="tc-ag">${t.agent_used||'—'}</span>${q>0?`<span class="tc-q ${q>=70?'hi':q>=40?'md':'lo'}">${q}/100</span>`:''}${ageSpan}</div>`;
+      c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')e.preventDefault();});
       body.appendChild(c);
     }
   }
+
+  // Update badge
+  const badge=$('done-clean-badge');
+  if(badge)badge.textContent=`(${doneStore.length} · clears 24h)`;
 }
 
 let _lr='';
@@ -1596,6 +1676,27 @@ function applyState(st){
   const cv=$('chip-v');
   if(cv&&cv.innerHTML!==undefined)cv.innerHTML='<div class="cdot" style="background:var(--t4)"></div> v'+v;
   _cs={wr:wr,bgt:bp.toFixed(1),ver:v};
+  // ── CEO ETA / velocity ────────────────────────────────────────────────────
+  const vel=st.velocity||{};
+  const etaEl=$('ceo-eta');
+  if(etaEl){
+    const eta=vel.versions_to_beat_baseline;
+    etaEl.textContent=eta!=null?(eta===0?'BEATS OPUS':'v'+(v+eta)):('~'+Math.ceil(Math.max(1,(100-v)/2))+'v');
+    etaEl.style.color=eta===0?'var(--green)':eta!=null&&eta<10?'var(--orange)':'var(--t2)';
+  }
+  const activeAgCeo=$('ceo-active-agents');
+  if(activeAgCeo)activeAgCeo.textContent=Object.values(st.agents||{}).filter(a=>['running','reviewing','upgrading'].includes(a.status)).length||0;
+  const totalSaCeo=$('ceo-total-sa');
+  if(totalSaCeo){const pl2=st.pool||{};totalSaCeo.textContent=pl2.workers||pl2.running||0;}
+  const healthCeo=$('ceo-health');
+  if(healthCeo){
+    const cpuP=Math.max(0,(hw.cpu_pct||0)-70)/3,ramP=Math.max(0,(hw.ram_pct||0)-70)/2,budP=Math.min(bp*2,20);
+    const blkP=Math.min(((st.failure_log||st.failures||[]).length)*5,20);
+    const h=Math.max(0,Math.round(100-cpuP-ramP-budP-blkP));
+    healthCeo.textContent=h+'/100';healthCeo.style.color=h>=80?'var(--green)':h>=60?'var(--orange)':'var(--red)';
+  }
+  const lastChkCeo=$('ceo-last-check');
+  if(lastChkCeo){const cr=st.ceo_report||{};lastChkCeo.textContent=cr.ts?cr.ts.split('T')[1].slice(0,5)+' UTC':'just now';}
 
   // ── Sub-agent pool ────────────────────────────────────────────────────────
   const pl=st.pool||{};
@@ -1608,15 +1709,15 @@ function applyState(st){
   for(const e of(st.research_feed||[]).slice(-3))
     addFeed('research',e.message||e.finding||String(e),e.ts);
 
-  // ── Task board + projects ─────────────────────────────────────────────────
-  if(st.recent_tasks&&st.recent_tasks.length){
-    updBoard(st.recent_tasks);
-  }
-  // Use board_plan.projects for real project cards (pre-populated by board_init.py)
+  // ── Unified Tasks board: merge recent_tasks + todo_board ─────────────────
+  _cacheAndRefreshBoard(st.recent_tasks||null, st.todo_board||null);
+  // Also update the legacy updBoard columns (for overview board metrics)
+  if(st.recent_tasks&&st.recent_tasks.length) updBoard(st.recent_tasks);
+  // Projects swimlane
   if(st.board_plan&&st.board_plan.projects&&st.board_plan.projects.length){
     updProjects(st.board_plan.projects);
   }else if(st.recent_tasks&&st.recent_tasks.length){
-    updProjects(null); // fallback static view
+    updProjects(null);
   }
 
   // ── Version changelog → CEO log ───────────────────────────────────────────
@@ -1696,7 +1797,11 @@ async function seed(){
 }
 seed();conn();
 setInterval(poll,2000);setInterval(loadRescue,12000);
-setInterval(()=>{if(document.getElementById('tab-todo').classList.contains('active'))buildTodoTab();},10000);
+// Unified board: refresh every 5s when Tasks tab is active
+setInterval(()=>{
+  const tasksTab=document.getElementById('tab-tasks');
+  if(tasksTab&&tasksTab.classList.contains('active'))refreshUnifiedBoard();
+},5000);
 setTimeout(()=>{
   addFeed('info','Nexus runtime started — autonomous v1→v100 loop',new Date().toISOString());
   addFeed('watchdog','Rescue watchdog armed — polls every 60s',new Date().toISOString());
@@ -1741,52 +1846,150 @@ function _todoCard(item){
 </div>`;
 }
 
-async function buildTodoTab(){
-  let board=null;
+// ── Unified board: merge recent_tasks + todo_board into one Kanban ─────────
+let _lastUnifiedHash='';
+let _lastTasksFromState=[];
+let _lastTodoBoardFromState=null;
+
+// Called from applyState — stores latest data, triggers board refresh
+function _cacheAndRefreshBoard(tasks, todoBoard){
+  if(tasks)_lastTasksFromState=tasks;
+  if(todoBoard)_lastTodoBoardFromState=todoBoard;
+  refreshUnifiedBoard();
+}
+
+async function refreshUnifiedBoard(){
+  // Fetch fresh todo board from API (merges CEO check output)
+  let todoBoardApi=_lastTodoBoardFromState;
   try{
     const r=await fetch('/api/todo');
-    if(r.ok)board=await r.json();
+    if(r.ok)todoBoardApi=await r.json();
   }catch(e){}
 
-  // Also check live state
-  if(!board){
-    try{const r=await fetch('/api/state');if(r.ok){const st=await r.json();board=st.todo_board||null;}}catch(e){}
+  // Build merged item map (dedup by task_id or title)
+  const seen=new Set();
+  const allItems=[];
+
+  // From recent_tasks (orchestrator live tasks)
+  for(const t of (_lastTasksFromState||[])){
+    const key=String(t.task_id||t.id||t.title||'');
+    if(key&&seen.has(key))continue;
+    if(key)seen.add(key);
+    allItems.push({
+      id:       t.task_id||t.id||null,
+      title:    t.title||t.task||'',
+      status:   t.status||'todo',
+      category: t.category||'',
+      agent:    t.agent_used||t.agent||'',
+      quality:  t.local_quality||t.quality||0,
+      source:   'live',
+    });
   }
 
-  const hash=JSON.stringify(board);
-  if(hash===_lastTodoHash)return;
-  _lastTodoHash=hash;
+  // From todo_board (CEO check / planning tasks)
+  const boardItems=(todoBoardApi&&todoBoardApi.items)||[];
+  for(const t of boardItems){
+    const key=String(t.id||t.title||'');
+    if(key&&seen.has(key))continue;
+    if(key)seen.add(key);
+    allItems.push({
+      id:       t.id||null,
+      title:    t.title||t.task||'',
+      status:   t.status||'todo',
+      category: t.category||'',
+      agent:    t.agent||'',
+      quality:  t.quality||0,
+      priority: t.priority||'',
+      source:   'plan',
+    });
+  }
 
-  const empty=document.getElementById('todo-empty');
-  const boardEl=document.getElementById('todo-board');
-  if(!board||!board.items||board.items.length===0){
+  const hash=JSON.stringify(allItems);
+  if(hash===_lastUnifiedHash)return;
+  _lastUnifiedHash=hash;
+
+  const empty=document.getElementById('tasks-empty');
+  if(!allItems.length){
     if(empty)empty.style.display='block';
-    if(boardEl)boardEl.style.display='none';
-    const ct=document.getElementById('todo-ct');
-    if(ct)ct.textContent='No tasks — CEO check runs every 60s';
+    const bc=document.getElementById('board-ct');
+    if(bc)bc.textContent='No tasks yet';
     return;
   }
   if(empty)empty.style.display='none';
-  if(boardEl)boardEl.style.display='grid';
 
+  // Sort into columns: blocked · running · todo/backlog · done
   const cols={blocked:[],running:[],todo:[],done:[]};
-  for(const item of board.items){
+  for(const item of allItems){
     const s=item.status||'todo';
     if(cols[s])cols[s].push(item);else cols.todo.push(item);
   }
 
-  for(const [status,items] of Object.entries(cols)){
-    const col=document.getElementById(`todo-col-${status}`);
-    const cnt=document.getElementById(`todo-cnt-${status}`);
-    if(col)col.innerHTML=items.map(_todoCard).join('');
+  // Map column keys to the HTML IDs in the unified board
+  const colMap={blocked:'bl',running:'run',todo:'todo',done:'kanban-cb-done'};
+  for(const[status,items]of Object.entries(cols)){
+    const cid=colMap[status]||status;
+    const body=document.getElementById(cid.startsWith('kanban')?cid:'cb-'+cid);
+    const cnt=document.getElementById('c-'+cid);
+    if(!body)continue;
     if(cnt)cnt.textContent=items.length;
+
+    // Render done with localStorage merge & 24h cleanup
+    if(status==='done'){
+      const doneStore=_pruneDone();
+      const storedIds=new Set(doneStore.map(i=>String(i.task_id||i.id)));
+      for(const t of items){
+        const k=String(t.id||t.title);
+        if(!storedIds.has(k))doneStore.push(Object.assign({},t,{task_id:t.id,_ts:Date.now()}));
+      }
+      _saveDoneStore(doneStore);
+      if(cnt)cnt.textContent=doneStore.length;
+      body.innerHTML=doneStore.slice(0,60).map(t=>_unifiedCard(t,true)).join('');
+      const badge=document.getElementById('done-clean-badge');
+      if(badge)badge.textContent=`(${doneStore.length} · clears 24h)`;
+    } else {
+      body.innerHTML=items.slice(0,60).map(t=>_unifiedCard(t,false)).join('');
+    }
   }
 
-  const counts=board.counts||{};
-  const total=(counts.blocked||0)+(counts.running||0)+(counts.todo||0)+(counts.done||0);
+  const total=allItems.length;
+  const updStr=todoBoardApi&&todoBoardApi.updated_at
+    ?new Date(todoBoardApi.updated_at).toLocaleTimeString('en',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'})
+    :new Date().toLocaleTimeString('en',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  const bc=document.getElementById('board-ct');
+  if(bc)bc.textContent=`${total} items`;
   const ct=document.getElementById('todo-ct');
-  if(ct)ct.textContent=`${total} items · updated ${board.updated_at?new Date(board.updated_at).toLocaleTimeString('en',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'}):''}`;
+  if(ct)ct.textContent=`Last updated ${updStr}`;
 }
+
+function _unifiedCard(t,isDone){
+  const q=t.quality||0;
+  const label=String(t.id||'—');
+  const age=isDone&&t._ts?` · ${_relTime(t._ts)}`:'';
+  const srcDot=t.source==='live'
+    ?`<span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--blue);margin-right:4px;vertical-align:middle;" title="Live task"></span>`
+    :`<span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--t4);margin-right:4px;vertical-align:middle;" title="Planned task"></span>`;
+  const priColor={'critical':'var(--red)','high':'var(--orange)','medium':'var(--blue)','low':'var(--t3)'}[t.priority]||'var(--t3)';
+  const priTag=t.priority?`<span style="font-size:9px;color:${priColor};font-weight:600;text-transform:uppercase;">${t.priority}</span>`:'';
+  return `<div class="tc" tabindex="0" data-testid="task-${label}">
+  <div class="tc-id">${srcDot}NX-${label}</div>
+  <div class="tc-ttl">${esc((t.title||'').slice(0,80))}</div>
+  <div class="tc-row">
+    <span class="tc-cat">${esc(t.category||'—')}</span>
+    <span class="tc-ag">${esc(t.agent||'—')}</span>
+    ${q>0?`<span class="tc-q ${q>=70?'hi':q>=40?'md':'lo'}">${q}/100</span>`:''}
+    ${priTag}
+    ${isDone&&age?`<span style="font-size:9px;color:var(--t3);">${age}</span>`:''}
+  </div>
+</div>`;
+}
+
+// Keep buildTodoFromData as no-op alias — routes to unified board
+function buildTodoFromData(board){
+  _lastTodoBoardFromState=board;
+  refreshUnifiedBoard();
+}
+// Keep buildTodoTab as alias for compat
+async function buildTodoTab(){ await refreshUnifiedBoard(); }
 </script>
 
 <!-- CEO live wiring -->
@@ -1834,8 +2037,7 @@ function applyCeoReport(st){
     if(live)live.style.display=cr.dashboard_live?'flex':'none';
   }
 
-  // Also push todo board if available
-  if(st.todo_board)buildTodoFromData(st.todo_board);
+  // todo_board is handled by _cacheAndRefreshBoard in applyState
 }
 
 function buildTodoFromData(board){
@@ -2075,7 +2277,7 @@ function _nxt(label,cond,severity='fail'){
 
 document.addEventListener('DOMContentLoaded',()=>{
   // ── Structure: required IDs ──────────────────────────────────────────────
-  const REQUIRED_IDS=['tab-overview','tab-agents','tab-subagents','tab-projects','tab-tasks','tab-ceo','tab-todo','tab-logs','rescue-panel','lfeed','bsvg','h-local','h-opus'];
+  const REQUIRED_IDS=['tab-overview','tab-agents','tab-subagents','tab-tasks','tab-ceo','tab-logs','rescue-panel','lfeed','bsvg','h-local','h-opus'];
   for(const id of REQUIRED_IDS)_nxt(`id#${id} exists`,!!document.getElementById(id));
 
   // ── Tabs: ARIA roles ─────────────────────────────────────────────────────
