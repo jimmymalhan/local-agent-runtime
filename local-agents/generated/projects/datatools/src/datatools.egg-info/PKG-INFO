@@ -1,0 +1,51 @@
+Metadata-Version: 2.4
+Name: datatools
+Version: 0.1.0
+Summary: A collection of data transformation, validation, and statistics utilities.
+Author: Jimmy Malhan
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.0; extra == "dev"
+
+# datatools
+
+A pip-installable Python package providing data transformation, validation, and statistics utilities.
+
+## Installation
+
+```bash
+pip install -e ".[dev]"
+```
+
+## Modules
+
+### `datatools.transform`
+- `flatten(nested, depth=-1)` — recursively flatten nested lists/tuples
+- `chunk(seq, size)` — split a list into fixed-size chunks
+- `deduplicate(seq, key=None)` — remove duplicates preserving order
+
+### `datatools.validate`
+- `is_email(value)` — check if a string looks like a valid email
+- `is_url(value)` — check if a string looks like a valid HTTP(S) URL
+- `check_schema(data, schema)` — validate a dict against a simple type schema
+
+### `datatools.stats`
+- `mean(values)` — arithmetic mean
+- `median(values)` — median value
+- `stdev(values, population=False)` — standard deviation (sample or population)
+
+## Running Tests
+
+```bash
+pytest
+```
+
+## License
+
+MIT

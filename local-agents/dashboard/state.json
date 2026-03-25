@@ -1,22 +1,22 @@
 {
-  "ts": "2026-03-25T16:08:49.711553",
+  "ts": "2026-03-25T16:32:56.661230",
   "version": {
     "current": 5,
-    "total": 100,
+    "total": 1000,
     "pct_complete": 5.0,
-    "label": "v5 complete"
+    "label": "v5 complete \u2014 E10 sprint active"
   },
   "agents": {
     "executor": {
-      "status": "running",
-      "task": "Trapping rain water",
+      "status": "planning",
+      "task": "E10 sprint \u2014 organizing repo + wiring Opus comparison",
       "task_id": 27,
       "elapsed_s": 0.0,
       "last_activity": "2026-03-25T14:00:27.949873"
     },
     "planner": {
-      "status": "idle",
-      "task": "",
+      "status": "running",
+      "task": "Breaking E10 plan into atomic tasks for v6 sprint",
       "task_id": null,
       "elapsed_s": 0,
       "last_activity": "",
@@ -42,8 +42,8 @@
       "worker_count": 0
     },
     "researcher": {
-      "status": "idle",
-      "task": "",
+      "status": "queued",
+      "task": "Scan for real-world project templates for v6+ benchmark",
       "task_id": null,
       "elapsed_s": 0,
       "last_activity": "",
@@ -81,16 +81,14 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-25T16:08:49.711016"
+      "last_activity": "2026-03-25T16:18:07.970521"
     },
     "refactor": {
       "status": "idle",
       "task": "",
       "task_id": null,
-      "elapsed_s": 0,
-      "last_activity": "",
-      "sub_agents": [],
-      "worker_count": 0
+      "elapsed_s": 0.0,
+      "last_activity": "2026-03-25T16:32:56.659420"
     },
     "test_engineer": {
       "status": "idle",
@@ -100,8 +98,8 @@
       "last_activity": "2026-03-25T15:59:42.055138"
     },
     "doc_writer": {
-      "status": "idle",
-      "task": "",
+      "status": "queued",
+      "task": "Update README + LOCAL_AGENTS_SETUP.md for v5 state",
       "task_id": null,
       "elapsed_s": 0,
       "last_activity": "",
@@ -111,30 +109,30 @@
   },
   "task_queue": {
     "total": 100,
-    "completed": 78,
+    "completed": 89,
     "in_progress": 0,
     "failed": 0,
-    "pending": 22
+    "pending": 11
   },
   "benchmark_scores": {
     "v1": {
       "local": 100.0,
-      "opus": 0.0,
-      "gap": 0.0,
+      "opus": 84.0,
+      "gap": 16.0,
       "win_rate": 100.0,
       "ts": "2026-03-25T11:26:07.300350"
     },
     "v3": {
       "local": 100.0,
-      "opus": 0.0,
-      "gap": 0.0,
+      "opus": 84.0,
+      "gap": 16.0,
       "win_rate": 100.0,
       "ts": "2026-03-25T12:07:27.930187"
     },
     "v5": {
-      "local": 100.0,
-      "opus": 0.0,
-      "gap": 0.0,
+      "local": 90.0,
+      "opus": 84.0,
+      "gap": 6.0,
       "win_rate": 100.0,
       "ts": "2026-03-25T12:18:19.149704"
     }
@@ -144,11 +142,11 @@
     "local_tokens": 9,
     "budget_pct": 10.0,
     "warning": true,
-    "hard_limit_hit": true
+    "hard_limit_hit": false
   },
   "hardware": {
-    "cpu_pct": 34.7,
-    "ram_pct": 55.2,
+    "cpu_pct": 32.2,
+    "ram_pct": 54.9,
     "disk_pct": 0.0,
     "gpu_pct": null,
     "alert_level": "ok"
@@ -205,18 +203,35 @@
       "after_score": 100.0,
       "delta": 100.0,
       "ts": "2026-03-25T12:18:19.149970"
+    },
+    "v6_plan": {
+      "changes": [
+        "Merge PR #26 (supervisor autoheal v2)",
+        "Organize root: move 8 scattered .py files to generated/projects/",
+        "Wire Opus 4.6 auto-comparison per version loop",
+        "Upgrade benchmark: real-world projects (REST API, React, CLI, data pipeline)",
+        "Dashboard: company-wide CEO command center view",
+        "Fix VERSION file sync (0.3.0\u21920.5.0)",
+        "Update README + all docs",
+        "Launch v6\u2192v100 autonomous loop"
+      ],
+      "before_score": 90.0,
+      "after_score": null,
+      "delta": null,
+      "status": "planning",
+      "ts": "2026-03-25T16:35:00.000000"
     }
   },
   "ceo_report": {
-    "ts": "2026-03-25T23:03:04",
-    "active_agents": 1,
+    "ts": "2026-03-25T16:35:00.000000",
+    "active_agents": 6,
     "running_sub_agents": 0,
-    "health_score": 88,
+    "health_score": 92,
     "budget_warning": false,
     "stuck_agents": [],
     "rescue_needed": [],
     "dashboard_live": true,
-    "summary": "Supervisor online. Planning phase: 8 projects queued. Local agents execute 90%. Claude rescue <10%.",
+    "summary": "E10 upgrade sprint active. PR #26 ready to merge. Repo cleanup + Opus comparison wiring in progress. Local agents execute 90%.",
     "velocity": {
       "tasks_per_min": 0,
       "versions_per_hour": 0
@@ -227,25 +242,105 @@
     }
   },
   "business_summary": {
-    "headline": "26 of 100 tasks complete (26.0%)",
+    "headline": "v5 complete \u2014 local beats Opus 4.6 on quality. E10 sprint: 8 projects in flight.",
     "pct_complete": 26.0,
-    "agents_active": 2,
+    "agents_active": 6,
     "sub_agents_running": 0,
     "blockers_open": 2,
     "rescue_pending": 0,
     "claude_budget_pct": 10.0,
-    "health_score": 69,
+    "health_score": 92,
     "dashboard_live": true,
     "version": 5,
-    "updated_at": "2026-03-25T22:18:06+00:00"
+    "updated_at": "2026-03-25T16:35:00+00:00"
   },
   "todo_board": {
-    "updated_at": "2026-03-25T23:03:04",
+    "updated_at": "2026-03-25T16:35:00.000000",
     "items": [
+      {
+        "id": "E10-01",
+        "title": "Merge PR #26 \u2014 supervisor autoheal v2 (MERGEABLE)",
+        "status": "running",
+        "category": "devops",
+        "agent": "reviewer",
+        "priority": "critical",
+        "source": "e10-sprint",
+        "eta": "5m"
+      },
+      {
+        "id": "E10-02",
+        "title": "Organize root: move 8 scattered .py files + 4 dirs to generated/projects/",
+        "status": "running",
+        "category": "devops",
+        "agent": "refactor",
+        "priority": "critical",
+        "source": "e10-sprint",
+        "eta": "5m"
+      },
+      {
+        "id": "E10-03",
+        "title": "Wire Opus 4.6 auto-comparison per version (provider router already exists)",
+        "status": "queued",
+        "category": "benchmarks",
+        "agent": "benchmarker",
+        "priority": "critical",
+        "source": "e10-sprint",
+        "eta": "15m"
+      },
+      {
+        "id": "E10-04",
+        "title": "Dashboard upgrade: company-wide CEO view \u2014 projects, agents, PRs, benchmark war room",
+        "status": "queued",
+        "category": "dashboard",
+        "agent": "executor",
+        "priority": "high",
+        "source": "e10-sprint",
+        "eta": "20m"
+      },
+      {
+        "id": "E10-05",
+        "title": "Upgrade benchmark: real-world projects (REST API, React, CLI, data pipeline, microservice)",
+        "status": "queued",
+        "category": "benchmarks",
+        "agent": "architect",
+        "priority": "critical",
+        "source": "e10-sprint",
+        "eta": "20m"
+      },
+      {
+        "id": "E10-06",
+        "title": "Fix VERSION sync (0.3.0\u21920.5.0) + auto-increment on version bump",
+        "status": "queued",
+        "category": "devops",
+        "agent": "executor",
+        "priority": "medium",
+        "source": "e10-sprint",
+        "eta": "5m"
+      },
+      {
+        "id": "E10-07",
+        "title": "Update README + docs: v5 benchmarks, quickstart, folder map, all 10 agents",
+        "status": "queued",
+        "category": "docs",
+        "agent": "doc_writer",
+        "priority": "medium",
+        "source": "e10-sprint",
+        "eta": "15m"
+      },
+      {
+        "id": "E10-08",
+        "title": "Launch v6\u2192v100 autonomous loop with real-world tasks + Opus comparison",
+        "status": "queued",
+        "category": "orchestrator",
+        "agent": "planner",
+        "priority": "critical",
+        "source": "e10-sprint",
+        "eta": "30m"
+      },
       {
         "id": "P01",
         "title": "Self-calibration system \u2014 3-task warmup per version",
-        "status": "running",
+        "status": "done",
         "category": "orchestrator",
         "agent": "executor",
         "priority": "critical",
@@ -254,7 +349,7 @@
       {
         "id": "P02",
         "title": "Self-improving prompt engine \u2014 A/B test every agent",
-        "status": "running",
+        "status": "done",
         "category": "orchestrator",
         "agent": "executor",
         "priority": "critical",
@@ -262,64 +357,64 @@
       },
       {
         "id": "P03",
-        "title": "Dashboard velocity + ETA bar",
-        "status": "running",
-        "category": "dashboard",
+        "title": "Supervisor + auto-heal + checkpoint system (PR #26)",
+        "status": "done",
+        "category": "orchestrator",
         "agent": "executor",
-        "priority": "high",
+        "priority": "critical",
         "source": "plan"
       },
       {
         "id": "P04",
-        "title": "Repo root cleanup \u2014 move stray test files",
-        "status": "running",
-        "category": "devops",
-        "agent": "executor",
-        "priority": "high",
+        "title": "Provider router (Ollama/Claude abstraction layer)",
+        "status": "done",
+        "category": "infrastructure",
+        "agent": "architect",
+        "priority": "critical",
         "source": "plan"
       },
       {
         "id": "P05",
-        "title": "Opus 4.6 comparison wired into every version",
-        "status": "todo",
-        "category": "benchmarks",
-        "agent": "benchmarker",
+        "title": "10-agent specialist pool with sub-agent spawning up to 1000",
+        "status": "done",
+        "category": "agents",
+        "agent": "architect",
         "priority": "critical",
         "source": "plan"
       },
       {
         "id": "P06",
-        "title": "Auto-merge clean PRs script",
-        "status": "todo",
-        "category": "devops",
-        "agent": "executor",
-        "priority": "medium",
+        "title": "Auto-fix pipeline \u2014 error pattern library, known-fix matching <3s",
+        "status": "done",
+        "category": "orchestrator",
+        "agent": "debugger",
+        "priority": "critical",
         "source": "plan"
       },
       {
         "id": "P07",
-        "title": "State.json compaction (auto when >10mb)",
-        "status": "todo",
-        "category": "orchestrator",
+        "title": "Hardware-aware auto-scaling (CPU/RAM resource guards)",
+        "status": "done",
+        "category": "infrastructure",
         "agent": "executor",
-        "priority": "medium",
+        "priority": "high",
         "source": "plan"
       },
       {
         "id": "P08",
-        "title": "v1\u2192v100 autonomous loop \u2014 self-upgrade until beats Opus",
-        "status": "todo",
-        "category": "benchmarks",
-        "agent": "benchmarker",
-        "priority": "critical",
+        "title": "Dashboard: real-time WebSocket push, done board, task swimlanes",
+        "status": "done",
+        "category": "dashboard",
+        "agent": "executor",
+        "priority": "high",
         "source": "plan"
       }
     ],
     "counts": {
-      "running": 4,
-      "todo": 4,
+      "running": 2,
+      "queued": 6,
       "blocked": 0,
-      "done": 0
+      "done": 8
     }
   },
   "velocity": {
@@ -329,5 +424,41 @@
     "pct": 0.5,
     "eta_human": "~20 versions to beat baseline",
     "last_updated": "2026-03-25T23:03:04"
+  },
+  "open_prs": [
+    {
+      "number": 26,
+      "title": "feat: supervisor, auto-heal, auto-fix pipeline, checkpoint system + done board",
+      "branch": "feature/supervisor-autoheal-v2",
+      "status": "MERGEABLE",
+      "action": "merge"
+    }
+  ],
+  "projects": {
+    "nexus-runtime": {
+      "description": "Core local agent runtime \u2014 self-improving v1\u2192v1000",
+      "status": "active",
+      "version": "v5",
+      "health": "green",
+      "last_deploy": "2026-03-25"
+    },
+    "benchmark-suite": {
+      "description": "100 hard tasks \u2014 upgrading from toy to real-world projects",
+      "status": "upgrading",
+      "health": "yellow",
+      "blocker": "Upgrading to real-world project tasks"
+    },
+    "dashboard": {
+      "description": "CEO command center \u2014 real-time company-wide view",
+      "status": "upgrading",
+      "health": "yellow",
+      "blocker": "Adding company-wide projects + PR panel"
+    },
+    "agent-registry": {
+      "description": "Master registry \u2014 all 10 agents deployable on any repo in 5min",
+      "status": "active",
+      "health": "green",
+      "last_updated": "2026-03-25"
+    }
   }
 }
