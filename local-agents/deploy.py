@@ -62,6 +62,11 @@ def deploy(agent_names: list, target: str):
     if pool_src.exists():
         shutil.copy2(pool_src, deploy_path / "agents" / "subagent_pool.py")
 
+    # Copy agent_runner.py — core Ollama loop required by executor
+    runner_src = HERE / "agent_runner.py"
+    if runner_src.exists():
+        shutil.copy2(runner_src, deploy_path / "agent_runner.py")
+
     # Copy __init__.py (router)
     init_src = AGENTS_DIR / "__init__.py"
     if init_src.exists():
@@ -85,13 +90,22 @@ sys.path.insert(0, os.path.dirname(__file__))
 
 # Set codebase path to this project
 os.environ.setdefault("LOCAL_AGENT_TARGET_REPO", "{target_path}")
-os.environ.setdefault("BOS_HOME", "{target_path}/.local-agents/work")
-os.makedirs(os.environ["BOS_HOME"], exist_ok=True)
+_bos_default = "{target_path}/.local-agents/work"
+_bos = os.environ.get("BOS_HOME", _bos_default)
+# Guard against broken symlinks (resolves to non-existent target)
+if os.path.islink(_bos) and not os.path.exists(os.path.realpath(_bos)):
+    _bos = _bos_default
+os.environ["BOS_HOME"] = _bos
+try:
+    os.makedirs(_bos, exist_ok=True)
+except OSError:
+    os.environ["BOS_HOME"] = _bos_default
+    os.makedirs(_bos_default, exist_ok=True)
 
 from agents import run_task, route, list_agents
 
 
-def run(task_or_description: str | dict, category: str = "code_gen") -> dict:
+def run(task_or_description, category: str = "code_gen") -> dict:
     """
     Run a task on this project.
 
