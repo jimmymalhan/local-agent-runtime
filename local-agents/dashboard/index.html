@@ -1048,70 +1048,136 @@ let _lr='';
 async function loadRescue(){
   try{
     const r=await fetch('/api/rescue-log');if(!r.ok)return;
-    const d=await r.json();if(!d.entries||!d.entries.length)return;
-    let tok=0,upg=0;$('rlog').innerHTML='';
-    for(const e of d.entries.slice(-4)){
-      tok+=e.tokens||0;if(e.upgrade_applied)upg++;
-      const l=document.createElement('div');l.className='rl';
-      l.textContent=`${e.agent} → ${e.failure_pattern}: ${(e.fix_applied||'').slice(0,55)}`;
-      $('rlog').appendChild(l);
-    }
-    $('r-cnt').textContent=d.entries.length;$('r-tok').textContent=tok;$('r-upg').textContent=upg;
-    const last=d.entries[d.entries.length-1];
-    if(last){
-      const age=Date.now()-new Date(last.ts).getTime();
-      const rp=$('rescue-panel');
-      if(age<45000)rp.classList.add('hot');else rp.classList.remove('hot');
-      if(last.ts!==_lr){_lr=last.ts;addFeed('upgrade',`${last.agent} → ${last.failure_pattern}: ${(last.fix_applied||'').slice(0,60)}`,last.ts);}
+    const d=await r.json();if(!d.entries)return;
+    let tok=0,upg=0;
+    const entries=d.entries||[];
+    if(entries.length){
+      $('rlog').innerHTML='';
+      for(const e of entries.slice(-5)){
+        // Support both schemas: {agent,failure_pattern,fix_applied,tokens} and {version,task_id,reason,tokens}
+        tok+=e.tokens||0;
+        if(e.upgrade_applied||e.reason==='upgrade')upg++;
+        const l=document.createElement('div');l.className='rl';
+        const agent=e.agent||('v'+e.version)||'?';
+        const pattern=e.failure_pattern||e.reason||'rescue';
+        const fix=(e.fix_applied||e.quality||'').toString().slice(0,55);
+        l.textContent=`${agent} → ${pattern}${fix?' : '+fix:''}`;
+        $('rlog').appendChild(l);
+      }
+      $('r-cnt').textContent=entries.length;
+      $('r-tok').textContent=tok;
+      $('r-upg').textContent=upg;
+      const last=entries[entries.length-1];
+      if(last){
+        const age=Date.now()-new Date(last.ts||0).getTime();
+        const rp=$('rescue-panel');
+        if(rp.classList){
+          if(age<45000)rp.classList.add('hot');else rp.classList.remove('hot');
+        }
+        if(last.ts&&last.ts!==_lr){
+          _lr=last.ts;
+          const agent=last.agent||('v'+(last.version||'?'));
+          const pattern=last.failure_pattern||last.reason||'rescue';
+          addFeed('upgrade',`${agent} → ${pattern}: ${(last.fix_applied||last.quality||'').toString().slice(0,60)}`,last.ts);
+        }
+      }
     }
   }catch(e){}
 }
 
 function applyState(st){
-  if(!st)return;
+  if(!st||st.ping)return;
+
+  // ── Agents ───────────────────────────────────────────────────────────────
   if(st.agents){
     buildGrids(st.agents);
     let ac=0;
     for(const[n,inf]of Object.entries(st.agents)){
       updCard(n,inf);
       if(['running','reviewing','upgrading'].includes(inf.status))ac++;
-      // Update sub-agent full view if tab is open
-      if(_saBuilt){
-        const inf2=_agentState[n]||{};
-        updSubAgentFull(n,inf2.sub_agents||[]);
-      }
+      if(_saBuilt)updSubAgentFull(n,(inf.sub_agents||[]));
     }
     $('ac-ct').textContent=ac>0?ac+' active':'standby';
     $('ag2-ct').textContent='10 agents · '+ac+' active';
   }
+
+  // ── Benchmark scores (normalized by server) ──────────────────────────────
   const b=st.benchmark_scores||{};
-  const la=b.avg_local||0,oa=b.avg_opus||0,wr=b.win_rate||0;
-  if(la)$('h-local').textContent=la.toFixed(1);
-  if(oa)$('h-opus').textContent=oa.toFixed(1);
-  if(wr){$('h-wr').textContent=wr+'%';$('np-t').textContent=(st.task_queue&&(st.task_queue.completed||0))+'/'+(st.task_queue&&(st.task_queue.total||100));}
-  if(b.history)drawBench(b.history);
-  _cs={wr:wr,bgt:0,ver:st.version||1};
-  $('ceo-wr').textContent=wr+'%';$('ceo-tasks').textContent=(st.task_queue&&st.task_queue.completed)||0;
-  const q=st.task_queue||{};const done=q.completed||0,tot=q.total||100,fail=q.failed||0;
+  const la=+(b.avg_local||0),oa=+(b.avg_opus||0),wr=+(b.win_rate||0);
+  $('h-local').textContent=la>0?la.toFixed(1):'—';
+  $('h-opus').textContent=oa>0?oa.toFixed(1):'—';
+  $('h-wr').textContent=wr>0?wr.toFixed(1)+'%':'—%';
+  if(b.history&&b.history.length)drawBench(b.history);
+  $('ceo-wr').textContent=wr>0?wr.toFixed(1)+'%':'—';
+
+  // ── Task queue ───────────────────────────────────────────────────────────
+  const q=st.task_queue||{};
+  const done=q.completed||0,tot=q.total||100,fail=q.failed||0,inp=q.in_progress||0;
   $('s-done').textContent=done;$('s-tot').textContent=tot;$('s-fail').textContent=fail;
   $('g-done').style.width=(done/Math.max(tot,1)*100).toFixed(1)+'%';
-  const hw=st.hardware||{};const cpu=hw.cpu_pct||0,ram=hw.ram_pct||0;
-  $('s-cpu').textContent=cpu.toFixed(0)+'%';$('s-ram').textContent=ram.toFixed(0)+'%';
-  $('g-cpu').style.width=cpu+'%';$('g-ram').style.width=ram+'%';
+  $('np-t').textContent=done+'/'+tot;
+  $('ceo-tasks').textContent=done;
+  $('board-ct').textContent=tot+' tasks · '+done+' done · '+fail+' failed';
+
+  // ── Hardware (live from server) ───────────────────────────────────────────
+  const hw=st.hardware||{};
+  const cpu=+(hw.cpu_pct||0),ram=+(hw.ram_pct||0),fgb=hw.free_gb||0;
+  $('s-cpu').textContent=cpu.toFixed(0)+'%';
+  $('s-ram').textContent=ram.toFixed(0)+'%';
+  $('g-cpu').style.width=Math.min(cpu,100)+'%';
+  $('g-ram').style.width=Math.min(ram,100)+'%';
   $('cpu-st').textContent=cpu>90?'Throttled':cpu>70?'High':'Normal';
-  $('ram-st').textContent=ram>85?'Critical':ram>80?'High':'Healthy';
-  const tk=st.token_usage||{};const rsc=tk.rescued_tasks||0;
-  const bp=(rsc/Math.max(tot,1)*100).toFixed(1);
-  $('s-bgt').textContent=bp+'%';$('s-rsc').textContent=rsc;$('s-tok').textContent=tk.total_tokens||0;
-  $('g-bgt').style.width=Math.min(bp,100)+'%';$('h-bgt').textContent=bp+'%';$('ceo-bgt').textContent=bp+'%';
-  _cs.bgt=bp;
-  const v=st.version||1;
+  $('ram-st').textContent=ram>85?'Critical':ram>80?'High':fgb?fgb.toFixed(1)+'GB free':'Healthy';
+  // Alert color on CPU/RAM cards
+  const cpuEl=$('s-cpu');if(cpuEl.style)cpuEl.style.color=cpu>90?'var(--red)':cpu>70?'var(--orange)':'var(--orange)';
+  const ramEl=$('s-ram');if(ramEl.style)ramEl.style.color=ram>85?'var(--red)':ram>80?'var(--orange)':'var(--blue)';
+
+  // ── Token usage / Claude budget ───────────────────────────────────────────
+  const tk=st.token_usage||{};
+  const bp=+(tk.budget_pct||0),rsc=tk.rescued_tasks||tk.claude_tokens||0,toktot=tk.total_tokens||0;
+  $('s-bgt').textContent=bp.toFixed(1)+'%';
+  $('s-rsc').textContent=rsc;
+  $('s-tok').textContent=toktot;
+  $('g-bgt').style.width=Math.min(bp,100).toFixed(1)+'%';
+  $('h-bgt').textContent=bp.toFixed(1)+'%';
+  $('ceo-bgt').textContent=bp.toFixed(1)+'%';
+  if(bp>=10)$('s-bgt').style.color='var(--red)';
+  else if(bp>=8)$('s-bgt').style.color='var(--orange)';
+
+  // ── Version ───────────────────────────────────────────────────────────────
+  const v=typeof st.version==='number'?st.version:(st.version&&st.version.current)||1;
   $('np-v').textContent='v'+v;
-  const cv=$('chip-v');if(cv.innerHTML!==undefined)cv.innerHTML='<div class="cdot" style="background:var(--t4)"></div> v'+v;
-  const pl=st.pool||{};updPool(pl.done||0,pl.max||1000);
-  for(const e of(st.failure_log||[]).slice(-6))addFeed('fail',`${e.agent||'?'}: ${e.task||''}`,e.ts);
-  for(const e of(st.research_feed||[]).slice(-3))addFeed('research',e.message||e,e.ts);
-  if(st.recent_tasks){updBoard(st.recent_tasks);updProjects(st.recent_tasks);}
+  const cv=$('chip-v');
+  if(cv&&cv.innerHTML!==undefined)cv.innerHTML='<div class="cdot" style="background:var(--t4)"></div> v'+v;
+  _cs={wr:wr,bgt:bp.toFixed(1),ver:v};
+
+  // ── Sub-agent pool ────────────────────────────────────────────────────────
+  const pl=st.pool||{};
+  const poolActive=pl.workers||pl.running||inp;
+  updPool(poolActive,pl.max||1000);
+
+  // ── Failure log & research feed → live activity ───────────────────────────
+  for(const e of(st.failure_log||st.failures||[]).slice(-6))
+    addFeed('fail',`${e.agent||'?'}: ${e.task||e.tried||''}`,e.ts);
+  for(const e of(st.research_feed||[]).slice(-3))
+    addFeed('research',e.message||e.finding||String(e),e.ts);
+
+  // ── Task board + projects ─────────────────────────────────────────────────
+  if(st.recent_tasks&&st.recent_tasks.length){
+    updBoard(st.recent_tasks);
+    updProjects(st.recent_tasks);
+  }
+
+  // ── Version changelog → CEO log ───────────────────────────────────────────
+  const cl=st.version_changelog||{};
+  const clKeys=Object.keys(cl).sort();
+  for(const k of clKeys.slice(-3)){
+    const entry=cl[k];
+    const msg=`${k}: +${entry.delta||0} pts (${(entry.changes||[]).join(', ').slice(0,80)})`;
+    addFeed('win',msg,entry.ts);
+  }
+
+  // ── Rescue panel ──────────────────────────────────────────────────────────
   loadRescue();
 }
 
@@ -1123,49 +1189,55 @@ function conn(){
 }
 async function poll(){try{const r=await fetch('/api/state');if(r.ok)applyState(await r.json());}catch(e){}}
 
-// Seed demo — includes sub-agents
-function seed(){
-  applyState({
-    version:1,
-    agents:{
-      executor:{status:'running',task:'Build LRU cache with TTL',quality:0,
-        sub_agents:[
-          {id:1,status:'running',task:'Implement set/get methods',model:'qwen2.5'},
-          {id:2,status:'running',task:'Add TTL eviction loop',model:'qwen2.5'},
-          {id:3,status:'done',task:'Write unit tests',model:'qwen2.5'},
+// Seed with real state from /api/state immediately; fallback to demo
+async function seed(){
+  let st=null;
+  try{const r=await fetch('/api/state');if(r.ok)st=await r.json();}catch(e){}
+  if(!st||st.error){
+    // Fallback demo mirrors real state.json structure (normalized by server)
+    st={
+      version:1,
+      agents:{
+        executor:{status:'running',task:'URL parser and builder',quality:0,sub_agents:[
+          {id:1,status:'running',task:'Parse query params',model:'qwen2.5'},
+          {id:2,status:'running',task:'Build URL string',model:'qwen2.5'},
         ]},
-      planner:{status:'idle',task:'',quality:0,sub_agents:[]},
-      reviewer:{status:'idle',task:'',quality:0,sub_agents:[]},
-      debugger:{status:'idle',task:'',quality:0,sub_agents:[]},
-      researcher:{status:'idle',task:'',quality:0,sub_agents:[]},
-      benchmarker:{status:'idle',task:'',quality:0,sub_agents:[
-        {id:1,status:'running',task:'Scoring task batch #3',model:'qwen2.5'},
+        planner:{status:'idle',task:'',quality:0,sub_agents:[]},
+        reviewer:{status:'idle',task:'',quality:0,sub_agents:[]},
+        debugger:{status:'idle',task:'',quality:0,sub_agents:[]},
+        researcher:{status:'idle',task:'',quality:0,sub_agents:[]},
+        benchmarker:{status:'idle',task:'',quality:0,sub_agents:[
+          {id:1,status:'running',task:'Scoring task batch #3',model:'qwen2.5'},
+        ]},
+        architect:{status:'idle',task:'',quality:0,sub_agents:[]},
+        refactor:{status:'idle',task:'',quality:0,sub_agents:[]},
+        test_engineer:{status:'idle',task:'',quality:0,sub_agents:[]},
+        doc_writer:{status:'idle',task:'',quality:0,sub_agents:[]},
+      },
+      benchmark_scores:{avg_local:100,avg_opus:0,win_rate:100,history:[
+        {version:1,local:100,opus:0,win_rate:100},
+        {version:3,local:100,opus:0,win_rate:100},
+        {version:5,local:100,opus:0,win_rate:100},
       ]},
-      architect:{status:'idle',task:'',quality:0,sub_agents:[]},
-      refactor:{status:'idle',task:'',quality:0,sub_agents:[]},
-      test_engineer:{status:'idle',task:'',quality:0,sub_agents:[]},
-      doc_writer:{status:'idle',task:'',quality:0,sub_agents:[]},
-    },
-    benchmark_scores:{avg_local:76.3,avg_opus:56.7,win_rate:100,history:[
-      {version:1,local:62,opus:58},{version:2,local:67,opus:59},
-      {version:3,local:70,opus:57},{version:4,local:73,opus:56},
-      {version:5,local:76.3,opus:56.7}
-    ]},
-    task_queue:{total:100,completed:15,failed:2,running:1,pending:83},
-    hardware:{cpu_pct:34,ram_pct:51},
-    token_usage:{rescued_tasks:3,total_tokens:289},
-    pool:{done:8,max:1000},
-    recent_tasks:[
-      {task_id:1,title:'Implement LRU cache with TTL support',category:'code_gen',agent_used:'executor',status:'done',local_quality:88},
-      {task_id:2,title:'Fix balanced parentheses checker',category:'bug_fix',agent_used:'executor',status:'done',local_quality:72},
-      {task_id:3,title:'Write pytest suite for rate limiter',category:'tdd',agent_used:'test_engineer',status:'done',local_quality:85},
-      {task_id:4,title:'Design REST API schema',category:'arch',agent_used:'architect',status:'running',local_quality:0},
-      {task_id:5,title:'Refactor duplicate helper functions',category:'refactor',agent_used:'refactor',status:'todo',local_quality:0},
-      {task_id:6,title:'Generate API documentation',category:'doc',agent_used:'doc_writer',status:'todo',local_quality:0},
-    ]
-  });
+      task_queue:{total:100,completed:13,in_progress:1,failed:0,pending:86},
+      hardware:{cpu_pct:41,ram_pct:55,free_gb:0},
+      token_usage:{rescued_tasks:1,total_tokens:10,budget_pct:10.0,claude_tokens:1,local_tokens:9},
+      pool:{done:13,workers:2,max:1000},
+      recent_tasks:[
+        {task_id:1,title:'Implement LRU Cache',category:'code_gen',agent_used:'executor',status:'done',local_quality:85},
+        {task_id:2,title:'Fibonacci sequence generator',category:'code_gen',agent_used:'executor',status:'done',local_quality:92},
+        {task_id:3,title:'Rate limiter sliding window',category:'code_gen',agent_used:'executor',status:'done',local_quality:78},
+        {task_id:4,title:'URL parser and builder',category:'code_gen',agent_used:'executor',status:'running',local_quality:0},
+        {task_id:5,title:'CSV parser with streaming',category:'code_gen',agent_used:'executor',status:'todo',local_quality:0},
+      ],
+      failure_log:[
+        {ts:'2026-03-25T11:22:40',agent:'executor',task:'Implement LRU Cache',task_id:1,attempt:1,tried:'failed'},
+      ],
+    };
+  }
+  applyState(st);
 }
-seed();poll();conn();
+seed();conn();
 setInterval(poll,2000);setInterval(loadRescue,12000);
 setTimeout(()=>{
   addFeed('info','Nexus runtime started — autonomous v1→v100 loop',new Date().toISOString());
