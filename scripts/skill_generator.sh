@@ -8,7 +8,7 @@
 # template under skills/ if it does not already exist.
 
 LOG_FILE="$(dirname "$0")/../feedback/prompt-log.md"
-SKILLS_DIR="$(dirname "$0")/../skills"
+SKILLS_DIR="$(dirname "$0")/../.claude/skills"
 
 if [ ! -f "$LOG_FILE" ]; then
   echo "skill_generator: no prompt log found at $LOG_FILE" >&2

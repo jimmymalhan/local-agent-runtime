@@ -5,7 +5,7 @@
 PROMPT="$1"
 TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
 LOG_DIR="$(dirname "$0")/../logs"
-SKILL_FILE="$(dirname "$0")/../skills/validate-logic.md"
+SKILL_FILE="$(dirname "$0")/../.claude/skills/validate-logic.md"
 mkdir -p "$LOG_DIR"
 
 if [ ! -f "$SKILL_FILE" ]; then

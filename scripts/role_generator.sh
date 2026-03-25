@@ -11,7 +11,7 @@
 # Path to the org structure file.  You can edit or replace this file
 # with your own organisational hierarchy.
 ORG_FILE="$(dirname "$0")/../state/org_structure.yaml"
-ROLES_DIR="$(dirname "$0")/../roles"
+ROLES_DIR="$(dirname "$0")/../.claude/roles"
 
 if [ ! -f "$ORG_FILE" ]; then
   echo "role_generator: no org structure found at $ORG_FILE" >&2

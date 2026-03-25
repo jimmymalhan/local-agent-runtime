@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-25T16:08:49.711553",
+  "ts": "2026-03-25T16:35:50.895429",
   "version": {
     "current": 5,
     "total": 100,
@@ -87,10 +87,8 @@
       "status": "idle",
       "task": "",
       "task_id": null,
-      "elapsed_s": 0,
-      "last_activity": "",
-      "sub_agents": [],
-      "worker_count": 0
+      "elapsed_s": 0.0,
+      "last_activity": "2026-03-25T16:35:50.893129"
     },
     "test_engineer": {
       "status": "idle",
@@ -111,10 +109,10 @@
   },
   "task_queue": {
     "total": 100,
-    "completed": 78,
+    "completed": 90,
     "in_progress": 0,
     "failed": 0,
-    "pending": 22
+    "pending": 10
   },
   "benchmark_scores": {
     "v1": {
@@ -147,8 +145,8 @@
     "hard_limit_hit": true
   },
   "hardware": {
-    "cpu_pct": 34.7,
-    "ram_pct": 55.2,
+    "cpu_pct": 29.4,
+    "ram_pct": 55.6,
     "disk_pct": 0.0,
     "gpu_pct": null,
     "alert_level": "ok"

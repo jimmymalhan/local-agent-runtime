@@ -459,6 +459,29 @@ main{position:relative;z-index:1;padding-top:52px;}
 }
 .ceo-e{margin-bottom:4px;opacity:0;animation:fu .3s ease forwards;}
 
+/* ── Company Projects ───────────────────────────────────────── */
+.cproj{
+  background:var(--card);border:1px solid var(--bd);border-radius:var(--rsm);
+  padding:12px 14px;box-shadow:var(--shadow);
+}
+.cproj-name{font-size:12px;font-weight:700;color:var(--t1);margin-bottom:3px;}
+.cproj-desc{font-size:10.5px;color:var(--t2);margin-bottom:6px;line-height:1.4;}
+.cproj-meta{display:flex;align-items:center;gap:6px;}
+.cproj-dot{width:6px;height:6px;border-radius:50%;}
+.cproj-status{font-size:9.5px;color:var(--t3);}
+/* ── Open PRs ───────────────────────────────────────────────── */
+.pr-card{
+  background:var(--card);border:1px solid var(--bd);border-radius:var(--rsm);
+  padding:10px 12px;margin-bottom:6px;box-shadow:var(--shadow);
+  display:flex;align-items:flex-start;gap:10px;
+}
+.pr-num{font-size:10px;font-weight:700;color:var(--blue);white-space:nowrap;}
+.pr-title{font-size:11px;color:var(--t1);flex:1;line-height:1.4;}
+.pr-badge{font-size:9px;padding:2px 6px;border-radius:10px;white-space:nowrap;}
+.pr-badge.mergeable{background:var(--green-g);color:var(--green);}
+.pr-badge.failing{background:var(--red-g);color:var(--red);}
+.pr-badge.pending{background:var(--orange-g);color:var(--orange);}
+.pr-empty{font-size:11px;color:var(--t3);text-align:center;padding:16px 0;}
 /* ── Bottom ─────────────────────────────────────────────────── */
 .chips{padding:12px 48px 44px;display:flex;gap:8px;flex-wrap:wrap;}
 .chip{
@@ -717,13 +740,29 @@ main{position:relative;z-index:1;padding-top:52px;}
     </div>
   </section>
 
+  <!-- ── Company Projects + Open PRs ─────────────────────────── -->
+  <section class="sec reveal" style="margin-top:0;" id="company-section">
+    <div style="display:grid;grid-template-columns:1fr 340px;gap:12px;align-items:start;">
+      <!-- Company Projects -->
+      <div>
+        <div class="sh" style="margin-bottom:10px;"><h2 class="st" style="font-size:14px;">Company Projects</h2><span class="ss" id="proj-overview-ct">—</span></div>
+        <div id="company-projects" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"></div>
+      </div>
+      <!-- Open PRs -->
+      <div>
+        <div class="sh" style="margin-bottom:10px;"><h2 class="st" style="font-size:14px;">Open Pull Requests</h2><span class="ss" id="pr-ct">—</span></div>
+        <div id="open-prs-list"></div>
+      </div>
+    </div>
+  </section>
+
   <div class="chips" data-testid="bottom-chips">
     <div class="chip"><div class="cdot" style="background:var(--green)"></div>Nexus Runtime</div>
     <div class="chip"><div class="cdot" style="background:var(--blue)"></div>qwen2.5-coder:7b</div>
     <div class="chip"><div class="cdot" style="background:var(--orange)"></div>Watchdog 60s</div>
     <div class="chip" id="chip-v"><div class="cdot" style="background:var(--t4)"></div>v1</div>
     <div class="chip"><div class="cdot" style="background:var(--t4)"></div>90% local / ≤10% Claude</div>
-    <div class="chip"><div class="cdot" style="background:var(--t4)"></div>Up to 1000 sub-agents</div>
+    <div class="chip"><div class="cdot" style="background:var(--t4)"></div>v1→v1000 self-improving</div>
   </div>
 
 </div><!-- /overview -->
@@ -1732,11 +1771,59 @@ function applyState(st){
   // ── CEO report ────────────────────────────────────────────────────────────
   applyCeoReport(st);
 
+  // ── Company projects + Open PRs ───────────────────────────────────────────
+  renderCompanyProjects(st.projects||null);
+  renderOpenPRs(st.open_prs||null);
+
   // ── Logs tab: ingest events ───────────────────────────────────────────────
   if(typeof ingestLogs==='function')ingestLogs(st);
 
   // ── Rescue panel ──────────────────────────────────────────────────────────
   loadRescue();
+}
+
+function renderCompanyProjects(projects){
+  const el=document.getElementById('company-projects');
+  const ct=document.getElementById('proj-overview-ct');
+  if(!el)return;
+  if(!projects||!Object.keys(projects).length){el.innerHTML='<div style="color:var(--t3);font-size:11px;padding:8px;">No projects registered</div>';return;}
+  const names=Object.keys(projects);
+  if(ct)ct.textContent=names.length+' projects';
+  el.innerHTML=names.map(k=>{
+    const p=projects[k];
+    const hc=p.health==='green'?'var(--green)':p.health==='yellow'?'var(--orange)':'var(--red)';
+    const st=p.status==='active'?'Active':p.status==='upgrading'?'Upgrading':'Planned';
+    return `<div class="cproj">
+      <div class="cproj-name">${k}</div>
+      <div class="cproj-desc">${p.description||''}</div>
+      <div class="cproj-meta">
+        <div class="cproj-dot" style="background:${hc};"></div>
+        <span class="cproj-status">${st}${p.version?' · '+p.version:''}</span>
+        ${p.blocker?`<span style="font-size:9px;color:var(--orange);margin-left:4px;">⚠ ${p.blocker.slice(0,40)}</span>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderOpenPRs(prs){
+  const el=document.getElementById('open-prs-list');
+  const ct=document.getElementById('pr-ct');
+  if(!el)return;
+  if(!prs||!prs.length){
+    el.innerHTML='<div class="pr-empty">No open PRs</div>';
+    if(ct)ct.textContent='0 open';
+    return;
+  }
+  if(ct)ct.textContent=prs.length+' open';
+  el.innerHTML=prs.map(pr=>{
+    const badge=pr.status==='MERGEABLE'?'mergeable':pr.status==='CONFLICTING'?'failing':'pending';
+    const badgeText=pr.status==='MERGEABLE'?'Mergeable':pr.status==='CONFLICTING'?'Conflict':'Pending';
+    return `<div class="pr-card">
+      <span class="pr-num">#${pr.number}</span>
+      <span class="pr-title">${pr.title||''}</span>
+      <span class="pr-badge ${badge}">${badgeText}</span>
+    </div>`;
+  }).join('');
 }
 
 function conn(){
