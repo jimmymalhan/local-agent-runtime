@@ -76,6 +76,29 @@ export LOCAL_AGENT_MODE=$MODE
 
 cd "$REPO_ROOT"
 
+# ── Auto-launch dashboard (background, idempotent) ────────────────────────────
+_launch_dashboard() {
+  local port=3001
+  if ! lsof -ti tcp:"$port" >/dev/null 2>&1; then
+    if [ -f "$REPO_ROOT/local-agents/dashboard/server.py" ]; then
+      python3 "$REPO_ROOT/local-agents/dashboard/server.py" --port "$port" \
+        >/tmp/nexus-dashboard.log 2>&1 &
+      sleep 0.5
+      echo ""
+      echo "  Nexus Dashboard  →  http://localhost:$port"
+      echo ""
+    fi
+  else
+    echo ""
+    echo "  Nexus Dashboard  →  http://localhost:$port  (already running)"
+    echo ""
+  fi
+}
+
+if [ "${NEXUS_NO_DASHBOARD:-0}" != "1" ]; then
+  _launch_dashboard
+fi
+
 if [ -n "$TASK" ]; then
   # One-shot task run
   python3 "$REPO_ROOT/scripts/local_team_run.py" "$TASK" "$TARGET_REPO"

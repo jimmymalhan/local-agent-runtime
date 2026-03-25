@@ -3,6 +3,17 @@
 **Nexus** is your personal AI model. **Nexus** is the agent that runs it.
 Self-improving. Local-first. Competing directly with Claude Opus 4.6.
 
+> **Dashboard — your live command center:**
+> ```bash
+> bash ./Local        # starts runtime + auto-opens dashboard
+> # or directly:
+> python3 local-agents/dashboard/server.py --port 3001
+> # Open: http://localhost:3001
+> ```
+> The dashboard is the **source of truth** for all agent activity, task queues,
+> benchmark scores, sub-agent pools, Claude rescue budget, and hardware metrics.
+> Open it before running any workflow.
+
 ---
 
 ## README Contract — Answers in Under 2 Minutes
@@ -69,12 +80,25 @@ ollama pull qwen2.5-coder:7b
 # 2. Clone and start
 git clone <this-repo>
 cd local-agent-runtime
-bash ./Local                    # interactive CLI
+bash ./Local                    # starts runtime + auto-launches dashboard
 
-# 3. Verify system
+# 3. Open dashboard (auto-launched, but bookmark it)
+open http://localhost:3001      # macOS
+# or: xdg-open http://localhost:3001  (Linux)
+
+# 4. Verify system
 python3 local-agents/orchestrator/resource_guard.py --check
-curl http://localhost:3001/api/state   # dashboard live?
+curl http://localhost:3001/api/state   # should return live state JSON
 ```
+
+**The dashboard shows:**
+- Live agent status (idle / running / upgrading / reviewing)
+- Sub-agent pool utilization (up to 1000 workers)
+- Task queue: Backlog → Running → Done → Blocked
+- Benchmark scores: Nexus vs Opus 4.6 per version
+- Claude rescue budget (hard cap: 10% of tasks)
+- Hardware: CPU, RAM, free GB
+- Projects and Jira-style task board
 
 ---
 

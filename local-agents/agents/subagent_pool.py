@@ -38,26 +38,38 @@ except ImportError:
 # ── Hardware detection ───────────────────────────────────────────────────────
 
 def _hardware_limits() -> Dict[str, Any]:
-    """Read CPU and RAM right now. Returns safe worker count."""
+    """
+    Read CPU and RAM right now. Returns safe worker count.
+    Auto-scales up to 1000 sub-agents when memory allows.
+    Each Ollama sub-agent needs ~80-150MB RAM; we leave 20% headroom.
+    """
     cpu_count = os.cpu_count() or 4
-    limits = {"cpu": cpu_count, "ram_workers": cpu_count, "max_workers": cpu_count}
+    limits = {"cpu": cpu_count, "ram_workers": cpu_count * 4, "max_workers": cpu_count * 4}
     if _HAS_PSUTIL:
         try:
             mem = psutil.virtual_memory()
             free_gb = mem.available / (1024 ** 3)
             ram_pct = mem.percent
-            if ram_pct < 70:
-                ram_workers = max(1, int(free_gb / 1.5))
+            # ~100MB per sub-agent, leave 20% RAM headroom
+            ram_workers_estimate = max(1, int((free_gb * 1024 * 0.80) / 100))
+            if ram_pct < 50:
+                # Plenty of RAM — scale aggressively up to 1000
+                ram_workers = min(1000, max(cpu_count * 8, ram_workers_estimate))
+            elif ram_pct < 70:
+                ram_workers = min(500, max(cpu_count * 4, ram_workers_estimate))
             elif ram_pct < 80:
-                ram_workers = max(1, int(free_gb / 2.5))
+                ram_workers = min(128, max(cpu_count * 2, int(ram_workers_estimate * 0.5)))
+            elif ram_pct < 85:
+                ram_workers = min(32, cpu_count)
             else:
-                ram_workers = 1
+                ram_workers = max(1, cpu_count // 2)
             limits["ram_workers"] = ram_workers
             limits["ram_pct"] = ram_pct
             limits["free_gb"] = round(free_gb, 1)
         except Exception:
             pass
-    limits["max_workers"] = min(cpu_count * 2, limits["ram_workers"], 64)
+    # Hard max 1000 — ThreadPoolExecutor handles work-stealing above that
+    limits["max_workers"] = min(1000, limits["ram_workers"])
     return limits
 
 

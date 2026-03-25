@@ -25,7 +25,7 @@ Usage:
   python3 orchestrator/main.py --auto 1                 # full loop v1→v100
   python3 orchestrator/main.py --version 4 --local-only # skip Opus comparison
 """
-import os, sys, json, time, argparse, subprocess
+import os, sys, json, time, argparse, subprocess, threading
 from pathlib import Path
 from datetime import datetime
 
@@ -81,6 +81,76 @@ except ImportError:
 CLAUDE_RESCUE_BUDGET  = 0.10   # max 10% of tasks rescued by Claude
 RESCUE_BLOCK_COUNT    = 3      # task must fail 3+ times before Claude rescue
 RESCUE_INELIGIBLE_CATS = {"research", "doc", "documentation"}  # local handles these
+CLAUDE_TOKEN_CAP      = 200    # hard cap per rescue call
+
+# ── 1-minute rescue watchdog ──────────────────────────────────────────────
+_WATCHDOG_INTERVAL   = 60      # check every 60 seconds
+_AGENT_STUCK_AFTER   = 120     # agent stuck if running >120s without state change
+_watchdog_stop       = threading.Event()
+_watchdog_rescued    = {}      # task_id → last rescue ts to prevent double-rescue
+
+def _rescue_watchdog(state_path: str, version_ref: list, rescued_ref: list,
+                     total_tasks: int):
+    """
+    Background thread: every 60s check state.json for stuck agents.
+    If an agent has been 'running' for >AGENT_STUCK_AFTER seconds without
+    progress → record for Claude rescue on next task cycle.
+    """
+    while not _watchdog_stop.wait(_WATCHDOG_INTERVAL):
+        try:
+            if not os.path.exists(state_path):
+                continue
+            with open(state_path) as f:
+                state = json.load(f)
+            now = time.time()
+            agents = state.get("agents", {})
+            for name, info in agents.items():
+                if info.get("status") != "running":
+                    continue
+                task_id = info.get("task_id")
+                if task_id is None:
+                    continue
+                # Check last update time
+                last_update_iso = info.get("last_update", "")
+                if not last_update_iso:
+                    continue
+                try:
+                    last_ts = datetime.fromisoformat(last_update_iso).timestamp()
+                except Exception:
+                    continue
+                stuck_secs = now - last_ts
+                if stuck_secs > _AGENT_STUCK_AFTER:
+                    # Only alert once per task_id per 5 minutes
+                    last_rescued = _watchdog_rescued.get(task_id, 0)
+                    if now - last_rescued > 300:
+                        _watchdog_rescued[task_id] = now
+                        msg = (f"[WATCHDOG] Agent '{name}' stuck {int(stuck_secs)}s "
+                               f"on task {task_id} — flagging for rescue")
+                        print(msg)
+                        update_agent("benchmarker", "upgrading",
+                                     f"[WATCHDOG] {name} stuck {int(stuck_secs)}s", task_id)
+                        # Log to reports for main loop to pick up
+                        watchdog_log = os.path.join(REPORTS_DIR, "watchdog_rescues.jsonl")
+                        rec = {"ts": datetime.now().isoformat(), "agent": name,
+                               "task_id": task_id, "stuck_secs": int(stuck_secs),
+                               "version": version_ref[0]}
+                        with open(watchdog_log, "a") as wf:
+                            wf.write(json.dumps(rec) + "\n")
+        except Exception:
+            pass  # watchdog never crashes the main loop
+
+
+def start_rescue_watchdog(state_path: str, version_ref: list,
+                          rescued_ref: list, total_tasks: int) -> threading.Thread:
+    """Start the 1-min rescue watchdog as a daemon thread."""
+    _watchdog_stop.clear()
+    t = threading.Thread(
+        target=_rescue_watchdog,
+        args=(state_path, version_ref, rescued_ref, total_tasks),
+        daemon=True, name="rescue-watchdog"
+    )
+    t.start()
+    return t
 
 # ── Routing: category → agent module ──────────────────────────────────────
 CATEGORY_AGENT_MAP = {
@@ -134,7 +204,7 @@ def _check_claude_rescue_eligible(task: dict, fail_count: int,
     return True, "eligible"
 
 
-CLAUDE_TOKEN_CAP = 200   # hard cap per rescue call — 200 tokens max
+# CLAUDE_TOKEN_CAP defined above in guardrail config section
 
 def _read_agent_file(agent_name: str) -> str:
     """Read the agent's Python source."""
@@ -212,6 +282,10 @@ def _claude_rescue(task: dict, version: int, agent_name: str,
         f"PATTERN: <snake_case pattern name>\n"
         f"DIMENSION: <plan_accuracy|code_correctness|hallucination|actionability>"
     )
+
+    # Dashboard: show benchmarker as "upgrading" (Claude rescue in progress)
+    update_agent("benchmarker", "upgrading",
+                 f"[CLAUDE RESCUE] {title[:40]}", task.get("id"))
 
     start      = time.time()
     version_in_reg = 1
@@ -297,6 +371,9 @@ def _claude_rescue(task: dict, version: int, agent_name: str,
         print(f"    [UPGRADE] Fix: {fix_text[:80]}")
         print(f"    [UPGRADE] Tokens used: {tokens}/{CLAUDE_TOKEN_CAP}")
 
+        # Dashboard: rescue complete — reset benchmarker to idle
+        update_agent("benchmarker", "idle", "", None)
+
         # Return signal to rerun the task with the upgraded agent
         return {
             "status": "upgraded",
@@ -309,10 +386,12 @@ def _claude_rescue(task: dict, version: int, agent_name: str,
         }
 
     except FileNotFoundError:
+        update_agent("benchmarker", "idle", "", None)
         return {"status": "no_cli", "upgrade_applied": False,
                 "tokens_used": 0, "agent": "claude_rescue",
                 "error": "claude CLI not found"}
     except Exception as e:
+        update_agent("benchmarker", "idle", "", None)
         return {"status": "error", "upgrade_applied": False,
                 "tokens_used": 0, "agent": "claude_rescue", "error": str(e)}
 
@@ -491,8 +570,9 @@ def run_version(version: int, tasks: list, local_only: bool = False,
             log_failure(agent_name_hint, title[:80], task_id, 1,
                         local_result.get("error", local_result.get("status", "failed"))[:200])
 
-        # Mark agent idle after task
-        update_agent(agent_name_hint, "idle", "", None)
+        # Update queue counts (keep agent status as result of run)
+        status_after = "done" if local_result.get("status") == "done" else "blocked"
+        update_agent(agent_name_hint, status_after, f"[{local_quality}/100] {title[:50]}", task_id)
         update_task_queue(total_tasks, completed, 0, failed_count, total_tasks - completed - failed_count)
 
         # Run Opus 4.6 baseline (skip if local_only)
@@ -500,11 +580,14 @@ def run_version(version: int, tasks: list, local_only: bool = False,
         opus_result  = {}
         if not local_only:
             try:
+                update_agent("reviewer", "reviewing", f"Opus 4.6 ← {title[:40]}", task_id)
                 from opus_runner import run_opus_task
                 opus_result  = run_opus_task(task, version)
                 opus_quality = opus_result.get("quality", 0)
+                update_agent("reviewer", "idle", "", None)
             except Exception as e:
                 print(f"    [OPUS] Error: {e}")
+                update_agent("reviewer", "idle", "", None)
                 opus_quality = 70  # assume Opus would score ~70 on average
 
         total_local_qual += local_quality
@@ -589,7 +672,15 @@ def auto_loop(start_version: int):
     from tasks.task_suite import build_task_suite
     tasks = build_task_suite()
 
+    # Start 1-minute rescue watchdog in background
+    state_path   = os.path.join(BASE_DIR, "dashboard", "state.json")
+    version_ref  = [start_version]   # mutable ref so watchdog sees current version
+    rescued_ref  = [0]
+    start_rescue_watchdog(state_path, version_ref, rescued_ref, len(tasks))
+    print(f"[WATCHDOG] Rescue watchdog active — checks every {_WATCHDOG_INTERVAL}s")
+
     for version in range(start_version, 101):
+        version_ref[0] = version
         # Every 5 versions: frustration research
         if version % 5 == 0:
             try:
