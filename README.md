@@ -1,21 +1,23 @@
-# Jimmy — Personal Autonomous Agent Runtime
+# Jimmy / Nexus — Personal Autonomous Agent Runtime
 
-**Jimmy** is your personal autonomous coding agent. Fully local, fully private, self-improving.
+**Nexus** is your personal AI model. **Jimmy** is the agent that runs it.
 
-10 specialized agents run a 100-task benchmark loop every version, self-upgrade until they match the best available LLM. Local agents own 90% of all work. External LLM is rescue-only: ≤10% of tasks, 200-token cap, agent upgrades only — never direct task fixes.
+Nexus is a self-improving local AI that wraps the best available models — competing directly with proprietary AI like Claude Opus. Fully local, fully private. Every version Nexus self-upgrades until it matches or exceeds the best available LLM on coding benchmarks.
 
-> Jimmy runs on your machine. No vendor, no subscription, no data leaving your device.
+> Nexus runs on your machine. No vendor. No subscription. No data leaving your device.
+> Powered by the best open-source models available on your hardware.
 
-## What Jimmy Does
+## What Nexus Does
 
 ```
-You give Jimmy a task.
+You give Nexus a task (via Jimmy).
 Jimmy routes it to the right specialist (code, debug, architect, test, review...).
 Each specialist spawns up to 1000 sub-agents in parallel.
-All sub-agents read and write simultaneously — like a distributed system.
-Best result wins. Output scored by dynamic execution (code runs + assertions pass).
-If local fails 3×, Jimmy auto-upgrades itself. Goes again. Keeps going.
-Jimmy gets smarter every version. Automatically. Forever.
+All agents read and write simultaneously — like a production data pipeline.
+Best result wins. Quality scored by actual code execution (runs + assertions pass).
+If local fails 3×, Nexus auto-upgrades itself. Goes again. Keeps going.
+Nexus gets smarter every version. Automatically. Forever.
+Objective: beat Claude Opus on every coding benchmark. Autonomously.
 ```
 
 - **`local-agents/`** — 10 specialized agents + v1→v100 self-upgrade loop + real-time dashboard
@@ -78,14 +80,14 @@ python3 local-agents/orchestrator/resource_guard.py --check
 python3 local-agents/orchestrator/resource_guard.py --watch 5   # live monitor every 5s
 ```
 
-## Jimmy's Model Architecture
+## Nexus Model Architecture
 
-Jimmy is a **model-agnostic orchestration layer** — it wraps the best available model for each job. You configure which model powers each role. Swap any model by editing `local-agents/agents/config.yaml`.
+Nexus is a **model-agnostic orchestration layer** — it wraps the best available model for each job. You configure which model powers each role. Swap any model by editing `local-agents/agents/config.yaml`.
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                        Jimmy                            │
-│           Personal Autonomous Agent Runtime             │
+│                    Nexus (via Jimmy)                    │
+│      Self-Improving Personal AI  —  v1→v100 Loop       │
 ├─────────────────────────────────────────────────────────┤
 │  Planner → Executor → Reviewer → Debugger → Architect  │
 │  Test Engineer → Researcher → Benchmarker → Doc Writer │

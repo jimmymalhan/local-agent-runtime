@@ -3,7 +3,8 @@
 # Each agent can have its own config.yaml in agents/<name>/config.yaml
 
 agent_name: "Jimmy"
-agent_description: "Personal autonomous coding agent — local-first, self-improving, fully private"
+model_name: "Nexus"
+model_description: "Nexus — self-improving local AI that wraps the best available models. Competitor to Claude Opus."
 
 model: qwen2.5-coder:7b
 ollama_base: http://127.0.0.1:11434
