@@ -391,6 +391,33 @@ def run_task_with_fallback(task: dict, version: int,
     return last_result
 
 
+def _write_leaderboard(version: int, avg_local: float, avg_opus: float,
+                       win_rate: float, gap: float):
+    """Append version result to docs/leaderboard.md for human-readable progress."""
+    lb_path = os.path.join(os.path.dirname(BASE_DIR), "docs", "leaderboard.md")
+    try:
+        os.makedirs(os.path.dirname(lb_path), exist_ok=True)
+        # Read existing content or create header
+        try:
+            with open(lb_path) as f:
+                lines = f.readlines()
+        except FileNotFoundError:
+            lines = [
+                "# Nexus vs Opus 4.6 — Leaderboard\n\n",
+                "Auto-updated after every version. Local = Nexus (Jimmy). Target: beat Opus on all categories.\n\n",
+                "| Version | Local avg | Opus avg | Gap | Win Rate | Status |\n",
+                "|---------|-----------|----------|-----|----------|--------|\n",
+            ]
+        # Append new row
+        status = "WIN" if avg_local >= avg_opus else f"GAP {gap:+.0f}"
+        row = f"| v{version} | {avg_local}/100 | {avg_opus}/100 | {gap:+.1f} | {win_rate}% | {status} |\n"
+        lines.append(row)
+        with open(lb_path, "w") as f:
+            f.writelines(lines)
+    except Exception as e:
+        print(f"[LEADERBOARD] write error: {e}")
+
+
 def run_version(version: int, tasks: list, local_only: bool = False,
                 quick: int = 0) -> dict:
     """Run one benchmark version. Returns version summary."""
@@ -409,10 +436,12 @@ def run_version(version: int, tasks: list, local_only: bool = False,
     if quick:
         tasks = tasks[:quick]
 
-    total_tasks   = len(tasks)
-    rescued_count = 0
-    local_wins    = 0
-    results       = []
+    total_tasks        = len(tasks)
+    rescued_count      = 0
+    local_wins         = 0
+    results            = []
+    total_local_qual   = 0
+    total_opus_qual    = 0
 
     print(f"\n{'='*60}")
     print(f"[ORCHESTRATOR] v{version} — {total_tasks} tasks")
@@ -478,6 +507,8 @@ def run_version(version: int, tasks: list, local_only: bool = False,
                 print(f"    [OPUS] Error: {e}")
                 opus_quality = 70  # assume Opus would score ~70 on average
 
+        total_local_qual += local_quality
+        total_opus_qual  += opus_quality
         if local_quality >= opus_quality - 5:
             local_wins += 1
 
@@ -530,14 +561,26 @@ def run_version(version: int, tasks: list, local_only: bool = False,
         "local_beats_opus": win_rate >= 95.0,
     }
 
+    avg_local = round(total_local_qual / total_tasks, 1) if total_tasks else 0
+    avg_opus  = round(total_opus_qual  / total_tasks, 1) if total_tasks else 0
+    gap       = round(avg_local - avg_opus, 1)
+
     # Dashboard: final version state
     update_version(version, 100, f"v{version} complete — win_rate={win_rate}%")
     update_task_queue(total_tasks, completed, 0, failed_count, 0)
-    update_benchmark_score(version, win_rate, 0.0, win_rate, 0.0)
-    update_version_changelog(version, [f"win_rate={win_rate}%", f"rescued={rescue_rate}%",
-                                        f"tasks={total_tasks}"], 0.0, win_rate)
+    update_benchmark_score(version, avg_local, avg_opus, win_rate, gap)
+    update_version_changelog(version, [f"win_rate={win_rate}%", f"local_avg={avg_local}",
+                                        f"opus_avg={avg_opus}", f"rescued={rescue_rate}%",
+                                        f"tasks={total_tasks}"], avg_opus, avg_local)
 
-    print(f"\n[v{version} SUMMARY] win_rate={win_rate}%  rescued={rescue_rate}%")
+    # Write leaderboard.md
+    _write_leaderboard(version, avg_local, avg_opus, win_rate, gap)
+
+    print(f"\n[v{version} SUMMARY] win_rate={win_rate}%  local={avg_local}/100  opus={avg_opus}/100  gap={gap:+}  rescued={rescue_rate}%")
+
+    summary["avg_local"] = avg_local
+    summary["avg_opus"]  = avg_opus
+    summary["gap"]       = gap
     return summary
 
 
