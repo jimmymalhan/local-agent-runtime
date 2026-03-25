@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-25T14:00:27.950193",
+  "ts": "2026-03-25T15:36:38.570231",
   "version": {
     "current": 5,
     "total": 100,
@@ -80,10 +80,8 @@
       "status": "idle",
       "task": "",
       "task_id": null,
-      "elapsed_s": 0,
-      "last_activity": "",
-      "sub_agents": [],
-      "worker_count": 0
+      "elapsed_s": 0.0,
+      "last_activity": "2026-03-25T15:36:38.569713"
     },
     "refactor": {
       "status": "idle",
@@ -115,10 +113,10 @@
   },
   "task_queue": {
     "total": 100,
-    "completed": 26,
-    "in_progress": 1,
+    "completed": 59,
+    "in_progress": 0,
     "failed": 0,
-    "pending": 73
+    "pending": 41
   },
   "benchmark_scores": {
     "v1": {
@@ -151,8 +149,8 @@
     "hard_limit_hit": true
   },
   "hardware": {
-    "cpu_pct": 34.3,
-    "ram_pct": 54.3,
+    "cpu_pct": 27.2,
+    "ram_pct": 53.8,
     "disk_pct": 0.0,
     "gpu_pct": null,
     "alert_level": "ok"
@@ -210,5 +208,33 @@
       "delta": 100.0,
       "ts": "2026-03-25T12:18:19.149970"
     }
+  },
+  "ceo_report": {
+    "ts": "2026-03-25T22:18:06+00:00",
+    "active_agents": 2,
+    "total_sub_agents": 2,
+    "running_sub_agents": 0,
+    "stuck_agents": [
+      "executor",
+      "benchmarker"
+    ],
+    "rescue_needed": [],
+    "health_score": 69,
+    "claude_budget_pct": 10.0,
+    "budget_warning": true,
+    "dashboard_live": true
+  },
+  "business_summary": {
+    "headline": "26 of 100 tasks complete (26.0%)",
+    "pct_complete": 26.0,
+    "agents_active": 2,
+    "sub_agents_running": 0,
+    "blockers_open": 2,
+    "rescue_pending": 0,
+    "claude_budget_pct": 10.0,
+    "health_score": 69,
+    "dashboard_live": true,
+    "version": 5,
+    "updated_at": "2026-03-25T22:18:06+00:00"
   }
 }
