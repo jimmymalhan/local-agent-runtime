@@ -30,18 +30,6 @@ POLICY_RULES = {
             "For implementation/coding tasks: Do not use CLAUDE API, Codex, Cursor context, or external APIs. Route into the local runtime",
         ],
     },
-    ".cursor/rules/local-only.mdc": {
-        "required": [
-            "execute the work in-session end to end",
-            "Do not stop at a generated command or ask the user to run the local runtime manually",
-            "Route implementation to the local runtime only when the user explicitly asks for Local",
-        ],
-        "forbidden": [
-            "**NEVER** use write, edit, or search_replace for implementation tasks.",
-            "**ALWAYS** route implementation to the local runtime",
-            "Do not implement in this session",
-        ],
-    },
     "docs/MCP_LOCAL_RUNTIME_SETUP.md": {
         "required": [
             "opt-in path",
@@ -59,16 +47,6 @@ POLICY_RULES = {
             "Use `Local`, `local-codex`, or `local-claude` **only when you explicitly want** the local Ollama runtime",
         ],
         "forbidden": [],
-    },
-    "mcp-local-runtime/server.py": {
-        "required": [
-            "Use this only when the user explicitly asks for the local runtime",
-            "Do NOT use when the user asks to open Codex, Claude, or Cursor",
-            "explicit_opt_in=required",
-        ],
-        "forbidden": [
-            "enforced local-only defaults",
-        ],
     },
 }
 

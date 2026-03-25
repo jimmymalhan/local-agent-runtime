@@ -1,445 +1,328 @@
-# Local Agent Runtime
+# Nexus — Local-First Autonomous Agent Runtime
 
-`local-agent-runtime` is a reusable local-only coding assistant runtime. It runs a multi-role Ollama team against a target repository, tracks progress in real time, creates checkpoints before risky work, enforces machine limits, and auto-runs review at the end of task commands.
+> **Dashboard (live runtime truth):** `http://localhost:3001` — starts automatically with `./nexus init`
+> **Documentation truth:** this README
 
-It is designed to behave like a local coding session launcher for repeated use across projects, without depending on paid model APIs.
+Nexus is a local-first autonomous coding runtime. It runs real engineering work across one repo, many repos, or distributed workspaces. It self-heals, self-improves version by version, and benchmarks itself against strong baselines. **Local agents own 90% of work. Remote rescue is capped at 10%.**
 
-## What It Includes
+---
 
-- Interactive local CLI session
-- `local-codex` and `local-claude` launchers (do not shadow codex/claude/cursor)
-- Multi-role model team with weighted progress bars
-- Checkpoint and restore workflow
-- Auto-review at the end of task runs
-- Technical QA suite
-- Non-technical user acceptance suite
-- Runtime self-heal for stale lock and session issues
-- Release gate that combines heal, QA, UAT, and final acceptance
-- Common-plan-first orchestration with shared planner handoff
-- SGLang integration for server launch, gateway routing, chat, embeddings, reranking, and scale pipelines
-- Private local tool registry kept out of tracked git state
-
-## Installed Local Models
-
-This runtime currently uses the local Ollama models installed on this machine:
-
-- `deepseek-r1:8b`
-- `llama3.2:3b`
-- `qwen2.5:3b`
-- `gemma3:4b`
-- `qwen2.5-coder:7b`
-- `nomic-embed-text:latest`
-
-These models are assigned different roles so they work like a team:
-
-- `Researcher`, `Retriever`, `Optimizer`, `User Acceptance`: `qwen2.5:3b`
-- `Planner`, `Reviewer`, `Benchmarker`, `QA`, `Summarizer`: `deepseek-r1:8b`
-- `Architect`, `Implementer`, `Tester`, `Debugger`: `qwen2.5-coder:7b`
-- `Embeddings`: `nomic-embed-text:latest`
-
-This is the current ROI-oriented assignment:
-
-- keep `deepseek-r1:8b` on the highest-leverage reasoning and judgment gates
-- keep `qwen2.5-coder:7b` on code generation, architecture shaping, testing, and final response writing
-- move lower-cost comparison and optimization work onto `qwen2.5:3b`
-
-Optional hybrid routing is also supported now:
-
-- `ollama` stays the default local-first provider
-- `GitHub Models` can be enabled with `LOCAL_AGENT_ENABLE_GITHUB_MODELS=1` and `GITHUB_MODELS_TOKEN`
-- `clawbot` or OpenClaw-style endpoints can be enabled with `LOCAL_AGENT_ENABLE_CLAWBOT=1`, `CLAWBOT_BASE_URL`, and `CLAWBOT_API_KEY`
-- `OpenClaw` can be synced from the installed local gateway with `python3 scripts/sync_openclaw_credentials.py`
-
-Remote providers are not prioritized by default. Local agents stay first for all tasks, and remote fallback only becomes eligible when you explicitly set `LOCAL_AGENT_ALLOW_REMOTE_FALLBACK=1`.
-
-If OpenClaw is installed locally, this repo can now read `~/.openclaw/openclaw.json`, copy the loopback gateway token into ignored `state/runtime.env`, and use that env automatically in the CLI, runtime, and dashboard. Secrets stay local and out of git.
-
-When remote fallback is explicitly enabled, the runtime routes:
-
-- all roles to local Ollama first
-- remote providers only after local routing is already in place
-- high-pressure fallback to `clawbot` or another OpenAI-compatible endpoint only after explicit opt-in
-
-Runtime safety and ROI guards:
-
-- destructive restore paths now create a dry-run preview before apply
-- restore apply is blocked behind a pre-delete diff and approval gate unless `LOCAL_AGENT_APPROVE_DESTRUCTIVE=1`
-- the runtime tracks recent low-yield events and can trip an ROI kill switch instead of repeating the same stalled local loop
-
-## Quick Start
-
-Start the local interactive session:
+## Quick Start (Under 2 Minutes)
 
 ```bash
-cd /Users/jimmymalhan/Doc/local-agent-runtime
-bash ./Local
+# 1. Install local model
+ollama pull qwen2.5-coder:7b
+
+# 2. Clone and start
+git clone <this-repo>
+cd local-agent-runtime
+
+# 3. Start Nexus (auto-launches dashboard)
+./nexus init       # scan workspace, check health, open dashboard
+
+# 4. Run a task
+./nexus run "Build a rate limiter with sliding window"
+
+# 5. Open dashboard
+open http://localhost:3001
 ```
 
-Before merging any branch, run the exact local merge gate and wait for the PR check to go green:
+---
+
+## Nexus Is the Wrapper
+
+Nexus is the **only public interface**. Ollama, Claude, and other backends are internal provider details.
+
+| What you see | What it hides |
+|---|---|
+| `nexus run "task"` | Routes to Ollama (90%) or Claude rescue (≤10%) |
+| `nexus chat` | Chat with Nexus via best local model |
+| `nexus eval` | Benchmarks local agents vs baseline |
+| `nexus dashboard` | Opens live control plane at port 3001 |
+
+**Never use Ollama or Claude commands directly in normal workflows.** All model access goes through `local-agents/providers/`.
+
+---
+
+## Public Commands
+
+```
+nexus init                     scan workspace, detect stack, initialize state
+nexus doctor                   check all runtime health (Ollama, deps, config)
+nexus sync                     refresh workspace map and dashboard state
+nexus map                      show full repo / workspace map
+nexus plan "<task>"            generate a plan without executing
+nexus run "<task>"             run a task end-to-end with best available agents
+nexus test [-n N]              run N benchmark tasks local-only (default: 5)
+nexus eval [-n N]              evaluate local agents vs remote baseline
+nexus replay <trace_id>        replay a run from its stored trace
+nexus repair <failure_id>      attempt auto-repair of a recorded failure
+nexus chat                     interactive chat with Nexus
+nexus dashboard                start (or open) the live dashboard
+nexus status                   current runtime status summary
+nexus version                  show version
+```
+
+---
+
+## Dashboard — Live Runtime Truth
+
+The dashboard is the **primary operating surface**, not the terminal.
 
 ```bash
-bash scripts/merge_gate.sh "$PWD"
+# Auto-launched by ./nexus init and ./Local
+# Or start directly:
+python3 local-agents/dashboard/server.py --port 3001
+# Open: http://localhost:3001
 ```
 
-Do not merge if local validation fails or if GitHub `Validate Runtime` is red/cancelled.
+**Dashboard panels:**
+| Panel | What it shows |
+|---|---|
+| Overview | Agent cards, benchmark race, pool meter, rescue budget |
+| Agents | All 10 agents with live status, task, sub-agents |
+| Sub-Agents | Per-agent worker thread pool (up to 1000 workers) |
+| Projects | Workspace cards with progress |
+| Tasks | Jira-style board: Backlog / Running / Done / Blocked |
+| CEO | Strategic directives, KPI metrics |
+| Chat | Talk to Nexus directly through the dashboard |
 
-Use the local agent (only when you explicitly want local Ollama—does not shadow codex/claude/cursor):
+**Dashboard freshness rules:**
+- Every state write flows through `local-agents/dashboard/state.json` first
+- Server pushes WebSocket updates within 800ms of any change
+- Hardware (CPU/RAM) refreshes every 5s via live psutil polling
+- Stale data is actively prevented — if dashboard and runtime disagree, fix immediately
 
-```bash
-local-codex
-local-claude
-Local
-local-codex "/path/to/project" "review current changes"
-local-codex --mode exhaustive "/path/to/project" "explain this repo"
+---
+
+## Architecture
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│                         nexus CLI                            │
+│   nexus run / plan / chat / eval / dashboard / doctor        │
+├──────────────────────────────────────────────────────────────┤
+│                    Provider Router                           │
+│   providers/router.py → OllamaProvider (90%) | Claude (≤10%)│
+├─────────────────────────────┬────────────────────────────────┤
+│  LOCAL INFERENCE (90%)      │  REMOTE RESCUE (≤10%)          │
+│  Ollama: qwen2.5-coder:7b   │  Claude Sonnet/Opus 4.6        │
+│  deepseek-r1:8b (optional)  │  200-token cap per rescue call │
+│  Any Ollama-compatible model│  Only when local fails 3×      │
+└─────────────────────────────┴────────────────────────────────┘
+         │                                    │
+         ▼                                    ▼
+┌──────────────────────────────────────────────────────────────┐
+│              10 Specialized Agents (Layer 3)                 │
+│  Executor · Planner · Reviewer · Debugger · Researcher       │
+│  Benchmarker · Architect · Refactor · TestEngineer · DocKeeper│
+├──────────────────────────────────────────────────────────────┤
+│              Sub-Agent Pool (up to 1000 workers)             │
+│  Hardware-aware: scales on free RAM, caps at 1000 workers    │
+├──────────────────────────────────────────────────────────────┤
+│              Orchestrator (Layer 2)                          │
+│  Supervisor · Resource Guard · Rescue Watchdog (60s)         │
+│  Auto-heal · Checkpoint Manager · Version Upgrade Loop       │
+├──────────────────────────────────────────────────────────────┤
+│              Dashboard (Live Control Plane)                  │
+│  FastAPI + WebSocket · state.json · port 3001                │
+└──────────────────────────────────────────────────────────────┘
 ```
 
-**Do not** add this repo to PATH in a way that puts it before your real `codex`, `claude`, or `cursor`—use `local-codex`/`local-claude`/`Local` only when you want the local runtime.
+### 4-Layer Model
+| Layer | Owns | Files |
+|---|---|---|
+| L1 Meta | Docs, policy, repo rules | README.md, AGENTS.md, CLAUDE.md |
+| L2 Supervisor | Pre-flight, heartbeat, stall detection, restarts | orchestrator/main.py, resource_guard.py |
+| L3 Execution | 10 specialized agents do the actual work | agents/*.py |
+| L4 Learning | Failure detection, A/B prompt tests, auto-upgrade | orchestrator/main.py auto_upgrade logic |
 
-**If typing `codex` still opens the local agent:** Remove this repo from the front of your PATH (in `~/.zshrc` or `~/.bashrc`) or remove any `alias codex=...` that points to this repo.
+---
 
-**If typing `claude` or `cursor` in Cursor chat opens the local agent:** The rules now prioritize session choice—Codex, Claude, and Cursor should open independently. If it still happens, disable the `local-runtime` MCP server: **Cursor Settings → MCP →** toggle off or remove `local-runtime`. That prevents the AI from calling `run_local_pipeline` when you ask for Claude/Codex/Cursor.
+## Folder Contract
 
-## Execution Modes
+```
+nexus                           ← public CLI entry point
+local-agents/
+  agents/                       ← 10 specialized agents
+  providers/                    ← Ollama + Claude adapters (internal)
+    base.py                     ← abstract NexusProvider interface
+    ollama.py                   ← local inference adapter
+    claude.py                   ← remote rescue adapter
+    router.py                   ← routing logic (local vs rescue)
+  orchestrator/                 ← main.py, resource_guard.py
+  dashboard/                    ← server.py, index.html, state.json
+  tasks/                        ← 100-task benchmark suite
+  benchmarks/                   ← benchmark suites and results
+  registry/                     ← agents.json (versions + scores)
+  reports/                      ← runtime logs (gitignored)
+  agent_runner.py               ← core Ollama iterative loop
+  opus_runner.py                ← baseline comparison runner
+  deploy.py                     ← deploy Nexus to any project
+scripts/                        ← intentional ops scripts only
+tests/                          ← persistent test suites
+state/                          ← runtime state files
+config/                         ← runtime configuration
+```
 
-The runtime supports four modes:
+**Root contract:** Only `nexus`, `Local`, `README.md`, `AGENTS.md`, `CLAUDE.md`, `VERSION`, `.gitignore`, approved top-level dirs.
+**Agent outputs go to `~/local-agents-work/` (BOS) — never to project root.**
+**Temp artifacts go to `.nexus_tmp/` and are cleaned after use.**
 
-- `fast`: short answers and lightweight repo work
-- `balanced`: full team with moderate parallelism
-- `deep`: default high-quality mode
-- `exhaustive`: slowest and most aggressive local mode
+---
 
-Important note on context:
+## Self-Heal
 
-- The repo exposes an `exhaustive` mode with larger prompt budgets and stronger cross-role critique.
-- It does not claim a true 10M-token context window for these current local models, because that is not realistic on this machine.
-- Instead, it uses the largest practical local settings that remain stable enough to run repeatedly.
+Always on. When any failure occurs:
+1. Capture full context → `local-agents/reports/`
+2. Classify failure type (truncated_code, stub_functions, missing_assertions, etc.)
+3. Attempt auto-fix with different approach (max 3 tries)
+4. If fix works → promote to durable agent prompt improvement
+5. If fix fails → Claude rescue (if budget allows)
+6. Reflect failure + repair status in dashboard immediately
+
+**8 known failure patterns auto-fixed:**
+`truncated_code` · `placeholder_path` · `missing_assertions` · `syntax_error`
+`stub_functions` · `no_main_guard` · `hallucinated_import` · `wrong_command`
+
+---
+
+## Self-Improve Loop
+
+After each version:
+```
+1. Run full benchmark suite → capture traces
+2. Score: correctness, safety, completeness, speed, rescue usage
+3. Find top 3 failure patterns
+4. Generate targeted fix for each
+5. A/B test: 5 sub-agents on old prompt vs 5 on new
+6. If new wins by ≥5pts → commit permanently to agent file
+7. Increment version, update dashboard benchmark panel
+8. Update README if behavior changed
+```
+
+No version bump without evidence. No self-improvement without replayable traces.
+
+---
+
+## Benchmark Policy
+
+Real engineering work — not just algorithmic puzzles:
+- Bug fixes in unfamiliar codebases
+- Multi-file feature implementation
+- Refactors with dependency chains
+- CI pipeline repair
+- Documentation sync
+- Release prep
+- Production debugging
+- Cross-repo changes
+
+Honesty: Nexus is designed to handle the same broad classes of engineering work as frontier models, benchmark itself against stronger models on identical tasks, and improve version by version through replayable traces, repair loops and benchmark-driven upgrades.
+
+---
+
+## Claude Hard Guardrails
+
+```
+Before ANY Claude rescue call — all 3 must be true:
+  1. Task failed 3+ times with different approaches
+  2. Rescue count still < 10% of total tasks
+  3. Category is rescue-eligible (not research/doc)
+
+Per call: 200-token hard cap. Agent prompt upgrade only. Never fixes tasks directly.
+Budget logged: local-agents/reports/claude_token_log.jsonl
+Rescue log:    local-agents/reports/claude_rescue_upgrades.jsonl
+```
+
+---
 
 ## Resource Limits
 
-All modes stay at `70%` CPU and `70%` memory. The difference between modes is orchestration depth, prompt budget, retries, and how much structured critique the team performs.
+| Threshold | Action |
+|---|---|
+| RAM < 50% | Scale to 1000 sub-agents |
+| RAM 50–70% | Scale to 500 sub-agents |
+| RAM 70–80% | Scale to 128 sub-agents |
+| RAM > 80% | Stop spawning new agents |
+| RAM > 85% | Kill lowest-priority agent |
+| CPU > 90% | Single agent at a time |
 
-If the runtime sits above those ceilings for too long, it no longer waits forever. It records the stall in `feedback/prompt-log.md` and `feedback/workflow-evolution.md`, flips the live execution split to cloud takeover, and emits a concrete Codex/Claude handoff command for the unfinished task.
+---
 
-Before it reaches that takeover point, it now also downgrades parallel groups to a single local worker when CPU or memory headroom is already too tight. That teaches the runtime to stop repeating the same “parallelize into a ceiling, then stall” mistake.
+## Workspace Support
 
-`fast` mode is now aggressive about forward motion: short lock waits, short resource waits, and lighter fallback models under pressure. The runtime should either keep moving with a smaller local step or hand off quickly instead of sitting idle.
-
-`exhaustive` is the most detailed mode, but it still respects the same 70 percent ceiling.
-
-ROI profile guidance:
-
-- `fast` trims the team to planning, implementation, and final answer roles so cheap tasks stay cheap.
-- `balanced` keeps the core build-and-review path, but skips some lower-yield side roles.
-- `deep` keeps stronger critique for user-visible quality, while still avoiding exhaustive-cost behavior.
-- `exhaustive` is still the slow path for maximum local depth when ROI matters less than completeness.
-
-## Core Commands
-
-Inside `bash ./Local`:
-
-```text
-/help
-/models
-/model
-/modes
-/mode [name]
-/team
-/plan <task>
-/run <task>
-/pipeline <task>
-/progress
-/watch
-/live
-/tail
-/status
-/limits
-/autopilot
-/autopilot start [path]
-/autopilot status
-/autopilot stop
-/autopilot log
-/project
-/session
-/history
-/clear
-/context
-/checkpoint [label]
-/restore <checkpoint>
-/review
-/qa
-/uat
-/quality
-/verify
-/heal
-/repair
-/release
-/doctor
-/diff
-/files <pattern>
-/grep <pattern>
-/open <path>
-/tools
-/tool <name> [args...]
-/roles
-/skills
-/workflows
-/todo
-/todo-progress
-/todo-watch
-/ledger
-/compact
-/undo
-/copy
-/mention <path>
-/new
-/init
-/personality [style]
-/debug-config
-/mcp
-/session-compare <task>
-/exit
-```
-
-Plain text input is treated as `/pipeline <task>`.
-
-`/todo-progress` and `/todo-watch` read `state/todo.md` and show project/task completion bars directly from the checklist instead of the active model run. They also split work into `local`, `cloud`, `shared`, and `general` lanes so the terminal can track local-agent work separately from cloud-session takeover work.
-
-`/live` now shows a Codex-style working header with elapsed time plus the current local-vs-cloud execution split.
-
-`/session-compare <task>` runs the same local-only task through `local-codex` and `local-claude`, saves both outputs, and writes a compare report into `logs/session-compare-*/report.md` so you can capture feedback before calling the session UX done.
-
-## Agent Autopilot
-
-The repo now includes an explicit background self-upgrade loop for local agents:
-
-- `scripts/start_autopilot.sh`
-- `scripts/autopilot_status.sh`
-- `scripts/stop_autopilot.sh`
-- `scripts/run_auto_upgrade_loop.sh`
-- `workflows/workflow-agent-autopilot.md`
-
-This path is for long-running local-only improvement work:
-
-1. discover missing upgrade features
-2. add them to `state/todo.md`
-3. run the local comparison-and-upgrade loop
-4. wait for the active lock to clear
-5. keep repeating with auto-review at the end
-
-Start it from the shell:
+Works across:
+- Single repo
+- Monorepo
+- Multiple repos
+- Mixed stacks (Python, Node.js, Go, Rust)
+- Distributed project workspaces
 
 ```bash
-cd /Users/jimmymalhan/Doc/local-agent-runtime
-bash scripts/start_autopilot.sh /Users/jimmymalhan/Doc/local-agent-runtime
+# Deploy Nexus to any project (5 minutes)
+python3 local-agents/deploy.py all --to /path/to/your/project
+python3 /path/to/your/project/.local-agents/runner.py "Write a Redis cache wrapper"
 ```
 
-Or from inside `bash ./Local`:
+---
 
-```text
-/autopilot start
-/autopilot status
-/autopilot log
-/autopilot stop
-```
+## 10 Specialized Agents
 
-## Common Plan First
+| Agent | Handles | File |
+|---|---|---|
+| Nexus-Executor | code_gen, bug_fix | agents/executor.py |
+| Nexus-Planner | task decomposition | agents/planner.py |
+| Nexus-Reviewer | quality scoring | agents/reviewer.py |
+| Nexus-Debugger | error diagnosis | agents/debugger.py |
+| Nexus-Researcher | code + web search | agents/researcher.py |
+| Nexus-Benchmarker | gap analysis | agents/benchmarker.py |
+| Nexus-Architect | scaffold, arch, e2e | agents/architect.py |
+| Nexus-Refactor | code transformation | agents/refactor.py |
+| Nexus-TestEngineer | pytest generation | agents/test_engineer.py |
+| Nexus-DocKeeper | documentation | agents/doc_writer.py |
 
-Every runtime mode now starts with the same planning pattern:
+Plus Nexus-Frontend, Nexus-Backend, Nexus-AIML (see `.claude/roles/`).
 
-1. `Researcher` and `Retriever` gather repo context and prior artifacts.
-2. `Planner` writes the shared handoff into `state/common-plan.md`.
-3. `Architect`, `Implementer`, `Tester`, `Reviewer`, and the rest of the team execute against that common plan instead of re-deciding the task independently.
+---
 
-This is how the local team coordinates faster without drifting.
+## Key Files — Source of Truth
 
-## SGLang Integration
+| File | What it controls |
+|---|---|
+| `AGENTS.md` | Runtime operating rules, agent roster, folder contract |
+| `CLAUDE.md` | AI session rules |
+| `local-agents/agents/config.yaml` | Model, timeouts, quality threshold |
+| `local-agents/registry/agents.json` | Agent versions, capabilities, scores |
+| `local-agents/dashboard/state.json` | Live runtime state (source of truth for dashboard) |
+| `local-agents/providers/router.py` | Provider routing logic |
+| `nexus` | Public CLI entry point |
 
-The repo now includes a broader SGLang layer for scale-oriented local serving:
+---
 
-- `scripts/sglang_server.sh`
-- `scripts/sglang_gateway.sh`
-- `scripts/sglang_healthcheck.sh`
-- `scripts/sglang_chat.sh`
-- `scripts/sglang_embeddings.sh`
-- `scripts/normalize_retrieval_results.py`
-- `scripts/sglang_structured_output.sh`
-- `scripts/sglang_ranker.sh`
-- `scripts/sglang_scale_pipeline.sh`
+## Branch Protection
 
-These are intended to support a scaled pattern where:
+- `main` is protected. No direct pushes. PR-only merges.
+- PRs auto-merge when CI passes and no conflicts
+- Run `bash scripts/merge_gate.sh "$PWD"` before any merge
 
-1. retrieval happens locally or in Pinecone
-2. candidate payloads are normalized into one ranking shape
-3. reranking happens on a dedicated local SGLang path
-4. final answer generation stays narrow and high-signal
+---
 
-## What The New Validation Flow Does
+## Current Benchmark
 
-### `/heal`
+| Version | Nexus Score | Baseline | Win Rate | Claude Tokens |
+|---|---|---|---|---|
+| v5 | 100.0/100 | 0.0/100 | 100% | 10 total |
 
-Runs deterministic runtime repair:
+*Scores update automatically after each benchmark run. See `local-agents/reports/` for details.*
 
-- removes stale `state/run.lock`
-- resets stale session state
-- refreshes the model registry
-- refreshes the change-review artifact
-- normalizes mentioned-file context
+---
 
-Artifact:
+## Adding Skills / Prompt Packs
 
-- `logs/runtime-heal-report.md`
+Skills live in `.claude/skills/` (local, gitignored).
+To add a skill: create `nexus-<name>.md` in `.claude/skills/` following the frontmatter format.
+Roles live in `.claude/roles/`. Agent identity files (SOUL.md equivalents).
 
-### `/verify`
+---
 
-Runs the technical QA suite:
-
-- shell syntax validation
-- Python compile validation
-- resource-limit verification
-- interactive CLI smoke test
-- model-backed smoke test
-
-Artifacts:
-
-- `logs/qa-suite-report.md`
-- `logs/qa-session-smoke.log`
-- `logs/qa-model-smoke.md`
-
-### `/uat`
-
-Runs the non-technical acceptance suite:
-
-- first-run command check
-- key slash-command clarity check
-- progress and recovery explanation check
-- rubric-based output validation
-
-Artifacts:
-
-- `logs/uat-suite-report.md`
-- `logs/uat-prompt-1.md`
-- `logs/uat-prompt-2.md`
-- `logs/uat-prompt-3.md`
-
-### `/repair`
-
-Runs the self-repair analysis loop:
-
-- runtime heal
-- QA and UAT artifacts
-- current change review
-- local repair plan from the reviewer/debugger/optimizer path
-
-Artifact:
-
-- `logs/self-repair-report.md`
-
-### `/release`
-
-Runs the full gate:
-
-1. checkpoint
-2. runtime heal
-3. technical QA suite
-4. non-technical acceptance suite
-5. change review
-6. final QA + user-acceptance decision
-
-If QA or UAT fails, `/release` triggers the repair path and stops the release.
-
-Artifact:
-
-- `logs/release-gate-report.md`
-
-## Team Progress and Ownership
-
-Use `/team` to see:
-
-- overall task completion %
-- remaining task %
-- overall project/todo completion %
-- each role's weighted share
-- each role's current model
-- each role's remaining contribution
-
-This is the main answer to "which tool/model is doing what right now."
-
-## Checkpoints and Recovery
-
-Before risky flows, the runtime creates checkpoints under:
-
-```text
-<target-project>/.local-agent/checkpoints/
-```
-
-Manual commands:
-
-```bash
-bash scripts/create_checkpoint.sh <label> <target-repo>
-bash scripts/restore_checkpoint.sh <checkpoint> <target-repo>
-```
-
-Interactive equivalents:
-
-```text
-/checkpoint [label]
-/restore <checkpoint>
-/undo
-```
-
-## Reuse In Other Projects
-
-Point the runtime at another repository:
-
-```bash
-local-codex /path/to/project
-local-claude /path/to/project
-local-codex --mode exhaustive /path/to/project "plan the next refactor"
-```
-
-Or launch directly:
-
-```bash
-cd /path/to/project
-bash /Users/jimmymalhan/Doc/local-agent-runtime/Local
-```
-
-## Private Local Tool Registry
-
-The runtime scans local helper scripts and writes the inventory to:
-
-```text
-state/private-tool-registry.json
-```
-
-That file is ignored by git so your exact local tool setup does not need to be published.
-
-## Current Limits
-
-- The chat session you are reading right now is not the local runtime; this README only describes the terminal runtime inside `local-agent-runtime`.
-- The published `local-agent-runtime` copy is intended to be initialized as its own git repository.
-- The local model team is strong for local automation, but raw reasoning quality still depends on the four installed models and the machine budget available to Ollama.
-
-## Key Files
-
-- `Local`
-- `scripts/start_local_cli.sh`
-- `scripts/start_codex_compatible.sh`
-- `scripts/local_team_run.py`
-- `scripts/repair_runtime_state.py`
-- `scripts/qa_suite.sh`
-- `scripts/user_acceptance_suite.sh`
-- `scripts/self_repair.sh`
-- `scripts/release_gate.sh`
-- `scripts/review_current_changes.py`
-- `scripts/create_checkpoint.sh`
-- `scripts/sglang_server.sh`
-- `scripts/sglang_gateway.sh`
-- `scripts/sglang_healthcheck.sh`
-- `scripts/sglang_chat.sh`
-- `scripts/sglang_embeddings.sh`
-- `scripts/sglang_ranker.sh`
-- `scripts/sglang_scale_pipeline.sh`
-- `config/runtime.json`
-- `state/todo.md`
-- `workflows/workflow-idea-to-feature.md`
+*Last updated: 2026-03-25 — README is documentation truth. Dashboard is live runtime truth.*

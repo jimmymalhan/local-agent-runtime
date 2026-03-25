@@ -1,8 +1,0 @@
-model-path: qwen/qwen2.5-0.5b-instruct
-host: 0.0.0.0
-port: 30000
-tensor-parallel-size: 1
-enable-metrics: true
-log-requests: true
-mem-fraction-static: 0.8
-chunked-prefill-size: 4096

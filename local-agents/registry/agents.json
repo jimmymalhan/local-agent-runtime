@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "last_updated": "2026-03-25",
+  "agents": {
+    "executor": {
+      "file": "agents/executor.py",
+      "version": 5,
+      "capabilities": [
+        "code_gen",
+        "bug_fix",
+        "tdd"
+      ],
+      "model": "qwen2.5-coder:7b",
+      "benchmark_scores": {},
+      "win_rate": null,
+      "avg_quality": null,
+      "last_updated": "2026-03-25"
+    },
+    "planner": {
+      "file": "agents/planner.py",
+      "version": 1,
+      "capabilities": [
+        "planning",
+        "decomposition",
+        "strategy"
+      ],
+      "model": "qwen2.5-coder:7b",
+      "benchmark_scores": {},
+      "win_rate": null,
+      "avg_quality": null,
+      "last_updated": "2026-03-25"
+    },
+    "reviewer": {
+      "file": "agents/reviewer.py",
+      "version": 1,
+      "capabilities": [
+        "review",
+        "quality_check",
+        "scoring"
+      ],
+      "model": "qwen2.5-coder:7b",
+      "benchmark_scores": {},
+      "win_rate": null,
+      "avg_quality": null,
+      "last_updated": "2026-03-25"
+    },
+    "debugger": {
+      "file": "agents/debugger.py",
+      "version": 1,
+      "capabilities": [
+        "debug",
+        "error_diagnosis",
+        "fix_generation"
+      ],
+      "model": "qwen2.5-coder:7b",
+      "benchmark_scores": {},
+      "win_rate": null,
+      "avg_quality": null,
+      "last_updated": "2026-03-25"
+    },
+    "researcher": {
+      "file": "agents/researcher.py",
+      "version": 1,
+      "capabilities": [
+        "research",
+        "web_search",
+        "code_search"
+      ],
+      "model": "qwen2.5-coder:7b",
+      "benchmark_scores": {},
+      "win_rate": null,
+      "avg_quality": null,
+      "last_updated": "2026-03-25"
+    },
+    "benchmarker": {
+      "file": "agents/benchmarker.py",
+      "version": 1,
+      "capabilities": [
+        "scoring",
+        "gap_analysis",
+        "upgrade_trigger"
+      ],
+      "model": "qwen2.5-coder:7b",
+      "benchmark_scores": {},
+      "win_rate": null,
+      "avg_quality": null,
+      "last_updated": "2026-03-25"
+    },
+    "architect": {
+      "file": "agents/architect.py",
+      "version": 1,
+      "capabilities": [
+        "arch",
+        "scaffold",
+        "e2e",
+        "system_design"
+      ],
+      "model": "qwen2.5-coder:7b",
+      "benchmark_scores": {},
+      "win_rate": null,
+      "avg_quality": null,
+      "last_updated": "2026-03-25"
+    },
+    "refactor": {
+      "file": "agents/refactor.py",
+      "version": 1,
+      "capabilities": [
+        "refactor",
+        "code_transformation",
+        "cleanup"
+      ],
+      "model": "qwen2.5-coder:7b",
+      "benchmark_scores": {},
+      "win_rate": null,
+      "avg_quality": null,
+      "last_updated": "2026-03-25"
+    },
+    "test_engineer": {
+      "file": "agents/test_engineer.py",
+      "version": 1,
+      "capabilities": [
+        "test_gen",
+        "coverage",
+        "tdd"
+      ],
+      "model": "qwen2.5-coder:7b",
+      "benchmark_scores": {},
+      "win_rate": null,
+      "avg_quality": null,
+      "last_updated": "2026-03-25"
+    },
+    "doc_writer": {
+      "file": "agents/doc_writer.py",
+      "version": 1,
+      "capabilities": [
+        "documentation",
+        "readme",
+        "api_docs"
+      ],
+      "model": "qwen2.5-coder:7b",
+      "benchmark_scores": {},
+      "win_rate": null,
+      "avg_quality": null,
+      "last_updated": "2026-03-25"
+    }
+  }
+}

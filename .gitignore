@@ -28,3 +28,55 @@ node_modules/
 !state/workflow-state.json
 state/agent-coordination.lock
 state/openclaw-backups/
+
+# IDE and AI assistant files (not part of Jimmy agent runtime)
+.cursor/
+.claude/
+*.aider*
+.aider.chat.history.md
+.aider.input.history
+.aider.model.metadata.json
+.aider.tags.cache.v4/
+local-agents/__pycache__/
+local-agents/logs/
+local-agents/reports/
+local-agents/*.db
+local-agents/*.db-*
+local-agents/frontend/
+
+# Agent-generated working files — never in project root
+# (all agent outputs must go to ~/local-agents-work/ via BOS)
+local-agents/ultra/
+local-agents/v*.txt
+DASHBOARD.txt
+.autopilot.pid
+.dashboard.pid
+nohup.out
+.DS_Store
+
+# Root-level BOS output leakage guard — agent outputs go to ~/local-agents-work/
+# Any stray *.py in root is a violation. Track them here so git flags them.
+/atomic_counter.py
+/binary_search_rotated.py
+/bloom_filter.py
+/circular_buffer.py
+/csv_parser.py
+/dijkstra.py
+/evaluate.py
+/event_bus.py
+/fib.py
+/flatten_dict.py
+/json_schema_validator.py
+/lru_cache.py
+/merge_sort.py
+/rate_limiter.py
+/serialize_binary_tree.py
+/tokenizer.py
+/trie.py
+/url_parser.py
+/async_http_client.py
+/coroutine_pipeline.py
+/find_median_sorted_arrays.py
+/graph_cycle_detection.py
+/observable.py
+/priority_queue.py

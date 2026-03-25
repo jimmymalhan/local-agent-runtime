@@ -1,0 +1,214 @@
+{
+  "ts": "2026-03-25T14:00:27.950193",
+  "version": {
+    "current": 5,
+    "total": 100,
+    "pct_complete": 5.0,
+    "label": "v5 complete"
+  },
+  "agents": {
+    "executor": {
+      "status": "running",
+      "task": "Trapping rain water",
+      "task_id": 27,
+      "elapsed_s": 0.0,
+      "last_activity": "2026-03-25T14:00:27.949873"
+    },
+    "planner": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": "",
+      "sub_agents": [],
+      "worker_count": 0
+    },
+    "reviewer": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": "",
+      "sub_agents": [],
+      "worker_count": 0
+    },
+    "debugger": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": "",
+      "sub_agents": [],
+      "worker_count": 0
+    },
+    "researcher": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": "",
+      "sub_agents": [],
+      "worker_count": 0
+    },
+    "benchmarker": {
+      "status": "reviewing",
+      "task": "v5 gap analysis \u2014 local vs Opus 4.6",
+      "task_id": null,
+      "elapsed_s": 12.0,
+      "last_activity": "2026-03-25T13:50:10.000000",
+      "sub_agents": [
+        {
+          "id": 1,
+          "status": "done",
+          "task": "Score correctness category",
+          "model": "qwen2.5-coder:7b",
+          "elapsed_s": 8.3,
+          "quality": 100
+        },
+        {
+          "id": 2,
+          "status": "done",
+          "task": "Score safety category",
+          "model": "qwen2.5-coder:7b",
+          "elapsed_s": 7.9,
+          "quality": 100
+        }
+      ],
+      "worker_count": 0
+    },
+    "architect": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": "",
+      "sub_agents": [],
+      "worker_count": 0
+    },
+    "refactor": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": "",
+      "sub_agents": [],
+      "worker_count": 0
+    },
+    "test_engineer": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": "",
+      "sub_agents": [],
+      "worker_count": 0
+    },
+    "doc_writer": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": "",
+      "sub_agents": [],
+      "worker_count": 0
+    }
+  },
+  "task_queue": {
+    "total": 100,
+    "completed": 26,
+    "in_progress": 1,
+    "failed": 0,
+    "pending": 73
+  },
+  "benchmark_scores": {
+    "v1": {
+      "local": 100.0,
+      "opus": 0.0,
+      "gap": 0.0,
+      "win_rate": 100.0,
+      "ts": "2026-03-25T11:26:07.300350"
+    },
+    "v3": {
+      "local": 100.0,
+      "opus": 0.0,
+      "gap": 0.0,
+      "win_rate": 100.0,
+      "ts": "2026-03-25T12:07:27.930187"
+    },
+    "v5": {
+      "local": 100.0,
+      "opus": 0.0,
+      "gap": 0.0,
+      "win_rate": 100.0,
+      "ts": "2026-03-25T12:18:19.149704"
+    }
+  },
+  "token_usage": {
+    "claude_tokens": 1,
+    "local_tokens": 9,
+    "budget_pct": 10.0,
+    "warning": true,
+    "hard_limit_hit": true
+  },
+  "hardware": {
+    "cpu_pct": 34.3,
+    "ram_pct": 54.3,
+    "disk_pct": 0.0,
+    "gpu_pct": null,
+    "alert_level": "ok"
+  },
+  "failures": [
+    {
+      "ts": "2026-03-25T11:56:20.261924",
+      "agent": "executor",
+      "task": "Implement Trie with prefix search",
+      "task_id": 4,
+      "attempt": 1,
+      "tried": "blocked"
+    },
+    {
+      "ts": "2026-03-25T11:22:40.719336",
+      "agent": "executor",
+      "task": "Implement LRU Cache",
+      "task_id": 1,
+      "attempt": 1,
+      "tried": "failed"
+    }
+  ],
+  "research_feed": [],
+  "version_changelog": {
+    "v1": {
+      "changes": [
+        "win_rate=100.0%",
+        "rescued=33.3%",
+        "tasks=3"
+      ],
+      "before_score": 0.0,
+      "after_score": 100.0,
+      "delta": 100.0,
+      "ts": "2026-03-25T11:26:07.300775"
+    },
+    "v3": {
+      "changes": [
+        "win_rate=100.0%",
+        "rescued=0.0%",
+        "tasks=3"
+      ],
+      "before_score": 0.0,
+      "after_score": 100.0,
+      "delta": 100.0,
+      "ts": "2026-03-25T12:07:27.930800"
+    },
+    "v5": {
+      "changes": [
+        "win_rate=100.0%",
+        "rescued=0.0%",
+        "tasks=3"
+      ],
+      "before_score": 0.0,
+      "after_score": 100.0,
+      "delta": 100.0,
+      "ts": "2026-03-25T12:18:19.149970"
+    }
+  }
+}

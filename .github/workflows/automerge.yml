@@ -1,0 +1,48 @@
+name: Auto-Merge
+
+# Auto-merge PRs on this branch when CI passes and no conflicts.
+# Nexus mission: system never stops, system never waits for humans.
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
+  pull_request:
+    types: [labeled]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-merge:
+    name: Merge when CI green
+    runs-on: ubuntu-latest
+    if: |
+      github.event.workflow_run.conclusion == 'success' ||
+      github.event.label.name == 'auto-merge'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Find open PRs for this commit
+        id: pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          SHA="${{ github.event.workflow_run.head_sha || github.sha }}"
+          PR=$(gh pr list --state open --json number,headRefName,mergeable \
+               --jq ".[] | select(.mergeable == \"MERGEABLE\") | .number" | head -1)
+          echo "pr_number=${PR}" >> "$GITHUB_OUTPUT"
+
+      - name: Merge PR
+        if: steps.pr.outputs.pr_number != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR=${{ steps.pr.outputs.pr_number }}
+          echo "Auto-merging PR #${PR}"
+          gh pr merge "$PR" --squash --auto \
+            --subject "auto-merge: CI passed, no conflicts (#${PR})"
