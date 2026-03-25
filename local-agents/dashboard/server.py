@@ -353,6 +353,44 @@ async def get_hardware():
     return _live_hardware()
 
 
+@app.get("/api/todo")
+async def get_todo():
+    """
+    Return structured todo board from state.json (written by ceo_check.py).
+    Falls back to parsing state/todo.md if todo_board key is absent.
+    """
+    state = read_state()
+    if "todo_board" in state:
+        return state["todo_board"]
+    # Fallback: parse state/todo.md
+    todo_path = BASE_DIR.parent / "state" / "todo.md"
+    items = []
+    try:
+        text = todo_path.read_text() if todo_path.exists() else ""
+        in_ceo = False
+        for line in text.splitlines():
+            if line.startswith("## CEO Orchestrator"):
+                in_ceo = True; continue
+            if in_ceo and line.startswith("## "):
+                in_ceo = False
+            if in_ceo:
+                continue
+            ln = line.strip()
+            if ln.startswith("- [ ]") or ln.startswith("- [x]"):
+                done = ln.startswith("- [x]")
+                title = ln[5:].strip()
+                if title:
+                    items.append({"id": f"todo-{len(items)}", "priority": 4,
+                                  "category": "general", "title": title[:120],
+                                  "status": "done" if done else "todo",
+                                  "agent": "", "sub_agents": 0})
+    except Exception:
+        pass
+    counts = {s: sum(1 for i in items if i["status"] == s)
+              for s in ("blocked", "running", "todo", "done")}
+    return {"updated_at": datetime.now().isoformat(), "items": items, "counts": counts}
+
+
 @app.post("/api/chat")
 async def chat_endpoint(request: dict):
     """
