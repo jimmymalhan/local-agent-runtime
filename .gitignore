@@ -75,3 +75,8 @@ nohup.out
 /trie.py
 /url_parser.py
 /async_http_client.py
+/coroutine_pipeline.py
+/find_median_sorted_arrays.py
+/graph_cycle_detection.py
+/observable.py
+/priority_queue.py

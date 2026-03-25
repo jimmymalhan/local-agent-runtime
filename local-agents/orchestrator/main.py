@@ -77,6 +77,15 @@ except ImportError:
     def update_benchmark_score(*a, **kw): pass
     def update_version_changelog(*a, **kw): pass
 
+# Board init — pre-populate dashboard with ALL tasks before any agent moves
+try:
+    from dashboard.board_init import init_board as _init_board, update_task_status as _update_task_status
+    _BOARD_INIT = True
+except ImportError:
+    _BOARD_INIT = False
+    def _init_board(*a, **kw): pass
+    def _update_task_status(*a, **kw): pass
+
 # ── Claude guardrail config ────────────────────────────────────────────────
 CLAUDE_RESCUE_BUDGET  = 0.10   # max 10% of tasks rescued by Claude
 RESCUE_BLOCK_COUNT    = 3      # task must fail 3+ times before Claude rescue
@@ -526,6 +535,11 @@ def run_version(version: int, tasks: list, local_only: bool = False,
     print(f"[ORCHESTRATOR] v{version} — {total_tasks} tasks")
     print(f"{'='*60}")
 
+    # ── Board pre-population: write ALL tasks to dashboard BEFORE any agent moves ──
+    # Technical + non-technical stakeholders see the complete plan immediately.
+    if _BOARD_INIT:
+        _init_board(tasks, version=version)
+
     # Dashboard: version start
     update_version(version, 100, f"v{version} running")
     update_task_queue(total_tasks, 0, 0, 0, total_tasks)
@@ -546,10 +560,12 @@ def run_version(version: int, tasks: list, local_only: bool = False,
         task_id  = task.get("id", i)
         print(f"  [{i:3}/{total_tasks}] {category:10} | {title[:50]}")
 
-        # Mark agent as running in dashboard
+        # Mark agent as running in dashboard + board
         agent_name_hint = CATEGORY_AGENT_MAP.get(category, "executor")
         update_agent(agent_name_hint, "running", title[:60], task_id)
         update_task_queue(total_tasks, completed, 1, failed_count, total_tasks - completed - 1)
+        if _BOARD_INIT:
+            _update_task_status(task_id, "running", 0, 0.0, agent_name_hint)
 
         # Run local agent
         local_result = run_task_with_fallback(
@@ -574,6 +590,11 @@ def run_version(version: int, tasks: list, local_only: bool = False,
         status_after = "done" if local_result.get("status") == "done" else "blocked"
         update_agent(agent_name_hint, status_after, f"[{local_quality}/100] {title[:50]}", task_id)
         update_task_queue(total_tasks, completed, 0, failed_count, total_tasks - completed - failed_count)
+
+        # Update task on board — real-time stakeholder visibility
+        if _BOARD_INIT:
+            _update_task_status(task_id, status_after, local_quality,
+                                local_result.get("elapsed_s", 0.0), agent_name_hint)
 
         # Run Opus 4.6 baseline (skip if local_only)
         opus_quality = 0

@@ -109,6 +109,14 @@ def cmd_init(args):
     # Start dashboard
     _start_dashboard_bg()
 
+    # Pre-populate board with all 100 tasks — stakeholders see the full plan immediately
+    try:
+        from dashboard.board_init import init_board
+        n, p = init_board()
+        _print(f"Board initialized: {n} tasks across {p} work streams → http://localhost:3001")
+    except Exception as e:
+        _print(f"Board init: {e}")
+
     _print("Ready. Run `nexus run \"<task>\"` to start.")
 
 

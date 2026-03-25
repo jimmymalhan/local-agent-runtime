@@ -482,6 +482,34 @@ main{position:relative;z-index:1;padding-top:52px;}
 #chat-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(0,113,227,.1);}
 #chat-send:hover{background:#005ec3;}
 #chat-send:active{transform:scale(.96);}
+
+/* ── Company Summary Bar ────────────────────────────────────── */
+#company-bar{
+  background:var(--card);border-bottom:1px solid var(--bd);
+  padding:10px 40px;display:flex;align-items:center;gap:24px;
+  position:sticky;top:52px;z-index:90;
+  box-shadow:0 1px 8px rgba(0,0,0,.05);
+  flex-wrap:wrap;
+}
+.cb-left{flex:1;min-width:0;}
+.cb-headline{
+  font-size:13px;font-weight:600;color:var(--t1);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;
+}
+.cb-metrics{display:flex;gap:20px;align-items:center;}
+.cb-metric{display:flex;flex-direction:column;align-items:center;gap:1px;min-width:60px;}
+.cb-val{font-size:18px;font-weight:700;color:var(--t1);line-height:1;}
+.cb-lbl{font-size:8.5px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--t3);white-space:nowrap;}
+/* Token alarm */
+.cb-token-metric .cb-val{color:var(--green);}
+.cb-token-metric.warn .cb-val{color:var(--orange);}
+.cb-token-metric.alarm .cb-val{color:var(--red);animation:pulse-red 1s ease-in-out infinite;}
+@keyframes pulse-red{0%,100%{opacity:1;}50%{opacity:.5;}}
+/* Progress bar */
+.cb-progress{display:flex;align-items:center;gap:8px;}
+.cb-pbar{width:160px;height:5px;background:var(--t4);border-radius:3px;overflow:hidden;}
+.cb-pfill{height:100%;background:linear-gradient(90deg,var(--blue),var(--green));border-radius:3px;transition:width 1s ease;}
+.cb-ppct{font-size:11px;font-weight:700;color:var(--t2);width:32px;}
   </style>
 </head>
 <body>
@@ -510,6 +538,39 @@ main{position:relative;z-index:1;padding-top:52px;}
 </nav>
 
 <main>
+
+<!-- ═══ COMPANY SUMMARY BAR (always visible — all stakeholders) ══════════════ -->
+<div id="company-bar" role="banner" aria-label="Business summary">
+  <div class="cb-left">
+    <span class="cb-headline" id="cb-headline">Loading business summary…</span>
+  </div>
+  <div class="cb-metrics">
+    <div class="cb-metric">
+      <span class="cb-val" id="cb-done">—</span>
+      <span class="cb-lbl">Tasks done today</span>
+    </div>
+    <div class="cb-metric">
+      <span class="cb-val" id="cb-agents">—</span>
+      <span class="cb-lbl">Agents running</span>
+    </div>
+    <div class="cb-metric">
+      <span class="cb-val" id="cb-blockers">—</span>
+      <span class="cb-lbl">Blockers open</span>
+    </div>
+    <div class="cb-metric cb-token-metric" id="cb-token-wrap">
+      <span class="cb-val" id="cb-tokens">—</span>
+      <span class="cb-lbl">Claude budget used</span>
+    </div>
+    <div class="cb-metric">
+      <span class="cb-val" id="cb-health">—</span>
+      <span class="cb-lbl">System health</span>
+    </div>
+  </div>
+  <div class="cb-progress">
+    <div class="cb-pbar"><div class="cb-pfill" id="cb-pfill" style="width:0%"></div></div>
+    <span class="cb-ppct" id="cb-ppct">0%</span>
+  </div>
+</div>
 
 <!-- ═══ OVERVIEW ═════════════════════════════════════════════ -->
 <div id="tab-overview" class="tab-panel active" role="tabpanel">
@@ -1144,23 +1205,53 @@ function addFeed(type,msg,ts){
   $('feed-ct').textContent=(++_fc)+' events';
 }
 
-function updProjects(tasks){
-  const g=$('pg');if(!g.appendChild||g.children.length)return;
-  const projs=[
-    {name:'local-agent-runtime',path:'~/Documents/local-agent-runtime',pct:62,tasks:15,tags:['Python','Agents']},
-    {name:'orchestrator',path:'local-agents/orchestrator',pct:78,tasks:22,tags:['Python']},
-    {name:'dashboard',path:'local-agents/dashboard',pct:45,tasks:8,tags:['HTML','FastAPI']},
-    {name:'benchmarks',path:'local-agents/benchmarks',pct:30,tasks:5,tags:['Research']},
-    {name:'registry',path:'local-agents/registry',pct:90,tasks:3,tags:['JSON']},
-    {name:'deploy',path:'local-agents/deploy.py',pct:55,tasks:6,tags:['Deploy']},
-  ];
-  $('proj-ct').textContent=projs.length+' workspaces';
+let _projBuilt=false;
+function updProjects(tasksOrPlan){
+  const g=$('pg');if(!g)return;
+  // Accept either an array of tasks (legacy) or board_plan.projects (live data)
+  let projs=null;
+  if(tasksOrPlan&&Array.isArray(tasksOrPlan)&&tasksOrPlan.length&&tasksOrPlan[0].category){
+    // board_plan.projects format
+    projs=tasksOrPlan;
+  }
+  if(!projs){
+    // Fallback static view (first render before board_plan arrives)
+    if(_projBuilt)return;
+    projs=[
+      {id:'proj-code_gen',name:'Engineering',agent:'executor',total:25,done:0,in_progress:0,failed:0,pct:0,status:'pending',tasks:[]},
+      {id:'proj-bug_fix',name:'Bug Fixes',agent:'executor',total:10,done:0,in_progress:0,failed:0,pct:0,status:'pending',tasks:[]},
+      {id:'proj-tdd',name:'Test Driven Dev',agent:'test_engineer',total:10,done:0,in_progress:0,failed:0,pct:0,status:'pending',tasks:[]},
+      {id:'proj-arch',name:'Architecture',agent:'architect',total:10,done:0,in_progress:0,failed:0,pct:0,status:'pending',tasks:[]},
+      {id:'proj-refactor',name:'Refactoring',agent:'refactor',total:10,done:0,in_progress:0,failed:0,pct:0,status:'pending',tasks:[]},
+      {id:'proj-research',name:'Research',agent:'researcher',total:10,done:0,in_progress:0,failed:0,pct:0,status:'pending',tasks:[]},
+      {id:'proj-doc',name:'Documentation',agent:'doc_writer',total:10,done:0,in_progress:0,failed:0,pct:0,status:'pending',tasks:[]},
+    ];
+  }
+  // Re-render project cards (always live — remove stale cards)
+  g.innerHTML='';_projBuilt=true;
+  $('proj-ct').textContent=projs.length+' work streams · '+projs.filter(p=>p.status==='running').length+' active';
+  const stColors={running:'var(--blue)',done:'var(--green)',blocked:'var(--red)',pending:'var(--t4)'};
   for(const p of projs){
+    const pct=p.pct||Math.round((p.done||0)/Math.max(p.total||1,1)*100);
+    const stCol=stColors[p.status]||'var(--t4)';
     const c=document.createElement('div');c.className='pc';c.tabIndex=0;
-    c.setAttribute('data-testid','project-'+p.name);
-    c.innerHTML=`<div class="pc-name">${p.name}</div><div class="pc-path">${p.path}</div>
-<div class="pc-bar"><div class="pc-pct">${p.pct}%</div><div class="pc-g"><div class="pc-gf" style="width:${p.pct}%"></div></div></div>
-<div class="pc-meta"><span>${p.tasks} tasks</span>${p.tags.map(t=>`<span class="pc-tag">${t}</span>`).join('')}</div>`;
+    c.setAttribute('data-testid','project-'+p.id);
+    c.innerHTML=`
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
+  <div style="width:7px;height:7px;border-radius:50%;background:${stCol};flex-shrink:0;"></div>
+  <div class="pc-name">${esc(p.name)}</div>
+</div>
+<div class="pc-path">${esc(p.agent||'')} agent · ${p.total||0} tasks</div>
+<div class="pc-bar">
+  <div class="pc-pct">${pct}%</div>
+  <div class="pc-g"><div class="pc-gf" style="width:${pct}%;background:${stCol};"></div></div>
+</div>
+<div class="pc-meta">
+  <span style="color:var(--green);">${p.done||0} done</span>
+  ${p.in_progress>0?`<span style="color:var(--blue);">${p.in_progress} running</span>`:''}
+  ${p.failed>0?`<span style="color:var(--red);">${p.failed} blocked</span>`:''}
+  <span class="pc-tag">${esc(p.status||'pending')}</span>
+</div>`;
     c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();c.click();}});
     g.appendChild(c);
   }
@@ -1284,8 +1375,44 @@ function applyState(st){
   $('g-bgt').style.width=Math.min(bp,100).toFixed(1)+'%';
   $('h-bgt').textContent=bp.toFixed(1)+'%';
   $('ceo-bgt').textContent=bp.toFixed(1)+'%';
-  if(bp>=10)$('s-bgt').style.color='var(--red)';
+  if(bp>=10){$('s-bgt').style.color='var(--red)';$('s-bgt').title='HARD CAP HIT — Claude rescue disabled';}
   else if(bp>=8)$('s-bgt').style.color='var(--orange)';
+
+  // ── Company bar update (all stakeholders) ────────────────────────────────
+  const bsm=st.business_summary||{};
+  const cbHeadline=$('cb-headline');
+  if(cbHeadline){
+    const d2=q.completed||bsm.pct_complete!=null?q.completed:0;
+    const t2=q.total||100;
+    const pct2=Math.round(d2/Math.max(t2,1)*100);
+    cbHeadline.textContent=bsm.headline||(d2+' of '+t2+' engineering tasks complete');
+    const pfill=$('cb-pfill');if(pfill)pfill.style.width=pct2+'%';
+    const ppct=$('cb-ppct');if(ppct)ppct.textContent=pct2+'%';
+    const cbDone=$('cb-done');if(cbDone)cbDone.textContent=d2;
+    // Count active agents
+    let activeAg=0;
+    if(st.agents)for(const inf of Object.values(st.agents))
+      if(['running','reviewing','upgrading'].includes(inf.status))activeAg++;
+    const cbAg=$('cb-agents');if(cbAg)cbAg.textContent=activeAg;
+    // Blockers
+    const blk=(st.failure_log||st.failures||[]).length;
+    const cbBlk=$('cb-blockers');
+    if(cbBlk){cbBlk.textContent=blk;cbBlk.style.color=blk>0?'var(--orange)':'var(--green)';}
+    // Token alarm
+    const cbTok=$('cb-tokens');const cbTokW=$('cb-token-wrap');
+    if(cbTok)cbTok.textContent=bp.toFixed(1)+'%';
+    if(cbTokW){
+      cbTokW.className='cb-metric cb-token-metric'+(bp>=10?' alarm':bp>=8?' warn':'');
+    }
+    // System health 0-100
+    const cpuPenalty=Math.max(0,hw.cpu_pct-70)/3;
+    const ramPenalty=Math.max(0,hw.ram_pct-70)/2;
+    const budPenalty=Math.min(bp*2,20);
+    const blkPenalty=Math.min(blk*5,20);
+    const health=Math.max(0,Math.round(100-cpuPenalty-ramPenalty-budPenalty-blkPenalty));
+    const cbH=$('cb-health');
+    if(cbH){cbH.textContent=health+'/100';cbH.style.color=health>=80?'var(--green)':health>=60?'var(--orange)':'var(--red)';}
+  }
 
   // ── Version ───────────────────────────────────────────────────────────────
   const v=typeof st.version==='number'?st.version:(st.version&&st.version.current)||1;
@@ -1308,7 +1435,12 @@ function applyState(st){
   // ── Task board + projects ─────────────────────────────────────────────────
   if(st.recent_tasks&&st.recent_tasks.length){
     updBoard(st.recent_tasks);
-    updProjects(st.recent_tasks);
+  }
+  // Use board_plan.projects for real project cards (pre-populated by board_init.py)
+  if(st.board_plan&&st.board_plan.projects&&st.board_plan.projects.length){
+    updProjects(st.board_plan.projects);
+  }else if(st.recent_tasks&&st.recent_tasks.length){
+    updProjects(null); // fallback static view
   }
 
   // ── Version changelog → CEO log ───────────────────────────────────────────
