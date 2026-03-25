@@ -270,6 +270,12 @@ def is_failed(text: str) -> str:
 # ── Directive executors ─────────────────────────────────────────────────────
 
 def exec_write_file(path: str, content: str) -> str:
+    # Ensure all writes stay inside BOS — never leak to project root or /
+    abs_path = os.path.abspath(path)
+    if not abs_path.startswith(BOS):
+        # Relative path or wrong prefix → redirect to BOS/basename
+        filename = os.path.basename(abs_path) or "solution.py"
+        path = os.path.join(BOS, filename)
     try:
         Path(path).parent.mkdir(parents=True, exist_ok=True)
         with open(path, 'w') as f:

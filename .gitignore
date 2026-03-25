@@ -44,11 +44,11 @@ local-agents/*.db
 local-agents/*.db-*
 local-agents/frontend/
 
-# Agent-generated working files (temp outputs at root)
-lru_cache.py
-balanced_parens.py
-serialize_tree.py
+# Agent-generated working files — never in project root
+# (all agent outputs must go to ~/local-agents-work/ via BOS)
 local-agents/ultra/
-local-agents/v13_improvement_log.txt
+local-agents/v*.txt
 DASHBOARD.txt
 .autopilot.pid
+.dashboard.pid
+nohup.out
