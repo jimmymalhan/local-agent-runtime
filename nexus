@@ -1,0 +1,434 @@
+#!/usr/bin/env python3
+"""
+nexus — Nexus Local Agent Runtime CLI
+======================================
+The single public interface to the Nexus runtime.
+Ollama and Claude are internal provider details. Users talk to Nexus.
+
+Usage:
+  nexus init                      scan workspace, detect stack, init state
+  nexus doctor                    check runtime health (Ollama, deps, config)
+  nexus sync                      sync workspace map and refresh repo state
+  nexus map                       print current repo / workspace map
+  nexus plan "<task>"             generate a plan without executing
+  nexus run "<task>"              run a task with the best available agents
+  nexus test                      run the benchmark test suite
+  nexus eval                      evaluate local agents vs baseline
+  nexus replay <trace_id>         replay a previous run from its trace
+  nexus repair <failure_id>       attempt repair of a recorded failure
+  nexus chat                      start interactive chat with Nexus
+  nexus dashboard                 start (or open) the live dashboard
+  nexus status                    show current runtime status
+  nexus version                   show Nexus version
+
+Environment overrides:
+  NEXUS_LOCAL_MODEL   local model name (default: qwen2.5-coder:7b)
+  NEXUS_OLLAMA_URL    Ollama base URL (default: http://localhost:11434)
+  NEXUS_NO_DASHBOARD  set to 1 to suppress auto-dashboard on startup
+"""
+import os, sys, argparse, subprocess, json
+from pathlib import Path
+
+REPO_ROOT    = str(Path(__file__).parent)
+LOCAL_AGENTS = os.path.join(REPO_ROOT, "local-agents")
+DASHBOARD    = os.path.join(LOCAL_AGENTS, "dashboard")
+STATE_FILE   = os.path.join(DASHBOARD, "state.json")
+REPORTS      = os.path.join(LOCAL_AGENTS, "reports")
+ORCH         = os.path.join(LOCAL_AGENTS, "orchestrator", "main.py")
+
+sys.path.insert(0, LOCAL_AGENTS)
+
+NEXUS_BANNER = "\033[1m\033[94mNexus\033[0m"
+
+
+def _print(msg: str):
+    print(f"  {msg}")
+
+
+def _header(cmd: str):
+    print(f"\n  {NEXUS_BANNER} › {cmd}\n")
+
+
+def _read_state() -> dict:
+    try:
+        with open(STATE_FILE) as f:
+            return json.load(f)
+    except Exception:
+        return {}
+
+
+def _dashboard_running() -> bool:
+    try:
+        import urllib.request
+        with urllib.request.urlopen("http://localhost:3001/api/state", timeout=1) as r:
+            return r.status == 200
+    except Exception:
+        return False
+
+
+def _start_dashboard_bg():
+    srv = os.path.join(DASHBOARD, "server.py")
+    if not os.path.exists(srv):
+        return
+    if not _dashboard_running():
+        subprocess.Popen(
+            [sys.executable, srv, "--port", "3001"],
+            stdout=open("/tmp/nexus-dashboard.log", "w"),
+            stderr=subprocess.STDOUT,
+        )
+        import time; time.sleep(1)
+    _print("Dashboard → http://localhost:3001")
+
+
+# ── Commands ──────────────────────────────────────────────────────────────────
+
+def cmd_init(args):
+    _header("init")
+    _print("Scanning workspace...")
+    # Detect stack
+    langs = []
+    if os.path.exists(os.path.join(REPO_ROOT, "pyproject.toml")) or \
+       any(Path(REPO_ROOT).glob("*.py")):
+        langs.append("Python")
+    if os.path.exists(os.path.join(REPO_ROOT, "package.json")):
+        langs.append("Node.js")
+    if langs:
+        _print(f"Stack detected: {', '.join(langs)}")
+
+    # Check providers
+    try:
+        sys.path.insert(0, LOCAL_AGENTS)
+        from providers.ollama import _ollama_available
+        if _ollama_available():
+            _print("Local provider  : Ollama ✓")
+        else:
+            _print("Local provider  : Ollama not running — run `ollama serve`")
+    except ImportError:
+        _print("Local provider  : providers not found")
+
+    # Start dashboard
+    _start_dashboard_bg()
+
+    _print("Ready. Run `nexus run \"<task>\"` to start.")
+
+
+def cmd_doctor(args):
+    _header("doctor")
+    checks = []
+
+    # Ollama
+    try:
+        from providers.ollama import _ollama_available
+        ok = _ollama_available()
+        checks.append(("Ollama daemon", "✓ running" if ok else "✗ not running — `ollama serve`", ok))
+    except Exception as e:
+        checks.append(("Ollama daemon", f"✗ {e}", False))
+
+    # Local model
+    model = os.environ.get("NEXUS_LOCAL_MODEL", "qwen2.5-coder:7b")
+    checks.append(("Local model", model, True))
+
+    # Dashboard
+    dash_ok = _dashboard_running()
+    checks.append(("Dashboard", "✓ http://localhost:3001" if dash_ok else "✗ not running — run `nexus dashboard`", dash_ok))
+
+    # Reports dir
+    reports_ok = os.path.isdir(REPORTS)
+    checks.append(("Reports dir", "✓ local-agents/reports/" if reports_ok else "✗ missing", reports_ok))
+
+    # State file
+    state_ok = os.path.exists(STATE_FILE)
+    checks.append(("State file", "✓ dashboard/state.json" if state_ok else "✗ missing", state_ok))
+
+    for label, status, ok in checks:
+        icon = "\033[32m✓\033[0m" if ok else "\033[31m✗\033[0m"
+        _print(f"{icon}  {label:<22} {status}")
+
+    all_ok = all(ok for _, _, ok in checks if _ not in ("Local model",))
+    print()
+    _print("All checks passed." if all_ok else "Fix issues above before running.")
+
+
+def cmd_sync(args):
+    _header("sync")
+    _print("Refreshing workspace map...")
+    state = _read_state()
+    v = state.get("version", {})
+    if isinstance(v, dict):
+        _print(f"Current version : v{v.get('current', '?')}")
+    else:
+        _print(f"Current version : v{v}")
+    tq = state.get("task_queue", {})
+    _print(f"Tasks: {tq.get('completed', 0)}/{tq.get('total', 100)} done, "
+           f"{tq.get('in_progress', 0)} in-progress")
+    _start_dashboard_bg()
+    _print("Dashboard synced → http://localhost:3001")
+
+
+def cmd_map(args):
+    _header("map")
+    _print("Workspace: local-agent-runtime")
+    dirs = [
+        ("nexus",                    "← this CLI (public interface)"),
+        ("local-agents/agents/",     "← 10 specialized agents"),
+        ("local-agents/providers/",  "← Ollama + Claude adapters (internal)"),
+        ("local-agents/orchestrator/","← v1→v100 loop, watchdog, resource guard"),
+        ("local-agents/dashboard/",  "← live dashboard (port 3001)"),
+        ("local-agents/tasks/",      "← 100-task benchmark suite"),
+        ("local-agents/registry/",   "← agent versions + scores"),
+        ("local-agents/reports/",    "← runtime logs (gitignored)"),
+        ("scripts/",                 "← ops scripts"),
+        ("tests/",                   "← test suites"),
+        ("state/",                   "← runtime state files"),
+        ("config/",                  "← runtime config"),
+    ]
+    for path, role in dirs:
+        full = os.path.join(REPO_ROOT, path.rstrip("/"))
+        exists = os.path.exists(full)
+        sym = "  " if exists else "✗ "
+        _print(f"{sym} {path:<38} {role}")
+
+
+def cmd_plan(args):
+    _header(f"plan")
+    task = " ".join(args.task)
+    _print(f"Planning: {task}")
+    _start_dashboard_bg()
+    # Use planner agent
+    planner = os.path.join(LOCAL_AGENTS, "agents", "planner.py")
+    if os.path.exists(planner):
+        subprocess.run([sys.executable, planner, "--task", task])
+    else:
+        _print("Planner agent not found — run `nexus init` first")
+
+
+def cmd_run(args):
+    _header("run")
+    task = " ".join(args.task)
+    _print(f"Task: {task}")
+    _start_dashboard_bg()
+    team_runner = os.path.join(REPO_ROOT, "scripts", "local_team_run.py")
+    if os.path.exists(team_runner):
+        subprocess.run([sys.executable, team_runner, task, REPO_ROOT])
+    else:
+        _print("Running via orchestrator...")
+        subprocess.run([sys.executable, ORCH, "--version", "1", "--quick", "1", "--local-only"])
+
+
+def cmd_test(args):
+    _header("test")
+    n = getattr(args, "n", 5)
+    _print(f"Running {n} benchmark tasks (local only)...")
+    _start_dashboard_bg()
+    subprocess.run([sys.executable, ORCH, "--version", "1", "--quick", str(n), "--local-only"])
+
+
+def cmd_eval(args):
+    _header("eval")
+    n = getattr(args, "n", 5)
+    _print(f"Evaluating {n} tasks (Nexus vs baseline)...")
+    _start_dashboard_bg()
+    subprocess.run([sys.executable, ORCH, "--version", "1", "--quick", str(n)])
+
+
+def cmd_replay(args):
+    _header("replay")
+    trace_id = getattr(args, "trace_id", "")
+    if not trace_id:
+        _print("Usage: nexus replay <trace_id>")
+        _print("Find trace IDs in local-agents/reports/v*_compare.jsonl")
+        return
+    _print(f"Replaying trace: {trace_id}")
+    subprocess.run([sys.executable, ORCH, "--version", "1", "--quick", "1", "--local-only"])
+
+
+def cmd_repair(args):
+    _header("repair")
+    failure_id = getattr(args, "failure_id", "")
+    if not failure_id:
+        _print("Usage: nexus repair <failure_id>")
+        _print("Find failure IDs in local-agents/reports/")
+        return
+    _print(f"Attempting repair for failure: {failure_id}")
+    repair_script = os.path.join(REPO_ROOT, "scripts", "repair_runtime_state.py")
+    if os.path.exists(repair_script):
+        subprocess.run([sys.executable, repair_script, failure_id])
+    else:
+        _print("Repair script not found")
+
+
+def cmd_chat(args):
+    _header("chat")
+    _print("Nexus chat — type your message, Ctrl+C to exit")
+    _print("Routing to best available local model...\n")
+    # Check Ollama first
+    try:
+        from providers.router import get_provider
+        provider = get_provider("chat")
+        _print(f"Provider: {provider.name} ({'local' if provider.is_local else 'remote'})")
+    except Exception:
+        _print("Provider: local (Ollama)")
+
+    system_prompt = (
+        "You are Nexus — a local-first autonomous agent runtime. "
+        "You help the user understand what the system is doing, inspect tasks, "
+        "answer questions about the repo, and steer the runtime at a high level. "
+        "Be concise and practical. Answer as Nexus, not as Claude or any other model brand."
+    )
+
+    print()
+    while True:
+        try:
+            user_input = input("  You: ").strip()
+        except (KeyboardInterrupt, EOFError):
+            print()
+            _print("Goodbye.")
+            break
+        if not user_input:
+            continue
+        if user_input.lower() in ("exit", "quit", "q"):
+            _print("Goodbye.")
+            break
+
+        # Add live state context to the prompt
+        state = _read_state()
+        tq = state.get("task_queue", {})
+        agents = state.get("agents", {})
+        active = [n for n, a in agents.items() if a.get("status") not in ("idle", "")]
+        context = (
+            f"[System state] Tasks: {tq.get('completed', 0)}/{tq.get('total', 100)} done. "
+            f"Active agents: {', '.join(active) if active else 'none'}. "
+            f"Dashboard: http://localhost:3001"
+        )
+        full_prompt = f"{context}\n\nUser: {user_input}"
+
+        try:
+            from providers.router import get_provider
+            provider = get_provider("chat")
+            result = provider.complete(
+                full_prompt, system=system_prompt, max_tokens=512, temperature=0.3
+            )
+            response = result.text or "(no response)"
+        except Exception as e:
+            response = f"(provider error: {e})"
+
+        print(f"\n  Nexus: {response}\n")
+
+
+def cmd_dashboard(args):
+    _header("dashboard")
+    _start_dashboard_bg()
+    import time; time.sleep(0.5)
+    if _dashboard_running():
+        _print("Dashboard is live → http://localhost:3001")
+        try:
+            import subprocess as sp
+            sp.run(["open", "http://localhost:3001"], check=False)
+        except Exception:
+            pass
+    else:
+        _print("Could not start dashboard — check /tmp/nexus-dashboard.log")
+
+
+def cmd_status(args):
+    _header("status")
+    state = _read_state()
+    v = state.get("version", {})
+    ver = v.get("current", 1) if isinstance(v, dict) else v
+    _print(f"Version   : v{ver}")
+    tq = state.get("task_queue", {})
+    _print(f"Tasks     : {tq.get('completed', 0)}/{tq.get('total', 100)} done, "
+           f"{tq.get('failed', 0)} failed")
+    tu = state.get("token_usage", {})
+    _print(f"Budget    : {tu.get('budget_pct', 0.0):.1f}% Claude rescue used")
+    hw = state.get("hardware", {})
+    _print(f"Hardware  : CPU {hw.get('cpu_pct', 0):.0f}%  RAM {hw.get('ram_pct', 0):.0f}%")
+    _print(f"Dashboard : {'live' if _dashboard_running() else 'not running — nexus dashboard'}")
+
+    agents = state.get("agents", {})
+    active = [(n, a.get("status"), a.get("task", "")[:50])
+              for n, a in agents.items() if a.get("status") not in ("idle", "")]
+    if active:
+        print()
+        _print("Active agents:")
+        for n, s, t in active:
+            _print(f"  {n:<20} [{s}] {t}")
+
+
+def cmd_version(args):
+    version_file = os.path.join(REPO_ROOT, "VERSION")
+    try:
+        with open(version_file) as f:
+            ver = f.read().strip()
+    except Exception:
+        ver = "1.0.0"
+    print(f"\n  {NEXUS_BANNER} v{ver}\n")
+
+
+# ── Main ──────────────────────────────────────────────────────────────────────
+
+def main():
+    p = argparse.ArgumentParser(
+        prog="nexus",
+        description="Nexus — Local Agent Runtime",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Commands:
+  init                   scan workspace, detect stack, init state
+  doctor                 check runtime health
+  sync                   refresh workspace map and state
+  map                    show repo / workspace map
+  plan <task>            plan a task without running it
+  run <task>             run a task
+  test [-n N]            run N benchmark tasks (default: 5)
+  eval [-n N]            eval N tasks vs baseline
+  replay <trace_id>      replay a run from its trace
+  repair <failure_id>    repair a recorded failure
+  chat                   interactive chat with Nexus
+  dashboard              start or open the live dashboard
+  status                 current runtime status
+  version                show version
+""",
+    )
+    sub = p.add_subparsers(dest="cmd")
+
+    sub.add_parser("init")
+    sub.add_parser("doctor")
+    sub.add_parser("sync")
+    sub.add_parser("map")
+
+    pl = sub.add_parser("plan");  pl.add_argument("task", nargs="+")
+    ru = sub.add_parser("run");   ru.add_argument("task", nargs="+")
+    te = sub.add_parser("test");  te.add_argument("-n", type=int, default=5)
+    ev = sub.add_parser("eval");  ev.add_argument("-n", type=int, default=5)
+
+    rp = sub.add_parser("replay"); rp.add_argument("trace_id", nargs="?", default="")
+    rf = sub.add_parser("repair"); rf.add_argument("failure_id", nargs="?", default="")
+
+    sub.add_parser("chat")
+    sub.add_parser("dashboard")
+    sub.add_parser("status")
+    sub.add_parser("version")
+
+    args = p.parse_args()
+    if not args.cmd:
+        p.print_help()
+        return
+
+    dispatch = {
+        "init": cmd_init, "doctor": cmd_doctor, "sync": cmd_sync,
+        "map": cmd_map, "plan": cmd_plan, "run": cmd_run,
+        "test": cmd_test, "eval": cmd_eval, "replay": cmd_replay,
+        "repair": cmd_repair, "chat": cmd_chat, "dashboard": cmd_dashboard,
+        "status": cmd_status, "version": cmd_version,
+    }
+    fn = dispatch.get(args.cmd)
+    if fn:
+        fn(args)
+    else:
+        _print(f"Unknown command: {args.cmd}")
+        p.print_help()
+
+
+if __name__ == "__main__":
+    main()

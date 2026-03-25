@@ -94,13 +94,14 @@ def run_parallel(
     agent_fn: Callable[[dict], dict],
     max_workers: Optional[int] = None,
     timeout_per: int = 120,
+    agent_name: str = "",
 ) -> List[dict]:
     """
     Run up to 1000s of sub-tasks in parallel using a thread pool.
 
     For N > max_workers: tasks are batched through the pool via work-stealing.
     All results collected in original order. Timeouts -> quality=0, no crash.
-    Progress written to DistributedState (non-blocking).
+    Progress written to dashboard state.json and DistributedState (non-blocking).
     """
     if not sub_tasks:
         return []
@@ -110,7 +111,24 @@ def run_parallel(
     done_count = 0
     count_lock = threading.Lock()
 
+    # Per-worker live state (id → {status, task, elapsed_s, quality})
+    worker_state: Dict[int, dict] = {}
+    ws_lock = threading.Lock()
+
     _state_set = _get_state_setter()
+
+    # Dashboard sub-agent writer — non-blocking, fails silently
+    def _dash_write():
+        if not agent_name:
+            return
+        try:
+            from dashboard.state_writer import update_sub_agents
+            with ws_lock:
+                workers_list = [dict(v, id=k) for k, v in sorted(worker_state.items())]
+            update_sub_agents(agent_name, workers_list)
+        except Exception:
+            pass
+
     if _state_set:
         try:
             _state_set("pool.running", True)
@@ -121,14 +139,31 @@ def run_parallel(
 
     def _run_one(idx: int, task: dict) -> Tuple[int, dict]:
         start = time.time()
+        title = str(task.get("title", task.get("description", "task")))[:45]
+        with ws_lock:
+            worker_state[idx] = {"status": "running", "task": title, "elapsed_s": 0.0, "quality": 0}
+        _dash_write()
         try:
             result = agent_fn(task)
-            result.setdefault("elapsed_s", round(time.time() - start, 1))
+            elapsed = round(time.time() - start, 1)
+            result.setdefault("elapsed_s", elapsed)
             result.setdefault("quality", 0)
+            with ws_lock:
+                worker_state[idx] = {
+                    "status": "done",
+                    "task": title,
+                    "elapsed_s": elapsed,
+                    "quality": result.get("quality", 0),
+                }
+            _dash_write()
             return idx, result
         except Exception as e:
+            elapsed = round(time.time() - start, 1)
+            with ws_lock:
+                worker_state[idx] = {"status": "failed", "task": title, "elapsed_s": elapsed, "quality": 0}
+            _dash_write()
             return idx, {"status": "failed", "output": str(e), "quality": 0,
-                         "tokens_used": 0, "elapsed_s": round(time.time() - start, 1)}
+                         "tokens_used": 0, "elapsed_s": elapsed}
 
     deadline = timeout_per * (min(len(sub_tasks), workers) + 1) + 60
     with ThreadPoolExecutor(max_workers=workers) as executor:
@@ -140,6 +175,8 @@ def run_parallel(
             except Exception as e:
                 orig_idx = futures[future]
                 results[orig_idx] = {"status": "timeout", "quality": 0, "error": str(e)}
+                with ws_lock:
+                    worker_state[orig_idx] = {"status": "failed", "task": "timeout", "elapsed_s": float(timeout_per), "quality": 0}
             with count_lock:
                 done_count += 1
                 if _state_set:
@@ -154,6 +191,8 @@ def run_parallel(
         except Exception:
             pass
 
+    # Final state write — all workers done
+    _dash_write()
     return [r if r is not None else {"status": "missing", "quality": 0} for r in results]
 
 
@@ -172,11 +211,13 @@ class SubAgentPool:
         agent_fn: Callable[[dict], dict],
         n: int = 5,
         timeout_per: int = 120,
+        agent_name: str = "",
     ) -> dict:
         """
         Run task N times in parallel with varied temperatures.
         Return result with highest quality score.
         N can be 1000+ — batched through hardware-limited workers automatically.
+        agent_name: if set, writes live worker state to dashboard.
         """
         sub_tasks = []
         for i in range(n):
@@ -185,7 +226,7 @@ class SubAgentPool:
             t["_temperature"] = round(0.05 + (i % 10) * 0.08, 2)
             sub_tasks.append(t)
 
-        results = run_parallel(sub_tasks, agent_fn, timeout_per=timeout_per)
+        results = run_parallel(sub_tasks, agent_fn, timeout_per=timeout_per, agent_name=agent_name)
         valid = [r for r in results if r.get("quality", 0) > 0]
         if not valid:
             return results[0] if results else {"status": "failed", "quality": 0, "output": ""}

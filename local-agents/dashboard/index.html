@@ -208,10 +208,35 @@ main{position:relative;z-index:1;padding-top:52px;}
 @keyframes sb{0%,100%{opacity:1;}50%{opacity:.2;}}
 .ac-q{font-size:11px;font-weight:700;color:var(--t1);}
 
-/* ── Sub-Agents Panel ───────────────────────────────────────── */
+/* ── Sub-Agents Panel (inline card expand) ──────────────────── */
 .sub-agents-section{margin-top:10px;padding-top:10px;border-top:1px solid var(--bd);}
-.sa-title{font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--t3);margin-bottom:6px;}
-.sa-list{display:flex;flex-wrap:wrap;gap:4px;}
+.sa-header{display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;}
+.sa-title{font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--t3);}
+.sa-badge{
+  font-size:9px;font-weight:700;padding:1px 6px;border-radius:10px;
+  background:rgba(0,113,227,.1);color:var(--blue);
+  transition:opacity .2s;
+}
+.sa-badge.idle{background:rgba(0,0,0,.05);color:var(--t3);}
+.sa-chevron{font-size:9px;color:var(--t3);transition:transform .2s;margin-left:4px;}
+.ac.expanded .sa-chevron{transform:rotate(180deg);}
+/* Collapsed: show mini dots only */
+.sa-list{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;}
+/* Expanded: full worker grid */
+.sa-expanded{display:none;margin-top:8px;}
+.ac.expanded .sa-expanded{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px;}
+.sa-worker{
+  background:rgba(0,0,0,.03);border:1px solid var(--bd);border-radius:7px;
+  padding:8px 10px;display:flex;gap:6px;align-items:flex-start;
+}
+.sa-w-dot{width:5px;height:5px;border-radius:50%;margin-top:3px;flex-shrink:0;}
+.sa-w-dot.running{background:var(--blue);animation:sb .75s infinite;}
+.sa-w-dot.done{background:var(--green);}
+.sa-w-dot.failed{background:var(--red);}
+.sa-w-dot.idle{background:var(--t4);}
+.sa-w-id{font-size:9px;font-weight:700;color:var(--t2);margin-bottom:1px;}
+.sa-w-task{font-size:9px;color:var(--t3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px;}
+.sa-w-q{font-size:8px;color:var(--t3);}
 .sa-item{
   display:flex;align-items:center;gap:3px;
   font-size:9px;padding:2px 6px;border-radius:6px;
@@ -430,6 +455,33 @@ main{position:relative;z-index:1;padding-top:52px;}
 /* ── 3D Reveal on scroll ────────────────────────────────────── */
 .reveal{opacity:0;transform:translateY(32px) scale(.98);transition:opacity .7s ease,transform .7s ease;}
 .reveal.visible{opacity:1;transform:none;}
+
+/* ── Chat tab ───────────────────────────────────────────────── */
+.chat-msg{display:flex;flex-direction:column;gap:3px;max-width:88%;}
+.chat-msg.user{align-self:flex-end;align-items:flex-end;}
+.chat-msg.nexus{align-self:flex-start;}
+.cm-name{font-size:9.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--t3);margin-bottom:2px;}
+.chat-msg.user .cm-name{color:var(--blue);}
+.cm-text{
+  padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.55;color:var(--t1);
+  background:var(--card);border:1px solid var(--bd);
+  box-shadow:0 1px 4px rgba(0,0,0,.05);
+  animation:fu .25s ease;
+}
+.chat-msg.user .cm-text{
+  background:var(--blue);color:#fff;border-color:transparent;
+}
+.cm-meta{font-size:9px;color:var(--t3);}
+.chat-typing{display:flex;gap:4px;align-items:center;padding:8px 0;}
+.chat-typing span{width:5px;height:5px;border-radius:50%;background:var(--t3);
+  animation:tdot .9s ease-in-out infinite;}
+.chat-typing span:nth-child(2){animation-delay:.15s;}
+.chat-typing span:nth-child(3){animation-delay:.3s;}
+@keyframes tdot{0%,80%,100%{opacity:.3;transform:scale(.8);}40%{opacity:1;transform:scale(1);}}
+#chat-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(0,113,227,.1);}
+#chat-send:hover{background:#005ec3;}
+#chat-send:active{transform:scale(.96);}
   </style>
 </head>
 <body>
@@ -447,6 +499,7 @@ main{position:relative;z-index:1;padding-top:52px;}
     <button class="ntab"        role="tab" aria-selected="false" data-tab="projects"   data-testid="tab-projects"   tabindex="-1">Projects</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="tasks"      data-testid="tab-tasks"      tabindex="-1">Tasks</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="ceo"        data-testid="tab-ceo"        tabindex="-1">CEO</button>
+    <button class="ntab"        role="tab" aria-selected="false" data-tab="chat"       data-testid="tab-chat"       tabindex="-1">Chat</button>
   </div>
   <div class="nr">
     <span class="npill live" id="np-v" data-testid="pill-version">v1</span>
@@ -668,6 +721,45 @@ main{position:relative;z-index:1;padding-top:52px;}
   </div>
 </div>
 
+<!-- ═══ CHAT TAB ══════════════════════════════════════════════ -->
+<div id="tab-chat" class="tab-panel" role="tabpanel">
+  <div class="sec" style="padding-top:40px;max-width:800px;">
+    <div class="sh">
+      <h2 class="st">Nexus Chat</h2>
+      <span class="ss" id="chat-model-lbl">local · qwen2.5-coder:7b</span>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;">
+      <!-- Messages -->
+      <div id="chat-msgs" style="height:380px;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px;
+           scrollbar-width:thin;scrollbar-color:var(--t4) transparent;">
+        <div class="chat-msg nexus" data-testid="chat-welcome">
+          <div class="cm-name">Nexus</div>
+          <div class="cm-text">Hi — I'm Nexus. Ask me what the system is doing, why an agent is blocked, what the last benchmark showed, or anything about this repo.</div>
+        </div>
+      </div>
+      <!-- Input -->
+      <div style="border-top:1px solid var(--bd);padding:14px 20px;display:flex;gap:10px;align-items:flex-end;">
+        <textarea id="chat-input" data-testid="chat-input"
+          placeholder="Ask Nexus anything..."
+          style="flex:1;border:1px solid var(--bd);border-radius:var(--rsm);padding:10px 14px;
+                 font-family:inherit;font-size:13px;color:var(--t1);background:var(--bg);
+                 resize:none;outline:none;height:42px;line-height:1.5;
+                 transition:border-color .2s,box-shadow .2s;"
+          rows="1"></textarea>
+        <button id="chat-send" data-testid="chat-send"
+          style="background:var(--blue);color:#fff;border:none;border-radius:var(--rsm);
+                 padding:10px 18px;font-size:13px;font-weight:600;cursor:pointer;
+                 white-space:nowrap;transition:background .15s,transform .1s;"
+          onclick="sendChat()">Send</button>
+      </div>
+    </div>
+    <div style="margin-top:10px;font-size:10.5px;color:var(--t3);">
+      Nexus routes to the best available local model. Provider: <span id="chat-provider-lbl">auto</span>.
+      <a href="#" style="color:var(--blue);text-decoration:none;" onclick="clearChat();return false;">Clear</a>
+    </div>
+  </div>
+</div>
+
 </main>
 
 <!-- ANIMATION 1: Ambient orbs (Apple white style) -->
@@ -787,8 +879,15 @@ function mkCard(n,sfx,agents){
   el.setAttribute('data-testid',`agent-card-${n}`);
   el.setAttribute('aria-label',`${m.lbl} agent, status: ${inf.status}`);
   const subHtml=`<div class="sub-agents-section" id="sa-${n}${sfx}">
-    <div class="sa-title">Sub-agents</div>
+    <div class="sa-header" id="sa-hdr-${n}${sfx}">
+      <div class="sa-title">Sub-agents</div>
+      <div style="display:flex;align-items:center;gap:4px;">
+        <span class="sa-badge idle" id="sa-badge-${n}${sfx}">0</span>
+        <span class="sa-chevron">▼</span>
+      </div>
+    </div>
     <div class="sa-list" id="sal-${n}${sfx}"><span class="sa-empty">none active</span></div>
+    <div class="sa-expanded" id="sax-${n}${sfx}"></div>
   </div>`;
   el.innerHTML=`
 <div class="aci si" id="ai-${n}${sfx}">
@@ -803,13 +902,25 @@ function mkCard(n,sfx,agents){
   ${subHtml}
 </div>`;
   el.addEventListener('mousemove',e=>{
+    if(el.classList.contains('expanded'))return;
     const r=el.getBoundingClientRect();
     const rx=((e.clientY-r.top-r.height/2)/(r.height/2))*-11;
     const ry=((e.clientX-r.left-r.width/2)/(r.width/2))*11;
     document.getElementById(`ai-${n}${sfx}`).style.transform=`perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(6px)`;
   });
-  el.addEventListener('mouseleave',()=>{document.getElementById(`ai-${n}${sfx}`).style.transform='';});
-  el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();}});
+  el.addEventListener('mouseleave',()=>{if(!el.classList.contains('expanded'))document.getElementById(`ai-${n}${sfx}`).style.transform='';});
+  // Click to expand/collapse sub-agents
+  el.addEventListener('click',e=>{
+    if(e.target.closest('a')||e.target.closest('button'))return;
+    el.classList.toggle('expanded');
+    document.getElementById(`ai-${n}${sfx}`).style.transform='';
+    // If expanding, rebuild full worker list
+    if(el.classList.contains('expanded')){
+      const inf2=_agentState[n]||{};
+      _buildExpandedWorkers(n,sfx,inf2.sub_agents||[]);
+    }
+  });
+  el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();el.click();}});
   return el;
 }
 
@@ -851,15 +962,47 @@ function updCard(n,inf){
   }
 }
 
+function _buildExpandedWorkers(n,sfx,subs){
+  const el=document.getElementById(`sax-${n}${sfx}`);
+  if(!el)return;
+  if(!subs||subs.length===0){el.innerHTML='<div style="font-size:9px;color:var(--t3);grid-column:1/-1;">No workers active — will auto-scale on next task</div>';return;}
+  el.innerHTML=subs.map((s,i)=>{
+    const st=s.status||'idle';
+    const dotCls=st==='running'?'running':st==='done'?'done':st==='failed'?'failed':'idle';
+    const q=s.quality>0?`<div class="sa-w-q">${s.quality}/100 · ${s.elapsed_s||0}s</div>`:'';
+    return `<div class="sa-worker">
+      <div class="sa-w-dot ${dotCls}"></div>
+      <div style="min-width:0;">
+        <div class="sa-w-id">Worker #${i+1}${s.model?' · '+esc(s.model):''}</div>
+        <div class="sa-w-task" title="${esc(s.task||'')}"> ${esc((s.task||'idle').slice(0,45))}</div>
+        ${q}
+      </div>
+    </div>`;
+  }).join('');
+}
+
 function updSubAgentMini(n,sfx,subs){
   const sal=document.getElementById(`sal-${n}${sfx}`);
+  const badge=document.getElementById(`sa-badge-${n}${sfx}`);
   if(!sal)return;
-  if(!subs||subs.length===0){sal.innerHTML='<span class="sa-empty">none active</span>';return;}
-  sal.innerHTML=subs.slice(0,6).map(s=>`
-    <div class="sa-item">
-      <div class="sa-dot ${s.status==='running'?'running':s.status==='done'?'':'idle'}"></div>
-      <span>${esc((s.id||'w')+'')}·${(s.task||'').slice(0,18)}</span>
-    </div>`).join('');
+  const running=subs?subs.filter(s=>s.status==='running').length:0;
+  const total=subs?subs.length:0;
+  // Update badge
+  if(badge){
+    badge.textContent=total===0?'0':running>0?`${running} running`:total+' done';
+    badge.className='sa-badge'+(total===0?' idle':running>0?'':' idle');
+  }
+  if(!subs||subs.length===0){sal.innerHTML='<span class="sa-empty">none active</span>';}
+  else{
+    sal.innerHTML=subs.slice(0,8).map(s=>`
+      <div class="sa-item">
+        <div class="sa-dot ${s.status==='running'?'running':s.status==='done'?'':'idle'}"></div>
+        <span>${esc((s.id||'w')+'')}</span>
+      </div>`).join('');
+  }
+  // If card is expanded, live-refresh the expanded workers panel
+  const card=document.getElementById(`ac-${n}${sfx}`);
+  if(card&&card.classList.contains('expanded'))_buildExpandedWorkers(n,sfx,subs||[]);
 }
 </script>
 
@@ -1245,6 +1388,81 @@ setTimeout(()=>{
   addFeed('info','Sub-agent pool ready — scales to 1000 workers',new Date().toISOString());
   addFeed('win','v5: Nexus 76.3 vs Opus 56.7 — 100% win rate',new Date().toISOString());
 },600);
+</script>
+
+<!-- Chat -->
+<script>
+let _chatHistory=[];
+
+function addChatMsg(role,text,meta){
+  const msgs=document.getElementById('chat-msgs');if(!msgs)return;
+  const d=document.createElement('div');
+  d.className='chat-msg '+(role==='user'?'user':'nexus');
+  const ts=new Date().toLocaleTimeString('en',{hour12:false,hour:'2-digit',minute:'2-digit'});
+  d.innerHTML=`<div class="cm-name">${role==='user'?'You':'Nexus'}</div>
+<div class="cm-text">${esc(text)}</div>
+${meta?`<div class="cm-meta">${esc(meta)}</div>`:''}`;
+  msgs.appendChild(d);
+  msgs.scrollTop=msgs.scrollHeight;
+  return d;
+}
+
+function addTyping(){
+  const msgs=document.getElementById('chat-msgs');if(!msgs)return null;
+  const d=document.createElement('div');d.className='chat-msg nexus';d.id='chat-typing-ind';
+  d.innerHTML='<div class="cm-name">Nexus</div><div class="chat-typing"><span></span><span></span><span></span></div>';
+  msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
+  return d;
+}
+
+async function sendChat(){
+  const inp=document.getElementById('chat-input');
+  if(!inp)return;
+  const msg=inp.value.trim();if(!msg)return;
+  inp.value='';inp.style.height='42px';
+  addChatMsg('user',msg);
+  _chatHistory.push({role:'user',content:msg});
+  const typing=addTyping();
+  const sendBtn=document.getElementById('chat-send');
+  if(sendBtn)sendBtn.disabled=true;
+  try{
+    const r=await fetch('/api/chat',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({message:msg,history:_chatHistory.slice(-6)}),
+    });
+    const data=r.ok?await r.json():{reply:'(server error)',provider:'error'};
+    if(typing&&typing.parentNode)typing.parentNode.removeChild(typing);
+    const reply=data.reply||'(no response)';
+    addChatMsg('nexus',reply,`${data.provider||'nexus'} · ${new Date(data.ts||Date.now()).toLocaleTimeString('en',{hour12:false,hour:'2-digit',minute:'2-digit'})}`);
+    _chatHistory.push({role:'assistant',content:reply});
+    const pl=document.getElementById('chat-provider-lbl');if(pl)pl.textContent=data.provider||'local';
+  }catch(e){
+    if(typing&&typing.parentNode)typing.parentNode.removeChild(typing);
+    addChatMsg('nexus','I\'m Nexus. Dashboard is live. Check the Overview tab for current system state.','fallback');
+  }finally{
+    if(sendBtn)sendBtn.disabled=false;
+  }
+}
+
+function clearChat(){
+  _chatHistory=[];
+  const msgs=document.getElementById('chat-msgs');if(!msgs)return;
+  msgs.innerHTML='<div class="chat-msg nexus" data-testid="chat-welcome"><div class="cm-name">Nexus</div><div class="cm-text">Chat cleared. Ask me anything about the system.</div></div>';
+}
+
+// Enter to send, Shift+Enter for newline
+document.addEventListener('DOMContentLoaded',()=>{
+  const inp=document.getElementById('chat-input');
+  if(!inp)return;
+  inp.addEventListener('keydown',e=>{
+    if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat();}
+  });
+  inp.addEventListener('input',()=>{
+    inp.style.height='42px';
+    inp.style.height=Math.min(inp.scrollHeight,120)+'px';
+  });
+});
 </script>
 
 <!-- Test harness -->

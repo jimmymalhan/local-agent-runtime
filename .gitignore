@@ -52,3 +52,26 @@ DASHBOARD.txt
 .autopilot.pid
 .dashboard.pid
 nohup.out
+.DS_Store
+
+# Root-level BOS output leakage guard — agent outputs go to ~/local-agents-work/
+# Any stray *.py in root is a violation. Track them here so git flags them.
+/atomic_counter.py
+/binary_search_rotated.py
+/bloom_filter.py
+/circular_buffer.py
+/csv_parser.py
+/dijkstra.py
+/evaluate.py
+/event_bus.py
+/fib.py
+/flatten_dict.py
+/json_schema_validator.py
+/lru_cache.py
+/merge_sort.py
+/rate_limiter.py
+/serialize_binary_tree.py
+/tokenizer.py
+/trie.py
+/url_parser.py
+/async_http_client.py

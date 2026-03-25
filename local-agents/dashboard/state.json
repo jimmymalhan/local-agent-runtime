@@ -1,89 +1,124 @@
 {
-  "ts": "2026-03-25T12:50:45.552644",
+  "ts": "2026-03-25T13:51:12.172901",
   "version": {
-    "current": 1,
+    "current": 5,
     "total": 100,
-    "pct_complete": 1.0,
-    "label": "v1 running"
+    "pct_complete": 5.0,
+    "label": "v5 complete"
   },
   "agents": {
     "executor": {
-      "status": "running",
-      "task": "Implement LRU Cache",
-      "task_id": 1,
+      "status": "idle",
+      "task": "",
+      "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-25T12:50:45.552359"
+      "last_activity": "2026-03-25T13:51:12.172370"
     },
     "planner": {
       "status": "idle",
       "task": "",
       "task_id": null,
       "elapsed_s": 0,
-      "last_activity": ""
+      "last_activity": "",
+      "sub_agents": [],
+      "worker_count": 0
     },
     "reviewer": {
       "status": "idle",
       "task": "",
       "task_id": null,
       "elapsed_s": 0,
-      "last_activity": ""
+      "last_activity": "",
+      "sub_agents": [],
+      "worker_count": 0
     },
     "debugger": {
       "status": "idle",
       "task": "",
       "task_id": null,
       "elapsed_s": 0,
-      "last_activity": ""
+      "last_activity": "",
+      "sub_agents": [],
+      "worker_count": 0
     },
     "researcher": {
       "status": "idle",
       "task": "",
       "task_id": null,
       "elapsed_s": 0,
-      "last_activity": ""
+      "last_activity": "",
+      "sub_agents": [],
+      "worker_count": 0
     },
     "benchmarker": {
-      "status": "idle",
-      "task": "",
+      "status": "reviewing",
+      "task": "v5 gap analysis \u2014 local vs Opus 4.6",
       "task_id": null,
-      "elapsed_s": 0,
-      "last_activity": ""
+      "elapsed_s": 12.0,
+      "last_activity": "2026-03-25T13:50:10.000000",
+      "sub_agents": [
+        {
+          "id": 1,
+          "status": "done",
+          "task": "Score correctness category",
+          "model": "qwen2.5-coder:7b",
+          "elapsed_s": 8.3,
+          "quality": 100
+        },
+        {
+          "id": 2,
+          "status": "done",
+          "task": "Score safety category",
+          "model": "qwen2.5-coder:7b",
+          "elapsed_s": 7.9,
+          "quality": 100
+        }
+      ],
+      "worker_count": 0
     },
     "architect": {
       "status": "idle",
       "task": "",
       "task_id": null,
       "elapsed_s": 0,
-      "last_activity": ""
+      "last_activity": "",
+      "sub_agents": [],
+      "worker_count": 0
     },
     "refactor": {
       "status": "idle",
       "task": "",
       "task_id": null,
       "elapsed_s": 0,
-      "last_activity": ""
+      "last_activity": "",
+      "sub_agents": [],
+      "worker_count": 0
     },
     "test_engineer": {
       "status": "idle",
       "task": "",
       "task_id": null,
       "elapsed_s": 0,
-      "last_activity": ""
+      "last_activity": "",
+      "sub_agents": [],
+      "worker_count": 0
     },
     "doc_writer": {
       "status": "idle",
       "task": "",
       "task_id": null,
       "elapsed_s": 0,
-      "last_activity": ""
+      "last_activity": "",
+      "sub_agents": [],
+      "worker_count": 0
     }
   },
   "task_queue": {
     "total": 100,
-    "completed": 0,
-    "in_progress": 1,
+    "completed": 21,
+    "in_progress": 0,
     "failed": 0,
-    "pending": 99
+    "pending": 79
   },
   "benchmark_scores": {
     "v1": {
@@ -116,8 +151,8 @@
     "hard_limit_hit": true
   },
   "hardware": {
-    "cpu_pct": 31.7,
-    "ram_pct": 54.1,
+    "cpu_pct": 25.5,
+    "ram_pct": 52.9,
     "disk_pct": 0.0,
     "gpu_pct": null,
     "alert_level": "ok"

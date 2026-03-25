@@ -353,6 +353,69 @@ async def get_hardware():
     return _live_hardware()
 
 
+@app.post("/api/chat")
+async def chat_endpoint(request: dict):
+    """
+    Nexus chat API — routes to best available local provider.
+    Request: {message: str, history: [{role, content}]}
+    Response: {reply: str, provider: str, ts: str}
+    """
+    message = request.get("message", "").strip()
+    history = request.get("history", [])
+    if not message:
+        return {"reply": "No message provided.", "provider": "none", "ts": datetime.now().isoformat()}
+
+    # Add live state context
+    state = read_state()
+    tq    = state.get("task_queue", {})
+    agents = state.get("agents", {})
+    active = [n for n, a in agents.items() if a.get("status") not in ("idle", "")]
+    bs    = state.get("benchmark_scores", {})
+    context = (
+        f"Current runtime state: "
+        f"Tasks {tq.get('completed',0)}/{tq.get('total',100)} done, "
+        f"{tq.get('failed',0)} failed. "
+        f"Active agents: {', '.join(active) if active else 'none'}. "
+        f"Nexus score: {bs.get('avg_local',0)}, win rate: {bs.get('win_rate',0)}%."
+    )
+
+    system = (
+        "You are Nexus — a local-first autonomous agent runtime. "
+        "Answer questions about what the system is doing, why decisions were made, "
+        "task status, repo structure, failures, benchmarks and upgrades. "
+        "Be concise and direct. Answer as Nexus, not as any model brand."
+    )
+
+    full_prompt = f"{context}\n\nUser: {message}"
+
+    # Try to route to local provider
+    provider_name = "local"
+    reply = ""
+    try:
+        import sys
+        sys.path.insert(0, BASE_DIR)
+        from providers.router import get_provider
+        provider = get_provider("chat")
+        provider_name = provider.name
+        result = provider.complete(
+            full_prompt, system=system, max_tokens=300, temperature=0.3, timeout=30
+        )
+        reply = result.text.strip() if result.ok else (result.error or "No response.")
+    except Exception as e:
+        reply = (
+            f"I'm Nexus. System state: {tq.get('completed',0)}/{tq.get('total',100)} tasks done, "
+            f"{len(active)} agents active. Dashboard: http://localhost:3001 "
+            f"(Chat backend unavailable: {str(e)[:60]})"
+        )
+        provider_name = "fallback"
+
+    return {
+        "reply":    reply,
+        "provider": provider_name,
+        "ts":       datetime.now().isoformat(),
+    }
+
+
 @app.websocket("/ws")
 async def websocket_endpoint(ws: WebSocket):
     await ws.accept()

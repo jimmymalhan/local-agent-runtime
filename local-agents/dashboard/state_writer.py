@@ -51,18 +51,52 @@ def update_agent(agent_name: str, status: str, task: str = "", task_id=None,
                  elapsed_s: float = 0.0):
     """
     Update agent status on the board BEFORE the agent does anything.
+    Preserves existing sub_agents field so worker state survives status changes.
     status: idle | planning | executing | reviewing | blocked | restarting | upgrading
     """
     state = _read()
     if "agents" not in state:
         state["agents"] = {}
+    # Preserve existing sub_agents when just updating status
+    existing = state["agents"].get(agent_name, {})
     state["agents"][agent_name] = {
         "status": status,
         "task": task[:80] if task else "",
         "task_id": task_id,
         "elapsed_s": elapsed_s,
         "last_activity": datetime.now().isoformat(),
+        "sub_agents": existing.get("sub_agents", []),
+        "worker_count": existing.get("worker_count", 0),
     }
+    _write(state)
+
+
+def update_sub_agents(agent_name: str, workers: list):
+    """
+    Write sub-agent worker list for an agent to dashboard state.
+    Called by SubAgentPool on spawn, progress, and completion.
+
+    Each worker dict: {id, status, task, model, elapsed_s, quality}
+    status: running | done | idle | failed
+    """
+    state = _read()
+    if "agents" not in state:
+        state["agents"] = {}
+    existing = state["agents"].get(agent_name, {})
+    clean = []
+    for w in workers:
+        clean.append({
+            "id": w.get("id", 0),
+            "status": w.get("status", "idle"),
+            "task": str(w.get("task", ""))[:50],
+            "model": w.get("model", ""),
+            "elapsed_s": round(float(w.get("elapsed_s", 0)), 1),
+            "quality": int(w.get("quality", 0)),
+        })
+    existing["sub_agents"] = clean
+    existing["worker_count"] = len([w for w in clean if w["status"] == "running"])
+    existing.setdefault("last_activity", datetime.now().isoformat())
+    state["agents"][agent_name] = existing
     _write(state)
 
 

@@ -94,7 +94,7 @@ def run(task: dict) -> dict:
     if is_complex:
         try:
             from agents.subagent_pool import SubAgentPool
-            result = SubAgentPool.best_of_n(task, _single_run, n=3)
+            result = SubAgentPool.best_of_n(task, _single_run, n=3, agent_name="executor")
             result["agent"] = "executor"
             return result
         except Exception:
