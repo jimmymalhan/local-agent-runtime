@@ -240,6 +240,12 @@ Nexus chat (via `nexus chat` or dashboard Chat tab):
 
 ---
 
+## Session Execution Policy
+
+Nexus agents execute the work in that session end to end.
+Do not stop at a generated command or ask the user to run the local runtime manually.
+The local runtime remains opt-in — agents activate only when the user invokes `nexus` or `bash ./Local`.
+
 ## Version
 This rules file last updated: 2026-03-25
 Source of truth for: agent identity, roster, workflow, folder contract, provider abstraction, persistence

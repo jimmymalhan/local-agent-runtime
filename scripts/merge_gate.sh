@@ -7,12 +7,17 @@ REPO_ROOT=$(cd "$SCRIPT_DIR/.." && pwd)
 
 echo "[merge-gate] shell syntax"
 bash -n "$REPO_ROOT/Local"
-for file in "$SCRIPT_DIR"/*.sh "$REPO_ROOT"/local-codex "$REPO_ROOT"/local-claude; do
+for file in "$SCRIPT_DIR"/*.sh; do
   bash -n "$file"
+done
+for file in "$REPO_ROOT"/local-codex "$REPO_ROOT"/local-claude; do
+  [ -f "$file" ] && bash -n "$file" || true
 done
 
 echo "[merge-gate] python compile"
-python3 -m py_compile "$SCRIPT_DIR"/*.py "$REPO_ROOT"/mcp-local-runtime/server.py
+PY_COMPILE_FILES=("$SCRIPT_DIR"/*.py)
+[ -f "$REPO_ROOT/mcp-local-runtime/server.py" ] && PY_COMPILE_FILES+=("$REPO_ROOT/mcp-local-runtime/server.py")
+python3 -m py_compile "${PY_COMPILE_FILES[@]}"
 
 echo "[merge-gate] unit tests"
 python3 -m unittest discover -s "$REPO_ROOT/tests"

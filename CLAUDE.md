@@ -39,6 +39,11 @@ External LLM access is rescue-only: enabled only when Jimmy fails a task 3× wit
 - `main` is protected. No direct pushes. PR-only merges.
 - Do not force-push or delete `main`.
 
+## Session Policy
+
+When given a coding task, execute the work in that session instead of replying with a command for the user to run.
+Local runtime is opt-in — Claude Code activates it only when the user explicitly invokes `nexus` or `bash ./Local`.
+
 ## Validation
 
 - Run smallest relevant local validation before handoff.
