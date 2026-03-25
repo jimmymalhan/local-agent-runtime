@@ -504,8 +504,8 @@ def run_version(version: int, tasks: list, local_only: bool = False,
         # Log token comparison
         token_record = {
             "ts": record["ts"], "version": version, "task_id": record["task_id"],
-            "local_tokens": local_result.get("tokens_used", 0),
-            "opus_tokens":  opus_result.get("tokens_used", 0),
+            "local_tokens": local_result.get("tokens_used", local_result.get("tokens", 0)),
+            "opus_tokens":  opus_result.get("tokens_used", opus_result.get("tokens", 0)),
             "claude_rescue_tokens": 0,
         }
         with open(token_path, "a") as f:

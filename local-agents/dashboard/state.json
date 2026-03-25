@@ -1,18 +1,18 @@
 {
-  "ts": "2026-03-25T12:00:20.460819",
+  "ts": "2026-03-25T12:18:19.149974",
   "version": {
-    "current": 2,
+    "current": 5,
     "total": 100,
-    "pct_complete": 2.0,
-    "label": "v2 running"
+    "pct_complete": 5.0,
+    "label": "v5 complete \u2014 win_rate=100.0%"
   },
   "agents": {
     "executor": {
-      "status": "running",
-      "task": "Balanced parentheses checker",
-      "task_id": 2,
+      "status": "idle",
+      "task": "",
+      "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-25T12:00:20.460502"
+      "last_activity": "2026-03-25T12:17:43.834949"
     },
     "planner": {
       "status": "idle",
@@ -79,11 +79,11 @@
     }
   },
   "task_queue": {
-    "total": 5,
-    "completed": 1,
-    "in_progress": 1,
+    "total": 3,
+    "completed": 3,
+    "in_progress": 0,
     "failed": 0,
-    "pending": 3
+    "pending": 0
   },
   "benchmark_scores": {
     "v1": {
@@ -92,6 +92,20 @@
       "gap": 0.0,
       "win_rate": 100.0,
       "ts": "2026-03-25T11:26:07.300350"
+    },
+    "v3": {
+      "local": 100.0,
+      "opus": 0.0,
+      "gap": 0.0,
+      "win_rate": 100.0,
+      "ts": "2026-03-25T12:07:27.930187"
+    },
+    "v5": {
+      "local": 100.0,
+      "opus": 0.0,
+      "gap": 0.0,
+      "win_rate": 100.0,
+      "ts": "2026-03-25T12:18:19.149704"
     }
   },
   "token_usage": {
@@ -102,8 +116,8 @@
     "hard_limit_hit": true
   },
   "hardware": {
-    "cpu_pct": 35.7,
-    "ram_pct": 65.7,
+    "cpu_pct": 24.2,
+    "ram_pct": 54.8,
     "disk_pct": 0.0,
     "gpu_pct": null,
     "alert_level": "ok"
@@ -138,6 +152,28 @@
       "after_score": 100.0,
       "delta": 100.0,
       "ts": "2026-03-25T11:26:07.300775"
+    },
+    "v3": {
+      "changes": [
+        "win_rate=100.0%",
+        "rescued=0.0%",
+        "tasks=3"
+      ],
+      "before_score": 0.0,
+      "after_score": 100.0,
+      "delta": 100.0,
+      "ts": "2026-03-25T12:07:27.930800"
+    },
+    "v5": {
+      "changes": [
+        "win_rate=100.0%",
+        "rescued=0.0%",
+        "tasks=3"
+      ],
+      "before_score": 0.0,
+      "after_score": 100.0,
+      "delta": 100.0,
+      "ts": "2026-03-25T12:18:19.149970"
     }
   }
 }

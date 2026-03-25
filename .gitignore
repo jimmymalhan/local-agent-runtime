@@ -43,3 +43,12 @@ local-agents/reports/
 local-agents/*.db
 local-agents/*.db-*
 local-agents/frontend/
+
+# Agent-generated working files (temp outputs at root)
+lru_cache.py
+balanced_parens.py
+serialize_tree.py
+local-agents/ultra/
+local-agents/v13_improvement_log.txt
+DASHBOARD.txt
+.autopilot.pid
