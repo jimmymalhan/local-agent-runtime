@@ -28,3 +28,27 @@ node_modules/
 !state/workflow-state.json
 state/agent-coordination.lock
 state/openclaw-backups/
+
+# IDE and AI assistant files (not part of Jimmy agent runtime)
+.cursor/
+.claude/
+*.aider*
+.aider.chat.history.md
+.aider.input.history
+.aider.model.metadata.json
+.aider.tags.cache.v4/
+local-agents/__pycache__/
+local-agents/logs/
+local-agents/reports/
+local-agents/*.db
+local-agents/*.db-*
+local-agents/frontend/
+
+# Agent-generated working files (temp outputs at root)
+lru_cache.py
+balanced_parens.py
+serialize_tree.py
+local-agents/ultra/
+local-agents/v13_improvement_log.txt
+DASHBOARD.txt
+.autopilot.pid

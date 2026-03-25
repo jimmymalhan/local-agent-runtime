@@ -1,0 +1,179 @@
+{
+  "ts": "2026-03-25T12:18:19.149974",
+  "version": {
+    "current": 5,
+    "total": 100,
+    "pct_complete": 5.0,
+    "label": "v5 complete \u2014 win_rate=100.0%"
+  },
+  "agents": {
+    "executor": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0.0,
+      "last_activity": "2026-03-25T12:17:43.834949"
+    },
+    "planner": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": ""
+    },
+    "reviewer": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": ""
+    },
+    "debugger": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": ""
+    },
+    "researcher": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": ""
+    },
+    "benchmarker": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": ""
+    },
+    "architect": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": ""
+    },
+    "refactor": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": ""
+    },
+    "test_engineer": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": ""
+    },
+    "doc_writer": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": ""
+    }
+  },
+  "task_queue": {
+    "total": 3,
+    "completed": 3,
+    "in_progress": 0,
+    "failed": 0,
+    "pending": 0
+  },
+  "benchmark_scores": {
+    "v1": {
+      "local": 100.0,
+      "opus": 0.0,
+      "gap": 0.0,
+      "win_rate": 100.0,
+      "ts": "2026-03-25T11:26:07.300350"
+    },
+    "v3": {
+      "local": 100.0,
+      "opus": 0.0,
+      "gap": 0.0,
+      "win_rate": 100.0,
+      "ts": "2026-03-25T12:07:27.930187"
+    },
+    "v5": {
+      "local": 100.0,
+      "opus": 0.0,
+      "gap": 0.0,
+      "win_rate": 100.0,
+      "ts": "2026-03-25T12:18:19.149704"
+    }
+  },
+  "token_usage": {
+    "claude_tokens": 1,
+    "local_tokens": 9,
+    "budget_pct": 10.0,
+    "warning": true,
+    "hard_limit_hit": true
+  },
+  "hardware": {
+    "cpu_pct": 24.2,
+    "ram_pct": 54.8,
+    "disk_pct": 0.0,
+    "gpu_pct": null,
+    "alert_level": "ok"
+  },
+  "failures": [
+    {
+      "ts": "2026-03-25T11:56:20.261924",
+      "agent": "executor",
+      "task": "Implement Trie with prefix search",
+      "task_id": 4,
+      "attempt": 1,
+      "tried": "blocked"
+    },
+    {
+      "ts": "2026-03-25T11:22:40.719336",
+      "agent": "executor",
+      "task": "Implement LRU Cache",
+      "task_id": 1,
+      "attempt": 1,
+      "tried": "failed"
+    }
+  ],
+  "research_feed": [],
+  "version_changelog": {
+    "v1": {
+      "changes": [
+        "win_rate=100.0%",
+        "rescued=33.3%",
+        "tasks=3"
+      ],
+      "before_score": 0.0,
+      "after_score": 100.0,
+      "delta": 100.0,
+      "ts": "2026-03-25T11:26:07.300775"
+    },
+    "v3": {
+      "changes": [
+        "win_rate=100.0%",
+        "rescued=0.0%",
+        "tasks=3"
+      ],
+      "before_score": 0.0,
+      "after_score": 100.0,
+      "delta": 100.0,
+      "ts": "2026-03-25T12:07:27.930800"
+    },
+    "v5": {
+      "changes": [
+        "win_rate=100.0%",
+        "rescued=0.0%",
+        "tasks=3"
+      ],
+      "before_score": 0.0,
+      "after_score": 100.0,
+      "delta": 100.0,
+      "ts": "2026-03-25T12:18:19.149970"
+    }
+  }
+}

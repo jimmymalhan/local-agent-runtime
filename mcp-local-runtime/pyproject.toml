@@ -1,9 +1,0 @@
-[project]
-name = "mcp-local-runtime"
-version = "0.2.0"
-description = "MCP server that routes tasks to the local agent pipeline (Ollama)"
-requires-python = ">=3.10"
-dependencies = ["mcp[cli]>=1.0.0"]
-
-[tool.uv]
-dev-dependencies = []

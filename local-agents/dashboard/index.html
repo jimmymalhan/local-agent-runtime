@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Local Agent Dashboard — v1→v100</title>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0a0a0f; color: #e2e8f0; font-family: 'JetBrains Mono', 'Consolas', monospace; font-size: 12px; overflow: hidden; height: 100vh; }
+  .bar-fill { transition: width 0.6s ease; }
+  .pulse { animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+  .blink { animation: blink 1s step-end infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: #111; } ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect, useRef, useCallback } = React;
+
+const STATUS_COLOR = {
+  idle: '#4b5563', planning: '#3b82f6', executing: '#10b981',
+  reviewing: '#8b5cf6', blocked: '#ef4444', restarting: '#f59e0b',
+  upgrading: '#f97316', done: '#22c55e',
+};
+const ALERT_COLOR = { ok: '#22c55e', yellow: '#f59e0b', red: '#ef4444' };
+
+function ProgressBar({ pct, color = '#3b82f6', height = 8, label }) {
+  return (
+    <div className="w-full" style={{ background: '#1e293b', borderRadius: 4, height, overflow: 'hidden' }}>
+      <div className="bar-fill h-full" style={{ width: `${Math.min(100, pct)}%`, background: color, borderRadius: 4 }} title={label} />
+    </div>
+  );
+}
+
+function Badge({ text, color }) {
+  return <span style={{ background: color + '22', color, border: `1px solid ${color}55`, borderRadius: 4, padding: '1px 6px', fontSize: 10 }}>{text}</span>;
+}
+
+function Panel({ title, children, className = '' }) {
+  return (
+    <div className={`rounded-lg p-3 ${className}`} style={{ background: '#111827', border: '1px solid #1f2937' }}>
+      <div style={{ color: '#6b7280', fontSize: 10, marginBottom: 8, letterSpacing: '0.1em', textTransform: 'uppercase' }}>{title}</div>
+      {children}
+    </div>
+  );
+}
+
+function GlobalProgress({ version }) {
+  if (!version) return null;
+  const { current, total, pct_complete, label } = version;
+  return (
+    <Panel title="Global Progress" className="mb-2">
+      <div className="flex items-center justify-between mb-1">
+        <span style={{ color: '#f0f9ff', fontWeight: 600 }}>{label || `v${current}`}</span>
+        <span style={{ color: '#3b82f6' }}>v{current} / v{total} — {pct_complete}%</span>
+      </div>
+      <ProgressBar pct={pct_complete} color="#3b82f6" height={10} />
+      <div className="flex mt-1 gap-1 flex-wrap">
+        {Array.from({length: Math.min(20, total)}, (_, i) => {
+          const v = Math.floor(i * total / 20) + 1;
+          const done = v < current;
+          const active = v === current;
+          return <div key={i} style={{ width: 12, height: 12, borderRadius: 2,
+            background: done ? '#22c55e' : active ? '#3b82f6' : '#1e293b',
+            border: active ? '1px solid #60a5fa' : '1px solid #374151' }} title={`v${v}`} />;
+        })}
+      </div>
+    </Panel>
+  );
+}
+
+function AgentHealth({ agents }) {
+  if (!agents) return null;
+  return (
+    <Panel title="Agent Health">
+      <div className="grid grid-cols-2 gap-1">
+        {Object.entries(agents).map(([name, info]) => {
+          const color = STATUS_COLOR[info.status] || '#4b5563';
+          const isActive = info.status !== 'idle';
+          return (
+            <div key={name} className="flex items-center gap-2 p-1 rounded" style={{ background: '#0f172a' }}>
+              <div style={{ width: 8, height: 8, borderRadius: '50%', background: color, flexShrink: 0 }}
+                   className={isActive ? 'pulse' : ''} />
+              <div className="flex-1 min-w-0">
+                <div style={{ color: '#e2e8f0', fontSize: 11 }}>{name}</div>
+                <div style={{ color: '#6b7280', fontSize: 10, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  {info.task || info.status}
+                </div>
+              </div>
+              <Badge text={info.status} color={color} />
+            </div>
+          );
+        })}
+      </div>
+    </Panel>
+  );
+}
+
+function TaskQueue({ queue }) {
+  if (!queue) return null;
+  const { total, completed, in_progress, failed, pending } = queue;
+  const pct = total > 0 ? Math.round(completed / total * 100) : 0;
+  return (
+    <Panel title="Task Queue">
+      <div className="flex gap-3 mb-2 flex-wrap">
+        {[
+          ['total', total, '#6b7280'], ['done', completed, '#22c55e'],
+          ['active', in_progress, '#3b82f6'], ['failed', failed, '#ef4444'],
+          ['pending', pending, '#f59e0b'],
+        ].map(([label, val, color]) => (
+          <div key={label} className="text-center">
+            <div style={{ color, fontSize: 18, fontWeight: 700 }}>{val}</div>
+            <div style={{ color: '#4b5563', fontSize: 10 }}>{label}</div>
+          </div>
+        ))}
+      </div>
+      <ProgressBar pct={pct} color="#22c55e" />
+      <div style={{ color: '#6b7280', fontSize: 10, marginTop: 4 }}>{pct}% complete</div>
+    </Panel>
+  );
+}
+
+function BenchmarkScores({ scores }) {
+  if (!scores || Object.keys(scores).length === 0) return (
+    <Panel title="Benchmark Scores"><div style={{ color: '#4b5563' }}>Waiting for first version...</div></Panel>
+  );
+  const entries = Object.entries(scores).slice(-8);
+  return (
+    <Panel title="Benchmark Scores (Local vs Opus 4.6)">
+      <div className="overflow-y-auto" style={{ maxHeight: 160 }}>
+        {entries.map(([v, s]) => (
+          <div key={v} className="mb-2">
+            <div className="flex justify-between mb-1">
+              <span style={{ color: '#94a3b8' }}>{v}</span>
+              <span style={{ color: s.gap <= 0 ? '#22c55e' : s.gap <= 5 ? '#f59e0b' : '#ef4444', fontSize: 11 }}>
+                gap {s.gap > 0 ? '+' : ''}{s.gap}  win {s.win_rate}%
+              </span>
+            </div>
+            <div className="flex gap-1 items-center">
+              <span style={{ color: '#6b7280', fontSize: 10, width: 40 }}>local</span>
+              <div style={{ flex: 1, background: '#1e293b', borderRadius: 3, height: 6 }}>
+                <div style={{ width: `${s.local}%`, background: '#10b981', height: '100%', borderRadius: 3 }} />
+              </div>
+              <span style={{ color: '#10b981', fontSize: 10, width: 28 }}>{s.local}</span>
+            </div>
+            <div className="flex gap-1 items-center mt-1">
+              <span style={{ color: '#6b7280', fontSize: 10, width: 40 }}>opus</span>
+              <div style={{ flex: 1, background: '#1e293b', borderRadius: 3, height: 6 }}>
+                <div style={{ width: `${s.opus}%`, background: '#8b5cf6', height: '100%', borderRadius: 3 }} />
+              </div>
+              <span style={{ color: '#8b5cf6', fontSize: 10, width: 28 }}>{s.opus}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Panel>
+  );
+}
+
+function TokenUsage({ tokens }) {
+  if (!tokens) return null;
+  const { claude_tokens, local_tokens, budget_pct, warning, hard_limit_hit } = tokens;
+  const color = hard_limit_hit ? '#ef4444' : warning ? '#f59e0b' : '#22c55e';
+  return (
+    <Panel title="Token Usage">
+      <div className="flex justify-between mb-1">
+        <span style={{ color: '#6b7280' }}>Claude budget used</span>
+        <span style={{ color, fontWeight: 700 }}>{budget_pct}%
+          {hard_limit_hit && <span className="blink" style={{ color: '#ef4444', marginLeft: 4 }}>⚠ LIMIT</span>}
+          {warning && !hard_limit_hit && <span style={{ color: '#f59e0b', marginLeft: 4 }}>⚠</span>}
+        </span>
+      </div>
+      <ProgressBar pct={budget_pct} color={color} />
+      <div style={{ borderTop: '1px solid #1f2937', marginTop: 8, paddingTop: 8 }} className="flex gap-4">
+        <div>
+          <div style={{ color: '#8b5cf6', fontSize: 16, fontWeight: 700 }}>{claude_tokens.toLocaleString()}</div>
+          <div style={{ color: '#4b5563', fontSize: 10 }}>claude tokens</div>
+        </div>
+        <div>
+          <div style={{ color: '#22c55e', fontSize: 16, fontWeight: 700 }}>{local_tokens.toLocaleString()}</div>
+          <div style={{ color: '#4b5563', fontSize: 10 }}>local tokens (free)</div>
+        </div>
+      </div>
+    </Panel>
+  );
+}
+
+function HardwareMonitor({ hw }) {
+  if (!hw) return null;
+  const { cpu_pct, ram_pct, disk_pct, gpu_pct, alert_level } = hw;
+  const bars = [
+    { label: 'CPU', val: cpu_pct, color: cpu_pct >= 90 ? '#ef4444' : cpu_pct >= 80 ? '#f59e0b' : '#3b82f6' },
+    { label: 'RAM', val: ram_pct, color: ram_pct >= 85 ? '#ef4444' : ram_pct >= 80 ? '#f59e0b' : '#10b981' },
+    { label: 'Disk', val: disk_pct, color: '#6b7280' },
+  ];
+  if (gpu_pct !== null) bars.push({ label: 'GPU', val: gpu_pct, color: '#f97316' });
+  return (
+    <Panel title="Hardware">
+      {bars.map(b => (
+        <div key={b.label} className="flex items-center gap-2 mb-1">
+          <span style={{ color: '#6b7280', width: 30, fontSize: 10 }}>{b.label}</span>
+          <div style={{ flex: 1, background: '#1e293b', borderRadius: 3, height: 8 }}>
+            <div className="bar-fill h-full" style={{ width: `${b.val}%`, background: b.color, borderRadius: 3 }} />
+          </div>
+          <span style={{ color: b.color, width: 36, textAlign: 'right', fontSize: 11 }}>{b.val}%</span>
+        </div>
+      ))}
+    </Panel>
+  );
+}
+
+function FailureLog({ failures }) {
+  if (!failures || failures.length === 0) return (
+    <Panel title="Failure Log"><div style={{ color: '#4b5563' }}>No failures yet</div></Panel>
+  );
+  return (
+    <Panel title="Failure Log (last 10)">
+      <div className="overflow-y-auto" style={{ maxHeight: 160 }}>
+        {failures.map((f, i) => (
+          <div key={i} className="mb-2 pb-2" style={{ borderBottom: '1px solid #1f2937' }}>
+            <div className="flex justify-between">
+              <span style={{ color: '#ef4444' }}>{f.agent}</span>
+              <span style={{ color: '#4b5563', fontSize: 10 }}>attempt #{f.attempt}</span>
+            </div>
+            <div style={{ color: '#94a3b8', fontSize: 11 }}>{f.task}</div>
+            <div style={{ color: '#6b7280', fontSize: 10 }}>{f.tried}</div>
+          </div>
+        ))}
+      </div>
+    </Panel>
+  );
+}
+
+function ResearchFeed({ feed }) {
+  if (!feed || feed.length === 0) return (
+    <Panel title="Research Feed"><div style={{ color: '#4b5563' }}>Waiting for research agent...</div></Panel>
+  );
+  return (
+    <Panel title="Research Feed (live)">
+      <div className="overflow-y-auto" style={{ maxHeight: 140 }}>
+        {feed.map((f, i) => (
+          <div key={i} className="mb-2">
+            <div style={{ color: '#6b7280', fontSize: 10 }}>{f.ts?.slice(11,19)} [{f.source}]</div>
+            <div style={{ color: '#94a3b8', fontSize: 11 }}>{f.finding}</div>
+          </div>
+        ))}
+      </div>
+    </Panel>
+  );
+}
+
+function VersionChangelog({ changelog }) {
+  if (!changelog || Object.keys(changelog).length === 0) return (
+    <Panel title="Version Changelog"><div style={{ color: '#4b5563' }}>No upgrades yet</div></Panel>
+  );
+  const entries = Object.entries(changelog).slice(-3).reverse();
+  return (
+    <Panel title="Version Changelog">
+      {entries.map(([v, c]) => (
+        <div key={v} className="mb-2">
+          <div className="flex justify-between">
+            <span style={{ color: '#f0f9ff' }}>{v}</span>
+            <span style={{ color: c.delta >= 0 ? '#22c55e' : '#ef4444' }}>
+              {c.before_score} → {c.after_score} ({c.delta >= 0 ? '+' : ''}{c.delta})
+            </span>
+          </div>
+          {c.changes?.slice(0,3).map((ch, i) => (
+            <div key={i} style={{ color: '#6b7280', fontSize: 10 }}>• {ch}</div>
+          ))}
+        </div>
+      ))}
+    </Panel>
+  );
+}
+
+function ConnectionStatus({ connected, lastTs }) {
+  return (
+    <div className="flex items-center gap-2">
+      <div style={{ width: 8, height: 8, borderRadius: '50%', background: connected ? '#22c55e' : '#ef4444' }}
+           className={connected ? 'pulse' : ''} />
+      <span style={{ color: '#4b5563', fontSize: 10 }}>
+        {connected ? `live — ${lastTs?.slice(11,19) || ''}` : 'disconnected'}
+      </span>
+    </div>
+  );
+}
+
+function App() {
+  const [state, setState] = useState(null);
+  const [connected, setConnected] = useState(false);
+  const wsRef = useRef(null);
+
+  const connect = useCallback(() => {
+    const ws = new WebSocket(`ws://${location.host}/ws`);
+    wsRef.current = ws;
+
+    ws.onopen = () => setConnected(true);
+    ws.onmessage = (e) => {
+      try {
+        const data = JSON.parse(e.data);
+        if (!data.ping) setState(data);
+      } catch {}
+    };
+    ws.onclose = () => {
+      setConnected(false);
+      setTimeout(connect, 2000);  // auto-reconnect
+    };
+    ws.onerror = () => ws.close();
+  }, []);
+
+  useEffect(() => {
+    connect();
+    return () => wsRef.current?.close();
+  }, [connect]);
+
+  // Fallback polling if WS fails
+  useEffect(() => {
+    const id = setInterval(async () => {
+      if (!connected) {
+        try {
+          const r = await fetch('/api/state');
+          const d = await r.json();
+          setState(d);
+        } catch {}
+      }
+    }, 2000);
+    return () => clearInterval(id);
+  }, [connected]);
+
+  return (
+    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', padding: 8, gap: 8 }}>
+      {/* Header */}
+      <div className="flex items-center justify-between" style={{ flexShrink: 0 }}>
+        <div>
+          <span style={{ color: '#3b82f6', fontWeight: 700, fontSize: 14 }}>LOCAL AGENT</span>
+          <span style={{ color: '#6b7280', marginLeft: 8 }}>v1→v100 Dashboard</span>
+        </div>
+        <ConnectionStatus connected={connected} lastTs={state?.ts} />
+      </div>
+
+      {/* Global progress */}
+      <GlobalProgress version={state?.version} />
+
+      {/* Main grid */}
+      <div style={{ flex: 1, overflow: 'hidden', display: 'grid', gap: 8,
+                    gridTemplateColumns: '1fr 1fr 1fr 1fr',
+                    gridTemplateRows: 'auto auto 1fr' }}>
+
+        {/* Row 1 */}
+        <div style={{ gridColumn: '1 / 3' }}><TaskQueue queue={state?.task_queue} /></div>
+        <div><TokenUsage tokens={state?.token_usage} /></div>
+        <div><HardwareMonitor hw={state?.hardware} /></div>
+
+        {/* Row 2 */}
+        <div style={{ gridColumn: '1 / 3' }}><BenchmarkScores scores={state?.benchmark_scores} /></div>
+        <div><VersionChangelog changelog={state?.version_changelog} /></div>
+        <div><ResearchFeed feed={state?.research_feed} /></div>
+
+        {/* Row 3 */}
+        <div style={{ gridColumn: '1 / 3', overflow: 'auto' }}><AgentHealth agents={state?.agents} /></div>
+        <div style={{ gridColumn: '3 / 5', overflow: 'auto' }}><FailureLog failures={state?.failures} /></div>
+      </div>
+
+      {/* Footer */}
+      <div style={{ color: '#374151', fontSize: 10, flexShrink: 0 }}>
+        Local 90% / Claude 10% rescue-upgrade-only · state: {state?.ts?.slice(0,19) || 'loading...'}
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

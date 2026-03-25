@@ -212,6 +212,72 @@ Apply the governance template to this or another project. Portable template from
 4. CX team 15: stakeholder yes on products, features, tasks, milestones, reviews, push; backend-frontend 1:1
 5. Template for other projects
 
+## /bench-run
+Run local agent benchmark for a specific version.
+
+**Usage**: /bench-run [version] [--quick N] [--local-only]
+
+**Process**:
+1. Start dashboard (if not running): `bash local-agents/dashboard/launch.sh &`
+2. Run: `python3 local-agents/orchestrator/main.py --version N [--quick N] [--local-only]`
+3. Watch live at: http://localhost:3001 (or check DASHBOARD.txt)
+4. Results in: local-agents/reports/vN_compare.jsonl
+
+## /bench-auto
+Run full autonomous v1→v100 upgrade loop.
+
+**Usage**: /bench-auto [start_version]
+
+**Process**:
+1. Start dashboard: `bash local-agents/dashboard/launch.sh &`
+2. Run: `python3 local-agents/orchestrator/main.py --auto [start_version]`
+3. Auto-stops when local beats Opus 4.6 OR reaches v100
+4. Every 5 versions: frustration research applied automatically
+5. Claude rescues = agent upgrades only (200 token cap)
+
+## /bench-report
+View benchmark comparison report for a version.
+
+**Usage**: /bench-report [version]
+
+**Process**:
+1. Run: `python3 local-agents/bench_compare.py --report N`
+2. Or: `cat local-agents/reports/vN_compare.jsonl`
+3. Token usage: `cat local-agents/reports/claude_token_log.jsonl`
+4. Agent upgrades: `cat local-agents/reports/claude_rescue_upgrades.jsonl`
+
+## /dashboard
+Open the real-time agent dashboard in browser.
+
+**Usage**: /dashboard
+
+**Process**:
+1. Check DASHBOARD.txt for URL (root of repo)
+2. Open: `python3 local-agents/dashboard/browser_test.py --open`
+3. Run smoke test: `python3 local-agents/dashboard/browser_test.py --smoke`
+4. Watch for 5 mins: `python3 local-agents/dashboard/browser_test.py --watch 300`
+5. If not running: `bash local-agents/dashboard/launch.sh &`
+
+## /agent-status
+Check registry and health of all 10 specialized agents.
+
+**Usage**: /agent-status
+
+**Process**:
+1. `cat local-agents/registry/agents.json`
+2. Run: `python3 local-agents/agents/benchmarker.py --version N`
+3. Check dashboard panel "Agent Health" for live status
+
+## /research-frustrations
+Run frustration research pipeline for current version.
+
+**Usage**: /research-frustrations [version]
+
+**Process**:
+1. Run: `python3 local-agents/benchmarks/frustration_research.py --version N --apply`
+2. Patches applied to agent_runner.py system prompts automatically
+3. View results: `cat local-agents/benchmarks/frustration_findings_vN.json`
+
 ## /rollback
 Safely revert changes.
 
