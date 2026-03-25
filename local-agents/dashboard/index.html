@@ -543,7 +543,6 @@ main{position:relative;z-index:1;padding-top:52px;}
     <button class="ntab"        role="tab" aria-selected="false" data-tab="projects"   data-testid="tab-projects"   tabindex="-1">Projects</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="tasks"      data-testid="tab-tasks"      tabindex="-1">Tasks</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="ceo"        data-testid="tab-ceo"        tabindex="-1">CEO</button>
-    <button class="ntab"        role="tab" aria-selected="false" data-tab="todo"       data-testid="tab-todo"       tabindex="-1">Todo</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="logs"       data-testid="tab-logs"       tabindex="-1">Logs</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="chat"       data-testid="tab-chat"       tabindex="-1">Chat</button>
   </div>
@@ -757,29 +756,63 @@ main{position:relative;z-index:1;padding-top:52px;}
   </div>
 </div>
 
-<!-- ═══ TASKS TAB ════════════════════════════════════════════ -->
+<!-- ═══ TASKS TAB (unified Tasks + Todo) ═════════════════════ -->
 <div id="tab-tasks" class="tab-panel" role="tabpanel">
   <div class="sec" style="padding-top:40px;">
-    <div class="sh"><h2 class="st">Task Board</h2><span class="ss" id="board-ct">—</span></div>
-    <div class="board" role="grid">
+    <div class="sh">
+      <h2 class="st">Tasks</h2>
+      <span class="ss" id="board-ct">—</span>
+      <span style="font-size:11px;color:var(--t3);margin-left:12px;">Updates every 5s</span>
+    </div>
+    <!-- Live Kanban — 4 columns: Blocked · Running · Backlog · Done -->
+    <div class="board" role="grid" style="grid-template-columns:repeat(4,1fr);">
       <div>
-        <div class="col-h" style="color:var(--t3);">Backlog<span class="cn" id="c-todo">0</span></div>
-        <div id="cb-todo"></div>
-      </div>
-      <div>
-        <div class="col-h" style="color:var(--blue);">Running<span class="cn" id="c-run">0</span></div>
-        <div id="cb-run"></div>
-      </div>
-      <div>
-        <div class="col-h" style="color:var(--green);">Done<span class="cn" id="c-done">0</span><span id="done-clean-badge" style="font-size:9px;font-weight:400;color:var(--t3);margin-left:6px;"></span></div>
-        <div id="cb-done"></div>
-      </div>
-      <div>
-        <div class="col-h" style="color:var(--red);">Blocked<span class="cn" id="c-bl">0</span></div>
+        <div class="col-h" style="color:var(--red);">
+          Blocked<span class="cn" id="c-bl">0</span>
+          <!-- also mirrors todo-cnt-blocked for compat -->
+          <span id="todo-cnt-blocked" style="display:none;">0</span>
+        </div>
         <div id="cb-bl"></div>
+        <!-- mirror container used by old todo JS -->
+        <div id="todo-col-blocked" style="display:none;"></div>
+      </div>
+      <div>
+        <div class="col-h" style="color:var(--blue);">
+          Running<span class="cn" id="c-run">0</span>
+          <span id="todo-cnt-running" style="display:none;">0</span>
+        </div>
+        <div id="cb-run"></div>
+        <div id="todo-col-running" style="display:none;"></div>
+      </div>
+      <div>
+        <div class="col-h" style="color:var(--t3);">
+          Backlog<span class="cn" id="c-todo">0</span>
+          <span id="todo-cnt-todo" style="display:none;">0</span>
+        </div>
+        <div id="cb-todo"></div>
+        <div id="todo-col-todo" style="display:none;"></div>
+      </div>
+      <div>
+        <div class="col-h" style="color:var(--green);">
+          Done<span class="cn" id="c-done">0</span>
+          <span id="done-clean-badge" style="font-size:9px;font-weight:400;color:var(--t3);margin-left:6px;"></span>
+          <span id="todo-cnt-done" style="display:none;">0</span>
+        </div>
+        <div id="cb-done"></div>
+        <div id="todo-col-done" style="display:none;"></div>
       </div>
     </div>
+    <div id="tasks-empty" style="display:none;text-align:center;padding:60px 0;color:var(--t3);font-size:13px;">
+      No tasks yet — CEO check populates the board every 60s
+    </div>
+    <div id="todo-ct" style="margin-top:12px;font-size:11px;color:var(--t3);text-align:right;"></div>
   </div>
+</div>
+
+<!-- ═══ TODO stub (hidden — kept for JS compat) ══════════════ -->
+<div id="tab-todo" class="tab-panel" style="display:none!important;" role="tabpanel" aria-hidden="true">
+  <div id="todo-board" style="display:none;"></div>
+  <div id="todo-empty" style="display:none;"></div>
 </div>
 
 <!-- ═══ CEO TAB ═══════════════════════════════════════════════ -->
@@ -1074,7 +1107,7 @@ function switchTab(id){
   panels.forEach(p=>p.classList.toggle('active',p.id==='tab-'+id));
   if(id==='ceo')runCeo();
   if(id==='subagents')buildSubAgentTab();
-  if(id==='todo')buildTodoTab();
+  if(id==='tasks')refreshUnifiedBoard();
   if(id==='logs'){const t=document.getElementById('logs-live-ts');if(t)t.textContent='Live · '+new Date().toLocaleTimeString('en',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'});}
 }
 tabs.forEach(t=>{
@@ -1649,15 +1682,15 @@ function applyState(st){
   for(const e of(st.research_feed||[]).slice(-3))
     addFeed('research',e.message||e.finding||String(e),e.ts);
 
-  // ── Task board + projects ─────────────────────────────────────────────────
-  if(st.recent_tasks&&st.recent_tasks.length){
-    updBoard(st.recent_tasks);
-  }
-  // Use board_plan.projects for real project cards (pre-populated by board_init.py)
+  // ── Unified Tasks board: merge recent_tasks + todo_board ─────────────────
+  _cacheAndRefreshBoard(st.recent_tasks||null, st.todo_board||null);
+  // Also update the legacy updBoard columns (for overview board metrics)
+  if(st.recent_tasks&&st.recent_tasks.length) updBoard(st.recent_tasks);
+  // Projects swimlane
   if(st.board_plan&&st.board_plan.projects&&st.board_plan.projects.length){
     updProjects(st.board_plan.projects);
   }else if(st.recent_tasks&&st.recent_tasks.length){
-    updProjects(null); // fallback static view
+    updProjects(null);
   }
 
   // ── Version changelog → CEO log ───────────────────────────────────────────
@@ -1737,7 +1770,11 @@ async function seed(){
 }
 seed();conn();
 setInterval(poll,2000);setInterval(loadRescue,12000);
-setInterval(()=>{if(document.getElementById('tab-todo').classList.contains('active'))buildTodoTab();},10000);
+// Unified board: refresh every 5s when Tasks tab is active
+setInterval(()=>{
+  const tasksTab=document.getElementById('tab-tasks');
+  if(tasksTab&&tasksTab.classList.contains('active'))refreshUnifiedBoard();
+},5000);
 setTimeout(()=>{
   addFeed('info','Nexus runtime started — autonomous v1→v100 loop',new Date().toISOString());
   addFeed('watchdog','Rescue watchdog armed — polls every 60s',new Date().toISOString());
@@ -1782,52 +1819,150 @@ function _todoCard(item){
 </div>`;
 }
 
-async function buildTodoTab(){
-  let board=null;
+// ── Unified board: merge recent_tasks + todo_board into one Kanban ─────────
+let _lastUnifiedHash='';
+let _lastTasksFromState=[];
+let _lastTodoBoardFromState=null;
+
+// Called from applyState — stores latest data, triggers board refresh
+function _cacheAndRefreshBoard(tasks, todoBoard){
+  if(tasks)_lastTasksFromState=tasks;
+  if(todoBoard)_lastTodoBoardFromState=todoBoard;
+  refreshUnifiedBoard();
+}
+
+async function refreshUnifiedBoard(){
+  // Fetch fresh todo board from API (merges CEO check output)
+  let todoBoardApi=_lastTodoBoardFromState;
   try{
     const r=await fetch('/api/todo');
-    if(r.ok)board=await r.json();
+    if(r.ok)todoBoardApi=await r.json();
   }catch(e){}
 
-  // Also check live state
-  if(!board){
-    try{const r=await fetch('/api/state');if(r.ok){const st=await r.json();board=st.todo_board||null;}}catch(e){}
+  // Build merged item map (dedup by task_id or title)
+  const seen=new Set();
+  const allItems=[];
+
+  // From recent_tasks (orchestrator live tasks)
+  for(const t of (_lastTasksFromState||[])){
+    const key=String(t.task_id||t.id||t.title||'');
+    if(key&&seen.has(key))continue;
+    if(key)seen.add(key);
+    allItems.push({
+      id:       t.task_id||t.id||null,
+      title:    t.title||t.task||'',
+      status:   t.status||'todo',
+      category: t.category||'',
+      agent:    t.agent_used||t.agent||'',
+      quality:  t.local_quality||t.quality||0,
+      source:   'live',
+    });
   }
 
-  const hash=JSON.stringify(board);
-  if(hash===_lastTodoHash)return;
-  _lastTodoHash=hash;
+  // From todo_board (CEO check / planning tasks)
+  const boardItems=(todoBoardApi&&todoBoardApi.items)||[];
+  for(const t of boardItems){
+    const key=String(t.id||t.title||'');
+    if(key&&seen.has(key))continue;
+    if(key)seen.add(key);
+    allItems.push({
+      id:       t.id||null,
+      title:    t.title||t.task||'',
+      status:   t.status||'todo',
+      category: t.category||'',
+      agent:    t.agent||'',
+      quality:  t.quality||0,
+      priority: t.priority||'',
+      source:   'plan',
+    });
+  }
 
-  const empty=document.getElementById('todo-empty');
-  const boardEl=document.getElementById('todo-board');
-  if(!board||!board.items||board.items.length===0){
+  const hash=JSON.stringify(allItems);
+  if(hash===_lastUnifiedHash)return;
+  _lastUnifiedHash=hash;
+
+  const empty=document.getElementById('tasks-empty');
+  if(!allItems.length){
     if(empty)empty.style.display='block';
-    if(boardEl)boardEl.style.display='none';
-    const ct=document.getElementById('todo-ct');
-    if(ct)ct.textContent='No tasks — CEO check runs every 60s';
+    const bc=document.getElementById('board-ct');
+    if(bc)bc.textContent='No tasks yet';
     return;
   }
   if(empty)empty.style.display='none';
-  if(boardEl)boardEl.style.display='grid';
 
+  // Sort into columns: blocked · running · todo/backlog · done
   const cols={blocked:[],running:[],todo:[],done:[]};
-  for(const item of board.items){
+  for(const item of allItems){
     const s=item.status||'todo';
     if(cols[s])cols[s].push(item);else cols.todo.push(item);
   }
 
-  for(const [status,items] of Object.entries(cols)){
-    const col=document.getElementById(`todo-col-${status}`);
-    const cnt=document.getElementById(`todo-cnt-${status}`);
-    if(col)col.innerHTML=items.map(_todoCard).join('');
+  // Map column keys to the HTML IDs in the unified board
+  const colMap={blocked:'bl',running:'run',todo:'todo',done:'done'};
+  for(const[status,items]of Object.entries(cols)){
+    const cid=colMap[status]||status;
+    const body=document.getElementById('cb-'+cid);
+    const cnt=document.getElementById('c-'+cid);
+    if(!body)continue;
     if(cnt)cnt.textContent=items.length;
+
+    // Render done with localStorage merge & 24h cleanup
+    if(status==='done'){
+      const doneStore=_pruneDone();
+      const storedIds=new Set(doneStore.map(i=>String(i.task_id||i.id)));
+      for(const t of items){
+        const k=String(t.id||t.title);
+        if(!storedIds.has(k))doneStore.push(Object.assign({},t,{task_id:t.id,_ts:Date.now()}));
+      }
+      _saveDoneStore(doneStore);
+      if(cnt)cnt.textContent=doneStore.length;
+      body.innerHTML=doneStore.slice(0,60).map(t=>_unifiedCard(t,true)).join('');
+      const badge=document.getElementById('done-clean-badge');
+      if(badge)badge.textContent=`(${doneStore.length} · clears 24h)`;
+    } else {
+      body.innerHTML=items.slice(0,60).map(t=>_unifiedCard(t,false)).join('');
+    }
   }
 
-  const counts=board.counts||{};
-  const total=(counts.blocked||0)+(counts.running||0)+(counts.todo||0)+(counts.done||0);
+  const total=allItems.length;
+  const updStr=todoBoardApi&&todoBoardApi.updated_at
+    ?new Date(todoBoardApi.updated_at).toLocaleTimeString('en',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'})
+    :new Date().toLocaleTimeString('en',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  const bc=document.getElementById('board-ct');
+  if(bc)bc.textContent=`${total} items`;
   const ct=document.getElementById('todo-ct');
-  if(ct)ct.textContent=`${total} items · updated ${board.updated_at?new Date(board.updated_at).toLocaleTimeString('en',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'}):''}`;
+  if(ct)ct.textContent=`Last updated ${updStr}`;
 }
+
+function _unifiedCard(t,isDone){
+  const q=t.quality||0;
+  const label=String(t.id||'—');
+  const age=isDone&&t._ts?` · ${_relTime(t._ts)}`:'';
+  const srcDot=t.source==='live'
+    ?`<span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--blue);margin-right:4px;vertical-align:middle;" title="Live task"></span>`
+    :`<span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--t4);margin-right:4px;vertical-align:middle;" title="Planned task"></span>`;
+  const priColor={'critical':'var(--red)','high':'var(--orange)','medium':'var(--blue)','low':'var(--t3)'}[t.priority]||'var(--t3)';
+  const priTag=t.priority?`<span style="font-size:9px;color:${priColor};font-weight:600;text-transform:uppercase;">${t.priority}</span>`:'';
+  return `<div class="tc" tabindex="0" data-testid="task-${label}">
+  <div class="tc-id">${srcDot}NX-${label}</div>
+  <div class="tc-ttl">${esc((t.title||'').slice(0,80))}</div>
+  <div class="tc-row">
+    <span class="tc-cat">${esc(t.category||'—')}</span>
+    <span class="tc-ag">${esc(t.agent||'—')}</span>
+    ${q>0?`<span class="tc-q ${q>=70?'hi':q>=40?'md':'lo'}">${q}/100</span>`:''}
+    ${priTag}
+    ${isDone&&age?`<span style="font-size:9px;color:var(--t3);">${age}</span>`:''}
+  </div>
+</div>`;
+}
+
+// Keep buildTodoFromData as no-op alias — routes to unified board
+function buildTodoFromData(board){
+  _lastTodoBoardFromState=board;
+  refreshUnifiedBoard();
+}
+// Keep buildTodoTab as alias for compat
+async function buildTodoTab(){ await refreshUnifiedBoard(); }
 </script>
 
 <!-- CEO live wiring -->
@@ -1875,8 +2010,7 @@ function applyCeoReport(st){
     if(live)live.style.display=cr.dashboard_live?'flex':'none';
   }
 
-  // Also push todo board if available
-  if(st.todo_board)buildTodoFromData(st.todo_board);
+  // todo_board is handled by _cacheAndRefreshBoard in applyState
 }
 
 function buildTodoFromData(board){
@@ -2116,7 +2250,7 @@ function _nxt(label,cond,severity='fail'){
 
 document.addEventListener('DOMContentLoaded',()=>{
   // ── Structure: required IDs ──────────────────────────────────────────────
-  const REQUIRED_IDS=['tab-overview','tab-agents','tab-subagents','tab-projects','tab-tasks','tab-ceo','tab-todo','tab-logs','rescue-panel','lfeed','bsvg','h-local','h-opus'];
+  const REQUIRED_IDS=['tab-overview','tab-agents','tab-subagents','tab-projects','tab-tasks','tab-ceo','tab-logs','rescue-panel','lfeed','bsvg','h-local','h-opus'];
   for(const id of REQUIRED_IDS)_nxt(`id#${id} exists`,!!document.getElementById(id));
 
   // ── Tabs: ARIA roles ─────────────────────────────────────────────────────
