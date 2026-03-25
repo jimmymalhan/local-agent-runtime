@@ -1,0 +1,143 @@
+{
+  "ts": "2026-03-25T12:00:20.460819",
+  "version": {
+    "current": 2,
+    "total": 100,
+    "pct_complete": 2.0,
+    "label": "v2 running"
+  },
+  "agents": {
+    "executor": {
+      "status": "running",
+      "task": "Balanced parentheses checker",
+      "task_id": 2,
+      "elapsed_s": 0.0,
+      "last_activity": "2026-03-25T12:00:20.460502"
+    },
+    "planner": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": ""
+    },
+    "reviewer": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": ""
+    },
+    "debugger": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": ""
+    },
+    "researcher": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": ""
+    },
+    "benchmarker": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": ""
+    },
+    "architect": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": ""
+    },
+    "refactor": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": ""
+    },
+    "test_engineer": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": ""
+    },
+    "doc_writer": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": ""
+    }
+  },
+  "task_queue": {
+    "total": 5,
+    "completed": 1,
+    "in_progress": 1,
+    "failed": 0,
+    "pending": 3
+  },
+  "benchmark_scores": {
+    "v1": {
+      "local": 100.0,
+      "opus": 0.0,
+      "gap": 0.0,
+      "win_rate": 100.0,
+      "ts": "2026-03-25T11:26:07.300350"
+    }
+  },
+  "token_usage": {
+    "claude_tokens": 1,
+    "local_tokens": 9,
+    "budget_pct": 10.0,
+    "warning": true,
+    "hard_limit_hit": true
+  },
+  "hardware": {
+    "cpu_pct": 35.7,
+    "ram_pct": 65.7,
+    "disk_pct": 0.0,
+    "gpu_pct": null,
+    "alert_level": "ok"
+  },
+  "failures": [
+    {
+      "ts": "2026-03-25T11:56:20.261924",
+      "agent": "executor",
+      "task": "Implement Trie with prefix search",
+      "task_id": 4,
+      "attempt": 1,
+      "tried": "blocked"
+    },
+    {
+      "ts": "2026-03-25T11:22:40.719336",
+      "agent": "executor",
+      "task": "Implement LRU Cache",
+      "task_id": 1,
+      "attempt": 1,
+      "tried": "failed"
+    }
+  ],
+  "research_feed": [],
+  "version_changelog": {
+    "v1": {
+      "changes": [
+        "win_rate=100.0%",
+        "rescued=33.3%",
+        "tasks=3"
+      ],
+      "before_score": 0.0,
+      "after_score": 100.0,
+      "delta": 100.0,
+      "ts": "2026-03-25T11:26:07.300775"
+    }
+  }
+}
