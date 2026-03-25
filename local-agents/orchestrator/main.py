@@ -57,6 +57,60 @@ except ImportError:
     _AUTO_UPGRADE = False
     def _auto_upgrade(*a, **kw): return []
 
+# Auto-heal — always-on component health monitor
+try:
+    from orchestrator.auto_heal import get_auto_heal as _get_auto_heal
+    _AUTO_HEAL = True
+except ImportError:
+    _AUTO_HEAL = False
+    class _FakeAutoHeal:
+        def start(self): pass
+        def check_all(self): return {"healthy": True, "issues": []}
+    def _get_auto_heal(): return _FakeAutoHeal()
+
+# Checkpoint manager — 30s agent checkpoints + version rollback
+try:
+    from orchestrator.checkpoint_manager import get_cm as _get_cm
+    _CHECKPOINT = True
+except ImportError:
+    _CHECKPOINT = False
+    class _FakeCM:
+        def snapshot_version(self, *a, **kw): pass
+        def has_regressed(self, *a, **kw): return False
+        def rollback_version(self, *a, **kw): return False
+        def checkpoint_agent(self, *a, **kw): pass
+    def _get_cm(): return _FakeCM()
+
+# Error pattern library — auto-fix known errors <3s
+try:
+    from error_patterns import get_library as _get_error_lib, auto_fix as _auto_fix
+    _ERROR_PATTERNS = True
+except ImportError:
+    _ERROR_PATTERNS = False
+    def _get_error_lib(): return None
+    def _auto_fix(error, agent="", context=None): return None
+
+# Self-calibration — 3-task warmup per version before production pool
+try:
+    from orchestrator.calibration import calibrate_all_agents as _calibrate, get_passing_agents
+    _CALIBRATION = True
+except ImportError:
+    _CALIBRATION = False
+    def _calibrate(version, agents): return {}
+    def get_passing_agents(results): return set()
+
+# Self-improving prompt engine — A/B test prompts, auto-improve
+try:
+    from orchestrator.prompt_engine import get_prompt_engine as _get_pe
+    _PROMPT_ENGINE = True
+except ImportError:
+    _PROMPT_ENGINE = False
+    class _FakePE:
+        def record_task(self, *a, **kw): return False
+        def record_ab_result(self, *a, **kw): pass
+        def stats(self): return {}
+    def _get_pe(): return _FakePE()
+
 # Dashboard state writer — non-blocking; failures are silent to not break the loop
 try:
     from dashboard.state_writer import (
@@ -426,8 +480,32 @@ def run_task_with_fallback(task: dict, version: int,
             result["agent_used"]     = agent_name
             return result
         fail_count += 1
-        failure_log.append({"attempt": attempt, "tried": str(result.get("error", result.get("status", "")))[:100]})
+        error_text = str(result.get("error", result.get("output", result.get("status", ""))))[:300]
+        failure_log.append({"attempt": attempt, "tried": error_text[:100]})
         last_result = result
+
+        # ── Auto-fix: 5-step pipeline — match known patterns <3s ─────────────
+        if _ERROR_PATTERNS and error_text.strip():
+            fix = _auto_fix(error_text, agent=agent_name)
+            if fix:
+                print(f"    [AUTO-FIX] Pattern '{fix['id']}' matched → {fix['fix'][:80]}")
+                # Apply prompt patch to agent meta for next attempt
+                if fix.get("prompt_patch") and hasattr(agent_mod, "AGENT_META"):
+                    existing = agent_mod.AGENT_META.get("system_prompt", "")
+                    patch = fix["prompt_patch"]
+                    if patch not in existing:
+                        agent_mod.AGENT_META["system_prompt"] = existing + "\n" + patch
+            else:
+                # No known pattern → record as new if it looks like a real error
+                if any(kw in error_text.lower() for kw in ("error", "exception", "failed", "traceback")):
+                    try:
+                        _get_error_lib().record_new_pattern(
+                            error_text, fix_applied="unknown — escalating to Claude rescue",
+                            agent=agent_name, quality_after=result.get("quality", 0)
+                        )
+                    except Exception:
+                        pass
+
         if attempt < RESCUE_BLOCK_COUNT:
             time.sleep(2)
 
@@ -509,13 +587,39 @@ def _write_leaderboard(version: int, avg_local: float, avg_opus: float,
 def run_version(version: int, tasks: list, local_only: bool = False,
                 quick: int = 0) -> dict:
     """Run one benchmark version. Returns version summary."""
-    # Supervisor pre-flight: verifies hardware, registry, no duplicates
+    # ── 0. Start auto-heal monitor (idempotent — won't double-start) ──────────
+    ah = _get_auto_heal()
+    ah.start()
+
+    # ── 1. Supervisor pre-flight ──────────────────────────────────────────────
     if _SUPERVISOR_AVAILABLE:
         sv = _get_sv()
         pf = sv.pre_flight_check(version, tasks[:quick] if quick else tasks)
         if pf.blocked:
             print(f"[SUPERVISOR] Pre-flight BLOCKED — aborting v{version}")
             return {"version": version, "blocked": True, "tasks_run": 0}
+
+    # ── 2. Snapshot system state BEFORE upgrades (for rollback safety) ────────
+    cm = _get_cm()
+    cm.snapshot_version(version)
+
+    # ── 3. Self-calibration: 3-task warmup, gate agents before task pool ──────
+    pe = _get_pe()
+    if _CALIBRATION:
+        import importlib, sys as _sys
+        agent_mods = {}
+        for aname in ["executor","planner","reviewer","debugger","researcher",
+                      "benchmarker","architect","refactor","test_engineer","doc_writer"]:
+            try:
+                mod = importlib.import_module(f"agents.{aname}")
+                agent_mods[aname] = mod
+            except ImportError:
+                pass
+        cal_results = _calibrate(version, agent_mods)
+        passing_agents = get_passing_agents(cal_results)
+        print(f"[CALIBRATION] Passing agents: {sorted(passing_agents)}")
+    else:
+        passing_agents = set()
 
     guard        = ResourceGuard()
     report_path  = os.path.join(REPORTS_DIR, f"v{version}_compare.jsonl")
@@ -616,6 +720,17 @@ def run_version(version: int, tasks: list, local_only: bool = False,
         if local_quality >= opus_quality - 5:
             local_wins += 1
 
+        # ── Prompt engine: record result, A/B test after low-quality tasks ──
+        if _PROMPT_ENGINE:
+            version_avg_so_far = (total_local_qual / max(completed + 1, 1))
+            improved = pe.record_task(
+                local_result.get("agent_used", "executor"),
+                task, local_result, version_avg=version_avg_so_far
+            )
+            pe.record_ab_result(
+                local_result.get("agent_used", "executor"), local_quality
+            )
+
         # Log comparison
         record = {
             "ts":             datetime.now().isoformat(),
@@ -685,6 +800,18 @@ def run_version(version: int, tasks: list, local_only: bool = False,
     summary["avg_local"] = avg_local
     summary["avg_opus"]  = avg_opus
     summary["gap"]       = gap
+
+    # ── Regression check + auto-rollback ─────────────────────────────────────
+    if _CHECKPOINT:
+        cm = _get_cm()
+        if cm.has_regressed(version, metric="avg_local"):
+            print(f"[ROLLBACK] v{version} regressed on avg_local — rolling back to pre-v{version} snapshot")
+            ok = cm.rollback_version(version)
+            if ok:
+                print(f"[ROLLBACK] Rolled back successfully. v{version+1} will start from clean snapshot.")
+            else:
+                print(f"[ROLLBACK] No snapshot found for v{version} — continuing with current state")
+
     return summary
 
 
