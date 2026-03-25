@@ -1,6 +1,6 @@
-# Jimmy / Nexus — Personal Autonomous Agent Runtime
+# Nexus — Personal Autonomous Agent Runtime
 
-**Nexus** is your personal AI model. **Jimmy** is the agent that runs it.
+**Nexus** is your personal AI model. **Nexus** is the agent that runs it.
 Self-improving. Local-first. Competing directly with Claude Opus 4.6.
 
 ---
@@ -43,7 +43,7 @@ LAYER 4: LEARNING     — failure detection, A/B prompt tests, auto-upgrade
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                    Nexus (via Jimmy)                    │
+│                    Nexus (via Nexus)                    │
 │      Self-Improving Personal AI  —  v1→v100 Loop       │
 ├─────────────────────────────────────────────────────────┤
 │  L3: Planner · Executor · Reviewer · Debugger           │
@@ -137,7 +137,7 @@ local-agents/
   registry/           Agent versions + benchmark scores (source of truth)
   agent_runner.py     Core Ollama iterative loop
   opus_runner.py      Opus 4.6 comparison via claude CLI
-  deploy.py           Deploy Jimmy to any project in 5 minutes
+  deploy.py           Deploy Nexus to any project in 5 minutes
 
 docs/
   repo_map.md         Full directory map with ownership rules
@@ -160,7 +160,7 @@ v1: Run 100 tasks → score each (static + dynamic execution) → find top 3 fai
 
 v2: Same loop. New prompts. Better scores.
 
-v100: Jimmy beats Opus 4.6 across all 7 categories. System is done.
+v100: Nexus beats Opus 4.6 across all 7 categories. System is done.
 ```
 
 **8 failure patterns detected + auto-fixed:**

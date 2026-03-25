@@ -1,10 +1,10 @@
-# Personal Agent Runtime — Default Configuration
-# Agent name: Jimmy (your personal autonomous coding agent)
+# Nexus Agent Runtime — Default Configuration
+# Model: Nexus — your personal autonomous coding model
 # Each agent can have its own config.yaml in agents/<name>/config.yaml
 
-agent_name: "Jimmy"
+agent_name: "Nexus"
 model_name: "Nexus"
-model_description: "Nexus — self-improving local AI that wraps the best available models. Competitor to Claude Opus."
+model_description: "Nexus — self-improving local AI that wraps the best available models. Competitor to Claude Opus 4.6."
 
 model: qwen2.5-coder:7b
 ollama_base: http://127.0.0.1:11434

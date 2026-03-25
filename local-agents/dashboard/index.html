@@ -3,295 +3,698 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Local Agent Dashboard — v1→v100</title>
+<title>Nexus — Live Agent Command Center</title>
 <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&display=swap');
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #0a0a0f; color: #e2e8f0; font-family: 'JetBrains Mono', 'Consolas', monospace; font-size: 12px; overflow: hidden; height: 100vh; }
-  .bar-fill { transition: width 0.6s ease; }
-  .pulse { animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
-  .blink { animation: blink 1s step-end infinite; }
+  html, body { height: 100%; overflow: hidden; }
+  body { background: #050508; color: #e2e8f0; font-family: 'JetBrains Mono', 'Consolas', monospace; font-size: 12px; }
+
+  /* Scrollbars */
+  ::-webkit-scrollbar { width: 3px; height: 3px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 2px; }
+
+  /* Animations */
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-  ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: #111; } ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+  @keyframes scan  { 0%{transform:translateY(-100%)} 100%{transform:translateY(400%)} }
+  @keyframes fadeIn{ 0%{opacity:0;transform:translateY(4px)} 100%{opacity:1;transform:translateY(0)} }
+  @keyframes glow  { 0%,100%{box-shadow:0 0 4px #3b82f633} 50%{box-shadow:0 0 14px #3b82f666} }
+  @keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+  @keyframes sparkle { 0%,100%{opacity:.2} 50%{opacity:1} }
+
+  .pulse   { animation: pulse 2s infinite; }
+  .blink   { animation: blink 1s step-end infinite; }
+  .fade-in { animation: fadeIn .3s ease both; }
+  .glow    { animation: glow 3s ease-in-out infinite; }
+
+  .agent-card-active { animation: glow 2.5s ease-in-out infinite; }
+
+  /* Scanline effect on active agent cards */
+  .scanline::after {
+    content: '';
+    position: absolute; left: 0; right: 0; top: 0; height: 30%;
+    background: linear-gradient(transparent, rgba(59,130,246,.06), transparent);
+    pointer-events: none;
+    animation: scan 3s linear infinite;
+  }
+
+  /* Bar transitions */
+  .bar-fill { transition: width .7s cubic-bezier(.4,0,.2,1); }
+
+  /* Ticker */
+  .ticker-wrap { overflow: hidden; white-space: nowrap; }
+  .ticker-inner { display: inline-block; animation: ticker 40s linear infinite; }
+
+  /* Grid */
+  .main-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; grid-template-rows: auto; gap: 6px; }
+
+  /* Hover effects */
+  .agent-card:hover { border-color: #3b82f644 !important; background: #0f172a !important; cursor: pointer; }
+  .task-row:hover { background: #0f172a !important; }
+
+  /* Quality ring */
+  .quality-ring { position: relative; display: inline-flex; align-items: center; justify-content: center; }
+
+  /* Neon accent lines */
+  .neon-blue  { box-shadow: 0 0 0 1px #3b82f622, inset 0 1px 0 #3b82f611; }
+  .neon-green { box-shadow: 0 0 0 1px #10b98122, inset 0 1px 0 #10b98111; }
 </style>
 </head>
 <body>
 <div id="root"></div>
 <script type="text/babel">
-const { useState, useEffect, useRef, useCallback } = React;
+const { useState, useEffect, useRef, useCallback, useMemo } = React;
 
+// ── Constants ──────────────────────────────────────────────────────────────
 const STATUS_COLOR = {
-  idle: '#4b5563', planning: '#3b82f6', executing: '#10b981',
-  reviewing: '#8b5cf6', blocked: '#ef4444', restarting: '#f59e0b',
-  upgrading: '#f97316', done: '#22c55e',
+  idle:'#374151', planning:'#3b82f6', executing:'#10b981',
+  reviewing:'#8b5cf6', blocked:'#ef4444', restarting:'#f59e0b',
+  upgrading:'#f97316', done:'#22c55e', running:'#10b981',
 };
-const ALERT_COLOR = { ok: '#22c55e', yellow: '#f59e0b', red: '#ef4444' };
+const CATEGORY_ICON = {
+  code_gen:'⚡', bug_fix:'🐛', scaffold:'🏗', tdd:'🧪',
+  arch:'🏛', refactor:'♻', e2e:'🔁', research:'🔍', doc:'📝',
+};
+const AGENT_ICON = {
+  executor:'⚡', planner:'🗺', reviewer:'🔍', debugger:'🐛',
+  researcher:'🔬', benchmarker:'📊', architect:'🏛', refactor:'♻',
+  test_engineer:'🧪', doc_writer:'📝',
+};
 
-function ProgressBar({ pct, color = '#3b82f6', height = 8, label }) {
+// ── Micro components ───────────────────────────────────────────────────────
+function Dot({ color, active }) {
+  return <span style={{
+    display:'inline-block', width:7, height:7, borderRadius:'50%',
+    background: color, flexShrink:0,
+  }} className={active ? 'pulse' : ''} />;
+}
+
+function Badge({ text, color='#6b7280', small }) {
+  return <span style={{
+    background: color+'18', color, border:`1px solid ${color}33`,
+    borderRadius:3, padding: small ? '0 4px' : '1px 6px',
+    fontSize: small ? 9 : 10, whiteSpace:'nowrap',
+  }}>{text}</span>;
+}
+
+function QualityArc({ score, size=44 }) {
+  if (score == null) return null;
+  const r = (size/2) - 4;
+  const circ = 2 * Math.PI * r;
+  const pct = Math.max(0, Math.min(100, score)) / 100;
+  const color = score >= 80 ? '#22c55e' : score >= 60 ? '#f59e0b' : score >= 40 ? '#f97316' : '#ef4444';
   return (
-    <div className="w-full" style={{ background: '#1e293b', borderRadius: 4, height, overflow: 'hidden' }}>
-      <div className="bar-fill h-full" style={{ width: `${Math.min(100, pct)}%`, background: color, borderRadius: 4 }} title={label} />
+    <svg width={size} height={size} style={{transform:'rotate(-90deg)', flexShrink:0}}>
+      <circle cx={size/2} cy={size/2} r={r} fill="none" stroke="#1e293b" strokeWidth={3} />
+      <circle cx={size/2} cy={size/2} r={r} fill="none" stroke={color} strokeWidth={3}
+        strokeDasharray={circ} strokeDashoffset={circ*(1-pct)}
+        strokeLinecap="round" style={{transition:'stroke-dashoffset .6s ease'}} />
+      <text x={size/2} y={size/2+1} textAnchor="middle" dominantBaseline="middle"
+        fill={color} fontSize={10} fontWeight={700} style={{transform:'rotate(90deg)',transformOrigin:`${size/2}px ${size/2}px`}}>
+        {score}
+      </text>
+    </svg>
+  );
+}
+
+function MiniBar({ pct, color='#3b82f6', height=4 }) {
+  return (
+    <div style={{background:'#1e293b', borderRadius:2, height, overflow:'hidden', width:'100%'}}>
+      <div className="bar-fill" style={{width:`${Math.min(100,pct||0)}%`, height:'100%', background:color, borderRadius:2}} />
     </div>
   );
 }
 
-function Badge({ text, color }) {
-  return <span style={{ background: color + '22', color, border: `1px solid ${color}55`, borderRadius: 4, padding: '1px 6px', fontSize: 10 }}>{text}</span>;
+function SparkLine({ values=[], color='#3b82f6', width=80, height=24 }) {
+  if (values.length < 2) return <div style={{width, height}} />;
+  const max = Math.max(...values, 1);
+  const min = Math.min(...values);
+  const range = max - min || 1;
+  const pts = values.map((v, i) => {
+    const x = (i / (values.length - 1)) * width;
+    const y = height - ((v - min) / range) * (height - 4) - 2;
+    return `${x},${y}`;
+  }).join(' ');
+  return (
+    <svg width={width} height={height} style={{overflow:'visible'}}>
+      <polyline fill="none" stroke={color} strokeWidth={1.5} points={pts} strokeLinejoin="round" />
+      <circle cx={pts.split(' ').pop().split(',')[0]} cy={pts.split(' ').pop().split(',')[1]}
+        r={2.5} fill={color} />
+    </svg>
+  );
 }
 
-function Panel({ title, children, className = '' }) {
+function Panel({ title, children, className='', action }) {
   return (
-    <div className={`rounded-lg p-3 ${className}`} style={{ background: '#111827', border: '1px solid #1f2937' }}>
-      <div style={{ color: '#6b7280', fontSize: 10, marginBottom: 8, letterSpacing: '0.1em', textTransform: 'uppercase' }}>{title}</div>
+    <div className={`rounded-lg ${className}`} style={{
+      background:'#0a0d14', border:'1px solid #111827', padding:'10px 12px',
+    }}>
+      <div className="flex justify-between items-center" style={{marginBottom:8}}>
+        <span style={{color:'#4b5563', fontSize:9, letterSpacing:'0.12em', textTransform:'uppercase'}}>{title}</span>
+        {action}
+      </div>
       {children}
     </div>
   );
 }
 
-function GlobalProgress({ version }) {
-  if (!version) return null;
-  const { current, total, pct_complete, label } = version;
-  return (
-    <Panel title="Global Progress" className="mb-2">
-      <div className="flex items-center justify-between mb-1">
-        <span style={{ color: '#f0f9ff', fontWeight: 600 }}>{label || `v${current}`}</span>
-        <span style={{ color: '#3b82f6' }}>v{current} / v{total} — {pct_complete}%</span>
-      </div>
-      <ProgressBar pct={pct_complete} color="#3b82f6" height={10} />
-      <div className="flex mt-1 gap-1 flex-wrap">
-        {Array.from({length: Math.min(20, total)}, (_, i) => {
-          const v = Math.floor(i * total / 20) + 1;
-          const done = v < current;
-          const active = v === current;
-          return <div key={i} style={{ width: 12, height: 12, borderRadius: 2,
-            background: done ? '#22c55e' : active ? '#3b82f6' : '#1e293b',
-            border: active ? '1px solid #60a5fa' : '1px solid #374151' }} title={`v${v}`} />;
-        })}
-      </div>
-    </Panel>
-  );
-}
+// ── HERO: Active Agent Command Strip ──────────────────────────────────────
+function AgentCommandCenter({ agents, taskQueue, version }) {
+  const [selected, setSelected] = useState(null);
+  const active = Object.entries(agents||{}).filter(([,v]) => v.status !== 'idle');
+  const all    = Object.entries(agents||{});
 
-function AgentHealth({ agents }) {
-  if (!agents) return null;
+  const currentTask = active[0]?.[1]?.task || '';
+  const currentAgent = active[0]?.[0] || '';
+
   return (
-    <Panel title="Agent Health">
-      <div className="grid grid-cols-2 gap-1">
-        {Object.entries(agents).map(([name, info]) => {
-          const color = STATUS_COLOR[info.status] || '#4b5563';
+    <div style={{
+      background:'#07090f', border:'1px solid #1a2035',
+      borderRadius:8, padding:'10px 14px', marginBottom:6,
+      position:'relative', overflow:'hidden',
+    }}>
+      {/* Subtle grid lines bg */}
+      <div style={{
+        position:'absolute', inset:0, opacity:.03,
+        backgroundImage:'repeating-linear-gradient(0deg,transparent,transparent 20px,#3b82f6 20px,#3b82f6 21px),repeating-linear-gradient(90deg,transparent,transparent 40px,#3b82f6 40px,#3b82f6 41px)',
+        pointerEvents:'none',
+      }}/>
+
+      {/* Title row */}
+      <div className="flex items-center justify-between" style={{marginBottom:8}}>
+        <div className="flex items-center gap-3">
+          <div style={{color:'#3b82f6', fontWeight:700, fontSize:13, letterSpacing:'.05em'}}>
+            NEXUS
+          </div>
+          <span style={{color:'#1e293b'}}>|</span>
+          <span style={{color:'#4b5563', fontSize:10}}>Agent Command Center</span>
+          {active.length > 0 && (
+            <div className="flex items-center gap-1">
+              <Dot color="#10b981" active={true} />
+              <span style={{color:'#10b981', fontSize:10}}>{active.length} ACTIVE</span>
+            </div>
+          )}
+        </div>
+        <div className="flex items-center gap-3">
+          {version && (
+            <span style={{color:'#6b7280', fontSize:10}}>
+              v{version.current}/v{version.total} — {version.pct_complete}%
+            </span>
+          )}
+          <div style={{
+            background:'#10b98122', color:'#10b981', border:'1px solid #10b98133',
+            borderRadius:4, padding:'2px 8px', fontSize:10,
+          }}>
+            RUNNING
+          </div>
+        </div>
+      </div>
+
+      {/* Live ticker */}
+      {currentTask && (
+        <div className="ticker-wrap" style={{
+          background:'#0d1117', borderRadius:4, padding:'4px 8px',
+          marginBottom:8, border:'1px solid #1a2035',
+        }}>
+          <div className="ticker-inner" style={{color:'#4b5563', fontSize:10}}>
+            <span style={{color:'#10b981', marginRight:12}}>▶</span>
+            {[...Array(4)].map((_,i) => (
+              <span key={i}>
+                <span style={{color:'#94a3b8'}}>{AGENT_ICON[currentAgent]||'⚡'} {currentAgent}</span>
+                <span style={{color:'#4b5563'}}> running </span>
+                <span style={{color:'#e2e8f0'}}>{currentTask}</span>
+                <span style={{color:'#1e293b', margin:'0 24px'}}>◆</span>
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Agent cards grid */}
+      <div style={{display:'grid', gridTemplateColumns:'repeat(5, 1fr)', gap:6}}>
+        {all.map(([name, info]) => {
+          const color = STATUS_COLOR[info.status] || '#374151';
           const isActive = info.status !== 'idle';
+          const isSelected = selected === name;
           return (
-            <div key={name} className="flex items-center gap-2 p-1 rounded" style={{ background: '#0f172a' }}>
-              <div style={{ width: 8, height: 8, borderRadius: '50%', background: color, flexShrink: 0 }}
-                   className={isActive ? 'pulse' : ''} />
-              <div className="flex-1 min-w-0">
-                <div style={{ color: '#e2e8f0', fontSize: 11 }}>{name}</div>
-                <div style={{ color: '#6b7280', fontSize: 10, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                  {info.task || info.status}
+            <div key={name}
+              className={`agent-card rounded ${isActive ? 'agent-card-active scanline' : ''}`}
+              onClick={() => setSelected(isSelected ? null : name)}
+              style={{
+                background: isActive ? '#0a1628' : '#0d1117',
+                border: `1px solid ${isActive ? color+'44' : '#111827'}`,
+                padding:'8px', position:'relative', overflow:'hidden',
+                cursor:'pointer', transition:'all .2s',
+              }}
+            >
+              {/* Top row */}
+              <div className="flex items-center justify-between" style={{marginBottom:4}}>
+                <div className="flex items-center gap-1">
+                  <span style={{fontSize:12}}>{AGENT_ICON[name]||'⚡'}</span>
+                  <span style={{color:'#94a3b8', fontSize:10, fontWeight:600}}>{name.replace('_',' ')}</span>
                 </div>
+                <Dot color={color} active={isActive} />
               </div>
-              <Badge text={info.status} color={color} />
+
+              {/* Task */}
+              <div style={{
+                color: isActive ? '#e2e8f0' : '#374151',
+                fontSize:9, lineHeight:'1.3',
+                overflow:'hidden', textOverflow:'ellipsis',
+                display:'-webkit-box', WebkitLineClamp:2, WebkitBoxOrient:'vertical',
+                minHeight:24,
+              }}>
+                {info.task || (isActive ? info.status : '—')}
+              </div>
+
+              {/* Elapsed */}
+              {isActive && info.elapsed_s > 0 && (
+                <div style={{color: color, fontSize:9, marginTop:3}}>
+                  {info.elapsed_s.toFixed(0)}s
+                </div>
+              )}
+
+              {/* Status badge */}
+              <div style={{marginTop:4}}>
+                <Badge text={info.status} color={color} small />
+              </div>
+
+              {/* Active glow stripe */}
+              {isActive && (
+                <div style={{
+                  position:'absolute', bottom:0, left:0, right:0, height:2,
+                  background:`linear-gradient(90deg, transparent, ${color}, transparent)`,
+                  opacity:.6,
+                }} />
+              )}
             </div>
           );
         })}
       </div>
-    </Panel>
-  );
-}
 
-function TaskQueue({ queue }) {
-  if (!queue) return null;
-  const { total, completed, in_progress, failed, pending } = queue;
-  const pct = total > 0 ? Math.round(completed / total * 100) : 0;
-  return (
-    <Panel title="Task Queue">
-      <div className="flex gap-3 mb-2 flex-wrap">
-        {[
-          ['total', total, '#6b7280'], ['done', completed, '#22c55e'],
-          ['active', in_progress, '#3b82f6'], ['failed', failed, '#ef4444'],
-          ['pending', pending, '#f59e0b'],
-        ].map(([label, val, color]) => (
-          <div key={label} className="text-center">
-            <div style={{ color, fontSize: 18, fontWeight: 700 }}>{val}</div>
-            <div style={{ color: '#4b5563', fontSize: 10 }}>{label}</div>
-          </div>
-        ))}
-      </div>
-      <ProgressBar pct={pct} color="#22c55e" />
-      <div style={{ color: '#6b7280', fontSize: 10, marginTop: 4 }}>{pct}% complete</div>
-    </Panel>
-  );
-}
-
-function BenchmarkScores({ scores }) {
-  if (!scores || Object.keys(scores).length === 0) return (
-    <Panel title="Benchmark Scores"><div style={{ color: '#4b5563' }}>Waiting for first version...</div></Panel>
-  );
-  const entries = Object.entries(scores).slice(-8);
-  return (
-    <Panel title="Benchmark Scores (Local vs Opus 4.6)">
-      <div className="overflow-y-auto" style={{ maxHeight: 160 }}>
-        {entries.map(([v, s]) => (
-          <div key={v} className="mb-2">
-            <div className="flex justify-between mb-1">
-              <span style={{ color: '#94a3b8' }}>{v}</span>
-              <span style={{ color: s.gap <= 0 ? '#22c55e' : s.gap <= 5 ? '#f59e0b' : '#ef4444', fontSize: 11 }}>
-                gap {s.gap > 0 ? '+' : ''}{s.gap}  win {s.win_rate}%
-              </span>
-            </div>
-            <div className="flex gap-1 items-center">
-              <span style={{ color: '#6b7280', fontSize: 10, width: 40 }}>local</span>
-              <div style={{ flex: 1, background: '#1e293b', borderRadius: 3, height: 6 }}>
-                <div style={{ width: `${s.local}%`, background: '#10b981', height: '100%', borderRadius: 3 }} />
-              </div>
-              <span style={{ color: '#10b981', fontSize: 10, width: 28 }}>{s.local}</span>
-            </div>
-            <div className="flex gap-1 items-center mt-1">
-              <span style={{ color: '#6b7280', fontSize: 10, width: 40 }}>opus</span>
-              <div style={{ flex: 1, background: '#1e293b', borderRadius: 3, height: 6 }}>
-                <div style={{ width: `${s.opus}%`, background: '#8b5cf6', height: '100%', borderRadius: 3 }} />
-              </div>
-              <span style={{ color: '#8b5cf6', fontSize: 10, width: 28 }}>{s.opus}</span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </Panel>
-  );
-}
-
-function TokenUsage({ tokens }) {
-  if (!tokens) return null;
-  const { claude_tokens, local_tokens, budget_pct, warning, hard_limit_hit } = tokens;
-  const color = hard_limit_hit ? '#ef4444' : warning ? '#f59e0b' : '#22c55e';
-  return (
-    <Panel title="Token Usage">
-      <div className="flex justify-between mb-1">
-        <span style={{ color: '#6b7280' }}>Claude budget used</span>
-        <span style={{ color, fontWeight: 700 }}>{budget_pct}%
-          {hard_limit_hit && <span className="blink" style={{ color: '#ef4444', marginLeft: 4 }}>⚠ LIMIT</span>}
-          {warning && !hard_limit_hit && <span style={{ color: '#f59e0b', marginLeft: 4 }}>⚠</span>}
-        </span>
-      </div>
-      <ProgressBar pct={budget_pct} color={color} />
-      <div style={{ borderTop: '1px solid #1f2937', marginTop: 8, paddingTop: 8 }} className="flex gap-4">
-        <div>
-          <div style={{ color: '#8b5cf6', fontSize: 16, fontWeight: 700 }}>{claude_tokens.toLocaleString()}</div>
-          <div style={{ color: '#4b5563', fontSize: 10 }}>claude tokens</div>
-        </div>
-        <div>
-          <div style={{ color: '#22c55e', fontSize: 16, fontWeight: 700 }}>{local_tokens.toLocaleString()}</div>
-          <div style={{ color: '#4b5563', fontSize: 10 }}>local tokens (free)</div>
-        </div>
-      </div>
-    </Panel>
-  );
-}
-
-function HardwareMonitor({ hw }) {
-  if (!hw) return null;
-  const { cpu_pct, ram_pct, disk_pct, gpu_pct, alert_level } = hw;
-  const bars = [
-    { label: 'CPU', val: cpu_pct, color: cpu_pct >= 90 ? '#ef4444' : cpu_pct >= 80 ? '#f59e0b' : '#3b82f6' },
-    { label: 'RAM', val: ram_pct, color: ram_pct >= 85 ? '#ef4444' : ram_pct >= 80 ? '#f59e0b' : '#10b981' },
-    { label: 'Disk', val: disk_pct, color: '#6b7280' },
-  ];
-  if (gpu_pct !== null) bars.push({ label: 'GPU', val: gpu_pct, color: '#f97316' });
-  return (
-    <Panel title="Hardware">
-      {bars.map(b => (
-        <div key={b.label} className="flex items-center gap-2 mb-1">
-          <span style={{ color: '#6b7280', width: 30, fontSize: 10 }}>{b.label}</span>
-          <div style={{ flex: 1, background: '#1e293b', borderRadius: 3, height: 8 }}>
-            <div className="bar-fill h-full" style={{ width: `${b.val}%`, background: b.color, borderRadius: 3 }} />
-          </div>
-          <span style={{ color: b.color, width: 36, textAlign: 'right', fontSize: 11 }}>{b.val}%</span>
-        </div>
-      ))}
-    </Panel>
-  );
-}
-
-function FailureLog({ failures }) {
-  if (!failures || failures.length === 0) return (
-    <Panel title="Failure Log"><div style={{ color: '#4b5563' }}>No failures yet</div></Panel>
-  );
-  return (
-    <Panel title="Failure Log (last 10)">
-      <div className="overflow-y-auto" style={{ maxHeight: 160 }}>
-        {failures.map((f, i) => (
-          <div key={i} className="mb-2 pb-2" style={{ borderBottom: '1px solid #1f2937' }}>
-            <div className="flex justify-between">
-              <span style={{ color: '#ef4444' }}>{f.agent}</span>
-              <span style={{ color: '#4b5563', fontSize: 10 }}>attempt #{f.attempt}</span>
-            </div>
-            <div style={{ color: '#94a3b8', fontSize: 11 }}>{f.task}</div>
-            <div style={{ color: '#6b7280', fontSize: 10 }}>{f.tried}</div>
-          </div>
-        ))}
-      </div>
-    </Panel>
-  );
-}
-
-function ResearchFeed({ feed }) {
-  if (!feed || feed.length === 0) return (
-    <Panel title="Research Feed"><div style={{ color: '#4b5563' }}>Waiting for research agent...</div></Panel>
-  );
-  return (
-    <Panel title="Research Feed (live)">
-      <div className="overflow-y-auto" style={{ maxHeight: 140 }}>
-        {feed.map((f, i) => (
-          <div key={i} className="mb-2">
-            <div style={{ color: '#6b7280', fontSize: 10 }}>{f.ts?.slice(11,19)} [{f.source}]</div>
-            <div style={{ color: '#94a3b8', fontSize: 11 }}>{f.finding}</div>
-          </div>
-        ))}
-      </div>
-    </Panel>
-  );
-}
-
-function VersionChangelog({ changelog }) {
-  if (!changelog || Object.keys(changelog).length === 0) return (
-    <Panel title="Version Changelog"><div style={{ color: '#4b5563' }}>No upgrades yet</div></Panel>
-  );
-  const entries = Object.entries(changelog).slice(-3).reverse();
-  return (
-    <Panel title="Version Changelog">
-      {entries.map(([v, c]) => (
-        <div key={v} className="mb-2">
-          <div className="flex justify-between">
-            <span style={{ color: '#f0f9ff' }}>{v}</span>
-            <span style={{ color: c.delta >= 0 ? '#22c55e' : '#ef4444' }}>
-              {c.before_score} → {c.after_score} ({c.delta >= 0 ? '+' : ''}{c.delta})
+      {/* Selected agent detail */}
+      {selected && agents[selected] && (
+        <div className="fade-in" style={{
+          marginTop:8, background:'#0d1117', border:'1px solid #1a2035',
+          borderRadius:6, padding:'10px 12px',
+        }}>
+          <div className="flex items-center justify-between" style={{marginBottom:6}}>
+            <span style={{color:'#94a3b8', fontWeight:600}}>
+              {AGENT_ICON[selected]||'⚡'} {selected} — detail
             </span>
+            <span onClick={() => setSelected(null)} style={{color:'#4b5563', cursor:'pointer', fontSize:16}}>×</span>
           </div>
-          {c.changes?.slice(0,3).map((ch, i) => (
-            <div key={i} style={{ color: '#6b7280', fontSize: 10 }}>• {ch}</div>
-          ))}
+          <div style={{display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:8}}>
+            <div><div style={{color:'#4b5563', fontSize:9, marginBottom:2}}>CURRENT TASK</div>
+              <div style={{color:'#e2e8f0', fontSize:11}}>{agents[selected].task || '—'}</div></div>
+            <div><div style={{color:'#4b5563', fontSize:9, marginBottom:2}}>STATUS</div>
+              <Badge text={agents[selected].status} color={STATUS_COLOR[agents[selected].status]||'#374151'} /></div>
+            <div><div style={{color:'#4b5563', fontSize:9, marginBottom:2}}>LAST ACTIVITY</div>
+              <div style={{color:'#6b7280', fontSize:10}}>{agents[selected].last_activity?.slice(11,19) || '—'}</div></div>
+          </div>
         </div>
-      ))}
-    </Panel>
-  );
-}
-
-function ConnectionStatus({ connected, lastTs }) {
-  return (
-    <div className="flex items-center gap-2">
-      <div style={{ width: 8, height: 8, borderRadius: '50%', background: connected ? '#22c55e' : '#ef4444' }}
-           className={connected ? 'pulse' : ''} />
-      <span style={{ color: '#4b5563', fontSize: 10 }}>
-        {connected ? `live — ${lastTs?.slice(11,19) || ''}` : 'disconnected'}
-      </span>
+      )}
     </div>
   );
 }
 
+// ── Version progress ───────────────────────────────────────────────────────
+function VersionProgress({ version, queue }) {
+  if (!version) return null;
+  const { current, total, pct_complete, label } = version;
+  const q = queue || {};
+  const taskPct = q.total > 0 ? Math.round((q.completed||0) / q.total * 100) : 0;
+
+  return (
+    <Panel title="Mission Progress">
+      <div className="flex items-end justify-between" style={{marginBottom:6}}>
+        <div>
+          <div style={{color:'#e2e8f0', fontWeight:700, fontSize:16}}>v{current}</div>
+          <div style={{color:'#4b5563', fontSize:9}}>of v{total} — {label}</div>
+        </div>
+        <div style={{textAlign:'right'}}>
+          <div style={{color:'#3b82f6', fontWeight:700, fontSize:16}}>{pct_complete}%</div>
+          <div style={{color:'#4b5563', fontSize:9}}>versions complete</div>
+        </div>
+      </div>
+
+      {/* Version track */}
+      <div style={{marginBottom:6}}>
+        <MiniBar pct={pct_complete} color="#3b82f6" height={6} />
+        <div style={{display:'flex', justifyContent:'space-between', marginTop:2}}>
+          <span style={{color:'#4b5563', fontSize:9}}>v1</span>
+          <span style={{color:'#4b5563', fontSize:9}}>v100</span>
+        </div>
+      </div>
+
+      {/* Version dots */}
+      <div style={{display:'flex', gap:2, flexWrap:'wrap'}}>
+        {Array.from({length:20}, (_,i) => {
+          const v = Math.floor(i * total / 20) + 1;
+          const done = v < current;
+          const act  = v === current;
+          return (
+            <div key={i} title={`v${v}`} style={{
+              width:10, height:10, borderRadius:2,
+              background: done ? '#22c55e' : act ? '#3b82f6' : '#111827',
+              border: `1px solid ${act ? '#3b82f6' : done ? '#16a34a' : '#1f2937'}`,
+              transition:'all .3s',
+            }} />
+          );
+        })}
+      </div>
+
+      {/* Task progress */}
+      <div style={{borderTop:'1px solid #111827', marginTop:8, paddingTop:8}}>
+        <div className="flex justify-between" style={{marginBottom:4}}>
+          <span style={{color:'#4b5563', fontSize:9}}>THIS VERSION — TASKS</span>
+          <span style={{color:'#22c55e', fontSize:10}}>{q.completed||0}/{q.total||100}</span>
+        </div>
+        <MiniBar pct={taskPct} color="#22c55e" height={5} />
+        <div className="flex gap-3 mt-2">
+          {[
+            ['done', q.completed, '#22c55e'],
+            ['active', q.in_progress, '#3b82f6'],
+            ['fail', q.failed, '#ef4444'],
+            ['wait', q.pending, '#374151'],
+          ].map(([l,v,c]) => (
+            <div key={l} style={{textAlign:'center'}}>
+              <div style={{color:c, fontSize:13, fontWeight:700}}>{v??0}</div>
+              <div style={{color:'#374151', fontSize:9}}>{l}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </Panel>
+  );
+}
+
+// ── Benchmark Racing Chart ─────────────────────────────────────────────────
+function BenchmarkRace({ scores }) {
+  const entries = Object.entries(scores||{}).slice(-12);
+  if (entries.length === 0) return (
+    <Panel title="Nexus vs Opus 4.6 — Live Race">
+      <div style={{color:'#1e293b', textAlign:'center', padding:'20px 0'}}>Waiting for first version...</div>
+    </Panel>
+  );
+
+  const localScores = entries.map(([,s]) => s.local||0);
+  const opusScores  = entries.map(([,s]) => s.opus||0);
+  const maxScore    = Math.max(...localScores, ...opusScores, 100);
+
+  const W = 340, H = 90;
+  const padL = 28, padB = 16, padR = 8, padT = 8;
+  const chartW = W - padL - padR;
+  const chartH = H - padT - padB;
+  const xStep = entries.length > 1 ? chartW / (entries.length - 1) : chartW;
+
+  const pts = (arr) => arr.map((v,i) => {
+    const x = padL + (entries.length > 1 ? i * xStep : chartW/2);
+    const y = padT + chartH - (v / maxScore) * chartH;
+    return `${x},${y}`;
+  }).join(' ');
+
+  const lastLocal = localScores[localScores.length-1]||0;
+  const lastOpus  = opusScores[opusScores.length-1]||0;
+  const winning   = lastLocal >= lastOpus;
+
+  return (
+    <Panel title="Nexus vs Opus 4.6 — Live Race" action={
+      <Badge text={winning ? '🏆 NEXUS WINNING' : 'CATCHING UP'} color={winning ? '#22c55e' : '#f59e0b'} />
+    }>
+      {/* Score display */}
+      <div className="flex justify-between items-center" style={{marginBottom:8}}>
+        <div className="flex items-center gap-2">
+          <div style={{width:10, height:10, borderRadius:2, background:'#10b981'}} />
+          <span style={{color:'#6b7280', fontSize:10}}>Nexus</span>
+          <span style={{color:'#10b981', fontWeight:700, fontSize:16}}>{lastLocal}</span>
+        </div>
+        <div style={{color:'#4b5563', fontSize:12}}>vs</div>
+        <div className="flex items-center gap-2">
+          <span style={{color:'#8b5cf6', fontWeight:700, fontSize:16}}>{lastOpus}</span>
+          <span style={{color:'#6b7280', fontSize:10}}>Opus 4.6</span>
+          <div style={{width:10, height:10, borderRadius:2, background:'#8b5cf6'}} />
+        </div>
+      </div>
+
+      {/* SVG chart */}
+      <svg width={W} height={H} style={{overflow:'visible', width:'100%'}}>
+        {/* Grid lines */}
+        {[25,50,75,100].map(v => {
+          const y = padT + chartH - (v / maxScore) * chartH;
+          return <line key={v} x1={padL} y1={y} x2={W-padR} y2={y} stroke="#1a2035" strokeWidth={1} strokeDasharray="3,3" />;
+        })}
+        {/* Y labels */}
+        {[0,50,100].map(v => {
+          const y = padT + chartH - (v / maxScore) * chartH;
+          return <text key={v} x={padL-4} y={y+4} textAnchor="end" fill="#374151" fontSize={8}>{v}</text>;
+        })}
+        {/* Nexus fill */}
+        {localScores.length > 1 && (
+          <polygon
+            points={`${padL},${padT+chartH} ${pts(localScores)} ${padL + (entries.length-1)*xStep},${padT+chartH}`}
+            fill="#10b98111"
+          />
+        )}
+        {/* Lines */}
+        {localScores.length > 1 && (
+          <polyline fill="none" stroke="#10b981" strokeWidth={2} points={pts(localScores)} strokeLinejoin="round" />
+        )}
+        {opusScores.length > 1 && (
+          <polyline fill="none" stroke="#8b5cf6" strokeWidth={1.5} points={pts(opusScores)} strokeLinejoin="round" strokeDasharray="4,2" />
+        )}
+        {/* End dots */}
+        {localScores.length > 0 && (() => {
+          const [x,y] = pts(localScores).split(' ').pop().split(',');
+          return <circle cx={x} cy={y} r={4} fill="#10b981" />;
+        })()}
+        {opusScores.length > 0 && (() => {
+          const [x,y] = pts(opusScores).split(' ').pop().split(',');
+          return <circle cx={x} cy={y} r={3} fill="#8b5cf6" />;
+        })()}
+        {/* X labels */}
+        {entries.map(([v],i) => {
+          const x = padL + (entries.length > 1 ? i * xStep : chartW/2);
+          return <text key={v} x={x} y={H-2} textAnchor="middle" fill="#374151" fontSize={8}>{v}</text>;
+        })}
+      </svg>
+
+      {/* Win rate bar */}
+      <div style={{marginTop:4}}>
+        {entries.slice(-4).map(([v,s]) => (
+          <div key={v} className="flex items-center gap-2" style={{marginBottom:2}}>
+            <span style={{color:'#374151', fontSize:9, width:24}}>{v}</span>
+            <div style={{flex:1, background:'#0d1117', borderRadius:2, height:5}}>
+              <div className="bar-fill" style={{
+                width:`${s.win_rate||0}%`, height:'100%', borderRadius:2,
+                background: s.win_rate >= 90 ? '#22c55e' : s.win_rate >= 70 ? '#f59e0b' : '#ef4444',
+              }} />
+            </div>
+            <span style={{color:'#4b5563', fontSize:9, width:36}}>{s.win_rate||0}%</span>
+          </div>
+        ))}
+      </div>
+    </Panel>
+  );
+}
+
+// ── Token Budget ───────────────────────────────────────────────────────────
+function TokenBudget({ tokens }) {
+  if (!tokens) return null;
+  const { claude_tokens, local_tokens, budget_pct, warning, hard_limit_hit } = tokens;
+  const color = hard_limit_hit ? '#ef4444' : warning ? '#f59e0b' : '#22c55e';
+  const remaining = Math.max(0, 10 - (budget_pct||0));
+
+  return (
+    <Panel title="Claude Budget — 10% Hard Cap">
+      {/* Gauge */}
+      <div style={{position:'relative', marginBottom:8}}>
+        <MiniBar pct={budget_pct||0} color={color} height={8} />
+        {/* 10% marker */}
+        <div style={{
+          position:'absolute', top:0, left:'10%', width:1, height:8,
+          background:'#ef4444', opacity:.5,
+        }} />
+      </div>
+
+      <div className="flex justify-between items-center" style={{marginBottom:8}}>
+        <div style={{color, fontWeight:700, fontSize:18}}>
+          {budget_pct||0}%
+          {hard_limit_hit && <span className="blink" style={{color:'#ef4444', marginLeft:6, fontSize:12}}>⚠</span>}
+        </div>
+        <div style={{textAlign:'right'}}>
+          <div style={{color:'#22c55e', fontSize:10}}>{remaining.toFixed(1)}% remaining</div>
+          <div style={{color:'#374151', fontSize:9}}>cap: 10%</div>
+        </div>
+      </div>
+
+      <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:6}}>
+        <div style={{background:'#0d1117', borderRadius:5, padding:'6px 8px'}}>
+          <div style={{color:'#8b5cf6', fontSize:16, fontWeight:700}}>
+            {(claude_tokens||0).toLocaleString()}
+          </div>
+          <div style={{color:'#374151', fontSize:9}}>claude calls</div>
+          <div style={{color:'#4b5563', fontSize:9}}>rescue + upgrade only</div>
+        </div>
+        <div style={{background:'#0d1117', borderRadius:5, padding:'6px 8px'}}>
+          <div style={{color:'#22c55e', fontSize:16, fontWeight:700}}>
+            {(local_tokens||0).toLocaleString()}
+          </div>
+          <div style={{color:'#374151', fontSize:9}}>local tasks (free)</div>
+          <div style={{color:'#4b5563', fontSize:9}}>Ollama • $0 cost</div>
+        </div>
+      </div>
+    </Panel>
+  );
+}
+
+// ── Hardware ───────────────────────────────────────────────────────────────
+function Hardware({ hw }) {
+  if (!hw) return null;
+  const { cpu_pct, ram_pct, disk_pct, alert_level } = hw;
+  const bars = [
+    { label:'CPU', val:cpu_pct, color: cpu_pct>=90?'#ef4444':cpu_pct>=80?'#f59e0b':'#3b82f6' },
+    { label:'RAM', val:ram_pct, color: ram_pct>=85?'#ef4444':ram_pct>=80?'#f59e0b':'#10b981' },
+    { label:'Disk', val:disk_pct||0, color:'#374151' },
+  ];
+  const alertColor = alert_level==='red'?'#ef4444':alert_level==='yellow'?'#f59e0b':'#22c55e';
+
+  return (
+    <Panel title="Hardware" action={<Badge text={alert_level?.toUpperCase()||'OK'} color={alertColor} />}>
+      {bars.map(b => (
+        <div key={b.label} className="flex items-center gap-2" style={{marginBottom:5}}>
+          <span style={{color:'#4b5563', fontSize:9, width:26}}>{b.label}</span>
+          <div style={{flex:1}}>
+            <MiniBar pct={b.val} color={b.color} height={6} />
+          </div>
+          <span style={{color:b.color, fontSize:10, width:32, textAlign:'right'}}>{b.val}%</span>
+        </div>
+      ))}
+      <div style={{marginTop:4, paddingTop:6, borderTop:'1px solid #111827'}}>
+        <div style={{color:'#374151', fontSize:9}}>
+          {cpu_pct<80 && ram_pct<80 ? '▶ Spawning at full capacity' :
+           cpu_pct>=90 || ram_pct>=85 ? '⚠ Resource throttling active' :
+           '⚡ Approaching limits — slowing spawns'}
+        </div>
+      </div>
+    </Panel>
+  );
+}
+
+// ── Failure Log ────────────────────────────────────────────────────────────
+function FailureLog({ failures }) {
+  return (
+    <Panel title={`Failure Log ${failures?.length ? `(${failures.length})` : ''}`}>
+      {!failures?.length ? (
+        <div style={{color:'#1e293b', textAlign:'center', padding:'12px 0', fontSize:11}}>
+          No failures — agents running clean
+        </div>
+      ) : (
+        <div style={{overflowY:'auto', maxHeight:130}}>
+          {failures.map((f,i) => (
+            <div key={i} className="task-row fade-in" style={{
+              padding:'5px 6px', borderRadius:4, marginBottom:3,
+              background:'#0d1117', border:'1px solid #1a1a2e',
+            }}>
+              <div className="flex justify-between">
+                <span style={{color:'#ef4444', fontSize:10}}>{AGENT_ICON[f.agent]||'⚡'} {f.agent}</span>
+                <span style={{color:'#374151', fontSize:9}}>#{f.attempt} • {f.ts?.slice(11,19)}</span>
+              </div>
+              <div style={{color:'#94a3b8', fontSize:10, marginTop:1}}>{f.task}</div>
+              <div style={{color:'#4b5563', fontSize:9, marginTop:1}}>{f.tried?.slice(0,80)}</div>
+            </div>
+          ))}
+        </div>
+      )}
+    </Panel>
+  );
+}
+
+// ── Version Changelog ──────────────────────────────────────────────────────
+function Changelog({ changelog }) {
+  const entries = Object.entries(changelog||{}).slice(-4).reverse();
+  return (
+    <Panel title="Auto-Upgrade Log">
+      {!entries.length ? (
+        <div style={{color:'#1e293b', fontSize:11}}>No upgrades yet</div>
+      ) : (
+        entries.map(([v,c]) => {
+          const delta = c.delta || 0;
+          return (
+            <div key={v} style={{
+              marginBottom:6, paddingBottom:6, borderBottom:'1px solid #111827',
+            }}>
+              <div className="flex justify-between items-center">
+                <span style={{color:'#94a3b8', fontWeight:600, fontSize:11}}>{v}</span>
+                <span style={{color: delta>=0?'#22c55e':'#ef4444', fontSize:11, fontWeight:700}}>
+                  {c.before_score||0} → {c.after_score||0}
+                  <span style={{marginLeft:4, fontSize:10}}>({delta>=0?'+':''}{delta})</span>
+                </span>
+              </div>
+              {c.changes?.slice(0,2).map((ch,i) => (
+                <div key={i} style={{color:'#4b5563', fontSize:9, marginTop:2}}>• {ch}</div>
+              ))}
+            </div>
+          );
+        })
+      )}
+    </Panel>
+  );
+}
+
+// ── Research Feed ──────────────────────────────────────────────────────────
+function ResearchFeed({ feed }) {
+  return (
+    <Panel title="Research Feed (every 5 versions)">
+      {!feed?.length ? (
+        <div style={{color:'#1e293b', fontSize:11}}>Next research at v5</div>
+      ) : (
+        <div style={{overflowY:'auto', maxHeight:110}}>
+          {feed.slice(0,5).map((f,i) => (
+            <div key={i} style={{marginBottom:5}}>
+              <span style={{color:'#374151', fontSize:9}}>{f.ts?.slice(11,19)}</span>
+              <div style={{color:'#6b7280', fontSize:10}}>{f.finding}</div>
+            </div>
+          ))}
+        </div>
+      )}
+    </Panel>
+  );
+}
+
+// ── Connection indicator ───────────────────────────────────────────────────
+function ConnectionBar({ connected, ts, loopRunning }) {
+  return (
+    <div className="flex items-center justify-between" style={{
+      background:'#07090f', borderBottom:'1px solid #0d1117',
+      padding:'4px 14px', flexShrink:0,
+    }}>
+      <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1">
+          <Dot color={connected?'#22c55e':'#ef4444'} active={connected} />
+          <span style={{color:'#4b5563', fontSize:9}}>{connected?'LIVE':'DISCONNECTED'}</span>
+        </div>
+        <span style={{color:'#1e293b'}}>|</span>
+        <div className="flex items-center gap-1">
+          <Dot color={loopRunning?'#3b82f6':'#374151'} active={loopRunning} />
+          <span style={{color:'#4b5563', fontSize:9}}>{loopRunning?'LOOP RUNNING':'IDLE'}</span>
+        </div>
+      </div>
+      <div className="flex items-center gap-3">
+        <span style={{color:'#1e293b', fontSize:9}}>LOCAL 90% / CLAUDE RESCUE ≤10%</span>
+        <span style={{color:'#374151', fontSize:9}}>{ts?.slice(0,19)||'—'}</span>
+      </div>
+    </div>
+  );
+}
+
+// ── Root App ───────────────────────────────────────────────────────────────
 function App() {
   const [state, setState] = useState(null);
   const [connected, setConnected] = useState(false);
@@ -300,77 +703,53 @@ function App() {
   const connect = useCallback(() => {
     const ws = new WebSocket(`ws://${location.host}/ws`);
     wsRef.current = ws;
-
     ws.onopen = () => setConnected(true);
-    ws.onmessage = (e) => {
-      try {
-        const data = JSON.parse(e.data);
-        if (!data.ping) setState(data);
-      } catch {}
-    };
-    ws.onclose = () => {
-      setConnected(false);
-      setTimeout(connect, 2000);  // auto-reconnect
-    };
+    ws.onmessage = (e) => { try { const d=JSON.parse(e.data); if(!d.ping) setState(d); } catch{} };
+    ws.onclose = () => { setConnected(false); setTimeout(connect, 2000); };
     ws.onerror = () => ws.close();
   }, []);
 
-  useEffect(() => {
-    connect();
-    return () => wsRef.current?.close();
-  }, [connect]);
-
-  // Fallback polling if WS fails
+  useEffect(() => { connect(); return () => wsRef.current?.close(); }, [connect]);
   useEffect(() => {
     const id = setInterval(async () => {
-      if (!connected) {
-        try {
-          const r = await fetch('/api/state');
-          const d = await r.json();
-          setState(d);
-        } catch {}
-      }
+      if (!connected) try { const r=await fetch('/api/state'); setState(await r.json()); } catch{}
     }, 2000);
     return () => clearInterval(id);
   }, [connected]);
 
+  const loopRunning = !!(state?.version && state.version.current > 0);
+
   return (
-    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', padding: 8, gap: 8 }}>
-      {/* Header */}
-      <div className="flex items-center justify-between" style={{ flexShrink: 0 }}>
-        <div>
-          <span style={{ color: '#3b82f6', fontWeight: 700, fontSize: 14 }}>LOCAL AGENT</span>
-          <span style={{ color: '#6b7280', marginLeft: 8 }}>v1→v100 Dashboard</span>
+    <div style={{height:'100vh', display:'flex', flexDirection:'column', background:'#050508'}}>
+      {/* Status bar */}
+      <ConnectionBar connected={connected} ts={state?.ts} loopRunning={loopRunning} />
+
+      {/* Scrollable main */}
+      <div style={{flex:1, overflowY:'auto', padding:'6px 8px'}}>
+
+        {/* HERO — Agent Command Center */}
+        <AgentCommandCenter
+          agents={state?.agents || {}}
+          taskQueue={state?.task_queue}
+          version={state?.version}
+        />
+
+        {/* Row 1: Version + Benchmark */}
+        <div style={{display:'grid', gridTemplateColumns:'1fr 2fr', gap:6, marginBottom:6}}>
+          <VersionProgress version={state?.version} queue={state?.task_queue} />
+          <BenchmarkRace scores={state?.benchmark_scores} />
         </div>
-        <ConnectionStatus connected={connected} lastTs={state?.ts} />
-      </div>
 
-      {/* Global progress */}
-      <GlobalProgress version={state?.version} />
+        {/* Row 2: Token + Hardware + Changelog + Research */}
+        <div style={{display:'grid', gridTemplateColumns:'1fr 1fr 1fr 1fr', gap:6, marginBottom:6}}>
+          <TokenBudget tokens={state?.token_usage} />
+          <Hardware hw={state?.hardware} />
+          <Changelog changelog={state?.version_changelog} />
+          <ResearchFeed feed={state?.research_feed} />
+        </div>
 
-      {/* Main grid */}
-      <div style={{ flex: 1, overflow: 'hidden', display: 'grid', gap: 8,
-                    gridTemplateColumns: '1fr 1fr 1fr 1fr',
-                    gridTemplateRows: 'auto auto 1fr' }}>
-
-        {/* Row 1 */}
-        <div style={{ gridColumn: '1 / 3' }}><TaskQueue queue={state?.task_queue} /></div>
-        <div><TokenUsage tokens={state?.token_usage} /></div>
-        <div><HardwareMonitor hw={state?.hardware} /></div>
-
-        {/* Row 2 */}
-        <div style={{ gridColumn: '1 / 3' }}><BenchmarkScores scores={state?.benchmark_scores} /></div>
-        <div><VersionChangelog changelog={state?.version_changelog} /></div>
-        <div><ResearchFeed feed={state?.research_feed} /></div>
-
-        {/* Row 3 */}
-        <div style={{ gridColumn: '1 / 3', overflow: 'auto' }}><AgentHealth agents={state?.agents} /></div>
-        <div style={{ gridColumn: '3 / 5', overflow: 'auto' }}><FailureLog failures={state?.failures} /></div>
-      </div>
-
-      {/* Footer */}
-      <div style={{ color: '#374151', fontSize: 10, flexShrink: 0 }}>
-        Local 90% / Claude 10% rescue-upgrade-only · state: {state?.ts?.slice(0,19) || 'loading...'}
+        {/* Row 3: Failures */}
+        <FailureLog failures={state?.failures} />
       </div>
     </div>
   );

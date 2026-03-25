@@ -404,7 +404,7 @@ def _write_leaderboard(version: int, avg_local: float, avg_opus: float,
         except FileNotFoundError:
             lines = [
                 "# Nexus vs Opus 4.6 — Leaderboard\n\n",
-                "Auto-updated after every version. Local = Nexus (Jimmy). Target: beat Opus on all categories.\n\n",
+                "Auto-updated after every version. Local = Nexus. Target: beat Opus 4.6 on all categories.\n\n",
                 "| Version | Local avg | Opus avg | Gap | Win Rate | Status |\n",
                 "|---------|-----------|----------|-----|----------|--------|\n",
             ]

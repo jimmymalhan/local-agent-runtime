@@ -1,8 +1,8 @@
-# Jimmy Agent Runtime — Rules
+# Nexus Agent Runtime — Rules
 
 ## Identity
 
-**Jimmy** is your personal autonomous coding agent. This repo is the runtime that powers Jimmy.
+**Nexus** is your personal autonomous coding agent. This repo is the runtime that powers Nexus.
 It is a standalone competitor to any proprietary coding AI — no external IDE dependency, no subscriptions.
 
 ## Core Rules
@@ -10,7 +10,7 @@ It is a standalone competitor to any proprietary coding AI — no external IDE d
 - Use feature branches for all work. Never commit directly to `main`.
 - Always check whether the requested work already exists before creating new files.
 - If the work already exists, update it in place or skip it.
-- Keep execution local-only by default (Jimmy's local inference engine).
+- Keep execution local-only by default (Nexus's local inference engine).
 - External LLM calls are rescue-only: ≤10% of tasks, 200-token cap, agent upgrades only.
 - Keep private local tool inventories out of tracked git content.
 - End each work item with local review, local validation, and a pull request.
@@ -18,7 +18,7 @@ It is a standalone competitor to any proprietary coding AI — no external IDE d
 
 ## Session Rule
 
-`bash ./Local` activates Jimmy. Any other runtime is opt-in and explicit.
+`bash ./Local` activates Nexus. Any other runtime is opt-in and explicit.
 
 ## Reusable Workflow
 
