@@ -540,8 +540,7 @@ main{position:relative;z-index:1;padding-top:52px;}
   <div class="ntabs" role="tablist">
     <button class="ntab active" role="tab" aria-selected="true"  data-tab="overview"   data-testid="tab-overview"   tabindex="0">Overview</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="agents"     data-testid="tab-agents"     tabindex="-1">Agents</button>
-    <button class="ntab"        role="tab" aria-selected="false" data-tab="projects"   data-testid="tab-projects"   tabindex="-1">Projects</button>
-    <button class="ntab"        role="tab" aria-selected="false" data-tab="tasks"      data-testid="tab-tasks"      tabindex="-1">Tasks</button>
+    <button class="ntab"        role="tab" aria-selected="false" data-tab="tasks"      data-testid="tab-tasks"      tabindex="-1">Projects &amp; Tasks</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="ceo"        data-testid="tab-ceo"        tabindex="-1">CEO</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="logs"       data-testid="tab-logs"       tabindex="-1">Logs</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="chat"       data-testid="tab-chat"       tabindex="-1">Chat</button>
@@ -748,17 +747,18 @@ main{position:relative;z-index:1;padding-top:52px;}
   </div>
 </div>
 
-<!-- ═══ PROJECTS TAB ═════════════════════════════════════════ -->
-<div id="tab-projects" class="tab-panel" role="tabpanel">
-  <div class="sec" style="padding-top:40px;">
+<!-- ═══ PROJECTS stub (hidden — merged into Tasks tab) ═════════ -->
+<div id="tab-projects" class="tab-panel" style="display:none!important;" role="tabpanel" aria-hidden="true"></div>
+
+<!-- ═══ TASKS TAB (unified Projects + Tasks + Todo) ══════════ -->
+<div id="tab-tasks" class="tab-panel" role="tabpanel">
+  <!-- ── Projects swimlane ──────────────────────────────────── -->
+  <div class="sec" style="padding-top:40px;padding-bottom:0;">
     <div class="sh"><h2 class="st">Projects</h2><span class="ss" id="proj-ct">Workspaces</span></div>
     <div class="pg" id="pg"></div>
   </div>
-</div>
-
-<!-- ═══ TASKS TAB (unified Tasks + Todo) ═════════════════════ -->
-<div id="tab-tasks" class="tab-panel" role="tabpanel">
-  <div class="sec" style="padding-top:40px;">
+  <!-- ── Tasks Kanban ───────────────────────────────────────── -->
+  <div class="sec" style="padding-top:24px;">
     <div class="sh">
       <h2 class="st">Tasks</h2>
       <span class="ss" id="board-ct">—</span>
@@ -798,7 +798,7 @@ main{position:relative;z-index:1;padding-top:52px;}
           <span id="done-clean-badge" style="font-size:9px;font-weight:400;color:var(--t3);margin-left:6px;"></span>
           <span id="todo-cnt-done" style="display:none;">0</span>
         </div>
-        <div id="cb-done"></div>
+        <div id="kanban-cb-done"></div>
         <div id="todo-col-done" style="display:none;"></div>
       </div>
     </div>
@@ -806,6 +806,7 @@ main{position:relative;z-index:1;padding-top:52px;}
       No tasks yet — CEO check populates the board every 60s
     </div>
     <div id="todo-ct" style="margin-top:12px;font-size:11px;color:var(--t3);text-align:right;"></div>
+  </div>
   </div>
 </div>
 
@@ -820,12 +821,44 @@ main{position:relative;z-index:1;padding-top:52px;}
   <div class="sec" style="padding-top:40px;">
     <div class="ceo-wrap" data-testid="ceo-panel">
       <div class="ceo-ttl">CEO Agent</div>
-      <div class="ceo-sub">Extreme leadership · strategic vision · stays ahead of every curve</div>
+      <div class="ceo-sub">Principal Engineer + CTO · beats Opus 4.6 on every benchmark · drives v1→v1000 convergence</div>
       <div class="ceo-st"><div class="ceo-dot"></div><span id="ceo-st-txt">Monitoring all systems</span></div>
       <div class="ceo-dirs">
-        <div class="ceo-d"><div class="ceo-d-t">Win Rate</div><div class="ceo-d-v" id="ceo-wr">—</div><div class="ceo-d-s">quality score</div></div>
+        <div class="ceo-d"><div class="ceo-d-t">Benchmark vs Opus</div><div class="ceo-d-v" id="ceo-wr">—</div><div class="ceo-d-s">avg quality delta</div></div>
         <div class="ceo-d"><div class="ceo-d-t">Tasks Done</div><div class="ceo-d-v" id="ceo-tasks">—</div><div class="ceo-d-s">this version</div></div>
-        <div class="ceo-d"><div class="ceo-d-t">Budget Used</div><div class="ceo-d-v" id="ceo-bgt" style="color:var(--purple);">—</div><div class="ceo-d-s">Claude rescue</div></div>
+        <div class="ceo-d"><div class="ceo-d-t">Rescue Budget</div><div class="ceo-d-v" id="ceo-bgt" style="color:var(--purple);">—</div><div class="ceo-d-s">Claude 10% cap</div></div>
+        <div class="ceo-d"><div class="ceo-d-t">ETA to Beat Opus</div><div class="ceo-d-v" id="ceo-eta" style="color:var(--green);">—</div><div class="ceo-d-s">versions remaining</div></div>
+      </div>
+
+      <!-- AI Strategic Directives — always visible -->
+      <div style="margin-top:20px;background:var(--card2);border:1px solid var(--bd);border-radius:var(--r);padding:18px 20px;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);margin-bottom:12px;">AI Strategic Directives</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--rsm);padding:10px 12px;">
+            <div style="font-size:9px;color:var(--blue);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Architecture</div>
+            <div style="font-size:11px;color:var(--t2);line-height:1.5;">10 specialized agents → specialist pool pattern. Orchestrator dispatches by task type. No monolithic agents — each agent owns one domain.</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--rsm);padding:10px 12px;">
+            <div style="font-size:9px;color:var(--green);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Self-Improvement Loop</div>
+            <div style="font-size:11px;color:var(--t2);line-height:1.5;">Calibration warmup → A/B prompt engine → quality gate → commit winner. Every version auto-patches regressions before production pool.</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--rsm);padding:10px 12px;">
+            <div style="font-size:9px;color:var(--purple);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Benchmark Strategy</div>
+            <div style="font-size:11px;color:var(--t2);line-height:1.5;">100 real-project tasks (not LeetCode toys): distributed systems, auth refactor, API design, DB migrations. Score Δ vs Opus 4.6 per category.</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--rsm);padding:10px 12px;">
+            <div style="font-size:9px;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Resource Governance</div>
+            <div style="font-size:11px;color:var(--t2);line-height:1.5;">CPU×2 concurrent agents at &lt;80% RAM. Pause spawns 80-85%. Kill lowest-quality agent at &gt;85%. Claude rescue hard-capped at 10%.</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--rsm);padding:10px 12px;">
+            <div style="font-size:9px;color:var(--yellow,#f5a623);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Researcher Pipeline</div>
+            <div style="font-size:11px;color:var(--t2);line-height:1.5;">Every 5 versions: scrape r/LocalLLaMA, HN, Blind → extract failure patterns → inject corrective rules into system prompts automatically.</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--rsm);padding:10px 12px;">
+            <div style="font-size:9px;color:var(--t2);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Stop Condition</div>
+            <div style="font-size:11px;color:var(--t2);line-height:1.5;">Beat Opus 4.6 in ALL categories: code_gen, debug, arch, review, planning. Then retarget to next frontier model. No plateau accepted.</div>
+          </div>
+        </div>
       </div>
 
       <!-- Live CEO report metrics -->
@@ -951,44 +984,6 @@ main{position:relative;z-index:1;padding-top:52px;}
   </div>
 </div>
 
-<!-- ═══ TODO TAB (Jira-style Kanban) ══════════════════════════ -->
-<div id="tab-todo" class="tab-panel" role="tabpanel">
-  <div class="sec" style="padding-top:40px;">
-    <div class="sh">
-      <h2 class="st">Todo Board</h2>
-      <span class="ss" id="todo-ct">Loading…</span>
-    </div>
-    <!-- Kanban columns -->
-    <div id="todo-board" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:20px;">
-      <div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:10px;display:flex;align-items:center;gap:6px;">
-          <span>Blocked</span><span id="todo-cnt-blocked" style="background:var(--red-g);color:var(--red);border-radius:10px;padding:1px 7px;font-size:9px;">0</span>
-        </div>
-        <div id="todo-col-blocked" style="display:flex;flex-direction:column;gap:8px;min-height:60px;"></div>
-      </div>
-      <div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:10px;display:flex;align-items:center;gap:6px;">
-          <span>Running</span><span id="todo-cnt-running" style="background:var(--blue-g);color:var(--blue);border-radius:10px;padding:1px 7px;font-size:9px;">0</span>
-        </div>
-        <div id="todo-col-running" style="display:flex;flex-direction:column;gap:8px;min-height:60px;"></div>
-      </div>
-      <div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t2);margin-bottom:10px;display:flex;align-items:center;gap:6px;">
-          <span>Todo</span><span id="todo-cnt-todo" style="background:rgba(0,0,0,.06);color:var(--t2);border-radius:10px;padding:1px 7px;font-size:9px;">0</span>
-        </div>
-        <div id="todo-col-todo" style="display:flex;flex-direction:column;gap:8px;min-height:60px;"></div>
-      </div>
-      <div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:10px;display:flex;align-items:center;gap:6px;">
-          <span>Done</span><span id="todo-cnt-done" style="background:var(--green-g);color:var(--green);border-radius:10px;padding:1px 7px;font-size:9px;">0</span>
-        </div>
-        <div id="todo-col-done" style="display:flex;flex-direction:column;gap:8px;min-height:60px;"></div>
-      </div>
-    </div>
-    <div id="todo-empty" style="display:none;text-align:center;padding:60px 0;color:var(--t3);font-size:13px;">No tasks yet — CEO check populates this board every 60s</div>
-  </div>
-</div>
-
 <!-- ═══ CHAT TAB ══════════════════════════════════════════════ -->
 <div id="tab-chat" class="tab-panel" role="tabpanel">
   <div class="sec" style="padding-top:40px;max-width:800px;">
@@ -1103,6 +1098,7 @@ main{position:relative;z-index:1;padding-top:52px;}
 const tabs=[...document.querySelectorAll('.ntab')];
 const panels=[...document.querySelectorAll('.tab-panel')];
 function switchTab(id){
+  if(id==='projects'||id==='todo')id='tasks'; // collapsed into Tasks tab
   tabs.forEach(t=>{const a=t.dataset.tab===id;t.classList.toggle('active',a);t.setAttribute('aria-selected',a);t.tabIndex=a?0:-1;});
   panels.forEach(p=>p.classList.toggle('active',p.id==='tab-'+id));
   if(id==='ceo')runCeo();
@@ -1359,16 +1355,26 @@ function drawBench(hist){
 <!-- CEO -->
 <script>
 const DIRS=[
-  'Nexus must exceed baseline quality across all 7 categories. Every gap is a mission failure.',
-  'Win rate {wr} — push every agent to close remaining gaps this version.',
-  'Claude budget at {bgt}% — well within the 10% hard cap. Maintain discipline.',
-  'Self-improvement loop active: every failure pattern gets a targeted fix, not a workaround.',
-  'Local-first is non-negotiable. 90% of work stays on-device. Zero cloud dependency.',
-  'Sub-agent pool: scale to 1000 sub-agents the moment throughput demands it.',
-  'Rescue watchdog armed. No stuck agent survives 120 seconds undetected.',
-  'Quality threshold: no task passes below 40/100. Raise the bar every version.',
-  'The mission ends at v100 or when local beats Opus across all categories.',
-  'Every rescue call reduces future budget. Fix agents, not individual tasks.',
+  // Architecture directives
+  'ARCH: Specialist pool pattern enforced. Each agent owns exactly one domain. Monolithic agents are a regression — decompose immediately.',
+  'ARCH: Orchestrator routes by task signature (code_gen→executor, arch→architect, review→reviewer). Wrong routing = wrong quality. Audit dispatch table every version.',
+  'ARCH: Agent registry drives all dispatch. Never hardcode agent names in orchestrator. Registry is the single source of truth.',
+  // Benchmark directives
+  'BENCHMARK: Win rate {wr} vs Opus 4.6. Target: positive delta in ALL categories — code_gen, debug, arch, review, planning, refactor, docs.',
+  'BENCHMARK: Reject toy tasks. Every benchmark suite must include distributed systems, API design, DB migrations, auth flows — real-project work at senior IC level.',
+  'BENCHMARK: Category regressions auto-trigger targeted calibration + prompt patch within the same version. No regression ships.',
+  // Self-improvement directives
+  'PROMPT ENGINE: A/B test every improvement. 4-sample minimum. 3pt margin to commit. Rolling back a worse prompt is not failure — it is quality control.',
+  'CALIBRATION: 3-task warmup gates every agent each version. Agents below threshold are excluded from production pool — no exceptions, no overrides.',
+  'RESEARCHER: Every 5 versions, inject real failure patterns from r/LocalLLaMA + HN into system prompts. Community frustrations are the best regression test.',
+  // Resource directives
+  'RESOURCE: Scale to CPU×2 concurrent agents at RAM <80%. Pause spawns at 80-85%. Kill lowest-quality agent at >85%. Hardware sets the ceiling — never exceed it.',
+  'BUDGET: Claude rescue hard-capped at 10% of tasks. Current usage: {bgt}%. Every rescue call is a debt — repay it by fixing the underlying agent, not the task.',
+  'CHECKPOINT: Version snapshot before every upgrade. If avg quality drops >2pts vs prev version — auto-rollback, re-diagnose, patch. Never ship a regression.',
+  // Strategic directives
+  'MISSION: Beat Opus 4.6 in all benchmark categories. Then retarget to the next frontier model. There is no plateau, no finish line, only the next gap to close.',
+  'SCALING: v1→v100→v1000. Each version increases agent specialization, task complexity, and benchmark coverage. Quality compounds — guard it obsessively.',
+  'GOVERNANCE: Every architectural decision must have a measurable quality impact within 5 versions. Decisions without metrics are assumptions — remove them.',
 ];
 let _cIdx=0,_cs={wr:'—',bgt:'0',ver:1};
 function runCeo(){
@@ -1509,7 +1515,7 @@ function updBoard(tasks){
   for(const[k,list]of Object.entries(cols)){
     const displayList=(k==='done')?doneStore:list;
     $('c-'+k).textContent=displayList.length;
-    const body=$('cb-'+k);if(!body)continue;
+    const body=$(k==='done'?'kanban-cb-done':'cb-'+k);if(!body)continue;
     body.innerHTML='';
     for(const t of displayList.slice(0,50)){
       const q=t.local_quality||t.quality||0;
@@ -1670,6 +1676,27 @@ function applyState(st){
   const cv=$('chip-v');
   if(cv&&cv.innerHTML!==undefined)cv.innerHTML='<div class="cdot" style="background:var(--t4)"></div> v'+v;
   _cs={wr:wr,bgt:bp.toFixed(1),ver:v};
+  // ── CEO ETA / velocity ────────────────────────────────────────────────────
+  const vel=st.velocity||{};
+  const etaEl=$('ceo-eta');
+  if(etaEl){
+    const eta=vel.versions_to_beat_baseline;
+    etaEl.textContent=eta!=null?(eta===0?'BEATS OPUS':'v'+(v+eta)):('~'+Math.ceil(Math.max(1,(100-v)/2))+'v');
+    etaEl.style.color=eta===0?'var(--green)':eta!=null&&eta<10?'var(--orange)':'var(--t2)';
+  }
+  const activeAgCeo=$('ceo-active-agents');
+  if(activeAgCeo)activeAgCeo.textContent=Object.values(st.agents||{}).filter(a=>['running','reviewing','upgrading'].includes(a.status)).length||0;
+  const totalSaCeo=$('ceo-total-sa');
+  if(totalSaCeo){const pl2=st.pool||{};totalSaCeo.textContent=pl2.workers||pl2.running||0;}
+  const healthCeo=$('ceo-health');
+  if(healthCeo){
+    const cpuP=Math.max(0,(hw.cpu_pct||0)-70)/3,ramP=Math.max(0,(hw.ram_pct||0)-70)/2,budP=Math.min(bp*2,20);
+    const blkP=Math.min(((st.failure_log||st.failures||[]).length)*5,20);
+    const h=Math.max(0,Math.round(100-cpuP-ramP-budP-blkP));
+    healthCeo.textContent=h+'/100';healthCeo.style.color=h>=80?'var(--green)':h>=60?'var(--orange)':'var(--red)';
+  }
+  const lastChkCeo=$('ceo-last-check');
+  if(lastChkCeo){const cr=st.ceo_report||{};lastChkCeo.textContent=cr.ts?cr.ts.split('T')[1].slice(0,5)+' UTC':'just now';}
 
   // ── Sub-agent pool ────────────────────────────────────────────────────────
   const pl=st.pool||{};
@@ -1898,10 +1925,10 @@ async function refreshUnifiedBoard(){
   }
 
   // Map column keys to the HTML IDs in the unified board
-  const colMap={blocked:'bl',running:'run',todo:'todo',done:'done'};
+  const colMap={blocked:'bl',running:'run',todo:'todo',done:'kanban-cb-done'};
   for(const[status,items]of Object.entries(cols)){
     const cid=colMap[status]||status;
-    const body=document.getElementById('cb-'+cid);
+    const body=document.getElementById(cid.startsWith('kanban')?cid:'cb-'+cid);
     const cnt=document.getElementById('c-'+cid);
     if(!body)continue;
     if(cnt)cnt.textContent=items.length;
@@ -2250,7 +2277,7 @@ function _nxt(label,cond,severity='fail'){
 
 document.addEventListener('DOMContentLoaded',()=>{
   // ── Structure: required IDs ──────────────────────────────────────────────
-  const REQUIRED_IDS=['tab-overview','tab-agents','tab-subagents','tab-projects','tab-tasks','tab-ceo','tab-logs','rescue-panel','lfeed','bsvg','h-local','h-opus'];
+  const REQUIRED_IDS=['tab-overview','tab-agents','tab-subagents','tab-tasks','tab-ceo','tab-logs','rescue-panel','lfeed','bsvg','h-local','h-opus'];
   for(const id of REQUIRED_IDS)_nxt(`id#${id} exists`,!!document.getElementById(id));
 
   // ── Tabs: ARIA roles ─────────────────────────────────────────────────────
