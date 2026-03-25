@@ -68,8 +68,7 @@ done <<< "$CHANGED"
 
 FULL_MSG="${SUBJECT}
 
-$(echo -e "$BODY")
-Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>"
+$(echo -e "$BODY")"
 
 git commit -m "$FULL_MSG"
 git push origin "$BRANCH" 2>&1
