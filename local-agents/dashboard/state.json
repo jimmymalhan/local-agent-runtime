@@ -1,68 +1,17 @@
 {
-  "ts": "2026-03-26T15:00:45.421221+00:00",
-  "version": {
-    "current": 3,
-    "total": 1000,
-    "pct_complete": 0.3,
-    "label": "v3/1000"
-  },
-  "agents": {
-    "executor": {
-      "status": "running",
-      "task": "v1 calibration \u2014 10 agents active",
-      "task_id": 1,
-      "elapsed_s": 0.0,
-      "last_activity": "2026-03-26T07:59:38.254068",
-      "sub_agents": [
-        {
-          "id": 0,
-          "status": "done",
-          "task": "Implement LRU Cache",
-          "model": "",
-          "elapsed_s": 95.9,
-          "quality": 78
-        },
-        {
-          "id": 1,
-          "status": "done",
-          "task": "Implement LRU Cache",
-          "model": "",
-          "elapsed_s": 78.0,
-          "quality": 63
-        },
-        {
-          "id": 2,
-          "status": "running",
-          "task": "Implement LRU Cache",
-          "model": "",
-          "elapsed_s": 0.0,
-          "quality": 0
-        }
-      ],
-      "worker_count": 1
-    }
-  },
-  "task_queue": {
-    "total": 100,
-    "completed": 1,
-    "in_progress": 0,
-    "failed": 0,
-    "pending": 99
-  },
-  "benchmark_scores": {},
-  "token_usage": {
-    "budget_pct": 33.3,
-    "warning": true
-  },
+  "ts": "2026-03-26T16:41:38.864254+00:00",
   "hardware": {
-    "cpu_pct": 21.6,
-    "ram_pct": 73.7,
+    "cpu_pct": 16.3,
+    "ram_pct": 62.9,
+    "free_gb": 8.9,
     "alert_level": "ok"
   },
-  "failures": [],
-  "research_feed": [],
-  "version_changelog": {},
   "open_prs": [
+    {
+      "number": 52,
+      "title": "chore(handoff): task assignments + dashboard todos for local agents",
+      "branch": "feature/handoff-agents-exit"
+    },
     {
       "number": 49,
       "title": "fix(orchestrator): never-down guarantee \u2014 root cause was --continuous flag",
@@ -177,92 +126,68 @@
   "velocity": {
     "versions_done": 4,
     "versions_total": 1000,
-    "pct": 0.4
+    "pct": 0.4,
+    "eta_human": "996 versions left"
+  },
+  "token_usage": {
+    "claude_tokens": 289,
+    "local_tokens": 2000,
+    "total_tokens": 2289,
+    "rescued_tasks": 1,
+    "budget_pct": 12.6,
+    "warning": true,
+    "hard_limit_hit": true
+  },
+  "benchmark_scores": {
+    "v1": {
+      "local": 78.1,
+      "opus": 50.0,
+      "win_rate": 97.3,
+      "gap": 28.1,
+      "ts": "2026-03-25T16:44:36.905174",
+      "tasks": 111
+    },
+    "v3": {
+      "local": 75.3,
+      "opus": 0.0,
+      "win_rate": 100.0,
+      "gap": 75.3,
+      "ts": "2026-03-25T12:07:27.927871",
+      "tasks": 3
+    },
+    "v4": {
+      "local": 75.7,
+      "opus": 0.0,
+      "win_rate": 100.0,
+      "gap": 75.7,
+      "ts": "2026-03-25T12:13:56.716360",
+      "tasks": 3
+    },
+    "v5": {
+      "local": 76.3,
+      "opus": 56.7,
+      "win_rate": 100.0,
+      "gap": 19.6,
+      "ts": "2026-03-25T12:18:19.147133",
+      "tasks": 3
+    }
+  },
+  "version": {
+    "current": 3,
+    "total": 1000,
+    "pct_complete": 0.3,
+    "label": "v3/1000"
   },
   "ceo_report": {
-    "ts": "2026-03-26T15:00:45.421221+00:00",
-    "health_score": 86,
+    "ts": "2026-03-26T16:41:38.864254+00:00",
+    "health_score": 97,
     "dashboard_live": true,
-    "summary": "v3/1000 | 22 PRs | Budget 33.3%"
+    "summary": "v3/1000 | 23 PRs open | Budget 12.6%"
   },
   "business_summary": {
-    "headline": "v3/1000 | 22 PRs open | Budget 33.3%",
-    "health_score": 86,
+    "headline": "v3/1000 | 23 PRs | Budget 12.6%",
+    "health_score": 97,
     "version": 3,
-    "updated_at": "2026-03-26T15:00:45.421221+00:00"
-  },
-  "auto_heal_status": {
-    "ts": "2026-03-26T15:00:39",
-    "issues_this_cycle": [],
-    "healthy": true,
-    "dashboard_alive": true,
-    "disk_ok": true
-  },
-  "refresh_ms": 2000,
-  "cron": {
-    "rescue_orchestrator": "every 1 min",
-    "agent_watchdog": "every 5 min",
-    "cron_claude_rescue": "every 5 min (Sonnet, 0-token)",
-    "auto_merge_prs": "every 30 min"
-  },
-  "issues": [
-    {
-      "id": 48,
-      "title": "Merge 22 open PRs",
-      "priority": "P0",
-      "assigned": "Nexus-Executor"
-    },
-    {
-      "id": 50,
-      "title": "reviewer agent score=0",
-      "priority": "P1",
-      "assigned": "Nexus-Debugger"
-    },
-    {
-      "id": 51,
-      "title": "auto_merge_pr.sh JSON fix",
-      "priority": "P1",
-      "assigned": "Nexus-Executor"
-    }
-  ],
-  "todo": [
-    {
-      "id": 1,
-      "task": "Fix auto_merge_pr.sh + close 22 PRs",
-      "agent": "Nexus-Executor",
-      "issue": 51,
-      "status": "queued"
-    },
-    {
-      "id": 2,
-      "task": "Fix reviewer agent score=0",
-      "agent": "Nexus-Debugger",
-      "issue": 50,
-      "status": "queued"
-    },
-    {
-      "id": 3,
-      "task": "Pull main + restart loop v5\u2192v100 after PRs merged",
-      "agent": "Nexus-Executor",
-      "status": "blocked_by_1"
-    },
-    {
-      "id": 4,
-      "task": "Project DAG + RICE prioritization",
-      "agent": "Nexus-Architect",
-      "status": "queued"
-    },
-    {
-      "id": 5,
-      "task": "Three-tier memory system",
-      "agent": "Nexus-Architect",
-      "status": "queued"
-    },
-    {
-      "id": 6,
-      "task": "Dashboard velocity panel + burndown",
-      "agent": "Nexus-Executor",
-      "status": "queued"
-    }
-  ]
+    "updated_at": "2026-03-26T16:41:38.864254+00:00"
+  }
 }

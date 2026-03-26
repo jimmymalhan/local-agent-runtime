@@ -79,6 +79,21 @@ ROUTING_TABLE = {
     # Performance and monitoring
     "perf":          "debugger",
     "monitor":       "debugger",
+    # ── Frontend / Dashboard (jobs.hil-tad.com) ──────────────────────────────
+    # POLICY: ALL dashboard and frontend work routes here — never to Claude main.
+    "frontend":      "frontend_agent",
+    "react":         "frontend_agent",
+    "dashboard":     "frontend_agent",
+    "ui":            "frontend_agent",
+    "ux":            "frontend_agent",
+    "css":           "frontend_agent",
+    "html":          "frontend_agent",
+    "component":     "frontend_agent",
+    "design_system": "frontend_agent",
+    "accessibility": "frontend_agent",
+    "prototype":     "frontend_agent",
+    "state_mgmt":    "frontend_agent",
+    "build_tool":    "frontend_agent",
 }
 
 _cache: dict = {}
