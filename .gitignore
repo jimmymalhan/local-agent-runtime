@@ -32,6 +32,8 @@ state/openclaw-backups/
 # IDE and AI assistant files (not part of Jimmy agent runtime)
 .cursor/
 .claude/
+!.claude/skills/
+!.claude/skills/**
 *.aider*
 .aider.chat.history.md
 .aider.input.history
