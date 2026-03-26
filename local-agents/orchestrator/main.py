@@ -139,6 +139,16 @@ except ImportError:
     _BOARD_INIT = False
     def _init_board(*a, **kw): pass
     def _update_task_status(*a, **kw): pass
+# Velocity tracker — SQLite-backed throughput / burndown / weekly reports
+try:
+    from reports.velocity_tracker import VelocityTracker as _VelocityTracker
+    _velocity_tracker = _VelocityTracker()
+    _VELOCITY = True
+except Exception:
+    _VELOCITY = False
+    _velocity_tracker = None
+
+_velocity_tasks_logged = 0  # count across this process run
 
 # ── Claude guardrail config ────────────────────────────────────────────────
 CLAUDE_RESCUE_BUDGET  = 0.10   # max 10% of tasks rescued by Claude
