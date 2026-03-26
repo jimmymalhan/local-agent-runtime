@@ -1,23 +1,45 @@
-# Local Agent Runtime — Project Breakdown
-# Claude rescue: cron 5min, 0 API tokens, writes lesson to memory/.
+# Project Breakdown — Local Agent Runtime
+# Claude: EXITED. Local agents own all work. Cron rescue = Claude teaches (0 API tokens).
+# 2026-03-25
 
-## P0 — START NOW
-  [ ] python3 dashboard/live_state_updater.py &   (2s live refresh)
-  [ ] python3 orchestrator/main.py --auto 6       (v6 loop)
-  [ ] bash scripts/auto_merge_pr.sh              (merge #27-#34)
+## ❌ BLOCKER (fixes all 17 failing PRs)
+Agent: test_engineer
+Run:   python3 -m pytest tests/ -x -q
+Fix:
+  tests/test_executive_roles.py:18     role file missing or content wrong
+  tests/test_response_contract.py      summarizer role missing codex-style output
+  tests/test_takeover_policy.py        extra_skill_text missing 3 strings
+Done when: pytest exits 0
 
-## P1 — TASKS
-  [ ] P01  Real-world task suite (tasks/task_suite.py)
-  [ ] P02  v6 loop runs, beats Opus 4.6
-  [ ] P03  Write rescue_needed.json after 3 failures
-  [ ] P04  Velocity tracking: reports/velocity.jsonl
+## PROJECT 1 — pr-pipeline (after CI green)
+Agent: reviewer
+Run:   bash scripts/auto_merge_pr.sh
+Tasks:
+  [ ] Merge #27–#43 oldest first
+  [ ] Rebase on conflict, delete branch after merge
 
-## CRON RESCUE (PERMANENT)
-  [x] Installed: */5 * * * * scripts/cron_claude_rescue.sh
-  Action: writes lesson to memory/rescue_lessons.jsonl, 0 tokens
+## PROJECT 2 — nexus-loop (v6→v1000)
+Agent: orchestrator
+Run:   cd local-agents && python3 orchestrator/main.py --auto 6
+Tasks:
+  [ ] Real-world task suite (tasks/task_suite.py, 100 tasks)
+  [ ] Loop running, Opus 4.6 comparison per version
+  [ ] Write reports/rescue_needed.json after 3 same-task failures
 
-## DONE
-  [x] Supervisor + auto-heal
-  [x] VERSION=0.5.0
-  [x] Dashboard CEO view
-  [x] CI fixed
+## PROJECT 3 — dashboard (2s live)
+Agent: live_state_updater
+Run:   cd local-agents && python3 dashboard/live_state_updater.py &
+Tasks:
+  [ ] Version, agents, scores, PRs, velocity, hardware pushed every 2s
+  [ ] Watch: watch -n2 "python3 -c \"import json; d=json.load(open('local-agents/dashboard/state.json')); print(d['version'], d.get('velocity',{}))\"" 
+
+## PROJECT 4 — cron-rescue (PERMANENT)
+Cron:   */5 * * * * scripts/cron_claude_rescue.sh
+Action: writes lesson to local-agents/memory/rescue_lessons.jsonl (0 tokens)
+Status: [x] INSTALLED
+
+## START ORDER
+1. python3 -m pytest tests/ -x -q                           # fix CI
+2. cd local-agents && python3 dashboard/live_state_updater.py &
+3. bash scripts/auto_merge_pr.sh                            # merge PRs
+4. cd local-agents && python3 orchestrator/main.py --auto 6 # loop

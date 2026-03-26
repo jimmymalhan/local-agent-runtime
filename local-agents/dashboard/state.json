@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-25T16:32:56.661230",
+  "ts": "2026-03-26T02:05:31.405292",
   "version": {
     "current": 5,
     "total": 1000,
@@ -8,15 +8,15 @@
   },
   "agents": {
     "executor": {
-      "status": "planning",
-      "task": "E10 sprint \u2014 organizing repo + wiring Opus comparison",
+      "status": "idle",
+      "task": "Handed off to local agents",
       "task_id": 27,
       "elapsed_s": 0.0,
       "last_activity": "2026-03-25T14:00:27.949873"
     },
     "planner": {
-      "status": "running",
-      "task": "Breaking E10 plan into atomic tasks for v6 sprint",
+      "status": "idle",
+      "task": "Handed off to local agents",
       "task_id": null,
       "elapsed_s": 0,
       "last_activity": "",
@@ -25,7 +25,7 @@
     },
     "reviewer": {
       "status": "idle",
-      "task": "",
+      "task": "Handed off to local agents",
       "task_id": null,
       "elapsed_s": 0,
       "last_activity": "",
@@ -34,7 +34,7 @@
     },
     "debugger": {
       "status": "idle",
-      "task": "",
+      "task": "Handed off to local agents",
       "task_id": null,
       "elapsed_s": 0,
       "last_activity": "",
@@ -42,8 +42,8 @@
       "worker_count": 0
     },
     "researcher": {
-      "status": "queued",
-      "task": "Scan for real-world project templates for v6+ benchmark",
+      "status": "idle",
+      "task": "Handed off to local agents",
       "task_id": null,
       "elapsed_s": 0,
       "last_activity": "",
@@ -425,40 +425,60 @@
     "eta_human": "~20 versions to beat baseline",
     "last_updated": "2026-03-25T23:03:04"
   },
-  "open_prs": [
-    {
-      "number": 26,
-      "title": "feat: supervisor, auto-heal, auto-fix pipeline, checkpoint system + done board",
-      "branch": "feature/supervisor-autoheal-v2",
-      "status": "MERGEABLE",
-      "action": "merge"
-    }
-  ],
   "projects": {
-    "nexus-runtime": {
-      "description": "Core local agent runtime \u2014 self-improving v1\u2192v1000",
-      "status": "active",
-      "version": "v5",
-      "health": "green",
-      "last_deploy": "2026-03-25"
-    },
-    "benchmark-suite": {
-      "description": "100 hard tasks \u2014 upgrading from toy to real-world projects",
-      "status": "upgrading",
-      "health": "yellow",
-      "blocker": "Upgrading to real-world project tasks"
-    },
-    "dashboard": {
-      "description": "CEO command center \u2014 real-time company-wide view",
-      "status": "upgrading",
-      "health": "yellow",
-      "blocker": "Adding company-wide projects + PR panel"
-    },
-    "agent-registry": {
-      "description": "Master registry \u2014 all 10 agents deployable on any repo in 5min",
-      "status": "active",
-      "health": "green",
-      "last_updated": "2026-03-25"
-    }
+    "updated_at": "2026-03-26T02:05:31.405109",
+    "total_tasks": 50,
+    "done_tasks": 20,
+    "in_progress_tasks": 30,
+    "pct_complete": 40.0,
+    "epics_count": 11,
+    "completed_prs": [
+      "PR#28",
+      "PR#29",
+      "PR#32",
+      "PR#33",
+      "PR#34",
+      "PR#35",
+      "PR#37",
+      "PR#38",
+      "PR#39",
+      "PR#40",
+      "PR#41",
+      "PR#42",
+      "PR#43"
+    ],
+    "local_tasks_pending": 5,
+    "refresh_interval_s": 2
+  },
+  "active_project": null,
+  "task_board": {
+    "backlog": [],
+    "in_progress": [],
+    "review": [],
+    "done": []
+  },
+  "agent_feed": [],
+  "metrics": {
+    "tasks_per_hour": 0,
+    "quality_avg_today": 90,
+    "quality_avg_week": 88,
+    "tasks_today": 0,
+    "tasks_this_week": 0,
+    "top_agents": [],
+    "improvement_trend": [
+      82,
+      84,
+      86,
+      87,
+      88,
+      89,
+      90
+    ]
+  },
+  "loop_status": {
+    "running": false,
+    "current_task": null,
+    "tasks_queued": 0,
+    "last_heartbeat": null
   }
 }
