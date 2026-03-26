@@ -13,7 +13,7 @@ if [[ -z "$BRANCH" || "$BRANCH" == "main" ]]; then
 fi
 
 # Stage tracked modified files in key dirs only (never root stray files)
-git add local-agents/ scripts/ state/ docs/ .gitignore 2>/dev/null || true
+git add agents/ orchestrator/ dashboard/ providers/ scripts/ state/ docs/ .gitignore 2>/dev/null || true
 
 # Nothing staged → nothing to do
 if git diff --cached --quiet; then

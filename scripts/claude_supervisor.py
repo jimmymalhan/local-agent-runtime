@@ -22,7 +22,7 @@ import os, sys, json, time, argparse, subprocess, urllib.request, urllib.error
 from datetime import datetime
 from pathlib import Path
 
-BASE_DIR    = "/Users/jimmymalhan/Documents/local-agent-runtime/local-agents"
+BASE_DIR    = str(Path(__file__).resolve().parent.parent)
 REPORTS_DIR = os.path.join(BASE_DIR, "reports")
 API         = f"http://127.0.0.1:{os.environ.get('PORT_API', '8000')}"
 OPUS_MODEL  = "claude-opus-4-6"

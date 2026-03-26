@@ -25,7 +25,7 @@ from pathlib import Path
 from collections import defaultdict
 
 # ── Paths (single source) ───────────────────────────────────────────────────
-BASE_DIR    = "/Users/jimmymalhan/Documents/local-agent-runtime/local-agents"
+BASE_DIR    = str(Path(__file__).resolve().parent.parent)
 REPORTS_DIR = os.path.join(BASE_DIR, "reports")
 BOS         = os.path.expanduser("~/local-agents-os")
 API         = f"http://127.0.0.1:{os.environ.get('PORT_API', '8000')}"

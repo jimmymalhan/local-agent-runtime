@@ -27,10 +27,10 @@ from datetime import datetime
 from pathlib import Path
 from collections import defaultdict
 
-BASE_DIR       = "/Users/jimmymalhan/Documents/local-agent-runtime/local-agents"
-AGENT_RUNNER   = os.path.join(BASE_DIR, "agent_runner.py")
+BASE_DIR       = str(Path(__file__).resolve().parent.parent)
+AGENT_RUNNER   = os.path.join(BASE_DIR, "scripts", "agent_runner.py")
 REPORTS_DIR    = os.path.join(BASE_DIR, "reports")
-SKILLED_AGENTS = "/Users/jimmymalhan/Documents/local-agent-runtime/skilled-agents"
+SKILLED_AGENTS = os.path.join(BASE_DIR, "skilled-agents")
 UPGRADE_THRESHOLD = 5.0   # Opus must beat local by >5pts to require patch
 
 

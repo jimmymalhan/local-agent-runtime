@@ -20,7 +20,7 @@ import os, sys, json, time, subprocess, re, argparse
 from datetime import datetime
 from pathlib import Path
 
-BASE_DIR    = "/Users/jimmymalhan/Documents/local-agent-runtime/local-agents"
+BASE_DIR    = str(Path(__file__).resolve().parent.parent)
 REPORTS_DIR = os.path.join(BASE_DIR, "reports")
 Path(REPORTS_DIR).mkdir(exist_ok=True)
 
