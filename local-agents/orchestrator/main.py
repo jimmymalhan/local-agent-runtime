@@ -700,6 +700,17 @@ def run_version(version: int, tasks: list, local_only: bool = False,
             _update_task_status(task_id, status_after, local_quality,
                                 local_result.get("elapsed_s", 0.0), agent_name_hint)
 
+        # Auto-commit high-quality task results to git
+        if local_result.get("status") == "done" and local_quality >= 70:
+            try:
+                from agents.git_agent import GitAgent as _GitAgent
+                _git = _GitAgent(repo_path=BASE_DIR)
+                _commit_hash = _git.auto_commit_after_task(task, local_result)
+                if _commit_hash:
+                    print(f"    [GIT] auto-committed task={task_id} hash={_commit_hash[:8]} quality={local_quality}")
+            except Exception as _git_err:
+                print(f"    [GIT] auto_commit skipped: {_git_err}")
+
         # Run Opus 4.6 baseline (skip if local_only)
         opus_quality = 0
         opus_result  = {}

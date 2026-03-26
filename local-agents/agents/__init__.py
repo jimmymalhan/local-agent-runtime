@@ -36,6 +36,11 @@ ROUTING_TABLE = {
     "debug":         "debugger",
     "plan":          "planner",
     "benchmark":     "benchmarker",
+    # Git and GitHub operations
+    "git":           "git_agent",
+    "branch":        "git_agent",
+    "pr":            "git_agent",
+    "ci":            "git_agent",
 }
 
 _cache: dict = {}
