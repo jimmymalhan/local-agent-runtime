@@ -1,2 +1,14 @@
 {"ts": "2026-03-26T19:30:06", "level": "INFO", "event": "started", "detail": "Auto-heal monitor started (checks every 10s)", "agent": ""}
 {"ts": "2026-03-26T20:06:50", "level": "INFO", "event": "started", "detail": "Auto-heal monitor started (checks every 10s)", "agent": ""}
+{"ts": "2026-03-26T20:54:59", "level": "INFO", "event": "started", "detail": "Auto-heal monitor started (checks every 10s)", "agent": ""}
+{"ts": "2026-03-26T21:02:32", "level": "WARN", "event": "restart", "detail": "Restarting dashboard server", "agent": ""}
+{"ts": "2026-03-26T21:02:33", "level": "INFO", "event": "restart", "detail": "Dashboard restarted on port 3002", "agent": ""}
+{"ts": "2026-03-26T21:02:33", "level": "WARN", "event": "check_complete", "detail": "Issues resolved: ['dashboard_down']", "agent": ""}
+{"ts": "2026-03-26T21:20:24", "level": "INFO", "event": "started", "detail": "Auto-heal monitor started (checks every 10s)", "agent": ""}
+{"ts": "2026-03-26T21:22:46", "level": "WARN", "event": "restart", "detail": "Restarting dashboard server", "agent": ""}
+{"ts": "2026-03-26T21:22:47", "level": "INFO", "event": "restart", "detail": "Dashboard restarted on port 3001", "agent": ""}
+{"ts": "2026-03-26T21:22:47", "level": "WARN", "event": "check_complete", "detail": "Issues resolved: ['dashboard_down']", "agent": ""}
+{"ts": "2026-03-26T21:23:49", "level": "WARN", "event": "restart", "detail": "Restarting dashboard server", "agent": ""}
+{"ts": "2026-03-26T21:23:50", "level": "INFO", "event": "restart", "detail": "Dashboard restarted on port 3002", "agent": ""}
+{"ts": "2026-03-26T21:23:50", "level": "WARN", "event": "check_complete", "detail": "Issues resolved: ['dashboard_down']", "agent": ""}
+{"ts": "2026-03-26T23:51:26", "level": "INFO", "event": "started", "detail": "Auto-heal monitor started (checks every 10s)", "agent": ""}

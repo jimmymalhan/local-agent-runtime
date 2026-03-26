@@ -28,6 +28,13 @@ TOKEN_LOG  = os.path.join(REPORTS, "claude_token_log.jsonl")
 
 sys.path.insert(0, BASE_DIR)
 
+# Import state_writer for epic board updates
+try:
+    from dashboard.state_writer import update_epic_board
+except ImportError:
+    def update_epic_board():
+        pass  # Fallback if state_writer not available
+
 
 def find_free_port(start: int = 3001) -> int:
     for port in range(start, start + 20):
@@ -286,6 +293,7 @@ async def _broadcast(data: str):
 async def _state_watcher():
     """Watch state.json every 800ms and push normalized state to all WS clients."""
     global _last_state_ts
+    epic_update_counter = 0
     while True:
         try:
             raw_ts = ""
@@ -295,6 +303,16 @@ async def _state_watcher():
                 raw_ts = raw.get("ts", "")
             except Exception:
                 pass
+
+            # Update epic board every 5 seconds (every 6th iteration at 800ms)
+            epic_update_counter += 1
+            if epic_update_counter >= 6:
+                epic_update_counter = 0
+                try:
+                    update_epic_board()
+                except Exception:
+                    pass  # Silently continue if epic board update fails
+
             if raw_ts != _last_state_ts:
                 _last_state_ts = raw_ts
                 state = read_state()

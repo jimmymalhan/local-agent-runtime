@@ -3,7 +3,13 @@
     "local LLM inference optimization ollama llama",
     "autonomous coding agent self-improvement",
     "DAG task scheduling parallel agents",
-    "vector memory retrieval coding agents"
+    "vector memory retrieval coding agents",
+    "tree-sitter AST blast radius analysis",
+    "git worktree parallel agent isolation",
+    "OpenTelemetry tracing AI agents",
+    "RICE prioritization engineering backlogs",
+    "incremental validation test generation",
+    "agent runtime multi-loop 83pct success patterns"
   ],
   "queued": [
     {
@@ -33,7 +39,49 @@
       "topic": "vector memory retrieval coding agents",
       "status": "pending",
       "ts": "2026-03-26T20:35:05.549121"
+    },
+    {
+      "id": "R1774557905",
+      "title": "Implement insight from: tree-sitter AST blast radius analysis",
+      "topic": "tree-sitter AST blast radius analysis",
+      "status": "pending",
+      "ts": "2026-03-26T20:45:05.562668"
+    },
+    {
+      "id": "R1774558505",
+      "title": "Implement insight from: git worktree parallel agent isolation",
+      "topic": "git worktree parallel agent isolation",
+      "status": "pending",
+      "ts": "2026-03-26T20:55:05.568592"
+    },
+    {
+      "id": "R1774559105",
+      "title": "Implement insight from: OpenTelemetry tracing AI agents",
+      "topic": "OpenTelemetry tracing AI agents",
+      "status": "pending",
+      "ts": "2026-03-26T21:05:05.574840"
+    },
+    {
+      "id": "R1774559705",
+      "title": "Implement insight from: RICE prioritization engineering backlogs",
+      "topic": "RICE prioritization engineering backlogs",
+      "status": "pending",
+      "ts": "2026-03-26T21:15:05.578801"
+    },
+    {
+      "id": "R1774560305",
+      "title": "Implement insight from: incremental validation test generation",
+      "topic": "incremental validation test generation",
+      "status": "pending",
+      "ts": "2026-03-26T21:25:05.584509"
+    },
+    {
+      "id": "R1774560905",
+      "title": "Implement insight from: agent runtime multi-loop 83pct success patterns",
+      "topic": "agent runtime multi-loop 83pct success patterns",
+      "status": "pending",
+      "ts": "2026-03-26T21:35:05.586090"
     }
   ],
-  "ts": "2026-03-26T20:35:05.549147"
+  "ts": "2026-03-26T21:35:05.586098"
 }

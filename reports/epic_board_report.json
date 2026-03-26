@@ -1,0 +1,124 @@
+{
+  "timestamp": "2026-03-26T14:04:34.864328",
+  "epics": [
+    {
+      "id": "system-reliability",
+      "name": "System Reliability & Health",
+      "track": "infrastructure",
+      "total_tasks": 1,
+      "completed": 0,
+      "in_progress": 0,
+      "pending": 1,
+      "blocked": 0,
+      "progress_pct": 0.0,
+      "agents": [
+        "orchestrator"
+      ],
+      "agent_count": 1,
+      "status": "in_progress"
+    },
+    {
+      "id": "dashboard-quality",
+      "name": "Dashboard Quality & State Management",
+      "track": "infrastructure",
+      "total_tasks": 1,
+      "completed": 0,
+      "in_progress": 0,
+      "pending": 1,
+      "blocked": 0,
+      "progress_pct": 0.0,
+      "agents": [
+        "frontend_agent"
+      ],
+      "agent_count": 1,
+      "status": "pending"
+    },
+    {
+      "id": "policy-governance",
+      "name": "Policy Enforcement & Budget Control",
+      "track": "infrastructure",
+      "total_tasks": 1,
+      "completed": 0,
+      "in_progress": 0,
+      "pending": 1,
+      "blocked": 0,
+      "progress_pct": 0.0,
+      "agents": [
+        "orchestrator"
+      ],
+      "agent_count": 1,
+      "status": "pending"
+    },
+    {
+      "id": "execution-optimization",
+      "name": "Multi-Loop Execution & Self-Improvement",
+      "track": "infrastructure",
+      "total_tasks": 1,
+      "completed": 0,
+      "in_progress": 0,
+      "pending": 1,
+      "blocked": 0,
+      "progress_pct": 0.0,
+      "agents": [
+        "orchestrator"
+      ],
+      "agent_count": 1,
+      "status": "pending"
+    },
+    {
+      "id": "agent-autonomy",
+      "name": "Local Agent Autonomy Setup",
+      "track": "infrastructure",
+      "total_tasks": 1,
+      "completed": 0,
+      "in_progress": 0,
+      "pending": 1,
+      "blocked": 0,
+      "progress_pct": 0.0,
+      "agents": [
+        "orchestrator"
+      ],
+      "agent_count": 1,
+      "status": "pending"
+    },
+    {
+      "id": "revenue-first-paying-customer",
+      "name": "FIRST_PAYING_CUSTOMER_REVENUE_TRACK",
+      "track": "revenue",
+      "total_tasks": 9,
+      "completed": 0,
+      "in_progress": 0,
+      "pending": 9,
+      "blocked": 0,
+      "progress_pct": 0.0,
+      "agents": [
+        "architect",
+        "executor",
+        "frontend_agent",
+        "qa_agent",
+        "writer"
+      ],
+      "agent_count": 5,
+      "status": "pending"
+    }
+  ],
+  "summary": {
+    "total_epics": 6,
+    "total_tasks": 14,
+    "total_agents": [
+      "architect",
+      "executor",
+      "frontend_agent",
+      "orchestrator",
+      "qa_agent",
+      "writer"
+    ],
+    "revenue_track_ready_pct": 0.0,
+    "infra_track_ready_pct": 0.0,
+    "blockers": [],
+    "improvements": [
+      "No tasks in progress yet \u2014 agents should start picking up tasks"
+    ],
+    "agents_count": 6
+  }
+}

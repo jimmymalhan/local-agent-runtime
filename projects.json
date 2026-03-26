@@ -89,13 +89,159 @@
           "success_criteria": "All 5 tasks listed in projects.json, agents/__init__.py routes tasks correctly, orchestrator --auto 5 executes all"
         }
       ]
+    },
+    {
+      "id": "revenue-first-paying-customer",
+      "name": "FIRST_PAYING_CUSTOMER_REVENUE_TRACK",
+      "description": "Separate revenue-track project for demo, GTM and first paying customer (isolated from infra work)",
+      "status": "pending",
+      "epic": true,
+      "revenue_track": true,
+      "tasks": [
+        {
+          "id": "revenue-audit-1",
+          "title": "Audit existing assets for revenue reuse",
+          "description": "Find and assess existing CLI flows, dashboard views, demo flows, QA automation, GTM/docs. Mark each as reuse/improve/ignore. Show findings on dashboard.",
+          "project": "EXISTING_ASSET_AUDIT",
+          "agent": "architect",
+          "status": "pending",
+          "priority": "P0",
+          "files": ["README.md", "nexus", "dashboard/", "examples/", ".claude/skills/", "docs/"],
+          "success_criteria": "Asset audit report in reports/revenue_asset_audit.json with reuse/improve/ignore flags for each"
+        },
+        {
+          "id": "revenue-demo-2",
+          "title": "Define exact 3-minute demo flow and happy path",
+          "description": "Define exact demo CLI command, expected output, proof points shown on dashboard, acceptance test criteria. Reuse existing CLI commands where possible.",
+          "project": "DEMO_HAPPY_PATH",
+          "agent": "architect",
+          "status": "pending",
+          "priority": "P0",
+          "files": ["README.md", "examples/", ".claude/skills/qa-validation.md"],
+          "success_criteria": "Demo flow spec in reports/demo_happy_path.json with exact commands, outputs, proof points, acceptance tests"
+        },
+        {
+          "id": "revenue-cli-3",
+          "title": "Verify CLI MVP works for demo (install, run, output)",
+          "description": "Verify nexus install flow, one-command run, project input, output artifacts, error messaging. Update README with working demo commands.",
+          "project": "CLI_MVP",
+          "agent": "executor",
+          "status": "pending",
+          "priority": "P1",
+          "files": ["nexus", "README.md", "Local"],
+          "success_criteria": "CLI demo command works end-to-end, proof in reports/cli_demo_test.json, README updated with example"
+        },
+        {
+          "id": "revenue-dashboard-4",
+          "title": "Verify dashboard truth for revenue-track (live state, tasks, proof, CTA)",
+          "description": "Verify live state writer, task counts, owners, active agent, blockers, PR state, readiness score, empty/error states, websocket updates, paid pilot CTA visibility",
+          "project": "DASHBOARD_TRUTH",
+          "agent": "frontend_agent",
+          "status": "pending",
+          "priority": "P0",
+          "files": ["dashboard/state.json", "dashboard/state_writer.py", "dashboard/server.py"],
+          "success_criteria": "Dashboard shows revenue-track readiness score, paid pilot CTA, all required sections working. Test in reports/dashboard_truth_test.json"
+        },
+        {
+          "id": "revenue-proof-5",
+          "title": "Capture demo proof (before/after, sample project, screenshot, value explanation)",
+          "description": "Run exact demo command, capture output artifacts, create before/after comparison, produce sample repo path, screenshot proof, customer-facing value explanation, 'why this matters' section",
+          "project": "DEMO_PROOF",
+          "agent": "executor",
+          "status": "pending",
+          "priority": "P1",
+          "files": ["examples/", "reports/"],
+          "success_criteria": "Demo proof artifacts in reports/demo_proof_artifacts/ with before/after, sample repo, screenshots, value_explanation.md"
+        },
+        {
+          "id": "revenue-pilot-6",
+          "title": "Create paid pilot offer (scope, pricing, CTA, success metric, timeline)",
+          "description": "Create paid pilot offer copy, scope, success metric, time box, pricing recommendation, CTA, objection handling. Reuse sales-outreach skill.",
+          "project": "PAID_PILOT_OFFER",
+          "agent": "writer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [".claude/skills/sales-outreach.md", "reports/"],
+          "success_criteria": "Paid pilot offer spec in reports/paid_pilot_offer.md with scope, pricing, CTA, objection handling"
+        },
+        {
+          "id": "revenue-gtm-7",
+          "title": "Create GTM assets (Reddit post, landing copy, demo script, outreach, FAQ)",
+          "description": "Create Reddit launch post, short landing page copy, demo script, outreach/DM note, FAQ from objections, one founder post and one technical post. Reuse generate-marketing-plan skill.",
+          "project": "GTM_ASSETS",
+          "agent": "writer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [".claude/skills/generate-marketing-plan.md", ".claude/skills/sales-outreach.md"],
+          "success_criteria": "All GTM assets in reports/gtm_assets/ (reddit_post.md, landing_copy.md, demo_script.md, outreach_note.md, faq.md, founder_post.md, technical_post.md)"
+        },
+        {
+          "id": "revenue-qa-8",
+          "title": "Interactive QA 10x pass: validate full user journey CLI→dashboard→task→proof→CTA",
+          "description": "Run 10 real user journeys: install, demo run, dashboard view, task creation, task assignment, task pickup, completion, proof visibility, paid pilot CTA. Log every failure. Do not claim ready until all 10 passes succeed.",
+          "project": "INTERACTIVE_QA_10X",
+          "agent": "qa_agent",
+          "status": "pending",
+          "priority": "P0",
+          "files": [".claude/skills/qa-validation.md", ".claude/skills/user-acceptance-checklist.md"],
+          "success_criteria": "10 consecutive successful user journeys logged in reports/qa_10x_passes.json. All flows verified: CLI, dashboard, task assignment, proof, CTA."
+        },
+        {
+          "id": "revenue-conversion-9",
+          "title": "Define conversion readiness (ICP, pain, value metric, trial path, follow-up, first call prep)",
+          "description": "Define ICP (ideal customer profile), pain solved in plain English, value metric, trial/pilot path, call-to-action flow, follow-up sequence, what to show in first call",
+          "project": "CONVERSION_READINESS",
+          "agent": "architect",
+          "status": "pending",
+          "priority": "P1",
+          "files": ["reports/"],
+          "success_criteria": "Conversion readiness spec in reports/conversion_readiness.md with ICP, pain statement, value metric, trial path, CTA flow, follow-up sequence"
+        }
+      ]
     }
   ],
   "metadata": {
     "created": "2026-03-26T20:00:00Z",
     "created_by": "claude",
-    "mission": "Beat Opus 4.6 with 90% local / 10% Claude rescue",
-    "total_tasks": 5,
-    "total_epics": 5
+    "epics": [
+      {
+        "id": "system-reliability",
+        "name": "Infra Epic #1: System Health & Reliability",
+        "mission": "Beat Opus 4.6 with 90% local / 10% Claude rescue",
+        "track": "infrastructure"
+      },
+      {
+        "id": "dashboard-quality",
+        "name": "Infra Epic #1: Dashboard Quality",
+        "track": "infrastructure"
+      },
+      {
+        "id": "policy-governance",
+        "name": "Infra Epic #1: Policy Governance",
+        "track": "infrastructure"
+      },
+      {
+        "id": "execution-optimization",
+        "name": "Infra Epic #1: Execution Optimization",
+        "track": "infrastructure"
+      },
+      {
+        "id": "agent-autonomy",
+        "name": "Infra Epic #1: Agent Autonomy",
+        "track": "infrastructure"
+      },
+      {
+        "id": "revenue-first-paying-customer",
+        "name": "EPIC 2: FIRST_PAYING_CUSTOMER_REVENUE_TRACK",
+        "track": "revenue",
+        "mission": "Ship demo → first paying customer fast without breaking infra"
+      }
+    ],
+    "total_tasks": 14,
+    "total_epics": 6,
+    "tracks": {
+      "infrastructure": "System health, dashboard, policy, execution, autonomy",
+      "revenue": "Demo, GTM, paid pilot, first customer conversion"
+    }
   }
 }

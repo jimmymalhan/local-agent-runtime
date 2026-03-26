@@ -1,0 +1,172 @@
+{
+  "timestamp": "2026-03-26T14:07:33.288378",
+  "dashboard_url": "http://localhost:3002",
+  "epics": [
+    {
+      "id": "epic-1-infra",
+      "name": "EPIC 1: Infrastructure (System Health, Policy, Autonomy)",
+      "track": "infrastructure",
+      "total_tasks": 5,
+      "completed": 0,
+      "blocked": 0,
+      "pending": 5,
+      "progress_pct": 0.0,
+      "agents_assigned": [
+        "frontend_agent",
+        "orchestrator"
+      ],
+      "agent_count": 2,
+      "sub_agents_per_agent": {
+        "frontend_agent": 0,
+        "orchestrator": 0
+      },
+      "working_24_7": true,
+      "works_continuous": true,
+      "tasks": [
+        {
+          "task_id": "task-1",
+          "title": "System health check \u2014 verify orchestrator/dashboard/agents running",
+          "agent": "orchestrator",
+          "status": "pending",
+          "priority": "P0"
+        },
+        {
+          "task_id": "task-2",
+          "title": "Fix dashboard state \u2014 implement missing quality/model fields",
+          "agent": "frontend_agent",
+          "status": "pending",
+          "priority": "P1"
+        },
+        {
+          "task_id": "task-3",
+          "title": "Policy enforcement \u2014 wire token/rescue budget limits",
+          "agent": "orchestrator",
+          "status": "pending",
+          "priority": "P1"
+        },
+        {
+          "task_id": "task-4",
+          "title": "Optimize multi-loop execution \u2014 DAG + parallel + memory + self-improve",
+          "agent": "orchestrator",
+          "status": "pending",
+          "priority": "P0"
+        },
+        {
+          "task_id": "task-5",
+          "title": "Set up local agent handoff \u2014 document all work for agents/__init__.py router",
+          "agent": "orchestrator",
+          "status": "pending",
+          "priority": "P0"
+        }
+      ]
+    },
+    {
+      "id": "epic-2-revenue",
+      "name": "EPIC 2: Revenue Track (Demo, GTM, First Customer)",
+      "track": "revenue",
+      "total_tasks": 9,
+      "completed": 0,
+      "blocked": 0,
+      "pending": 9,
+      "progress_pct": 0.0,
+      "agents_assigned": [
+        "architect",
+        "executor",
+        "frontend_agent",
+        "qa_agent",
+        "writer"
+      ],
+      "agent_count": 5,
+      "sub_agents_per_agent": {
+        "writer": 0,
+        "frontend_agent": 0,
+        "architect": 0,
+        "executor": 3,
+        "qa_agent": 0
+      },
+      "working_24_7": true,
+      "works_continuous": true,
+      "tasks": [
+        {
+          "task_id": "revenue-audit-1",
+          "title": "Audit existing assets for revenue reuse",
+          "agent": "architect",
+          "status": "pending",
+          "priority": "P0"
+        },
+        {
+          "task_id": "revenue-demo-2",
+          "title": "Define exact 3-minute demo flow and happy path",
+          "agent": "architect",
+          "status": "pending",
+          "priority": "P0"
+        },
+        {
+          "task_id": "revenue-cli-3",
+          "title": "Verify CLI MVP works for demo (install, run, output)",
+          "agent": "executor",
+          "status": "pending",
+          "priority": "P1"
+        },
+        {
+          "task_id": "revenue-dashboard-4",
+          "title": "Verify dashboard truth for revenue-track (live state, tasks, proof, CTA)",
+          "agent": "frontend_agent",
+          "status": "pending",
+          "priority": "P0"
+        },
+        {
+          "task_id": "revenue-proof-5",
+          "title": "Capture demo proof (before/after, sample project, screenshot, value explanation)",
+          "agent": "executor",
+          "status": "pending",
+          "priority": "P1"
+        },
+        {
+          "task_id": "revenue-pilot-6",
+          "title": "Create paid pilot offer (scope, pricing, CTA, success metric, timeline)",
+          "agent": "writer",
+          "status": "pending",
+          "priority": "P1"
+        },
+        {
+          "task_id": "revenue-gtm-7",
+          "title": "Create GTM assets (Reddit post, landing copy, demo script, outreach, FAQ)",
+          "agent": "writer",
+          "status": "pending",
+          "priority": "P1"
+        },
+        {
+          "task_id": "revenue-qa-8",
+          "title": "Interactive QA 10x pass: validate full user journey CLI\u2192dashboard\u2192task\u2192proof\u2192CTA",
+          "agent": "qa_agent",
+          "status": "pending",
+          "priority": "P0"
+        },
+        {
+          "task_id": "revenue-conversion-9",
+          "title": "Define conversion readiness (ICP, pain, value metric, trial path, follow-up, first call prep)",
+          "agent": "architect",
+          "status": "pending",
+          "priority": "P1"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "total_epics": 2,
+    "total_tasks": 14,
+    "total_agents": 6,
+    "total_sub_agents": 18,
+    "overall_progress_pct": 0.0,
+    "infra_ready_pct": 0.0,
+    "revenue_ready_pct": 0.0,
+    "orchestrator_status": "unknown",
+    "works_24_7": true,
+    "blockers": [],
+    "improvements": [
+      "URGENT: Start Infra Epic #1 immediately \u2014 blocks everything else",
+      "Revenue tasks pending \u2014 queue agent picks after Infra #1 passes"
+    ]
+  }
+}

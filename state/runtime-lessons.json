@@ -9,66 +9,94 @@
     "applied_count": 0
   },
   {
-    "category": "iteration",
-    "trigger": "slow_task_completion",
-    "lesson": "Tasks exceeding 5 minutes produce diminishing returns. Break into smaller increments and commit partial progress.",
-    "fix": "Time-box every task to 5 minutes. At 3 minutes, assess and simplify if under 50% done. Commit partial work and move on.",
-    "context": "skill=fast-iteration pattern=time-boxing",
-    "learned_at": "2026-03-17T10:00:00",
-    "applied_count": 0
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": true,
+        "timestamp": "2026-03-26T14:23:40.048456"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-26T14:23:40.048444"
   },
   {
-    "category": "model_selection",
-    "trigger": "model_unavailable_stall",
-    "lesson": "Waiting for a preferred model wastes entire session time. Downgrade immediately and continue working.",
-    "fix": "Maintain fallback chain: opus -> sonnet -> haiku -> local ollama -> pseudocode. Never wait more than 30 seconds for any model.",
-    "context": "skill=fast-iteration pattern=model-fallback-chain",
-    "learned_at": "2026-03-17T10:00:00",
-    "applied_count": 0
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": true,
+        "timestamp": "2026-03-26T14:24:28.702932"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-26T14:24:28.702917"
   },
   {
-    "category": "blocker_resolution",
-    "trigger": "repeated_same_error",
-    "lesson": "Debugging the same error for more than 3 minutes without trying a different approach is a time sink. Switch approach or switch task.",
-    "fix": "After 2 failed attempts at the same fix: (1) try a completely different approach, (2) if still stuck, log blocker to auto-remediation.json and switch to next task, (3) return after completing one other task.",
-    "context": "skill=fast-iteration pattern=stuck-detection",
-    "learned_at": "2026-03-17T10:00:00",
-    "applied_count": 0
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": true,
+        "timestamp": "2026-03-26T14:25:31.836444"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-26T14:25:31.836430"
   },
   {
-    "category": "parallel_execution",
-    "trigger": "sequential_bottleneck",
-    "lesson": "Running agents sequentially when their tasks are independent wastes time. Always check for parallelizable work.",
-    "fix": "Before starting a task queue: identify independent tasks, spawn parallel agents for non-overlapping file sets, use agent-coordination.json to prevent collisions.",
-    "context": "skill=self-coordination pattern=parallel-by-default",
-    "learned_at": "2026-03-17T10:00:00",
-    "applied_count": 0
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": true,
+        "timestamp": "2026-03-26T14:26:08.273684"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-26T14:26:08.273673"
   },
   {
-    "category": "parallel_execution",
-    "trigger": "file_collision_detected",
-    "lesson": "Two agents writing the same file causes corrupted output. Always lock files before writing.",
-    "fix": "Check agent-coordination.json claims before touching any file. Lock with 5-minute expiry. Older lock has priority on collision.",
-    "context": "skill=self-coordination pattern=file-locking",
-    "learned_at": "2026-03-17T10:00:00",
-    "applied_count": 0
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": true,
+        "timestamp": "2026-03-26T14:26:31.105228"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-26T14:26:31.105216"
   },
   {
-    "category": "resource",
-    "trigger": "auto_resolve_roi_kill_switch",
-    "lesson": "Auto-resolved roi_kill_switch with reset_roi: ROI kill switch reset. Retrying with clean state.",
-    "fix": "Clear negative events, switch to fast profile",
-    "context": "wait_event=1 snapshot=RESOURCE cpu=91.0%/70% mem=84.0%/70%",
-    "learned_at": "2026-03-17T04:34:54",
-    "applied_count": 0
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": true,
+        "timestamp": "2026-03-26T14:26:45.403350"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-26T14:26:45.403340"
   },
   {
-    "category": "resource",
-    "trigger": "auto_resolve_memory_ceiling",
-    "lesson": "Auto-resolved memory_ceiling with unload_ollama: No resident Ollama models to unload",
-    "fix": "Stop resident Ollama models first to recover memory now",
-    "context": "wait_event=2 snapshot=RESOURCE cpu=91.0%/70% mem=84.0%/70%",
-    "learned_at": "2026-03-17T04:34:54",
-    "applied_count": 0
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": true,
+        "timestamp": "2026-03-26T14:27:13.465676"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-26T14:27:13.465660"
   }
 ]

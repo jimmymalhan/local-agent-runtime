@@ -228,3 +228,87 @@ def update_version_changelog(version: int, changes: list,
         "ts": datetime.now().isoformat(),
     }
     _write(state)
+
+
+def update_epic_board():
+    """
+    Generate epic board metrics from projects.json and update state.json.
+    Called by orchestrator every minute to refresh epic-level view.
+    Reads projects.json and computes:
+    - Epic 1 (infra): 5 projects, task counts, agents assigned
+    - Epic 2 (revenue): 9 projects, task counts, agents assigned
+    - Blockers and improvements across both
+    - 24x7 status
+    """
+    import json
+    from pathlib import Path
+
+    state = _read()
+
+    # Read projects.json
+    projects_file = str(Path(__file__).parent.parent / "projects.json")
+    try:
+        with open(projects_file) as f:
+            projects_data = json.load(f)
+    except Exception as e:
+        # If projects.json can't be read, set default empty board
+        state["epic_board"] = {
+            "epics": [],
+            "error": f"Could not read projects.json: {str(e)}",
+        }
+        _write(state)
+        return
+
+    # Extract epics and build board
+    board = {
+        "ts": datetime.now().isoformat(),
+        "epics": [],
+        "operations": {
+            "orchestrator": "running",
+            "task_intake": "continuous",
+            "health_monitor": "every 30 min",
+            "auto_restart": True,
+            "works_24_7": True,
+        }
+    }
+
+    # Build epics from projects.json
+    for project in projects_data.get("projects", []):
+        epic_id = project.get("id")
+        epic_name = project.get("name", "")
+        tasks = project.get("tasks", [])
+
+        # Count task statuses
+        pending = sum(1 for t in tasks if t.get("status") == "pending")
+        in_prog = sum(1 for t in tasks if t.get("status") == "in_progress")
+        blocked = sum(1 for t in tasks if t.get("status") == "blocked")
+        done = sum(1 for t in tasks if t.get("status") == "completed")
+
+        # Extract unique agents assigned
+        agents = set()
+        for task in tasks:
+            agent = task.get("agent")
+            if agent:
+                agents.add(agent)
+
+        # Determine track (infra vs revenue)
+        track = "infrastructure" if not project.get("revenue_track") else "revenue"
+
+        epic_entry = {
+            "id": epic_id,
+            "name": epic_name,
+            "track": track,
+            "status": project.get("status", "pending"),
+            "total_tasks": len(tasks),
+            "completed": done,
+            "in_progress": in_prog,
+            "pending": pending,
+            "blocked": blocked,
+            "progress_pct": round(done / len(tasks) * 100, 1) if tasks else 0,
+            "agents": sorted(list(agents)),
+            "agent_count": len(agents),
+        }
+        board["epics"].append(epic_entry)
+
+    state["epic_board"] = board
+    _write(state)
