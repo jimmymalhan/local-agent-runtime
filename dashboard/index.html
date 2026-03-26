@@ -562,6 +562,7 @@ main{position:relative;z-index:1;padding-top:52px;}
   <div class="nb"><em>Nexus</em> Runtime</div>
   <div class="ntabs" role="tablist">
     <button class="ntab active" role="tab" aria-selected="true"  data-tab="overview"   data-testid="tab-overview"   tabindex="0">Overview</button>
+    <button class="ntab"        role="tab" aria-selected="false" data-tab="epic-board" data-testid="tab-epic-board" tabindex="-1">📊 Epic Board</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="agents"     data-testid="tab-agents"     tabindex="-1">Agents</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="tasks"      data-testid="tab-tasks"      tabindex="-1">Projects &amp; Tasks</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="ceo"        data-testid="tab-ceo"        tabindex="-1">CEO</button>
@@ -615,15 +616,140 @@ main{position:relative;z-index:1;padding-top:52px;}
 <div id="tab-overview" class="tab-panel active" role="tabpanel">
 
   <section class="hero">
-    <div class="hEye">Personal AI Runtime · 10 Specialized Agents · Self-Improving v1→v100</div>
-    <h1 class="hH1">Nexus is running.</h1>
-    <p class="hSub">Autonomous local agents · self-improving · production quality</p>
+    <div class="hEye">📊 EPIC BOARD — Dual-Track Execution: Infrastructure + Revenue</div>
+    <h1 class="hH1">Real-Time Progress Dashboard</h1>
+    <p class="hSub">Watch both epics run in parallel · 24/7 autonomous operations</p>
     <div class="hKpis">
-      <div class="kpi"><div class="kv g" id="h-local" data-testid="hero-local">—</div><div class="kl">Nexus Score</div></div>
-      <div class="kpi"><div class="kv d" id="h-opus"  data-testid="hero-opus">—</div><div class="kl">Baseline Score</div></div>
-      <div class="kpi"><div class="kv b" id="h-wr"    data-testid="hero-winrate">—%</div><div class="kl">Win Rate</div></div>
-      <div class="kpi"><div class="kv p" id="h-bgt"   data-testid="hero-budget">0%</div><div class="kl">Claude Budget</div></div>
+      <div class="kpi"><div class="kv g" id="epic1-progress" data-testid="epic1-progress">0%</div><div class="kl">Infra Ready</div></div>
+      <div class="kpi"><div class="kv b" id="epic2-progress" data-testid="epic2-progress">0%</div><div class="kl">Revenue Ready</div></div>
+      <div class="kpi"><div class="kv p" id="total-agents" data-testid="total-agents">0</div><div class="kl">Agents Working</div></div>
+      <div class="kpi"><div class="kv" style="color:var(--green);" id="ops-status" data-testid="ops-status">✅</div><div class="kl">24/7 Status</div></div>
     </div>
+  </section>
+
+  <!-- ═══ EPIC BOARD — CONSOLIDATED SINGLE PAGE ══════════════════════════════ -->
+  <section id="epic-board-container" class="sec reveal" style="margin-top:32px;">
+
+    <!-- EPIC 1: INFRASTRUCTURE -->
+    <div style="margin-bottom:40px;">
+      <div class="sh" style="margin-bottom:16px;">
+        <h2 class="st">🔧 EPIC 1: INFRASTRUCTURE (System Health, Policy, Autonomy)</h2>
+        <span class="ss" id="epic1-summary">Loading...</span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:24px;" id="epic1-cards">
+        <div style="background:var(--card2);padding:16px;border-radius:12px;text-align:center;color:var(--t3);">Loading Epic 1...</div>
+      </div>
+
+      <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:20px;margin-bottom:16px;">
+        <h3 style="font-size:14px;font-weight:600;margin-bottom:16px;color:var(--t1);">Tasks & Assignments</h3>
+        <div id="epic1-tasks" style="display:grid;gap:10px;font-size:12px;">
+          <div style="color:var(--t3);">Loading tasks...</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;">
+        <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:12px;text-align:center;">
+          <div style="color:var(--t3);font-size:11px;margin-bottom:4px;">Progress</div>
+          <div style="font-size:20px;font-weight:700;color:var(--blue);" id="epic1-pct">0%</div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:12px;text-align:center;">
+          <div style="color:var(--t3);font-size:11px;margin-bottom:4px;">Tasks Status</div>
+          <div style="font-size:13px;font-weight:600;color:var(--t1);" id="epic1-counts">0/5</div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:12px;text-align:center;">
+          <div style="color:var(--t3);font-size:11px;margin-bottom:4px;">Agents</div>
+          <div style="font-size:13px;font-weight:600;color:var(--t1);" id="epic1-agents">0</div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:12px;text-align:center;">
+          <div style="color:var(--t3);font-size:11px;margin-bottom:4px;">24/7 Status</div>
+          <div style="font-size:13px;font-weight:600;color:var(--green);">✅ Running</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:1px;background:var(--bd);margin:40px 0;"></div>
+
+    <!-- EPIC 2: REVENUE -->
+    <div>
+      <div class="sh" style="margin-bottom:16px;">
+        <h2 class="st">💰 EPIC 2: REVENUE TRACK (Demo, GTM, First Paying Customer)</h2>
+        <span class="ss" id="epic2-summary">Loading...</span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:24px;" id="epic2-cards">
+        <div style="background:var(--card2);padding:16px;border-radius:12px;text-align:center;color:var(--t3);">Loading Epic 2...</div>
+      </div>
+
+      <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:20px;margin-bottom:16px;">
+        <h3 style="font-size:14px;font-weight:600;margin-bottom:16px;color:var(--t1);">Tasks & Assignments</h3>
+        <div id="epic2-tasks" style="display:grid;gap:10px;font-size:12px;">
+          <div style="color:var(--t3);">Loading tasks...</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;">
+        <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:12px;text-align:center;">
+          <div style="color:var(--t3);font-size:11px;margin-bottom:4px;">Progress</div>
+          <div style="font-size:20px;font-weight:700;color:var(--green);" id="epic2-pct">0%</div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:12px;text-align:center;">
+          <div style="color:var(--t3);font-size:11px;margin-bottom:4px;">Tasks Status</div>
+          <div style="font-size:13px;font-weight:600;color:var(--t1);" id="epic2-counts">0/9</div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:12px;text-align:center;">
+          <div style="color:var(--t3);font-size:11px;margin-bottom:4px;">Agents</div>
+          <div style="font-size:13px;font-weight:600;color:var(--t1);" id="epic2-agents">0</div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:12px;text-align:center;">
+          <div style="color:var(--t3);font-size:11px;margin-bottom:4px;">24/7 Status</div>
+          <div style="font-size:13px;font-weight:600;color:var(--green);">✅ Running</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:1px;background:var(--bd);margin:40px 0;"></div>
+
+    <!-- SYSTEM STATUS -->
+    <div>
+      <div class="sh" style="margin-bottom:16px;">
+        <h2 class="st">⚙️ SYSTEM STATUS (24/7 Operations)</h2>
+        <span class="ss" id="sys-summary">Live monitoring active</span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;">
+        <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:16px;">
+          <div style="color:var(--t3);font-size:11px;margin-bottom:8px;font-weight:600;">Orchestrator</div>
+          <div style="font-size:16px;font-weight:700;color:var(--green);" id="sys-orch">running</div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:16px;">
+          <div style="color:var(--t3);font-size:11px;margin-bottom:8px;font-weight:600;">Task Intake</div>
+          <div style="font-size:16px;font-weight:700;color:var(--green);" id="sys-intake">continuous</div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:16px;">
+          <div style="color:var(--t3);font-size:11px;margin-bottom:8px;font-weight:600;">Health Monitor</div>
+          <div style="font-size:16px;font-weight:700;color:var(--green);" id="sys-health">every 30 min</div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:16px;">
+          <div style="color:var(--t3);font-size:11px;margin-bottom:8px;font-weight:600;">Works 24/7</div>
+          <div style="font-size:16px;font-weight:700;color:var(--green);" id="sys-24x7">✅ YES</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:1px;background:var(--bd);margin:40px 0;"></div>
+
+    <!-- BLOCKERS & IMPROVEMENTS -->
+    <div>
+      <div class="sh" style="margin-bottom:16px;">
+        <h2 class="st">🎯 BLOCKERS & IMPROVEMENTS</h2>
+        <span class="ss" id="blocker-summary">Analyzing...</span>
+      </div>
+      <div id="blockers-improvements" style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:16px;min-height:100px;">
+        <div style="color:var(--t3);text-align:center;padding:20px;">Loading blockers & improvements...</div>
+      </div>
+    </div>
+
   </section>
 
   <section class="sec reveal" aria-label="Agent status">
@@ -766,6 +892,46 @@ main{position:relative;z-index:1;padding-top:52px;}
   </div>
 
 </div><!-- /overview -->
+
+<!-- ═══ EPIC BOARD TAB ════════════════════════════════════════════ -->
+<div id="tab-epic-board" class="tab-panel" role="tabpanel" style="display:none;">
+  <div class="sec" style="padding-top:40px;">
+    <div class="sh"><h2 class="st">🎯 Epic 1: Infrastructure Track</h2><span class="ss" id="epic1-summary">Infra health, policy, autonomy</span></div>
+    <div id="epic1-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;margin-top:16px;"></div>
+  </div>
+  <div class="div"></div>
+  <div class="sec" style="padding-top:0;">
+    <div class="sh"><h2 class="st">💰 Epic 2: Revenue Track</h2><span class="ss" id="epic2-summary">Demo, GTM, first paying customer</span></div>
+    <div id="epic2-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;margin-top:16px;"></div>
+  </div>
+  <div class="div"></div>
+  <div class="sec" style="padding-top:0;">
+    <div class="sh"><h2 class="st">⚙️ System Status (24/7)</h2><span class="ss" id="system-status">Live monitoring</span></div>
+    <div id="system-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:12px;">
+      <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:12px;font-size:12px;">
+        <div style="color:var(--t3);margin-bottom:4px;">Orchestrator</div>
+        <div style="font-size:14px;font-weight:600;color:var(--green);" id="sys-orchestrator">running</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:12px;font-size:12px;">
+        <div style="color:var(--t3);margin-bottom:4px;">Task Intake</div>
+        <div style="font-size:14px;font-weight:600;color:var(--green);" id="sys-task-intake">continuous</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:12px;font-size:12px;">
+        <div style="color:var(--t3);margin-bottom:4px;">Health Monitor</div>
+        <div style="font-size:14px;font-weight:600;color:var(--green);" id="sys-health">every 30 min</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:12px;font-size:12px;">
+        <div style="color:var(--t3);margin-bottom:4px;">Works 24/7</div>
+        <div style="font-size:14px;font-weight:600;color:var(--green);" id="sys-24x7">✅ Yes</div>
+      </div>
+    </div>
+  </div>
+  <div class="div"></div>
+  <div class="sec" style="padding-top:0;">
+    <div class="sh"><h2 class="st">⚠️ Blockers & Improvements</h2><span class="ss" id="blockers-summary">Action items</span></div>
+    <div id="blockers-list" style="margin-top:12px;"></div>
+  </div>
+</div>
 
 <!-- ═══ AGENTS TAB ════════════════════════════════════════════ -->
 <div id="tab-agents" class="tab-panel" role="tabpanel">
@@ -1143,6 +1309,7 @@ function switchTab(id){
   if(id==='ceo')runCeo();
   if(id==='subagents')buildSubAgentTab();
   if(id==='tasks')refreshUnifiedBoard();
+  if(id==='epic-board')renderEpicBoard();
   if(id==='logs'){const t=document.getElementById('logs-live-ts');if(t)t.textContent='Live · '+new Date().toLocaleTimeString('en',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'});}
 }
 tabs.forEach(t=>{
@@ -1780,6 +1947,10 @@ function applyState(st){
 
   // ── Rescue panel ──────────────────────────────────────────────────────────
   loadRescue();
+
+  // ── Store state globally and update epic board (on main overview page) ──────────────────
+  window.lastState=st;
+  renderEpicBoard();  // Always render epic board - it's on the overview page now
 }
 
 function renderCompanyProjects(projects){
@@ -2077,6 +2248,185 @@ function buildTodoFromData(board){
 }
 // Keep buildTodoTab as alias for compat
 async function buildTodoTab(){ await refreshUnifiedBoard(); }
+</script>
+
+<!-- Epic Board rendering -->
+<script>
+// Consolidated Epic Board Renderer - Shows all values on one page
+
+function renderEpicBoardConsolidated(){
+  const st=window.lastState||{};
+  const board=st.epic_board||{epics:[]};
+
+  // Group epics by track
+  const epic1Epics=board.epics?.filter(e=>e.track==='infrastructure')||[];
+  const epic2Epics=board.epics?.filter(e=>e.track==='revenue')||[];
+
+  const ops = board.operations || {};
+
+  // ═══ AGGREGATE METRICS BY TRACK ═════════════════════════════════════════
+  // Epic 1: Aggregate all infrastructure projects
+  const epic1 = {
+    progress_pct: epic1Epics.length > 0 ? Math.round(epic1Epics.reduce((sum,e)=>sum+(e.completed||0),0) / epic1Epics.reduce((sum,e)=>sum+(e.total_tasks||1),0) * 100) : 0,
+    total_tasks: epic1Epics.reduce((sum,e)=>sum+(e.total_tasks||0),0),
+    completed: epic1Epics.reduce((sum,e)=>sum+(e.completed||0),0),
+    pending: epic1Epics.reduce((sum,e)=>sum+(e.pending||0),0),
+    blocked: epic1Epics.reduce((sum,e)=>sum+(e.blocked||0),0),
+    agent_count: new Set(epic1Epics.flatMap(e=>e.agents||[])).size
+  };
+
+  // Epic 2: Aggregate all revenue projects (usually just 1)
+  const epic2 = {
+    progress_pct: epic2Epics.length > 0 ? Math.round(epic2Epics.reduce((sum,e)=>sum+(e.completed||0),0) / epic2Epics.reduce((sum,e)=>sum+(e.total_tasks||1),0) * 100) : 0,
+    total_tasks: epic2Epics.reduce((sum,e)=>sum+(e.total_tasks||0),0),
+    completed: epic2Epics.reduce((sum,e)=>sum+(e.completed||0),0),
+    pending: epic2Epics.reduce((sum,e)=>sum+(e.pending||0),0),
+    blocked: epic2Epics.reduce((sum,e)=>sum+(e.blocked||0),0),
+    agent_count: new Set(epic2Epics.flatMap(e=>e.agents||[])).size
+  };
+
+  // ═══ HERO KPIs ══════════════════════════════════════════════════════════
+  const set=(id,val)=>{const el=$(id);if(el)el.textContent=val;};
+  set('epic1-progress', epic1.progress_pct + '%');
+  set('epic2-progress', epic2.progress_pct + '%');
+  set('total-agents', epic1.agent_count + epic2.agent_count);
+  set('ops-status', ops.works_24_7 ? '✅ Running' : '❌ Offline');
+
+  // ═══ EPIC 1 ════════════════════════════════════════════════════════════
+  set('epic1-summary', `${epic1.agent_count} agents · ${epic1.total_tasks} tasks`);
+  set('epic1-pct', epic1.progress_pct + '%');
+  set('epic1-counts', `${epic1.completed}/${epic1.total_tasks} done · ${epic1.pending} pending · ${epic1.blocked} blocked`);
+  set('epic1-agents', epic1.agent_count);
+  
+  // Epic 1 Cards - Show all projects
+  const e1c = $('epic1-cards');
+  if(e1c && epic1Epics.length > 0) {
+    e1c.innerHTML = epic1Epics.map(p=>`
+      <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:14px;">
+        <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--t1);">${esc(p.name)}</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:11px;margin-bottom:10px;">
+          <div><div style="color:var(--t3);font-size:10px;">Done</div><div style="font-size:16px;font-weight:700;color:var(--green);">${p.completed || 0}</div></div>
+          <div><div style="color:var(--t3);font-size:10px;">Pending</div><div style="font-size:16px;font-weight:700;color:var(--t1);">${p.pending || 0}</div></div>
+        </div>
+        <div style="height:6px;background:var(--t4);border-radius:3px;overflow:hidden;margin-bottom:8px;">
+          <div style="height:100%;background:${p.progress_pct > 50 ? 'var(--green)' : p.progress_pct > 0 ? 'var(--blue)' : 'var(--t4)'};width:${p.progress_pct || 0}%;"></div>
+        </div>
+        <div style="font-size:11px;color:var(--t3);">${p.progress_pct || 0}% · ${(p.agents||[]).join(', ')}</div>
+      </div>
+    `).join('');
+  }
+  
+  // Epic 1 Tasks Table
+  const e1t = $('epic1-tasks');
+  if(e1t) {
+    const allTasks = [];
+    epic1Epics.forEach(ep => {
+      if(ep.agents) {
+        ep.agents.forEach((agent, i) => {
+          allTasks.push({agent, task: `Task ${allTasks.length + 1}`, status: 'pending'});
+        });
+      }
+    });
+    
+    if(allTasks.length > 0) {
+      e1t.innerHTML = `
+        <div style="background:var(--card2);border-radius:8px;overflow:hidden;">
+          ${allTasks.map((t,i)=>`
+            <div style="display:grid;grid-template-columns:140px 1fr auto;gap:12px;padding:12px;${i>0?'border-top:1px solid var(--bd);':''}">
+              <div><code style="background:var(--blue-g);color:var(--blue);padding:4px 8px;border-radius:4px;font-size:11px;font-weight:600;">${esc(t.agent)}</code></div>
+              <div style="color:var(--t1);">${esc(t.task)}</div>
+              <div style="color:var(--orange);font-weight:600;">${esc(t.status)}</div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+  }
+  
+  // ═══ EPIC 2 ════════════════════════════════════════════════════════════
+  set('epic2-summary', `${epic2.agent_count} agents · ${epic2.total_tasks} tasks`);
+  set('epic2-pct', epic2.progress_pct + '%');
+  set('epic2-counts', `${epic2.completed}/${epic2.total_tasks} done · ${epic2.pending} pending · ${epic2.blocked} blocked`);
+  set('epic2-agents', epic2.agent_count);
+  
+  // Epic 2 Cards
+  const e2c = $('epic2-cards');
+  if(e2c && epic2Epics.length > 0) {
+    e2c.innerHTML = epic2Epics.map(p=>`
+      <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:14px;">
+        <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--t1);">${esc(p.name)}</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:11px;margin-bottom:10px;">
+          <div><div style="color:var(--t3);font-size:10px;">Done</div><div style="font-size:16px;font-weight:700;color:var(--green);">${p.completed || 0}</div></div>
+          <div><div style="color:var(--t3);font-size:10px;">Pending</div><div style="font-size:16px;font-weight:700;color:var(--t1);">${p.pending || 0}</div></div>
+        </div>
+        <div style="height:6px;background:var(--t4);border-radius:3px;overflow:hidden;margin-bottom:8px;">
+          <div style="height:100%;background:${p.progress_pct > 50 ? 'var(--green)' : p.progress_pct > 0 ? 'var(--blue)' : 'var(--t4)'};width:${p.progress_pct || 0}%;"></div>
+        </div>
+        <div style="font-size:11px;color:var(--t3);">${p.progress_pct || 0}% · ${(p.agents||[]).join(', ')}</div>
+      </div>
+    `).join('');
+  }
+  
+  // Epic 2 Tasks Table
+  const e2t = $('epic2-tasks');
+  if(e2t) {
+    const allTasks = [];
+    epic2Epics.forEach(ep => {
+      if(ep.agents) {
+        ep.agents.forEach((agent, i) => {
+          allTasks.push({agent, task: `Task ${allTasks.length + 1}`, status: 'pending'});
+        });
+      }
+    });
+    
+    if(allTasks.length > 0) {
+      e2t.innerHTML = `
+        <div style="background:var(--card2);border-radius:8px;overflow:hidden;">
+          ${allTasks.map((t,i)=>`
+            <div style="display:grid;grid-template-columns:140px 1fr auto;gap:12px;padding:12px;${i>0?'border-top:1px solid var(--bd);':''}">
+              <div><code style="background:var(--green-g);color:var(--green);padding:4px 8px;border-radius:4px;font-size:11px;font-weight:600;">${esc(t.agent)}</code></div>
+              <div style="color:var(--t1);">${esc(t.task)}</div>
+              <div style="color:var(--orange);font-weight:600;">${esc(t.status)}</div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+  }
+  
+  // ═══ SYSTEM STATUS ══════════════════════════════════════════════════════════
+  set('sys-orch', ops.orchestrator || 'unknown');
+  set('sys-intake', ops.task_intake || 'unknown');
+  set('sys-health', ops.health_monitor || 'unknown');
+  set('sys-24x7', ops.works_24_7 ? '✅ YES' : '❌ NO');
+  
+  // ═══ BLOCKERS & IMPROVEMENTS ════════════════════════════════════════════════════════════
+  const research = st.research_feed || [];
+  const blockers = research.filter(r=>r.finding?.includes('🚫') || r.finding?.includes('BLOCKER')) || [];
+  const improvements = research.filter(r=>r.finding?.includes('💡') || r.finding?.includes('IMPROVEMENT')) || [];
+  
+  const blockEl = $('blockers-improvements');
+  if(blockEl) {
+    const items = [
+      ...blockers.slice(0,5).map(b=>`<div style="padding:12px;margin-bottom:8px;background:var(--red-g);border-left:4px solid var(--red);border-radius:6px;font-size:12px;color:var(--red);font-weight:600;">🚫 ${esc(b.finding)}</div>`),
+      ...improvements.slice(0,5).map(i=>`<div style="padding:12px;margin-bottom:8px;background:var(--orange-g);border-left:4px solid var(--orange);border-radius:6px;font-size:12px;color:var(--orange);font-weight:600;">💡 ${esc(i.finding)}</div>`)
+    ];
+    
+    if(items.length === 0) {
+      blockEl.innerHTML = '<div style="padding:24px;text-align:center;color:var(--green);font-weight:600;font-size:14px;">✅ No blockers · All systems clear · Ready for agent execution</div>';
+    } else {
+      blockEl.innerHTML = items.join('');
+    }
+  }
+  
+  $('blocker-summary').textContent = `${blockers.length} blockers · ${improvements.length} improvements`;
+}
+
+function renderEpicBoard(){
+  renderEpicBoardConsolidated();
+}
+
+
 </script>
 
 <!-- CEO live wiring -->
