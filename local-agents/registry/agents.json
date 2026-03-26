@@ -11,9 +11,11 @@
         "tdd"
       ],
       "model": "qwen2.5-coder:7b",
-      "benchmark_scores": {},
-      "win_rate": null,
-      "avg_quality": null,
+      "benchmark_scores": {
+        "v1": 78.1
+      },
+      "win_rate": 97.3,
+      "avg_quality": 78.1,
       "last_updated": "2026-03-25"
     },
     "planner": {

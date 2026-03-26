@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-orchestrator/main.py — Self-running v1→v100 upgrade loop
-=========================================================
+orchestrator/main.py — Self-running v1→v1000 upgrade loop
+==========================================================
 Fully autonomous. No human input required.
 
 Flow per version:
@@ -219,6 +219,7 @@ def start_rescue_watchdog(state_path: str, version_ref: list,
 CATEGORY_AGENT_MAP = {
     "code_gen":  "executor",
     "bug_fix":   "executor",
+    "debug":     "debugger",
     "tdd":       "test_engineer",
     "scaffold":  "architect",
     "arch":      "architect",
@@ -226,6 +227,7 @@ CATEGORY_AGENT_MAP = {
     "e2e":       "architect",
     "research":  "researcher",
     "doc":       "doc_writer",
+    "documentation": "doc_writer",
 }
 
 _agent_cache = {}
@@ -815,8 +817,18 @@ def run_version(version: int, tasks: list, local_only: bool = False,
     return summary
 
 
+def _write_version_file(version: int):
+    """Sync VERSION file with current runtime version (0.{version}.0 format)."""
+    ver_path = os.path.join(os.path.dirname(BASE_DIR), "VERSION")
+    try:
+        with open(ver_path, "w") as f:
+            f.write(f"0.{version}.0\n")
+    except Exception:
+        pass
+
+
 def auto_loop(start_version: int):
-    """Full autonomous v{start}→v100 loop."""
+    """Full autonomous v{start}→v1000 loop. Self-improves until beating Opus 4.6."""
     from tasks.task_suite import build_task_suite
     tasks = build_task_suite()
 
@@ -827,7 +839,7 @@ def auto_loop(start_version: int):
     start_rescue_watchdog(state_path, version_ref, rescued_ref, len(tasks))
     print(f"[WATCHDOG] Rescue watchdog active — checks every {_WATCHDOG_INTERVAL}s")
 
-    for version in range(start_version, 101):
+    for version in range(start_version, 1001):
         version_ref[0] = version
         # Every 5 versions: frustration research
         if version % 5 == 0:
@@ -843,6 +855,7 @@ def auto_loop(start_version: int):
                 print(f"[RESEARCH] Error at v{version}: {e}")
 
         summary = run_version(version, tasks)
+        _write_version_file(version)  # sync VERSION file with current runtime version
 
         # Self-improving prompt engine: auto-upgrade agents from this version's failures
         if _AUTO_UPGRADE:
