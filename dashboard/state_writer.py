@@ -40,6 +40,15 @@ def _read() -> dict:
 
 
 def _write(state: dict):
+    # FIX 1: Validate state before writing (prevents empty values)
+    try:
+        from state.schema import validate_state_write
+        last_known_good = _read()
+        state = validate_state_write(state, last_known_good)
+    except ImportError:
+        # schema.py not available, continue without validation
+        pass
+
     state["ts"] = datetime.now().isoformat()
     tmp = STATE_FILE + ".tmp"
     with open(tmp, "w") as f:
