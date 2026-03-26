@@ -23,6 +23,10 @@ python3 scripts/comprehensive_dashboard.py > /dev/null 2>&1
 echo "[HEALTH] Updating dashboard state..."
 python3 scripts/update_dashboard_state.py > /dev/null 2>&1
 
+# Run PR auto-merge (clear all mergeable PRs every 30 minutes)
+echo "[HEALTH] Running PR auto-merge..."
+bash scripts/auto_merge_pr.sh > /dev/null 2>&1
+
 # Run status reporter (generates LIVE_STATUS files)
 echo "[HEALTH] Generating live status report..."
 python3 scripts/status_reporter.py > /dev/null 2>&1
