@@ -1,15 +1,5 @@
 {
   "claims": [],
   "collisions": [],
-  "updated_at": "2026-03-26T00:00:00",
-  "ownership": {
-    "dashboard": {
-      "agent": "frontend_agent",
-      "project": "jobs.hil-tad.com",
-      "categories": ["frontend", "react", "dashboard", "ui", "ux", "css", "html", "component", "design_system", "accessibility", "prototype", "state_mgmt", "build_tool"],
-      "policy": "ALL dashboard and frontend work routes to frontend_agent. Claude main session is NEVER used for these tasks.",
-      "claude_rescue": false,
-      "rescue_protocol": "On 3× failure: write reports/rescue_needed.json → cron upgrades frontend_agent prompt only"
-    }
-  }
+  "updated_at": "2026-03-17T04:34:54"
 }

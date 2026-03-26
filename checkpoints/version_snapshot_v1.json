@@ -1,227 +1,596 @@
 {
   "version": 1,
-  "ts": "2026-03-26T19:26:23",
+  "ts": "2026-03-26T19:30:06",
   "state": {
-    "ts": "2026-03-26T19:25:19.134220+00:00",
-    "hardware": {
-      "cpu_pct": 23.0,
-      "ram_pct": 65.3,
-      "free_gb": 8.3,
-      "alert_level": "ok"
-    },
-    "open_prs": [
-      {
-        "number": 53,
-        "title": "feat(runtime): production-grade wiring \u2014 Tier 1/2/3 fixes for Opus 4.6 parity",
-        "branch": "fix/continuous-loop-project-manager-bridge"
-      },
-      {
-        "number": 52,
-        "title": "chore(handoff): task assignments + dashboard todos for local agents",
-        "branch": "feature/handoff-agents-exit"
-      },
-      {
-        "number": 49,
-        "title": "fix(orchestrator): never-down guarantee \u2014 root cause was --continuous flag",
-        "branch": "feature/fix-orchestrator-never-down"
-      },
-      {
-        "number": 47,
-        "title": "feat(watchdog): always-on agent guardian \u2014 auto-restart + cron",
-        "branch": "feature/agent-watchdog-cron"
-      },
-      {
-        "number": 46,
-        "title": "feat(agents): doc writer \u2014 API docs from docstrings, README, changelog",
-        "branch": "feature/doc-agent"
-      },
-      {
-        "number": 45,
-        "title": "feat(orchestrator): continuous task loop \u2014 never-stop execution engine",
-        "branch": "feature/continuous-loop"
-      },
-      {
-        "number": 44,
-        "title": "feat(agents): MultiEditor \u2014 atomic multi-file edit agent",
-        "branch": "feature/multi-editor"
-      },
-      {
-        "number": 43,
-        "title": "feat(reports): velocity tracker, burndown, weekly reports",
-        "branch": "feature/velocity-tracker"
-      },
-      {
-        "number": 42,
-        "title": "feat(projects): DAG dependency tracking + RICE/MoSCoW task prioritization",
-        "branch": "feature/dag-prioritization"
-      },
-      {
-        "number": 41,
-        "title": "feat(dashboard,projects): /api/projects + 2s refresh + 50-task breakdown",
-        "branch": "feature/agent-batch-2"
-      },
-      {
-        "number": 40,
-        "title": "feat(memory): episodic + semantic + procedural memory for agents",
-        "branch": "feature/memory-system"
-      },
-      {
-        "number": 39,
-        "title": "feat(agents): context optimizer + code dependency graph",
-        "branch": "feature/context-and-graph"
-      },
-      {
-        "number": 38,
-        "title": "feat(projects): project management system with decomposer and CLI",
-        "branch": "feature/project-management-system"
-      },
-      {
-        "number": 37,
-        "title": "feat(agents): git operations agent \u2014 commit, branch, PR from agent tasks",
-        "branch": "feature/git-agent"
-      },
-      {
-        "number": 36,
-        "title": "docs: reposition README as custom AI model runtime",
-        "branch": "feature/readme-custom-ai-model-docs"
-      },
-      {
-        "number": 35,
-        "title": "feat(observability): agent tracing, metrics, and journal",
-        "branch": "feature/observability"
-      },
-      {
-        "number": 34,
-        "title": "feat(agents): incremental validator + project health scorer",
-        "branch": "feature/validation-health"
-      },
-      {
-        "number": 33,
-        "title": "feat(orchestrator): git worktree isolation + parallel task executor",
-        "branch": "feature/worktree-isolation"
-      },
-      {
-        "number": 32,
-        "title": "feat(agents): self-improvement loop \u2014 agents learn from every task",
-        "branch": "feature/self-improvement"
-      },
-      {
-        "number": 31,
-        "title": "feat(agents): upgrade researcher with web search, GitHub, docs fetching",
-        "branch": "feature/web-researcher"
-      },
-      {
-        "number": 30,
-        "title": "feat(dashboard): projects tab, kanban board, metrics bar, loop control API",
-        "branch": "feature/dashboard-projects"
-      },
-      {
-        "number": 29,
-        "title": "feat(agents): test generator \u2014 AST analysis + pytest generation + iterate until passing",
-        "branch": "feature/test-generator"
-      },
-      {
-        "number": 28,
-        "title": "feat(templates): production-ready project starters for 6 project types",
-        "branch": "feature/project-templates"
-      },
-      {
-        "number": 27,
-        "title": "feat(repo): deduplicate skills/roles, fix script paths, restore template vars",
-        "branch": "feature/deduplicate-skills-roles"
-      }
-    ],
-    "velocity": {
-      "versions_done": 4,
-      "versions_total": 1000,
-      "pct": 0.4,
-      "eta_human": "996 versions left"
-    },
-    "token_usage": {
-      "claude_tokens": 289,
-      "local_tokens": 2000,
-      "total_tokens": 2289,
-      "rescued_tasks": 1,
-      "budget_pct": 12.6,
-      "warning": true,
-      "hard_limit_hit": true
-    },
-    "benchmark_scores": {
-      "v1": {
-        "local": 78.1,
-        "opus": 50.0,
-        "win_rate": 97.3,
-        "gap": 28.1,
-        "ts": "2026-03-25T16:44:36.905174",
-        "tasks": 111
-      },
-      "v3": {
-        "local": 75.3,
-        "opus": 0.0,
-        "win_rate": 100.0,
-        "gap": 75.3,
-        "ts": "2026-03-25T12:07:27.927871",
-        "tasks": 3
-      },
-      "v4": {
-        "local": 75.7,
-        "opus": 0.0,
-        "win_rate": 100.0,
-        "gap": 75.7,
-        "ts": "2026-03-25T12:13:56.716360",
-        "tasks": 3
-      },
-      "v5": {
-        "local": 76.3,
-        "opus": 56.7,
-        "win_rate": 100.0,
-        "gap": 19.6,
-        "ts": "2026-03-25T12:18:19.147133",
-        "tasks": 3
-      }
-    },
+    "ts": "2026-03-26T12:28:29.489155",
     "version": {
-      "current": 5,
-      "total": 1000,
-      "pct_complete": 0.5,
-      "label": "v5/1000"
-    },
-    "ceo_report": {
-      "ts": "2026-03-26T19:25:19.134220+00:00",
-      "health_score": 95,
-      "dashboard_live": true,
-      "summary": "v5/1000 | 24 PRs open | Budget 12.6%"
-    },
-    "business_summary": {
-      "headline": "v5/1000 | 24 PRs | Budget 12.6%",
-      "health_score": 95,
-      "version": 5,
-      "updated_at": "2026-03-26T19:25:19.134220+00:00"
+      "current": 1,
+      "total": 100,
+      "pct_complete": 1.0,
+      "label": "v1 running"
     },
     "agents": {
-      "frontend_agent": {
+      "executor": {
+        "status": "running",
+        "task": "Trapping rain water",
+        "task_id": 27,
+        "elapsed_s": 0.0,
+        "last_activity": "2026-03-25T14:00:27.949873"
+      },
+      "planner": {
+        "status": "idle",
+        "task": "",
+        "task_id": null,
+        "elapsed_s": 0,
+        "last_activity": "",
+        "sub_agents": [],
+        "worker_count": 0
+      },
+      "reviewer": {
+        "status": "idle",
+        "task": "",
+        "task_id": null,
+        "elapsed_s": 0,
+        "last_activity": "",
+        "sub_agents": [],
+        "worker_count": 0
+      },
+      "debugger": {
+        "status": "idle",
+        "task": "",
+        "task_id": null,
+        "elapsed_s": 0,
+        "last_activity": "",
+        "sub_agents": [],
+        "worker_count": 0
+      },
+      "researcher": {
+        "status": "idle",
+        "task": "",
+        "task_id": null,
+        "elapsed_s": 0,
+        "last_activity": "",
+        "sub_agents": [],
+        "worker_count": 0
+      },
+      "benchmarker": {
+        "status": "reviewing",
+        "task": "v5 gap analysis \u2014 local vs Opus 4.6",
+        "task_id": null,
+        "elapsed_s": 12.0,
+        "last_activity": "2026-03-25T13:50:10.000000",
+        "sub_agents": [
+          {
+            "id": 1,
+            "status": "done",
+            "task": "Score correctness category",
+            "model": "qwen2.5-coder:7b",
+            "elapsed_s": 8.3,
+            "quality": 100
+          },
+          {
+            "id": 2,
+            "status": "done",
+            "task": "Score safety category",
+            "model": "qwen2.5-coder:7b",
+            "elapsed_s": 7.9,
+            "quality": 100
+          }
+        ],
+        "worker_count": 0
+      },
+      "architect": {
+        "status": "running",
+        "task": "Build a production FastAPI REST API with JWT auth",
+        "task_id": 1,
+        "elapsed_s": 0.0,
+        "last_activity": "2026-03-26T12:28:29.487880",
+        "sub_agents": [],
+        "worker_count": 0
+      },
+      "refactor": {
+        "status": "idle",
+        "task": "",
+        "task_id": null,
+        "elapsed_s": 0,
+        "last_activity": "",
+        "sub_agents": [],
+        "worker_count": 0
+      },
+      "test_engineer": {
         "status": "idle",
         "task": "",
         "task_id": null,
         "elapsed_s": 0.0,
-        "last_activity": "2026-03-26T12:24:55.397201",
+        "last_activity": "2026-03-25T15:59:42.055138"
+      },
+      "doc_writer": {
+        "status": "idle",
+        "task": "",
+        "task_id": null,
+        "elapsed_s": 0,
+        "last_activity": "",
         "sub_agents": [],
         "worker_count": 0
       }
     },
-    "continuous_loop": {
-      "current_task": "Fix 21 conflicting PRs: rebase all feature branches onto origin/main with --strategy-option=theirs, add state.json to .gitignore first, then push each branch to trigger CI auto-merge",
-      "tasks_completed_today": 10,
-      "quality_avg": 59.3,
-      "consecutive_failures": 1,
-      "iterations": 10,
-      "last_activity": "2026-03-26T12:24:55.399906"
+    "task_queue": {
+      "total": 2,
+      "completed": 0,
+      "in_progress": 1,
+      "failed": 0,
+      "pending": 1
     },
-    "quality": 59.3,
-    "active_agent": "frontend_agent",
+    "benchmark_scores": {
+      "v1": {
+        "local": 100.0,
+        "opus": 0.0,
+        "gap": 0.0,
+        "win_rate": 100.0,
+        "ts": "2026-03-25T11:26:07.300350"
+      },
+      "v3": {
+        "local": 100.0,
+        "opus": 0.0,
+        "gap": 0.0,
+        "win_rate": 100.0,
+        "ts": "2026-03-25T12:07:27.930187"
+      },
+      "v5": {
+        "local": 100.0,
+        "opus": 0.0,
+        "gap": 0.0,
+        "win_rate": 100.0,
+        "ts": "2026-03-25T12:18:19.149704"
+      }
+    },
+    "token_usage": {
+      "claude_tokens": 1,
+      "local_tokens": 9,
+      "budget_pct": 10.0,
+      "warning": true,
+      "hard_limit_hit": true
+    },
+    "hardware": {
+      "cpu_pct": 37.0,
+      "ram_pct": 70.4,
+      "disk_pct": 0.0,
+      "gpu_pct": null,
+      "alert_level": "ok"
+    },
+    "failures": [
+      {
+        "ts": "2026-03-25T11:56:20.261924",
+        "agent": "executor",
+        "task": "Implement Trie with prefix search",
+        "task_id": 4,
+        "attempt": 1,
+        "tried": "blocked"
+      },
+      {
+        "ts": "2026-03-25T11:22:40.719336",
+        "agent": "executor",
+        "task": "Implement LRU Cache",
+        "task_id": 1,
+        "attempt": 1,
+        "tried": "failed"
+      }
+    ],
+    "research_feed": [],
+    "version_changelog": {
+      "v1": {
+        "changes": [
+          "win_rate=100.0%",
+          "rescued=33.3%",
+          "tasks=3"
+        ],
+        "before_score": 0.0,
+        "after_score": 100.0,
+        "delta": 100.0,
+        "ts": "2026-03-25T11:26:07.300775"
+      },
+      "v3": {
+        "changes": [
+          "win_rate=100.0%",
+          "rescued=0.0%",
+          "tasks=3"
+        ],
+        "before_score": 0.0,
+        "after_score": 100.0,
+        "delta": 100.0,
+        "ts": "2026-03-25T12:07:27.930800"
+      },
+      "v5": {
+        "changes": [
+          "win_rate=100.0%",
+          "rescued=0.0%",
+          "tasks=3"
+        ],
+        "before_score": 0.0,
+        "after_score": 100.0,
+        "delta": 100.0,
+        "ts": "2026-03-25T12:18:19.149970"
+      }
+    },
+    "ceo_report": {
+      "ts": "2026-03-25T23:03:04",
+      "active_agents": 1,
+      "running_sub_agents": 0,
+      "health_score": 88,
+      "budget_warning": false,
+      "stuck_agents": [],
+      "rescue_needed": [],
+      "dashboard_live": true,
+      "summary": "Supervisor online. Planning phase: 8 projects queued. Local agents execute 90%. Claude rescue <10%.",
+      "velocity": {
+        "tasks_per_min": 0,
+        "versions_per_hour": 0
+      },
+      "eta": {
+        "versions_to_beat_opus": 20,
+        "est_complete_utc": "2026-03-26T06:00:00"
+      }
+    },
+    "business_summary": {
+      "headline": "0 of 2 engineering tasks complete",
+      "pct_complete": 0.0,
+      "projects_active": 1,
+      "blockers_open": 0,
+      "version": 1,
+      "updated_at": "2026-03-26T12:28:29.489151"
+    },
+    "todo_board": {
+      "updated_at": "2026-03-25T23:03:04",
+      "items": [
+        {
+          "id": "P01",
+          "title": "Self-calibration system \u2014 3-task warmup per version",
+          "status": "running",
+          "category": "orchestrator",
+          "agent": "executor",
+          "priority": "critical",
+          "source": "plan"
+        },
+        {
+          "id": "P02",
+          "title": "Self-improving prompt engine \u2014 A/B test every agent",
+          "status": "running",
+          "category": "orchestrator",
+          "agent": "executor",
+          "priority": "critical",
+          "source": "plan"
+        },
+        {
+          "id": "P03",
+          "title": "Dashboard velocity + ETA bar",
+          "status": "running",
+          "category": "dashboard",
+          "agent": "executor",
+          "priority": "high",
+          "source": "plan"
+        },
+        {
+          "id": "P04",
+          "title": "Repo root cleanup \u2014 move stray test files",
+          "status": "running",
+          "category": "devops",
+          "agent": "executor",
+          "priority": "high",
+          "source": "plan"
+        },
+        {
+          "id": "P05",
+          "title": "Opus 4.6 comparison wired into every version",
+          "status": "todo",
+          "category": "benchmarks",
+          "agent": "benchmarker",
+          "priority": "critical",
+          "source": "plan"
+        },
+        {
+          "id": "P06",
+          "title": "Auto-merge clean PRs script",
+          "status": "todo",
+          "category": "devops",
+          "agent": "executor",
+          "priority": "medium",
+          "source": "plan"
+        },
+        {
+          "id": "P07",
+          "title": "State.json compaction (auto when >10mb)",
+          "status": "todo",
+          "category": "orchestrator",
+          "agent": "executor",
+          "priority": "medium",
+          "source": "plan"
+        },
+        {
+          "id": "P08",
+          "title": "v1\u2192v100 autonomous loop \u2014 self-upgrade until beats Opus",
+          "status": "todo",
+          "category": "benchmarks",
+          "agent": "benchmarker",
+          "priority": "critical",
+          "source": "plan"
+        }
+      ],
+      "counts": {
+        "running": 4,
+        "todo": 4,
+        "blocked": 0,
+        "done": 0
+      }
+    },
+    "velocity": {
+      "tasks_per_min": 0,
+      "versions_done": 5,
+      "versions_total": 1000,
+      "pct": 0.5,
+      "eta_human": "~20 versions to beat baseline",
+      "last_updated": "2026-03-25T23:03:04"
+    },
+    "auto_heal_status": {
+      "ts": "2026-03-26T19:30:06",
+      "issues_this_cycle": [],
+      "healthy": true,
+      "dashboard_alive": true,
+      "disk_ok": true
+    },
+    "calibration": {
+      "version": 1,
+      "ts": "2026-03-26T19:28:29",
+      "results": {
+        "reviewer": {
+          "ts": "2026-03-26T19:26:23",
+          "version": 1,
+          "agent": "reviewer",
+          "avg_score": 0.0,
+          "prev_score": 0.0,
+          "regressed": false,
+          "pass": false,
+          "patched": false,
+          "tasks": [
+            {
+              "title": "Score this function: def add(a,b): return a+b",
+              "score": 0,
+              "status": "done",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Review a 20-line Python class for quality",
+              "score": 0,
+              "status": "done",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Rate correctness/completeness/style of a module",
+              "score": 0,
+              "status": "done",
+              "elapsed": 0.0
+            }
+          ]
+        },
+        "benchmarker": {
+          "ts": "2026-03-26T19:26:23",
+          "version": 1,
+          "agent": "benchmarker",
+          "avg_score": 0.0,
+          "prev_score": 0.0,
+          "regressed": false,
+          "pass": false,
+          "patched": false,
+          "tasks": [
+            {
+              "title": "Score output quality 0-100 with rubric",
+              "score": 0,
+              "status": "done",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Compare two solutions: which is better?",
+              "score": 0,
+              "status": "done",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Identify top 3 failure patterns in task batch",
+              "score": 0,
+              "status": "done",
+              "elapsed": 0.0
+            }
+          ]
+        },
+        "executor": {
+          "ts": "2026-03-26T19:26:23",
+          "version": 1,
+          "agent": "executor",
+          "avg_score": 0.0,
+          "prev_score": 0.0,
+          "regressed": false,
+          "pass": false,
+          "patched": false,
+          "tasks": [
+            {
+              "title": "Two Sum \u2014 return indices",
+              "score": 0,
+              "status": "error: No module named 'agent_runner'",
+              "elapsed": 0.0
+            },
+            {
+              "title": "FizzBuzz 1-100",
+              "score": 0,
+              "status": "error: No module named 'agent_runner'",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Reverse a linked list",
+              "score": 0,
+              "status": "error: No module named 'agent_runner'",
+              "elapsed": 0.0
+            }
+          ]
+        },
+        "researcher": {
+          "ts": "2026-03-26T19:26:23",
+          "version": 1,
+          "agent": "researcher",
+          "avg_score": 100.0,
+          "prev_score": 0.0,
+          "regressed": false,
+          "pass": true,
+          "patched": false,
+          "tasks": [
+            {
+              "title": "Find top 3 Python HTTP libraries",
+              "score": 100,
+              "status": "done",
+              "elapsed": 0.04
+            },
+            {
+              "title": "Research best practices for retry logic",
+              "score": 100,
+              "status": "done",
+              "elapsed": 0.03
+            },
+            {
+              "title": "Summarise SWE-bench top agent techniques 2025",
+              "score": 100,
+              "status": "done",
+              "elapsed": 0.06
+            }
+          ]
+        },
+        "doc_writer": {
+          "ts": "2026-03-26T19:27:54",
+          "version": 1,
+          "agent": "doc_writer",
+          "avg_score": 100.0,
+          "prev_score": 0.0,
+          "regressed": false,
+          "pass": true,
+          "patched": false,
+          "tasks": [
+            {
+              "title": "Write docstring for a 5-line function",
+              "score": 100,
+              "status": "done",
+              "elapsed": 41.88
+            },
+            {
+              "title": "Write README for a CLI tool",
+              "score": 100,
+              "status": "done",
+              "elapsed": 16.34
+            },
+            {
+              "title": "Write API reference for 5 endpoints",
+              "score": 100,
+              "status": "done",
+              "elapsed": 33.18
+            }
+          ]
+        },
+        "test_engineer": {
+          "ts": "2026-03-26T19:28:29",
+          "version": 1,
+          "agent": "test_engineer",
+          "avg_score": 68.3,
+          "prev_score": 0.0,
+          "regressed": false,
+          "pass": true,
+          "patched": false,
+          "tasks": [
+            {
+              "title": "Write pytest for add(a,b)",
+              "score": 75,
+              "status": "done",
+              "elapsed": 48.29
+            },
+            {
+              "title": "Write tests for a REST endpoint handler",
+              "score": 65,
+              "status": "done",
+              "elapsed": 27.1
+            },
+            {
+              "title": "Write integration test for DB migration",
+              "score": 65,
+              "status": "done",
+              "elapsed": 50.5
+            }
+          ]
+        }
+      },
+      "passing": [
+        "researcher",
+        "doc_writer",
+        "test_engineer"
+      ],
+      "patched": []
+    },
+    "board_plan": {
+      "version": 1,
+      "total_tasks": 2,
+      "total_projects": 1,
+      "projects": [
+        {
+          "id": "proj-scaffold",
+          "name": "Scaffolding",
+          "category": "scaffold",
+          "agent": "architect",
+          "tasks": [
+            {
+              "task_id": 1,
+              "title": "Build a production FastAPI REST API with JWT auth",
+              "difficulty": "hard",
+              "status": "running",
+              "agent": "architect",
+              "quality": 0,
+              "elapsed_s": 0.0
+            },
+            {
+              "task_id": 2,
+              "title": "Build a CLI deployment tool with subcommands",
+              "difficulty": "hard",
+              "status": "pending",
+              "agent": "architect",
+              "quality": 0,
+              "elapsed_s": 0
+            }
+          ],
+          "total": 2,
+          "done": 0,
+          "in_progress": 1,
+          "failed": 0,
+          "status": "running",
+          "pct": 0.0
+        }
+      ],
+      "initialized_at": "2026-03-26T12:28:29.145281",
+      "status": "planned"
+    },
+    "recent_tasks": [
+      {
+        "task_id": 1,
+        "title": "Build a production FastAPI REST API with JWT auth",
+        "category": "scaffold",
+        "agent_used": "architect",
+        "status": "running",
+        "local_quality": 0
+      },
+      {
+        "task_id": 2,
+        "title": "Build a CLI deployment tool with subcommands",
+        "category": "scaffold",
+        "agent_used": "architect",
+        "status": "todo",
+        "local_quality": 0
+      }
+    ],
     "auto_heal_feed": [
       {
-        "ts": "2026-03-26T19:26:22",
+        "ts": "2026-03-26T19:30:06",
         "level": "INFO",
         "event": "started",
         "detail": "Auto-heal monitor started (checks every 10s)",
@@ -232,13 +601,6 @@
       "restarts": 0,
       "purges": 0,
       "retrains": 0
-    },
-    "auto_heal_status": {
-      "ts": "2026-03-26T19:26:22",
-      "issues_this_cycle": [],
-      "healthy": true,
-      "dashboard_alive": true,
-      "disk_ok": true
     }
   }
 }
