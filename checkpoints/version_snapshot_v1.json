@@ -1,0 +1,244 @@
+{
+  "version": 1,
+  "ts": "2026-03-26T19:26:23",
+  "state": {
+    "ts": "2026-03-26T19:25:19.134220+00:00",
+    "hardware": {
+      "cpu_pct": 23.0,
+      "ram_pct": 65.3,
+      "free_gb": 8.3,
+      "alert_level": "ok"
+    },
+    "open_prs": [
+      {
+        "number": 53,
+        "title": "feat(runtime): production-grade wiring \u2014 Tier 1/2/3 fixes for Opus 4.6 parity",
+        "branch": "fix/continuous-loop-project-manager-bridge"
+      },
+      {
+        "number": 52,
+        "title": "chore(handoff): task assignments + dashboard todos for local agents",
+        "branch": "feature/handoff-agents-exit"
+      },
+      {
+        "number": 49,
+        "title": "fix(orchestrator): never-down guarantee \u2014 root cause was --continuous flag",
+        "branch": "feature/fix-orchestrator-never-down"
+      },
+      {
+        "number": 47,
+        "title": "feat(watchdog): always-on agent guardian \u2014 auto-restart + cron",
+        "branch": "feature/agent-watchdog-cron"
+      },
+      {
+        "number": 46,
+        "title": "feat(agents): doc writer \u2014 API docs from docstrings, README, changelog",
+        "branch": "feature/doc-agent"
+      },
+      {
+        "number": 45,
+        "title": "feat(orchestrator): continuous task loop \u2014 never-stop execution engine",
+        "branch": "feature/continuous-loop"
+      },
+      {
+        "number": 44,
+        "title": "feat(agents): MultiEditor \u2014 atomic multi-file edit agent",
+        "branch": "feature/multi-editor"
+      },
+      {
+        "number": 43,
+        "title": "feat(reports): velocity tracker, burndown, weekly reports",
+        "branch": "feature/velocity-tracker"
+      },
+      {
+        "number": 42,
+        "title": "feat(projects): DAG dependency tracking + RICE/MoSCoW task prioritization",
+        "branch": "feature/dag-prioritization"
+      },
+      {
+        "number": 41,
+        "title": "feat(dashboard,projects): /api/projects + 2s refresh + 50-task breakdown",
+        "branch": "feature/agent-batch-2"
+      },
+      {
+        "number": 40,
+        "title": "feat(memory): episodic + semantic + procedural memory for agents",
+        "branch": "feature/memory-system"
+      },
+      {
+        "number": 39,
+        "title": "feat(agents): context optimizer + code dependency graph",
+        "branch": "feature/context-and-graph"
+      },
+      {
+        "number": 38,
+        "title": "feat(projects): project management system with decomposer and CLI",
+        "branch": "feature/project-management-system"
+      },
+      {
+        "number": 37,
+        "title": "feat(agents): git operations agent \u2014 commit, branch, PR from agent tasks",
+        "branch": "feature/git-agent"
+      },
+      {
+        "number": 36,
+        "title": "docs: reposition README as custom AI model runtime",
+        "branch": "feature/readme-custom-ai-model-docs"
+      },
+      {
+        "number": 35,
+        "title": "feat(observability): agent tracing, metrics, and journal",
+        "branch": "feature/observability"
+      },
+      {
+        "number": 34,
+        "title": "feat(agents): incremental validator + project health scorer",
+        "branch": "feature/validation-health"
+      },
+      {
+        "number": 33,
+        "title": "feat(orchestrator): git worktree isolation + parallel task executor",
+        "branch": "feature/worktree-isolation"
+      },
+      {
+        "number": 32,
+        "title": "feat(agents): self-improvement loop \u2014 agents learn from every task",
+        "branch": "feature/self-improvement"
+      },
+      {
+        "number": 31,
+        "title": "feat(agents): upgrade researcher with web search, GitHub, docs fetching",
+        "branch": "feature/web-researcher"
+      },
+      {
+        "number": 30,
+        "title": "feat(dashboard): projects tab, kanban board, metrics bar, loop control API",
+        "branch": "feature/dashboard-projects"
+      },
+      {
+        "number": 29,
+        "title": "feat(agents): test generator \u2014 AST analysis + pytest generation + iterate until passing",
+        "branch": "feature/test-generator"
+      },
+      {
+        "number": 28,
+        "title": "feat(templates): production-ready project starters for 6 project types",
+        "branch": "feature/project-templates"
+      },
+      {
+        "number": 27,
+        "title": "feat(repo): deduplicate skills/roles, fix script paths, restore template vars",
+        "branch": "feature/deduplicate-skills-roles"
+      }
+    ],
+    "velocity": {
+      "versions_done": 4,
+      "versions_total": 1000,
+      "pct": 0.4,
+      "eta_human": "996 versions left"
+    },
+    "token_usage": {
+      "claude_tokens": 289,
+      "local_tokens": 2000,
+      "total_tokens": 2289,
+      "rescued_tasks": 1,
+      "budget_pct": 12.6,
+      "warning": true,
+      "hard_limit_hit": true
+    },
+    "benchmark_scores": {
+      "v1": {
+        "local": 78.1,
+        "opus": 50.0,
+        "win_rate": 97.3,
+        "gap": 28.1,
+        "ts": "2026-03-25T16:44:36.905174",
+        "tasks": 111
+      },
+      "v3": {
+        "local": 75.3,
+        "opus": 0.0,
+        "win_rate": 100.0,
+        "gap": 75.3,
+        "ts": "2026-03-25T12:07:27.927871",
+        "tasks": 3
+      },
+      "v4": {
+        "local": 75.7,
+        "opus": 0.0,
+        "win_rate": 100.0,
+        "gap": 75.7,
+        "ts": "2026-03-25T12:13:56.716360",
+        "tasks": 3
+      },
+      "v5": {
+        "local": 76.3,
+        "opus": 56.7,
+        "win_rate": 100.0,
+        "gap": 19.6,
+        "ts": "2026-03-25T12:18:19.147133",
+        "tasks": 3
+      }
+    },
+    "version": {
+      "current": 5,
+      "total": 1000,
+      "pct_complete": 0.5,
+      "label": "v5/1000"
+    },
+    "ceo_report": {
+      "ts": "2026-03-26T19:25:19.134220+00:00",
+      "health_score": 95,
+      "dashboard_live": true,
+      "summary": "v5/1000 | 24 PRs open | Budget 12.6%"
+    },
+    "business_summary": {
+      "headline": "v5/1000 | 24 PRs | Budget 12.6%",
+      "health_score": 95,
+      "version": 5,
+      "updated_at": "2026-03-26T19:25:19.134220+00:00"
+    },
+    "agents": {
+      "frontend_agent": {
+        "status": "idle",
+        "task": "",
+        "task_id": null,
+        "elapsed_s": 0.0,
+        "last_activity": "2026-03-26T12:24:55.397201",
+        "sub_agents": [],
+        "worker_count": 0
+      }
+    },
+    "continuous_loop": {
+      "current_task": "Fix 21 conflicting PRs: rebase all feature branches onto origin/main with --strategy-option=theirs, add state.json to .gitignore first, then push each branch to trigger CI auto-merge",
+      "tasks_completed_today": 10,
+      "quality_avg": 59.3,
+      "consecutive_failures": 1,
+      "iterations": 10,
+      "last_activity": "2026-03-26T12:24:55.399906"
+    },
+    "quality": 59.3,
+    "active_agent": "frontend_agent",
+    "auto_heal_feed": [
+      {
+        "ts": "2026-03-26T19:26:22",
+        "level": "INFO",
+        "event": "started",
+        "detail": "Auto-heal monitor started (checks every 10s)",
+        "agent": ""
+      }
+    ],
+    "auto_heal_counts": {
+      "restarts": 0,
+      "purges": 0,
+      "retrains": 0
+    },
+    "auto_heal_status": {
+      "ts": "2026-03-26T19:26:22",
+      "issues_this_cycle": [],
+      "healthy": true,
+      "dashboard_alive": true,
+      "disk_ok": true
+    }
+  }
+}

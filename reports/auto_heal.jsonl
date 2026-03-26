@@ -1,0 +1,3 @@
+{"ts": "2026-03-26T19:26:22", "level": "INFO", "event": "started", "detail": "Auto-heal monitor started (checks every 10s)", "agent": ""}
+{"ts": "2026-03-26T19:27:32", "level": "WARN", "event": "state_repair", "detail": "state.json corrupted \u2014 rebuilding from checkpoint", "agent": ""}
+{"ts": "2026-03-26T19:27:32", "level": "ERROR", "event": "loop_error", "detail": "[Errno 2] No such file or directory: '/Users/jimmymalhan/Documents/local-agent-runtime/dashboard/state.json'", "agent": ""}

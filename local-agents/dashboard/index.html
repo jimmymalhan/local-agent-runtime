@@ -527,7 +527,105 @@ main{position:relative;z-index:1;padding-top:52px;}
 .cb-pbar{width:160px;height:5px;background:var(--t4);border-radius:3px;overflow:hidden;}
 .cb-pfill{height:100%;background:linear-gradient(90deg,var(--blue),var(--green));border-radius:3px;transition:width 1s ease;}
 .cb-ppct{font-size:11px;font-weight:700;color:var(--t2);width:32px;}
-  </style>
+/* ── Projects Epics Tab ─────────────────────────────────── */
+.epics-summary-bar{display:flex;gap:24px;background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:16px 24px;box-shadow:var(--shadow);}
+.epics-stat{display:flex;flex-direction:column;gap:3px;}
+.epics-stat-v{font-size:24px;font-weight:700;color:var(--t1);line-height:1.1;}
+.epics-stat-l{font-size:10px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--t3);}
+.epic-card{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);margin-bottom:12px;box-shadow:var(--shadow);overflow:hidden;}
+.epic-hdr{display:flex;align-items:center;gap:10px;padding:14px 18px;cursor:pointer;user-select:none;transition:background .15s;}
+.epic-hdr:hover{background:var(--card2);}
+.epic-title{font-size:14px;font-weight:600;color:var(--t1);flex:1;min-width:0;}
+.epic-desc{font-size:11px;color:var(--t2);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.epic-status{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:10px;flex-shrink:0;}
+.epic-status.done{background:var(--green-g);color:var(--green);}
+.epic-status.in_progress,.epic-status.in-progress{background:var(--blue-g);color:var(--blue);}
+.epic-status.todo,.epic-status.backlog,.epic-status.pending{background:rgba(0,0,0,.05);color:var(--t3);}
+.epic-status.blocked{background:var(--red-g);color:var(--red);}
+.epic-priority{font-size:9px;font-weight:600;padding:2px 7px;border-radius:8px;border:1px solid var(--bd);color:var(--t2);flex-shrink:0;}
+.epic-prog-wrap{flex-shrink:0;display:flex;align-items:center;gap:8px;}
+.epic-prog-bg{width:80px;height:5px;background:var(--t4);border-radius:3px;overflow:hidden;}
+.epic-prog-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--green));border-radius:3px;transition:width .6s ease;}
+.epic-prog-ct{font-size:10px;font-weight:700;color:var(--t2);min-width:30px;text-align:right;}
+.epic-chevron{font-size:10px;color:var(--t3);transition:transform .2s;flex-shrink:0;line-height:1;}
+.epic-chevron.open{transform:rotate(90deg);}
+.epic-tasks{display:none;border-top:1px solid var(--bd);padding:4px 0;}
+.epic-tasks.open{display:block;}
+.epic-task-row{display:flex;align-items:center;gap:10px;padding:7px 18px;transition:background .12s;}
+.epic-task-row:hover{background:var(--card2);}
+.epic-task-ico{width:14px;height:14px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;}
+.epic-task-ico.done{background:var(--green-g);color:var(--green);}
+.epic-task-ico.pending{background:rgba(0,0,0,.06);color:var(--t3);}
+.epic-task-name{font-size:12px;color:var(--t1);flex:1;}
+.epic-task-name.done{text-decoration:line-through;color:var(--t3);}
+.epic-cat{font-size:9px;font-weight:600;padding:2px 7px;border-radius:8px;background:var(--blue-g);color:var(--blue);flex-shrink:0;}
+  
+/* ── Metrics Bar ─────────────────────────────────────────── */
+.metrics-bar{background:var(--card);border-bottom:1px solid var(--bd);padding:8px 40px;display:flex;align-items:center;position:sticky;top:52px;z-index:91;overflow-x:auto;gap:0;}
+.metric{flex:1;min-width:100px;text-align:center;padding:6px 0;border-right:1px solid var(--bd);}
+.metric:last-child{border-right:none;}
+.metric-value{font-size:20px;font-weight:700;color:var(--t1);line-height:1.1;}
+.metric-label{font-size:9.5px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--t3);margin-top:2px;}
+/* ── Projects Grid ──────────────────────────────────────── */
+.proj-card{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:18px;cursor:pointer;transition:box-shadow .15s;box-shadow:var(--shadow);}
+.proj-card:hover{box-shadow:var(--shadow2);}
+.proj-card-header{display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;}
+.proj-card-name{font-size:14px;font-weight:700;color:var(--t1);flex:1;}
+.proj-type-badge{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:10px;background:rgba(0,113,227,.1);color:var(--blue);flex-shrink:0;}
+.proj-type-badge.benchmark{background:rgba(88,86,214,.1);color:#5856d6;}
+.proj-type-badge.agents{background:rgba(52,199,89,.1);color:var(--green);}
+.proj-type-badge.dashboard{background:rgba(255,149,0,.1);color:var(--orange);}
+.proj-desc{font-size:11px;color:var(--t3);margin-bottom:10px;min-height:16px;}
+.proj-progress{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.proj-pct{font-size:11px;font-weight:700;color:var(--t2);min-width:34px;}
+.proj-prog-track{flex:1;height:5px;background:var(--t4);border-radius:3px;overflow:hidden;}
+.proj-prog-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--green));border-radius:3px;transition:width .6s ease;}
+.proj-card-footer{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.proj-status-dot{width:7px;height:7px;border-radius:50%;background:var(--t4);}
+.proj-status-dot.active{background:var(--green);}
+.proj-status-dot.upgrading{background:var(--orange);}
+.proj-quality{margin-left:auto;font-size:11px;font-weight:700;}
+.proj-quality.hi{color:var(--green);}
+.proj-quality.md{color:var(--orange);}
+.proj-quality.lo{color:var(--red);}
+.proj-updated{font-size:9px;color:var(--t4);margin-left:auto;}
+/* ── Kanban Board ──────────────────────────────────────── */
+.kanban-col{background:var(--card2);border:1px solid var(--bd);border-radius:var(--r);padding:12px;}
+.kanban-col-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.kanban-col-title{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--t2);}
+.kanban-col-count{font-size:11px;font-weight:700;background:var(--bd);color:var(--t3);border-radius:8px;padding:1px 7px;}
+.kanban-card{background:var(--card);border:1px solid var(--bd);border-radius:var(--rsm);padding:11px 12px;margin-bottom:7px;cursor:pointer;box-shadow:var(--shadow);transition:box-shadow .15s;}
+.kanban-card:hover{box-shadow:var(--shadow2);}
+.kanban-card-id{font-size:9px;color:var(--t3);margin-bottom:3px;}
+.kanban-card-title{font-size:12px;font-weight:500;line-height:1.4;color:var(--t1);margin-bottom:7px;}
+.kanban-card-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.kanban-card-cat{font-size:9px;font-weight:600;padding:1px 5px;border-radius:3px;background:rgba(0,113,227,.08);color:var(--blue);}
+.kanban-card-agent{font-size:9.5px;color:var(--t3);}
+.kanban-card-quality{margin-left:auto;font-size:10px;font-weight:700;}
+.kanban-card-quality.hi{color:var(--green);}
+.kanban-card-quality.md{color:var(--orange);}
+.kanban-card-quality.lo{color:var(--red);}
+/* ── Live Feed ────────────────────────────────────────── */
+.loop-status-bar{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:12px 18px;margin-bottom:16px;box-shadow:var(--shadow);}
+.loop-dot{width:10px;height:10px;border-radius:50%;background:var(--t4);flex-shrink:0;transition:background .4s;}
+.loop-dot.running{background:var(--green);animation:pulse 1.5s infinite;}
+.loop-label{font-size:13px;font-weight:600;color:var(--t1);flex:1;}
+.feed-metrics{display:flex;gap:16px;margin-bottom:16px;}
+.feed-metric{background:var(--card);border:1px solid var(--bd);border-radius:var(--rsm);padding:10px 16px;flex:1;text-align:center;}
+.feed-metric-v{font-size:18px;font-weight:700;color:var(--t1);}
+.feed-metric-l{font-size:9.5px;color:var(--t3);text-transform:uppercase;letter-spacing:.05em;}
+.feed-item{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--bd);}
+.feed-item:last-child{border-bottom:none;}
+.feed-agent{font-size:9.5px;font-weight:700;color:var(--blue);min-width:80px;}
+.feed-action{font-size:12px;color:var(--t1);flex:1;}
+.feed-ts{font-size:9.5px;color:var(--t3);flex-shrink:0;}
+.feed-quality{font-size:10px;font-weight:700;padding:1px 5px;border-radius:3px;margin-left:6px;}
+.feed-quality.hi{background:var(--green-g);color:var(--green);}
+.feed-quality.md{background:rgba(255,149,0,.1);color:var(--orange);}
+.feed-quality.lo{background:var(--red-g);color:var(--red);}
+.sparkline{display:flex;align-items:flex-end;gap:2px;height:32px;}
+.spark-bar{width:12px;border-radius:2px 2px 0 0;background:linear-gradient(to top,var(--blue),var(--green));opacity:.8;transition:height .4s;}
+</style>
 </head>
 <body>
 
@@ -540,8 +638,12 @@ main{position:relative;z-index:1;padding-top:52px;}
   <div class="ntabs" role="tablist">
     <button class="ntab active" role="tab" aria-selected="true"  data-tab="overview"   data-testid="tab-overview"   tabindex="0">Overview</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="agents"     data-testid="tab-agents"     tabindex="-1">Agents</button>
-    <button class="ntab"        role="tab" aria-selected="false" data-tab="tasks"      data-testid="tab-tasks"      tabindex="-1">Projects &amp; Tasks</button>
+    <button class="ntab"        role="tab" aria-selected="false" data-tab="projects"   data-testid="tab-projects"   tabindex="-1">Projects</button>
+<button class="ntab" role="tab" aria-selected="false" data-tab="kanban" data-testid="tab-board" tabindex="-1">Board</button>
+<button class="ntab" role="tab" aria-selected="false" data-tab="livefeed" data-testid="tab-livefeed" tabindex="-1">Live Feed</button>
+    <button class="ntab"        role="tab" aria-selected="false" data-tab="tasks"      data-testid="tab-tasks"      tabindex="-1">Tasks</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="ceo"        data-testid="tab-ceo"        tabindex="-1">CEO</button>
+    <button class="ntab"        role="tab" aria-selected="false" data-tab="todo"       data-testid="tab-todo"       tabindex="-1">Todo</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="logs"       data-testid="tab-logs"       tabindex="-1">Logs</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="chat"       data-testid="tab-chat"       tabindex="-1">Chat</button>
   </div>
@@ -553,7 +655,22 @@ main{position:relative;z-index:1;padding-top:52px;}
   </div>
 </nav>
 
+<div class="metrics-bar" id="metrics-bar" role="region" aria-label="Key metrics"><div class="metric"><div class="metric-value" id="m-tasks-today">0</div><div class="metric-label">Tasks Today</div></div><div class="metric"><div class="metric-value" id="m-quality" style="color:var(--green);">0</div><div class="metric-label">Avg Quality</div></div><div class="metric"><div class="metric-value" id="m-projects" style="color:var(--blue);">0</div><div class="metric-label">Active Projects</div></div><div class="metric"><div class="metric-value" id="m-loop" style="color:var(--t3);">--</div><div class="metric-label">Loop Status</div></div><div class="metric"><div class="metric-value" id="m-tasks-week">0</div><div class="metric-label">Tasks This Week</div></div><div class="metric"><div class="metric-value" id="m-quality-week" style="color:var(--blue);">0</div><div class="metric-label">Quality Avg Week</div></div></div>
 <main>
+
+<!-- ═══ STALE-DATA BANNER (always in DOM — shown when data is >10s old) ══════ -->
+<div id="stale-banner" role="alert" aria-live="assertive" style="
+  display:none;position:fixed;top:52px;left:0;right:0;z-index:999;
+  background:#ff9500;color:#fff;font-size:12px;font-weight:600;
+  padding:7px 20px;display:none;align-items:center;justify-content:space-between;
+  box-shadow:0 2px 8px rgba(255,149,0,.35);">
+  <span id="stale-msg">⚠️ Data may be stale — reconnecting…</span>
+  <button onclick="poll()" style="
+    background:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.5);
+    color:#fff;border-radius:6px;padding:3px 10px;font-size:11px;font-weight:700;cursor:pointer;">
+    Retry now
+  </button>
+</div>
 
 <!-- ═══ COMPANY SUMMARY BAR (always visible — all stakeholders) ══════════════ -->
 <div id="company-bar" role="banner" aria-label="Business summary">
@@ -747,73 +864,57 @@ main{position:relative;z-index:1;padding-top:52px;}
   </div>
 </div>
 
-<!-- ═══ PROJECTS stub (hidden — merged into Tasks tab) ═════════ -->
-<div id="tab-projects" class="tab-panel" style="display:none!important;" role="tabpanel" aria-hidden="true"></div>
-
-<!-- ═══ TASKS TAB (unified Projects + Tasks + Todo) ══════════ -->
-<div id="tab-tasks" class="tab-panel" role="tabpanel">
-  <!-- ── Projects swimlane ──────────────────────────────────── -->
-  <div class="sec" style="padding-top:40px;padding-bottom:0;">
+<!-- ═══ PROJECTS TAB ═════════════════════════════════════════ -->
+<div id="tab-projects" class="tab-panel" role="tabpanel">
+  <div class="sec" style="padding-top:40px;">
     <div class="sh"><h2 class="st">Projects</h2><span class="ss" id="proj-ct">Workspaces</span></div>
     <div class="pg" id="pg"></div>
   </div>
-  <!-- ── Tasks Kanban ───────────────────────────────────────── -->
-  <div class="sec" style="padding-top:24px;">
-    <div class="sh">
-      <h2 class="st">Tasks</h2>
-      <span class="ss" id="board-ct">—</span>
-      <span style="font-size:11px;color:var(--t3);margin-left:12px;">Updates every 5s</span>
-    </div>
-    <!-- Live Kanban — 4 columns: Blocked · Running · Backlog · Done -->
-    <div class="board" role="grid" style="grid-template-columns:repeat(4,1fr);">
+</div>
+
+<!-- ═══ TASKS TAB ════════════════════════════════════════════ -->
+<div id="tab-tasks" class="tab-panel" role="tabpanel">
+  <div class="sec" style="padding-top:40px;">
+    <div class="sh"><h2 class="st">Task Board</h2><span class="ss" id="board-ct">—</span></div>
+    <div class="board" role="grid">
       <div>
-        <div class="col-h" style="color:var(--red);">
-          Blocked<span class="cn" id="c-bl">0</span>
-          <!-- also mirrors todo-cnt-blocked for compat -->
-          <span id="todo-cnt-blocked" style="display:none;">0</span>
-        </div>
-        <div id="cb-bl"></div>
-        <!-- mirror container used by old todo JS -->
-        <div id="todo-col-blocked" style="display:none;"></div>
-      </div>
-      <div>
-        <div class="col-h" style="color:var(--blue);">
-          Running<span class="cn" id="c-run">0</span>
-          <span id="todo-cnt-running" style="display:none;">0</span>
-        </div>
-        <div id="cb-run"></div>
-        <div id="todo-col-running" style="display:none;"></div>
-      </div>
-      <div>
-        <div class="col-h" style="color:var(--t3);">
-          Backlog<span class="cn" id="c-todo">0</span>
-          <span id="todo-cnt-todo" style="display:none;">0</span>
-        </div>
+        <div class="col-h" style="color:var(--t3);">Backlog<span class="cn" id="c-todo">0</span></div>
         <div id="cb-todo"></div>
-        <div id="todo-col-todo" style="display:none;"></div>
       </div>
       <div>
-        <div class="col-h" style="color:var(--green);">
-          Done<span class="cn" id="c-done">0</span>
-          <span id="done-clean-badge" style="font-size:9px;font-weight:400;color:var(--t3);margin-left:6px;"></span>
-          <span id="todo-cnt-done" style="display:none;">0</span>
-        </div>
-        <div id="kanban-cb-done"></div>
-        <div id="todo-col-done" style="display:none;"></div>
+        <div class="col-h" style="color:var(--blue);">Running<span class="cn" id="c-run">0</span></div>
+        <div id="cb-run"></div>
+      </div>
+      <div>
+        <div class="col-h" style="color:var(--green);">Done<span class="cn" id="c-done">0</span></div>
+        <div id="cb-done"></div>
+      </div>
+      <div>
+        <div class="col-h" style="color:var(--red);">Blocked<span class="cn" id="c-bl">0</span></div>
+        <div id="cb-bl"></div>
       </div>
     </div>
-    <div id="tasks-empty" style="display:none;text-align:center;padding:60px 0;color:var(--t3);font-size:13px;">
-      No tasks yet — CEO check populates the board every 60s
-    </div>
-    <div id="todo-ct" style="margin-top:12px;font-size:11px;color:var(--t3);text-align:right;"></div>
-  </div>
   </div>
 </div>
 
-<!-- ═══ TODO stub (hidden — kept for JS compat) ══════════════ -->
-<div id="tab-todo" class="tab-panel" style="display:none!important;" role="tabpanel" aria-hidden="true">
-  <div id="todo-board" style="display:none;"></div>
-  <div id="todo-empty" style="display:none;"></div>
+<!-- ═══ PROJECTS TAB (epics + tasks) ════════════════════════ -->
+<div id="tab-projects-new" class="tab-panel" role="tabpanel">
+  <div class="sec" style="padding-top:40px;">
+    <div class="sh">
+      <h2 class="st">Projects</h2>
+      <span class="ss" id="epics-updated">—</span>
+    </div>
+    <div class="epics-summary-bar" style="margin-bottom:24px;">
+      <div class="epics-stat"><span class="epics-stat-v" id="epics-total">—</span><span class="epics-stat-l">Total Tasks</span></div>
+      <div class="epics-stat"><span class="epics-stat-v" id="epics-done" style="color:var(--green);">—</span><span class="epics-stat-l">Done</span></div>
+      <div class="epics-stat"><span class="epics-stat-v" id="epics-pct" style="color:var(--blue);">—</span><span class="epics-stat-l">% Complete</span></div>
+    </div>
+    <div id="epics-list"></div>
+    <div id="epics-empty" style="display:none;padding:64px 0;text-align:center;">
+      <div style="font-size:15px;font-weight:600;color:var(--t2);margin-bottom:6px;">No projects found</div>
+      <div style="font-size:13px;color:var(--t3);">Projects and epics will appear here once the runtime creates them.</div>
+    </div>
+  </div>
 </div>
 
 <!-- ═══ CEO TAB ═══════════════════════════════════════════════ -->
@@ -821,44 +922,12 @@ main{position:relative;z-index:1;padding-top:52px;}
   <div class="sec" style="padding-top:40px;">
     <div class="ceo-wrap" data-testid="ceo-panel">
       <div class="ceo-ttl">CEO Agent</div>
-      <div class="ceo-sub">Principal Engineer + CTO · beats Opus 4.6 on every benchmark · drives v1→v1000 convergence</div>
+      <div class="ceo-sub">Extreme leadership · strategic vision · stays ahead of every curve</div>
       <div class="ceo-st"><div class="ceo-dot"></div><span id="ceo-st-txt">Monitoring all systems</span></div>
       <div class="ceo-dirs">
-        <div class="ceo-d"><div class="ceo-d-t">Benchmark vs Opus</div><div class="ceo-d-v" id="ceo-wr">—</div><div class="ceo-d-s">avg quality delta</div></div>
+        <div class="ceo-d"><div class="ceo-d-t">Win Rate</div><div class="ceo-d-v" id="ceo-wr">—</div><div class="ceo-d-s">quality score</div></div>
         <div class="ceo-d"><div class="ceo-d-t">Tasks Done</div><div class="ceo-d-v" id="ceo-tasks">—</div><div class="ceo-d-s">this version</div></div>
-        <div class="ceo-d"><div class="ceo-d-t">Rescue Budget</div><div class="ceo-d-v" id="ceo-bgt" style="color:var(--purple);">—</div><div class="ceo-d-s">Claude 10% cap</div></div>
-        <div class="ceo-d"><div class="ceo-d-t">ETA to Beat Opus</div><div class="ceo-d-v" id="ceo-eta" style="color:var(--green);">—</div><div class="ceo-d-s">versions remaining</div></div>
-      </div>
-
-      <!-- AI Strategic Directives — always visible -->
-      <div style="margin-top:20px;background:var(--card2);border:1px solid var(--bd);border-radius:var(--r);padding:18px 20px;">
-        <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);margin-bottom:12px;">AI Strategic Directives</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-          <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--rsm);padding:10px 12px;">
-            <div style="font-size:9px;color:var(--blue);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Architecture</div>
-            <div style="font-size:11px;color:var(--t2);line-height:1.5;">10 specialized agents → specialist pool pattern. Orchestrator dispatches by task type. No monolithic agents — each agent owns one domain.</div>
-          </div>
-          <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--rsm);padding:10px 12px;">
-            <div style="font-size:9px;color:var(--green);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Self-Improvement Loop</div>
-            <div style="font-size:11px;color:var(--t2);line-height:1.5;">Calibration warmup → A/B prompt engine → quality gate → commit winner. Every version auto-patches regressions before production pool.</div>
-          </div>
-          <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--rsm);padding:10px 12px;">
-            <div style="font-size:9px;color:var(--purple);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Benchmark Strategy</div>
-            <div style="font-size:11px;color:var(--t2);line-height:1.5;">100 real-project tasks (not LeetCode toys): distributed systems, auth refactor, API design, DB migrations. Score Δ vs Opus 4.6 per category.</div>
-          </div>
-          <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--rsm);padding:10px 12px;">
-            <div style="font-size:9px;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Resource Governance</div>
-            <div style="font-size:11px;color:var(--t2);line-height:1.5;">CPU×2 concurrent agents at &lt;80% RAM. Pause spawns 80-85%. Kill lowest-quality agent at &gt;85%. Claude rescue hard-capped at 10%.</div>
-          </div>
-          <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--rsm);padding:10px 12px;">
-            <div style="font-size:9px;color:var(--yellow,#f5a623);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Researcher Pipeline</div>
-            <div style="font-size:11px;color:var(--t2);line-height:1.5;">Every 5 versions: scrape r/LocalLLaMA, HN, Blind → extract failure patterns → inject corrective rules into system prompts automatically.</div>
-          </div>
-          <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--rsm);padding:10px 12px;">
-            <div style="font-size:9px;color:var(--t2);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Stop Condition</div>
-            <div style="font-size:11px;color:var(--t2);line-height:1.5;">Beat Opus 4.6 in ALL categories: code_gen, debug, arch, review, planning. Then retarget to next frontier model. No plateau accepted.</div>
-          </div>
-        </div>
+        <div class="ceo-d"><div class="ceo-d-t">Budget Used</div><div class="ceo-d-v" id="ceo-bgt" style="color:var(--purple);">—</div><div class="ceo-d-s">Claude rescue</div></div>
       </div>
 
       <!-- Live CEO report metrics -->
@@ -891,7 +960,7 @@ main{position:relative;z-index:1;padding-top:52px;}
         <!-- Dashboard live -->
         <div id="ceo-dash-live" style="display:none;align-items:center;gap:8px;background:var(--green-g);border:1px solid rgba(52,199,89,.2);border-radius:var(--rsm);padding:8px 12px;margin-bottom:12px;">
           <div class="ldot" style="width:6px;height:6px;border-radius:50%;background:var(--green);"></div>
-          <span style="font-size:11px;color:var(--green);font-weight:500;">Dashboard live · state refreshes every 10s</span>
+          <span style="font-size:11px;color:var(--green);font-weight:500;">Dashboard live · state refreshes every 2s · stale alert at 10s</span>
         </div>
 
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;">
@@ -981,6 +1050,44 @@ main{position:relative;z-index:1;padding-top:52px;}
         <span id="logs-cnt-all" style="font-size:17px;font-weight:700;color:var(--t1);">1</span>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- ═══ TODO TAB (Jira-style Kanban) ══════════════════════════ -->
+<div id="tab-todo" class="tab-panel" role="tabpanel">
+  <div class="sec" style="padding-top:40px;">
+    <div class="sh">
+      <h2 class="st">Todo Board</h2>
+      <span class="ss" id="todo-ct">Loading…</span>
+    </div>
+    <!-- Kanban columns -->
+    <div id="todo-board" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:20px;">
+      <div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:10px;display:flex;align-items:center;gap:6px;">
+          <span>Blocked</span><span id="todo-cnt-blocked" style="background:var(--red-g);color:var(--red);border-radius:10px;padding:1px 7px;font-size:9px;">0</span>
+        </div>
+        <div id="todo-col-blocked" style="display:flex;flex-direction:column;gap:8px;min-height:60px;"></div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:10px;display:flex;align-items:center;gap:6px;">
+          <span>Running</span><span id="todo-cnt-running" style="background:var(--blue-g);color:var(--blue);border-radius:10px;padding:1px 7px;font-size:9px;">0</span>
+        </div>
+        <div id="todo-col-running" style="display:flex;flex-direction:column;gap:8px;min-height:60px;"></div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t2);margin-bottom:10px;display:flex;align-items:center;gap:6px;">
+          <span>Todo</span><span id="todo-cnt-todo" style="background:rgba(0,0,0,.06);color:var(--t2);border-radius:10px;padding:1px 7px;font-size:9px;">0</span>
+        </div>
+        <div id="todo-col-todo" style="display:flex;flex-direction:column;gap:8px;min-height:60px;"></div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:10px;display:flex;align-items:center;gap:6px;">
+          <span>Done</span><span id="todo-cnt-done" style="background:var(--green-g);color:var(--green);border-radius:10px;padding:1px 7px;font-size:9px;">0</span>
+        </div>
+        <div id="todo-col-done" style="display:flex;flex-direction:column;gap:8px;min-height:60px;"></div>
+      </div>
+    </div>
+    <div id="todo-empty" style="display:none;text-align:center;padding:60px 0;color:var(--t3);font-size:13px;">No tasks yet — CEO check populates this board every 60s</div>
   </div>
 </div>
 
@@ -1098,12 +1205,16 @@ main{position:relative;z-index:1;padding-top:52px;}
 const tabs=[...document.querySelectorAll('.ntab')];
 const panels=[...document.querySelectorAll('.tab-panel')];
 function switchTab(id){
-  if(id==='projects'||id==='todo')id='tasks'; // collapsed into Tasks tab
-  tabs.forEach(t=>{const a=t.dataset.tab===id;t.classList.toggle('active',a);t.setAttribute('aria-selected',a);t.tabIndex=a?0:-1;});
+  if(id==='projects')id='projects-new'; // route to new epics panel
+  tabs.forEach(t=>{
+    const a=t.dataset.tab===id||(t.dataset.tab==='projects'&&id==='projects-new');
+    t.classList.toggle('active',a);t.setAttribute('aria-selected',a);t.tabIndex=a?0:-1;
+  });
   panels.forEach(p=>p.classList.toggle('active',p.id==='tab-'+id));
   if(id==='ceo')runCeo();
   if(id==='subagents')buildSubAgentTab();
-  if(id==='tasks')refreshUnifiedBoard();
+  if(id==='todo')buildTodoTab();
+  if(id==='projects-new')refreshProjectsEpics();
   if(id==='logs'){const t=document.getElementById('logs-live-ts');if(t)t.textContent='Live · '+new Date().toLocaleTimeString('en',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'});}
 }
 tabs.forEach(t=>{
@@ -1355,26 +1466,16 @@ function drawBench(hist){
 <!-- CEO -->
 <script>
 const DIRS=[
-  // Architecture directives
-  'ARCH: Specialist pool pattern enforced. Each agent owns exactly one domain. Monolithic agents are a regression — decompose immediately.',
-  'ARCH: Orchestrator routes by task signature (code_gen→executor, arch→architect, review→reviewer). Wrong routing = wrong quality. Audit dispatch table every version.',
-  'ARCH: Agent registry drives all dispatch. Never hardcode agent names in orchestrator. Registry is the single source of truth.',
-  // Benchmark directives
-  'BENCHMARK: Win rate {wr} vs Opus 4.6. Target: positive delta in ALL categories — code_gen, debug, arch, review, planning, refactor, docs.',
-  'BENCHMARK: Reject toy tasks. Every benchmark suite must include distributed systems, API design, DB migrations, auth flows — real-project work at senior IC level.',
-  'BENCHMARK: Category regressions auto-trigger targeted calibration + prompt patch within the same version. No regression ships.',
-  // Self-improvement directives
-  'PROMPT ENGINE: A/B test every improvement. 4-sample minimum. 3pt margin to commit. Rolling back a worse prompt is not failure — it is quality control.',
-  'CALIBRATION: 3-task warmup gates every agent each version. Agents below threshold are excluded from production pool — no exceptions, no overrides.',
-  'RESEARCHER: Every 5 versions, inject real failure patterns from r/LocalLLaMA + HN into system prompts. Community frustrations are the best regression test.',
-  // Resource directives
-  'RESOURCE: Scale to CPU×2 concurrent agents at RAM <80%. Pause spawns at 80-85%. Kill lowest-quality agent at >85%. Hardware sets the ceiling — never exceed it.',
-  'BUDGET: Claude rescue hard-capped at 10% of tasks. Current usage: {bgt}%. Every rescue call is a debt — repay it by fixing the underlying agent, not the task.',
-  'CHECKPOINT: Version snapshot before every upgrade. If avg quality drops >2pts vs prev version — auto-rollback, re-diagnose, patch. Never ship a regression.',
-  // Strategic directives
-  'MISSION: Beat Opus 4.6 in all benchmark categories. Then retarget to the next frontier model. There is no plateau, no finish line, only the next gap to close.',
-  'SCALING: v1→v100→v1000. Each version increases agent specialization, task complexity, and benchmark coverage. Quality compounds — guard it obsessively.',
-  'GOVERNANCE: Every architectural decision must have a measurable quality impact within 5 versions. Decisions without metrics are assumptions — remove them.',
+  'Nexus must exceed baseline quality across all 7 categories. Every gap is a mission failure.',
+  'Win rate {wr} — push every agent to close remaining gaps this version.',
+  'Claude budget at {bgt}% — well within the 10% hard cap. Maintain discipline.',
+  'Self-improvement loop active: every failure pattern gets a targeted fix, not a workaround.',
+  'Local-first is non-negotiable. 90% of work stays on-device. Zero cloud dependency.',
+  'Sub-agent pool: scale to 1000 sub-agents the moment throughput demands it.',
+  'Rescue watchdog armed. No stuck agent survives 120 seconds undetected.',
+  'Quality threshold: no task passes below 40/100. Raise the bar every version.',
+  'The mission ends at v100 or when local beats Opus across all categories.',
+  'Every rescue call reduces future budget. Fix agents, not individual tasks.',
 ];
 let _cIdx=0,_cs={wr:'—',bgt:'0',ver:1};
 function runCeo(){
@@ -1472,66 +1573,25 @@ function updProjects(tasksOrPlan){
   }
 }
 
-// ── Done board: 24h localStorage persistence ──────────────────────────────
-const _DONE_TTL = 24 * 60 * 60 * 1000;
-const _DONE_KEY = 'nexus_done_items';
-function _getDoneStore(){try{return JSON.parse(localStorage.getItem(_DONE_KEY)||'[]');}catch(e){return[];}}
-function _saveDoneStore(items){try{localStorage.setItem(_DONE_KEY,JSON.stringify(items));}catch(e){}}
-function _pruneDone(){
-  const now=Date.now();
-  const fresh=_getDoneStore().filter(i=>(now-(i._ts||0))<_DONE_TTL);
-  _saveDoneStore(fresh);return fresh;
-}
-function _relTime(ts){
-  const s=Math.floor((Date.now()-ts)/1000);
-  if(s<60)return s+'s ago';if(s<3600)return Math.floor(s/60)+'m ago';
-  if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago';
-}
-// Run cleanup check on page load
-(function _initDoneCleanup(){
-  const pruned=_pruneDone();
-  const badge=$('done-clean-badge');
-  if(badge)badge.textContent=pruned.length?`(${pruned.length} · clears 24h)`:'(clears 24h)';
-})();
-
+let _board=false;
 function updBoard(tasks){
-  if(!tasks||!tasks.length)return;
+  if(_board||!tasks||!tasks.length)return;_board=true;
   const cols={todo:[],running:[],done:[],blocked:[]};
   for(const t of tasks){const s=t.status||'todo';if(cols[s])cols[s].push(t);else cols.todo.push(t);}
   $('board-ct').textContent=tasks.length+' tasks total';
-
-  // Merge new done items into localStorage store
-  const doneStore=_pruneDone();
-  const storedIds=new Set(doneStore.map(i=>String(i.task_id)));
-  let newDone=0;
-  for(const t of cols.done){
-    if(!storedIds.has(String(t.task_id))){
-      doneStore.push(Object.assign({},t,{_ts:Date.now()}));
-      newDone++;
-    }
-  }
-  if(newDone)_saveDoneStore(doneStore);
-
   for(const[k,list]of Object.entries(cols)){
-    const displayList=(k==='done')?doneStore:list;
-    $('c-'+k).textContent=displayList.length;
-    const body=$(k==='done'?'kanban-cb-done':'cb-'+k);if(!body)continue;
-    body.innerHTML='';
-    for(const t of displayList.slice(0,50)){
+    $('c-'+k).textContent=list.length;
+    const body=$('cb-'+k);if(!body.appendChild)continue;
+    for(const t of list.slice(0,25)){
       const q=t.local_quality||t.quality||0;
       const c=document.createElement('div');c.className='tc';c.tabIndex=0;
       c.setAttribute('data-testid','task-'+t.task_id);
-      const ageSpan=(k==='done'&&t._ts)?`<span style="font-size:9px;color:var(--t3);margin-left:4px;">${_relTime(t._ts)}</span>`:'';
       c.innerHTML=`<div class="tc-id">NX-${t.task_id}</div><div class="tc-ttl">${esc((t.title||'').slice(0,80))}</div>
-<div class="tc-row"><span class="tc-cat">${t.category||'—'}</span><span class="tc-ag">${t.agent_used||'—'}</span>${q>0?`<span class="tc-q ${q>=70?'hi':q>=40?'md':'lo'}">${q}/100</span>`:''}${ageSpan}</div>`;
-      c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')e.preventDefault();});
+<div class="tc-row"><span class="tc-cat">${t.category||'—'}</span><span class="tc-ag">${t.agent_used||'—'}</span>${q>0?`<span class="tc-q ${q>=70?'hi':q>=40?'md':'lo'}">${q}/100</span>`:''}</div>`;
+      c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();}});
       body.appendChild(c);
     }
   }
-
-  // Update badge
-  const badge=$('done-clean-badge');
-  if(badge)badge.textContent=`(${doneStore.length} · clears 24h)`;
 }
 
 let _lr='';
@@ -1676,27 +1736,6 @@ function applyState(st){
   const cv=$('chip-v');
   if(cv&&cv.innerHTML!==undefined)cv.innerHTML='<div class="cdot" style="background:var(--t4)"></div> v'+v;
   _cs={wr:wr,bgt:bp.toFixed(1),ver:v};
-  // ── CEO ETA / velocity ────────────────────────────────────────────────────
-  const vel=st.velocity||{};
-  const etaEl=$('ceo-eta');
-  if(etaEl){
-    const eta=vel.versions_to_beat_baseline;
-    etaEl.textContent=eta!=null?(eta===0?'BEATS OPUS':'v'+(v+eta)):('~'+Math.ceil(Math.max(1,(100-v)/2))+'v');
-    etaEl.style.color=eta===0?'var(--green)':eta!=null&&eta<10?'var(--orange)':'var(--t2)';
-  }
-  const activeAgCeo=$('ceo-active-agents');
-  if(activeAgCeo)activeAgCeo.textContent=Object.values(st.agents||{}).filter(a=>['running','reviewing','upgrading'].includes(a.status)).length||0;
-  const totalSaCeo=$('ceo-total-sa');
-  if(totalSaCeo){const pl2=st.pool||{};totalSaCeo.textContent=pl2.workers||pl2.running||0;}
-  const healthCeo=$('ceo-health');
-  if(healthCeo){
-    const cpuP=Math.max(0,(hw.cpu_pct||0)-70)/3,ramP=Math.max(0,(hw.ram_pct||0)-70)/2,budP=Math.min(bp*2,20);
-    const blkP=Math.min(((st.failure_log||st.failures||[]).length)*5,20);
-    const h=Math.max(0,Math.round(100-cpuP-ramP-budP-blkP));
-    healthCeo.textContent=h+'/100';healthCeo.style.color=h>=80?'var(--green)':h>=60?'var(--orange)':'var(--red)';
-  }
-  const lastChkCeo=$('ceo-last-check');
-  if(lastChkCeo){const cr=st.ceo_report||{};lastChkCeo.textContent=cr.ts?cr.ts.split('T')[1].slice(0,5)+' UTC':'just now';}
 
   // ── Sub-agent pool ────────────────────────────────────────────────────────
   const pl=st.pool||{};
@@ -1709,15 +1748,15 @@ function applyState(st){
   for(const e of(st.research_feed||[]).slice(-3))
     addFeed('research',e.message||e.finding||String(e),e.ts);
 
-  // ── Unified Tasks board: merge recent_tasks + todo_board ─────────────────
-  _cacheAndRefreshBoard(st.recent_tasks||null, st.todo_board||null);
-  // Also update the legacy updBoard columns (for overview board metrics)
-  if(st.recent_tasks&&st.recent_tasks.length) updBoard(st.recent_tasks);
-  // Projects swimlane
+  // ── Task board + projects ─────────────────────────────────────────────────
+  if(st.recent_tasks&&st.recent_tasks.length){
+    updBoard(st.recent_tasks);
+  }
+  // Use board_plan.projects for real project cards (pre-populated by board_init.py)
   if(st.board_plan&&st.board_plan.projects&&st.board_plan.projects.length){
     updProjects(st.board_plan.projects);
   }else if(st.recent_tasks&&st.recent_tasks.length){
-    updProjects(null);
+    updProjects(null); // fallback static view
   }
 
   // ── Version changelog → CEO log ───────────────────────────────────────────
@@ -1739,13 +1778,46 @@ function applyState(st){
   loadRescue();
 }
 
+// ── Stale-data tracking ──────────────────────────────────────────────────────
+let _lastGoodUpdate = Date.now();
+let _wsAlive = false;
+
+function _markFresh(){
+  _lastGoodUpdate = Date.now();
+  const b = document.getElementById('stale-banner');
+  if(b) b.style.display='none';
+}
+
+function _checkStaleness(){
+  const age = Math.round((Date.now() - _lastGoodUpdate) / 1000);
+  const b   = document.getElementById('stale-banner');
+  if(!b) return;
+  if(age >= 10){
+    const msg = document.getElementById('stale-msg');
+    if(msg) msg.textContent = `⚠️ Data is ${age}s old — ${_wsAlive?'reconnecting…':'server unreachable'}`;
+    b.style.display='flex';
+  } else {
+    b.style.display='none';
+  }
+}
+setInterval(_checkStaleness, 3000);
+
 function conn(){
   const pr=location.protocol==='https:'?'wss:':'ws:';
   const ws=new WebSocket(`${pr}//${location.host}/ws`);
-  ws.onmessage=e=>{try{applyState(JSON.parse(e.data));}catch(x){}};
-  ws.onerror=()=>{};ws.onclose=()=>setTimeout(conn,3000);
+  ws.onopen=()=>{_wsAlive=true;};
+  ws.onmessage=e=>{try{applyState(JSON.parse(e.data));_markFresh();}catch(x){}};
+  ws.onerror=()=>{_wsAlive=false;};
+  ws.onclose=()=>{_wsAlive=false;setTimeout(conn,3000);};
 }
-async function poll(){try{const r=await fetch('/api/state');if(r.ok)applyState(await r.json());}catch(e){}}
+async function poll(){
+  try{
+    const r=await fetch('/api/state');
+    if(r.ok){applyState(await r.json());_markFresh();}
+  }catch(e){
+    // Failure tracked via _checkStaleness — stale banner fires after 10s
+  }
+}
 
 // Seed with real state from /api/state immediately; fallback to demo
 async function seed(){
@@ -1794,14 +1866,11 @@ async function seed(){
     };
   }
   applyState(st);
+  _markFresh();
 }
 seed();conn();
 setInterval(poll,2000);setInterval(loadRescue,12000);
-// Unified board: refresh every 5s when Tasks tab is active
-setInterval(()=>{
-  const tasksTab=document.getElementById('tab-tasks');
-  if(tasksTab&&tasksTab.classList.contains('active'))refreshUnifiedBoard();
-},5000);
+setInterval(()=>{if(document.getElementById('tab-todo').classList.contains('active'))buildTodoTab();},10000);
 setTimeout(()=>{
   addFeed('info','Nexus runtime started — autonomous v1→v100 loop',new Date().toISOString());
   addFeed('watchdog','Rescue watchdog armed — polls every 60s',new Date().toISOString());
@@ -1846,150 +1915,52 @@ function _todoCard(item){
 </div>`;
 }
 
-// ── Unified board: merge recent_tasks + todo_board into one Kanban ─────────
-let _lastUnifiedHash='';
-let _lastTasksFromState=[];
-let _lastTodoBoardFromState=null;
-
-// Called from applyState — stores latest data, triggers board refresh
-function _cacheAndRefreshBoard(tasks, todoBoard){
-  if(tasks)_lastTasksFromState=tasks;
-  if(todoBoard)_lastTodoBoardFromState=todoBoard;
-  refreshUnifiedBoard();
-}
-
-async function refreshUnifiedBoard(){
-  // Fetch fresh todo board from API (merges CEO check output)
-  let todoBoardApi=_lastTodoBoardFromState;
+async function buildTodoTab(){
+  let board=null;
   try{
     const r=await fetch('/api/todo');
-    if(r.ok)todoBoardApi=await r.json();
+    if(r.ok)board=await r.json();
   }catch(e){}
 
-  // Build merged item map (dedup by task_id or title)
-  const seen=new Set();
-  const allItems=[];
-
-  // From recent_tasks (orchestrator live tasks)
-  for(const t of (_lastTasksFromState||[])){
-    const key=String(t.task_id||t.id||t.title||'');
-    if(key&&seen.has(key))continue;
-    if(key)seen.add(key);
-    allItems.push({
-      id:       t.task_id||t.id||null,
-      title:    t.title||t.task||'',
-      status:   t.status||'todo',
-      category: t.category||'',
-      agent:    t.agent_used||t.agent||'',
-      quality:  t.local_quality||t.quality||0,
-      source:   'live',
-    });
+  // Also check live state
+  if(!board){
+    try{const r=await fetch('/api/state');if(r.ok){const st=await r.json();board=st.todo_board||null;}}catch(e){}
   }
 
-  // From todo_board (CEO check / planning tasks)
-  const boardItems=(todoBoardApi&&todoBoardApi.items)||[];
-  for(const t of boardItems){
-    const key=String(t.id||t.title||'');
-    if(key&&seen.has(key))continue;
-    if(key)seen.add(key);
-    allItems.push({
-      id:       t.id||null,
-      title:    t.title||t.task||'',
-      status:   t.status||'todo',
-      category: t.category||'',
-      agent:    t.agent||'',
-      quality:  t.quality||0,
-      priority: t.priority||'',
-      source:   'plan',
-    });
-  }
+  const hash=JSON.stringify(board);
+  if(hash===_lastTodoHash)return;
+  _lastTodoHash=hash;
 
-  const hash=JSON.stringify(allItems);
-  if(hash===_lastUnifiedHash)return;
-  _lastUnifiedHash=hash;
-
-  const empty=document.getElementById('tasks-empty');
-  if(!allItems.length){
+  const empty=document.getElementById('todo-empty');
+  const boardEl=document.getElementById('todo-board');
+  if(!board||!board.items||board.items.length===0){
     if(empty)empty.style.display='block';
-    const bc=document.getElementById('board-ct');
-    if(bc)bc.textContent='No tasks yet';
+    if(boardEl)boardEl.style.display='none';
+    const ct=document.getElementById('todo-ct');
+    if(ct)ct.textContent='No tasks — CEO check runs every 60s';
     return;
   }
   if(empty)empty.style.display='none';
+  if(boardEl)boardEl.style.display='grid';
 
-  // Sort into columns: blocked · running · todo/backlog · done
   const cols={blocked:[],running:[],todo:[],done:[]};
-  for(const item of allItems){
+  for(const item of board.items){
     const s=item.status||'todo';
     if(cols[s])cols[s].push(item);else cols.todo.push(item);
   }
 
-  // Map column keys to the HTML IDs in the unified board
-  const colMap={blocked:'bl',running:'run',todo:'todo',done:'kanban-cb-done'};
-  for(const[status,items]of Object.entries(cols)){
-    const cid=colMap[status]||status;
-    const body=document.getElementById(cid.startsWith('kanban')?cid:'cb-'+cid);
-    const cnt=document.getElementById('c-'+cid);
-    if(!body)continue;
+  for(const [status,items] of Object.entries(cols)){
+    const col=document.getElementById(`todo-col-${status}`);
+    const cnt=document.getElementById(`todo-cnt-${status}`);
+    if(col)col.innerHTML=items.map(_todoCard).join('');
     if(cnt)cnt.textContent=items.length;
-
-    // Render done with localStorage merge & 24h cleanup
-    if(status==='done'){
-      const doneStore=_pruneDone();
-      const storedIds=new Set(doneStore.map(i=>String(i.task_id||i.id)));
-      for(const t of items){
-        const k=String(t.id||t.title);
-        if(!storedIds.has(k))doneStore.push(Object.assign({},t,{task_id:t.id,_ts:Date.now()}));
-      }
-      _saveDoneStore(doneStore);
-      if(cnt)cnt.textContent=doneStore.length;
-      body.innerHTML=doneStore.slice(0,60).map(t=>_unifiedCard(t,true)).join('');
-      const badge=document.getElementById('done-clean-badge');
-      if(badge)badge.textContent=`(${doneStore.length} · clears 24h)`;
-    } else {
-      body.innerHTML=items.slice(0,60).map(t=>_unifiedCard(t,false)).join('');
-    }
   }
 
-  const total=allItems.length;
-  const updStr=todoBoardApi&&todoBoardApi.updated_at
-    ?new Date(todoBoardApi.updated_at).toLocaleTimeString('en',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'})
-    :new Date().toLocaleTimeString('en',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'});
-  const bc=document.getElementById('board-ct');
-  if(bc)bc.textContent=`${total} items`;
+  const counts=board.counts||{};
+  const total=(counts.blocked||0)+(counts.running||0)+(counts.todo||0)+(counts.done||0);
   const ct=document.getElementById('todo-ct');
-  if(ct)ct.textContent=`Last updated ${updStr}`;
+  if(ct)ct.textContent=`${total} items · updated ${board.updated_at?new Date(board.updated_at).toLocaleTimeString('en',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'}):''}`;
 }
-
-function _unifiedCard(t,isDone){
-  const q=t.quality||0;
-  const label=String(t.id||'—');
-  const age=isDone&&t._ts?` · ${_relTime(t._ts)}`:'';
-  const srcDot=t.source==='live'
-    ?`<span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--blue);margin-right:4px;vertical-align:middle;" title="Live task"></span>`
-    :`<span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--t4);margin-right:4px;vertical-align:middle;" title="Planned task"></span>`;
-  const priColor={'critical':'var(--red)','high':'var(--orange)','medium':'var(--blue)','low':'var(--t3)'}[t.priority]||'var(--t3)';
-  const priTag=t.priority?`<span style="font-size:9px;color:${priColor};font-weight:600;text-transform:uppercase;">${t.priority}</span>`:'';
-  return `<div class="tc" tabindex="0" data-testid="task-${label}">
-  <div class="tc-id">${srcDot}NX-${label}</div>
-  <div class="tc-ttl">${esc((t.title||'').slice(0,80))}</div>
-  <div class="tc-row">
-    <span class="tc-cat">${esc(t.category||'—')}</span>
-    <span class="tc-ag">${esc(t.agent||'—')}</span>
-    ${q>0?`<span class="tc-q ${q>=70?'hi':q>=40?'md':'lo'}">${q}/100</span>`:''}
-    ${priTag}
-    ${isDone&&age?`<span style="font-size:9px;color:var(--t3);">${age}</span>`:''}
-  </div>
-</div>`;
-}
-
-// Keep buildTodoFromData as no-op alias — routes to unified board
-function buildTodoFromData(board){
-  _lastTodoBoardFromState=board;
-  refreshUnifiedBoard();
-}
-// Keep buildTodoTab as alias for compat
-async function buildTodoTab(){ await refreshUnifiedBoard(); }
 </script>
 
 <!-- CEO live wiring -->
@@ -2037,7 +2008,8 @@ function applyCeoReport(st){
     if(live)live.style.display=cr.dashboard_live?'flex':'none';
   }
 
-  // todo_board is handled by _cacheAndRefreshBoard in applyState
+  // Also push todo board if available
+  if(st.todo_board)buildTodoFromData(st.todo_board);
 }
 
 function buildTodoFromData(board){
@@ -2277,7 +2249,7 @@ function _nxt(label,cond,severity='fail'){
 
 document.addEventListener('DOMContentLoaded',()=>{
   // ── Structure: required IDs ──────────────────────────────────────────────
-  const REQUIRED_IDS=['tab-overview','tab-agents','tab-subagents','tab-tasks','tab-ceo','tab-logs','rescue-panel','lfeed','bsvg','h-local','h-opus'];
+  const REQUIRED_IDS=['tab-overview','tab-agents','tab-subagents','tab-projects','tab-tasks','tab-ceo','tab-todo','tab-logs','rescue-panel','lfeed','bsvg','h-local','h-opus'];
   for(const id of REQUIRED_IDS)_nxt(`id#${id} exists`,!!document.getElementById(id));
 
   // ── Tabs: ARIA roles ─────────────────────────────────────────────────────
@@ -2362,5 +2334,242 @@ document.addEventListener('click',e=>{
 });
 </script>
 
+
+<!-- ═══ BOARD TAB (Kanban) ══════════════════════════════════ -->
+<div id="tab-kanban" class="tab-panel" role="tabpanel" style="display:none;">
+  <div class="sec" style="padding-top:40px;">
+    <div class="sh"><h2 class="st">Board</h2></div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
+      <div class="kanban-col">
+        <div class="kanban-col-hdr"><span class="kanban-col-title">Backlog</span><span class="kanban-col-count" id="backlog-count">0</span></div>
+        <div id="backlog-cards"></div>
+      </div>
+      <div class="kanban-col">
+        <div class="kanban-col-hdr"><span class="kanban-col-title">In Progress</span><span class="kanban-col-count" id="progress-count">0</span></div>
+        <div id="progress-cards"></div>
+      </div>
+      <div class="kanban-col">
+        <div class="kanban-col-hdr"><span class="kanban-col-title">Review</span><span class="kanban-col-count" id="review-count">0</span></div>
+        <div id="review-cards"></div>
+      </div>
+      <div class="kanban-col">
+        <div class="kanban-col-hdr"><span class="kanban-col-title">Done</span><span class="kanban-col-count" id="done-count">0</span></div>
+        <div id="done-cards"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ LIVE FEED TAB ════════════════════════════════════════ -->
+<div id="tab-livefeed" class="tab-panel" role="tabpanel" style="display:none;">
+  <div class="sec" style="padding-top:40px;">
+    <div class="sh"><h2 class="st">Live Feed</h2><span class="ss" id="feed-count">0 events</span></div>
+    <div class="loop-status-bar">
+      <div class="loop-dot" id="loop-dot"></div>
+      <span class="loop-label" id="loop-label">Loop: idle</span>
+      <button onclick="toggleLoop()" id="loop-btn" class="btn-sm">Start Loop</button>
+    </div>
+    <div class="feed-metrics">
+      <div class="feed-metric"><div class="feed-metric-v" id="feed-tasks-hour">0</div><div class="feed-metric-l">Tasks/Hour</div></div>
+      <div class="feed-metric"><div class="feed-metric-v" id="feed-quality-today">0</div><div class="feed-metric-l">Quality Today</div></div>
+      <div class="feed-metric" style="max-width:160px;"><div class="sparkline" id="quality-sparkline"></div><div class="feed-metric-l">7-Day Quality</div></div>
+    </div>
+    <div id="agent-feed" style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:8px 18px;max-height:500px;overflow-y:auto;"></div>
+  </div>
+</div>
+
+
+<script>
+/* ── Dashboard Extension: Projects / Board / Feed / Metrics ─ */
+function renderProjects(projects){
+  var grid=document.getElementById("projects-grid"),countEl=document.getElementById("projects-count");
+  if(!grid)return;
+  var arr=[];
+  if(Array.isArray(projects)){arr=projects;}
+  else if(projects&&typeof projects==="object"){arr=Object.keys(projects).filter(function(k){return k[0]!=='_';}).map(function(id){var p=Object.assign({},projects[id]);p.id=id;return p;});}
+  if(!arr.length){grid.innerHTML="<div style='color:var(--t3);font-size:13px;padding:40px 0;grid-column:1/-1;'>No projects yet.</div>";if(countEl)countEl.textContent="0 projects";return;}
+  if(countEl)countEl.textContent=arr.length+" project"+(arr.length!==1?"s":"");
+  var ac=arr.filter(function(p){return p.status==="active";}).length;
+  var mp=document.getElementById("m-projects");if(mp)mp.textContent=ac;
+  grid.innerHTML=arr.map(function(p){
+    var done=+(p.tasks_done||0),total=Math.max(+(p.tasks_total||1),1),pct=Math.round(done/total*100),q=+(p.quality_score||0),qc=q>=85?"hi":q>=65?"md":"lo",hd=p.health==="green"?"active":(p.health==="yellow"?"upgrading":"idle"),tc=(p.type||"core").toLowerCase().replace(/[^a-z]/g,""),upd=p.last_updated||"";
+    return "<div class='proj-card' tabindex='0' onclick='openProjectDetail(""+esc(p.id||"")+"",""+esc(p.name||p.id||"")+"")'><div class='proj-card-header'><div class='proj-card-name'>"+esc(p.name||p.id||"Project")+"</div><span class='proj-type-badge "+tc+"'>"+esc(p.type||"core")+"</span></div><div class='proj-desc'>"+esc(p.description||"")+"</div><div class='proj-progress'><span class='proj-pct'>"+pct+"%</span><div class='proj-prog-track'><div class='proj-prog-fill' style='width:"+pct+"%'></div></div><span style='font-size:9.5px;color:var(--t3);'>"+done+"/"+total+"</span></div><div class='proj-card-footer'><div class='proj-status-dot "+hd+"'></div><span style='font-size:9.5px;color:var(--t3);'>"+esc(p.status||"")+"</span><span class='proj-quality "+qc+"'>Q:"+q+"</span><span class='proj-updated'>"+esc(upd)+"</span></div></div>";
+  }).join("");
+}
+function openProjectDetail(id,name){
+  var panel=document.getElementById("project-detail"),el=document.getElementById("project-detail-name");
+  if(panel){panel.style.display="block";}if(el){el.textContent=name||id;}
+}
+function closeProjectDetail(){var panel=document.getElementById("project-detail");if(panel){panel.style.display="none";}}
+function newProject(){alert("Create project via CLI: python3 local-agents/projects/project_manager.py create --name \"My Project\"");}
+function renderBoard(taskBoard){
+  var cm={backlog:"backlog-cards",in_progress:"progress-cards",review:"review-cards",done:"done-cards"},nm={backlog:"backlog-count",in_progress:"progress-count",review:"review-count",done:"done-count"};
+  if(!taskBoard)return;
+  Object.keys(cm).forEach(function(col){
+    var el=document.getElementById(cm[col]),cn=document.getElementById(nm[col]);
+    if(!el)return;
+    var it=taskBoard[col]||[];if(cn)cn.textContent=it.length;
+    if(!it.length){el.innerHTML="<div style='color:var(--t4);font-size:11px;padding:16px 0;text-align:center;'>Empty</div>";return;}
+    el.innerHTML=it.map(function(item){var q=+(item.quality||item.local_quality||0),qc=q>=85?"hi":q>=65?"md":"lo";return "<div class='kanban-card'><div class='kanban-card-id'>"+esc(String(item.id||item.task_id||""))+"</div><div class='kanban-card-title'>"+esc((item.title||item.task||"").slice(0,80))+"</div><div class='kanban-card-meta'><span class='kanban-card-cat'>"+esc(item.category||"task")+"</span><span class='kanban-card-agent'>"+esc(item.agent||item.agent_used||"")+"</span>"+(q?"<span class='kanban-card-quality "+qc+"'>"+q+"</span>":"")+"</div></div>";}).join("");
+  });
+}
+function renderFeed(agentFeed){
+  var el=document.getElementById("agent-feed"),ct=document.getElementById("feed-count");
+  if(!el)return;
+  var arr=Array.isArray(agentFeed)?agentFeed:[];
+  if(ct)ct.textContent=arr.length+" event"+(arr.length!==1?"s":"");
+  if(!arr.length){el.innerHTML="<div style='color:var(--t3);font-size:12px;padding:24px 0;text-align:center;'>No activity yet.</div>";return;}
+  var items=arr.slice().reverse().slice(0,50);
+  el.innerHTML=items.map(function(item){var q=+(item.quality||0),qc=q>=85?"hi":q>=65?"md":"lo",ts=(item.ts||item.timestamp||"").slice(11,16);return "<div class='feed-item'><span class='feed-agent'>"+esc(item.agent||"")+"</span><span class='feed-action'>"+esc(item.action||item.task||"")+(q?"<span class='feed-quality "+qc+"'>"+q+"</span>":"")+"</span><span class='feed-ts'>"+ts+"</span></div>";}).join("");
+}
+function renderMetrics(metrics,loopStatus){
+  if(metrics){
+    var tt=document.getElementById("m-tasks-today"),qd=document.getElementById("m-quality"),qw=document.getElementById("m-quality-week"),tw=document.getElementById("m-tasks-week"),fth=document.getElementById("feed-tasks-hour"),fqd=document.getElementById("feed-quality-today");
+    if(tt)tt.textContent=metrics.tasks_today||0;
+    if(qd)qd.textContent=(metrics.quality_avg_today||0)+(metrics.quality_avg_today!=null?"%":"");
+    if(qw)qw.textContent=(metrics.quality_avg_week||0)+"%";
+    if(tw)tw.textContent=metrics.tasks_this_week||0;
+    if(fth)fth.textContent=metrics.tasks_per_hour||0;
+    if(fqd)fqd.textContent=(metrics.quality_avg_today||0)+"%";
+    var spark=document.getElementById("quality-sparkline");
+    if(spark&&metrics.improvement_trend&&metrics.improvement_trend.length){
+      var tr=metrics.improvement_trend,mx=Math.max.apply(null,tr)||100;
+      spark.innerHTML=tr.map(function(v){return "<div class='spark-bar' style='height:"+(v/mx*100)+"%' title='"+v+"'></div>";}).join("");
+    }
+  }
+  if(loopStatus){
+    var dot=document.getElementById("loop-dot"),lbl=document.getElementById("loop-label"),btn=document.getElementById("loop-btn"),ml=document.getElementById("m-loop");
+    if(dot){dot.className="loop-dot"+(loopStatus.running?" running":"");}
+    if(lbl)lbl.textContent="Loop: "+(loopStatus.running?"running — "+(loopStatus.current_task||"..."):"idle");
+    if(btn)btn.textContent=loopStatus.running?"Stop Loop":"Start Loop";
+    if(ml)ml.textContent=loopStatus.running?"Running":"Idle";
+  }
+}
+function toggleLoop(){
+  var btn=document.getElementById("loop-btn"),dot=document.getElementById("loop-dot");
+  var running=dot&&dot.classList.contains("running");
+  var url="/api/loop/"+(running?"stop":"start");
+  fetch(url,{method:"POST"}).then(function(r){return r.json();}).then(function(d){
+    if(dot){dot.className="loop-dot"+(d.running?" running":"");}
+    var lbl=document.getElementById("loop-label");if(lbl)lbl.textContent="Loop: "+(d.running?"running":"idle");
+    if(btn)btn.textContent=d.running?"Stop Loop":"Start Loop";
+  }).catch(function(e){console.warn("toggleLoop error",e);});
+}
+document.addEventListener("DOMContentLoaded",function(){
+  var _pAS=window.applyState;
+  if(typeof _pAS==="function"){
+    window.applyState=function(st){
+      _pAS(st);
+      if(!st||st.ping)return;
+      try{renderProjects(st.projects||null);}catch(e){}
+      try{renderBoard(st.task_board||null);}catch(e){}
+      try{renderFeed(st.agent_feed||null);}catch(e){}
+      try{renderMetrics(st.metrics||null,st.loop_status||null);}catch(e){}
+    };
+  }
+});
+</script>
+
+<script>
+/* ── Projects Epics Tab ──────────────────────────────────── */
+(function(){
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function stClass(s){if(!s)return'pending';return s.toLowerCase().replace(/[^a-z_]/g,'-');}
+  function stLabel(s){var m={done:'Done',in_progress:'In Progress','in-progress':'In Progress',todo:'To Do',backlog:'Backlog',blocked:'Blocked',pending:'Pending'};return(s&&m[s.toLowerCase()])||s||'To Do';}
+
+  function renderEpics(data){
+    if(!data)return;
+    var projects=data.projects||[];
+    var summary=data.summary||{};
+    var updAt=data.updated_at||'';
+    function el(id){return document.getElementById(id);}
+    if(el('epics-total'))el('epics-total').textContent=summary.total_tasks!=null?summary.total_tasks:'—';
+    if(el('epics-done'))el('epics-done').textContent=summary.done!=null?summary.done:'—';
+    if(el('epics-pct'))el('epics-pct').textContent=summary.pct!=null?(summary.pct+'%'):'—';
+    if(el('epics-updated')&&updAt){try{el('epics-updated').textContent='Updated '+new Date(updAt).toLocaleTimeString('en',{hour12:false,hour:'2-digit',minute:'2-digit'});}catch(e){}}
+    var list=el('epics-list');
+    var empty=el('epics-empty');
+    if(!list)return;
+    var allEpics=[];
+    for(var pi=0;pi<projects.length;pi++){var epics=projects[pi].epics||[];for(var ei=0;ei<epics.length;ei++)allEpics.push(epics[ei]);}
+    if(allEpics.length===0){list.innerHTML='';if(empty)empty.style.display='block';return;}
+    if(empty)empty.style.display='none';
+    var openIdxs={};
+    list.querySelectorAll('.epic-tasks.open').forEach(function(node){openIdxs[node.dataset.idx]=true;});
+    var html='';
+    allEpics.forEach(function(epic,idx){
+      var tasks=epic.tasks||[];
+      var doneCount=tasks.filter(function(t){return(t.status||'').toLowerCase()==='done';}).length;
+      var totalCount=tasks.length;
+      var pctVal=totalCount>0?Math.round(doneCount/totalCount*100):0;
+      var isOpen=!!openIdxs[String(idx)];
+      var st=stClass(epic.status);
+      var pri=epic.priority||'';
+      var taskRows=tasks.map(function(task){
+        var isDone=(task.status||'').toLowerCase()==='done';
+        var cat=task.category||'';
+        return '<div class="epic-task-row">'
+          +'<div class="epic-task-ico '+(isDone?'done':'pending')+'">'+(isDone?'&#10003;':'&middot;')+'</div>'
+          +'<div class="epic-task-name'+(isDone?' done':'')+'">'+esc(task.title||'')+'</div>'
+          +(cat?'<span class="epic-cat">'+esc(cat)+'</span>':'')
+          +'</div>';
+      }).join('');
+      html+='<div class="epic-card">'
+        +'<div class="epic-hdr" onclick="window._toggleEpic('+idx+')" tabindex="0" role="button" aria-expanded="'+(isOpen?'true':'false')+'" onkeydown="if(event.key==='Enter'||event.key===' ')window._toggleEpic('+idx+')">'
+          +'<div style="flex:1;min-width:0;">'
+            +'<div class="epic-title">'+esc(epic.title||'Epic')+'</div>'
+            +(epic.description?'<div class="epic-desc">'+esc(epic.description)+'</div>':'')
+          +'</div>'
+          +'<span class="epic-status '+st+'">'+stLabel(epic.status)+'</span>'
+          +(pri?'<span class="epic-priority">'+esc(pri)+'</span>':'')
+          +'<div class="epic-prog-wrap">'
+            +'<div class="epic-prog-bg"><div class="epic-prog-fill" style="width:'+pctVal+'%;"></div></div>'
+            +'<span class="epic-prog-ct">'+doneCount+'/'+totalCount+'</span>'
+          +'</div>'
+          +'<span class="epic-chevron'+(isOpen?' open':'')+'">&#9658;</span>'
+        +'</div>'
+        +'<div class="epic-tasks'+(isOpen?' open':'')+'" data-idx="'+idx+'">'+taskRows+'</div>'
+        +'</div>';
+    });
+    list.innerHTML=html;
+  }
+
+  window._toggleEpic=function(idx){
+    var card=document.querySelectorAll('.epic-card')[idx];
+    if(!card)return;
+    var tasks=card.querySelector('.epic-tasks');
+    var chevron=card.querySelector('.epic-chevron');
+    var hdr=card.querySelector('.epic-hdr');
+    if(!tasks)return;
+    var isOpen=tasks.classList.contains('open');
+    tasks.classList.toggle('open',!isOpen);
+    if(chevron)chevron.classList.toggle('open',!isOpen);
+    if(hdr)hdr.setAttribute('aria-expanded',String(!isOpen));
+  };
+
+  async function fetchEpics(){
+    try{var r=await fetch('/api/projects');if(!r.ok)return;var data=await r.json();renderEpics(data);}catch(e){}
+  }
+
+  window.refreshProjectsEpics=function(){fetchEpics();};
+
+  document.addEventListener('DOMContentLoaded',function(){
+    var prev=window.applyState;
+    if(typeof prev==='function'){
+      window.applyState=function(st){
+        prev(st);
+        if(!st||st.ping)return;
+        try{if(st.projects_epics)renderEpics(st.projects_epics);}catch(e){}
+      };
+    }
+    fetchEpics();
+  });
+
+  setInterval(function(){
+    var panel=document.getElementById('tab-projects-new');
+    if(panel&&panel.classList.contains('active'))fetchEpics();
+  },2000);
+})();
+</script>
 </body>
 </html>

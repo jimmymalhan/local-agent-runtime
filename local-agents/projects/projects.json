@@ -1,0 +1,657 @@
+{
+  "projects": [
+    {
+      "id": "p-nexus",
+      "name": "Nexus Runtime Core",
+      "type": "pipeline",
+      "description": "Self-improving v1\u2192v100 local agent loop. Beats Opus 4.6 with 90% local / 10% rescue.",
+      "status": "active",
+      "path": "local-agents/",
+      "tags": [
+        "orchestrator",
+        "benchmark",
+        "loop"
+      ],
+      "velocity": 0.0,
+      "quality_avg": 100.0,
+      "created": "2026-03-26T00:00:00",
+      "updated": "2026-03-26T17:38:19.369566",
+      "meta": {},
+      "epics": [
+        {
+          "id": "e-loop",
+          "title": "v1\u2192v100 Continuous Loop",
+          "description": "Launch and stabilise the continuous task loop",
+          "status": "pending",
+          "priority": 1,
+          "depends_on": [],
+          "tasks": [
+            {
+              "id": "t-loop-01",
+              "title": "Launch continuous task loop (v6\u2192v1000)",
+              "description": "Start orchestrator/main.py --auto 6. Verify it runs tasks end-to-end, logs quality scores, and loops without stopping. Confirm state.json is updated every version.",
+              "status": "in_progress",
+              "category": "deploy",
+              "agent": "executor",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T00:00:00",
+              "updated": "2026-03-26T00:00:00"
+            },
+            {
+              "id": "t-loop-02",
+              "title": "Switch task suite to real-world 100 tasks",
+              "description": "Replace benchmark task set with 100 real-world tasks covering: scaffold, refactor, code_gen, tdd, arch, debug. Update benchmarks/ task list file.",
+              "status": "failed",
+              "category": "code_gen",
+              "agent": "executor",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T00:00:00",
+              "updated": "2026-03-26T00:00:00"
+            },
+            {
+              "id": "t-loop-03",
+              "title": "Auto-merge passing PRs (#27-#34)",
+              "description": "Run scripts/auto_merge_pr.sh to merge all open PRs with passing CI. Rebase conflicts on main with force-push-with-lease.",
+              "status": "failed",
+              "category": "deploy",
+              "agent": "executor",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T00:00:00",
+              "updated": "2026-03-26T00:00:00"
+            },
+            {
+              "id": "t-loop-04",
+              "title": "Track velocity per version \u2192 reports/velocity.jsonl",
+              "description": "After each version completes, append {version, tasks_done, avg_quality, elapsed_s, timestamp} to reports/velocity.jsonl. Read by dashboard benchmarker panel.",
+              "status": "done",
+              "category": "monitor",
+              "agent": "executor",
+              "result": {
+                "output": "import json\nfrom datetime import datetime\n\n# Function to calculate average quality (assuming a simple average for demonstration)\ndef calculate_avg_quality(tasks):\n    return sum(task['quality'] for task in tasks) / len(tasks)\n\n# Function to track velocity per version and append data to reports/velocity.jsonl\ndef track_velocity(version, tasks_done, avg_quality, elapsed_s):\n    timestamp = datetime.now().isoformat()\n    data = {\n        \"version\": version,\n        \"tasks_done\": tasks_done,\n        \"avg_quality\": avg_quality,\n        \"elapsed_s\": elapsed_s,\n        \"timestamp\": timestamp\n    }\n    \n    with open('reports/velocity.jsonl', 'a') as file:\n        json.dump(data, file)\n        file.write('\\n')\n\n# Example usage and assertions to verify correctness\nif __name__ == \"__main__\":\n    # Simulated data for testing\n    version = \"v1.0\"\n    tasks_done = 5\n    avg_quality = calculate_avg_quality([{'quality': 8}, {'quality': 9}, {'quality': 7}])\n    elapsed_s = 3600\n\n    # Call the function to track velocity\n    track_velocity(version, tasks_done, avg_quality, elapsed_s)\n\n    # Read back from the file and verify correctness\n    with open('reports/velocity.jsonl', 'r') as file:\n        lines = file.readlines()\n        assert len(lines) == 1, \"Expected one line in the file\"\n        data = json.loads(lines[0])\n        assert data['version'] == version, f\"Expected version {version}, got {data['version']}\"\n        assert data['tasks_done'] == tasks_done, f\"Expected tasks done {tasks_done}, got {data['tasks_done']}\"\n        assert data['avg_quality'] == avg_quality, f\"Expected average quality {avg_quality}, got {data['avg_quality']}\"\n        assert data['elapsed_s'] == elapsed_s, f\"Expected elapsed time {elapsed_s} seconds, got {data['elapsed_s']}\"\n        assert 'timestamp' in data, \"Timestamp should be present\""
+              },
+              "quality": 100,
+              "created": "2026-03-26T00:00:00",
+              "updated": "2026-03-26T17:38:19.369390"
+            }
+          ]
+        },
+        {
+          "id": "e-agents",
+          "title": "Agent Quality & Capabilities",
+          "description": "Improve agent quality scores and add missing capabilities",
+          "status": "pending",
+          "priority": 2,
+          "depends_on": [
+            "e-loop"
+          ],
+          "tasks": [
+            {
+              "id": "t-agents-01",
+              "title": "Deploy context_optimizer.py for token compression",
+              "description": "Wire context_optimizer.py into agent_runner.py so every task prompt is compressed before the Ollama call. Target: 30% token reduction without quality loss.",
+              "status": "pending",
+              "category": "perf",
+              "agent": "executor",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T00:00:00",
+              "updated": "2026-03-26T00:00:00"
+            },
+            {
+              "id": "t-agents-02",
+              "title": "Project scaffolding agent (scaffolder.py)",
+              "description": "Create local-agents/agents/scaffolder.py. Capabilities: scaffold a new project from templates/. CLI: nexus scaffold fastapi my-app. Register in ROUTING_TABLE under scaffold category.",
+              "status": "pending",
+              "category": "code_gen",
+              "agent": "executor",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T00:00:00",
+              "updated": "2026-03-26T00:00:00"
+            },
+            {
+              "id": "t-agents-03",
+              "title": "ProceduralMemory + context injector",
+              "description": "Create local-agents/memory/procedural.py: save/load/rank memories. Build injector that prepends top-3 relevant memories to each agent prompt before execution.",
+              "status": "pending",
+              "category": "code_gen",
+              "agent": "executor",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T00:00:00",
+              "updated": "2026-03-26T00:00:00"
+            },
+            {
+              "id": "t-a9251c18",
+              "title": "Create scripts/auto_pr.sh and install cron every 30 minutes to auto-create PRs for any feature branch with commits ahead of main and no existing PR",
+              "description": "Create scripts/auto_pr.sh and install cron every 30 minutes to auto-create PRs for any feature branch with commits ahead of main and no existing PR",
+              "status": "pending",
+              "category": "cicd",
+              "agent": "executor",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T16:48:56.881361",
+              "updated": "2026-03-26T16:48:56.881362"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p-dashboard",
+      "name": "Nexus Dashboard",
+      "type": "react",
+      "description": "Local runtime dashboard. Never goes down. Stale alert fires at 10s. All work handled by frontend_agent only \u2014 never Claude main.",
+      "status": "active",
+      "path": "local-agents/dashboard/",
+      "tags": [
+        "dashboard",
+        "frontend",
+        "never-down"
+      ],
+      "velocity": 0.0,
+      "quality_avg": 63.5,
+      "created": "2026-03-26T00:00:00",
+      "updated": "2026-03-26T17:47:31.663285",
+      "meta": {
+        "agent_policy": "frontend_agent only \u2014 never Claude main",
+        "never_down": true,
+        "stale_threshold_s": 10,
+        "poll_interval_s": 2
+      },
+      "epics": [
+        {
+          "id": "e-dash-uptime",
+          "title": "Never-Down Guarantee",
+          "description": "Dashboard must always show data. Stale banner fires after 10s. Updater auto-restarts on crash.",
+          "status": "pending",
+          "priority": 1,
+          "depends_on": [],
+          "tasks": [
+            {
+              "id": "t-dash-01",
+              "title": "Keep state.json updated every 2s (live_state_updater.py daemon)",
+              "description": "Run python3 dashboard/live_state_updater.py as background daemon. It must write state.json every 2s with live agent status. Verify: tail -f dashboard/state.json shows updates.",
+              "status": "in_progress",
+              "category": "dashboard",
+              "agent": "frontend_agent",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T00:00:00",
+              "updated": "2026-03-26T00:00:00"
+            },
+            {
+              "id": "t-dash-02",
+              "title": "Cron: restart live_state_updater.py on crash (every 1 min)",
+              "description": "Add cron: */1 * * * * pgrep -f live_state_updater.py || python3 /full/path/dashboard/live_state_updater.py &. Test: kill -9 the process, verify it restarts within 60s.",
+              "status": "done",
+              "category": "dashboard",
+              "agent": "frontend_agent",
+              "result": {
+                "output": "import psutil\nimport os\nimport signal\nimport time\n\ndef is_process_running(process_name):\n    \"\"\"Check if a process with the given name is running.\"\"\"\n    for proc in psutil.process_iter(['pid', 'name']):\n        try:\n            if proc.info['name'] == process_name:\n                return True\n        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):\n            pass\n    return False\n\ndef restart_process(process_path):\n    \"\"\"Restart the process by killing it and starting it again.\"\"\"\n    process_name = os.path.basename(process_path)\n    \n    if is_process_running(process_name):\n        for proc in psutil.process_iter(['pid', 'name']):\n            try:\n                if proc.info['name'] == process_name:\n                    os.kill(proc.info['pid'], signal.SIGKILL)\n            except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):\n                pass\n    \n    os.system(f\"python3 {process_path} &\")\n\nif __name__ == \"__main__\":\n    process_path = \"/full/path/dashboard/live_state_updater.py\"\n    \n    # Test assertions\n    assert is_process_running(\"live_state_updater.py\") == False, \"Process should not be running initially.\"\n    \n    restart_process(process_path)\n    time.sleep(1)  # Allow some time for the process to start\n    \n    assert is_process_running(\"live_state_updater.py\") == True, \"Process should be running after restarting.\"\n    \n    os.system(f\"kill -9 $(pgrep -f {process_path})\")\n    time.sleep(1)  # Allow some time for the process to stop\n    \n    assert is_process_running(\"live_state_updater.py\") == False, \"Process should not be running after being killed.\"\n    \n    restart_process(process_path)\n    time.sleep(60)  # Wait for the cron job to run and check if it restarts\n    \n    assert is_process_running(\"live_state_updater.py\") == True, \"Process should be running after cron job restarts.\""
+              },
+              "quality": 64,
+              "created": "2026-03-26T00:00:00",
+              "updated": "2026-03-26T17:41:35.552609"
+            },
+            {
+              "id": "t-dash-03",
+              "title": "Stale-data test \u2014 verify banner appears after 15s server kill",
+              "description": "Test: kill dashboard server, wait 15s, confirm stale banner is visible with correct age. Restart server, confirm banner disappears within 3s of fresh data arriving.",
+              "status": "pending",
+              "category": "dashboard",
+              "agent": "frontend_agent",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T00:00:00",
+              "updated": "2026-03-26T00:00:00"
+            },
+            {
+              "id": "t-ac528ed7",
+              "title": "Cron: keep live_state_updater.py always running",
+              "description": "Add cron: */1 * * * * pgrep -f live_state_updater.py || python3 /Users/jimmymalhan/Documents/local-agent-runtime/local-agents/dashboard/live_state_updater.py &. Test: kill the process, verify restart within 60s. Prevents dashboard empty values.",
+              "status": "done",
+              "category": "dashboard",
+              "agent": "frontend_agent",
+              "result": {
+                "output": "import os\nimport subprocess\nimport time\n\ndef setup_cron_job():\n    cron_entry = \"*/1 * * * * pgrep -f live_state_updater.py || python3 /Users/jimmymalhan/Documents/local-agent-runtime/local-agents/dashboard/live_state_updater.py &\"\n    with open(\"/etc/crontab\", \"a\") as crontab_file:\n        crontab_file.write(cron_entry + \"\\n\")\n\ndef test_restart():\n    # Kill the live_state_updater process\n    subprocess.run([\"pkill\", \"-f\", \"live_state_updater.py\"])\n    \n    start_time = time.time()\n    while True:\n        if subprocess.run([\"pgrep\", \"-f\", \"live_state_updater.py\"]).returncode == 0:\n            break\n        if time.time() - start_time > 60:\n            raise AssertionError(\"Process did not restart within 60 seconds\")\n        time.sleep(1)\n\nif __name__ == \"__main__\":\n    setup_cron_job()\n    test_restart()\n\n---\n\nimport subprocess\nimport time\n\ndef check_and_restart_live_state_updater():\n    process_name = \"live_state_updater.py\"\n    command = f\"pgrep -f {process_name}\"\n    \n    # Check if the process is running\n    result = subprocess.run(command, shell=True, capture_output=True, text=True)\n    if result.returncode != 0:\n        print(f\"{process_name} is not running. Restarting...\")\n        restart_command = f\"python3 /Users/jimmymalhan/Documents/local-agent-runtime/local-agents/dashboard/{process_name} &\"\n        subprocess.run(restart_command, shell=True)\n        print(f\"{process_name} has been restarted.\")\n    else:\n        print(f\"{process_name} is running.\")\n\nif __name__ == \"__main__\":\n    # Test assertions\n    assert check_and_restart_live_state_updater() is None  # No-op if process is running\n    \n    # Simulate killing the process and verify restart\n    subprocess.run(\"pkill -f live_state_updater.py\", shell=True)\n    time.sleep(10)  # Wait for the cron job to run\n    check_and_restart_live_state_updater()"
+              },
+              "quality": 63,
+              "created": "2026-03-26T16:25:49.516900",
+              "updated": "2026-03-26T17:47:31.663282"
+            },
+            {
+              "id": "t-0f873f3a",
+              "title": "Regression test: live_state_updater must write benchmark_scores and token_usage on every tick",
+              "description": "Write tests/test_live_state_updater.py. After each tick(), assert: benchmark_scores has >= 1 version key, token_usage has claude_tokens field, ts is within 5s of now. Run on every loop start.",
+              "status": "pending",
+              "category": "dashboard",
+              "agent": "frontend_agent",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T16:25:49.518113",
+              "updated": "2026-03-26T16:25:49.518114"
+            },
+            {
+              "id": "t-ce5ff84a",
+              "title": "state_writer.update_agent() must write quality field",
+              "description": "update_agent() in dashboard/state_writer.py writes status/task/elapsed_s but NOT quality. Add quality=0 default param. All agents must call update_agent(name, status, task, quality=result_quality) after each run. Without this, agent cards show blank quality score on dashboard.",
+              "status": "pending",
+              "category": "dashboard",
+              "agent": "frontend_agent",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T16:28:17.754731",
+              "updated": "2026-03-26T16:28:17.754732"
+            },
+            {
+              "id": "t-644865cf",
+              "title": "sub_agents model field must be populated \u2014 model chips show blank",
+              "description": "state_writer.update_sub_agents() accepts model but executor sub_agents write model=\"\" (empty string). Fix: SubAgentPool must pass model=AGENT_META[\"model\"] (e.g. \"qwen2.5-coder:7b\") for each worker dict. Without this, model chip on sub-agent cards shows blank.",
+              "status": "pending",
+              "category": "dashboard",
+              "agent": "frontend_agent",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T16:28:17.756379",
+              "updated": "2026-03-26T16:28:17.756380"
+            },
+            {
+              "id": "t-ab37fb1d",
+              "title": "live_state_updater must synthesize recent_tasks from v*_compare.jsonl",
+              "description": "state.json recent_tasks is null because live_state_updater never reads it. Fix: in tick(), read last 10 entries across all v*_compare.jsonl files, build [{task_id, title, category, agent_used, status, local_quality}] and write to state[\"recent_tasks\"]. This populates the Tasks tab activity feed.",
+              "status": "pending",
+              "category": "dashboard",
+              "agent": "frontend_agent",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T16:28:17.757232",
+              "updated": "2026-03-26T16:28:17.757233"
+            },
+            {
+              "id": "t-811f198d",
+              "title": "orchestrator must call state_writer.update_version_changelog() after each version",
+              "description": "version_changelog:{} because orchestrator/main.py never calls update_version_changelog(). Fix: after each version loop completes, call update_version_changelog(version, changes=[\"tasks done\", \"avg quality\", \"win rate\"]) from dashboard.state_writer. This populates CEO tab changelog section.",
+              "status": "pending",
+              "category": "dashboard",
+              "agent": "frontend_agent",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T16:28:17.757932",
+              "updated": "2026-03-26T16:28:17.757933"
+            },
+            {
+              "id": "t-7a48cbf1",
+              "title": "agents must call state_writer.add_research_finding() when they discover patterns",
+              "description": "research_feed:[] because no agent calls add_research_finding(). Fix: researcher.py and benchmarker.py must call add_research_finding(finding, source, confidence) after each analysis. Also add synthetic entries from compare files in live_state_updater when win_rate changes. Populates Logs tab.",
+              "status": "pending",
+              "category": "dashboard",
+              "agent": "frontend_agent",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T16:28:17.758605",
+              "updated": "2026-03-26T16:28:17.758606"
+            },
+            {
+              "id": "t-545cf9fe",
+              "title": "live_state_updater must write projects task counts from projects.json",
+              "description": "Dashboard Projects tab shows empty epics/task counts because live_state_updater never reads projects/projects.json. Fix: in tick(), read projects.json, compute per-project stats (total/done/in_progress/blocked), write to state[\"projects_summary\"]. Server already has /api/projects endpoint.",
+              "status": "pending",
+              "category": "dashboard",
+              "agent": "frontend_agent",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T16:28:17.759278",
+              "updated": "2026-03-26T16:28:17.759279"
+            },
+            {
+              "id": "t-6e7d77e3",
+              "title": "Fix 21 conflicting PRs: rebase all feature branches onto origin/main with --strategy-option=theirs, add state.json to .gitignore first, then push each branch to trigger CI auto-merge",
+              "description": "Fix 21 conflicting PRs: rebase all feature branches onto origin/main with --strategy-option=theirs, add state.json to .gitignore first, then push each branch to trigger CI auto-merge",
+              "status": "pending",
+              "category": "dashboard",
+              "agent": "frontend_agent",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T16:48:50.069451",
+              "updated": "2026-03-26T16:48:50.069452"
+            },
+            {
+              "id": "t-09946532",
+              "title": "HANDOFF: Fix all 21 conflicting PRs. Tools: git fetch --all --prune, git checkout <branch>, git rebase origin/main --strategy-option=theirs, git push origin <branch> --force-with-lease. Branches: feature/fix-orchestrator-never-down feature/agent-watchdog-cron feature/velocity-tracker feature/dag-prioritization feature/agent-batch-2 feature/memory-system feature/context-and-graph feature/project-management-system feature/git-agent feature/readme-custom-ai-model-docs feature/observability feature/validation-health feature/worktree-isolation feature/self-improvement feature/web-researcher feature/dashboard-projects feature/test-generator feature/project-templates feature/deduplicate-skills-roles feature/doc-agent feature/continuous-loop feature/multi-editor. First: echo local-agents/dashboard/state.json >> .gitignore and commit. See local-agents/AGENT_TODO.md for full instructions.",
+              "description": "HANDOFF: Fix all 21 conflicting PRs. Tools: git fetch --all --prune, git checkout <branch>, git rebase origin/main --strategy-option=theirs, git push origin <branch> --force-with-lease. Branches: feature/fix-orchestrator-never-down feature/agent-watchdog-cron feature/velocity-tracker feature/dag-prioritization feature/agent-batch-2 feature/memory-system feature/context-and-graph feature/project-management-system feature/git-agent feature/readme-custom-ai-model-docs feature/observability feature/validation-health feature/worktree-isolation feature/self-improvement feature/web-researcher feature/dashboard-projects feature/test-generator feature/project-templates feature/deduplicate-skills-roles feature/doc-agent feature/continuous-loop feature/multi-editor. First: echo local-agents/dashboard/state.json >> .gitignore and commit. See local-agents/AGENT_TODO.md for full instructions.",
+              "status": "pending",
+              "category": "dashboard",
+              "agent": "frontend_agent",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T16:49:27.704997",
+              "updated": "2026-03-26T16:49:27.704998"
+            },
+            {
+              "id": "t-265f862d",
+              "title": "Dashboard shows quality=None, model=None, active_agent=None, 0 queued tasks, 0 recent_tasks, 0 changelog. Root cause: agents do not call state_writer.update_agent(), update_task_queue(), update_version_changelog() after each task. Fix: (1) audit all agents in local-agents/agents/ to add state_writer calls at task completion, (2) update live_state_updater.py to synthesize recent_tasks from v*_compare.jsonl and projects from projects.json, (3) add regression test that verifies state.json has non-None quality + model + task count within 10s of agent run. See AGENT_TODO.md PRIORITY 3 for all 6 task IDs.",
+              "description": "Dashboard shows quality=None, model=None, active_agent=None, 0 queued tasks, 0 recent_tasks, 0 changelog. Root cause: agents do not call state_writer.update_agent(), update_task_queue(), update_version_changelog() after each task. Fix: (1) audit all agents in local-agents/agents/ to add state_writer calls at task completion, (2) update live_state_updater.py to synthesize recent_tasks from v*_compare.jsonl and projects from projects.json, (3) add regression test that verifies state.json has non-None quality + model + task count within 10s of agent run. See AGENT_TODO.md PRIORITY 3 for all 6 task IDs.",
+              "status": "pending",
+              "category": "dashboard",
+              "agent": "frontend_agent",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T17:09:00.225040",
+              "updated": "2026-03-26T17:09:00.225041"
+            }
+          ]
+        },
+        {
+          "id": "e-dash-ui",
+          "title": "Dashboard UI Features",
+          "description": "Live company projects panel, frontend_agent status card, epics view",
+          "status": "pending",
+          "priority": 2,
+          "depends_on": [
+            "e-dash-uptime"
+          ],
+          "tasks": [
+            {
+              "id": "t-dash-04",
+              "title": "Company projects panel \u2014 poll /api/projects every 2s",
+              "description": "Epics as collapsible sections, tasks as rows with status badges (pending/in_progress/done/blocked). Write outputs to generated/projects/, update state.json.",
+              "status": "pending",
+              "category": "react",
+              "agent": "frontend_agent",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T00:00:00",
+              "updated": "2026-03-26T00:00:00"
+            },
+            {
+              "id": "t-dash-05",
+              "title": "frontend_agent status card in Agents tab",
+              "description": "Add frontend_agent to the Agents tab card grid. Show current task, quality score, project (jobs.hil-tad.com), and last activity. Poll from state.json.",
+              "status": "pending",
+              "category": "dashboard",
+              "agent": "frontend_agent",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T00:00:00",
+              "updated": "2026-03-26T00:00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p-jobs",
+      "name": "jobs.hil-tad.com",
+      "type": "react",
+      "description": "Job board frontend. React 18+, TypeScript, Tailwind. UX: usability, accessibility, design system.",
+      "status": "active",
+      "path": "local-agents/generated/projects/jobs-hil-tad/",
+      "tags": [
+        "react",
+        "typescript",
+        "frontend",
+        "ux",
+        "jobs"
+      ],
+      "velocity": 0.0,
+      "quality_avg": 0.0,
+      "created": "2026-03-26T00:00:00",
+      "updated": "2026-03-26T00:00:00",
+      "meta": {
+        "agent_policy": "frontend_agent only \u2014 never Claude main",
+        "stack": "React 18, TypeScript, Tailwind, Vite, Zustand"
+      },
+      "epics": [
+        {
+          "id": "e-jobs-core",
+          "title": "Core Components",
+          "description": "Essential UI components for job listings",
+          "status": "pending",
+          "priority": 1,
+          "depends_on": [],
+          "tasks": [
+            {
+              "id": "t-jobs-01",
+              "title": "JobCard component (React/TS, Tailwind)",
+              "description": "Create JobCard.tsx. Props: title, company, location, salary, tags (string[]), remote (bool). Card with apply button, company logo placeholder, tag chips. Export default.",
+              "status": "pending",
+              "category": "component",
+              "agent": "frontend_agent",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T00:00:00",
+              "updated": "2026-03-26T00:00:00"
+            },
+            {
+              "id": "t-jobs-02",
+              "title": "JobList \u2014 responsive grid with pagination",
+              "description": "Create JobList.tsx. Accepts jobs: Job[]. 3-column responsive grid of JobCards. Pagination: 12 per page. Empty state: No jobs found with illustration placeholder.",
+              "status": "pending",
+              "category": "component",
+              "agent": "frontend_agent",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T00:00:00",
+              "updated": "2026-03-26T00:00:00"
+            },
+            {
+              "id": "t-jobs-03",
+              "title": "FilterBar + Zustand store with URL sync",
+              "description": "Create FilterBar.tsx + useJobStore.ts (Zustand). Filters: keyword, location, remote toggle, salary range. Store persists to localStorage. URL sync via query params.",
+              "status": "pending",
+              "category": "state_mgmt",
+              "agent": "frontend_agent",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T00:00:00",
+              "updated": "2026-03-26T00:00:00"
+            },
+            {
+              "id": "t-jobs-04",
+              "title": "Design system tokens (colors, spacing, typography)",
+              "description": "Create tokens.ts with brand colors, spacing scale (4px base), type scale, border radii. Export as Tailwind config extension and CSS custom properties. Document each token.",
+              "status": "pending",
+              "category": "design_system",
+              "agent": "frontend_agent",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T00:00:00",
+              "updated": "2026-03-26T00:00:00"
+            }
+          ]
+        },
+        {
+          "id": "e-jobs-quality",
+          "title": "Quality & Accessibility",
+          "description": "WCAG AA compliance, usability testing, UX polish",
+          "status": "pending",
+          "priority": 2,
+          "depends_on": [
+            "e-jobs-core"
+          ],
+          "tasks": [
+            {
+              "id": "t-jobs-05",
+              "title": "Accessibility audit + WCAG AA fixes",
+              "description": "Run axe-core on all components. Fix: contrast \u22654.5:1, keyboard nav (Tab/Enter/Esc), ARIA labels, focus indicators. Output: accessibility-report.md with before/after.",
+              "status": "pending",
+              "category": "accessibility",
+              "agent": "frontend_agent",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T00:00:00",
+              "updated": "2026-03-26T00:00:00"
+            },
+            {
+              "id": "t-jobs-06",
+              "title": "Usability prototype \u2014 5 user flows (browse/apply/filter/saved/profile)",
+              "description": "Build clickable prototype covering: browse jobs, apply, filter, saved jobs, profile. Each flow max 3 clicks. Document friction points found.",
+              "status": "pending",
+              "category": "prototype",
+              "agent": "frontend_agent",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T00:00:00",
+              "updated": "2026-03-26T00:00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p-infra",
+      "name": "Agent Infrastructure",
+      "type": "pipeline",
+      "description": "Continuous loop engine, DAG task ordering, memory system, parallel executor.",
+      "status": "active",
+      "path": "local-agents/",
+      "tags": [
+        "infra",
+        "orchestrator",
+        "memory",
+        "dag"
+      ],
+      "velocity": 0.0,
+      "quality_avg": 0.0,
+      "created": "2026-03-26T00:00:00",
+      "updated": "2026-03-26T17:16:50.569090",
+      "meta": {},
+      "epics": [
+        {
+          "id": "e-infra-loop",
+          "title": "Continuous Loop Engine",
+          "description": "Auto-pull task from DAG, run via run_project_task(), commit result, loop indefinitely",
+          "status": "pending",
+          "priority": 1,
+          "depends_on": [],
+          "tasks": [
+            {
+              "id": "t-infra-01",
+              "title": "Wire continuous_loop.py to pull from projects.json",
+              "description": "Update orchestrator/continuous_loop.py to call next_project_task() on each iteration. When project queue is empty, fall back to benchmark task generation. Log project_id + epic_id per task.",
+              "status": "pending",
+              "category": "code_gen",
+              "agent": "executor",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T00:00:00",
+              "updated": "2026-03-26T00:00:00"
+            },
+            {
+              "id": "t-infra-02",
+              "title": "DAG task ordering \u2014 respect epic depends_on",
+              "description": "Update ProjectManager.next_task() to skip epics whose depends_on list contains incomplete epics. Only surface tasks from unblocked epics. Add test: epic B blocked until epic A done.",
+              "status": "pending",
+              "category": "arch",
+              "agent": "architect",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T00:00:00",
+              "updated": "2026-03-26T00:00:00"
+            },
+            {
+              "id": "t-infra-03",
+              "title": "Parallel executor \u2014 run up to 3 tasks concurrently",
+              "description": "Use parallel_executor.py to run up to 3 independent tasks simultaneously (different epics, no file overlap). Cap at ResourceGuard limits. Update state.json with all in-progress tasks.",
+              "status": "pending",
+              "category": "code_gen",
+              "agent": "executor",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T00:00:00",
+              "updated": "2026-03-26T00:00:00"
+            },
+            {
+              "id": "t-e49c297f",
+              "title": "Add local-agents/dashboard/state.json to .gitignore so live_state_updater writes never block git checkout during PR rebases",
+              "description": "Add local-agents/dashboard/state.json to .gitignore so live_state_updater writes never block git checkout during PR rebases",
+              "status": "pending",
+              "category": "infra",
+              "agent": "architect",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T16:48:56.930037",
+              "updated": "2026-03-26T16:48:56.930038"
+            },
+            {
+              "id": "t-aba394d0",
+              "title": "Verify watchdog.sh cron is active and reinstall if missing \u2014 must restart live_state_updater.py, dashboard/server.py, continuous_loop.py on crash",
+              "description": "Verify watchdog.sh cron is active and reinstall if missing \u2014 must restart live_state_updater.py, dashboard/server.py, continuous_loop.py on crash",
+              "status": "pending",
+              "category": "infra",
+              "agent": "architect",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T16:48:56.977659",
+              "updated": "2026-03-26T16:48:56.977660"
+            },
+            {
+              "id": "t-a7996704",
+              "title": "macOS cron 'Operation not permitted' blocker \u2014 cron cannot execute watchdog.sh, rescue_orchestrator.sh, auto_merge_pr.sh because Terminal does not have Full Disk Access. Investigate launchd as alternative to cron, or document exact steps for user to grant FDA in System Settings \u2192 Privacy & Security \u2192 Full Disk Access. Until fixed, all auto-restart and rescue automation is broken.",
+              "description": "macOS cron 'Operation not permitted' blocker \u2014 cron cannot execute watchdog.sh, rescue_orchestrator.sh, auto_merge_pr.sh because Terminal does not have Full Disk Access. Investigate launchd as alternative to cron, or document exact steps for user to grant FDA in System Settings \u2192 Privacy & Security \u2192 Full Disk Access. Until fixed, all auto-restart and rescue automation is broken.",
+              "status": "pending",
+              "category": "infra",
+              "agent": "architect",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T17:08:52.668268",
+              "updated": "2026-03-26T17:08:52.668269"
+            },
+            {
+              "id": "t-ebf5abc5",
+              "title": "continuous_loop.py cannot persist auto-generated tasks: '[Errno 2] No such file or directory: local-agents/projects/all/tasks.json'. Loop is running but burning CPU in error cycle. Fix: create the missing directory/file path OR update continuous_loop.py to read tasks from orchestrator.task_intake queue instead of projects/all/tasks.json. See /tmp/nexus-loop.log. Acceptance: loop picks up real tasks from task_intake queue without path errors.",
+              "description": "continuous_loop.py cannot persist auto-generated tasks: '[Errno 2] No such file or directory: local-agents/projects/all/tasks.json'. Loop is running but burning CPU in error cycle. Fix: create the missing directory/file path OR update continuous_loop.py to read tasks from orchestrator.task_intake queue instead of projects/all/tasks.json. See /tmp/nexus-loop.log. Acceptance: loop picks up real tasks from task_intake queue without path errors.",
+              "status": "pending",
+              "category": "infra",
+              "agent": "architect",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T17:16:50.568733",
+              "updated": "2026-03-26T17:16:50.568734"
+            }
+          ]
+        },
+        {
+          "id": "e-infra-memory",
+          "title": "Memory System",
+          "description": "Procedural memory for agents \u2014 save learned patterns, inject into prompts",
+          "status": "pending",
+          "priority": 2,
+          "depends_on": [
+            "e-infra-loop"
+          ],
+          "tasks": [
+            {
+              "id": "t-infra-04",
+              "title": "ProceduralMemory class (save/load/rank)",
+              "description": "Create local-agents/memory/procedural.py. Methods: save(pattern, quality), load_top(n=3, category), prune(min_quality=50). Storage: reports/learned_patterns.jsonl. Add unit tests.",
+              "status": "pending",
+              "category": "code_gen",
+              "agent": "executor",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T00:00:00",
+              "updated": "2026-03-26T00:00:00"
+            },
+            {
+              "id": "t-infra-05",
+              "title": "Context injector \u2014 prepend top-3 memories to agent prompts",
+              "description": "In agent_runner.py, before each Ollama call: query ProceduralMemory.load_top(3, category=task.category), prepend as system context. Measure quality delta on 10 tasks.",
+              "status": "pending",
+              "category": "code_gen",
+              "agent": "executor",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T00:00:00",
+              "updated": "2026-03-26T00:00:00"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

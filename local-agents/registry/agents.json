@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-03-25",
+  "last_updated": "2026-03-26",
   "agents": {
     "executor": {
       "file": "agents/executor.py",
@@ -11,9 +11,11 @@
         "tdd"
       ],
       "model": "qwen2.5-coder:7b",
-      "benchmark_scores": {},
-      "win_rate": null,
-      "avg_quality": null,
+      "benchmark_scores": {
+        "v1": 78.1
+      },
+      "win_rate": 97.3,
+      "avg_quality": 78.1,
       "last_updated": "2026-03-25"
     },
     "planner": {
@@ -142,6 +144,104 @@
       "win_rate": null,
       "avg_quality": null,
       "last_updated": "2026-03-25"
+    },
+    "frontend_agent": {
+      "file": "agents/frontend_agent.py",
+      "version": 1,
+      "capabilities": [
+        "frontend", "react", "typescript", "dashboard",
+        "ui", "ux", "css", "html", "design_system",
+        "accessibility", "prototype", "component",
+        "state_mgmt", "build_tool"
+      ],
+      "model": "qwen2.5-coder:7b",
+      "project": "jobs.hil-tad.com",
+      "claude_rescue": false,
+      "policy": "All dashboard/frontend work for jobs.hil-tad.com routes here. Never escalate to Claude main session.",
+      "benchmark_scores": {},
+      "win_rate": null,
+      "avg_quality": null,
+      "last_updated": "2026-03-26"
+    },
+    "cicd_agent": {
+      "file": "agents/cicd_agent.py",
+      "version": 1,
+      "capabilities": ["cicd", "pipeline", "github_actions", "deploy", "pr_automation"],
+      "model": "qwen2.5-coder:7b",
+      "benchmark_scores": {},
+      "win_rate": null,
+      "avg_quality": null,
+      "last_updated": "2026-03-26"
+    },
+    "code_reviewer": {
+      "file": "agents/code_reviewer.py",
+      "version": 1,
+      "capabilities": ["code_review", "pr_review", "security_review", "quality_gate"],
+      "model": "qwen2.5-coder:7b",
+      "benchmark_scores": {},
+      "win_rate": null,
+      "avg_quality": null,
+      "last_updated": "2026-03-26"
+    },
+    "context_optimizer": {
+      "file": "agents/context_optimizer.py",
+      "version": 1,
+      "capabilities": ["context_compression", "prompt_optimization", "token_reduction"],
+      "model": "qwen2.5-coder:7b",
+      "benchmark_scores": {},
+      "win_rate": null,
+      "avg_quality": null,
+      "last_updated": "2026-03-26"
+    },
+    "code_graph": {
+      "file": "agents/code_graph.py",
+      "version": 1,
+      "capabilities": ["dependency_analysis", "call_graph", "impact_analysis", "dead_code"],
+      "model": "qwen2.5-coder:7b",
+      "benchmark_scores": {},
+      "win_rate": null,
+      "avg_quality": null,
+      "last_updated": "2026-03-26"
+    },
+    "doc_generator": {
+      "file": "agents/doc_generator.py",
+      "version": 1,
+      "capabilities": ["doc", "documentation", "docstring_gen", "api_docs", "readme"],
+      "model": "qwen2.5-coder:7b",
+      "benchmark_scores": {},
+      "win_rate": null,
+      "avg_quality": null,
+      "last_updated": "2026-03-26"
+    },
+    "multi_editor": {
+      "file": "agents/multi_editor.py",
+      "version": 1,
+      "capabilities": ["multi_file_edit", "cross_file_refactor", "batch_transform"],
+      "model": "qwen2.5-coder:7b",
+      "benchmark_scores": {},
+      "win_rate": null,
+      "avg_quality": null,
+      "last_updated": "2026-03-26"
+    },
+    "codebase_analyzer": {
+      "file": "agents/codebase_analyzer.py",
+      "version": 1,
+      "capabilities": ["codebase_scan", "tech_debt", "complexity_analysis", "pattern_detection"],
+      "model": "qwen2.5-coder:7b",
+      "benchmark_scores": {},
+      "win_rate": null,
+      "avg_quality": null,
+      "last_updated": "2026-03-26"
+    },
+    "distributed_state": {
+      "file": "agents/distributed_state.py",
+      "version": 1,
+      "capabilities": ["state_sync", "distributed_coordination", "conflict_resolution"],
+      "model": "qwen2.5-coder:7b",
+      "benchmark_scores": {},
+      "win_rate": null,
+      "avg_quality": null,
+      "last_updated": "2026-03-26"
     }
   }
 }
