@@ -39,7 +39,13 @@ state/openclaw-backups/
 .aider.tags.cache.v4/
 local-agents/__pycache__/
 local-agents/logs/
-local-agents/reports/
+local-agents/reports/*.json
+local-agents/reports/*.jsonl
+local-agents/reports/*.md
+local-agents/reports/*.csv
+local-agents/reports/*.db
+local-agents/reports/*.db-*
+local-agents/reports/*.log
 local-agents/*.db
 local-agents/*.db-*
 local-agents/frontend/
