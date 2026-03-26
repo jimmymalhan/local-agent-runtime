@@ -16,5 +16,11 @@
     "total": 10,
     "tokens": 1000,
     "success_rate": 0.5
+  },
+  "architect": {
+    "success": 16,
+    "total": 16,
+    "tokens": 21934,
+    "success_rate": 1.0
   }
 }

@@ -1,3 +1,6 @@
 {"ts": "2026-03-26T12:30:03.853132", "agent": "executor", "old_budget": 1000, "new_budget": 1100, "success_rate": 0.91, "reason": "High success (91%) \u2014 reward"}
 {"ts": "2026-03-26T12:30:03.853302", "agent": "researcher", "old_budget": 1000, "new_budget": 900, "success_rate": 0.4, "reason": "Low success (40%) \u2014 focus easy wins"}
 {"ts": "2026-03-26T12:30:03.853464", "agent": "planner", "old_budget": 1000, "new_budget": 900, "success_rate": 0.5, "reason": "Low success (50%) \u2014 focus easy wins"}
+{"ts": "2026-03-26T13:08:49.615846", "agent": "executor", "old_budget": 1100, "new_budget": 1210, "success_rate": 0.94, "reason": "High success (94%) \u2014 reward"}
+{"ts": "2026-03-26T13:08:49.616359", "agent": "researcher", "old_budget": 900, "new_budget": 810, "success_rate": 0.4, "reason": "Low success (40%) \u2014 focus easy wins"}
+{"ts": "2026-03-26T13:08:49.616443", "agent": "planner", "old_budget": 900, "new_budget": 810, "success_rate": 0.5, "reason": "Low success (50%) \u2014 focus easy wins"}

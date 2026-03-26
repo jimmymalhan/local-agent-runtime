@@ -81,3 +81,5 @@ nohup.out
 /observable.py
 /priority_queue.py
 local-agents/dashboard/state.json
+dashboard/state.json    # Live-written by orchestrator, never commit
+.agent_pid             # Runtime process ID file
