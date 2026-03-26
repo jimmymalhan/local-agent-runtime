@@ -13,9 +13,9 @@
         "loop"
       ],
       "velocity": 0.0,
-      "quality_avg": 0.0,
+      "quality_avg": 100.0,
       "created": "2026-03-26T00:00:00",
-      "updated": "2026-03-26T00:00:00",
+      "updated": "2026-03-26T17:38:19.369566",
       "meta": {},
       "epics": [
         {
@@ -30,7 +30,7 @@
               "id": "t-loop-01",
               "title": "Launch continuous task loop (v6\u2192v1000)",
               "description": "Start orchestrator/main.py --auto 6. Verify it runs tasks end-to-end, logs quality scores, and loops without stopping. Confirm state.json is updated every version.",
-              "status": "pending",
+              "status": "in_progress",
               "category": "deploy",
               "agent": "executor",
               "result": {},
@@ -42,7 +42,7 @@
               "id": "t-loop-02",
               "title": "Switch task suite to real-world 100 tasks",
               "description": "Replace benchmark task set with 100 real-world tasks covering: scaffold, refactor, code_gen, tdd, arch, debug. Update benchmarks/ task list file.",
-              "status": "pending",
+              "status": "failed",
               "category": "code_gen",
               "agent": "executor",
               "result": {},
@@ -54,7 +54,7 @@
               "id": "t-loop-03",
               "title": "Auto-merge passing PRs (#27-#34)",
               "description": "Run scripts/auto_merge_pr.sh to merge all open PRs with passing CI. Rebase conflicts on main with force-push-with-lease.",
-              "status": "pending",
+              "status": "failed",
               "category": "deploy",
               "agent": "executor",
               "result": {},
@@ -66,13 +66,15 @@
               "id": "t-loop-04",
               "title": "Track velocity per version \u2192 reports/velocity.jsonl",
               "description": "After each version completes, append {version, tasks_done, avg_quality, elapsed_s, timestamp} to reports/velocity.jsonl. Read by dashboard benchmarker panel.",
-              "status": "pending",
+              "status": "done",
               "category": "monitor",
               "agent": "executor",
-              "result": {},
-              "quality": 0,
+              "result": {
+                "output": "import json\nfrom datetime import datetime\n\n# Function to calculate average quality (assuming a simple average for demonstration)\ndef calculate_avg_quality(tasks):\n    return sum(task['quality'] for task in tasks) / len(tasks)\n\n# Function to track velocity per version and append data to reports/velocity.jsonl\ndef track_velocity(version, tasks_done, avg_quality, elapsed_s):\n    timestamp = datetime.now().isoformat()\n    data = {\n        \"version\": version,\n        \"tasks_done\": tasks_done,\n        \"avg_quality\": avg_quality,\n        \"elapsed_s\": elapsed_s,\n        \"timestamp\": timestamp\n    }\n    \n    with open('reports/velocity.jsonl', 'a') as file:\n        json.dump(data, file)\n        file.write('\\n')\n\n# Example usage and assertions to verify correctness\nif __name__ == \"__main__\":\n    # Simulated data for testing\n    version = \"v1.0\"\n    tasks_done = 5\n    avg_quality = calculate_avg_quality([{'quality': 8}, {'quality': 9}, {'quality': 7}])\n    elapsed_s = 3600\n\n    # Call the function to track velocity\n    track_velocity(version, tasks_done, avg_quality, elapsed_s)\n\n    # Read back from the file and verify correctness\n    with open('reports/velocity.jsonl', 'r') as file:\n        lines = file.readlines()\n        assert len(lines) == 1, \"Expected one line in the file\"\n        data = json.loads(lines[0])\n        assert data['version'] == version, f\"Expected version {version}, got {data['version']}\"\n        assert data['tasks_done'] == tasks_done, f\"Expected tasks done {tasks_done}, got {data['tasks_done']}\"\n        assert data['avg_quality'] == avg_quality, f\"Expected average quality {avg_quality}, got {data['avg_quality']}\"\n        assert data['elapsed_s'] == elapsed_s, f\"Expected elapsed time {elapsed_s} seconds, got {data['elapsed_s']}\"\n        assert 'timestamp' in data, \"Timestamp should be present\""
+              },
+              "quality": 100,
               "created": "2026-03-26T00:00:00",
-              "updated": "2026-03-26T00:00:00"
+              "updated": "2026-03-26T17:38:19.369390"
             }
           ]
         },
@@ -121,6 +123,18 @@
               "quality": 0,
               "created": "2026-03-26T00:00:00",
               "updated": "2026-03-26T00:00:00"
+            },
+            {
+              "id": "t-a9251c18",
+              "title": "Create scripts/auto_pr.sh and install cron every 30 minutes to auto-create PRs for any feature branch with commits ahead of main and no existing PR",
+              "description": "Create scripts/auto_pr.sh and install cron every 30 minutes to auto-create PRs for any feature branch with commits ahead of main and no existing PR",
+              "status": "pending",
+              "category": "cicd",
+              "agent": "executor",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T16:48:56.881361",
+              "updated": "2026-03-26T16:48:56.881362"
             }
           ]
         }
@@ -139,9 +153,9 @@
         "never-down"
       ],
       "velocity": 0.0,
-      "quality_avg": 0.0,
+      "quality_avg": 63.5,
       "created": "2026-03-26T00:00:00",
-      "updated": "2026-03-26T16:28:17.759357",
+      "updated": "2026-03-26T17:47:31.663285",
       "meta": {
         "agent_policy": "frontend_agent only \u2014 never Claude main",
         "never_down": true,
@@ -173,13 +187,15 @@
               "id": "t-dash-02",
               "title": "Cron: restart live_state_updater.py on crash (every 1 min)",
               "description": "Add cron: */1 * * * * pgrep -f live_state_updater.py || python3 /full/path/dashboard/live_state_updater.py &. Test: kill -9 the process, verify it restarts within 60s.",
-              "status": "pending",
+              "status": "done",
               "category": "dashboard",
               "agent": "frontend_agent",
-              "result": {},
-              "quality": 0,
+              "result": {
+                "output": "import psutil\nimport os\nimport signal\nimport time\n\ndef is_process_running(process_name):\n    \"\"\"Check if a process with the given name is running.\"\"\"\n    for proc in psutil.process_iter(['pid', 'name']):\n        try:\n            if proc.info['name'] == process_name:\n                return True\n        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):\n            pass\n    return False\n\ndef restart_process(process_path):\n    \"\"\"Restart the process by killing it and starting it again.\"\"\"\n    process_name = os.path.basename(process_path)\n    \n    if is_process_running(process_name):\n        for proc in psutil.process_iter(['pid', 'name']):\n            try:\n                if proc.info['name'] == process_name:\n                    os.kill(proc.info['pid'], signal.SIGKILL)\n            except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):\n                pass\n    \n    os.system(f\"python3 {process_path} &\")\n\nif __name__ == \"__main__\":\n    process_path = \"/full/path/dashboard/live_state_updater.py\"\n    \n    # Test assertions\n    assert is_process_running(\"live_state_updater.py\") == False, \"Process should not be running initially.\"\n    \n    restart_process(process_path)\n    time.sleep(1)  # Allow some time for the process to start\n    \n    assert is_process_running(\"live_state_updater.py\") == True, \"Process should be running after restarting.\"\n    \n    os.system(f\"kill -9 $(pgrep -f {process_path})\")\n    time.sleep(1)  # Allow some time for the process to stop\n    \n    assert is_process_running(\"live_state_updater.py\") == False, \"Process should not be running after being killed.\"\n    \n    restart_process(process_path)\n    time.sleep(60)  # Wait for the cron job to run and check if it restarts\n    \n    assert is_process_running(\"live_state_updater.py\") == True, \"Process should be running after cron job restarts.\""
+              },
+              "quality": 64,
               "created": "2026-03-26T00:00:00",
-              "updated": "2026-03-26T00:00:00"
+              "updated": "2026-03-26T17:41:35.552609"
             },
             {
               "id": "t-dash-03",
@@ -197,13 +213,15 @@
               "id": "t-ac528ed7",
               "title": "Cron: keep live_state_updater.py always running",
               "description": "Add cron: */1 * * * * pgrep -f live_state_updater.py || python3 /Users/jimmymalhan/Documents/local-agent-runtime/local-agents/dashboard/live_state_updater.py &. Test: kill the process, verify restart within 60s. Prevents dashboard empty values.",
-              "status": "pending",
+              "status": "done",
               "category": "dashboard",
               "agent": "frontend_agent",
-              "result": {},
-              "quality": 0,
+              "result": {
+                "output": "import os\nimport subprocess\nimport time\n\ndef setup_cron_job():\n    cron_entry = \"*/1 * * * * pgrep -f live_state_updater.py || python3 /Users/jimmymalhan/Documents/local-agent-runtime/local-agents/dashboard/live_state_updater.py &\"\n    with open(\"/etc/crontab\", \"a\") as crontab_file:\n        crontab_file.write(cron_entry + \"\\n\")\n\ndef test_restart():\n    # Kill the live_state_updater process\n    subprocess.run([\"pkill\", \"-f\", \"live_state_updater.py\"])\n    \n    start_time = time.time()\n    while True:\n        if subprocess.run([\"pgrep\", \"-f\", \"live_state_updater.py\"]).returncode == 0:\n            break\n        if time.time() - start_time > 60:\n            raise AssertionError(\"Process did not restart within 60 seconds\")\n        time.sleep(1)\n\nif __name__ == \"__main__\":\n    setup_cron_job()\n    test_restart()\n\n---\n\nimport subprocess\nimport time\n\ndef check_and_restart_live_state_updater():\n    process_name = \"live_state_updater.py\"\n    command = f\"pgrep -f {process_name}\"\n    \n    # Check if the process is running\n    result = subprocess.run(command, shell=True, capture_output=True, text=True)\n    if result.returncode != 0:\n        print(f\"{process_name} is not running. Restarting...\")\n        restart_command = f\"python3 /Users/jimmymalhan/Documents/local-agent-runtime/local-agents/dashboard/{process_name} &\"\n        subprocess.run(restart_command, shell=True)\n        print(f\"{process_name} has been restarted.\")\n    else:\n        print(f\"{process_name} is running.\")\n\nif __name__ == \"__main__\":\n    # Test assertions\n    assert check_and_restart_live_state_updater() is None  # No-op if process is running\n    \n    # Simulate killing the process and verify restart\n    subprocess.run(\"pkill -f live_state_updater.py\", shell=True)\n    time.sleep(10)  # Wait for the cron job to run\n    check_and_restart_live_state_updater()"
+              },
+              "quality": 63,
               "created": "2026-03-26T16:25:49.516900",
-              "updated": "2026-03-26T16:25:49.516901"
+              "updated": "2026-03-26T17:47:31.663282"
             },
             {
               "id": "t-0f873f3a",
@@ -288,6 +306,42 @@
               "quality": 0,
               "created": "2026-03-26T16:28:17.759278",
               "updated": "2026-03-26T16:28:17.759279"
+            },
+            {
+              "id": "t-6e7d77e3",
+              "title": "Fix 21 conflicting PRs: rebase all feature branches onto origin/main with --strategy-option=theirs, add state.json to .gitignore first, then push each branch to trigger CI auto-merge",
+              "description": "Fix 21 conflicting PRs: rebase all feature branches onto origin/main with --strategy-option=theirs, add state.json to .gitignore first, then push each branch to trigger CI auto-merge",
+              "status": "pending",
+              "category": "dashboard",
+              "agent": "frontend_agent",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T16:48:50.069451",
+              "updated": "2026-03-26T16:48:50.069452"
+            },
+            {
+              "id": "t-09946532",
+              "title": "HANDOFF: Fix all 21 conflicting PRs. Tools: git fetch --all --prune, git checkout <branch>, git rebase origin/main --strategy-option=theirs, git push origin <branch> --force-with-lease. Branches: feature/fix-orchestrator-never-down feature/agent-watchdog-cron feature/velocity-tracker feature/dag-prioritization feature/agent-batch-2 feature/memory-system feature/context-and-graph feature/project-management-system feature/git-agent feature/readme-custom-ai-model-docs feature/observability feature/validation-health feature/worktree-isolation feature/self-improvement feature/web-researcher feature/dashboard-projects feature/test-generator feature/project-templates feature/deduplicate-skills-roles feature/doc-agent feature/continuous-loop feature/multi-editor. First: echo local-agents/dashboard/state.json >> .gitignore and commit. See local-agents/AGENT_TODO.md for full instructions.",
+              "description": "HANDOFF: Fix all 21 conflicting PRs. Tools: git fetch --all --prune, git checkout <branch>, git rebase origin/main --strategy-option=theirs, git push origin <branch> --force-with-lease. Branches: feature/fix-orchestrator-never-down feature/agent-watchdog-cron feature/velocity-tracker feature/dag-prioritization feature/agent-batch-2 feature/memory-system feature/context-and-graph feature/project-management-system feature/git-agent feature/readme-custom-ai-model-docs feature/observability feature/validation-health feature/worktree-isolation feature/self-improvement feature/web-researcher feature/dashboard-projects feature/test-generator feature/project-templates feature/deduplicate-skills-roles feature/doc-agent feature/continuous-loop feature/multi-editor. First: echo local-agents/dashboard/state.json >> .gitignore and commit. See local-agents/AGENT_TODO.md for full instructions.",
+              "status": "pending",
+              "category": "dashboard",
+              "agent": "frontend_agent",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T16:49:27.704997",
+              "updated": "2026-03-26T16:49:27.704998"
+            },
+            {
+              "id": "t-265f862d",
+              "title": "Dashboard shows quality=None, model=None, active_agent=None, 0 queued tasks, 0 recent_tasks, 0 changelog. Root cause: agents do not call state_writer.update_agent(), update_task_queue(), update_version_changelog() after each task. Fix: (1) audit all agents in local-agents/agents/ to add state_writer calls at task completion, (2) update live_state_updater.py to synthesize recent_tasks from v*_compare.jsonl and projects from projects.json, (3) add regression test that verifies state.json has non-None quality + model + task count within 10s of agent run. See AGENT_TODO.md PRIORITY 3 for all 6 task IDs.",
+              "description": "Dashboard shows quality=None, model=None, active_agent=None, 0 queued tasks, 0 recent_tasks, 0 changelog. Root cause: agents do not call state_writer.update_agent(), update_task_queue(), update_version_changelog() after each task. Fix: (1) audit all agents in local-agents/agents/ to add state_writer calls at task completion, (2) update live_state_updater.py to synthesize recent_tasks from v*_compare.jsonl and projects from projects.json, (3) add regression test that verifies state.json has non-None quality + model + task count within 10s of agent run. See AGENT_TODO.md PRIORITY 3 for all 6 task IDs.",
+              "status": "pending",
+              "category": "dashboard",
+              "agent": "frontend_agent",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T17:09:00.225040",
+              "updated": "2026-03-26T17:09:00.225041"
             }
           ]
         },
@@ -464,7 +518,7 @@
       "velocity": 0.0,
       "quality_avg": 0.0,
       "created": "2026-03-26T00:00:00",
-      "updated": "2026-03-26T00:00:00",
+      "updated": "2026-03-26T17:16:50.569090",
       "meta": {},
       "epics": [
         {
@@ -510,6 +564,54 @@
               "quality": 0,
               "created": "2026-03-26T00:00:00",
               "updated": "2026-03-26T00:00:00"
+            },
+            {
+              "id": "t-e49c297f",
+              "title": "Add local-agents/dashboard/state.json to .gitignore so live_state_updater writes never block git checkout during PR rebases",
+              "description": "Add local-agents/dashboard/state.json to .gitignore so live_state_updater writes never block git checkout during PR rebases",
+              "status": "pending",
+              "category": "infra",
+              "agent": "architect",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T16:48:56.930037",
+              "updated": "2026-03-26T16:48:56.930038"
+            },
+            {
+              "id": "t-aba394d0",
+              "title": "Verify watchdog.sh cron is active and reinstall if missing \u2014 must restart live_state_updater.py, dashboard/server.py, continuous_loop.py on crash",
+              "description": "Verify watchdog.sh cron is active and reinstall if missing \u2014 must restart live_state_updater.py, dashboard/server.py, continuous_loop.py on crash",
+              "status": "pending",
+              "category": "infra",
+              "agent": "architect",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T16:48:56.977659",
+              "updated": "2026-03-26T16:48:56.977660"
+            },
+            {
+              "id": "t-a7996704",
+              "title": "macOS cron 'Operation not permitted' blocker \u2014 cron cannot execute watchdog.sh, rescue_orchestrator.sh, auto_merge_pr.sh because Terminal does not have Full Disk Access. Investigate launchd as alternative to cron, or document exact steps for user to grant FDA in System Settings \u2192 Privacy & Security \u2192 Full Disk Access. Until fixed, all auto-restart and rescue automation is broken.",
+              "description": "macOS cron 'Operation not permitted' blocker \u2014 cron cannot execute watchdog.sh, rescue_orchestrator.sh, auto_merge_pr.sh because Terminal does not have Full Disk Access. Investigate launchd as alternative to cron, or document exact steps for user to grant FDA in System Settings \u2192 Privacy & Security \u2192 Full Disk Access. Until fixed, all auto-restart and rescue automation is broken.",
+              "status": "pending",
+              "category": "infra",
+              "agent": "architect",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T17:08:52.668268",
+              "updated": "2026-03-26T17:08:52.668269"
+            },
+            {
+              "id": "t-ebf5abc5",
+              "title": "continuous_loop.py cannot persist auto-generated tasks: '[Errno 2] No such file or directory: local-agents/projects/all/tasks.json'. Loop is running but burning CPU in error cycle. Fix: create the missing directory/file path OR update continuous_loop.py to read tasks from orchestrator.task_intake queue instead of projects/all/tasks.json. See /tmp/nexus-loop.log. Acceptance: loop picks up real tasks from task_intake queue without path errors.",
+              "description": "continuous_loop.py cannot persist auto-generated tasks: '[Errno 2] No such file or directory: local-agents/projects/all/tasks.json'. Loop is running but burning CPU in error cycle. Fix: create the missing directory/file path OR update continuous_loop.py to read tasks from orchestrator.task_intake queue instead of projects/all/tasks.json. See /tmp/nexus-loop.log. Acceptance: loop picks up real tasks from task_intake queue without path errors.",
+              "status": "pending",
+              "category": "infra",
+              "agent": "architect",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T17:16:50.568733",
+              "updated": "2026-03-26T17:16:50.568734"
             }
           ]
         },
