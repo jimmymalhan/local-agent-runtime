@@ -1,0 +1,101 @@
+{
+  "projects": [
+    {
+      "id": "system-reliability",
+      "name": "System Reliability & Health",
+      "description": "Verify all runtime components operational",
+      "status": "in_progress",
+      "tasks": [
+        {
+          "id": "task-1",
+          "title": "System health check — verify orchestrator/dashboard/agents running",
+          "description": "Verify all runtime components are operational: orchestrator/main.py, dashboard server, agents, watchdog, cron jobs",
+          "agent": "orchestrator",
+          "status": "pending",
+          "priority": "P0",
+          "files": ["orchestrator/main.py", "dashboard/state.json", "scripts/watchdog_daemon.py"],
+          "success_criteria": "All 5 checks pass, results in reports/system_health.json"
+        }
+      ]
+    },
+    {
+      "id": "dashboard-quality",
+      "name": "Dashboard Quality & State Management",
+      "description": "Fix missing state fields and implement schema validation",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "task-2",
+          "title": "Fix dashboard state — implement missing quality/model fields",
+          "description": "Implement schema validation for dashboard/state.json. Add defaults for missing fields: quality, model, recent_tasks, changelog, research_feed",
+          "agent": "frontend_agent",
+          "status": "pending",
+          "priority": "P1",
+          "files": ["dashboard/state_writer.py", "dashboard/state.json", ".claude/skills/dashboard-state-writer.md"],
+          "success_criteria": "All required fields present on every write, no null/empty values"
+        }
+      ]
+    },
+    {
+      "id": "policy-governance",
+      "name": "Policy Enforcement & Budget Control",
+      "description": "Wire token/rescue budget limits and model routing",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "task-3",
+          "title": "Policy enforcement — wire token/rescue budget limits",
+          "description": "Implement token_enforcer.py, rescue_enforcer.py, update providers/router.py to enforce 10% token budget and model routing rules",
+          "agent": "orchestrator",
+          "status": "pending",
+          "priority": "P1",
+          "files": ["orchestrator/token_enforcer.py", "orchestrator/rescue_enforcer.py", "providers/router.py", "orchestrator/main.py"],
+          "success_criteria": "Budget enforced, all decisions logged to reports/policy_enforcement.jsonl"
+        }
+      ]
+    },
+    {
+      "id": "execution-optimization",
+      "name": "Multi-Loop Execution & Self-Improvement",
+      "description": "Implement DAG + parallel + memory + self-improve for multi-pass execution",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "task-4",
+          "title": "Optimize multi-loop execution — DAG + parallel + memory + self-improve",
+          "description": "Wire DAG dependency tracking, parallel task execution, semantic memory, and self-improvement loop into orchestrator/continuous_loop.py",
+          "agent": "orchestrator",
+          "status": "pending",
+          "priority": "P0",
+          "files": ["orchestrator/continuous_loop.py", "orchestrator/dag.py", "orchestrator/parallel_executor.py", "agents/self_improver.py"],
+          "success_criteria": "Multi-pass loops (2-3 passes/session), parallel execution active, self-improvement running every 50 tasks"
+        }
+      ]
+    },
+    {
+      "id": "agent-autonomy",
+      "name": "Local Agent Autonomy Setup",
+      "description": "Set up routing and task dispatch for fully autonomous execution",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "task-5",
+          "title": "Set up local agent handoff — document all work for agents/__init__.py router",
+          "description": "Verify agents/__init__.py router picks up tasks from projects.json, update projects.json with all 5 tasks, prepare for autonomous execution",
+          "agent": "orchestrator",
+          "status": "pending",
+          "priority": "P0",
+          "files": ["agents/__init__.py", "projects.json", "HANDOFF.md"],
+          "success_criteria": "All 5 tasks listed in projects.json, agents/__init__.py routes tasks correctly, orchestrator --auto 5 executes all"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "created": "2026-03-26T20:00:00Z",
+    "created_by": "claude",
+    "mission": "Beat Opus 4.6 with 90% local / 10% Claude rescue",
+    "total_tasks": 5,
+    "total_epics": 5
+  }
+}
