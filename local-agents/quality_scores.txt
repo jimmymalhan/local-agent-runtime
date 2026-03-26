@@ -1,8 +1,0 @@
-2026-03-26T12:30:18.294434	t-545cf9fe	dashboard	0.0	live_state_updater must write projects task counts from proj
-2026-03-26T12:30:18.296494	t-6e7d77e3	dashboard	0.0	Fix 21 conflicting PRs: rebase all feature branches onto ori
-2026-03-26T12:30:18.297636	t-09946532	dashboard	0.0	HANDOFF: Fix all 21 conflicting PRs. Tools: git fetch --all 
-2026-03-26T12:30:18.298609	t-265f862d	dashboard	0.0	Dashboard shows quality=None, model=None, active_agent=None,
-2026-03-26T12:31:18.688522	t-dash-04	react	0.0	Company projects panel — poll /api/projects every 2s
-2026-03-26T12:31:18.690712	t-dash-05	dashboard	0.0	frontend_agent status card in Agents tab
-2026-03-26T12:31:18.691879	t-jobs-01	component	0.0	JobCard component (React/TS, Tailwind)
-2026-03-26T12:31:18.693016	t-jobs-02	component	0.0	JobList — responsive grid with pagination
