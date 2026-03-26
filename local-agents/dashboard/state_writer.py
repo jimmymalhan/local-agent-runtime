@@ -10,9 +10,11 @@ Usage:
 
 Protocol: The board updates FIRST. Always. No agent moves without updating state.
 """
-import os, json, time, fcntl
+import os, json, time, fcntl, logging
 from pathlib import Path
 from datetime import datetime
+
+_log = logging.getLogger("state_writer")
 
 STATE_FILE = str(Path(__file__).parent / "state.json")
 _DEFAULT_STATE = {
@@ -39,8 +41,62 @@ def _read() -> dict:
         return dict(_DEFAULT_STATE)
 
 
+def _enforce_schema(state: dict) -> dict:
+    """
+    Ensure all required dashboard fields are present with correct types.
+    Fills defaults and logs schema errors — never silently drops data.
+    """
+    # Top-level required fields with their defaults
+    required = {
+        "ts": "",
+        "version": _DEFAULT_STATE["version"],
+        "agents": {},
+        "task_queue": _DEFAULT_STATE["task_queue"],
+        "benchmark_scores": {},
+        "token_usage": _DEFAULT_STATE["token_usage"],
+        "hardware": _DEFAULT_STATE["hardware"],
+        "failures": [],
+        "research_feed": [],
+        "version_changelog": {},
+        "quality": 0.0,
+        "active_agent": "",
+    }
+    for key, default in required.items():
+        if key not in state:
+            _log.warning("state_writer: missing field '%s' — inserting default", key)
+            state[key] = default
+        elif state[key] is None:
+            _log.warning("state_writer: field '%s' is None — inserting default", key)
+            state[key] = default
+
+    # Type checks for critical numeric fields
+    try:
+        state["quality"] = float(state["quality"])
+    except (TypeError, ValueError):
+        _log.error("state_writer: quality=%r is not numeric — resetting to 0.0", state["quality"])
+        state["quality"] = 0.0
+
+    # agents dict must not have empty model strings
+    for agent_name, agent_data in state.get("agents", {}).items():
+        if isinstance(agent_data, dict) and not agent_data.get("model"):
+            state["agents"][agent_name]["model"] = "qwen2.5-coder:7b"
+
+    # task_queue counts must be integers
+    tq = state.get("task_queue", {})
+    for count_key in ("total", "completed", "in_progress", "failed", "pending"):
+        try:
+            tq[count_key] = int(tq.get(count_key, 0))
+        except (TypeError, ValueError):
+            _log.error("state_writer: task_queue.%s is not int — resetting to 0", count_key)
+            tq[count_key] = 0
+    state["task_queue"] = tq
+
+    return state
+
+
 def _write(state: dict):
     state["ts"] = datetime.now().isoformat()
+    state = _enforce_schema(state)
     tmp = STATE_FILE + ".tmp"
     with open(tmp, "w") as f:
         json.dump(state, f, indent=2)

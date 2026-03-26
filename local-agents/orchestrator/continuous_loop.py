@@ -133,6 +133,8 @@ _NEXT_AUTO_ID = 9000  # auto-generated tasks start above manually defined range
 _IMPROVE_EVERY = 50   # trigger SelfImprover after this many completed tasks
 _PARALLEL_BATCH = 4   # max tasks to run in parallel when DAG allows it
 QUALITY_SCORES_FILE = os.path.join(REPORTS_DIR, "..", "quality_scores.txt")
+LOOP_HEARTBEAT_FILE = os.path.join(REPORTS_DIR, "loop_heartbeat.json")
+MAX_IDLE_BACKOFF_S = 300  # 5 minutes max idle sleep
 
 
 def _now_iso() -> str:
@@ -192,6 +194,7 @@ class ContinuousLoop:
 
         # backoff state
         self._backoff_s = 0.0
+        self._idle_cycles = 0  # track consecutive idle (no task) cycles
 
         # checkpoint manager (resume on crash)
         self._cm = _get_cm() if _CHECKPOINTS else None
@@ -237,13 +240,20 @@ class ContinuousLoop:
             if not batch:
                 generated = self.auto_generate_tasks(pid)
                 if not generated:
-                    log.info("Queue empty and no tasks generated — sleeping 30s.")
-                    time.sleep(30)
+                    # Bootstrap guard: cap idle backoff to MAX_IDLE_BACKOFF_S
+                    self._idle_cycles += 1
+                    idle_sleep = min(30 * self._idle_cycles, MAX_IDLE_BACKOFF_S)
+                    log.info("Queue empty — sleeping %.0fs (idle cycle %d)", idle_sleep, self._idle_cycles)
+                    self._log_event("idle_waiting", {"idle_cycles": self._idle_cycles, "sleep_s": idle_sleep})
+                    time.sleep(idle_sleep)
                     continue
+                self._idle_cycles = 0  # reset on successful task generation
                 batch = self._get_task_batch(pid)
                 if not batch:
                     time.sleep(5)
                     continue
+            else:
+                self._idle_cycles = 0  # reset on batch retrieval
 
             # ── 5. execute batch (parallel if >1, sequential if 1) ───────────
             if len(batch) > 1 and _PARALLEL:
@@ -837,6 +847,25 @@ class ContinuousLoop:
     def _log_event(self, event_type: str, data: dict):
         record = {"ts": _now_iso(), "event": event_type, **data}
         _append_jsonl(_loop_log_path(), record)
+        # Write heartbeat on task_done so watchdog can detect stuck loops
+        if event_type == "task_done":
+            self._write_loop_heartbeat(data)
+
+    def _write_loop_heartbeat(self, task_data: dict):
+        """Write heartbeat to help watchdog detect stuck vs idle loops."""
+        try:
+            hb = {
+                "ts": _now_iso(),
+                "last_task_id": task_data.get("task_id"),
+                "last_task_title": task_data.get("title", "")[:60],
+                "last_score": task_data.get("score"),
+                "tasks_today": self._tasks_today,
+                "iterations": self._iterations,
+            }
+            with open(LOOP_HEARTBEAT_FILE, "w") as f:
+                json.dump(hb, f, indent=2)
+        except Exception:
+            pass
 
     def _write_session_summary(self):
         summary = {

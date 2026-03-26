@@ -22,7 +22,9 @@ REPO = Path(__file__).parent.parent
 LOCAL_AGENTS = REPO / "local-agents"
 LOG_FILE = Path("/tmp/nexus-watchdog.log")
 PID_FILE = Path("/tmp/nexus-watchdog.pid")
+STOP_SCRIPT = REPO / "scripts" / "stop_loop.sh"
 INTERVAL = 60
+LOOP_STALE_S = 300  # 5 minutes without a completed task = stuck loop
 
 logging.basicConfig(
     level=logging.INFO,
@@ -48,6 +50,36 @@ def start(name: str, cmd: str, logfile: str):
         shell=True,
         close_fds=True,
     )
+
+
+def is_loop_stuck(max_stale_s: int = LOOP_STALE_S) -> bool:
+    """Return True if loop is running but no task completed in max_stale_s seconds."""
+    try:
+        from datetime import datetime, date, timezone
+        today = date.today().strftime("%Y%m%d")
+        loop_log = LOCAL_AGENTS / "reports" / f"loop_{today}.jsonl"
+        if not loop_log.exists():
+            return False  # no log yet, might be starting
+        lines = loop_log.read_text().splitlines()
+        if not lines:
+            return False
+        # find most recent task_done event
+        for line in reversed(lines):
+            try:
+                record = json.loads(line)
+                if record.get("event") == "task_done":
+                    ts_str = record.get("ts", "")
+                    if ts_str:
+                        ts = datetime.fromisoformat(ts_str)
+                        if ts.tzinfo is None:
+                            ts = ts.replace(tzinfo=timezone.utc)
+                        age = (datetime.now(timezone.utc) - ts).total_seconds()
+                        return age > max_stale_s
+            except Exception:
+                continue
+        return False
+    except Exception:
+        return False
 
 
 def is_state_stale(max_age_s: int = 60) -> bool:
@@ -110,6 +142,24 @@ def tick():
             "/tmp/nexus-dashboard.log",
         )
     if not loop:
+        restart_marker = LOCAL_AGENTS / ".restart-loop"
+        restart_marker.touch()
+        start(
+            "continuous_loop",
+            f"python3 -m orchestrator.continuous_loop --forever --project all",
+            "/tmp/nexus-loop.log",
+        )
+    elif is_loop_stuck(LOOP_STALE_S):
+        # Loop is running but hasn't completed a task in 5+ minutes — stuck
+        log.warning("Continuous loop stuck (no task in %ds) — restarting cleanly", LOOP_STALE_S)
+        # Signal loop to exit gracefully via stop_loop.sh
+        if STOP_SCRIPT.exists():
+            subprocess.run(["bash", str(STOP_SCRIPT)], capture_output=True)
+            time.sleep(5)
+        # Kill if still running
+        subprocess.run(["pkill", "-f", "continuous_loop"], capture_output=True)
+        time.sleep(1)
+        # Restart
         restart_marker = LOCAL_AGENTS / ".restart-loop"
         restart_marker.touch()
         start(
