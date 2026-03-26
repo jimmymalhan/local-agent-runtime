@@ -868,6 +868,15 @@ def auto_loop(start_version: int):
             except Exception as e:
                 print(f"[UPGRADE] Error: {e}")
 
+        # Calculate and display ETA
+        try:
+            subprocess.run(
+                ["python3", os.path.join(BASE_DIR, "scripts", "eta_calculator.py")],
+                cwd=BASE_DIR, timeout=10, capture_output=True
+            )
+        except Exception as e:
+            pass  # ETA calculation is optional, don't block loop
+
         time.sleep(2)
 
 
