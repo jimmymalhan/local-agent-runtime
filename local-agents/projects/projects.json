@@ -1,0 +1,734 @@
+{
+  "projects": [
+    {
+      "id": "nexus-v2",
+      "name": "Nexus Runtime v2 \u2014 Beat Opus 4.6",
+      "type": "agent-runtime",
+      "description": "Local-first agent runtime. Multi-loop 83% vs 38% one-shot. Parallel worktrees, memory, self-improvement.",
+      "status": "active",
+      "path": "/Users/jimmymalhan/Documents/local-agent-runtime",
+      "epics": [
+        {
+          "id": "f3706ac4",
+          "title": "Project Mgmt + DAG",
+          "description": "Schema,manager,decomposer,CLI,RICE,DAG,critical path",
+          "status": "in_progress",
+          "tasks": [
+            {
+              "id": "01a853a0",
+              "title": "ProjectManager CRUD",
+              "description": "",
+              "status": "in_progress",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.921684",
+              "updated": "2026-03-26T01:56:41.921555"
+            },
+            {
+              "id": "9449a43f",
+              "title": "Decomposer: LLM breaks desc into tasks",
+              "description": "",
+              "status": "pending",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.921713",
+              "updated": "2026-03-26T01:56:41.921712"
+            },
+            {
+              "id": "48d42d4c",
+              "title": "CLI: nexus project create/task add/done",
+              "description": "",
+              "status": "pending",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.921731",
+              "updated": "2026-03-26T01:56:41.921730"
+            },
+            {
+              "id": "9cd41552",
+              "title": "RICE+MoSCoW auto-prioritizer",
+              "description": "",
+              "status": "pending",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.921746",
+              "updated": "2026-03-26T01:56:41.921745"
+            },
+            {
+              "id": "cc63a5f9",
+              "title": "DAG engine topological sort",
+              "description": "",
+              "status": "in_progress",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.921760",
+              "updated": "2026-03-26T01:56:41.921759"
+            },
+            {
+              "id": "2323a775",
+              "title": "Critical path: earliest/latest start",
+              "description": "",
+              "status": "pending",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.921773",
+              "updated": "2026-03-26T01:56:41.921773"
+            },
+            {
+              "id": "f047c3f9",
+              "title": "Parallel dispatcher unblocked tasks",
+              "description": "",
+              "status": "done",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.921787",
+              "updated": "2026-03-26T01:56:41.921786"
+            }
+          ],
+          "priority": 1,
+          "depends_on": []
+        },
+        {
+          "id": "082b3c8d",
+          "title": "Continuous Task Loop",
+          "description": "Never-stop: pull execute validate commit. Auto-gen when empty.",
+          "status": "in_progress",
+          "tasks": [
+            {
+              "id": "4e9297ee",
+              "title": "Core loop cycle",
+              "description": "",
+              "status": "in_progress",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.921908",
+              "updated": "2026-03-26T01:56:41.921907"
+            },
+            {
+              "id": "1001b449",
+              "title": "Auto-task gen when queue empty",
+              "description": "",
+              "status": "pending",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.921922",
+              "updated": "2026-03-26T01:56:41.921921"
+            },
+            {
+              "id": "3a360b7b",
+              "title": "Multi-approach retry 3 strategies",
+              "description": "",
+              "status": "pending",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.921936",
+              "updated": "2026-03-26T01:56:41.921935"
+            },
+            {
+              "id": "b085738e",
+              "title": "Checkpoint every 5 tasks",
+              "description": "",
+              "status": "pending",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.921950",
+              "updated": "2026-03-26T01:56:41.921949"
+            }
+          ],
+          "priority": 1,
+          "depends_on": []
+        },
+        {
+          "id": "5fef9665",
+          "title": "Three-Tier Memory",
+          "description": "Episodic+semantic+procedural SQLite. Never re-discover solutions.",
+          "status": "in_progress",
+          "tasks": [
+            {
+              "id": "509ef4f2",
+              "title": "SQLite schema 3 tables",
+              "description": "",
+              "status": "in_progress",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922028",
+              "updated": "2026-03-26T01:56:41.922028"
+            },
+            {
+              "id": "123bae14",
+              "title": "EpisodicMemory log/query",
+              "description": "",
+              "status": "in_progress",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922043",
+              "updated": "2026-03-26T01:56:41.922042"
+            },
+            {
+              "id": "a10f5861",
+              "title": "SemanticMemory store/search",
+              "description": "",
+              "status": "in_progress",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922056",
+              "updated": "2026-03-26T01:56:41.922056"
+            },
+            {
+              "id": "776a19f5",
+              "title": "ProceduralMemory save/load",
+              "description": "",
+              "status": "pending",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922070",
+              "updated": "2026-03-26T01:56:41.922070"
+            },
+            {
+              "id": "efef0203",
+              "title": "Context injector pre-prompt memories",
+              "description": "",
+              "status": "pending",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922089",
+              "updated": "2026-03-26T01:56:41.922088"
+            }
+          ],
+          "priority": 1,
+          "depends_on": []
+        },
+        {
+          "id": "255841e7",
+          "title": "Specialist Agents",
+          "description": "All agents needed for real-world project work",
+          "status": "in_progress",
+          "tasks": [
+            {
+              "id": "4e45dba7",
+              "title": "Test Generation Agent auto-write pytest/jest",
+              "description": "",
+              "status": "pending",
+              "category": "tdd",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922179",
+              "updated": "2026-03-26T01:56:41.922179"
+            },
+            {
+              "id": "2db90fc2",
+              "title": "Git Operations Agent commit/branch/PR",
+              "description": "",
+              "status": "done",
+              "category": "git",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922193",
+              "updated": "2026-03-26T01:56:41.922193"
+            },
+            {
+              "id": "d75f021e",
+              "title": "Multi-file Edit Agent cross-file refactors",
+              "description": "",
+              "status": "pending",
+              "category": "refactor",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922210",
+              "updated": "2026-03-26T01:56:41.922209"
+            },
+            {
+              "id": "c7ddbf3b",
+              "title": "Documentation Agent auto-gen docs",
+              "description": "",
+              "status": "pending",
+              "category": "doc_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922224",
+              "updated": "2026-03-26T01:56:41.922223"
+            },
+            {
+              "id": "754ebaac",
+              "title": "Code Review Agent AST-level feedback",
+              "description": "",
+              "status": "pending",
+              "category": "review",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922237",
+              "updated": "2026-03-26T01:56:41.922236"
+            },
+            {
+              "id": "799f1491",
+              "title": "CI/CD Integration Agent pipelines",
+              "description": "",
+              "status": "pending",
+              "category": "cicd",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922254",
+              "updated": "2026-03-26T01:56:41.922253"
+            },
+            {
+              "id": "2f3f98fe",
+              "title": "Scaffolding Agent project from template",
+              "description": "",
+              "status": "in_progress",
+              "category": "scaffold",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922271",
+              "updated": "2026-03-26T01:56:41.922270"
+            }
+          ],
+          "priority": 1,
+          "depends_on": []
+        },
+        {
+          "id": "0aa769be",
+          "title": "Live Dashboard 2s Refresh",
+          "description": "Projects,epics,tasks,agent feed,velocity,burndown every 2s",
+          "status": "in_progress",
+          "tasks": [
+            {
+              "id": "71384c06",
+              "title": "/api/projects endpoint",
+              "description": "",
+              "status": "done",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922393",
+              "updated": "2026-03-26T01:56:41.922392"
+            },
+            {
+              "id": "787a17bb",
+              "title": "Projects tab epics+tasks cards",
+              "description": "",
+              "status": "pending",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922412",
+              "updated": "2026-03-26T01:56:41.922412"
+            },
+            {
+              "id": "9d4eb9d5",
+              "title": "All panels 2s refresh confirmed",
+              "description": "",
+              "status": "done",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922426",
+              "updated": "2026-03-26T01:56:41.922425"
+            },
+            {
+              "id": "14fe66e6",
+              "title": "Velocity+burndown panel",
+              "description": "",
+              "status": "pending",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922439",
+              "updated": "2026-03-26T01:56:41.922439"
+            }
+          ],
+          "priority": 2,
+          "depends_on": []
+        },
+        {
+          "id": "3f0fbc35",
+          "title": "Observability+Velocity",
+          "description": "OTel traces,metrics,burndown,blocker detection",
+          "status": "in_progress",
+          "tasks": [
+            {
+              "id": "46fc52f1",
+              "title": "AgentTracer spans OTLP export",
+              "description": "",
+              "status": "done",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922516",
+              "updated": "2026-03-26T01:56:41.922516"
+            },
+            {
+              "id": "1117802a",
+              "title": "Metrics histogram/counter/gauge",
+              "description": "",
+              "status": "done",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922530",
+              "updated": "2026-03-26T01:56:41.922530"
+            },
+            {
+              "id": "6f986a77",
+              "title": "Task journal log start/end/result",
+              "description": "",
+              "status": "in_progress",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922547",
+              "updated": "2026-03-26T01:56:41.922546"
+            },
+            {
+              "id": "b7b47a1e",
+              "title": "Velocity tasks/day 7d/30d",
+              "description": "",
+              "status": "in_progress",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922564",
+              "updated": "2026-03-26T01:56:41.922563"
+            },
+            {
+              "id": "e7c0ffe8",
+              "title": "Burndown chart forecast date",
+              "description": "",
+              "status": "pending",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922578",
+              "updated": "2026-03-26T01:56:41.922577"
+            },
+            {
+              "id": "97024b92",
+              "title": "Blocker detector >30min escalate",
+              "description": "",
+              "status": "pending",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922594",
+              "updated": "2026-03-26T01:56:41.922594"
+            }
+          ],
+          "priority": 2,
+          "depends_on": []
+        },
+        {
+          "id": "3afc0c3e",
+          "title": "Codebase Understanding",
+          "description": "Tree-sitter AST, blast-radius, conventions, context optimizer",
+          "status": "in_progress",
+          "tasks": [
+            {
+              "id": "f06632d8",
+              "title": "CodebaseAnalyzer manifest+deps+arch",
+              "description": "",
+              "status": "done",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922696",
+              "updated": "2026-03-26T01:56:41.922695"
+            },
+            {
+              "id": "d50e66c9",
+              "title": "Tree-sitter code graph blast radius",
+              "description": "",
+              "status": "in_progress",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922712",
+              "updated": "2026-03-26T01:56:41.922712"
+            },
+            {
+              "id": "a5be8e53",
+              "title": "Convention learner infer naming",
+              "description": "",
+              "status": "pending",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922725",
+              "updated": "2026-03-26T01:56:41.922724"
+            },
+            {
+              "id": "d5b4d765",
+              "title": "Context optimizer 128K budget",
+              "description": "",
+              "status": "in_progress",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922737",
+              "updated": "2026-03-26T01:56:41.922736"
+            }
+          ],
+          "priority": 2,
+          "depends_on": []
+        },
+        {
+          "id": "e9fbe53e",
+          "title": "Git Worktree Parallel Execution",
+          "description": "Cursor 2.0: 4-8 agents isolated worktrees",
+          "status": "done",
+          "tasks": [
+            {
+              "id": "f829df52",
+              "title": "WorktreeManager allocate/release/cleanup",
+              "description": "",
+              "status": "done",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922810",
+              "updated": "2026-03-26T01:56:41.922809"
+            },
+            {
+              "id": "ec7c7049",
+              "title": "ParallelExecutor 4 worktrees",
+              "description": "",
+              "status": "done",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922826",
+              "updated": "2026-03-26T01:56:41.922826"
+            }
+          ],
+          "priority": 2,
+          "depends_on": []
+        },
+        {
+          "id": "dfa9eeaf",
+          "title": "Self-Improvement Loop",
+          "description": "Agents update .claude/skills/ from failure/success patterns",
+          "status": "done",
+          "tasks": [
+            {
+              "id": "5567f5b7",
+              "title": "Failure/success pattern analyzer",
+              "description": "",
+              "status": "done",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922877",
+              "updated": "2026-03-26T01:56:41.922876"
+            },
+            {
+              "id": "292f838e",
+              "title": "Prompt improvement generator",
+              "description": "",
+              "status": "done",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922894",
+              "updated": "2026-03-26T01:56:41.922893"
+            },
+            {
+              "id": "43e7d53d",
+              "title": "A/B test harness old vs new prompt",
+              "description": "",
+              "status": "done",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922911",
+              "updated": "2026-03-26T01:56:41.922910"
+            }
+          ],
+          "priority": 2,
+          "depends_on": []
+        },
+        {
+          "id": "aa2365b4",
+          "title": "Project Templates Library",
+          "description": "FastAPI,Next.js,Django,React+Vite,Python CLI,Data Pipeline",
+          "status": "done",
+          "tasks": [
+            {
+              "id": "1ca2c145",
+              "title": "FastAPI template SQLAlchemy+Docker+CI",
+              "description": "",
+              "status": "done",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922970",
+              "updated": "2026-03-26T01:56:41.922970"
+            },
+            {
+              "id": "458ec8a2",
+              "title": "Next.js App Router+Shadcn+Vitest",
+              "description": "",
+              "status": "done",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.922987",
+              "updated": "2026-03-26T01:56:41.922986"
+            },
+            {
+              "id": "c215d0f7",
+              "title": "Django DRF+Celery+pytest-django",
+              "description": "",
+              "status": "done",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.923003",
+              "updated": "2026-03-26T01:56:41.923003"
+            },
+            {
+              "id": "aa6bc935",
+              "title": "React+Vite Zustand+Vitest",
+              "description": "",
+              "status": "done",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.923016",
+              "updated": "2026-03-26T01:56:41.923015"
+            },
+            {
+              "id": "5de6fa5e",
+              "title": "Python CLI Click+Rich",
+              "description": "",
+              "status": "done",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.923028",
+              "updated": "2026-03-26T01:56:41.923028"
+            },
+            {
+              "id": "d3261196",
+              "title": "Data Pipeline DuckDB+dbt",
+              "description": "",
+              "status": "done",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.923040",
+              "updated": "2026-03-26T01:56:41.923040"
+            }
+          ],
+          "priority": 3,
+          "depends_on": []
+        },
+        {
+          "id": "4d1e0005",
+          "title": "Incremental Validation+Health",
+          "description": "Test per file after write, health grade A-F",
+          "status": "done",
+          "tasks": [
+            {
+              "id": "eba317ec",
+              "title": "IncrementalValidator syntax+lint+test",
+              "description": "",
+              "status": "done",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.923134",
+              "updated": "2026-03-26T01:56:41.923133"
+            },
+            {
+              "id": "c753f18a",
+              "title": "HealthScorer coverage+debt+security",
+              "description": "",
+              "status": "done",
+              "category": "code_gen",
+              "agent": "",
+              "result": {},
+              "quality": 0,
+              "created": "2026-03-26T01:56:41.923146",
+              "updated": "2026-03-26T01:56:41.923146"
+            }
+          ],
+          "priority": 2,
+          "depends_on": []
+        }
+      ],
+      "tags": [
+        "agents",
+        "local-first",
+        "self-improving"
+      ],
+      "velocity": 3.2,
+      "quality_avg": 85.0,
+      "created": "2026-03-26T01:56:41.923188",
+      "updated": "2026-03-26T01:56:41.923188",
+      "meta": {}
+    }
+  ]
+}
