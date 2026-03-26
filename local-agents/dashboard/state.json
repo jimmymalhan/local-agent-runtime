@@ -434,31 +434,80 @@
       "action": "merge"
     }
   ],
-  "projects": {
-    "nexus-runtime": {
+  "projects": [
+    {
+      "id": "nexus-runtime",
+      "name": "Nexus Runtime",
+      "type": "core",
       "description": "Core local agent runtime \u2014 self-improving v1\u2192v1000",
       "status": "active",
       "version": "v5",
       "health": "green",
-      "last_deploy": "2026-03-25"
+      "tasks_done": 8,
+      "tasks_total": 16,
+      "quality_score": 90,
+      "last_updated": "2026-03-25"
     },
-    "benchmark-suite": {
+    {
+      "id": "benchmark-suite",
+      "name": "Benchmark Suite",
+      "type": "benchmarks",
       "description": "100 hard tasks \u2014 upgrading from toy to real-world projects",
       "status": "upgrading",
       "health": "yellow",
-      "blocker": "Upgrading to real-world project tasks"
+      "tasks_done": 3,
+      "tasks_total": 10,
+      "quality_score": 75,
+      "blocker": "Upgrading to real-world project tasks",
+      "last_updated": "2026-03-25"
     },
-    "dashboard": {
+    {
+      "id": "dashboard",
+      "name": "Dashboard",
+      "type": "dashboard",
       "description": "CEO command center \u2014 real-time company-wide view",
       "status": "upgrading",
       "health": "yellow",
-      "blocker": "Adding company-wide projects + PR panel"
+      "tasks_done": 2,
+      "tasks_total": 6,
+      "quality_score": 80,
+      "blocker": "Adding company-wide projects + PR panel",
+      "last_updated": "2026-03-25"
     },
-    "agent-registry": {
+    {
+      "id": "agent-registry",
+      "name": "Agent Registry",
+      "type": "infrastructure",
       "description": "Master registry \u2014 all 10 agents deployable on any repo in 5min",
       "status": "active",
       "health": "green",
+      "tasks_done": 5,
+      "tasks_total": 5,
+      "quality_score": 95,
       "last_updated": "2026-03-25"
     }
+  ],
+  "active_project": null,
+  "task_board": {
+    "backlog": [],
+    "in_progress": [],
+    "review": [],
+    "done": []
+  },
+  "agent_feed": [],
+  "metrics": {
+    "tasks_per_hour": 0,
+    "quality_avg_today": 90,
+    "quality_avg_week": 88,
+    "tasks_today": 0,
+    "tasks_this_week": 0,
+    "top_agents": [],
+    "improvement_trend": [82, 84, 86, 87, 88, 89, 90]
+  },
+  "loop_status": {
+    "running": false,
+    "current_task": null,
+    "tasks_queued": 0,
+    "last_heartbeat": null
   }
 }

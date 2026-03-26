@@ -58,6 +58,10 @@ def run_task(task: dict) -> dict:
     Route and run a task through the correct specialized agent.
     This is the single callable entry point for all agent work.
 
+    Observability integration:
+      - Wraps every agent.run() call with trace_task() span
+      - Records quality, tokens, duration, and errors to reports/traces.jsonl
+
     Args:
         task: dict with keys: id, title, description, category, [codebase_path]
 
@@ -66,7 +70,18 @@ def run_task(task: dict) -> dict:
     """
     agent_name = route(task)
     agent = get_agent(agent_name)
-    result = agent.run(task)
+
+    # --- Observability: trace every agent run (gracefully disabled if unavailable) ---
+    try:
+        from observability.tracer import trace_task as _trace_task
+        with _trace_task(agent_name, task) as _span:
+            result = agent.run(task)
+            if isinstance(result, dict):
+                _span.set_quality(result.get("quality", 0))
+                _span.set_tokens(result.get("tokens_used", 0))
+    except ImportError:
+        result = agent.run(task)
+
     result.setdefault("agent_name", agent_name)
     return result
 
