@@ -365,6 +365,27 @@ class ContinuousLoop:
             t = self.get_next_task(project_id)
             if t:
                 tasks = [t]
+
+        # Fallback: read from auto-generated tasks.json if nothing found
+        if not tasks:
+            try:
+                tasks_file = Path(BASE_DIR) / "projects" / "all" / "tasks.json"
+                if tasks_file.exists():
+                    with open(tasks_file) as f:
+                        all_auto_tasks = json.load(f)
+                    pending_auto = [t for t in all_auto_tasks if t.get("status") in (None, "pending", "todo")]
+                    for task in pending_auto[:_PARALLEL_BATCH]:
+                        task["_auto_generated"] = True
+                        # Mark as in_progress to avoid duplicate pickup
+                        task["status"] = "in_progress"
+                        tasks.append(task)
+                    # Persist updated status
+                    if pending_auto:
+                        with open(tasks_file, "w") as f:
+                            json.dump(all_auto_tasks, f, indent=2)
+            except Exception:
+                pass
+
         return tasks
 
     def _current_version(self) -> int:
