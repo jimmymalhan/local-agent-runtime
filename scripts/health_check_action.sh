@@ -15,6 +15,18 @@ HEALTH_CHECK_ACTIONS="$REPO_DIR/state/health_check_actions.jsonl"
 
 echo "[HEALTH] Running health check at $(date)"
 
+# Run comprehensive dashboard (generates COMPREHENSIVE_DASHBOARD.json)
+echo "[HEALTH] Generating comprehensive dashboard..."
+python3 scripts/comprehensive_dashboard.py > /dev/null 2>&1
+
+# Merge comprehensive data into dashboard/state.json (for localhost:3001 frontend)
+echo "[HEALTH] Updating dashboard state..."
+python3 scripts/update_dashboard_state.py > /dev/null 2>&1
+
+# Run status reporter (generates LIVE_STATUS files)
+echo "[HEALTH] Generating live status report..."
+python3 scripts/status_reporter.py > /dev/null 2>&1
+
 # Run health check
 python3 scripts/health_check.py > "$HEALTH_CHECK_OUTPUT" 2>&1
 
