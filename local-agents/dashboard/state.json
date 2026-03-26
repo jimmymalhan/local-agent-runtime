@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-26T06:37:48.315820+00:00",
+  "ts": "2026-03-26T15:00:45.421221+00:00",
   "version": {
     "current": 3,
     "total": 1000,
@@ -8,437 +8,66 @@
   },
   "agents": {
     "executor": {
-      "status": "pending",
-      "task": "Close 21 PRs \u2014 see issue #48",
-      "task_id": 48,
+      "status": "running",
+      "task": "v1 calibration \u2014 10 agents active",
+      "task_id": 1,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-25T14:00:27.949873"
-    },
-    "planner": {
-      "status": "idle",
-      "task": "Handed off to local agents",
-      "task_id": null,
-      "elapsed_s": 0,
-      "last_activity": "",
-      "sub_agents": [],
-      "worker_count": 0
-    },
-    "reviewer": {
-      "status": "idle",
-      "task": "Handed off to local agents",
-      "task_id": null,
-      "elapsed_s": 0,
-      "last_activity": "",
-      "sub_agents": [],
-      "worker_count": 0
-    },
-    "debugger": {
-      "status": "idle",
-      "task": "Handed off to local agents",
-      "task_id": null,
-      "elapsed_s": 0,
-      "last_activity": "",
-      "sub_agents": [],
-      "worker_count": 0
-    },
-    "researcher": {
-      "status": "idle",
-      "task": "Handed off to local agents",
-      "task_id": null,
-      "elapsed_s": 0,
-      "last_activity": "",
-      "sub_agents": [],
-      "worker_count": 0
-    },
-    "benchmarker": {
-      "status": "reviewing",
-      "task": "v5 gap analysis \u2014 local vs Opus 4.6",
-      "task_id": null,
-      "elapsed_s": 12.0,
-      "last_activity": "2026-03-25T13:50:10.000000",
+      "last_activity": "2026-03-26T07:59:38.254068",
       "sub_agents": [
+        {
+          "id": 0,
+          "status": "done",
+          "task": "Implement LRU Cache",
+          "model": "",
+          "elapsed_s": 95.9,
+          "quality": 78
+        },
         {
           "id": 1,
           "status": "done",
-          "task": "Score correctness category",
-          "model": "qwen2.5-coder:7b",
-          "elapsed_s": 8.3,
-          "quality": 100
+          "task": "Implement LRU Cache",
+          "model": "",
+          "elapsed_s": 78.0,
+          "quality": 63
         },
         {
           "id": 2,
-          "status": "done",
-          "task": "Score safety category",
-          "model": "qwen2.5-coder:7b",
-          "elapsed_s": 7.9,
-          "quality": 100
+          "status": "running",
+          "task": "Implement LRU Cache",
+          "model": "",
+          "elapsed_s": 0.0,
+          "quality": 0
         }
       ],
-      "worker_count": 0
-    },
-    "architect": {
-      "status": "idle",
-      "task": "",
-      "task_id": null,
-      "elapsed_s": 0.0,
-      "last_activity": "2026-03-25T16:18:07.970521"
-    },
-    "refactor": {
-      "status": "idle",
-      "task": "",
-      "task_id": null,
-      "elapsed_s": 0.0,
-      "last_activity": "2026-03-25T16:32:56.659420"
-    },
-    "test_engineer": {
-      "status": "idle",
-      "task": "",
-      "task_id": null,
-      "elapsed_s": 0.0,
-      "last_activity": "2026-03-25T15:59:42.055138"
-    },
-    "doc_writer": {
-      "status": "queued",
-      "task": "Update README + LOCAL_AGENTS_SETUP.md for v5 state",
-      "task_id": null,
-      "elapsed_s": 0,
-      "last_activity": "",
-      "sub_agents": [],
-      "worker_count": 0
+      "worker_count": 1
     }
   },
   "task_queue": {
     "total": 100,
-    "completed": 89,
+    "completed": 1,
     "in_progress": 0,
     "failed": 0,
-    "pending": 11
+    "pending": 99
   },
-  "benchmark_scores": {
-    "v1": {
-      "local": 100.0,
-      "opus": 84.0,
-      "gap": 16.0,
-      "win_rate": 100.0,
-      "ts": "2026-03-25T11:26:07.300350"
-    },
-    "v3": {
-      "local": 100.0,
-      "opus": 84.0,
-      "gap": 16.0,
-      "win_rate": 100.0,
-      "ts": "2026-03-25T12:07:27.930187"
-    },
-    "v5": {
-      "local": 90.0,
-      "opus": 84.0,
-      "gap": 6.0,
-      "win_rate": 100.0,
-      "ts": "2026-03-25T12:18:19.149704"
-    }
-  },
+  "benchmark_scores": {},
   "token_usage": {
     "budget_pct": 33.3,
     "warning": true
   },
   "hardware": {
-    "cpu_pct": 14.2,
-    "ram_pct": 60.4,
+    "cpu_pct": 21.6,
+    "ram_pct": 73.7,
     "alert_level": "ok"
   },
-  "failures": [
-    {
-      "ts": "2026-03-25T11:56:20.261924",
-      "agent": "executor",
-      "task": "Implement Trie with prefix search",
-      "task_id": 4,
-      "attempt": 1,
-      "tried": "blocked"
-    },
-    {
-      "ts": "2026-03-25T11:22:40.719336",
-      "agent": "executor",
-      "task": "Implement LRU Cache",
-      "task_id": 1,
-      "attempt": 1,
-      "tried": "failed"
-    }
-  ],
+  "failures": [],
   "research_feed": [],
-  "version_changelog": {
-    "v1": {
-      "changes": [
-        "win_rate=100.0%",
-        "rescued=33.3%",
-        "tasks=3"
-      ],
-      "before_score": 0.0,
-      "after_score": 100.0,
-      "delta": 100.0,
-      "ts": "2026-03-25T11:26:07.300775"
-    },
-    "v3": {
-      "changes": [
-        "win_rate=100.0%",
-        "rescued=0.0%",
-        "tasks=3"
-      ],
-      "before_score": 0.0,
-      "after_score": 100.0,
-      "delta": 100.0,
-      "ts": "2026-03-25T12:07:27.930800"
-    },
-    "v5": {
-      "changes": [
-        "win_rate=100.0%",
-        "rescued=0.0%",
-        "tasks=3"
-      ],
-      "before_score": 0.0,
-      "after_score": 100.0,
-      "delta": 100.0,
-      "ts": "2026-03-25T12:18:19.149970"
-    },
-    "v6_plan": {
-      "changes": [
-        "Merge PR #26 (supervisor autoheal v2)",
-        "Organize root: move 8 scattered .py files to generated/projects/",
-        "Wire Opus 4.6 auto-comparison per version loop",
-        "Upgrade benchmark: real-world projects (REST API, React, CLI, data pipeline)",
-        "Dashboard: company-wide CEO command center view",
-        "Fix VERSION file sync (0.3.0\u21920.5.0)",
-        "Update README + all docs",
-        "Launch v6\u2192v100 autonomous loop"
-      ],
-      "before_score": 90.0,
-      "after_score": null,
-      "delta": null,
-      "status": "planning",
-      "ts": "2026-03-25T16:35:00.000000"
-    }
-  },
-  "ceo_report": {
-    "ts": "2026-03-26T06:37:48.315820+00:00",
-    "health_score": 100,
-    "dashboard_live": true,
-    "summary": "v3/1000 | 21 PRs | Budget 33.3%"
-  },
-  "business_summary": {
-    "headline": "v3/1000 | 21 PRs open | Budget 33.3%",
-    "health_score": 100,
-    "version": 3,
-    "updated_at": "2026-03-26T06:37:48.315820+00:00"
-  },
-  "todo_board": {
-    "updated_at": "2026-03-25T16:35:00.000000",
-    "items": [
-      {
-        "id": "E10-01",
-        "title": "Merge PR #26 \u2014 supervisor autoheal v2 (MERGEABLE)",
-        "status": "running",
-        "category": "devops",
-        "agent": "reviewer",
-        "priority": "critical",
-        "source": "e10-sprint",
-        "eta": "5m"
-      },
-      {
-        "id": "E10-02",
-        "title": "Organize root: move 8 scattered .py files + 4 dirs to generated/projects/",
-        "status": "running",
-        "category": "devops",
-        "agent": "refactor",
-        "priority": "critical",
-        "source": "e10-sprint",
-        "eta": "5m"
-      },
-      {
-        "id": "E10-03",
-        "title": "Wire Opus 4.6 auto-comparison per version (provider router already exists)",
-        "status": "queued",
-        "category": "benchmarks",
-        "agent": "benchmarker",
-        "priority": "critical",
-        "source": "e10-sprint",
-        "eta": "15m"
-      },
-      {
-        "id": "E10-04",
-        "title": "Dashboard upgrade: company-wide CEO view \u2014 projects, agents, PRs, benchmark war room",
-        "status": "queued",
-        "category": "dashboard",
-        "agent": "executor",
-        "priority": "high",
-        "source": "e10-sprint",
-        "eta": "20m"
-      },
-      {
-        "id": "E10-05",
-        "title": "Upgrade benchmark: real-world projects (REST API, React, CLI, data pipeline, microservice)",
-        "status": "queued",
-        "category": "benchmarks",
-        "agent": "architect",
-        "priority": "critical",
-        "source": "e10-sprint",
-        "eta": "20m"
-      },
-      {
-        "id": "E10-06",
-        "title": "Fix VERSION sync (0.3.0\u21920.5.0) + auto-increment on version bump",
-        "status": "queued",
-        "category": "devops",
-        "agent": "executor",
-        "priority": "medium",
-        "source": "e10-sprint",
-        "eta": "5m"
-      },
-      {
-        "id": "E10-07",
-        "title": "Update README + docs: v5 benchmarks, quickstart, folder map, all 10 agents",
-        "status": "queued",
-        "category": "docs",
-        "agent": "doc_writer",
-        "priority": "medium",
-        "source": "e10-sprint",
-        "eta": "15m"
-      },
-      {
-        "id": "E10-08",
-        "title": "Launch v6\u2192v100 autonomous loop with real-world tasks + Opus comparison",
-        "status": "queued",
-        "category": "orchestrator",
-        "agent": "planner",
-        "priority": "critical",
-        "source": "e10-sprint",
-        "eta": "30m"
-      },
-      {
-        "id": "P01",
-        "title": "Self-calibration system \u2014 3-task warmup per version",
-        "status": "done",
-        "category": "orchestrator",
-        "agent": "executor",
-        "priority": "critical",
-        "source": "plan"
-      },
-      {
-        "id": "P02",
-        "title": "Self-improving prompt engine \u2014 A/B test every agent",
-        "status": "done",
-        "category": "orchestrator",
-        "agent": "executor",
-        "priority": "critical",
-        "source": "plan"
-      },
-      {
-        "id": "P03",
-        "title": "Supervisor + auto-heal + checkpoint system (PR #26)",
-        "status": "done",
-        "category": "orchestrator",
-        "agent": "executor",
-        "priority": "critical",
-        "source": "plan"
-      },
-      {
-        "id": "P04",
-        "title": "Provider router (Ollama/Claude abstraction layer)",
-        "status": "done",
-        "category": "infrastructure",
-        "agent": "architect",
-        "priority": "critical",
-        "source": "plan"
-      },
-      {
-        "id": "P05",
-        "title": "10-agent specialist pool with sub-agent spawning up to 1000",
-        "status": "done",
-        "category": "agents",
-        "agent": "architect",
-        "priority": "critical",
-        "source": "plan"
-      },
-      {
-        "id": "P06",
-        "title": "Auto-fix pipeline \u2014 error pattern library, known-fix matching <3s",
-        "status": "done",
-        "category": "orchestrator",
-        "agent": "debugger",
-        "priority": "critical",
-        "source": "plan"
-      },
-      {
-        "id": "P07",
-        "title": "Hardware-aware auto-scaling (CPU/RAM resource guards)",
-        "status": "done",
-        "category": "infrastructure",
-        "agent": "executor",
-        "priority": "high",
-        "source": "plan"
-      },
-      {
-        "id": "P08",
-        "title": "Dashboard: real-time WebSocket push, done board, task swimlanes",
-        "status": "done",
-        "category": "dashboard",
-        "agent": "executor",
-        "priority": "high",
-        "source": "plan"
-      }
-    ],
-    "counts": {
-      "running": 2,
-      "queued": 6,
-      "blocked": 0,
-      "done": 8
-    }
-  },
-  "velocity": {
-    "versions_done": 4,
-    "versions_total": 1000,
-    "pct": 0.4
-  },
-  "projects": {
-    "pct_complete": 46,
-    "total_tasks": 50,
-    "done_tasks": 23,
-    "pending_local": 5,
-    "shipped_prs": 14,
-    "refresh_interval_s": 2,
-    "updated_at": "2026-03-26T02:08:31.961013",
-    "status": "local agents assigned"
-  },
-  "active_project": null,
-  "task_board": {
-    "backlog": [],
-    "in_progress": [],
-    "review": [],
-    "done": []
-  },
-  "agent_feed": [],
-  "metrics": {
-    "tasks_per_hour": 0,
-    "quality_avg_today": 90,
-    "quality_avg_week": 88,
-    "tasks_today": 0,
-    "tasks_this_week": 0,
-    "top_agents": [],
-    "improvement_trend": [
-      82,
-      84,
-      86,
-      87,
-      88,
-      89,
-      90
-    ]
-  },
-  "loop_status": {
-    "running": false,
-    "current_task": null,
-    "tasks_queued": 0,
-    "last_heartbeat": null
-  },
+  "version_changelog": {},
   "open_prs": [
+    {
+      "number": 49,
+      "title": "fix(orchestrator): never-down guarantee \u2014 root cause was --continuous flag",
+      "branch": "feature/fix-orchestrator-never-down"
+    },
     {
       "number": 47,
       "title": "feat(watchdog): always-on agent guardian \u2014 auto-restart + cron",
@@ -545,16 +174,95 @@
       "branch": "feature/deduplicate-skills-roles"
     }
   ],
+  "velocity": {
+    "versions_done": 4,
+    "versions_total": 1000,
+    "pct": 0.4
+  },
+  "ceo_report": {
+    "ts": "2026-03-26T15:00:45.421221+00:00",
+    "health_score": 86,
+    "dashboard_live": true,
+    "summary": "v3/1000 | 22 PRs | Budget 33.3%"
+  },
+  "business_summary": {
+    "headline": "v3/1000 | 22 PRs open | Budget 33.3%",
+    "health_score": 86,
+    "version": 3,
+    "updated_at": "2026-03-26T15:00:45.421221+00:00"
+  },
+  "auto_heal_status": {
+    "ts": "2026-03-26T15:00:39",
+    "issues_this_cycle": [],
+    "healthy": true,
+    "dashboard_alive": true,
+    "disk_ok": true
+  },
+  "refresh_ms": 2000,
+  "cron": {
+    "rescue_orchestrator": "every 1 min",
+    "agent_watchdog": "every 5 min",
+    "cron_claude_rescue": "every 5 min (Sonnet, 0-token)",
+    "auto_merge_prs": "every 30 min"
+  },
   "issues": [
     {
       "id": 48,
-      "url": "https://github.com/jimmymalhan/local-agent-runtime/issues/48",
-      "title": "chore: merge all 21 open PRs \u2014 rebase conflicts + branch policy blocks",
+      "title": "Merge 22 open PRs",
       "priority": "P0",
-      "assigned_to": "Nexus-Executor",
-      "status": "open",
-      "action": "rebase all branches onto main, then gh pr merge --squash --admin"
+      "assigned": "Nexus-Executor"
+    },
+    {
+      "id": 50,
+      "title": "reviewer agent score=0",
+      "priority": "P1",
+      "assigned": "Nexus-Debugger"
+    },
+    {
+      "id": 51,
+      "title": "auto_merge_pr.sh JSON fix",
+      "priority": "P1",
+      "assigned": "Nexus-Executor"
     }
   ],
-  "pending_action": "Agent must close 21 PRs (issue #48). Cron retries every 30 min."
+  "todo": [
+    {
+      "id": 1,
+      "task": "Fix auto_merge_pr.sh + close 22 PRs",
+      "agent": "Nexus-Executor",
+      "issue": 51,
+      "status": "queued"
+    },
+    {
+      "id": 2,
+      "task": "Fix reviewer agent score=0",
+      "agent": "Nexus-Debugger",
+      "issue": 50,
+      "status": "queued"
+    },
+    {
+      "id": 3,
+      "task": "Pull main + restart loop v5\u2192v100 after PRs merged",
+      "agent": "Nexus-Executor",
+      "status": "blocked_by_1"
+    },
+    {
+      "id": 4,
+      "task": "Project DAG + RICE prioritization",
+      "agent": "Nexus-Architect",
+      "status": "queued"
+    },
+    {
+      "id": 5,
+      "task": "Three-tier memory system",
+      "agent": "Nexus-Architect",
+      "status": "queued"
+    },
+    {
+      "id": 6,
+      "task": "Dashboard velocity panel + burndown",
+      "agent": "Nexus-Executor",
+      "status": "queued"
+    }
+  ]
 }
