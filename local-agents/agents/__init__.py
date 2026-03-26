@@ -25,6 +25,7 @@ ROUTING_TABLE = {
     "code_gen":      "executor",
     "bug_fix":       "executor",
     "tdd":           "test_engineer",
+    "test_gen":      "test_engineer",
     "scaffold":      "architect",
     "e2e":           "architect",
     "arch":          "architect",
