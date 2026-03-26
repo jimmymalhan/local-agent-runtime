@@ -2285,35 +2285,50 @@ function renderEpicBoardConsolidated(){
     agent_count: new Set(epic2Epics.flatMap(e=>e.agents||[])).size
   };
 
-  // ═══ HERO KPIs ══════════════════════════════════════════════════════════
-  const set=(id,val)=>{const el=$(id);if(el)el.textContent=val;};
+  // ═══ HELPER: Set element text value ════════════════════════════════════
+  const set=(id,val)=>{
+    const el=$(id);
+    if(el && el.textContent !== undefined) {
+      el.textContent=val;
+    }
+  };
+
+  // ═══ HERO KPIs (Overview Tab) ═══════════════════════════════════════════
   set('epic1-progress', epic1.progress_pct + '%');
   set('epic2-progress', epic2.progress_pct + '%');
   set('total-agents', epic1.agent_count + epic2.agent_count);
   set('ops-status', ops.works_24_7 ? '✅ Running' : '❌ Offline');
 
-  // ═══ EPIC 1 ════════════════════════════════════════════════════════════
+  // ═══ EPIC 1 OVERVIEW SECTION ═══════════════════════════════════════════
   set('epic1-summary', `${epic1.agent_count} agents · ${epic1.total_tasks} tasks`);
   set('epic1-pct', epic1.progress_pct + '%');
   set('epic1-counts', `${epic1.completed}/${epic1.total_tasks} done · ${epic1.pending} pending · ${epic1.blocked} blocked`);
   set('epic1-agents', epic1.agent_count);
   
-  // Epic 1 Cards - Show all projects
+  // Epic 1 Cards - Show all projects (overview tab)
+  const cardHtml1 = epic1Epics.map(p=>`
+    <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:14px;">
+      <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--t1);">${esc(p.name)}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:11px;margin-bottom:10px;">
+        <div><div style="color:var(--t3);font-size:10px;">Done</div><div style="font-size:16px;font-weight:700;color:var(--green);">${p.completed || 0}</div></div>
+        <div><div style="color:var(--t3);font-size:10px;">Pending</div><div style="font-size:16px;font-weight:700;color:var(--t1);">${p.pending || 0}</div></div>
+      </div>
+      <div style="height:6px;background:var(--t4);border-radius:3px;overflow:hidden;margin-bottom:8px;">
+        <div style="height:100%;background:${p.progress_pct > 50 ? 'var(--green)' : p.progress_pct > 0 ? 'var(--blue)' : 'var(--t4)'};width:${p.progress_pct || 0}%;"></div>
+      </div>
+      <div style="font-size:11px;color:var(--t3);">${p.progress_pct || 0}% · ${(p.agents||[]).join(', ')}</div>
+    </div>
+  `).join('');
+
   const e1c = $('epic1-cards');
   if(e1c && epic1Epics.length > 0) {
-    e1c.innerHTML = epic1Epics.map(p=>`
-      <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:14px;">
-        <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--t1);">${esc(p.name)}</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:11px;margin-bottom:10px;">
-          <div><div style="color:var(--t3);font-size:10px;">Done</div><div style="font-size:16px;font-weight:700;color:var(--green);">${p.completed || 0}</div></div>
-          <div><div style="color:var(--t3);font-size:10px;">Pending</div><div style="font-size:16px;font-weight:700;color:var(--t1);">${p.pending || 0}</div></div>
-        </div>
-        <div style="height:6px;background:var(--t4);border-radius:3px;overflow:hidden;margin-bottom:8px;">
-          <div style="height:100%;background:${p.progress_pct > 50 ? 'var(--green)' : p.progress_pct > 0 ? 'var(--blue)' : 'var(--t4)'};width:${p.progress_pct || 0}%;"></div>
-        </div>
-        <div style="font-size:11px;color:var(--t3);">${p.progress_pct || 0}% · ${(p.agents||[]).join(', ')}</div>
-      </div>
-    `).join('');
+    e1c.innerHTML = cardHtml1;
+  }
+
+  // Also update epic-board tab grid
+  const e1g = $('epic1-grid');
+  if(e1g && epic1Epics.length > 0) {
+    e1g.innerHTML = cardHtml1;
   }
   
   // Epic 1 Tasks Table
@@ -2349,22 +2364,30 @@ function renderEpicBoardConsolidated(){
   set('epic2-counts', `${epic2.completed}/${epic2.total_tasks} done · ${epic2.pending} pending · ${epic2.blocked} blocked`);
   set('epic2-agents', epic2.agent_count);
   
-  // Epic 2 Cards
+  // Epic 2 Cards - Show all projects (overview tab)
+  const cardHtml2 = epic2Epics.map(p=>`
+    <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:14px;">
+      <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--t1);">${esc(p.name)}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:11px;margin-bottom:10px;">
+        <div><div style="color:var(--t3);font-size:10px;">Done</div><div style="font-size:16px;font-weight:700;color:var(--green);">${p.completed || 0}</div></div>
+        <div><div style="color:var(--t3);font-size:10px;">Pending</div><div style="font-size:16px;font-weight:700;color:var(--t1);">${p.pending || 0}</div></div>
+      </div>
+      <div style="height:6px;background:var(--t4);border-radius:3px;overflow:hidden;margin-bottom:8px;">
+        <div style="height:100%;background:${p.progress_pct > 50 ? 'var(--green)' : p.progress_pct > 0 ? 'var(--blue)' : 'var(--t4)'};width:${p.progress_pct || 0}%;"></div>
+      </div>
+      <div style="font-size:11px;color:var(--t3);">${p.progress_pct || 0}% · ${(p.agents||[]).join(', ')}</div>
+    </div>
+  `).join('');
+
   const e2c = $('epic2-cards');
   if(e2c && epic2Epics.length > 0) {
-    e2c.innerHTML = epic2Epics.map(p=>`
-      <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:14px;">
-        <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--t1);">${esc(p.name)}</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:11px;margin-bottom:10px;">
-          <div><div style="color:var(--t3);font-size:10px;">Done</div><div style="font-size:16px;font-weight:700;color:var(--green);">${p.completed || 0}</div></div>
-          <div><div style="color:var(--t3);font-size:10px;">Pending</div><div style="font-size:16px;font-weight:700;color:var(--t1);">${p.pending || 0}</div></div>
-        </div>
-        <div style="height:6px;background:var(--t4);border-radius:3px;overflow:hidden;margin-bottom:8px;">
-          <div style="height:100%;background:${p.progress_pct > 50 ? 'var(--green)' : p.progress_pct > 0 ? 'var(--blue)' : 'var(--t4)'};width:${p.progress_pct || 0}%;"></div>
-        </div>
-        <div style="font-size:11px;color:var(--t3);">${p.progress_pct || 0}% · ${(p.agents||[]).join(', ')}</div>
-      </div>
-    `).join('');
+    e2c.innerHTML = cardHtml2;
+  }
+
+  // Also update epic-board tab grid
+  const e2g = $('epic2-grid');
+  if(e2g && epic2Epics.length > 0) {
+    e2g.innerHTML = cardHtml2;
   }
   
   // Epic 2 Tasks Table
@@ -2395,31 +2418,51 @@ function renderEpicBoardConsolidated(){
   }
   
   // ═══ SYSTEM STATUS ══════════════════════════════════════════════════════════
+  // Update both the overview section and the epic-board tab
   set('sys-orch', ops.orchestrator || 'unknown');
   set('sys-intake', ops.task_intake || 'unknown');
   set('sys-health', ops.health_monitor || 'unknown');
   set('sys-24x7', ops.works_24_7 ? '✅ YES' : '❌ NO');
-  
+
+  // Also update epic-board tab versions (if they exist)
+  set('sys-orchestrator', ops.orchestrator || 'unknown');
+  set('sys-task-intake', ops.task_intake || 'unknown');
+
   // ═══ BLOCKERS & IMPROVEMENTS ════════════════════════════════════════════════════════════
   const research = st.research_feed || [];
   const blockers = research.filter(r=>r.finding?.includes('🚫') || r.finding?.includes('BLOCKER')) || [];
   const improvements = research.filter(r=>r.finding?.includes('💡') || r.finding?.includes('IMPROVEMENT')) || [];
-  
+
   const blockEl = $('blockers-improvements');
   if(blockEl) {
     const items = [
       ...blockers.slice(0,5).map(b=>`<div style="padding:12px;margin-bottom:8px;background:var(--red-g);border-left:4px solid var(--red);border-radius:6px;font-size:12px;color:var(--red);font-weight:600;">🚫 ${esc(b.finding)}</div>`),
       ...improvements.slice(0,5).map(i=>`<div style="padding:12px;margin-bottom:8px;background:var(--orange-g);border-left:4px solid var(--orange);border-radius:6px;font-size:12px;color:var(--orange);font-weight:600;">💡 ${esc(i.finding)}</div>`)
     ];
-    
+
     if(items.length === 0) {
       blockEl.innerHTML = '<div style="padding:24px;text-align:center;color:var(--green);font-weight:600;font-size:14px;">✅ No blockers · All systems clear · Ready for agent execution</div>';
     } else {
       blockEl.innerHTML = items.join('');
     }
   }
-  
-  $('blocker-summary').textContent = `${blockers.length} blockers · ${improvements.length} improvements`;
+
+  // Update blocker summary
+  set('blocker-summary', `${blockers.length} blockers · ${improvements.length} improvements`);
+
+  // Also update epic-board tab blockers list
+  const blockEl2 = $('blockers-list');
+  if(blockEl2) {
+    const items2 = [
+      ...blockers.slice(0,5).map(b=>`<div style="padding:12px;margin-bottom:8px;background:var(--red-g);border-left:4px solid var(--red);border-radius:6px;font-size:12px;color:var(--red);font-weight:600;">🚫 ${esc(b.finding)}</div>`),
+      ...improvements.slice(0,5).map(i=>`<div style="padding:12px;margin-bottom:8px;background:var(--orange-g);border-left:4px solid var(--orange);border-radius:6px;font-size:12px;color:var(--orange);font-weight:600;">💡 ${esc(i.finding)}</div>`)
+    ];
+    if(items2.length === 0) {
+      blockEl2.innerHTML = '<div style="padding:24px;text-align:center;color:var(--green);font-weight:600;font-size:14px;">✅ No blockers · Ready to execute</div>';
+    } else {
+      blockEl2.innerHTML = items2.join('');
+    }
+  }
 }
 
 function renderEpicBoard(){
