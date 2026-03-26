@@ -284,30 +284,26 @@ async def _broadcast(data: str):
 
 
 async def _state_watcher():
-    """Watch state.json every 800ms and push normalized state to all WS clients."""
+    """Watch state.json every 2s and push normalized state (fresh read) to all WS clients."""
     global _last_state_ts
     while True:
         try:
-            raw_ts = ""
-            try:
-                with open(STATE_FILE) as f:
-                    raw = json.load(f)
-                raw_ts = raw.get("ts", "")
-            except Exception:
-                pass
-            if raw_ts != _last_state_ts:
-                _last_state_ts = raw_ts
-                state = read_state()
-                await _broadcast(json.dumps(state))
+            # Always read state.json fresh each cycle and broadcast
+            with open(STATE_FILE) as f:
+                raw = json.load(f)
+            raw_ts = raw.get("ts", "")
+            _last_state_ts = raw_ts
+            state = normalize_state(raw)
+            await _broadcast(json.dumps(state))
         except Exception:
             pass
-        await asyncio.sleep(0.8)
+        await asyncio.sleep(2)
 
 
 async def _hw_pusher():
-    """Push live hardware updates every 5s regardless of state changes."""
+    """Push live hardware updates every 2s regardless of state changes."""
     while True:
-        await asyncio.sleep(5)
+        await asyncio.sleep(2)
         try:
             state = read_state()
             await _broadcast(json.dumps(state))
@@ -391,6 +387,75 @@ async def get_todo():
     return {"updated_at": datetime.now().isoformat(), "items": items, "counts": counts}
 
 
+
+@app.post("/api/loop/start")
+async def loop_start():
+    """Signal the continuous loop to start (creates .loop_start signal file)."""
+    signal_file = os.path.join(BASE_DIR, ".loop_start")
+    stop_file = os.path.join(BASE_DIR, ".stop")
+    try:
+        with open(signal_file, "w") as fh:
+            fh.write(datetime.now().isoformat())
+        if os.path.exists(stop_file):
+            os.remove(stop_file)
+    except Exception as exc:
+        return {"running": False, "error": str(exc)}
+    return {"running": True, "ts": datetime.now().isoformat()}
+
+
+@app.post("/api/loop/stop")
+async def loop_stop():
+    """Signal the continuous loop to stop (creates .stop signal file)."""
+    stop_file = os.path.join(BASE_DIR, ".stop")
+    start_file = os.path.join(BASE_DIR, ".loop_start")
+    try:
+        with open(stop_file, "w") as fh:
+            fh.write(datetime.now().isoformat())
+        if os.path.exists(start_file):
+            os.remove(start_file)
+    except Exception as exc:
+        return {"running": True, "error": str(exc)}
+    return {"running": False, "ts": datetime.now().isoformat()}
+
+
+@app.get("/api/projects")
+async def get_projects():
+    """Return projects list from local-agents/projects/projects.json, else from state."""
+    projects_path = os.path.join(BASE_DIR, "projects", "projects.json")
+    if os.path.exists(projects_path):
+        try:
+            with open(projects_path) as fh:
+                return json.load(fh)
+        except Exception:
+            pass
+    state = read_state()
+    raw = state.get("projects", [])
+    return {"projects": raw if isinstance(raw, list) else [], "source": "state"}
+
+
+@app.post("/api/projects")
+async def create_project(request: dict):
+    """Create a new project via ProjectManager; falls back to CLI hint."""
+    name = request.get("name", "").strip()
+    if not name:
+        return {"error": "name required"}
+    try:
+        sys.path.insert(0, BASE_DIR)
+        from projects.project_manager import ProjectManager  # type: ignore
+        pm = ProjectManager()
+        project = pm.create_project(
+            name=name, **{k: v for k, v in request.items() if k != "name"}
+        )
+        return {"ok": True, "project": project}
+    except ImportError:
+        return {
+            "error": "ProjectManager not available",
+            "hint": "python3 local-agents/projects/cli.py new",
+        }
+    except Exception as exc:
+        return {"error": str(exc)}
+
+
 @app.post("/api/chat")
 async def chat_endpoint(request: dict):
     """
@@ -461,7 +526,7 @@ async def websocket_endpoint(ws: WebSocket):
     try:
         await ws.send_text(json.dumps(read_state()))
         while True:
-            await asyncio.sleep(30)
+            await asyncio.sleep(2)  # keepalive every 2s; real data pushed by _state_watcher
             await ws.send_text('{"ping":true}')
     except WebSocketDisconnect:
         if ws in _clients:
