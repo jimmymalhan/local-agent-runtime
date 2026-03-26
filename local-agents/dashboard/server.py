@@ -284,7 +284,7 @@ async def _broadcast(data: str):
 
 
 async def _state_watcher():
-    """Watch state.json every 800ms and push normalized state to all WS clients."""
+    """Push full normalized state every 2s (fresh read, no stale cache)."""
     global _last_state_ts
     while True:
         try:
@@ -301,13 +301,13 @@ async def _state_watcher():
                 await _broadcast(json.dumps(state))
         except Exception:
             pass
-        await asyncio.sleep(0.8)
+        await asyncio.sleep(2)
 
 
 async def _hw_pusher():
-    """Push live hardware updates every 5s regardless of state changes."""
+    """Push live hardware updates every 2s regardless of state changes."""
     while True:
-        await asyncio.sleep(5)
+        await asyncio.sleep(2)
         try:
             state = read_state()
             await _broadcast(json.dumps(state))
@@ -525,7 +525,7 @@ async def websocket_endpoint(ws: WebSocket):
     try:
         await ws.send_text(json.dumps(read_state()))
         while True:
-            await asyncio.sleep(30)
+            await asyncio.sleep(2)  # keepalive every 2s
             await ws.send_text('{"ping":true}')
     except WebSocketDisconnect:
         if ws in _clients:
