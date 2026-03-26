@@ -353,6 +353,25 @@ async def get_hardware():
     return _live_hardware()
 
 
+
+
+@app.get("/api/metrics")
+async def get_metrics(hours: int = 24):
+    """
+    Return aggregated agent observability metrics from reports/traces.jsonl.
+    Query param: hours (default 24) — lookback window.
+    Includes: loop_rate_per_hour, quality_avg, success_rate, latency_p95_ms,
+              tool_error_rate, by_agent breakdown.
+    """
+    try:
+        sys.path.insert(0, BASE_DIR)
+        from observability.metrics import compute_metrics, top_failures
+        metrics = compute_metrics(since_hours=hours)
+        metrics["top_failures"] = top_failures(n=5)
+        return metrics
+    except Exception as e:
+        return {"error": str(e), "tasks_total": 0, "quality_avg": 0, "success_rate": 0}
+
 @app.get("/api/todo")
 async def get_todo():
     """
