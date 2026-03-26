@@ -908,7 +908,27 @@ def main():
                     help="Run only N tasks (for testing)")
     ap.add_argument("--local-only", action="store_true",
                     help="Skip Opus 4.6 comparison (free run)")
+    # Continuous loop flags
+    ap.add_argument("--continuous", action="store_true",
+                    help="Run ContinuousLoop: never-stop task execution engine")
+    ap.add_argument("--forever", action="store_true",
+                    help="Alias for --continuous with no iteration cap")
+    ap.add_argument("--project", default=None,
+                    help="Project ID to run in continuous mode")
+    ap.add_argument("--max-iterations", type=int, default=None,
+                    help="Stop continuous loop after N iterations")
     args = ap.parse_args()
+
+    if args.continuous or args.forever:
+        try:
+            from orchestrator.continuous_loop import ContinuousLoop
+        except ImportError as e:
+            print(f"[ERROR] Could not import ContinuousLoop: {e}")
+            sys.exit(1)
+        loop = ContinuousLoop(project_id=args.project)
+        max_iters = None if args.forever else args.max_iterations
+        loop.run(project_id=args.project, max_iterations=max_iters)
+        return
 
     if args.auto:
         auto_loop(args.auto)
