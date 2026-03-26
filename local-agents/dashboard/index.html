@@ -581,10 +581,22 @@ main{position:relative;z-index:1;padding-top:52px;}
       <span class="cb-val" id="cb-health">—</span>
       <span class="cb-lbl">System health</span>
     </div>
+    <div class="cb-metric" style="border-left:1px solid var(--bd);padding-left:16px;margin-left:4px;">
+      <span class="cb-val" id="cb-vel" style="color:var(--blue);">—</span>
+      <span class="cb-lbl">pts/version vs Opus</span>
+    </div>
+    <div class="cb-metric">
+      <span class="cb-val" id="cb-eta" style="color:var(--green);">—</span>
+      <span class="cb-lbl">versions to beat Opus</span>
+    </div>
   </div>
-  <div class="cb-progress">
-    <div class="cb-pbar"><div class="cb-pfill" id="cb-pfill" style="width:0%"></div></div>
-    <span class="cb-ppct" id="cb-ppct">0%</span>
+  <div class="cb-progress" style="flex-direction:column;align-items:flex-end;gap:4px;">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;">Progress to Opus</span>
+      <span class="cb-ppct" id="cb-ppct">0%</span>
+    </div>
+    <div class="cb-pbar" style="width:180px;"><div class="cb-pfill" id="cb-pfill" style="width:0%"></div></div>
+    <div style="font-size:9px;color:var(--t3);" id="cb-gap-lbl">gap: — pts</div>
   </div>
 </div>
 
@@ -597,8 +609,10 @@ main{position:relative;z-index:1;padding-top:52px;}
     <p class="hSub">Autonomous local agents · self-improving · production quality</p>
     <div class="hKpis">
       <div class="kpi"><div class="kv g" id="h-local" data-testid="hero-local">—</div><div class="kl">Nexus Score</div></div>
-      <div class="kpi"><div class="kv d" id="h-opus"  data-testid="hero-opus">—</div><div class="kl">Baseline Score</div></div>
+      <div class="kpi"><div class="kv d" id="h-opus"  data-testid="hero-opus">—</div><div class="kl">Opus Baseline</div></div>
       <div class="kpi"><div class="kv b" id="h-wr"    data-testid="hero-winrate">—%</div><div class="kl">Win Rate</div></div>
+      <div class="kpi"><div class="kv" id="h-vel" style="color:var(--blue);">—</div><div class="kl">pts/version</div></div>
+      <div class="kpi"><div class="kv" id="h-eta" style="color:var(--green);">—</div><div class="kl">ETA (versions)</div></div>
       <div class="kpi"><div class="kv p" id="h-bgt"   data-testid="hero-budget">0%</div><div class="kl">Claude Budget</div></div>
     </div>
   </section>
@@ -1599,6 +1613,11 @@ function applyState(st){
   $('h-wr').textContent=wr>0?wr.toFixed(1)+'%':'—%';
   if(b.history&&b.history.length)drawBench(b.history);
   $('ceo-wr').textContent=wr>0?wr.toFixed(1)+'%':'—';
+  // Hero velocity + ETA
+  const velH=st.velocity||{};
+  const hVel=$('h-vel');const hEta=$('h-eta');
+  if(hVel){const p=velH.pts_per_version;hVel.textContent=p!=null?(p>0?'+':'')+p.toFixed(1):'—';hVel.style.color=p>0?'var(--green)':p<0?'var(--red)':'var(--t2)';}
+  if(hEta){const e=velH.versions_to_beat_baseline;hEta.textContent=e!=null?(e===0?'DONE ✓':'~'+e+'v'):'—';hEta.style.color=e===0?'var(--green)':e!=null&&e<=10?'var(--orange)':'var(--blue)';}
 
   // ── Task queue ───────────────────────────────────────────────────────────
   const q=st.task_queue||{};
@@ -1668,6 +1687,30 @@ function applyState(st){
     const health=Math.max(0,Math.round(100-cpuPenalty-ramPenalty-budPenalty-blkPenalty));
     const cbH=$('cb-health');
     if(cbH){cbH.textContent=health+'/100';cbH.style.color=health>=80?'var(--green)':health>=60?'var(--orange)':'var(--red)';}
+    // Velocity + ETA (from ceo_check velocity state)
+    const vel2=st.velocity||{};
+    const cbVel=$('cb-vel');
+    const cbEta=$('cb-eta');
+    const cbGapLbl=$('cb-gap-lbl');
+    if(cbVel){
+      const pts=vel2.pts_per_version;
+      cbVel.textContent=pts!=null?(pts>0?'+'+pts.toFixed(1):pts.toFixed(1))+'pts':'—';
+      cbVel.style.color=pts>0?'var(--green)':pts<0?'var(--red)':'var(--t2)';
+    }
+    if(cbEta){
+      const eta2=vel2.versions_to_beat_baseline;
+      cbEta.textContent=eta2!=null?(eta2===0?'DONE':'~'+eta2+'v'):'—';
+      cbEta.style.color=eta2===0?'var(--green)':eta2!=null&&eta2<=10?'var(--orange)':'var(--t2)';
+    }
+    if(cbGapLbl){
+      const gap=vel2.current_gap;
+      cbGapLbl.textContent=gap!=null?'gap: '+gap.toFixed(1)+' pts vs Opus':'gap: — pts';
+      cbGapLbl.style.color=gap<=0?'var(--green)':'var(--t3)';
+    }
+    // Progress bar = how close to beating Opus (gap shrunk vs starting gap ~30pts)
+    const progressPct=vel2.current_gap!=null?Math.max(0,Math.min(100,Math.round((1-vel2.current_gap/30)*100))):pct2;
+    const pfill2=$('cb-pfill');if(pfill2)pfill2.style.width=progressPct+'%';
+    const ppct2=$('cb-ppct');if(ppct2)ppct2.textContent=progressPct+'%';
   }
 
   // ── Version ───────────────────────────────────────────────────────────────
