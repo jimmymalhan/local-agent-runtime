@@ -82,3 +82,54 @@ def agent_meta(name: str) -> dict:
         return get_agent(name).AGENT_META
     except AttributeError:
         return {"name": name, "version": 0, "capabilities": [], "benchmark_score": None}
+
+# ---------------------------------------------------------------------------
+# Project-aware task pulling (local-agents/projects/)
+# ---------------------------------------------------------------------------
+import sys as _sys
+import os as _os
+
+_AGENTS_DIR = _os.path.dirname(_os.path.abspath(__file__))
+_LOCAL_AGENTS_DIR = _os.path.dirname(_AGENTS_DIR)
+if _LOCAL_AGENTS_DIR not in _sys.path:
+    _sys.path.insert(0, _LOCAL_AGENTS_DIR)
+
+try:
+    from projects.project_manager import ProjectManager as _ProjectManager
+    _pm: Optional[_ProjectManager] = _ProjectManager()
+except Exception:  # pragma: no cover
+    _pm = None
+
+
+def next_project_task() -> Optional[dict]:
+    """
+    Pull the highest-priority pending task from projects.json.
+
+    Returns dict: {project_id, project_name, epic_id, epic_title, task}
+    or None if no pending tasks exist or the projects package is unavailable.
+    """
+    if _pm is None:
+        return None
+    return _pm.next_task()
+
+
+def run_project_task(item: dict) -> dict:
+    """
+    Run a task from next_project_task() through the correct agent,
+    then mark it complete in ProjectManager.
+    """
+    task = item["task"]
+    result = run_task(task)
+    quality = result.get("quality", 0)
+    if _pm is not None:
+        _pm.complete_task(
+            project_id=item["project_id"],
+            epic_id=item["epic_id"],
+            task_id=task["id"],
+            result=result,
+            quality=quality,
+        )
+    result["project_id"] = item["project_id"]
+    result["epic_id"] = item["epic_id"]
+    result["task_id"] = task["id"]
+    return result

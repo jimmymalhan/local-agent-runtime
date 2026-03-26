@@ -329,5 +329,15 @@
     "pct": 0.5,
     "eta_human": "~20 versions to beat baseline",
     "last_updated": "2026-03-25T23:03:04"
+  },
+  "projects": {
+    "description": "Projects managed by local-agents/projects/project_manager.py",
+    "store": "local-agents/projects/projects.json",
+    "schema": "Project > Epic > SubTask (see local-agents/projects/schema.py)",
+    "cli": "python3 local-agents/projects/cli.py new|list|show|tasks|next|add-task",
+    "total": 0,
+    "active": 0,
+    "done": 0,
+    "paused": 0
   }
 }
