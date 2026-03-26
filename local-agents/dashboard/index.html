@@ -550,7 +550,64 @@ main{position:relative;z-index:1;padding-top:52px;}
 .cb-pbar{width:160px;height:5px;background:var(--t4);border-radius:3px;overflow:hidden;}
 .cb-pfill{height:100%;background:linear-gradient(90deg,var(--blue),var(--green));border-radius:3px;transition:width 1s ease;}
 .cb-ppct{font-size:11px;font-weight:700;color:var(--t2);width:32px;}
-  </style>
+  
+.metrics-bar{background:var(--card);border-bottom:1px solid var(--bd);padding:8px 40px;display:flex;align-items:center;position:sticky;top:52px;z-index:91;overflow-x:auto;}
+.metric{display:flex;flex-direction:column;align-items:center;gap:1px;padding:4px 20px;border-right:1px solid var(--bd);min-width:90px;}
+.metric:last-child{border-right:none;}
+.metric-value{font-size:20px;font-weight:700;letter-spacing:-.03em;color:var(--t1);line-height:1;}
+.metric-label{font-size:8.5px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--t3);white-space:nowrap;}
+.proj-card{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:22px;box-shadow:var(--shadow);cursor:pointer;transition:box-shadow .2s,transform .15s;}
+.proj-card:hover{box-shadow:var(--shadow2);transform:translateY(-2px);}
+.proj-card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
+.proj-card-name{font-size:15px;font-weight:600;color:var(--t1);}
+.proj-type-badge{font-size:9px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:10px;background:rgba(0,113,227,.08);color:var(--blue);}
+.proj-type-badge.benchmarks{background:rgba(175,82,222,.08);color:var(--purple);}
+.proj-type-badge.infrastructure{background:rgba(255,149,0,.08);color:var(--orange);}
+.proj-desc{font-size:11px;color:var(--t3);line-height:1.5;margin-bottom:12px;}
+.proj-progress{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.proj-pct{font-size:11px;font-weight:600;color:var(--green);min-width:30px;}
+.proj-prog-track{flex:1;height:4px;background:var(--t4);border-radius:2px;overflow:hidden;}
+.proj-prog-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--green),#34c759);transition:width .8s;}
+.proj-progress.warn .proj-pct{color:var(--orange);}
+.proj-progress.warn .proj-prog-fill{background:linear-gradient(90deg,var(--orange),#ffcc00);}
+.proj-card-footer{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.proj-quality{font-size:11px;font-weight:600;}
+.proj-quality.hi{color:var(--green);}
+.proj-quality.md{color:var(--orange);}
+.proj-quality.lo{color:var(--red);}
+.proj-status-dot{width:7px;height:7px;border-radius:50%;}
+.proj-status-dot.active{background:var(--green);}
+.proj-status-dot.upgrading{background:var(--orange);}
+.proj-status-dot.idle{background:var(--t4);}
+.proj-updated{font-size:9.5px;color:var(--t3);margin-left:auto;}
+.kanban-card{background:var(--card);border:1px solid var(--bd);border-radius:var(--rsm);padding:11px 12px;margin-bottom:7px;cursor:pointer;box-shadow:var(--shadow);transition:box-shadow .15s;}
+.kanban-card:hover{box-shadow:var(--shadow2);}
+.kanban-card-id{font-size:9px;color:var(--t3);margin-bottom:3px;}
+.kanban-card-title{font-size:12px;font-weight:500;line-height:1.4;color:var(--t1);margin-bottom:7px;}
+.kanban-card-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.kanban-card-cat{font-size:9px;font-weight:600;padding:1px 5px;border-radius:3px;background:rgba(0,113,227,.08);color:var(--blue);}
+.kanban-card-agent{font-size:9.5px;color:var(--t3);}
+.kanban-card-quality{margin-left:auto;font-size:10px;font-weight:700;}
+.kanban-card-quality.hi{color:var(--green);}
+.kanban-card-quality.md{color:var(--orange);}
+.kanban-card-quality.lo{color:var(--red);}
+.feed-item{display:flex;align-items:flex-start;gap:10px;padding:10px 18px;border-bottom:1px solid rgba(0,0,0,.04);font-size:11.5px;transition:background .1s;}
+.feed-item:hover{background:rgba(0,0,0,.02);}
+.feed-item:last-child{border-bottom:none;}
+.feed-item-dot{width:7px;height:7px;border-radius:50%;margin-top:3px;flex-shrink:0;}
+.feed-item-dot.done{background:var(--green);}
+.feed-item-dot.running{background:var(--blue);animation:sb .75s infinite;}
+.feed-item-dot.failed{background:var(--red);}
+.feed-item-dot.info{background:var(--t3);}
+.feed-agent{font-size:10px;font-weight:600;color:var(--blue);min-width:80px;flex-shrink:0;}
+.feed-action{color:var(--t2);flex:1;line-height:1.4;}
+.feed-quality{font-size:10px;font-weight:700;color:var(--green);flex-shrink:0;}
+.feed-quality.md{color:var(--orange);}
+.feed-ts{font-size:9.5px;color:var(--t3);font-family:monospace;white-space:nowrap;flex-shrink:0;}
+.feed-empty{padding:40px;text-align:center;color:var(--t3);font-size:13px;}
+.spark-bar{background:var(--blue);border-radius:2px 2px 0 0;min-width:6px;min-height:2px;opacity:.7;}
+.spark-bar:last-child{opacity:1;background:var(--green);}
+</style>
 </head>
 <body>
 
@@ -564,6 +621,9 @@ main{position:relative;z-index:1;padding-top:52px;}
     <button class="ntab active" role="tab" aria-selected="true"  data-tab="overview"   data-testid="tab-overview"   tabindex="0">Overview</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="agents"     data-testid="tab-agents"     tabindex="-1">Agents</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="tasks"      data-testid="tab-tasks"      tabindex="-1">Projects &amp; Tasks</button>
+    <button class="ntab"        role="tab" aria-selected="false" data-tab="projects"   data-testid="tab-projects-new" tabindex="-1">Projects</button>
+    <button class="ntab"        role="tab" aria-selected="false" data-tab="board"      data-testid="tab-board"      tabindex="-1">Board</button>
+    <button class="ntab"        role="tab" aria-selected="false" data-tab="livefeed"   data-testid="tab-livefeed"   tabindex="-1">Live Feed</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="ceo"        data-testid="tab-ceo"        tabindex="-1">CEO</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="logs"       data-testid="tab-logs"       tabindex="-1">Logs</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="chat"       data-testid="tab-chat"       tabindex="-1">Chat</button>
@@ -578,6 +638,7 @@ main{position:relative;z-index:1;padding-top:52px;}
 
 <main>
 
+<div class="metrics-bar" id="metrics-bar" role="region" aria-label="Key metrics"><div class="metric"><div class="metric-value" id="m-tasks-today">0</div><div class="metric-label">Tasks Today</div></div><div class="metric"><div class="metric-value" id="m-quality" style="color:var(--green);">0</div><div class="metric-label">Avg Quality</div></div><div class="metric"><div class="metric-value" id="m-projects" style="color:var(--blue);">0</div><div class="metric-label">Active Projects</div></div><div class="metric"><div class="metric-value" id="m-loop" style="color:var(--t3);">--</div><div class="metric-label">Loop Status</div></div><div class="metric"><div class="metric-value" id="m-tasks-week">0</div><div class="metric-label">Tasks This Week</div></div><div class="metric"><div class="metric-value" id="m-quality-week" style="color:var(--blue);">0</div><div class="metric-label">Quality Avg Week</div></div></div>
 <!-- ═══ COMPANY SUMMARY BAR (always visible — all stakeholders) ══════════════ -->
 <div id="company-bar" role="banner" aria-label="Business summary">
   <div class="cb-left">
@@ -786,8 +847,7 @@ main{position:relative;z-index:1;padding-top:52px;}
   </div>
 </div>
 
-<!-- ═══ PROJECTS stub (hidden — merged into Tasks tab) ═════════ -->
-<div id="tab-projects" class="tab-panel" style="display:none!important;" role="tabpanel" aria-hidden="true"></div>
+<div id="tab-projects" class="tab-panel" role="tabpanel"><div class="sec" style="padding-top:40px;"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;"><div class="sh" style="margin-bottom:0;"><h2 class="st">Projects</h2><span class="ss" id="projects-count">--</span></div><button onclick="newProject()" style="font-size:12px;font-weight:600;padding:7px 16px;border-radius:10px;border:none;background:var(--blue);color:#fff;cursor:pointer;">+ New Project</button></div><div id="projects-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;"></div><div id="project-detail" style="display:none;margin-top:24px;background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:24px;"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;"><h3 id="project-detail-name" style="font-size:18px;font-weight:700;">Project</h3><button onclick="closeProjectDetail()" style="font-size:12px;color:var(--t3);background:none;border:none;cursor:pointer;">Close</button></div><div id="project-epics"></div></div></div></div>
 
 <!-- ═══ TASKS TAB (unified Projects + Tasks + Todo) ══════════ -->
 <div id="tab-tasks" class="tab-panel" role="tabpanel">
@@ -849,6 +909,8 @@ main{position:relative;z-index:1;padding-top:52px;}
   </div>
 </div>
 
+<div id="tab-board" class="tab-panel" role="tabpanel"><div class="sec" style="padding-top:40px;"><div class="sh"><h2 class="st">Board</h2><span class="ss">Kanban task board</span></div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;"><div style="background:rgba(0,0,0,.02);border:1px solid var(--bd);border-radius:var(--r);padding:14px;"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--bd);"><span style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--t3);">Backlog</span><span id="backlog-count" style="font-size:10px;background:var(--t4);padding:1px 7px;border-radius:10px;">0</span></div><div id="backlog-cards"></div></div><div style="background:rgba(0,0,0,.02);border:1px solid var(--bd);border-radius:var(--r);padding:14px;"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--bd);"><span style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--blue);">In Progress</span><span id="progress-count" style="font-size:10px;background:var(--t4);padding:1px 7px;border-radius:10px;">0</span></div><div id="progress-cards"></div></div><div style="background:rgba(0,0,0,.02);border:1px solid var(--bd);border-radius:var(--r);padding:14px;"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--bd);"><span style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--orange);">Review</span><span id="review-count" style="font-size:10px;background:var(--t4);padding:1px 7px;border-radius:10px;">0</span></div><div id="review-cards"></div></div><div style="background:rgba(0,0,0,.02);border:1px solid var(--bd);border-radius:var(--r);padding:14px;"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--bd);"><span style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--green);">Done</span><span id="done-count" style="font-size:10px;background:var(--t4);padding:1px 7px;border-radius:10px;">0</span></div><div id="done-cards"></div></div></div></div></div>
+<div id="tab-livefeed" class="tab-panel" role="tabpanel"><div class="sec" style="padding-top:40px;"><div class="sh"><h2 class="st">Live Feed</h2><span class="ss">Real-time agent activity</span></div><div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:18px 22px;margin-bottom:16px;box-shadow:var(--shadow);"><div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;"><span id="loop-dot" style="width:10px;height:10px;border-radius:50%;background:var(--red);display:inline-block;flex-shrink:0;"></span><span id="loop-label" style="font-size:13px;font-weight:600;color:var(--t1);">Continuous Loop: Stopped</span><button onclick="toggleLoop()" id="loop-btn" style="font-size:11px;font-weight:600;padding:4px 12px;border-radius:8px;border:1px solid var(--bd);background:var(--card);cursor:pointer;">Start Loop</button></div><div style="display:flex;gap:20px;flex-wrap:wrap;"><div><div id="feed-tasks-hour" style="font-size:20px;font-weight:700;line-height:1;">0</div><div style="font-size:9px;text-transform:uppercase;color:var(--t3);">Tasks / Hour</div></div><div><div id="feed-quality-today" style="font-size:20px;font-weight:700;color:var(--green);line-height:1;">0</div><div style="font-size:9px;text-transform:uppercase;color:var(--t3);">Quality Avg Today</div></div><div><div style="font-size:9px;text-transform:uppercase;color:var(--t3);margin-bottom:4px;">7-Day Trend</div><div id="quality-sparkline" style="display:inline-flex;align-items:flex-end;gap:2px;height:24px;"></div></div></div></div><div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);"><div style="padding:10px 18px;border-bottom:1px solid var(--bd);font-size:12px;font-weight:600;display:flex;align-items:center;gap:8px;">Agent Activity Stream<span style="margin-left:auto;font-size:9.5px;color:var(--t3);" id="feed-count">0 events</span></div><div id="agent-feed"></div></div></div></div>
 <!-- ═══ TODO stub (hidden — kept for JS compat) ══════════════ -->
 <div id="tab-todo" class="tab-panel" style="display:none!important;" role="tabpanel" aria-hidden="true">
   <div id="todo-board" style="display:none;"></div>
@@ -1897,6 +1959,17 @@ setTimeout(()=>{
 },600);
 </script>
 
+<script id="dashboard-new-views">
+function renderProjects(projects){var grid=document.getElementById("projects-grid"),countEl=document.getElementById("projects-count");if(!grid)return;var arr=[];if(Array.isArray(projects)){arr=projects;}else if(projects&&typeof projects==="object"){arr=Object.keys(projects).filter(function(k){return k[0]!=='_';}).map(function(id){var p=Object.assign({},projects[id]);p.id=id;return p;});}if(!arr.length){grid.innerHTML="<div style='color:var(--t3);font-size:13px;padding:40px 0;grid-column:1/-1;'>No projects yet.</div>";if(countEl)countEl.textContent="0 projects";var mp=document.getElementById("m-projects");if(mp)mp.textContent=0;return;}if(countEl)countEl.textContent=arr.length+" project"+(arr.length!==1?"s":"");var ac=arr.filter(function(p){return p.status==="active";}).length;var mp2=document.getElementById("m-projects");if(mp2)mp2.textContent=ac;grid.innerHTML=arr.map(function(p){var done=+(p.tasks_done||0),total=Math.max(+(p.tasks_total||1),1),pct=Math.round(done/total*100),q=+(p.quality_score||0),qc=q>=85?"hi":q>=65?"md":"lo",hd=p.health==="green"?"active":(p.health==="yellow"||p.status==="upgrading"?"upgrading":"idle"),tc=(p.type||"core").toLowerCase().replace(/[^a-z]/g,""),upd=p.last_updated||p.last_deploy||"";return "<div class='proj-card' tabindex='0'>"+'<div class="proj-card-header"><div class="proj-card-name">'+esc(p.name||p.id||"Project")+"</div><span class='proj-type-badge "+tc+"'>" +esc(p.type||"core")+"</span></div><div class='proj-desc'>" +esc(p.description||"")+"</div><div class='proj-progress"+(pct<50?" warn":"")+"'><span class='proj-pct'>"+pct+"%</span><div class='proj-prog-track'><div class='proj-prog-fill' style='width:"+pct+"%'></div></div><span style='font-size:9.5px;color:var(--t3);'>"+done+"/"+total+"</span></div><div class='proj-card-footer'><div class='proj-status-dot "+hd+"'></div><span style='font-size:9.5px;color:var(--t3);'>"+esc(p.status||"")+"</span><span class='proj-quality "+qc+"'>Q:"+q+"</span>"+(p.blocker?"<span style='font-size:9px;color:var(--orange);'>Blocker</span>":"")+"<span class='proj-updated'>"+esc(upd)+"</span></div></div>";}).join("");}
+function openProjectDetail(id,name){var panel=document.getElementById("project-detail");if(!panel)return;var ne=document.getElementById("project-detail-name");if(ne)ne.textContent=name||id;panel.style.display="block";var ep=document.getElementById("project-epics");if(ep)ep.innerHTML="<div style='color:var(--t3);padding:16px 0;'>Details for "+esc(name||id)+"</div>";}
+function closeProjectDetail(){var p=document.getElementById("project-detail");if(p)p.style.display="none";}
+function newProject(){alert("New project: use CLI\n\npython3 local-agents/projects/cli.py new");}
+function renderBoard(taskBoard){var cm={backlog:"backlog-cards",in_progress:"progress-cards",review:"review-cards",done:"done-cards"},nm={backlog:"backlog-count",in_progress:"progress-count",review:"review-count",done:"done-count"};if(!taskBoard)return;Object.keys(cm).forEach(function(col){var el=document.getElementById(cm[col]),cn=document.getElementById(nm[col]);if(!el)return;var it=taskBoard[col]||[];if(cn)cn.textContent=it.length;if(!it.length){el.innerHTML="<div style='color:var(--t4);font-size:11px;padding:16px 0;text-align:center;'>Empty</div>";return;}el.innerHTML=it.map(function(item){var q=+(item.quality||item.local_quality||0),qc=q>=85?"hi":q>=65?"md":"lo";return "<div class='kanban-card'><div class='kanban-card-id'>"+esc(String(item.id||item.task_id||""))+"</div><div class='kanban-card-title'>"+esc((item.title||item.task||"").slice(0,80))+"</div><div class='kanban-card-meta'><span class='kanban-card-cat'>"+esc(item.category||"task")+"</span><span class='kanban-card-agent'>"+esc(item.agent||item.agent_used||"")+"</span>"+(q?"<span class='kanban-card-quality "+qc+"'>"+q+"</span>":"")+"</div></div>";}).join("");});}
+function renderFeed(agentFeed){var c=document.getElementById("agent-feed"),ce=document.getElementById("feed-count");if(!c)return;var it=Array.isArray(agentFeed)?agentFeed:[];if(ce)ce.textContent=it.length+" events";if(!it.length){c.innerHTML="<div class='feed-empty'>No agent activity yet</div>";return;}c.innerHTML=it.slice().reverse().slice(0,50).map(function(e){var q=+(e.quality||0),qc=q>=85?"":"md",dc=e.status==="done"?"done":(e.status==="running"?"running":(e.status==="failed"?"failed":"info")),ts=(e.timestamp||e.ts||"").replace("T"," ").slice(0,16);return "<div class='feed-item'><div class='feed-item-dot "+dc+"'></div><span class='feed-agent'>"+esc(e.agent||"system")+"</span><span class='feed-action'>"+esc(e.action||e.task||e.message||"")+"</span>"+(q?"<span class='feed-quality "+qc+"'>Q:"+q+"</span>":"")+"<span class='feed-ts'>"+esc(ts)+"</span></div>";}).join("");}
+function renderMetrics(metrics,loopStatus){metrics=metrics||{};loopStatus=loopStatus||{};var running=loopStatus.running||false;function ms(id,val,color){var e=document.getElementById(id);if(e){e.textContent=val;if(color)e.style.color=color;}}ms("m-tasks-today",metrics.tasks_today||0);var qt=+(metrics.quality_avg_today||0);ms("m-quality",qt,qt>=80?"var(--green)":(qt>=60?"var(--orange)":"var(--red)"));ms("m-tasks-week",metrics.tasks_this_week||0);ms("m-quality-week",+(metrics.quality_avg_week||0),"var(--blue)");ms("m-loop",running?"Running":"Stopped",running?"var(--green)":"var(--t3)");ms("feed-tasks-hour",metrics.tasks_per_hour||0);ms("feed-quality-today",qt,qt>=80?"var(--green)":(qt>=60?"var(--orange)":"var(--red)"));var dot=document.getElementById("loop-dot"),label=document.getElementById("loop-label"),btn=document.getElementById("loop-btn");if(dot)dot.style.background=running?"var(--green)":"var(--red)";if(label)label.textContent="Continuous Loop: "+(running?"Running":"Stopped");if(btn)btn.textContent=running?"Stop Loop":"Start Loop";var trend=metrics.improvement_trend||[],spark=document.getElementById("quality-sparkline");if(spark&&trend.length){var mx=Math.max.apply(null,trend.concat([1]));spark.innerHTML=trend.map(function(v){return "<div class='spark-bar' style='height:"+Math.round(v/mx*24)+"px;width:6px;' title='"+v+"'></div>";}).join("");}}
+function toggleLoop(){var btn=document.getElementById("loop-btn"),cmd=(btn&&btn.textContent.indexOf("Start")>=0)?"start":"stop";fetch("/api/loop/"+cmd,{method:"POST"}).then(function(r){return r.json();}).then(function(d){if(typeof d.running!=="undefined")renderMetrics({},d);}).catch(function(){console.warn("[Dashboard] Loop toggle unavailable");});}
+document.addEventListener("DOMContentLoaded",function(){var _pAS=window.applyState;if(typeof _pAS==="function"){window.applyState=function(st){_pAS(st);if(!st||st.ping)return;try{renderProjects(st.projects||null);}catch(e){}try{renderBoard(st.task_board||null);}catch(e){}try{renderFeed(st.agent_feed||null);}catch(e){}try{renderMetrics(st.metrics||null,st.loop_status||null);}catch(e){}};}}); 
+</script>
 <!-- Todo Board -->
 <script>
 let _lastTodoHash='';
