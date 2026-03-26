@@ -2,31 +2,22 @@
 ProjectManager — CRUD + task queue for projects/epics/tasks.
 
 Backed by local-agents/projects/projects.json.
-Thread-safe via fcntl file locking (POSIX) with portalocker fallback.
-Auto-saves on every write.
+Thread-safe via fcntl file locking. Auto-saves on every write.
 """
+import fcntl
 import json
 import os
-import fcntl
 from dataclasses import asdict
 from datetime import datetime
 from typing import Optional
 
-from projects.schema import Project, Epic, SubTask
+from projects.schema import Epic, Project, SubTask
 
 PROJECTS_FILE = os.path.join(os.path.dirname(__file__), "projects.json")
 
 
 def _now() -> str:
     return datetime.utcnow().isoformat()
-
-
-def _lock(fh):
-    fcntl.flock(fh, fcntl.LOCK_EX)
-
-
-def _unlock(fh):
-    fcntl.flock(fh, fcntl.LOCK_UN)
 
 
 class ProjectManager:
@@ -43,27 +34,26 @@ class ProjectManager:
 
     def _read_raw(self) -> dict:
         with open(self.filepath, "r") as fh:
-            _lock(fh)
+            fcntl.flock(fh, fcntl.LOCK_SH)
             try:
                 return json.load(fh)
             finally:
-                _unlock(fh)
+                fcntl.flock(fh, fcntl.LOCK_UN)
 
     def _write_raw(self, data: dict) -> None:
-        # Write to a temp file then rename for atomicity
         tmp = self.filepath + ".tmp"
         with open(tmp, "w") as fh:
-            _lock(fh)
+            fcntl.flock(fh, fcntl.LOCK_EX)
             try:
                 json.dump(data, fh, indent=2)
             finally:
-                _unlock(fh)
+                fcntl.flock(fh, fcntl.LOCK_UN)
         os.replace(tmp, self.filepath)
 
-    def _load_projects(self) -> list[dict]:
+    def _load_projects(self) -> list:
         return self._read_raw().get("projects", [])
 
-    def _save_projects(self, projects: list[dict]) -> None:
+    def _save_projects(self, projects: list) -> None:
         self._write_raw({"projects": projects})
 
     # ------------------------------------------------------------------ #
@@ -92,7 +82,7 @@ class ProjectManager:
                 return p
         return None
 
-    def list_projects(self) -> list[dict]:
+    def list_projects(self) -> list:
         """Return all projects."""
         return self._load_projects()
 
@@ -150,11 +140,11 @@ class ProjectManager:
         Return the highest-priority pending task across all active projects.
 
         Priority order:
-          1. Project priority (epic.priority asc, 1=high)
-          2. Epic order (insertion order)
-          3. Task order (insertion order)
+          1. Epic priority ascending (1=high)
+          2. Epic insertion order
+          3. Task insertion order
 
-        Returns a dict with keys: project_id, epic_id, task (SubTask dict).
+        Returns dict: {project_id, project_name, epic_id, epic_title, task}
         """
         best = None
         best_priority = 999
@@ -163,7 +153,7 @@ class ProjectManager:
             if p["status"] not in ("active",):
                 continue
             for e in p["epics"]:
-                if e["status"] in ("done",):
+                if e["status"] == "done":
                     continue
                 for t in e["tasks"]:
                     if t["status"] == "pending":
@@ -216,11 +206,11 @@ class ProjectManager:
                                 return t
         return None
 
-    def get_all_tasks(self, status: Optional[str] = None) -> list[dict]:
+    def get_all_tasks(self, status: Optional[str] = None) -> list:
         """
         Return all tasks across all projects, optionally filtered by status.
 
-        Each item includes project_id, project_name, epic_id, epic_title, and the task dict.
+        Each item includes: project_id, project_name, epic_id, epic_title, task dict.
         """
         results = []
         for p in self._load_projects():

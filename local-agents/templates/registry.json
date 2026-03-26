@@ -1,0 +1,46 @@
+{
+  "templates": {
+    "fastapi": {
+      "dir": "fastapi",
+      "language": "python",
+      "framework": "FastAPI",
+      "description": "FastAPI REST API with SQLAlchemy, Alembic, Docker",
+      "post_scaffold": ["pip install -r requirements.txt", "alembic upgrade head"]
+    },
+    "nextjs": {
+      "dir": "nextjs",
+      "language": "typescript",
+      "framework": "Next.js 14",
+      "description": "Next.js app with TypeScript, Tailwind, Shadcn UI",
+      "post_scaffold": ["npm install", "npm run dev"]
+    },
+    "react-vite": {
+      "dir": "react-vite",
+      "language": "typescript",
+      "framework": "React+Vite",
+      "description": "React SPA with Vite, TypeScript, Zustand",
+      "post_scaffold": ["npm install", "npm run dev"]
+    },
+    "django": {
+      "dir": "django",
+      "language": "python",
+      "framework": "Django",
+      "description": "Django REST framework with PostgreSQL, Celery",
+      "post_scaffold": ["pip install -r requirements.txt", "python manage.py migrate"]
+    },
+    "python-cli": {
+      "dir": "python-cli",
+      "language": "python",
+      "framework": "Click",
+      "description": "Python CLI tool with Click, Rich, packaging",
+      "post_scaffold": ["pip install -e '.[dev]'"]
+    },
+    "data-pipeline": {
+      "dir": "data-pipeline",
+      "language": "python",
+      "framework": "DuckDB+dbt",
+      "description": "Data pipeline with DuckDB, Pandas, dbt",
+      "post_scaffold": ["pip install -r requirements.txt", "dbt deps"]
+    }
+  }
+}

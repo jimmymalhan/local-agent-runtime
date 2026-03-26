@@ -1,5 +1,4 @@
-from dataclasses import dataclass, field, asdict
-from typing import Optional
+from dataclasses import dataclass, field
 from datetime import datetime
 import uuid
 
@@ -24,7 +23,7 @@ class Epic:
     title: str = ""
     description: str = ""
     status: str = "pending"
-    tasks: list = field(default_factory=list)  # list of SubTask
+    tasks: list = field(default_factory=list)  # list of SubTask dicts
     priority: int = 1  # 1=high 2=medium 3=low
     depends_on: list = field(default_factory=list)  # epic ids
 
@@ -37,7 +36,7 @@ class Project:
     description: str = ""
     status: str = "active"  # active|paused|done|archived
     path: str = ""  # absolute path to project on disk
-    epics: list = field(default_factory=list)  # list of Epic
+    epics: list = field(default_factory=list)  # list of Epic dicts
     tags: list = field(default_factory=list)
     velocity: float = 0.0  # tasks completed per day
     quality_avg: float = 0.0
