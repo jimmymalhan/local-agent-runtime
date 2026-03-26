@@ -17,6 +17,8 @@ from datetime import datetime
 STATE_FILE = str(Path(__file__).parent / "state.json")
 _DEFAULT_STATE = {
     "ts": "",
+    "quality": 0,
+    "model": "local-v1",
     "version": {"current": 0, "total": 100, "pct_complete": 0.0, "label": ""},
     "agents": {},
     "task_queue": {"total": 100, "completed": 0, "in_progress": 0, "failed": 0, "pending": 100},
@@ -27,6 +29,8 @@ _DEFAULT_STATE = {
                  "gpu_pct": None, "alert_level": "ok"},
     "failures": [],
     "research_feed": [],
+    "recent_tasks": [],
+    "changelog": [],
     "version_changelog": {},
 }
 
@@ -45,11 +49,16 @@ def _write(state: dict):
         from state.dashboard_schema import validate_and_fix_state
         state = validate_and_fix_state(state)
     except ImportError:
-        # Fallback: ensure minimal structure
+        # Fallback: ensure all required fields present
         state.setdefault("ts", datetime.now().isoformat())
+        state.setdefault("quality", 0)
+        state.setdefault("model", "local-v1")
         state.setdefault("version", {"current": 0, "total": 0, "pct_complete": 0.0, "label": ""})
         state.setdefault("agents", {})
         state.setdefault("task_queue", {"total": 0, "completed": 0, "in_progress": 0, "failed": 0, "pending": 0})
+        state.setdefault("recent_tasks", [])
+        state.setdefault("changelog", [])
+        state.setdefault("research_feed", [])
 
     state["ts"] = datetime.now().isoformat()
     tmp = STATE_FILE + ".tmp"

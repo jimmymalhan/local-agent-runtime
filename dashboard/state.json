@@ -1,10 +1,10 @@
 {
-  "ts": "2026-03-26T16:52:55.950117",
+  "ts": "2026-03-26T16:54:19.998128",
   "version": {
-    "current": 5,
+    "current": 1,
     "total": 100,
-    "pct_complete": 5.0,
-    "label": "v5 running"
+    "pct_complete": 1.0,
+    "label": "v1 running"
   },
   "agents": {
     "executor": {
@@ -44,10 +44,10 @@
     },
     "architect": {
       "status": "running",
-      "task": "Build a distributed task queue with workers",
-      "task_id": 8,
+      "task": "Build a production FastAPI REST API with JWT auth",
+      "task_id": 1,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-26T14:27:13.853213",
+      "last_activity": "2026-03-26T16:53:57.885258",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -63,10 +63,10 @@
   },
   "task_queue": {
     "total": 100,
-    "completed": 7,
+    "completed": 0,
     "in_progress": 1,
     "failed": 0,
-    "pending": 92
+    "pending": 99
   },
   "benchmark_scores": {},
   "token_usage": {
@@ -77,8 +77,8 @@
     "hard_limit_hit": false
   },
   "hardware": {
-    "cpu_pct": 42.6,
-    "ram_pct": 69.3,
+    "cpu_pct": 42.9,
+    "ram_pct": 70.1,
     "disk_pct": 0.0,
     "gpu_pct": null,
     "alert_level": "ok"
@@ -255,49 +255,19 @@
     "retrains": 0
   },
   "auto_heal_status": {
-    "ts": "2026-03-26T23:52:47",
+    "ts": "2026-03-26T23:54:17",
     "issues_this_cycle": [],
     "healthy": true,
     "dashboard_alive": true,
     "disk_ok": true
   },
   "calibration": {
-    "version": 5,
-    "ts": "2026-03-26T21:22:54",
+    "version": 1,
+    "ts": "2026-03-26T23:53:57",
     "results": {
-      "benchmarker": {
-        "ts": "2026-03-26T21:20:24",
-        "version": 5,
-        "agent": "benchmarker",
-        "avg_score": 0.0,
-        "prev_score": 0.0,
-        "regressed": false,
-        "pass": false,
-        "patched": false,
-        "tasks": [
-          {
-            "title": "Score output quality 0-100 with rubric",
-            "score": 0,
-            "status": "done",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Compare two solutions: which is better?",
-            "score": 0,
-            "status": "done",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Identify top 3 failure patterns in task batch",
-            "score": 0,
-            "status": "done",
-            "elapsed": 0.0
-          }
-        ]
-      },
       "reviewer": {
-        "ts": "2026-03-26T21:20:24",
-        "version": 5,
+        "ts": "2026-03-26T23:51:27",
+        "version": 1,
         "agent": "reviewer",
         "avg_score": 0.0,
         "prev_score": 0.0,
@@ -325,9 +295,39 @@
           }
         ]
       },
+      "benchmarker": {
+        "ts": "2026-03-26T23:51:27",
+        "version": 1,
+        "agent": "benchmarker",
+        "avg_score": 0.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": false,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Score output quality 0-100 with rubric",
+            "score": 0,
+            "status": "done",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Compare two solutions: which is better?",
+            "score": 0,
+            "status": "done",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Identify top 3 failure patterns in task batch",
+            "score": 0,
+            "status": "done",
+            "elapsed": 0.0
+          }
+        ]
+      },
       "executor": {
-        "ts": "2026-03-26T21:20:24",
-        "version": 5,
+        "ts": "2026-03-26T23:51:27",
+        "version": 1,
         "agent": "executor",
         "avg_score": 0.0,
         "prev_score": 0.0,
@@ -356,8 +356,8 @@
         ]
       },
       "researcher": {
-        "ts": "2026-03-26T21:20:24",
-        "version": 5,
+        "ts": "2026-03-26T23:51:27",
+        "version": 1,
         "agent": "researcher",
         "avg_score": 100.0,
         "prev_score": 0.0,
@@ -386,8 +386,8 @@
         ]
       },
       "test_engineer": {
-        "ts": "2026-03-26T21:21:30",
-        "version": 5,
+        "ts": "2026-03-26T23:53:17",
+        "version": 1,
         "agent": "test_engineer",
         "avg_score": 68.3,
         "prev_score": 0.0,
@@ -399,25 +399,25 @@
             "title": "Write pytest for add(a,b)",
             "score": 75,
             "status": "done",
-            "elapsed": 27.58
+            "elapsed": 67.33
           },
           {
             "title": "Write tests for a REST endpoint handler",
             "score": 65,
             "status": "done",
-            "elapsed": 17.23
+            "elapsed": 18.54
           },
           {
             "title": "Write integration test for DB migration",
             "score": 65,
             "status": "done",
-            "elapsed": 20.53
+            "elapsed": 24.19
           }
         ]
       },
       "debugger": {
-        "ts": "2026-03-26T21:21:39",
-        "version": 5,
+        "ts": "2026-03-26T23:53:25",
+        "version": 1,
         "agent": "debugger",
         "avg_score": 90.0,
         "prev_score": 0.0,
@@ -429,49 +429,19 @@
             "title": "Fix: AttributeError on NoneType",
             "score": 70,
             "status": "done",
-            "elapsed": 28.23
+            "elapsed": 68.05
           },
           {
             "title": "Fix: off-by-one in binary search",
             "score": 100,
             "status": "done",
-            "elapsed": 22.83
+            "elapsed": 25.98
           },
           {
             "title": "Debug race condition in thread-safe queue",
             "score": 100,
             "status": "done",
-            "elapsed": 23.35
-          }
-        ]
-      },
-      "planner": {
-        "ts": "2026-03-26T21:22:30",
-        "version": 5,
-        "agent": "planner",
-        "avg_score": 58.3,
-        "prev_score": 0.0,
-        "regressed": false,
-        "pass": true,
-        "patched": false,
-        "tasks": [
-          {
-            "title": "Break 'build a REST API' into 5 atomic steps",
-            "score": 75,
-            "status": "done",
-            "elapsed": 6.22
-          },
-          {
-            "title": "Decompose database migration into sub-tasks",
-            "score": 50,
-            "status": "done",
-            "elapsed": 60.0
-          },
-          {
-            "title": "Plan a refactor of a 500-line module",
-            "score": 50,
-            "status": "done",
-            "elapsed": 60.0
+            "elapsed": 24.54
           }
         ]
       }
@@ -479,13 +449,12 @@
     "passing": [
       "researcher",
       "test_engineer",
-      "debugger",
-      "planner"
+      "debugger"
     ],
     "patched": []
   },
   "board_plan": {
-    "version": 5,
+    "version": 1,
     "total_tasks": 100,
     "total_projects": 7,
     "projects": [
@@ -499,73 +468,73 @@
             "task_id": 1,
             "title": "Build a production FastAPI REST API with JWT auth",
             "difficulty": "hard",
-            "status": "done",
+            "status": "running",
             "agent": "architect",
-            "quality": 100,
-            "elapsed_s": 45.0
+            "quality": 0,
+            "elapsed_s": 0.0
           },
           {
             "task_id": 2,
             "title": "Build a CLI deployment tool with subcommands",
             "difficulty": "hard",
-            "status": "done",
+            "status": "pending",
             "agent": "architect",
-            "quality": 100,
-            "elapsed_s": 48.3
+            "quality": 0,
+            "elapsed_s": 0
           },
           {
             "task_id": 3,
             "title": "Build a real-time WebSocket chat server",
             "difficulty": "hard",
-            "status": "done",
+            "status": "pending",
             "agent": "architect",
-            "quality": 100,
-            "elapsed_s": 62.7
+            "quality": 0,
+            "elapsed_s": 0
           },
           {
             "task_id": 4,
             "title": "Build a data pipeline with ETL + validation",
             "difficulty": "hard",
-            "status": "done",
+            "status": "pending",
             "agent": "architect",
-            "quality": 100,
-            "elapsed_s": 36.1
+            "quality": 0,
+            "elapsed_s": 0
           },
           {
             "task_id": 5,
             "title": "Build a Markdown blog static site generator",
             "difficulty": "hard",
-            "status": "done",
+            "status": "pending",
             "agent": "architect",
-            "quality": 100,
-            "elapsed_s": 22.4
+            "quality": 0,
+            "elapsed_s": 0
           },
           {
             "task_id": 6,
             "title": "Build a GitHub Actions CI pipeline for a Python project",
             "difficulty": "hard",
-            "status": "done",
+            "status": "pending",
             "agent": "architect",
-            "quality": 90,
-            "elapsed_s": 13.9
+            "quality": 0,
+            "elapsed_s": 0
           },
           {
             "task_id": 7,
             "title": "Build a multi-tenant SaaS API with RBAC",
             "difficulty": "hard",
-            "status": "done",
+            "status": "pending",
             "agent": "architect",
-            "quality": 100,
-            "elapsed_s": 27.7
+            "quality": 0,
+            "elapsed_s": 0
           },
           {
             "task_id": 8,
             "title": "Build a distributed task queue with workers",
             "difficulty": "hard",
-            "status": "running",
+            "status": "pending",
             "agent": "architect",
             "quality": 0,
-            "elapsed_s": 0.0
+            "elapsed_s": 0
           },
           {
             "task_id": 9,
@@ -677,11 +646,11 @@
           }
         ],
         "total": 20,
-        "done": 7,
+        "done": 0,
         "in_progress": 1,
         "failed": 0,
         "status": "running",
-        "pct": 35.0
+        "pct": 0.0
       },
       {
         "id": "proj-refactor",
@@ -1488,7 +1457,7 @@
         "pct": 0
       }
     ],
-    "initialized_at": "2026-03-26T14:22:54.711792",
+    "initialized_at": "2026-03-26T16:53:57.251755",
     "status": "planned"
   },
   "recent_tasks": [
@@ -1497,63 +1466,63 @@
       "title": "Build a production FastAPI REST API with JWT auth",
       "category": "scaffold",
       "agent_used": "architect",
-      "status": "done",
-      "local_quality": 100
+      "status": "running",
+      "local_quality": 0
     },
     {
       "task_id": 2,
       "title": "Build a CLI deployment tool with subcommands",
       "category": "scaffold",
       "agent_used": "architect",
-      "status": "done",
-      "local_quality": 100
+      "status": "todo",
+      "local_quality": 0
     },
     {
       "task_id": 3,
       "title": "Build a real-time WebSocket chat server",
       "category": "scaffold",
       "agent_used": "architect",
-      "status": "done",
-      "local_quality": 100
+      "status": "todo",
+      "local_quality": 0
     },
     {
       "task_id": 4,
       "title": "Build a data pipeline with ETL + validation",
       "category": "scaffold",
       "agent_used": "architect",
-      "status": "done",
-      "local_quality": 100
+      "status": "todo",
+      "local_quality": 0
     },
     {
       "task_id": 5,
       "title": "Build a Markdown blog static site generator",
       "category": "scaffold",
       "agent_used": "architect",
-      "status": "done",
-      "local_quality": 100
+      "status": "todo",
+      "local_quality": 0
     },
     {
       "task_id": 6,
       "title": "Build a GitHub Actions CI pipeline for a Python project",
       "category": "scaffold",
       "agent_used": "architect",
-      "status": "done",
-      "local_quality": 90
+      "status": "todo",
+      "local_quality": 0
     },
     {
       "task_id": 7,
       "title": "Build a multi-tenant SaaS API with RBAC",
       "category": "scaffold",
       "agent_used": "architect",
-      "status": "done",
-      "local_quality": 100
+      "status": "todo",
+      "local_quality": 0
     },
     {
       "task_id": 8,
       "title": "Build a distributed task queue with workers",
       "category": "scaffold",
       "agent_used": "architect",
-      "status": "running",
+      "status": "todo",
       "local_quality": 0
     },
     {
@@ -2294,15 +2263,15 @@
     }
   ],
   "business_summary": {
-    "headline": "7 of 100 engineering tasks complete",
-    "pct_complete": 7.0,
+    "headline": "0 of 100 engineering tasks complete",
+    "pct_complete": 0.0,
     "projects_active": 1,
     "blockers_open": 0,
-    "version": 5,
-    "updated_at": "2026-03-26T14:27:13.856712"
+    "version": 1,
+    "updated_at": "2026-03-26T16:53:57.888615"
   },
   "epic_board": {
-    "ts": "2026-03-26T16:52:55.949999",
+    "ts": "2026-03-26T16:54:19.997903",
     "epics": [
       {
         "id": "system-reliability",

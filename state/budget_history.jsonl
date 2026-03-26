@@ -14,3 +14,8 @@
 {"ts": "2026-03-26T14:22:54.721212", "agent": "planner", "old_budget": 729, "new_budget": 656, "success_rate": 0.5, "reason": "Low success (50%) \u2014 focus easy wins"}
 {"ts": "2026-03-26T14:22:54.721257", "agent": "architect", "old_budget": 1100, "new_budget": 1210, "success_rate": 1.0, "reason": "High success (100%) \u2014 reward"}
 {"ts": "2026-03-26T14:22:54.721304", "agent": "refactor", "old_budget": 1100, "new_budget": 1210, "success_rate": 1.0, "reason": "High success (100%) \u2014 reward"}
+{"ts": "2026-03-26T16:53:57.260714", "agent": "executor", "old_budget": 1464, "new_budget": 1610, "success_rate": 0.89, "reason": "High success (89%) \u2014 reward"}
+{"ts": "2026-03-26T16:53:57.261768", "agent": "researcher", "old_budget": 656, "new_budget": 590, "success_rate": 0.4, "reason": "Low success (40%) \u2014 focus easy wins"}
+{"ts": "2026-03-26T16:53:57.261855", "agent": "planner", "old_budget": 656, "new_budget": 590, "success_rate": 0.5, "reason": "Low success (50%) \u2014 focus easy wins"}
+{"ts": "2026-03-26T16:53:57.261916", "agent": "architect", "old_budget": 1210, "new_budget": 1331, "success_rate": 1.0, "reason": "High success (100%) \u2014 reward"}
+{"ts": "2026-03-26T16:53:57.261955", "agent": "refactor", "old_budget": 1210, "new_budget": 1331, "success_rate": 1.0, "reason": "High success (100%) \u2014 reward"}
