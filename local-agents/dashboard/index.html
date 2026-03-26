@@ -1742,8 +1742,8 @@ function applyState(st){
 function conn(){
   const pr=location.protocol==='https:'?'wss:':'ws:';
   const ws=new WebSocket(`${pr}//${location.host}/ws`);
-  ws.onmessage=e=>{try{applyState(JSON.parse(e.data));}catch(x){}};
-  ws.onerror=()=>{};ws.onclose=()=>setTimeout(conn,3000);
+  ws.onmessage=e=>{try{const d=JSON.parse(e.data);if(!d.ping){applyState(d);_luTs=Date.now();}}catch(x){}};
+  ws.onerror=()=>{};ws.onclose=()=>setTimeout(conn,2000);
 }
 async function poll(){try{const r=await fetch('/api/state');if(r.ok)applyState(await r.json());}catch(e){}}
 
@@ -1795,13 +1795,22 @@ async function seed(){
   }
   applyState(st);
 }
+// -- Last-updated liveness tracker (ticks every 1s) --
+let _luTs=Date.now();
+function _updLu(){
+  const el=document.getElementById('lu-ind');if(!el)return;
+  const s=Math.floor((Date.now()-_luTs)/1000);
+  el.textContent=s<5?'just now':s+'s ago';
+}
+setInterval(_updLu,1000);
+
 seed();conn();
-setInterval(poll,2000);setInterval(loadRescue,12000);
-// Unified board: refresh every 5s when Tasks tab is active
+setInterval(poll,2000);setInterval(loadRescue,2000);
+// Unified board: refresh every 2s when Tasks tab is active
 setInterval(()=>{
   const tasksTab=document.getElementById('tab-tasks');
   if(tasksTab&&tasksTab.classList.contains('active'))refreshUnifiedBoard();
-},5000);
+},2000);
 setTimeout(()=>{
   addFeed('info','Nexus runtime started — autonomous v1→v100 loop',new Date().toISOString());
   addFeed('watchdog','Rescue watchdog armed — polls every 60s',new Date().toISOString());
