@@ -31,6 +31,7 @@ ROUTING_TABLE = {
     "refactor":      "refactor",
     "research":      "researcher",
     "doc":           "doc_writer",
+    "doc_gen":       "doc_writer",
     "documentation": "doc_writer",
     "review":        "reviewer",
     "debug":         "debugger",
