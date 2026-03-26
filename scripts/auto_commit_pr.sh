@@ -106,8 +106,3 @@ else
 fi
 
 echo "[auto-commit] Committed '${SUBJECT}' and pushed to $BRANCH"
-
-# ── Auto-merge any PRs that are clean (no conflicts, all checks pass) ─────
-if [[ -f "$REPO_DIR/scripts/auto_merge_pr.sh" ]]; then
-  bash "$REPO_DIR/scripts/auto_merge_pr.sh" 2>&1 || true
-fi

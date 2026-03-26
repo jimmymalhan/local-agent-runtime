@@ -1,0 +1,24 @@
+version: 2
+
+sources:
+  - name: raw
+    tables:
+      - name: raw_data
+        description: "Raw data loaded by the pipeline extract stage"
+
+models:
+  - name: stg_items
+    description: "Staged items with clean types and names"
+    columns:
+      - name: item_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: item_name
+        tests:
+          - not_null
+      - name: item_status
+        tests:
+          - accepted_values:
+              values: ["pending", "done", "failed"]

@@ -71,6 +71,7 @@ Immediately stop and surface approval request if:
 | Agent | Domain | File |
 |-------|--------|------|
 | Supervisor | Pre-flight, heartbeat, stall detection | orchestrator/main.py |
+| parallel_executor | run up to 4 tasks simultaneously in isolated git worktrees | orchestrator/parallel_executor.py |
 | Nexus-Planner | Task decomposition, strategy | agents/planner.py |
 | Nexus-Executor | code_gen, bug_fix | agents/executor.py |
 | Nexus-Reviewer | Quality scoring | agents/reviewer.py |

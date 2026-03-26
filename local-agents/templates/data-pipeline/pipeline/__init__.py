@@ -1,0 +1,8 @@
+"""{{name}} data pipeline."""
+
+from .config import PipelineConfig
+from .extract import extract
+from .transform import transform
+from .load import load
+
+__all__ = ["PipelineConfig", "extract", "transform", "load"]
