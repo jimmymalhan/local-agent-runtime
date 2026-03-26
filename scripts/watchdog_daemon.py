@@ -50,6 +50,23 @@ def start(name: str, cmd: str, logfile: str):
     )
 
 
+def is_state_stale(max_age_s: int = 60) -> bool:
+    """Return True if dashboard state.json ts is older than max_age_s seconds."""
+    state_path = LOCAL_AGENTS / "dashboard" / "state.json"
+    try:
+        state = json.loads(state_path.read_text())
+        ts_str = state.get("ts", "")
+        if not ts_str:
+            return True
+        ts = datetime.fromisoformat(ts_str)
+        if ts.tzinfo is None:
+            ts = ts.replace(tzinfo=timezone.utc)
+        age = (datetime.now(timezone.utc) - ts).total_seconds()
+        return age > max_age_s
+    except Exception:
+        return True
+
+
 def write_heartbeat(updater: bool, server: bool, loop: bool):
     hb = {
         "ts": datetime.now(timezone.utc).isoformat(),
@@ -75,6 +92,17 @@ def tick():
             f"python3 {LOCAL_AGENTS}/dashboard/live_state_updater.py",
             "/tmp/nexus-live-state.log",
         )
+    elif is_state_stale(60):
+        # Writer is running but state.json hasn't been updated in >60s — force restart
+        log.warning("Dashboard state stale (>60s) — killing and restarting live_state_updater")
+        subprocess.run(["pkill", "-f", "live_state_updater.py"], capture_output=True)
+        time.sleep(1)
+        start(
+            "live_state_updater",
+            f"python3 {LOCAL_AGENTS}/dashboard/live_state_updater.py",
+            "/tmp/nexus-live-state.log",
+        )
+
     if not server:
         start(
             "dashboard_server",

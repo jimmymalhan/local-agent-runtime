@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Updates dashboard/state.json every 2 seconds. Run: python3 dashboard/live_state_updater.py &"""
 import os, json, time, subprocess
-from datetime import datetime, timezone
+from datetime import datetime, timezone, date
 from pathlib import Path
 
 BASE = str(Path(__file__).parent.parent)
@@ -92,7 +92,8 @@ def token_usage():
         pass
     # Estimate local tokens from loop log (heuristic: 500 tokens per task)
     try:
-        loop_log = Path(REPORTS, "loop_20260325.jsonl")
+        today = date.today().strftime("%Y%m%d")
+        loop_log = Path(REPORTS, f"loop_{today}.jsonl")
         if loop_log.exists():
             task_count = sum(1 for l in loop_log.read_text().splitlines() if l.strip())
             local_tokens = task_count * 500

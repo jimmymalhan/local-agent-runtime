@@ -75,6 +75,20 @@ except ImportError:
     def update_task_queue(*a, **kw): pass
 
 try:
+    from orchestrator.parallel_executor import run_parallel_tasks as _run_parallel
+    _PARALLEL = True
+except ImportError:
+    _PARALLEL = False
+    def _run_parallel(tasks, max_workers=4): return [_run_task(t) for t in tasks]
+
+try:
+    from orchestrator.checkpoint_manager import get_cm as _get_cm
+    _CHECKPOINTS = True
+except ImportError:
+    _CHECKPOINTS = False
+    def _get_cm(): return None
+
+try:
     from tasks.task_suite import TASKS as _TASK_SUITE
     _TASK_SUITE_AVAILABLE = True
 except ImportError:
@@ -116,6 +130,9 @@ _AUTO_TASK_TEMPLATES = [
 ]
 
 _NEXT_AUTO_ID = 9000  # auto-generated tasks start above manually defined range
+_IMPROVE_EVERY = 50   # trigger SelfImprover after this many completed tasks
+_PARALLEL_BATCH = 4   # max tasks to run in parallel when DAG allows it
+QUALITY_SCORES_FILE = os.path.join(REPORTS_DIR, "..", "quality_scores.txt")
 
 
 def _now_iso() -> str:
@@ -176,11 +193,15 @@ class ContinuousLoop:
         # backoff state
         self._backoff_s = 0.0
 
+        # checkpoint manager (resume on crash)
+        self._cm = _get_cm() if _CHECKPOINTS else None
+
         # signal handlers for graceful exit
         signal.signal(signal.SIGINT, self._handle_signal)
         signal.signal(signal.SIGTERM, self._handle_signal)
 
-        log.info("ContinuousLoop initialised (project=%s)", project_id or "all")
+        log.info("ContinuousLoop initialised (project=%s parallel=%s checkpoints=%s)",
+                 project_id or "all", _PARALLEL, _CHECKPOINTS)
 
     # ── public entry point ────────────────────────────────────────────────────
 
@@ -209,67 +230,88 @@ class ContinuousLoop:
                 log.info("Stop condition met — exiting loop.")
                 break
 
-            # ── 3. get next task ─────────────────────────────────────────────
-            task = self.get_next_task(pid)
+            # ── 3. get task batch (parallel if multiple available) ───────────
+            batch = self._get_task_batch(pid)
 
             # ── 4. auto-generate if queue empty ──────────────────────────────
-            if task is None:
+            if not batch:
                 generated = self.auto_generate_tasks(pid)
                 if not generated:
                     log.info("Queue empty and no tasks generated — sleeping 30s.")
                     time.sleep(30)
                     continue
-                task = self.get_next_task(pid)
-                if task is None:
+                batch = self._get_task_batch(pid)
+                if not batch:
                     time.sleep(5)
                     continue
 
-            # ── 5. mark in_progress ──────────────────────────────────────────
-            self._current_task = task
-            task["status"] = "in_progress"
-            task.setdefault("attempts", 0)
-            self._update_dashboard_in_progress(task)
-
-            # ── 6. execute with retry ─────────────────────────────────────────
-            result = self._execute_with_retry(task)
-            score = float(result.get("quality", 0))
-
-            # ── 7. record outcome ─────────────────────────────────────────────
-            self._quality_scores.append(score)
-            self._tasks_today += 1
-            self._total_tasks_seen += 1
-
-            if score >= 60:
-                self._consecutive_failures = 0
-                self._backoff_s = 0.0
-                self._complete_task(task, result)
-
-                # ── 8. promote patterns for high scores ──────────────────────
-                if score >= 90:
-                    self.promote_pattern(task, result)
+            # ── 5. execute batch (parallel if >1, sequential if 1) ───────────
+            if len(batch) > 1 and _PARALLEL:
+                log.info("Parallel batch: %d tasks via parallel_executor", len(batch))
+                for t in batch:
+                    t["status"] = "in_progress"
+                    t.setdefault("attempts", 0)
+                results = _run_parallel(batch, max_workers=min(_PARALLEL_BATCH, len(batch)))
+                pairs = list(zip(batch, results))
             else:
-                self._consecutive_failures += 1
-                self._backoff_s = min(self._backoff_s * 2 + 5, 60)
-                self._fail_task(task, result)
-                log.warning(
-                    "Task '%s' scored %.0f < 60 after all retries — backoff %.0fs",
-                    task.get("title", "?"), score, self._backoff_s,
-                )
+                task = batch[0]
+                self._current_task = task
+                task["status"] = "in_progress"
+                task.setdefault("attempts", 0)
+                self._update_dashboard_in_progress(task)
+                # checkpoint: try resume if crashed mid-task
+                if self._cm:
+                    resume = self._cm.load_agent(
+                        task.get("_agent", "executor"),
+                        version=self._current_version(),
+                    )
+                    if resume:
+                        log.info("Resumed task '%s' from checkpoint", task.get("title"))
+                        task.update(resume)
+                result = self._execute_with_retry(task)
+                pairs = [(task, result)]
 
-            # ── 9. loop log ───────────────────────────────────────────────────
-            self._log_event("task_done", {
-                "task_id": task.get("id"),
-                "title": task.get("title"),
-                "score": score,
-                "agent": result.get("agent_name"),
-                "elapsed_s": result.get("elapsed_s", 0),
-                "iteration": self._iterations,
-            })
+            # ── 6. record outcomes ────────────────────────────────────────────
+            for task, result in pairs:
+                score = float(result.get("quality", 0))
+                self._quality_scores.append(score)
+                self._tasks_today += 1
+                self._total_tasks_seen += 1
+                self._write_quality_score(task, score)
 
-            # ── 10. dashboard heartbeat ───────────────────────────────────────
+                if score >= 60:
+                    self._consecutive_failures = 0
+                    self._backoff_s = 0.0
+                    self._complete_task(task, result)
+                    if score >= 90:
+                        self.promote_pattern(task, result)
+                else:
+                    self._consecutive_failures += 1
+                    self._backoff_s = min(self._backoff_s * 2 + 5, 60)
+                    self._fail_task(task, result)
+                    log.warning(
+                        "Task '%s' scored %.0f < 60 — backoff %.0fs",
+                        task.get("title", "?"), score, self._backoff_s,
+                    )
+
+                self._log_event("task_done", {
+                    "task_id": task.get("id"),
+                    "title": task.get("title"),
+                    "score": score,
+                    "agent": result.get("agent_name"),
+                    "elapsed_s": result.get("elapsed_s", 0),
+                    "iteration": self._iterations,
+                    "parallel": len(pairs) > 1,
+                })
+
+            # ── 7. self-improve every N completions ───────────────────────────
+            if self._tasks_today > 0 and self._tasks_today % _IMPROVE_EVERY == 0:
+                self._trigger_self_improve()
+
+            # ── 8. dashboard heartbeat ────────────────────────────────────────
             self._update_dashboard_summary()
 
-            # ── 11. backoff if needed ─────────────────────────────────────────
+            # ── 9. backoff if needed ──────────────────────────────────────────
             if self._backoff_s > 0:
                 time.sleep(self._backoff_s)
 
@@ -280,6 +322,71 @@ class ContinuousLoop:
             "Loop finished — iterations=%d tasks=%d quality_avg=%.1f",
             self._iterations, self._tasks_today, self._quality_avg(),
         )
+
+    # ── batch + parallel helpers ──────────────────────────────────────────────
+
+    def _get_task_batch(self, project_id: Optional[str] = None) -> list:
+        """Return up to _PARALLEL_BATCH independent pending tasks.
+
+        Tries to pull multiple tasks from ProjectManager at once.
+        Falls back to single-task get if PM not available.
+        """
+        tasks = []
+        try:
+            from projects.project_manager import ProjectManager
+            pm = ProjectManager()
+            all_tasks = pm.get_all_tasks()
+            pending = [
+                item for item in all_tasks
+                if item["task"].get("status") in (None, "pending", "todo")
+            ]
+            for item in pending[:_PARALLEL_BATCH]:
+                task = dict(item["task"])
+                task["project_id"] = item["project_id"]
+                task["epic_id"] = item["epic_id"]
+                self._pm_set_task_status(
+                    item["project_id"], item["epic_id"], task["id"], "in_progress"
+                )
+                tasks.append(task)
+        except Exception:
+            pass
+
+        if not tasks:
+            t = self.get_next_task(project_id)
+            if t:
+                tasks = [t]
+        return tasks
+
+    def _current_version(self) -> int:
+        try:
+            return int(
+                (Path(BASE_DIR).parent / "VERSION").read_text().strip().split(".")[1]
+            )
+        except Exception:
+            return 1
+
+    def _write_quality_score(self, task: dict, score: float):
+        """Append task quality score to quality_scores.txt for pipeline feedback."""
+        try:
+            line = (
+                f"{_now_iso()}\t{task.get('id', '?')}\t"
+                f"{task.get('category', 'unknown')}\t{score:.1f}\t"
+                f"{task.get('title', '')[:60]}\n"
+            )
+            with open(QUALITY_SCORES_FILE, "a") as f:
+                f.write(line)
+        except Exception:
+            pass
+
+    def _trigger_self_improve(self):
+        """Run SelfImprover analysis after every _IMPROVE_EVERY tasks."""
+        log.info("Triggering self-improvement cycle (tasks_today=%d)", self._tasks_today)
+        try:
+            from agents.self_improver import SelfImprover
+            SelfImprover().run(min_samples=20)
+            self._log_event("self_improved", {"tasks_today": self._tasks_today})
+        except Exception as e:
+            log.debug("Self-improve error: %s", e)
 
     # ── task retrieval ────────────────────────────────────────────────────────
 
