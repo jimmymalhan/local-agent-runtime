@@ -494,14 +494,32 @@ def run_task_with_fallback(task: dict, version: int,
     5. Auto-remediation (reduces difficulty, escalates denials, etc.)
     6. Success rate tracking (for budget adjustments)
 
+    FIX 5: Enforce 3-attempt rescue gate before Claude escalation.
     Claude rescue is NO LONGER CALLED — all autonomy is local.
     """
+    from state.runtime_lessons import log_attempt, can_escalate_to_rescue, mark_rescued
+
     agent_mod, agent_name = route_task(task)
+    task_id = task.get("id", "unknown")
 
     # Use autonomous executor for full self-governance
     if _AUTONOMOUS_EXECUTOR:
         executor = AutonomousExecutor(state_dir=os.path.join(BASE_DIR, "state"))
         result = executor.execute_task(task, agent_mod, version=version, max_retries=3)
+
+        # Log attempt to runtime-lessons
+        success = result.get("status") == "done" and result.get("quality", 0) >= 30
+        error = result.get("error") if not success else None
+        strategy = result.get("strategy", "autonomous")
+        log_attempt(task_id, strategy, error=error, success=success)
+
+        # Check if we should escalate to rescue
+        if not success and can_escalate_to_rescue(task_id, max_attempts=3):
+            print(f"[RESCUE GATE] Task {task_id} escalated after 3 attempts")
+            mark_rescued(task_id)
+            result["rescue_eligible"] = True
+        else:
+            result["rescue_eligible"] = False
 
         # Add orchestrator metadata
         result["agent_used"] = agent_name
@@ -619,6 +637,12 @@ def run_version(version: int, tasks: list, local_only: bool = False,
     failed_count = 0
 
     for i, task in enumerate(tasks, 1):
+        # FIX 3: Skip done tasks — prevent re-runs
+        if task.get("is_done") == True:
+            print(f"  [{i:3}/{total_tasks}] SKIP (is_done=True)")
+            completed += 1
+            continue
+
         # Resource check + dashboard hardware update (cpu first, then ram per signature)
         status = guard.check()
         update_hardware(status.cpu_pct, status.ram_pct)
