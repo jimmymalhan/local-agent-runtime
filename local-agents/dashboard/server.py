@@ -391,6 +391,62 @@ async def get_todo():
     return {"updated_at": datetime.now().isoformat(), "items": items, "counts": counts}
 
 
+
+@app.post("/api/loop/start")
+async def loop_start():
+    import os, pathlib
+    signal_file = os.path.join(BASE_DIR, ".loop_start")
+    stop_file = os.path.join(BASE_DIR, ".stop")
+    pathlib.Path(signal_file).write_text("start")
+    if os.path.exists(stop_file):
+        os.remove(stop_file)
+    return {"running": True, "ts": datetime.now().isoformat()}
+
+@app.post("/api/loop/stop")
+async def loop_stop():
+    import os, pathlib
+    stop_file = os.path.join(BASE_DIR, ".stop")
+    start_file = os.path.join(BASE_DIR, ".loop_start")
+    pathlib.Path(stop_file).write_text("stop")
+    if os.path.exists(start_file):
+        os.remove(start_file)
+    return {"running": False, "ts": datetime.now().isoformat()}
+
+@app.get("/api/projects")
+async def get_projects():
+    import os, json as _json
+    projects_file = os.path.join(BASE_DIR, "projects", "projects.json")
+    if os.path.exists(projects_file):
+        with open(projects_file) as pf:
+            data = _json.load(pf)
+        return {"projects": data.get("projects", []), "source": "projects.json"}
+    # fallback: read from state.json
+    st = read_state()
+    raw = st.get("projects", [])
+    if isinstance(raw, list):
+        arr = raw
+    else:
+        arr = [dict(v, id=k) for k, v in raw.items() if not k.startswith("_")]
+    return {"projects": arr, "source": "state"}
+
+@app.post("/api/projects")
+async def create_project(request: Request):
+    body = await request.json()
+    name = body.get("name", "New Project")
+    project = {
+        "id": name.lower().replace(" ", "-"),
+        "name": name,
+        "type": body.get("type", "core"),
+        "description": body.get("description", ""),
+        "status": "active",
+        "health": "green",
+        "tasks_done": 0,
+        "tasks_total": 0,
+        "quality_score": 0,
+        "last_updated": datetime.now().strftime("%Y-%m-%d")
+    }
+    return {"ok": True, "project": project}
+
 @app.post("/api/chat")
 async def chat_endpoint(request: dict):
     """
