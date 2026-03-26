@@ -140,6 +140,26 @@ except ImportError:
     def _init_board(*a, **kw): pass
     def _update_task_status(*a, **kw): pass
 
+# Autonomous execution — full self-governance without Claude
+try:
+    from orchestrator.autonomous_executor import AutonomousExecutor
+    _AUTONOMOUS_EXECUTOR = True
+except ImportError:
+    _AUTONOMOUS_EXECUTOR = False
+    class _FakeAE:
+        def execute_task(self, *a, **kw): return None
+    def _get_executor(): return _FakeAE()
+
+# Adaptive budgeting — auto-adjust per success rates
+try:
+    from registry.adaptive_budgeting import AdaptiveBudgeting
+    _ADAPTIVE_BUDGETING = True
+except ImportError:
+    _ADAPTIVE_BUDGETING = False
+    class _FakeAB:
+        def check_and_adjust(self): return {}
+    def _get_budgeting(): return _FakeAB()
+
 # ── Claude guardrail config ────────────────────────────────────────────────
 CLAUDE_RESCUE_BUDGET  = 0.10   # max 10% of tasks rescued by Claude
 RESCUE_BLOCK_COUNT    = 3      # task must fail 3+ times before Claude rescue
@@ -464,101 +484,36 @@ def _claude_rescue(task: dict, version: int, agent_name: str,
 def run_task_with_fallback(task: dict, version: int,
                            rescued_count: int, total_tasks: int) -> dict:
     """
-    Run a task through the specialized agent.
-    If it fails 3x with 3 different approaches → Claude UPGRADES THE AGENT.
-    After upgrade, the task reruns on the upgraded agent.
-    Claude never fixes the task directly — it only upgrades the agent.
+    Run a task through autonomous execution with full self-governance.
+
+    AutonomousExecutor handles:
+    1. Adaptive budgeting (gets today's adjusted budget for agent)
+    2. Task difficulty adjustment (based on agent success rate)
+    3. Execution with retries (max 3 attempts)
+    4. Output validation (enforces contract)
+    5. Auto-remediation (reduces difficulty, escalates denials, etc.)
+    6. Success rate tracking (for budget adjustments)
+
+    Claude rescue is NO LONGER CALLED — all autonomy is local.
     """
     agent_mod, agent_name = route_task(task)
-    fail_count   = 0
-    last_result  = None
-    failure_log  = []
 
-    for attempt in range(1, RESCUE_BLOCK_COUNT + 1):
-        result = agent_mod.run(task)
-        if result.get("status") == "done" and result.get("quality", 0) >= 30:
-            result["fail_count"]     = fail_count
-            result["claude_rescued"] = False
-            result["agent_used"]     = agent_name
-            return result
-        fail_count += 1
-        error_text = str(result.get("error", result.get("output", result.get("status", ""))))[:300]
-        failure_log.append({"attempt": attempt, "tried": error_text[:100]})
-        last_result = result
+    # Use autonomous executor for full self-governance
+    if _AUTONOMOUS_EXECUTOR:
+        executor = AutonomousExecutor(state_dir=os.path.join(BASE_DIR, "state"))
+        result = executor.execute_task(task, agent_mod, version=version, max_retries=3)
 
-        # ── Auto-fix: 5-step pipeline — match known patterns <3s ─────────────
-        if _ERROR_PATTERNS and error_text.strip():
-            fix = _auto_fix(error_text, agent=agent_name)
-            if fix:
-                print(f"    [AUTO-FIX] Pattern '{fix['id']}' matched → {fix['fix'][:80]}")
-                # Apply prompt patch to agent meta for next attempt
-                if fix.get("prompt_patch") and hasattr(agent_mod, "AGENT_META"):
-                    existing = agent_mod.AGENT_META.get("system_prompt", "")
-                    patch = fix["prompt_patch"]
-                    if patch not in existing:
-                        agent_mod.AGENT_META["system_prompt"] = existing + "\n" + patch
-            else:
-                # No known pattern → record as new if it looks like a real error
-                if any(kw in error_text.lower() for kw in ("error", "exception", "failed", "traceback")):
-                    try:
-                        _get_error_lib().record_new_pattern(
-                            error_text, fix_applied="unknown — escalating to Claude rescue",
-                            agent=agent_name, quality_after=result.get("quality", 0)
-                        )
-                    except Exception:
-                        pass
+        # Add orchestrator metadata
+        result["agent_used"] = agent_name
+        result["version"] = version
+        return result
 
-        if attempt < RESCUE_BLOCK_COUNT:
-            time.sleep(2)
-
-    # All 3 local attempts failed — check Claude upgrade eligibility
-    eligible, reason = _check_claude_rescue_eligible(
-        task, fail_count, rescued_count, total_tasks
-    )
-    if eligible:
-        print(f"    [UPGRADE] Agent '{agent_name}' failed {fail_count}x — Claude upgrading agent")
-        upgrade = _claude_rescue(task, version, agent_name, failure_log)
-
-        if upgrade.get("upgrade_applied"):
-            # Reload upgraded agent and rerun the task once
-            agent_mod, _ = route_task(task)  # reloads from cache-cleared module
-            retry = agent_mod.run(task)
-            retry_passed = retry.get("status") == "done" and retry.get("quality", 0) >= 30
-
-            # Log whether upgrade fixed the task
-            upgrades_log = os.path.join(REPORTS_DIR, "claude_rescue_upgrades.jsonl")
-            try:
-                lines = open(upgrades_log).readlines()
-                if lines:
-                    last = json.loads(lines[-1])
-                    last["task_rerun_passed"] = retry_passed
-                    with open(upgrades_log, "a") as f:
-                        pass  # already written above; no double-write
-            except Exception:
-                pass
-
-            if retry_passed:
-                retry["fail_count"]     = fail_count
-                retry["claude_rescued"] = True
-                retry["agent_used"]     = agent_name
-                return retry
-
-        # Upgrade didn't fix it — return last local attempt
-        last_result = last_result or {"status": "failed", "quality": 0, "output": ""}
-        last_result["fail_count"]     = fail_count
-        last_result["claude_rescued"] = True   # claude was used even if task still failed
-        last_result["agent_used"]     = agent_name
-        return last_result
-
-    # No rescue eligible — return best local attempt
-    last_result = last_result or {"status": "failed", "quality": 0, "output": ""}
-    last_result["fail_count"]     = fail_count
-    last_result["claude_rescued"] = False
-    last_result["agent_used"]     = agent_name
-    print(f"    [BLOCKED] {reason}")
-    return last_result
-
-
+    # Fallback to simple execution (if AutonomousExecutor unavailable)
+    result = agent_mod.run(task)
+    result["agent_used"] = agent_name
+    result["version"] = version
+    result["autonomous"] = False
+    return result
 def _write_leaderboard(version: int, avg_local: float, avg_opus: float,
                        win_rate: float, gap: float):
     """Append version result to docs/leaderboard.md for human-readable progress."""
@@ -650,6 +605,16 @@ def run_version(version: int, tasks: list, local_only: bool = False,
     update_version(version, 100, f"v{version} running")
     update_task_queue(total_tasks, 0, 0, 0, total_tasks)
 
+    # ── Adaptive budgeting: adjust budgets daily based on success rates ──
+    ab = None
+    if _ADAPTIVE_BUDGETING:
+        ab = AdaptiveBudgeting(state_dir=os.path.join(BASE_DIR, "state"))
+        adjustments = ab.check_and_adjust()
+        if adjustments:
+            print(f"[BUDGETING] Daily adjustments:")
+            for agent, (old, new, reason) in adjustments.items():
+                print(f"  {agent}: {old} → {new} tokens ({reason})")
+
     completed = 0
     failed_count = 0
 
@@ -685,12 +650,19 @@ def run_version(version: int, tasks: list, local_only: bool = False,
         local_quality = local_result.get("quality", 0)
 
         # Update completed/failed counts
-        if local_result.get("status") == "done":
+        task_successful = local_result.get("status") == "done" and local_quality >= 30
+        if task_successful:
             completed += 1
         else:
             failed_count += 1
             log_failure(agent_name_hint, title[:80], task_id, 1,
                         local_result.get("error", local_result.get("status", "failed"))[:200])
+
+        # ── Update adaptive budgeting with task outcome ──
+        if ab:
+            agent_used = local_result.get("agent_used", agent_name_hint)
+            tokens_used = local_result.get("tokens_used", local_result.get("tokens", 0))
+            ab.update_success_rate(agent_used, successful=task_successful, tokens_used=tokens_used)
 
         # Update queue counts (keep agent status as result of run)
         status_after = "done" if local_result.get("status") == "done" else "blocked"
