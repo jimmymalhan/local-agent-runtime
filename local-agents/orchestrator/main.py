@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-orchestrator/main.py — Self-running v1→v100 upgrade loop
+orchestrator/main.py — Self-running v1→v1000 upgrade loop
 =========================================================
 Fully autonomous. No human input required.
 
@@ -219,6 +219,7 @@ def start_rescue_watchdog(state_path: str, version_ref: list,
 CATEGORY_AGENT_MAP = {
     "code_gen":  "executor",
     "bug_fix":   "executor",
+    "debug":     "debugger",
     "tdd":       "test_engineer",
     "scaffold":  "architect",
     "arch":      "architect",
@@ -226,6 +227,7 @@ CATEGORY_AGENT_MAP = {
     "e2e":       "architect",
     "research":  "researcher",
     "doc":       "doc_writer",
+    "documentation": "doc_writer",
 }
 
 _agent_cache = {}
@@ -700,6 +702,17 @@ def run_version(version: int, tasks: list, local_only: bool = False,
             _update_task_status(task_id, status_after, local_quality,
                                 local_result.get("elapsed_s", 0.0), agent_name_hint)
 
+        # Auto-commit high-quality task results to git
+        if local_result.get("status") == "done" and local_quality >= 70:
+            try:
+                from agents.git_agent import GitAgent as _GitAgent
+                _git = _GitAgent(repo_path=BASE_DIR)
+                _commit_hash = _git.auto_commit_after_task(task, local_result)
+                if _commit_hash:
+                    print(f"    [GIT] auto-committed task={task_id} hash={_commit_hash[:8]} quality={local_quality}")
+            except Exception as _git_err:
+                print(f"    [GIT] auto_commit skipped: {_git_err}")
+
         # Run Opus 4.6 baseline (skip if local_only)
         opus_quality = 0
         opus_result  = {}
@@ -815,6 +828,17 @@ def run_version(version: int, tasks: list, local_only: bool = False,
     return summary
 
 
+
+def _write_version_file(version: int):
+    """Sync VERSION file with current runtime version (0.{version}.0 format)."""
+    ver_path = os.path.join(os.path.dirname(BASE_DIR), "VERSION")
+    try:
+        with open(ver_path, "w") as f:
+            f.write(f"0.{version}.0\n")
+    except Exception:
+        pass
+
+
 def auto_loop(start_version: int):
     """Full autonomous v{start}→v100 loop."""
     from tasks.task_suite import build_task_suite
@@ -827,7 +851,7 @@ def auto_loop(start_version: int):
     start_rescue_watchdog(state_path, version_ref, rescued_ref, len(tasks))
     print(f"[WATCHDOG] Rescue watchdog active — checks every {_WATCHDOG_INTERVAL}s")
 
-    for version in range(start_version, 101):
+    for version in range(start_version, 1001):
         version_ref[0] = version
         # Every 5 versions: frustration research
         if version % 5 == 0:
@@ -843,6 +867,7 @@ def auto_loop(start_version: int):
                 print(f"[RESEARCH] Error at v{version}: {e}")
 
         summary = run_version(version, tasks)
+        _write_version_file(version)  # sync VERSION file
 
         # Self-improving prompt engine: auto-upgrade agents from this version's failures
         if _AUTO_UPGRADE:
@@ -895,7 +920,28 @@ def main():
                     help="Run only N tasks (for testing)")
     ap.add_argument("--local-only", action="store_true",
                     help="Skip Opus 4.6 comparison (free run)")
+    # ── Continuous loop flags ──────────────────────────────────────────────────
+    ap.add_argument("--continuous", action="store_true",
+                    help="Run ContinuousLoop: never-stop task execution engine")
+    ap.add_argument("--forever", action="store_true",
+                    help="Alias for --continuous with no iteration cap")
+    ap.add_argument("--project", default=None,
+                    help="Project ID to run in continuous mode")
+    ap.add_argument("--max-iterations", type=int, default=None,
+                    help="Stop continuous loop after N iterations")
     args = ap.parse_args()
+
+    # ── Continuous / forever mode ──────────────────────────────────────────────
+    if args.continuous or args.forever:
+        try:
+            from orchestrator.continuous_loop import ContinuousLoop
+        except ImportError as e:
+            print(f"[ERROR] Could not import ContinuousLoop: {e}")
+            sys.exit(1)
+        loop = ContinuousLoop(project_id=args.project)
+        max_iters = None if args.forever else args.max_iterations
+        loop.run(project_id=args.project, max_iterations=max_iters)
+        return
 
     if args.auto:
         auto_loop(args.auto)
