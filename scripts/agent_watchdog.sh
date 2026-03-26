@@ -44,7 +44,7 @@ if [[ -z "$LOOP_PID" ]]; then
   log "loop dead — restarting"
   event "loop_restart" "watchdog auto-restart"
   cd "$REPO/local-agents"
-  nohup python3 orchestrator/main.py --continuous >> "$LOGS/loop.log" 2>&1 &
+  nohup python3 orchestrator/main.py --auto 1 >> "$LOGS/loop.log" 2>&1 &
   LOOP_PID=$!
   log "loop started pid=$LOOP_PID"
 fi
