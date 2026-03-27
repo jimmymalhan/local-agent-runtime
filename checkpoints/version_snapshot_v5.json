@@ -1,13 +1,13 @@
 {
   "version": 5,
-  "ts": "2026-03-27T20:39:38",
+  "ts": "2026-03-27T20:52:04",
   "state": {
-    "ts": "2026-03-27T20:39:37.506798",
+    "ts": "2026-03-27T20:51:37.788246",
     "version": {
-      "current": 5,
+      "current": 1,
       "total": 100,
-      "pct_complete": 5.0,
-      "label": "v5 running"
+      "pct_complete": 1.0,
+      "label": "v1 running"
     },
     "agents": {
       "reviewer": {
@@ -15,7 +15,7 @@
         "task": "",
         "task_id": null,
         "elapsed_s": 0.0,
-        "last_activity": "2026-03-27T20:39:37.506798",
+        "last_activity": "2026-03-27T20:51:37.788246",
         "sub_agents": [],
         "worker_count": 0
       },
@@ -24,24 +24,24 @@
         "task": "",
         "task_id": null,
         "elapsed_s": 0.0,
-        "last_activity": "2026-03-27T20:39:37.506798",
+        "last_activity": "2026-03-27T20:51:37.788246",
         "sub_agents": [],
         "worker_count": 0
       },
       "architect": {
-        "last_activity": "2026-03-27T20:39:37.506798"
+        "last_activity": "2026-03-27T20:51:37.788246"
       },
       "test_engineer": {
-        "last_activity": "2026-03-27T20:39:37.506798"
+        "last_activity": "2026-03-27T20:51:37.788246"
       },
       "researcher": {
-        "last_activity": "2026-03-27T20:39:37.506798"
+        "last_activity": "2026-03-27T20:51:37.788246"
       }
     },
     "task_queue": {
       "total": 417,
-      "completed": 295,
-      "pending": 122,
+      "completed": 307,
+      "pending": 110,
       "in_progress": 0,
       "failed": 0
     },
@@ -54,13 +54,61 @@
       "hard_limit_hit": false
     },
     "hardware": {
-      "cpu_pct": 29.9,
-      "ram_pct": 54.7,
+      "cpu_pct": 46.4,
+      "ram_pct": 55.0,
       "disk_pct": 0.0,
       "gpu_pct": null,
       "alert_level": "ok"
     },
     "failures": [
+      {
+        "ts": "2026-03-27T13:50:11.602669",
+        "agent": "executor",
+        "task": "Implement intelligent response compression",
+        "task_id": "e2-comp-1",
+        "attempt": 1,
+        "tried": "blocked"
+      },
+      {
+        "ts": "2026-03-27T13:45:11.888614",
+        "agent": "executor",
+        "task": "Add A/B testing framework for agents",
+        "task_id": "ml-ai-2",
+        "attempt": 1,
+        "tried": "blocked"
+      },
+      {
+        "ts": "2026-03-27T13:44:42.093405",
+        "agent": "executor",
+        "task": "Add A/B testing framework for agents",
+        "task_id": "ml-ai-2",
+        "attempt": 1,
+        "tried": "blocked"
+      },
+      {
+        "ts": "2026-03-27T13:44:28.952484",
+        "agent": "executor",
+        "task": "Implement model versioning & rollback capability",
+        "task_id": "ml-ai-1",
+        "attempt": 1,
+        "tried": "blocked"
+      },
+      {
+        "ts": "2026-03-27T13:41:16.777446",
+        "agent": "executor",
+        "task": "Implement model versioning & rollback capability",
+        "task_id": "ml-ai-1",
+        "attempt": 1,
+        "tried": "blocked"
+      },
+      {
+        "ts": "2026-03-27T13:39:38.695686",
+        "agent": "executor",
+        "task": "Build cost-aware routing (pick cheapest model that works)",
+        "task_id": "e2-route-1",
+        "attempt": 1,
+        "tried": "blocked"
+      },
       {
         "ts": "2026-03-27T13:39:28.544680",
         "agent": "executor",
@@ -92,57 +140,24 @@
         "task_id": "prod-hard-5",
         "attempt": 1,
         "tried": "blocked"
-      },
-      {
-        "ts": "2026-03-27T13:32:47.026935",
-        "agent": "executor",
-        "task": "Add comprehensive audit logging & compliance",
-        "task_id": "prod-hard-4",
-        "attempt": 1,
-        "tried": "blocked"
-      },
-      {
-        "ts": "2026-03-27T13:32:09.322971",
-        "agent": "executor",
-        "task": "Add comprehensive audit logging & compliance",
-        "task_id": "prod-hard-4",
-        "attempt": 1,
-        "tried": "blocked"
-      },
-      {
-        "ts": "2026-03-27T13:30:35.919849",
-        "agent": "executor",
-        "task": "Implement distributed request tracing (OpenTelemetry)",
-        "task_id": "prod-hard-3",
-        "attempt": 1,
-        "tried": "blocked"
-      },
-      {
-        "ts": "2026-03-27T13:29:39.250354",
-        "agent": "executor",
-        "task": "Implement distributed request tracing (OpenTelemetry)",
-        "task_id": "prod-hard-3",
-        "attempt": 1,
-        "tried": "blocked"
-      },
-      {
-        "ts": "2026-03-27T13:29:06.893905",
-        "agent": "executor",
-        "task": "Build cost-aware routing (pick cheapest model that works)",
-        "task_id": "e2-route-1",
-        "attempt": 1,
-        "tried": "blocked"
-      },
-      {
-        "ts": "2026-03-27T13:22:44.112774",
-        "agent": "executor",
-        "task": "Add rate limiting & DDoS protection",
-        "task_id": "prod-hard-2",
-        "attempt": 1,
-        "tried": "blocked"
       }
     ],
     "research_feed": [
+      {
+        "ts": "2026-03-27T13:52:03.598746",
+        "finding": "v5: Model produces code that fails assertion tests silently",
+        "source": ""
+      },
+      {
+        "ts": "2026-03-27T13:52:03.597231",
+        "finding": "v5: Model writes wrong import paths for multi-file projects",
+        "source": ""
+      },
+      {
+        "ts": "2026-03-27T13:52:03.595593",
+        "finding": "v5: Model truncates code in the middle of a function",
+        "source": ""
+      },
       {
         "ts": "2026-03-27T13:39:37.868445",
         "finding": "v5: Model produces code that fails assertion tests silently",
@@ -177,66 +192,19 @@
         "ts": "2026-03-27T13:18:33.902129",
         "finding": "v5: Model produces code that fails assertion tests silently",
         "source": ""
-      },
-      {
-        "ts": "2026-03-27T13:18:33.899485",
-        "finding": "v5: Model writes wrong import paths for multi-file projects",
-        "source": ""
-      },
-      {
-        "ts": "2026-03-27T13:18:33.896694",
-        "finding": "v5: Model truncates code in the middle of a function",
-        "source": ""
-      },
-      {
-        "ts": "2026-03-27T13:08:01.974073",
-        "finding": "v5: Model produces code that fails assertion tests silently",
-        "source": ""
       }
     ],
     "version_changelog": {},
-    "quality": 67,
-    "quality_score": 67,
+    "quality": 69,
+    "quality_score": 69,
     "model": "local-v1",
     "recent_tasks": [
-      {
-        "task_id": "e2-route-1",
-        "title": "Build cost-aware routing (pick cheapest model that works)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "blocked",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e2-route-2",
-        "title": "Implement predictive token estimation",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e2-route-3",
-        "title": "Add adaptive complexity detection (analyze task, pick model)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e2-route-4",
-        "title": "Implement model cascade (try local first, fallback to Claude)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
       {
         "task_id": "e2-comp-1",
         "title": "Implement intelligent response compression",
         "category": "project",
         "agent_used": "executor",
-        "status": "todo",
+        "status": "blocked",
         "local_quality": 0
       },
       {
@@ -270,915 +238,11 @@
         "agent_used": "executor",
         "status": "todo",
         "local_quality": 0
-      },
-      {
-        "task_id": "ultra-stream-2",
-        "title": "Build bidirectional WebSocket with backpressure",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "ultra-stream-3",
-        "title": "Add live collaborative editing (CRDT)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "ultra-stream-4",
-        "title": "Implement stream compression & optimization",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e1-qa-1",
-        "title": "Build comprehensive quality benchmark suite (MMLU, HumanEval, etc.)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e1-qa-2",
-        "title": "Implement regression testing (catch quality drops)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e1-qa-3",
-        "title": "Add continuous model evaluation pipeline",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e1-qa-4",
-        "title": "Build quality dashboards & reports",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e1-qa-5",
-        "title": "Implement human evaluation framework",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e2-comp-1",
-        "title": "Implement lossless text compression (LZ4, zstd)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e2-comp-2",
-        "title": "Build smart summarization (extract key info)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e2-comp-3",
-        "title": "Add entropy-based token filtering",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e2-comp-4",
-        "title": "Implement information-dense representations",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e3-res-1",
-        "title": "Build active-active geo-replication",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e3-res-2",
-        "title": "Implement automatic failover (<5s)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e3-res-3",
-        "title": "Add read replicas & consistency protocols",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e3-res-4",
-        "title": "Build backup + restore system (<1h RTO)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e2-route-5",
-        "title": "Implement cost-aware scheduling (batch heavy tasks, defer low-priority)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e3-res-5",
-        "title": "Build chaos engineering test suite",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e3-obs-1",
-        "title": "Implement distributed tracing (OpenTelemetry)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e3-obs-2",
-        "title": "Build time-series analytics dashboard (Grafana-style)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e3-obs-3",
-        "title": "Implement alerts + on-call escalation (Slack/PagerDuty)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e3-obs-4",
-        "title": "Build audit logs (compliance + security tracking)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "ui-react-a1",
-        "title": "Init React + Vite build (no CDN, local npm)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "ui-react-a2",
-        "title": "Migrate CSS tokens to React modules",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "ui-react-a3",
-        "title": "Create base React components (tabs, navbar, layout)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "ui-react-b1",
-        "title": "Build <EpicSection> component (collapsible epic card)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "ui-react-b2",
-        "title": "Build <ProjectCard> component (project with progress bar)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "ui-react-b3",
-        "title": "Build <TaskRow> component (compact task display)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "ui-react-b4",
-        "title": "Build <KanbanBoard> with @dnd-kit (drag-drop columns)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "ui-react-b5",
-        "title": "Build <ProgressSummary> bar (top status bar)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "ui-react-b6",
-        "title": "Build <FilterSidebar> (epic/priority/agent/status filter)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "ui-react-b7",
-        "title": "Build <WorkflowStages> (pipeline visualization)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "ui-react-c1",
-        "title": "Build <TaskDetailModal> (full task info on click)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "ui-react-c2",
-        "title": "Build <EpicDetailPanel> (right slide panel for epic details)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "ui-react-d1",
-        "title": "Remove CEO tab from nav, merge KPIs to Overview header",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "ui-react-d2",
-        "title": "Merge Progress tab into Projects & Tasks tab",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "ui-react-d3",
-        "title": "Merge Workflow tab into Projects & Tasks tab",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "ui-react-e1",
-        "title": "Add Playwright test suite setup",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "ui-react-e2",
-        "title": "Write Playwright test: Tab navigation",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "ui-react-e3",
-        "title": "Write Playwright test: Projects & Tasks renders epics",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "ui-react-e4",
-        "title": "Write Playwright test: Kanban board shows correct counts",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "ui-react-e5",
-        "title": "Write Playwright test: Real-time WebSocket updates",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "ui-react-e6",
-        "title": "Write Playwright test: Task detail modal",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "ui-react-e7",
-        "title": "Add npm test:ui script, run full Playwright suite",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "ui-react-server-api",
-        "title": "Update dashboard/server.py for React build + new API endpoints",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e1-ui-chart",
-        "title": "Upgrade benchmark chart to React recharts (animated line comparison)",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e1-ui-agent-modal",
-        "title": "Build agent detail modal (click agent \u2192 see full history + quality chart)",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e1-ui-quality-heatmap",
-        "title": "Add quality score heatmap (agent performance over versions)",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e1-ui-prompt-editor",
-        "title": "Build in-UI agent prompt editor (textarea + save \u2192 POST /api/agent/prompt)",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e2-cost-budget-ring",
-        "title": "Build animated donut chart for Claude rescue budget (10% limit)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e2-cost-breakdown",
-        "title": "Build sortable cost breakdown table (task \u2192 tokens \u2192 model \u2192 quality/cost ratio)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e2-cost-timeline",
-        "title": "Build rescue event timeline (rescue # \u2192 tokens \u2192 timestamp \u2192 outcome)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e3-health-cards",
-        "title": "Build system health cards with live CPU/RAM/disk sparklines",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e3-agent-restart",
-        "title": "Add agent restart button (POST /api/agent/restart {agent_id})",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e3-failure-analysis",
-        "title": "Build failure analysis panel (failures grouped by agent + error type + trend)",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e3-heal-log",
-        "title": "Build self-heal event feed (auto-recovery actions with timestamps + outcomes)",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-quality-heatmap",
-        "title": "Quality heatmap (agents \u00d7 projects)",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-quality-trends",
-        "title": "Quality trend sparklines (per-agent)",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-success-matrix",
-        "title": "Agent capability radar (5D)",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-gantt-chart",
-        "title": "Execution timeline Gantt chart",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-regression-alerts",
-        "title": "Regression alert dashboard",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-sla-tracker",
-        "title": "SLA tracker (expected vs actual)",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-quality-by-cat",
-        "title": "Quality pie chart (by category)",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-workload-chart",
-        "title": "Agent workload balance",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-budget-radar",
-        "title": "Dynamic budget radar",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-token-burndown",
-        "title": "Token burndown chart",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-rescue-flow",
-        "title": "Rescue escalation flow",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-budget-waterfall",
-        "title": "Budget allocation waterfall",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-resource-alerts",
-        "title": "Resource contention alerts",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-roi-chart",
-        "title": "ROI by agent",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-epic-radar",
-        "title": "Epic health radar (27 epics)",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-failure-analysis",
-        "title": "Failure root cause analyzer",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-blocked-tasks",
-        "title": "Blocked task detector",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-heal-chart",
-        "title": "Self-heal success rate",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-cascade-graph",
-        "title": "Cascade failure detector",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-timeline",
-        "title": "Incident timeline",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-dispatch-feed",
-        "title": "Real-time dispatch stream",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-sub-agent-tree",
-        "title": "Agent sub-agent tree",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-benchmark-viz",
-        "title": "Benchmark gap animation",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-burndown",
-        "title": "Multi-epic burndown",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-collab-matrix",
-        "title": "Agent collaboration matrix",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-whatif",
-        "title": "What-if simulator",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-recommendations",
-        "title": "Smart recommendations",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-epic-detail",
-        "title": "Epic detail panel",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-bulk-assign",
-        "title": "Bulk task reassignment",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-layout-builder",
-        "title": "Custom dashboard widget builder",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-qa-features",
-        "title": "Playwright QA tests (25 features)",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-performance-test",
-        "title": "Performance stress test",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "e4-accessibility",
-        "title": "Accessibility audit (WCAG AAA)",
-        "category": "agent-setup",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "multi-tenant-architecture",
-        "title": "Design & implement multi-tenancy data model and isolation",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "multi-tenant-auth",
-        "title": "Implement tenant-aware authentication & authorization",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "multi-tenant-billing",
-        "title": "Build per-tenant billing & usage metering system",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "multi-tenant-ui",
-        "title": "Build multi-tenant dashboard UI with tenant switching",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "integration-platform",
-        "title": "Build integration platform & webhook system",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "slack-integration",
-        "title": "Implement Slack integration (notifications & commands)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "github-integration",
-        "title": "Implement GitHub integration (sync, PRs, issues)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "zapier-integration",
-        "title": "Build Zapier integration for no-code automation",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "analytics-pipeline",
-        "title": "Build data pipeline for analytics (events, metrics, aggregation)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "analytics-dashboards",
-        "title": "Build analytics dashboards (ROI, performance, usage)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "analytics-reports",
-        "title": "Generate automated analytics reports (weekly, monthly)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "training-framework",
-        "title": "Build model training framework (data upload, fine-tuning, evaluation)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "training-ui",
-        "title": "Build training management UI (upload data, monitor training, deploy)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "team-management",
-        "title": "Build team management system (invite, roles, permissions)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "team-ui",
-        "title": "Build team management UI (user list, invite, permissions)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "t1-model-selector",
-        "title": "Build intelligent model selector (cost vs quality optimizer)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "t1-model-router",
-        "title": "Implement dynamic routing engine",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "t1-cost-optimizer",
-        "title": "Build cost optimizer (choose cheapest model that meets quality threshold)",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "t1-websocket",
-        "title": "Implement WebSocket infrastructure for real-time updates",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "t1-streaming",
-        "title": "Build token-by-token streaming API",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "t1-streaming-ui",
-        "title": "Build real-time streaming UI with progressive rendering",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "t1-image-api",
-        "title": "Build image upload & processing API",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "t1-audio-api",
-        "title": "Build audio upload & processing API",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
-      },
-      {
-        "task_id": "t1-vision-ui",
-        "title": "Build vision/audio upload UI with preview",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "todo",
-        "local_quality": 0
       }
     ],
     "changelog": [],
     "epic_board": {
-      "ts": "2026-03-27T13:39:33.762806",
+      "ts": "2026-03-27T13:44:23.721420",
       "epics": [
         {
           "id": "system-reliability",
@@ -2573,9 +1637,9 @@
       }
     },
     "board_plan": {
-      "version": 5,
-      "total_tasks": 122,
-      "total_projects": 2,
+      "version": 1,
+      "total_tasks": 5,
+      "total_projects": 1,
       "projects": [
         {
           "id": "proj-project",
@@ -2584,49 +1648,13 @@
           "agent": "executor",
           "tasks": [
             {
-              "task_id": "e2-route-1",
-              "title": "Build cost-aware routing (pick cheapest model that works)",
+              "task_id": "e2-comp-1",
+              "title": "Implement intelligent response compression",
               "difficulty": "hard",
               "status": "blocked",
               "agent": "executor",
               "quality": 0,
               "elapsed_s": 0.0
-            },
-            {
-              "task_id": "e2-route-2",
-              "title": "Implement predictive token estimation",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e2-route-3",
-              "title": "Add adaptive complexity detection (analyze task, pick model)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e2-route-4",
-              "title": "Implement model cascade (try local first, fallback to Claude)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e2-comp-1",
-              "title": "Implement intelligent response compression",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
             },
             {
               "task_id": "e2-comp-2",
@@ -2663,1052 +1691,21 @@
               "agent": "executor",
               "quality": 0,
               "elapsed_s": 0
-            },
-            {
-              "task_id": "ultra-stream-2",
-              "title": "Build bidirectional WebSocket with backpressure",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "ultra-stream-3",
-              "title": "Add live collaborative editing (CRDT)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "ultra-stream-4",
-              "title": "Implement stream compression & optimization",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e1-qa-1",
-              "title": "Build comprehensive quality benchmark suite (MMLU, HumanEval, etc.)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e1-qa-2",
-              "title": "Implement regression testing (catch quality drops)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e1-qa-3",
-              "title": "Add continuous model evaluation pipeline",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e1-qa-4",
-              "title": "Build quality dashboards & reports",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e1-qa-5",
-              "title": "Implement human evaluation framework",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e2-comp-1",
-              "title": "Implement lossless text compression (LZ4, zstd)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e2-comp-2",
-              "title": "Build smart summarization (extract key info)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e2-comp-3",
-              "title": "Add entropy-based token filtering",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e2-comp-4",
-              "title": "Implement information-dense representations",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e3-res-1",
-              "title": "Build active-active geo-replication",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e3-res-2",
-              "title": "Implement automatic failover (<5s)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e3-res-3",
-              "title": "Add read replicas & consistency protocols",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e3-res-4",
-              "title": "Build backup + restore system (<1h RTO)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e2-route-5",
-              "title": "Implement cost-aware scheduling (batch heavy tasks, defer low-priority)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e3-res-5",
-              "title": "Build chaos engineering test suite",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e3-obs-1",
-              "title": "Implement distributed tracing (OpenTelemetry)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e3-obs-2",
-              "title": "Build time-series analytics dashboard (Grafana-style)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e3-obs-3",
-              "title": "Implement alerts + on-call escalation (Slack/PagerDuty)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e3-obs-4",
-              "title": "Build audit logs (compliance + security tracking)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "ui-react-a1",
-              "title": "Init React + Vite build (no CDN, local npm)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "ui-react-a2",
-              "title": "Migrate CSS tokens to React modules",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "ui-react-a3",
-              "title": "Create base React components (tabs, navbar, layout)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "ui-react-b1",
-              "title": "Build <EpicSection> component (collapsible epic card)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "ui-react-b2",
-              "title": "Build <ProjectCard> component (project with progress bar)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "ui-react-b3",
-              "title": "Build <TaskRow> component (compact task display)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "ui-react-b4",
-              "title": "Build <KanbanBoard> with @dnd-kit (drag-drop columns)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "ui-react-b5",
-              "title": "Build <ProgressSummary> bar (top status bar)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "ui-react-b6",
-              "title": "Build <FilterSidebar> (epic/priority/agent/status filter)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "ui-react-b7",
-              "title": "Build <WorkflowStages> (pipeline visualization)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "ui-react-c1",
-              "title": "Build <TaskDetailModal> (full task info on click)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "ui-react-c2",
-              "title": "Build <EpicDetailPanel> (right slide panel for epic details)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "ui-react-d1",
-              "title": "Remove CEO tab from nav, merge KPIs to Overview header",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "ui-react-d2",
-              "title": "Merge Progress tab into Projects & Tasks tab",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "ui-react-d3",
-              "title": "Merge Workflow tab into Projects & Tasks tab",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "ui-react-e1",
-              "title": "Add Playwright test suite setup",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "ui-react-e2",
-              "title": "Write Playwright test: Tab navigation",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "ui-react-e3",
-              "title": "Write Playwright test: Projects & Tasks renders epics",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "ui-react-e4",
-              "title": "Write Playwright test: Kanban board shows correct counts",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "ui-react-e5",
-              "title": "Write Playwright test: Real-time WebSocket updates",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "ui-react-e6",
-              "title": "Write Playwright test: Task detail modal",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "ui-react-e7",
-              "title": "Add npm test:ui script, run full Playwright suite",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "ui-react-server-api",
-              "title": "Update dashboard/server.py for React build + new API endpoints",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e2-cost-budget-ring",
-              "title": "Build animated donut chart for Claude rescue budget (10% limit)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e2-cost-breakdown",
-              "title": "Build sortable cost breakdown table (task \u2192 tokens \u2192 model \u2192 quality/cost ratio)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e2-cost-timeline",
-              "title": "Build rescue event timeline (rescue # \u2192 tokens \u2192 timestamp \u2192 outcome)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "multi-tenant-architecture",
-              "title": "Design & implement multi-tenancy data model and isolation",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "multi-tenant-auth",
-              "title": "Implement tenant-aware authentication & authorization",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "multi-tenant-billing",
-              "title": "Build per-tenant billing & usage metering system",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "multi-tenant-ui",
-              "title": "Build multi-tenant dashboard UI with tenant switching",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "integration-platform",
-              "title": "Build integration platform & webhook system",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "slack-integration",
-              "title": "Implement Slack integration (notifications & commands)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "github-integration",
-              "title": "Implement GitHub integration (sync, PRs, issues)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "zapier-integration",
-              "title": "Build Zapier integration for no-code automation",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "analytics-pipeline",
-              "title": "Build data pipeline for analytics (events, metrics, aggregation)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "analytics-dashboards",
-              "title": "Build analytics dashboards (ROI, performance, usage)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "analytics-reports",
-              "title": "Generate automated analytics reports (weekly, monthly)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "training-framework",
-              "title": "Build model training framework (data upload, fine-tuning, evaluation)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "training-ui",
-              "title": "Build training management UI (upload data, monitor training, deploy)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "team-management",
-              "title": "Build team management system (invite, roles, permissions)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "team-ui",
-              "title": "Build team management UI (user list, invite, permissions)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "t1-model-selector",
-              "title": "Build intelligent model selector (cost vs quality optimizer)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "t1-model-router",
-              "title": "Implement dynamic routing engine",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "t1-cost-optimizer",
-              "title": "Build cost optimizer (choose cheapest model that meets quality threshold)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "t1-websocket",
-              "title": "Implement WebSocket infrastructure for real-time updates",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "t1-streaming",
-              "title": "Build token-by-token streaming API",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "t1-streaming-ui",
-              "title": "Build real-time streaming UI with progressive rendering",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "t1-image-api",
-              "title": "Build image upload & processing API",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "t1-audio-api",
-              "title": "Build audio upload & processing API",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "t1-vision-ui",
-              "title": "Build vision/audio upload UI with preview",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
             }
           ],
-          "total": 81,
+          "total": 5,
           "done": 0,
           "in_progress": 0,
           "failed": 1,
           "status": "blocked",
           "pct": 0.0
-        },
-        {
-          "id": "proj-agent-setup",
-          "name": "Agent-Setup",
-          "category": "agent-setup",
-          "agent": "executor",
-          "tasks": [
-            {
-              "task_id": "e1-ui-chart",
-              "title": "Upgrade benchmark chart to React recharts (animated line comparison)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e1-ui-agent-modal",
-              "title": "Build agent detail modal (click agent \u2192 see full history + quality chart)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e1-ui-quality-heatmap",
-              "title": "Add quality score heatmap (agent performance over versions)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e1-ui-prompt-editor",
-              "title": "Build in-UI agent prompt editor (textarea + save \u2192 POST /api/agent/prompt)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e3-health-cards",
-              "title": "Build system health cards with live CPU/RAM/disk sparklines",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e3-agent-restart",
-              "title": "Add agent restart button (POST /api/agent/restart {agent_id})",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e3-failure-analysis",
-              "title": "Build failure analysis panel (failures grouped by agent + error type + trend)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e3-heal-log",
-              "title": "Build self-heal event feed (auto-recovery actions with timestamps + outcomes)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-quality-heatmap",
-              "title": "Quality heatmap (agents \u00d7 projects)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-quality-trends",
-              "title": "Quality trend sparklines (per-agent)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-success-matrix",
-              "title": "Agent capability radar (5D)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-gantt-chart",
-              "title": "Execution timeline Gantt chart",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-regression-alerts",
-              "title": "Regression alert dashboard",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-sla-tracker",
-              "title": "SLA tracker (expected vs actual)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-quality-by-cat",
-              "title": "Quality pie chart (by category)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-workload-chart",
-              "title": "Agent workload balance",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-budget-radar",
-              "title": "Dynamic budget radar",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-token-burndown",
-              "title": "Token burndown chart",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-rescue-flow",
-              "title": "Rescue escalation flow",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-budget-waterfall",
-              "title": "Budget allocation waterfall",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-resource-alerts",
-              "title": "Resource contention alerts",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-roi-chart",
-              "title": "ROI by agent",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-epic-radar",
-              "title": "Epic health radar (27 epics)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-failure-analysis",
-              "title": "Failure root cause analyzer",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-blocked-tasks",
-              "title": "Blocked task detector",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-heal-chart",
-              "title": "Self-heal success rate",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-cascade-graph",
-              "title": "Cascade failure detector",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-timeline",
-              "title": "Incident timeline",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-dispatch-feed",
-              "title": "Real-time dispatch stream",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-sub-agent-tree",
-              "title": "Agent sub-agent tree",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-benchmark-viz",
-              "title": "Benchmark gap animation",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-burndown",
-              "title": "Multi-epic burndown",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-collab-matrix",
-              "title": "Agent collaboration matrix",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-whatif",
-              "title": "What-if simulator",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-recommendations",
-              "title": "Smart recommendations",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-epic-detail",
-              "title": "Epic detail panel",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-bulk-assign",
-              "title": "Bulk task reassignment",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-layout-builder",
-              "title": "Custom dashboard widget builder",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-qa-features",
-              "title": "Playwright QA tests (25 features)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-performance-test",
-              "title": "Performance stress test",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            },
-            {
-              "task_id": "e4-accessibility",
-              "title": "Accessibility audit (WCAG AAA)",
-              "difficulty": "hard",
-              "status": "pending",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0
-            }
-          ],
-          "total": 41,
-          "done": 0,
-          "in_progress": 0,
-          "failed": 0,
-          "status": "pending",
-          "pct": 0
         }
       ],
-      "initialized_at": "2026-03-27T13:29:06.490103",
+      "initialized_at": "2026-03-27T13:50:11.221474",
       "status": "planned"
     },
     "auto_heal_status": {
-      "ts": "2026-03-27T20:39:38",
+      "ts": "2026-03-27T20:52:03",
       "issues_this_cycle": [],
       "healthy": true,
       "dashboard_alive": true,
@@ -3749,6 +1746,20 @@
         "event": "started",
         "detail": "Auto-heal monitor started (checks every 10s)",
         "agent": ""
+      },
+      {
+        "ts": "2026-03-27T20:50:10",
+        "level": "INFO",
+        "event": "started",
+        "detail": "Auto-heal monitor started (checks every 10s)",
+        "agent": ""
+      },
+      {
+        "ts": "2026-03-27T20:52:03",
+        "level": "INFO",
+        "event": "started",
+        "detail": "Auto-heal monitor started (checks every 10s)",
+        "agent": ""
       }
     ],
     "auto_heal_counts": {
@@ -3757,12 +1768,12 @@
       "retrains": 0
     },
     "calibration": {
-      "version": 5,
-      "ts": "2026-03-27T20:29:06",
+      "version": 1,
+      "ts": "2026-03-27T20:50:11",
       "results": {
         "executor": {
-          "ts": "2026-03-27T20:29:06",
-          "version": 5,
+          "ts": "2026-03-27T20:50:11",
+          "version": 1,
           "agent": "executor",
           "avg_score": 0.0,
           "prev_score": 0.0,
@@ -3791,8 +1802,8 @@
           ]
         },
         "planner": {
-          "ts": "2026-03-27T20:29:06",
-          "version": 5,
+          "ts": "2026-03-27T20:50:11",
+          "version": 1,
           "agent": "planner",
           "avg_score": 0.0,
           "prev_score": 0.0,
@@ -3820,10 +1831,10 @@
             }
           ]
         },
-        "reviewer": {
-          "ts": "2026-03-27T20:29:06",
-          "version": 5,
-          "agent": "reviewer",
+        "architect": {
+          "ts": "2026-03-27T20:50:11",
+          "version": 1,
+          "agent": "architect",
           "avg_score": 0.0,
           "prev_score": 0.0,
           "regressed": false,
@@ -3831,19 +1842,19 @@
           "patched": false,
           "tasks": [
             {
-              "title": "Score this function: def add(a,b): return a+b",
+              "title": "Design schema for a todo app",
               "score": 0,
               "status": "error: signal only works in main thread of the main interpreter",
               "elapsed": 0.0
             },
             {
-              "title": "Review a 20-line Python class for quality",
+              "title": "Design microservice boundary for auth + billing",
               "score": 0,
               "status": "error: signal only works in main thread of the main interpreter",
               "elapsed": 0.0
             },
             {
-              "title": "Rate correctness/completeness/style of a module",
+              "title": "Design distributed task queue system",
               "score": 0,
               "status": "error: signal only works in main thread of the main interpreter",
               "elapsed": 0.0
@@ -3851,8 +1862,8 @@
           ]
         },
         "refactor": {
-          "ts": "2026-03-27T20:29:06",
-          "version": 5,
+          "ts": "2026-03-27T20:50:11",
+          "version": 1,
           "agent": "refactor",
           "avg_score": 0.0,
           "prev_score": 0.0,
@@ -3880,10 +1891,10 @@
             }
           ]
         },
-        "benchmarker": {
-          "ts": "2026-03-27T20:29:06",
-          "version": 5,
-          "agent": "benchmarker",
+        "reviewer": {
+          "ts": "2026-03-27T20:50:11",
+          "version": 1,
+          "agent": "reviewer",
           "avg_score": 0.0,
           "prev_score": 0.0,
           "regressed": false,
@@ -3891,49 +1902,19 @@
           "patched": false,
           "tasks": [
             {
-              "title": "Score output quality 0-100 with rubric",
+              "title": "Score this function: def add(a,b): return a+b",
               "score": 0,
               "status": "error: signal only works in main thread of the main interpreter",
               "elapsed": 0.0
             },
             {
-              "title": "Compare two solutions: which is better?",
+              "title": "Review a 20-line Python class for quality",
               "score": 0,
               "status": "error: signal only works in main thread of the main interpreter",
               "elapsed": 0.0
             },
             {
-              "title": "Identify top 3 failure patterns in task batch",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            }
-          ]
-        },
-        "debugger": {
-          "ts": "2026-03-27T20:29:06",
-          "version": 5,
-          "agent": "debugger",
-          "avg_score": 0.0,
-          "prev_score": 0.0,
-          "regressed": false,
-          "pass": false,
-          "patched": false,
-          "tasks": [
-            {
-              "title": "Fix: AttributeError on NoneType",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Fix: off-by-one in binary search",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Debug race condition in thread-safe queue",
+              "title": "Rate correctness/completeness/style of a module",
               "score": 0,
               "status": "error: signal only works in main thread of the main interpreter",
               "elapsed": 0.0
@@ -3941,8 +1922,8 @@
           ]
         },
         "researcher": {
-          "ts": "2026-03-27T20:29:06",
-          "version": 5,
+          "ts": "2026-03-27T20:50:11",
+          "version": 1,
           "agent": "researcher",
           "avg_score": 0.0,
           "prev_score": 0.0,
@@ -3970,10 +1951,10 @@
             }
           ]
         },
-        "test_engineer": {
-          "ts": "2026-03-27T20:29:06",
-          "version": 5,
-          "agent": "test_engineer",
+        "debugger": {
+          "ts": "2026-03-27T20:50:11",
+          "version": 1,
+          "agent": "debugger",
           "avg_score": 0.0,
           "prev_score": 0.0,
           "regressed": false,
@@ -3981,19 +1962,19 @@
           "patched": false,
           "tasks": [
             {
-              "title": "Write pytest for add(a,b)",
+              "title": "Fix: AttributeError on NoneType",
               "score": 0,
               "status": "error: signal only works in main thread of the main interpreter",
               "elapsed": 0.0
             },
             {
-              "title": "Write tests for a REST endpoint handler",
+              "title": "Fix: off-by-one in binary search",
               "score": 0,
               "status": "error: signal only works in main thread of the main interpreter",
               "elapsed": 0.0
             },
             {
-              "title": "Write integration test for DB migration",
+              "title": "Debug race condition in thread-safe queue",
               "score": 0,
               "status": "error: signal only works in main thread of the main interpreter",
               "elapsed": 0.0
@@ -4001,8 +1982,8 @@
           ]
         },
         "doc_writer": {
-          "ts": "2026-03-27T20:29:06",
-          "version": 5,
+          "ts": "2026-03-27T20:50:11",
+          "version": 1,
           "agent": "doc_writer",
           "avg_score": 0.0,
           "prev_score": 0.0,
@@ -4030,10 +2011,10 @@
             }
           ]
         },
-        "architect": {
-          "ts": "2026-03-27T20:29:06",
-          "version": 5,
-          "agent": "architect",
+        "benchmarker": {
+          "ts": "2026-03-27T20:50:11",
+          "version": 1,
+          "agent": "benchmarker",
           "avg_score": 0.0,
           "prev_score": 0.0,
           "regressed": false,
@@ -4041,19 +2022,49 @@
           "patched": false,
           "tasks": [
             {
-              "title": "Design schema for a todo app",
+              "title": "Score output quality 0-100 with rubric",
               "score": 0,
               "status": "error: signal only works in main thread of the main interpreter",
               "elapsed": 0.0
             },
             {
-              "title": "Design microservice boundary for auth + billing",
+              "title": "Compare two solutions: which is better?",
               "score": 0,
               "status": "error: signal only works in main thread of the main interpreter",
               "elapsed": 0.0
             },
             {
-              "title": "Design distributed task queue system",
+              "title": "Identify top 3 failure patterns in task batch",
+              "score": 0,
+              "status": "error: signal only works in main thread of the main interpreter",
+              "elapsed": 0.0
+            }
+          ]
+        },
+        "test_engineer": {
+          "ts": "2026-03-27T20:50:11",
+          "version": 1,
+          "agent": "test_engineer",
+          "avg_score": 0.0,
+          "prev_score": 0.0,
+          "regressed": false,
+          "pass": false,
+          "patched": false,
+          "tasks": [
+            {
+              "title": "Write pytest for add(a,b)",
+              "score": 0,
+              "status": "error: signal only works in main thread of the main interpreter",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Write tests for a REST endpoint handler",
+              "score": 0,
+              "status": "error: signal only works in main thread of the main interpreter",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Write integration test for DB migration",
               "score": 0,
               "status": "error: signal only works in main thread of the main interpreter",
               "elapsed": 0.0
@@ -4065,12 +2076,12 @@
       "patched": []
     },
     "business_summary": {
-      "headline": "0 of 328 engineering tasks complete",
+      "headline": "0 of 5 engineering tasks complete",
       "pct_complete": 0.0,
       "projects_active": 0,
       "blockers_open": 1,
-      "version": 5,
-      "updated_at": "2026-03-27T13:39:28.552604"
+      "version": 1,
+      "updated_at": "2026-03-27T13:50:11.607586"
     }
   }
 }
