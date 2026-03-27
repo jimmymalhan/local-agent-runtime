@@ -1,0 +1,13 @@
+{
+  "tasks_run": 1,
+  "completed": 1,
+  "failed": 0,
+  "tasks": [
+    {
+      "id": "benchmark-performance",
+      "status": "completed",
+      "quality": 90.0,
+      "elapsed_s": 0.0004241466522216797
+    }
+  ]
+}
