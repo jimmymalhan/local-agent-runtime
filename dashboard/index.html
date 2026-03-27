@@ -567,6 +567,7 @@ main{position:relative;z-index:1;padding-top:52px;}
     <button class="ntab"        role="tab" aria-selected="false" data-tab="ceo"        data-testid="tab-ceo"        tabindex="-1">CEO</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="logs"       data-testid="tab-logs"       tabindex="-1">Logs</button>
     <button class="ntab"        role="tab" aria-selected="false" data-tab="chat"       data-testid="tab-chat"       tabindex="-1">Chat</button>
+    <button class="ntab"        role="tab" aria-selected="false" data-tab="workflow"   data-testid="tab-workflow"   tabindex="-1">Workflow</button>
   </div>
   <div class="nr">
     <span class="npill live" id="np-v" data-testid="pill-version">v1</span>
@@ -1060,6 +1061,26 @@ main{position:relative;z-index:1;padding-top:52px;}
       <a href="#" style="color:var(--blue);text-decoration:none;" onclick="clearChat();return false;">Clear</a>
     </div>
   </div>
+</div>
+
+<div id="tab-workflow" class="tab-panel" role="tabpanel">
+  <div class="sec">
+    <div class="sh">
+      <div class="st">🔄 Workflow Editor</div>
+      <div class="ss">Drag arrows to reorder execution pipeline</div>
+    </div>
+  </div>
+  <iframe
+    src="/workflow"
+    style="
+      border: none;
+      width: 100%;
+      height: calc(100vh - 200px);
+      border-radius: 18px;
+      box-shadow: 0 2px 20px rgba(0,0,0,.07);
+      margin-bottom: 40px;
+    "
+  ></iframe>
 </div>
 
 </main>

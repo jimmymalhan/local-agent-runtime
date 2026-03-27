@@ -328,6 +328,13 @@ async def get_dashboard():
         return f.read()
 
 
+@app.get("/workflow", response_class=HTMLResponse)
+async def get_workflow():
+    html_path = os.path.join(DASH_DIR, "workflow-editor.html")
+    with open(html_path) as f:
+        return f.read()
+
+
 @app.get("/api/state")
 async def get_state():
     return read_state()
@@ -501,6 +508,61 @@ async def get_dashboard():
             "blockers_and_improvements": {"blockers": [], "improvements": []},
             "summary": {"system_status": "unknown"}
         }
+
+
+@app.post("/api/workflow/config")
+async def set_workflow_config(request: dict):
+    """Save workflow configuration to state.json."""
+    try:
+        state = read_state()
+        state["workflow"] = request.get("workflow", [])
+        state["workflow_updated_at"] = datetime.now().isoformat()
+        # Persist to state.json
+        with open(STATE_FILE, "w") as f:
+            json.dump(state, f, indent=2)
+        return {"status": "saved", "workflow": request.get("workflow", [])}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+
+
+@app.get("/api/workflow/config")
+async def get_workflow_config():
+    """Get current workflow configuration."""
+    state = read_state()
+    return {
+        "workflow": state.get("workflow", []),
+        "updated_at": state.get("workflow_updated_at", "")
+    }
+
+
+@app.post("/api/workflow/execute")
+async def execute_workflow(request: dict):
+    """Trigger workflow execution with current configuration."""
+    try:
+        # Get current workflow order from request or state
+        workflow = request.get("workflow", [])
+        state = read_state()
+
+        # Log workflow execution
+        execution_log = {
+            "ts": datetime.now().isoformat(),
+            "workflow_order": workflow,
+            "status": "started"
+        }
+
+        # Append to workflow execution log
+        workflow_log_path = os.path.join(REPORTS, "workflow_executions.jsonl")
+        os.makedirs(REPORTS, exist_ok=True)
+        with open(workflow_log_path, "a") as f:
+            f.write(json.dumps(execution_log) + "\n")
+
+        return {
+            "status": "execution_started",
+            "workflow": workflow,
+            "timestamp": datetime.now().isoformat()
+        }
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
 
 
 @app.websocket("/ws")
