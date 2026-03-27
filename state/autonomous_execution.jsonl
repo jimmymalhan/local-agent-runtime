@@ -322,3 +322,14 @@
 {"ts": "2026-03-26T21:57:54.013770", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 853, "elapsed": 34.143452167510986, "autonomous": true}
 {"ts": "2026-03-26T21:58:17.035945", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1125, "elapsed": 40.80355405807495, "autonomous": true}
 {"ts": "2026-03-26T21:58:52.460612", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1781, "elapsed": 58.084887981414795, "autonomous": true}
+{"ts": "2026-03-26T22:03:14.826695", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 34%"}
+{"ts": "2026-03-26T22:03:16.838776", "action": "execute_failed", "agent": "executor", "task_id": "incident-1774572089", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T22:03:17.249322", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 34%"}
+{"ts": "2026-03-26T22:03:19.257442", "action": "execute_failed", "agent": "executor", "task_id": "incident-1774575243", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T22:05:25.705919", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1441, "elapsed": 126.0527560710907, "autonomous": true}
+{"ts": "2026-03-26T22:05:44.277828", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 826, "elapsed": 18.193181037902832, "autonomous": true}
+{"ts": "2026-03-26T22:06:16.716745", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1573, "elapsed": 32.066601276397705, "autonomous": true}
+{"ts": "2026-03-26T22:10:20.211883", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 34%"}
+{"ts": "2026-03-26T22:10:22.219179", "action": "execute_failed", "agent": "executor", "task_id": "incident-1774572089", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T22:10:22.607038", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 34%"}
+{"ts": "2026-03-26T22:10:24.615626", "action": "execute_failed", "agent": "executor", "task_id": "incident-1774575243", "attempts": 3, "last_error": "No module named 'agent_runner'"}

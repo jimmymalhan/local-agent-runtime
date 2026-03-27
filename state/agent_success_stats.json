@@ -1,7 +1,7 @@
 {
   "executor": {
     "success": 16,
-    "total": 153,
+    "total": 157,
     "tokens": 3094,
     "success_rate": 0.1
   },
@@ -18,9 +18,9 @@
     "success_rate": 0.5
   },
   "architect": {
-    "success": 43,
-    "total": 43,
-    "tokens": 61366,
+    "success": 46,
+    "total": 46,
+    "tokens": 65206,
     "success_rate": 1.0
   },
   "refactor": {
