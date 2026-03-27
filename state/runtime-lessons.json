@@ -109,11 +109,25 @@
         "error": "No module named 'agent_runner'",
         "success": false,
         "timestamp": "2026-03-26T19:43:45.442184"
+      },
+      {
+        "attempt": 14,
+        "strategy": "autonomous",
+        "error": "No module named 'agent_runner'",
+        "success": false,
+        "timestamp": "2026-03-26T19:53:16.712055"
+      },
+      {
+        "attempt": 15,
+        "strategy": "autonomous",
+        "error": "No module named 'agent_runner'",
+        "success": false,
+        "timestamp": "2026-03-26T19:53:46.979730"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-26T18:55:31.505847",
-    "rescue_escalated_at": "2026-03-26T19:43:45.442693"
+    "rescue_escalated_at": "2026-03-26T19:53:46.981083"
   },
   "task-4": {
     "attempts": [
@@ -172,11 +186,18 @@
         "error": "No module named 'agent_runner'",
         "success": false,
         "timestamp": "2026-03-26T19:43:19.327070"
+      },
+      {
+        "attempt": 9,
+        "strategy": "autonomous",
+        "error": "No module named 'agent_runner'",
+        "success": false,
+        "timestamp": "2026-03-26T19:53:19.126788"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-26T18:55:31.907226",
-    "rescue_escalated_at": "2026-03-26T19:43:19.329878"
+    "rescue_escalated_at": "2026-03-26T19:53:19.128484"
   },
   "task-5": {
     "attempts": [
@@ -228,11 +249,18 @@
         "error": "No module named 'agent_runner'",
         "success": false,
         "timestamp": "2026-03-26T19:43:21.728137"
+      },
+      {
+        "attempt": 8,
+        "strategy": "autonomous",
+        "error": "No module named 'agent_runner'",
+        "success": false,
+        "timestamp": "2026-03-26T19:53:21.544267"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-26T18:55:32.294569",
-    "rescue_escalated_at": "2026-03-26T19:43:21.730375"
+    "rescue_escalated_at": "2026-03-26T19:53:21.546496"
   },
   "task-fix-1": {
     "attempts": [
@@ -284,11 +312,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-26T19:43:22.127772"
+      },
+      {
+        "attempt": 8,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-26T19:53:21.963875"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-26T18:55:32.671207",
-    "rescue_escalated_at": "2026-03-26T19:43:22.128234"
+    "rescue_escalated_at": "2026-03-26T19:53:21.964417"
   },
   "task-fix-2": {
     "attempts": [
@@ -340,11 +375,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-26T19:43:22.501925"
+      },
+      {
+        "attempt": 8,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-26T19:53:22.361901"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-26T18:55:33.057363",
-    "rescue_escalated_at": "2026-03-26T19:43:22.502428"
+    "rescue_escalated_at": "2026-03-26T19:53:22.362423"
   },
   "task-fix-3": {
     "attempts": [
