@@ -865,3 +865,8 @@
 {"ts": "2026-03-27T11:17:20.772877", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 920, "elapsed": 20.67097496986389, "autonomous": true}
 {"ts": "2026-03-27T11:17:37.943026", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 775, "elapsed": 16.778584003448486, "autonomous": true}
 {"ts": "2026-03-27T11:18:15.896779", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1857, "elapsed": 37.564358949661255, "autonomous": true}
+{"ts": "2026-03-27T11:27:02.363486", "action": "execute_failed", "agent": "executor", "task_id": "phase3-performance-tuning", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T11:27:02.755240", "action": "execute_failed", "agent": "executor", "task_id": "ultra-dash-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T11:27:03.141254", "action": "execute_failed", "agent": "executor", "task_id": "ultra-dash-2", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T11:27:03.513254", "action": "execute_failed", "agent": "executor", "task_id": "ultra-dash-3", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T11:27:03.877398", "action": "execute_failed", "agent": "executor", "task_id": "ultra-dash-4", "attempts": 3, "last_error": "Unknown error"}
