@@ -111,8 +111,17 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T00:53:57.513132"
+      },
+      {
+        "attempt": 3,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T01:03:59.906138"
       }
-    ]
+    ],
+    "rescue_escalated": true,
+    "rescue_escalated_at": "2026-03-27T01:03:59.906774"
   },
   "task-complete-automation": {
     "attempts": [
@@ -129,10 +138,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T00:53:57.893517"
+      },
+      {
+        "attempt": 3,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T01:04:00.291962"
       }
     ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T00:43:55.768613"
+    "rescue_escalated": true,
+    "first_attempt_at": "2026-03-27T00:43:55.768613",
+    "rescue_escalated_at": "2026-03-27T01:04:00.292296"
   },
   "task-subagent-scaling": {
     "attempts": [
@@ -142,6 +159,13 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T00:53:58.273622"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T01:04:00.666944"
       }
     ],
     "rescue_escalated": false,
@@ -155,9 +179,29 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T00:53:58.642459"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T01:04:01.054183"
       }
     ],
     "rescue_escalated": false,
     "first_attempt_at": "2026-03-27T00:53:58.642457"
+  },
+  "task-performance-validation": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T01:04:01.404879"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T01:04:01.404876"
   }
 }
