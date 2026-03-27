@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workflow Editor — Nexus Runtime</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f5f7;
+      --card: #ffffff;
+      --bd: rgba(0,0,0,.08);
+      --blue: #0071e3;
+      --green: #34c759;
+      --orange: #ff9500;
+      --red: #ff3b30;
+      --t1: #1d1d1f;
+      --t2: #6e6e73;
+      --t3: #aeaeb2;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--t1);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 28px 48px;
+      border-bottom: 1px solid var(--bd);
+      background: var(--card);
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--t2);
+    }
+
+    .container {
+      padding: 40px 48px;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    /* Workflow Canvas */
+    .workflow-canvas {
+      background: var(--card);
+      border: 1px solid var(--bd);
+      border-radius: 18px;
+      padding: 40px;
+      min-height: 600px;
+      position: relative;
+      overflow: auto;
+      box-shadow: 0 2px 20px rgba(0,0,0,.07);
+    }
+
+    .workflow-grid {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: 100%;
+      perspective: 1000px;
+    }
+
+    /* Workflow Node */
+    .node {
+      flex: 0 0 auto;
+      background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+      border: 2px solid var(--bd);
+      border-radius: 16px;
+      padding: 24px;
+      min-width: 180px;
+      text-align: center;
+      cursor: grab;
+      transition: all .3s cubic-bezier(.4, 0, .2, 1);
+      position: relative;
+      user-select: none;
+    }
+
+    .node:hover {
+      border-color: var(--blue);
+      box-shadow: 0 8px 40px rgba(0,113,227,.12);
+      transform: translateY(-4px);
+    }
+
+    .node.dragging {
+      opacity: 0.7;
+      transform: scale(1.05);
+    }
+
+    .node-icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+      opacity: 0.8;
+    }
+
+    .node-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--t1);
+      margin-bottom: 6px;
+    }
+
+    .node-status {
+      font-size: 11px;
+      color: var(--t2);
+      background: rgba(0,0,0,.04);
+      padding: 4px 8px;
+      border-radius: 6px;
+      display: inline-block;
+      margin-top: 8px;
+    }
+
+    .node-status.running {
+      background: rgba(0,113,227,.1);
+      color: var(--blue);
+      font-weight: 600;
+    }
+
+    .node-status.completed {
+      background: rgba(52,199,89,.1);
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    /* Arrows */
+    .arrow-container {
+      flex: 0 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      height: 60px;
+      user-select: none;
+    }
+
+    .arrow {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: grab;
+      transition: all .2s;
+      position: relative;
+    }
+
+    .arrow:hover {
+      transform: scale(1.2);
+    }
+
+    .arrow svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .arrow-drag-hint {
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 10px;
+      color: var(--t3);
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity .2s;
+    }
+
+    .arrow:hover .arrow-drag-hint {
+      opacity: 1;
+    }
+
+    /* Control Panel */
+    .controls {
+      margin-top: 40px;
+      padding: 24px;
+      background: linear-gradient(135deg, rgba(0,113,227,.04) 0%, rgba(52,199,89,.04) 100%);
+      border-radius: 14px;
+      border: 1px solid var(--bd);
+    }
+
+    .controls h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--t1);
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all .2s;
+      outline: none;
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #0056a0;
+      box-shadow: 0 4px 12px rgba(0,113,227,.3);
+    }
+
+    .btn-secondary {
+      background: var(--card);
+      color: var(--t1);
+      border: 1px solid var(--bd);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg);
+      border-color: var(--t2);
+    }
+
+    /* Details Panel */
+    .details-panel {
+      margin-top: 40px;
+      padding: 24px;
+      background: var(--card);
+      border: 1px solid var(--bd);
+      border-radius: 14px;
+      display: none;
+    }
+
+    .details-panel.active {
+      display: block;
+    }
+
+    .details-panel h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--t1);
+    }
+
+    .detail-item {
+      padding: 12px;
+      background: var(--bg);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .detail-label {
+      color: var(--t2);
+      font-weight: 500;
+    }
+
+    .detail-value {
+      color: var(--t1);
+      font-weight: 600;
+      font-family: "SF Mono", Monaco, monospace;
+    }
+
+    /* Info Box */
+    .info-box {
+      background: rgba(0,113,227,.05);
+      border: 1px solid rgba(0,113,227,.15);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: var(--t2);
+      line-height: 1.6;
+    }
+
+    .info-box strong {
+      color: var(--t1);
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .workflow-grid {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .arrow-container {
+        flex: 0 0 100%;
+        height: 20px;
+        transform: rotate(90deg);
+        margin: -12px 0;
+      }
+    }
+
+    /* Status indicator pulse */
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    .pulse {
+      animation: pulse 2s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🔄 Workflow Editor</h1>
+    <p class="subtitle">Drag arrows to switch execution order. Watch real-time updates as agents execute.</p>
+  </header>
+
+  <div class="container">
+    <div class="info-box">
+      <strong>How it works:</strong> Drag any arrow (→) left or right to reorder workflow stages.
+      The pipeline automatically adjusts and agents execute in the new order.
+      Each stage shows real-time status: idle, running, or completed.
+    </div>
+
+    <div class="workflow-canvas">
+      <div class="workflow-grid" id="workflowGrid"></div>
+    </div>
+
+    <div class="controls">
+      <h3>Actions</h3>
+      <div class="button-group">
+        <button class="btn-primary" id="resetBtn">↺ Reset to Default</button>
+        <button class="btn-secondary" id="autoBtn">▶ Auto-Execute</button>
+        <button class="btn-secondary" id="exportBtn">⬇ Export Config</button>
+        <button class="btn-secondary" id="importBtn">⬆ Import Config</button>
+      </div>
+    </div>
+
+    <div class="details-panel" id="detailsPanel">
+      <h3 id="detailTitle">Stage Details</h3>
+      <div id="detailContent"></div>
+    </div>
+  </div>
+
+  <script>
+    // Workflow stages configuration
+    const stages = [
+      {
+        id: 'agent-assignment',
+        title: 'Agent Assignment',
+        icon: '👥',
+        description: 'Assign task to appropriate agent based on type',
+        duration: '~100ms',
+        status: 'completed'
+      },
+      {
+        id: 'execution',
+        title: 'Execution',
+        icon: '⚙️',
+        description: 'Agent executes task (code gen, bug fix, analysis)',
+        duration: '~2-5s',
+        status: 'running'
+      },
+      {
+        id: 'validation',
+        title: 'Validation',
+        icon: '✓',
+        description: 'Validate output quality and correctness',
+        duration: '~500ms',
+        status: 'idle'
+      },
+      {
+        id: 'committing',
+        title: 'Committing',
+        icon: '📝',
+        description: 'Commit changes to feature branch with message',
+        duration: '~200ms',
+        status: 'idle'
+      },
+      {
+        id: 'merging',
+        title: 'Merging',
+        icon: '🔗',
+        description: 'Merge to main via PR when ready',
+        duration: '~300ms',
+        status: 'idle'
+      }
+    ];
+
+    let currentOrder = [...stages];
+    let draggedIndex = null;
+    let draggedArrowIndex = null;
+
+    function renderWorkflow() {
+      const grid = document.getElementById('workflowGrid');
+      grid.innerHTML = '';
+
+      currentOrder.forEach((stage, index) => {
+        // Node
+        const node = document.createElement('div');
+        node.className = 'node';
+        node.draggable = true;
+        node.dataset.index = index;
+        node.innerHTML = `
+          <div class="node-icon">${stage.icon}</div>
+          <div class="node-title">${stage.title}</div>
+          <div class="node-status ${stage.status}">${stage.status}</div>
+        `;
+
+        node.addEventListener('dragstart', () => draggedIndex = index);
+        node.addEventListener('dragend', () => draggedIndex = null);
+        node.addEventListener('dragover', (e) => e.preventDefault());
+        node.addEventListener('drop', () => handleNodeDrop(index));
+        node.addEventListener('click', () => showDetails(stage));
+
+        grid.appendChild(node);
+
+        // Arrow (if not last)
+        if (index < currentOrder.length - 1) {
+          const arrowContainer = document.createElement('div');
+          arrowContainer.className = 'arrow-container';
+          arrowContainer.draggable = true;
+          arrowContainer.dataset.arrowIndex = index;
+
+          const arrow = document.createElement('div');
+          arrow.className = 'arrow';
+          arrow.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="5 12 19 12"></polyline>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+            <div class="arrow-drag-hint">Drag to reorder</div>
+          `;
+
+          arrowContainer.appendChild(arrow);
+          arrowContainer.addEventListener('dragstart', (e) => {
+            draggedArrowIndex = index;
+            e.dataTransfer.effectAllowed = 'move';
+          });
+          arrowContainer.addEventListener('dragend', () => draggedArrowIndex = null);
+          arrowContainer.addEventListener('dragover', (e) => e.preventDefault());
+          arrowContainer.addEventListener('drop', (e) => handleArrowDrop(index, e));
+
+          grid.appendChild(arrowContainer);
+        }
+      });
+    }
+
+    function handleNodeDrop(targetIndex) {
+      if (draggedIndex !== null && draggedIndex !== targetIndex) {
+        const [moved] = currentOrder.splice(draggedIndex, 1);
+        currentOrder.splice(targetIndex, 0, moved);
+        renderWorkflow();
+        updateWorkflowConfig();
+      }
+    }
+
+    function handleArrowDrop(arrowIndex, e) {
+      if (draggedArrowIndex !== null) {
+        // Swap adjacent nodes to reorder
+        if (Math.abs(draggedArrowIndex - arrowIndex) === 1) {
+          [currentOrder[draggedArrowIndex], currentOrder[arrowIndex + 1]] =
+          [currentOrder[arrowIndex + 1], currentOrder[draggedArrowIndex]];
+          renderWorkflow();
+          updateWorkflowConfig();
+        }
+      }
+    }
+
+    function showDetails(stage) {
+      const panel = document.getElementById('detailsPanel');
+      const title = document.getElementById('detailTitle');
+      const content = document.getElementById('detailContent');
+
+      title.textContent = `${stage.icon} ${stage.title}`;
+      content.innerHTML = `
+        <div class="detail-item">
+          <span class="detail-label">Description</span>
+          <span class="detail-value">${stage.description}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Status</span>
+          <span class="detail-value">${stage.status}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Duration</span>
+          <span class="detail-value">${stage.duration}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Stage ID</span>
+          <span class="detail-value" style="font-size: 11px;">${stage.id}</span>
+        </div>
+      `;
+
+      panel.classList.add('active');
+    }
+
+    function updateWorkflowConfig() {
+      // Send updated workflow to backend
+      const config = {
+        workflow: currentOrder.map((s, i) => ({ id: s.id, order: i })),
+        timestamp: new Date().toISOString()
+      };
+
+      console.log('Workflow updated:', config);
+
+      // Store in localStorage for persistence
+      localStorage.setItem('workflowConfig', JSON.stringify(config));
+
+      // Optional: Send to backend
+      fetch('/api/workflow/config', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(config)
+      }).catch(e => console.log('Workflow saved locally'));
+    }
+
+    function resetWorkflow() {
+      currentOrder = [...stages];
+      renderWorkflow();
+      updateWorkflowConfig();
+    }
+
+    // Button handlers
+    document.getElementById('resetBtn').addEventListener('click', resetWorkflow);
+
+    document.getElementById('autoBtn').addEventListener('click', () => {
+      alert('Auto-execution started. Watch the Status tab for real-time updates.');
+    });
+
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      const config = {
+        workflow: currentOrder.map((s, i) => ({ id: s.id, order: i, title: s.title })),
+        exported: new Date().toISOString()
+      };
+      const json = JSON.stringify(config, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `workflow-${Date.now()}.json`;
+      a.click();
+    });
+
+    document.getElementById('importBtn').addEventListener('click', () => {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.json';
+      input.onchange = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          try {
+            const config = JSON.parse(event.target.result);
+            if (config.workflow && Array.isArray(config.workflow)) {
+              currentOrder = config.workflow
+                .sort((a, b) => a.order - b.order)
+                .map(item => stages.find(s => s.id === item.id))
+                .filter(Boolean);
+              renderWorkflow();
+              updateWorkflowConfig();
+              alert('Workflow imported successfully!');
+            }
+          } catch (err) {
+            alert('Failed to import workflow: ' + err.message);
+          }
+        };
+        reader.readAsText(file);
+      };
+      input.click();
+    });
+
+    // Connect to WebSocket for real-time updates
+    function connectWebSocket() {
+      try {
+        const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const ws = new WebSocket(`${protocol}//${window.location.host}/ws`);
+
+        ws.onmessage = (event) => {
+          try {
+            const data = JSON.parse(event.data);
+            if (data.agents) {
+              // Update stage status based on agent status
+              Object.entries(data.agents).forEach(([name, agent]) => {
+                const stageMap = {
+                  'executor': 'execution',
+                  'reviewer': 'validation',
+                  'committer': 'committing',
+                  'merger': 'merging'
+                };
+                const stageId = stageMap[name];
+                if (stageId) {
+                  const stage = currentOrder.find(s => s.id === stageId);
+                  if (stage) {
+                    const status = agent.status || 'idle';
+                    stage.status = status === 'working' ? 'running' : status;
+                  }
+                }
+              });
+              renderWorkflow();
+            }
+          } catch (e) {
+            console.log('WebSocket data parse error:', e);
+          }
+        };
+
+        ws.onclose = () => {
+          // Reconnect after 3 seconds
+          setTimeout(connectWebSocket, 3000);
+        };
+      } catch (e) {
+        console.log('WebSocket connection error:', e);
+      }
+    }
+
+    // Connect to WebSocket for real-time status updates
+    connectWebSocket();
+
+    // Load saved workflow from backend or render default
+    async function loadWorkflow() {
+      try {
+        const res = await fetch('/api/workflow/config');
+        const data = await res.json();
+        if (data.workflow && data.workflow.length > 0) {
+          currentOrder = data.workflow
+            .sort((a, b) => a.order - b.order)
+            .map(item => stages.find(s => s.id === item.id))
+            .filter(Boolean);
+        }
+      } catch (e) {
+        // Fall back to localStorage
+        const saved = localStorage.getItem('workflowConfig');
+        if (saved) {
+          try {
+            const config = JSON.parse(saved);
+            currentOrder = config.workflow
+              .sort((a, b) => a.order - b.order)
+              .map(item => stages.find(s => s.id === item.id))
+              .filter(Boolean);
+          } catch (e2) {
+            console.log('Could not load saved workflow, using default');
+          }
+        }
+      }
+      renderWorkflow();
+    }
+
+    loadWorkflow();
+  </script>
+</body>
+</html>

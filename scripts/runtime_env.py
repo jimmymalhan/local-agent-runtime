@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
+from __future__ import annotations
 import json
 import os
 import pathlib
+from typing import Optional, Dict
 
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -9,7 +11,7 @@ RUNTIME_ENV_PATH = REPO_ROOT / "state" / "runtime.env"
 OPENCLAW_CONFIG_PATH = pathlib.Path.home() / ".openclaw" / "openclaw.json"
 
 
-def parse_env_lines(text: str) -> dict[str, str]:
+def parse_env_lines(text: str) -> Dict[str, str]:
     values: dict[str, str] = {}
     for raw in text.splitlines():
         line = raw.strip()
@@ -20,7 +22,7 @@ def parse_env_lines(text: str) -> dict[str, str]:
     return values
 
 
-def load_runtime_env(path: pathlib.Path | None = None, override: bool = False) -> dict[str, str]:
+def load_runtime_env(path: Optional[pathlib.Path] = None, override: bool = False) -> Dict[str, str]:
     target = path or RUNTIME_ENV_PATH
     if not target.exists():
         return {}
@@ -31,14 +33,14 @@ def load_runtime_env(path: pathlib.Path | None = None, override: bool = False) -
     return values
 
 
-def read_runtime_env(path: pathlib.Path | None = None) -> dict[str, str]:
+def read_runtime_env(path: Optional[pathlib.Path] = None) -> Dict[str, str]:
     target = path or RUNTIME_ENV_PATH
     if not target.exists():
         return {}
     return parse_env_lines(target.read_text())
 
 
-def env_with_runtime(overrides: dict[str, str] | None = None) -> dict[str, str]:
+def env_with_runtime(overrides: Optional[Dict[str, str]] = None) -> Dict[str, str]:
     merged = dict(read_runtime_env())
     merged.update({key: str(value) for key, value in os.environ.items()})
     if overrides:
@@ -46,7 +48,7 @@ def env_with_runtime(overrides: dict[str, str] | None = None) -> dict[str, str]:
     return merged
 
 
-def write_runtime_env(values: dict[str, str], path: pathlib.Path | None = None) -> pathlib.Path:
+def write_runtime_env(values: Dict[str, str], path: Optional[pathlib.Path] = None) -> pathlib.Path:
     target = path or RUNTIME_ENV_PATH
     merged = read_runtime_env(target)
     for key, value in values.items():

@@ -42,13 +42,13 @@ while [ $# -gt 0 ]; do
       SESSION_PERSONA=${1#--persona=} ;;
     --bench)
       shift; BENCH_QUICK=${1:-3}
-      python3 "$REPO_ROOT/local-agents/orchestrator/main.py" --version 1 --quick "$BENCH_QUICK" --local-only
+      python3 "$REPO_ROOT/orchestrator/main.py" --version 1 --quick "$BENCH_QUICK" --local-only
       exit $? ;;
     --bench-auto)
       python3 "$REPO_ROOT/local-agents/orchestrator/main.py" --auto 1
       exit $? ;;
     --dashboard)
-      bash "$REPO_ROOT/local-agents/dashboard/launch.sh" &
+      bash "$REPO_ROOT/dashboard/launch.sh" &
       echo "Dashboard starting — URL in DASHBOARD.txt"
       exit 0 ;;
     *)

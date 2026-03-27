@@ -80,7 +80,7 @@ def score_plan_accuracy(text, target_repo=None):
         else:
             # Also check relative to common subdirectories
             found = False
-            for subdir in ["", "scripts/", "roles/", "skills/", "config/", "state/", "tests/"]:
+            for subdir in ["", "scripts/", ".claude/roles/", ".claude/skills/", "config/", "state/", "tests/"]:
                 if (repo / subdir / p).exists():
                     existing.append(p)
                     found = True
@@ -135,7 +135,7 @@ def score_hallucination_rate(text, target_repo=None):
             # Check common subdirectories
             found = any(
                 (repo / subdir / p).exists()
-                for subdir in ["", "scripts/", "roles/", "skills/", "config/", "state/", "tests/"]
+                for subdir in ["", "scripts/", ".claude/roles/", ".claude/skills/", "config/", "state/", "tests/"]
             )
             if not found:
                 hallucinated.append(p)

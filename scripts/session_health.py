@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from __future__ import annotations
 import argparse
 import json
 import os
@@ -8,6 +9,7 @@ import subprocess
 import sys
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Optional
 
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -37,7 +39,7 @@ def run(cmd):
     return subprocess.run(cmd, capture_output=True, text=True, check=False)
 
 
-def detect_tool(command: str) -> str | None:
+def detect_tool(command: str) -> Optional[str]:
     lowered = command.lower()
     if "/bin/codex" in lowered or lowered.startswith("codex ") or lowered == "codex":
         return "codex"

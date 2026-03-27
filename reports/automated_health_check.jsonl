@@ -1,0 +1,11 @@
+{"ts": "2026-03-26T17:41:29.276036", "status": "FAIL", "issue": "All 5 tasks pending, none executing", "severity": "P0", "action": "Wire orchestrator to projects.json, ensure task dispatch active"}
+{"ts": "2026-03-26T17:41:29.280559", "status": "OK", "issue": "Cron jobs active", "severity": "INFO", "action": ""}
+{"ts": "2026-03-26T18:29:21.714981", "status": "FAIL", "issue": "All 6 tasks pending, none executing", "severity": "P0", "action": "Wire orchestrator to projects.json, ensure task dispatch active"}
+{"ts": "2026-03-26T18:29:21.719217", "status": "OK", "issue": "Cron jobs active", "severity": "INFO", "action": ""}
+{"ts": "2026-03-26T18:30:18.766296", "status": "FAIL", "issue": "All 6 tasks pending, none executing", "severity": "P0", "action": "Wire orchestrator to projects.json, ensure task dispatch active"}
+{"ts": "2026-03-26T18:30:18.770729", "status": "OK", "issue": "Cron jobs active", "severity": "INFO", "action": ""}
+{"ts": "2026-03-26T18:34:03.650427", "status": "FAIL", "issue": "No tasks executing (all pending)", "severity": "P0", "action": "Check orchestrator, verify task dispatch, restart if needed"}
+{"ts": "2026-03-26T18:34:03.651578", "status": "FAIL", "issue": "All 7 tasks pending, none executing", "severity": "P0", "action": "Wire orchestrator to projects.json, ensure task dispatch active"}
+{"ts": "2026-03-26T18:34:03.656075", "status": "OK", "issue": "Cron jobs active", "severity": "INFO", "action": ""}
+{"ts": "2026-03-26T18:35:43.592133", "status": "FAIL", "issue": "No tasks executing (all pending)", "severity": "P0", "action": "Check orchestrator, verify task dispatch, restart if needed"}
+{"ts": "2026-03-26T18:35:43.597566", "status": "OK", "issue": "Cron jobs active", "severity": "INFO", "action": ""}

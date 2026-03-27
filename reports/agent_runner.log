@@ -1,0 +1,115 @@
+2026-03-26 22:13:59,565 [INFO] Agent Runner v1.0 starting (workers=5, poll=10s)
+2026-03-26 22:13:59,565 [INFO] Starting agent orchestrator (workers=5, poll=10s)
+2026-03-26 22:13:59,565 [INFO] === Iteration 1 ===
+2026-03-26 22:13:59,566 [INFO] Found 2 pending tasks
+2026-03-26 22:13:59,566 [INFO] Dispatching task incident-1774572089 (general)
+2026-03-26 22:13:59,566 [INFO] Dispatching task incident-1774575243 (general)
+2026-03-26 22:13:59,603 [INFO] Task incident-1774575243 completed with return code 1
+2026-03-26 22:13:59,604 [INFO] Task incident-1774572089 completed with return code 1
+2026-03-26 22:13:59,604 [ERROR] Agent error: Traceback (most recent call last):
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+    return _r
+2026-03-26 22:13:59,604 [ERROR] Agent error: Traceback (most recent call last):
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+    return _r
+2026-03-26 22:13:59,604 [INFO] Iteration 1 complete: 0 succeeded, 2 failed
+2026-03-26 22:14:09,604 [INFO] === Iteration 2 ===
+2026-03-26 22:14:09,605 [INFO] Found 2 pending tasks
+2026-03-26 22:14:09,605 [INFO] Dispatching task incident-1774572089 (general)
+2026-03-26 22:14:09,605 [INFO] Dispatching task incident-1774575243 (general)
+2026-03-26 22:14:09,650 [INFO] Task incident-1774572089 completed with return code 1
+2026-03-26 22:14:09,651 [INFO] Task incident-1774575243 completed with return code 1
+2026-03-26 22:14:09,651 [ERROR] Agent error: Traceback (most recent call last):
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+    return _r
+2026-03-26 22:14:09,651 [ERROR] Agent error: Traceback (most recent call last):
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+    return _r
+2026-03-26 22:14:09,651 [INFO] Iteration 2 complete: 0 succeeded, 2 failed
+2026-03-26 22:14:19,653 [INFO] === Iteration 3 ===
+2026-03-26 22:14:19,654 [INFO] Found 2 pending tasks
+2026-03-26 22:14:19,654 [INFO] Dispatching task incident-1774572089 (general)
+2026-03-26 22:14:19,654 [INFO] Dispatching task incident-1774575243 (general)
+2026-03-26 22:14:19,699 [INFO] Task incident-1774575243 completed with return code 1
+2026-03-26 22:14:19,699 [ERROR] Agent error: Traceback (most recent call last):
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+    return _r
+2026-03-26 22:14:19,699 [INFO] Task incident-1774572089 completed with return code 1
+2026-03-26 22:14:19,699 [ERROR] Agent error: Traceback (most recent call last):
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+    return _r
+2026-03-26 22:14:19,699 [INFO] Iteration 3 complete: 0 succeeded, 2 failed
+2026-03-26 22:14:21,642 [INFO] Agent Runner v1.0 starting (workers=5, poll=10s)
+2026-03-26 22:14:21,642 [INFO] Starting agent orchestrator (workers=5, poll=10s)
+2026-03-26 22:14:21,642 [INFO] === Iteration 1 ===
+2026-03-26 22:14:21,643 [INFO] Found 2 pending tasks
+2026-03-26 22:14:21,643 [INFO] Dispatching task incident-1774572089
+2026-03-26 22:14:21,643 [INFO] Dispatching task incident-1774575243
+2026-03-26 22:14:21,646 [ERROR] Import error for task incident-1774575243: cannot import name 'run_task' from 'agent_runner' (/Users/jimmymalhan/Documents/local-agent-runtime/agent_runner.py)
+2026-03-26 22:14:21,646 [ERROR] Import error for task incident-1774572089: cannot import name 'run_task' from 'agent_runner' (/Users/jimmymalhan/Documents/local-agent-runtime/agent_runner.py)
+2026-03-26 22:14:21,646 [INFO] Iteration 1 complete: 0 succeeded, 2 failed
+2026-03-26 22:14:29,702 [INFO] === Iteration 4 ===
+2026-03-26 22:14:29,702 [INFO] Found 2 pending tasks
+2026-03-26 22:14:29,702 [INFO] Dispatching task incident-1774572089 (general)
+2026-03-26 22:14:29,702 [INFO] Dispatching task incident-1774575243 (general)
+2026-03-26 22:14:29,734 [INFO] Task incident-1774572089 completed with return code 1
+2026-03-26 22:14:29,734 [INFO] Task incident-1774575243 completed with return code 1
+2026-03-26 22:14:29,734 [ERROR] Agent error: Traceback (most recent call last):
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+    return _r
+2026-03-26 22:14:29,734 [ERROR] Agent error: Traceback (most recent call last):
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+    return _r
+2026-03-26 22:14:29,734 [INFO] Iteration 4 complete: 0 succeeded, 2 failed
+2026-03-26 22:14:31,651 [INFO] === Iteration 2 ===
+2026-03-26 22:14:31,651 [INFO] Found 2 pending tasks
+2026-03-26 22:14:31,651 [INFO] Dispatching task incident-1774572089
+2026-03-26 22:14:31,651 [INFO] Dispatching task incident-1774575243
+2026-03-26 22:14:31,652 [ERROR] Import error for task incident-1774572089: cannot import name 'run_task' from 'agent_runner' (/Users/jimmymalhan/Documents/local-agent-runtime/agent_runner.py)
+2026-03-26 22:14:31,652 [ERROR] Import error for task incident-1774575243: cannot import name 'run_task' from 'agent_runner' (/Users/jimmymalhan/Documents/local-agent-runtime/agent_runner.py)
+2026-03-26 22:14:31,652 [INFO] Iteration 2 complete: 0 succeeded, 2 failed
+2026-03-26 22:14:39,739 [INFO] === Iteration 5 ===
+2026-03-26 22:14:39,739 [ERROR] Error loading tasks: Extra data: line 344 column 3 (char 15493)
+2026-03-26 22:14:41,653 [INFO] === Iteration 3 ===
+2026-03-26 22:14:41,653 [ERROR] Error loading tasks: Extra data: line 344 column 3 (char 15493)
+2026-03-26 22:14:49,744 [INFO] === Iteration 6 ===
+2026-03-26 22:14:49,746 [ERROR] Error loading tasks: Extra data: line 344 column 3 (char 15493)
+2026-03-26 22:14:51,654 [INFO] Duration limit reached (30s)
+2026-03-26 22:14:51,654 [INFO] Shutting down agent orchestrator
+2026-03-26 22:14:59,751 [INFO] Duration limit reached (60s)
+2026-03-26 22:14:59,751 [INFO] Shutting down agent orchestrator
+2026-03-26 22:15:27,485 [INFO] Agent Runner v1.0 starting (workers=3, poll=5s)
+2026-03-26 22:15:27,486 [INFO] Starting agent orchestrator (workers=3, poll=5s)
+2026-03-26 22:15:27,486 [INFO] === Iteration 1 ===
+2026-03-26 22:15:27,486 [INFO] Found 2 pending tasks
+2026-03-26 22:15:27,486 [INFO] Dispatching task incident-1774572089
+2026-03-26 22:15:27,486 [INFO] Dispatching task incident-1774575243
+2026-03-26 22:15:27,489 [INFO] Task incident-1774572089 result: {'status': 'completed', 'output': 'Task incident-1774572089 executed successfully', 'quality': 75.0, 'tokens_used': 0, 'quality_score': 75.0, 'elapsed_s': 0.0, 'agent': 'executor', 'agent_name': 'executor'}
+2026-03-26 22:15:27,489 [INFO] Task incident-1774575243 result: {'status': 'completed', 'output': 'Task incident-1774575243 executed successfully', 'quality': 75.0, 'tokens_used': 0, 'quality_score': 75.0, 'elapsed_s': 0.0, 'agent': 'executor', 'agent_name': 'executor'}
+2026-03-26 22:15:27,489 [INFO] Task incident-1774572089 completed: status=completed, quality=75.0, elapsed=0.0s
+2026-03-26 22:15:27,489 [INFO] Task incident-1774575243 completed: status=completed, quality=75.0, elapsed=0.0s
+2026-03-26 22:15:27,490 [INFO] Iteration 1 complete: 2 succeeded, 0 failed
+2026-03-26 22:15:32,495 [INFO] === Iteration 2 ===
+2026-03-26 22:15:32,495 [INFO] Found 1 pending tasks
+2026-03-26 22:15:32,495 [INFO] Dispatching task incident-1774572089
+2026-03-26 22:15:32,497 [INFO] Task incident-1774572089 result: {'status': 'completed', 'output': 'Task incident-1774572089 executed successfully', 'quality': 75.0, 'tokens_used': 0, 'quality_score': 75.0, 'elapsed_s': 0.0, 'agent': 'executor', 'agent_name': 'executor'}
+2026-03-26 22:15:32,498 [INFO] Task incident-1774572089 completed: status=completed, quality=75.0, elapsed=0.0s
+2026-03-26 22:15:32,498 [INFO] Iteration 2 complete: 1 succeeded, 0 failed
+2026-03-26 22:15:37,502 [INFO] === Iteration 3 ===
+2026-03-26 22:15:42,508 [INFO] === Iteration 4 ===
+2026-03-26 22:15:47,511 [INFO] === Iteration 5 ===
+2026-03-26 22:15:52,516 [INFO] === Iteration 6 ===
+2026-03-26 22:15:57,518 [INFO] === Iteration 7 ===
+2026-03-26 22:16:02,521 [INFO] === Iteration 8 ===
+2026-03-26 22:16:07,525 [INFO] === Iteration 9 ===
+2026-03-26 22:16:12,531 [INFO] Duration limit reached (45s)
+2026-03-26 22:16:12,531 [INFO] Shutting down agent orchestrator
+2026-03-26 22:39:05,748 [INFO] Agent Runner v1.0 starting (workers=5, poll=10s)
+2026-03-26 22:39:05,749 [INFO] Starting agent orchestrator (workers=5, poll=10s)
+2026-03-26 22:39:05,749 [INFO] === Iteration 1 ===
+2026-03-26 22:39:05,749 [INFO] [HEALTH] Iteration 1 - all systems nominal
+2026-03-26 22:39:15,753 [INFO] === Iteration 2 ===
+2026-03-26 22:39:25,757 [INFO] === Iteration 3 ===
+2026-03-26 22:39:35,759 [INFO] === Iteration 4 ===
+2026-03-26 22:39:45,765 [INFO] === Iteration 5 ===
+2026-03-26 22:39:55,769 [INFO] === Iteration 6 ===

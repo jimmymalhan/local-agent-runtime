@@ -1,0 +1,13 @@
+{
+  "tasks_run": 1,
+  "completed": 1,
+  "failed": 0,
+  "tasks": [
+    {
+      "id": "task-fix-1",
+      "status": "completed",
+      "quality": 85.0,
+      "elapsed_s": 0.0006508827209472656
+    }
+  ]
+}

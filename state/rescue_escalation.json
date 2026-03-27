@@ -1,0 +1,32 @@
+{
+  "escalation_id": "exec-impl-enhancement",
+  "timestamp": "2026-03-27T06:35:00Z",
+  "severity": "CRITICAL",
+  "reason": "Agent implementations are stubs - return quality=75 without building actual code",
+
+  "current_problem": "All 30 tasks marked complete but agents didn't implement anything. Agents call agents.executor.run() which just returns {status: 'completed', quality: 75} without running actual code generation.",
+
+  "evidence": [
+    "All tasks in projects.json show status=completed with quality_score=75",
+    "agents/executor.py has stub at lines 43-54: returns hardcoded success",
+    "dashboard/state.json still shows quality=0 (metrics_aggregator.py was never built)",
+    "System shows no real improvements despite 30 tasks 'completing'"
+  ],
+
+  "rescue_request": {
+    "task": "Enhance agents to actually implement task descriptions instead of returning stubs",
+    "scope": "Upgrade agent prompts (executor, architect, test_engineer) to parse task description and execute real work",
+    "target_agents": ["executor", "architect", "test_engineer"],
+    "token_budget": 200,
+    "success_criteria": "Agents parse task descriptions and build requested code/features (e.g., metrics_aggregator.py, task_dispatcher.py)"
+  },
+
+  "background": "Per EXTREME CLAUDE SESSION RULES: Claude cannot edit agents/*.py directly, but CAN upgrade prompts via rescue system. This is the escalation path for agent self-improvement.",
+
+  "next_steps": [
+    "1. Claude reads this escalation",
+    "2. Claude upgrades agent prompts to implement real work (200 token max)",
+    "3. Agents re-run with improved prompts",
+    "4. Tasks actually build the requested features"
+  ]
+}
