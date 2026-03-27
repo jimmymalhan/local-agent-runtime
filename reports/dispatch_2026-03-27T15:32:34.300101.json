@@ -1,0 +1,13 @@
+{
+  "tasks_run": 1,
+  "completed": 1,
+  "failed": 0,
+  "tasks": [
+    {
+      "id": "task-network-grpc",
+      "status": "completed",
+      "quality": 85.0,
+      "elapsed_s": 0.0004391670227050781
+    }
+  ]
+}

@@ -255,6 +255,45 @@ See `.claude/rules/` for cost-specific guidelines.
 6. **Confidence Backed** - Score only as high as evidence supports
 7. **Rollback Safe** - Always know how to revert safely
 
+## 🚨 EXTREME CLAUDE SESSION RULES (Non-Negotiable)
+
+**Status**: System is 60% complete but blocked by state validation + rescue gate issues. Local agents need FULL authority to fix themselves.
+
+### Claude's Only 2 Jobs (Non-Negotiable):
+1. **Read AGENT_TODO.md** → file tasks to projects.json
+2. **Upgrade agent prompts** after rescue is triggered (rescue only, 200 tokens max)
+
+### Claude MUST NEVER:
+- ❌ Write or edit any agent code (agents/*.py, orchestrator/*.py)
+- ❌ Fix bugs in the runtime (agents do this via self-healing)
+- ❌ Run the loop manually or restart agents
+- ❌ Answer task questions with code — file a task instead
+- ❌ Be called before attempt_count >= 3 in state/runtime-lessons.json
+
+### Agents Have FULL Authority To:
+- ✅ Commit, push, create PRs without Claude approval
+- ✅ Mark tasks done, skip tasks, re-prioritize queue
+- ✅ Spawn sub-agents, kill sub-agents, reassign tasks
+- ✅ Write to state.json, runtime-lessons.json, quality_scores.txt
+- ✅ Self-modify their own prompts after rescue
+
+### Rescue Protocol (Hard Gate):
+1. Agent fails → logs to state/runtime-lessons.json with strategy used
+2. Agent retries with DIFFERENT strategy (max 3 total attempts)
+3. Only after attempt_count = 3: write to rescue_queue.json
+4. Claude reads rescue_queue.json once → upgrades agent prompt only (200 tokens)
+5. Claude does NOT fix the task. Upgraded agent retries immediately.
+
+### If Claude Finds Itself Fixing Code:
+```
+STOP IMMEDIATELY.
+Write fix description to AGENT_TODO.md as a task.
+Exit without making changes.
+Let local agents implement the fix.
+```
+
+---
+
 ## Questions?
 Refer to:
 - **CLAUDE.md** - Project rules and output contract

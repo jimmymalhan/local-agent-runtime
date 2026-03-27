@@ -1,0 +1,87 @@
+{
+  "researched": [
+    "local LLM inference optimization ollama llama",
+    "autonomous coding agent self-improvement",
+    "DAG task scheduling parallel agents",
+    "vector memory retrieval coding agents",
+    "tree-sitter AST blast radius analysis",
+    "git worktree parallel agent isolation",
+    "OpenTelemetry tracing AI agents",
+    "RICE prioritization engineering backlogs",
+    "incremental validation test generation",
+    "agent runtime multi-loop 83pct success patterns"
+  ],
+  "queued": [
+    {
+      "id": "R1774555505",
+      "title": "Implement insight from: local LLM inference optimization ollama llama",
+      "topic": "local LLM inference optimization ollama llama",
+      "status": "pending",
+      "ts": "2026-03-26T20:05:05.541311"
+    },
+    {
+      "id": "R1774556105",
+      "title": "Implement insight from: autonomous coding agent self-improvement",
+      "topic": "autonomous coding agent self-improvement",
+      "status": "pending",
+      "ts": "2026-03-26T20:15:05.541035"
+    },
+    {
+      "id": "R1774556705",
+      "title": "Implement insight from: DAG task scheduling parallel agents",
+      "topic": "DAG task scheduling parallel agents",
+      "status": "pending",
+      "ts": "2026-03-26T20:25:05.543375"
+    },
+    {
+      "id": "R1774557305",
+      "title": "Implement insight from: vector memory retrieval coding agents",
+      "topic": "vector memory retrieval coding agents",
+      "status": "pending",
+      "ts": "2026-03-26T20:35:05.549121"
+    },
+    {
+      "id": "R1774569905",
+      "title": "Implement insight from: tree-sitter AST blast radius analysis",
+      "topic": "tree-sitter AST blast radius analysis",
+      "status": "pending",
+      "ts": "2026-03-27T00:05:05.672593"
+    },
+    {
+      "id": "R1774570505",
+      "title": "Implement insight from: git worktree parallel agent isolation",
+      "topic": "git worktree parallel agent isolation",
+      "status": "pending",
+      "ts": "2026-03-27T00:15:05.678080"
+    },
+    {
+      "id": "R1774571105",
+      "title": "Implement insight from: OpenTelemetry tracing AI agents",
+      "topic": "OpenTelemetry tracing AI agents",
+      "status": "pending",
+      "ts": "2026-03-27T00:25:05.682845"
+    },
+    {
+      "id": "R1774571705",
+      "title": "Implement insight from: RICE prioritization engineering backlogs",
+      "topic": "RICE prioritization engineering backlogs",
+      "status": "pending",
+      "ts": "2026-03-27T00:35:05.691948"
+    },
+    {
+      "id": "R1774572305",
+      "title": "Implement insight from: incremental validation test generation",
+      "topic": "incremental validation test generation",
+      "status": "pending",
+      "ts": "2026-03-27T00:45:05.700467"
+    },
+    {
+      "id": "R1774572905",
+      "title": "Implement insight from: agent runtime multi-loop 83pct success patterns",
+      "topic": "agent runtime multi-loop 83pct success patterns",
+      "status": "pending",
+      "ts": "2026-03-27T00:55:05.711481"
+    }
+  ],
+  "ts": "2026-03-27T00:55:05.711505"
+}

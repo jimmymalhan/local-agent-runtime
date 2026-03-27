@@ -1,0 +1,24 @@
+Task: task-1
+Command: python3 orchestrator/health_check.py && jq '.passed' reports/system_health.json | grep -q '4'
+Status: FAILED
+Elapsed: 0.1s
+
+STDOUT:
+
+============================================================
+SYSTEM HEALTH CHECK
+============================================================
+
+✓ Orchestrator main.py found
+✓ Dashboard server responding (HTTP 404)
+✓ Agents module structure found
+✗ Watchdog script not found at /Users/jimmymalhan/Documents/local-agent-runtime/scripts/watchdog_daemon.py
+⚠ No orchestrator process running (may be waiting for cron trigger)
+
+============================================================
+RESULT: 4/5 checks passed — PARTIAL
+============================================================
+
+✓ Health report written to /Users/jimmymalhan/Documents/local-agent-runtime/reports/system_health.json
+
+

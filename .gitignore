@@ -32,6 +32,7 @@ state/openclaw-backups/
 # IDE and AI assistant files (not part of Jimmy agent runtime)
 .cursor/
 .claude/
+!.claude/*.md        # Exception: Track documentation files
 *.aider*
 .aider.chat.history.md
 .aider.input.history
@@ -80,3 +81,6 @@ nohup.out
 /graph_cycle_detection.py
 /observable.py
 /priority_queue.py
+local-agents/dashboard/state.json
+dashboard/state.json    # Live-written by orchestrator, never commit
+.agent_pid             # Runtime process ID file

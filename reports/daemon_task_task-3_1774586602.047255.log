@@ -1,0 +1,36 @@
+Task: task-3
+Command: python3 orchestrator/token_enforcer.py && grep -c 'BLOCKED' reports/token_decisions.jsonl
+Status: PASSED
+Elapsed: 0.0s
+
+STDOUT:
+Token Enforcer Initialized
+
+============================================================
+TOKEN BUDGET STATUS
+============================================================
+Rescues used: 0/1
+Tokens used: 0/200 (per rescue)
+Budget exhausted: NO ✓
+============================================================
+
+
+[TEST] Checking if rescue allowed for task-1...
+Result: True
+
+[TEST] Deducting 150 tokens...
+[TOKEN_ENFORCER] ⚠ RESCUE BUDGET EXHAUSTED: 1/1
+[TOKEN_ENFORCER] Deducted 150 tokens. Total: 150/200
+Result: True
+
+============================================================
+TOKEN BUDGET STATUS
+============================================================
+Rescues used: 1/1
+Tokens used: 150/200 (per rescue)
+Budget exhausted: YES ⚠
+============================================================
+
+11
+
+

@@ -1,0 +1,812 @@
+{"ts": "2026-03-26T12:30:03.849417", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 50%"}
+{"ts": "2026-03-26T12:30:03.849694", "action": "execute_task", "agent": "executor", "task_id": "test-001", "attempt": 1, "status": "done", "quality": 85, "tokens": 150, "elapsed": 9.5367431640625e-07, "autonomous": true}
+{"ts": "2026-03-26T12:30:03.853825", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "expert", "reason": "Success rate 100%"}
+{"ts": "2026-03-26T12:30:03.854020", "action": "execute_task", "agent": "executor", "task_id": "test-000", "attempt": 1, "status": "done", "quality": 75, "tokens": 130, "elapsed": 1.9073486328125e-06, "autonomous": true}
+{"ts": "2026-03-26T12:30:03.854188", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "expert", "reason": "Success rate 100%"}
+{"ts": "2026-03-26T12:30:03.854377", "action": "execute_task", "agent": "executor", "task_id": "test-001", "attempt": 1, "status": "done", "quality": 75, "tokens": 140, "elapsed": 9.5367431640625e-07, "autonomous": true}
+{"ts": "2026-03-26T12:30:03.854509", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "expert", "reason": "Success rate 100%"}
+{"ts": "2026-03-26T12:30:03.854716", "action": "execute_task", "agent": "executor", "task_id": "test-002", "attempt": 2, "status": "done", "quality": 75, "tokens": 160, "elapsed": 0.0, "autonomous": true}
+{"ts": "2026-03-26T12:30:03.854877", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "expert", "reason": "Success rate 100%"}
+{"ts": "2026-03-26T12:30:03.855099", "action": "execute_task", "agent": "executor", "task_id": "test-003", "attempt": 1, "status": "done", "quality": 75, "tokens": 170, "elapsed": 9.5367431640625e-07, "autonomous": true}
+{"ts": "2026-03-26T12:30:03.855235", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "expert", "reason": "Success rate 100%"}
+{"ts": "2026-03-26T12:30:03.855429", "action": "execute_task", "agent": "executor", "task_id": "test-004", "attempt": 2, "status": "done", "quality": 75, "tokens": 190, "elapsed": 1.1920928955078125e-06, "autonomous": true}
+{"ts": "2026-03-26T13:09:34.207267", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1488, "elapsed": 44.20124697685242, "autonomous": true}
+{"ts": "2026-03-26T13:10:30.754049", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 758, "elapsed": 56.17611765861511, "autonomous": true}
+{"ts": "2026-03-26T13:12:00.721475", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1781, "elapsed": 89.59781503677368, "autonomous": true}
+{"ts": "2026-03-26T13:12:36.768866", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1581, "elapsed": 35.69576668739319, "autonomous": true}
+{"ts": "2026-03-26T13:12:57.128072", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 969, "elapsed": 20.00467586517334, "autonomous": true}
+{"ts": "2026-03-26T13:13:11.385428", "action": "execute_task", "agent": "executor", "task_id": 6, "attempt": 1, "status": "done", "quality": 90, "tokens": 590, "elapsed": 13.89098596572876, "autonomous": true}
+{"ts": "2026-03-26T13:13:34.451072", "action": "execute_task", "agent": "executor", "task_id": 7, "attempt": 1, "status": "done", "quality": 100, "tokens": 992, "elapsed": 22.6960129737854, "autonomous": true}
+{"ts": "2026-03-26T13:13:59.111038", "action": "execute_task", "agent": "executor", "task_id": 8, "attempt": 1, "status": "done", "quality": 100, "tokens": 1262, "elapsed": 24.29248881340027, "autonomous": true}
+{"ts": "2026-03-26T13:14:36.482053", "action": "execute_task", "agent": "executor", "task_id": 9, "attempt": 1, "status": "done", "quality": 100, "tokens": 1778, "elapsed": 36.996119022369385, "autonomous": true}
+{"ts": "2026-03-26T13:14:51.600764", "action": "execute_task", "agent": "executor", "task_id": 10, "attempt": 1, "status": "done", "quality": 100, "tokens": 725, "elapsed": 14.752528190612793, "autonomous": true}
+{"ts": "2026-03-26T13:15:32.232089", "action": "execute_task", "agent": "executor", "task_id": 11, "attempt": 1, "status": "done", "quality": 100, "tokens": 1911, "elapsed": 40.26388192176819, "autonomous": true}
+{"ts": "2026-03-26T13:16:09.508144", "action": "execute_task", "agent": "executor", "task_id": 12, "attempt": 1, "status": "done", "quality": 100, "tokens": 1785, "elapsed": 36.927740812301636, "autonomous": true}
+{"ts": "2026-03-26T13:16:49.013666", "action": "execute_task", "agent": "executor", "task_id": 13, "attempt": 1, "status": "done", "quality": 100, "tokens": 1925, "elapsed": 39.09284830093384, "autonomous": true}
+{"ts": "2026-03-26T13:17:33.350645", "action": "execute_task", "agent": "executor", "task_id": 14, "attempt": 1, "status": "done", "quality": 100, "tokens": 2244, "elapsed": 43.97714900970459, "autonomous": true}
+{"ts": "2026-03-26T13:17:48.095126", "action": "execute_task", "agent": "executor", "task_id": 15, "attempt": 1, "status": "done", "quality": 100, "tokens": 709, "elapsed": 14.377063989639282, "autonomous": true}
+{"ts": "2026-03-26T13:18:16.976292", "action": "execute_task", "agent": "executor", "task_id": 16, "attempt": 1, "status": "done", "quality": 100, "tokens": 1436, "elapsed": 28.521958112716675, "autonomous": true}
+{"ts": "2026-03-26T13:19:28.095571", "action": "execute_task", "agent": "executor", "task_id": 17, "attempt": 1, "status": "done", "quality": 100, "tokens": 3524, "elapsed": 70.75166988372803, "autonomous": true}
+{"ts": "2026-03-26T13:20:00.126375", "action": "execute_task", "agent": "executor", "task_id": 18, "attempt": 1, "status": "done", "quality": 100, "tokens": 1608, "elapsed": 31.677849054336548, "autonomous": true}
+{"ts": "2026-03-26T13:20:26.521033", "action": "execute_task", "agent": "executor", "task_id": 19, "attempt": 1, "status": "done", "quality": 100, "tokens": 1321, "elapsed": 26.02509307861328, "autonomous": true}
+{"ts": "2026-03-26T13:20:54.149503", "action": "execute_task", "agent": "executor", "task_id": 20, "attempt": 1, "status": "done", "quality": 100, "tokens": 1312, "elapsed": 27.272111177444458, "autonomous": true}
+{"ts": "2026-03-26T13:21:16.228898", "action": "execute_task", "agent": "executor", "task_id": 21, "attempt": 1, "status": "done", "quality": 85, "tokens": 1086, "elapsed": 21.712564945220947, "autonomous": true}
+{"ts": "2026-03-26T13:21:30.886904", "action": "execute_task", "agent": "executor", "task_id": 22, "attempt": 1, "status": "done", "quality": 55, "tokens": 713, "elapsed": 14.288408041000366, "autonomous": true}
+{"ts": "2026-03-26T13:21:43.884245", "action": "execute_task", "agent": "executor", "task_id": 23, "attempt": 1, "status": "done", "quality": 85, "tokens": 672, "elapsed": 12.647485971450806, "autonomous": true}
+{"ts": "2026-03-26T13:22:01.682640", "action": "execute_task", "agent": "executor", "task_id": 24, "attempt": 1, "status": "done", "quality": 85, "tokens": 884, "elapsed": 17.426311254501343, "autonomous": true}
+{"ts": "2026-03-26T13:22:24.589094", "action": "execute_task", "agent": "executor", "task_id": 25, "attempt": 1, "status": "done", "quality": 85, "tokens": 1123, "elapsed": 22.525816202163696, "autonomous": true}
+{"ts": "2026-03-26T13:22:40.340798", "action": "execute_task", "agent": "executor", "task_id": 26, "attempt": 1, "status": "done", "quality": 85, "tokens": 813, "elapsed": 15.387172937393188, "autonomous": true}
+{"ts": "2026-03-26T13:22:57.884290", "action": "execute_task", "agent": "executor", "task_id": 27, "attempt": 1, "status": "done", "quality": 85, "tokens": 846, "elapsed": 17.183967113494873, "autonomous": true}
+{"ts": "2026-03-26T13:23:18.650004", "action": "execute_task", "agent": "executor", "task_id": 28, "attempt": 1, "status": "done", "quality": 85, "tokens": 906, "elapsed": 20.404670000076294, "autonomous": true}
+{"ts": "2026-03-26T13:23:39.934929", "action": "execute_task", "agent": "executor", "task_id": 29, "attempt": 1, "status": "done", "quality": 85, "tokens": 1116, "elapsed": 20.92772626876831, "autonomous": true}
+{"ts": "2026-03-26T13:27:05.014985", "action": "execute_task", "agent": "executor", "task_id": 30, "attempt": 2, "status": "done", "quality": 85, "tokens": 1334, "elapsed": 24.72319197654724, "autonomous": true}
+{"ts": "2026-03-26T13:27:59.972203", "action": "execute_task", "agent": "executor", "task_id": 31, "attempt": 1, "status": "done", "quality": 85, "tokens": 2816, "elapsed": 54.60097789764404, "autonomous": true}
+{"ts": "2026-03-26T13:29:13.058275", "action": "execute_task", "agent": "executor", "task_id": 32, "attempt": 1, "status": "done", "quality": 85, "tokens": 3334, "elapsed": 72.71789121627808, "autonomous": true}
+{"ts": "2026-03-26T13:29:51.772759", "action": "execute_task", "agent": "executor", "task_id": 33, "attempt": 1, "status": "done", "quality": 85, "tokens": 1940, "elapsed": 38.34972596168518, "autonomous": true}
+{"ts": "2026-03-26T13:30:07.601119", "action": "execute_task", "agent": "executor", "task_id": 34, "attempt": 1, "status": "done", "quality": 85, "tokens": 778, "elapsed": 15.461911916732788, "autonomous": true}
+{"ts": "2026-03-26T13:30:35.427636", "action": "execute_task", "agent": "executor", "task_id": 35, "attempt": 1, "status": "done", "quality": 85, "tokens": 1353, "elapsed": 27.211920976638794, "autonomous": true}
+{"ts": "2026-03-26T13:31:03.237652", "action": "execute_task", "agent": "executor", "task_id": 36, "attempt": 1, "status": "done", "quality": 85, "tokens": 1265, "elapsed": 27.36002016067505, "autonomous": true}
+{"ts": "2026-03-26T13:31:40.591645", "action": "execute_task", "agent": "executor", "task_id": 37, "attempt": 1, "status": "done", "quality": 85, "tokens": 1648, "elapsed": 36.97215723991394, "autonomous": true}
+{"ts": "2026-03-26T13:31:59.517233", "action": "execute_task", "agent": "executor", "task_id": 38, "attempt": 1, "status": "done", "quality": 85, "tokens": 983, "elapsed": 18.54369306564331, "autonomous": true}
+{"ts": "2026-03-26T13:32:21.838451", "action": "execute_task", "agent": "executor", "task_id": 39, "attempt": 1, "status": "done", "quality": 85, "tokens": 1221, "elapsed": 21.944392919540405, "autonomous": true}
+{"ts": "2026-03-26T13:32:45.977391", "action": "execute_task", "agent": "executor", "task_id": 40, "attempt": 1, "status": "done", "quality": 85, "tokens": 1224, "elapsed": 23.774976015090942, "autonomous": true}
+{"ts": "2026-03-26T13:32:46.387837", "action": "execute_failed", "agent": "executor", "task_id": 41, "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T17:14:11.336038", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1137, "elapsed": 141.6120810508728, "autonomous": true}
+{"ts": "2026-03-26T17:14:38.619786", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1304, "elapsed": 158.14174604415894, "autonomous": true}
+{"ts": "2026-03-26T17:14:58.900718", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 911, "elapsed": 47.152037143707275, "autonomous": true}
+{"ts": "2026-03-26T17:15:16.520119", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 813, "elapsed": 37.53356170654297, "autonomous": true}
+{"ts": "2026-03-26T17:15:45.792020", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1402, "elapsed": 46.47878694534302, "autonomous": true}
+{"ts": "2026-03-26T17:16:23.584705", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1878, "elapsed": 66.67831611633301, "autonomous": true}
+{"ts": "2026-03-26T17:48:17.035445", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1212, "elapsed": 74.49707436561584, "autonomous": true}
+{"ts": "2026-03-26T17:48:54.704175", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1851, "elapsed": 101.11028003692627, "autonomous": true}
+{"ts": "2026-03-26T17:49:33.313286", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 790, "elapsed": 75.89638924598694, "autonomous": true}
+{"ts": "2026-03-26T17:49:50.841968", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 822, "elapsed": 55.750081062316895, "autonomous": true}
+{"ts": "2026-03-26T17:50:23.761966", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1748, "elapsed": 50.075501680374146, "autonomous": true}
+{"ts": "2026-03-26T17:50:59.405873", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1787, "elapsed": 68.18281817436218, "autonomous": true}
+{"ts": "2026-03-26T17:51:27.870444", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1249, "elapsed": 63.711590051651, "autonomous": true}
+{"ts": "2026-03-26T17:51:56.395635", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1391, "elapsed": 56.60144281387329, "autonomous": true}
+{"ts": "2026-03-26T17:52:38.980138", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1977, "elapsed": 70.72213912010193, "autonomous": true}
+{"ts": "2026-03-26T17:53:37.174170", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 2708, "elapsed": 100.41698479652405, "autonomous": true}
+{"ts": "2026-03-26T17:53:50.254890", "action": "execute_task", "agent": "executor", "task_id": 6, "attempt": 1, "status": "done", "quality": 90, "tokens": 554, "elapsed": 70.8669798374176, "autonomous": true}
+{"ts": "2026-03-26T17:54:03.245896", "action": "execute_task", "agent": "executor", "task_id": 6, "attempt": 1, "status": "done", "quality": 90, "tokens": 557, "elapsed": 25.683586835861206, "autonomous": true}
+{"ts": "2026-03-26T17:54:28.283905", "action": "execute_task", "agent": "executor", "task_id": 7, "attempt": 1, "status": "done", "quality": 100, "tokens": 1074, "elapsed": 37.644745111465454, "autonomous": true}
+{"ts": "2026-03-26T17:54:52.747849", "action": "execute_task", "agent": "executor", "task_id": 8, "attempt": 1, "status": "done", "quality": 100, "tokens": 1154, "elapsed": 24.094798803329468, "autonomous": true}
+{"ts": "2026-03-26T18:33:17.246283", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "expert", "reason": "Success rate 98%"}
+{"ts": "2026-03-26T18:33:17.267102", "action": "execute_failed", "agent": "executor", "task_id": "task-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:33:31.391645", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "expert", "reason": "Success rate 97%"}
+{"ts": "2026-03-26T18:33:31.406742", "action": "execute_failed", "agent": "executor", "task_id": "task-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:38:17.425708", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "expert", "reason": "Success rate 95%"}
+{"ts": "2026-03-26T18:38:17.441373", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:44:54.147254", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "expert", "reason": "Success rate 93%"}
+{"ts": "2026-03-26T18:44:54.163114", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:55:31.480794", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "expert", "reason": "Success rate 92%"}
+{"ts": "2026-03-26T18:55:31.505231", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:55:31.568872", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "expert", "reason": "Success rate 90%"}
+{"ts": "2026-03-26T18:55:31.583865", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:55:31.899029", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "expert", "reason": "Success rate 89%"}
+{"ts": "2026-03-26T18:55:31.906764", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:55:32.287332", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "expert", "reason": "Success rate 88%"}
+{"ts": "2026-03-26T18:55:32.294230", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:55:32.663714", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "expert", "reason": "Success rate 86%"}
+{"ts": "2026-03-26T18:55:32.670831", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:55:33.049413", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "expert", "reason": "Success rate 85%"}
+{"ts": "2026-03-26T18:55:33.056995", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-2", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:55:50.748946", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 84%"}
+{"ts": "2026-03-26T18:55:52.767398", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T18:55:53.167772", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 83%"}
+{"ts": "2026-03-26T18:55:55.180343", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T18:58:51.298852", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 81%"}
+{"ts": "2026-03-26T18:58:53.309430", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T18:58:53.723085", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 80%"}
+{"ts": "2026-03-26T18:58:55.730218", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T18:58:56.137873", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 79%"}
+{"ts": "2026-03-26T18:58:58.159924", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T18:58:58.570899", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 78%"}
+{"ts": "2026-03-26T18:58:58.592537", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:58:58.967968", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 77%"}
+{"ts": "2026-03-26T18:58:58.977266", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-2", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:58:59.383797", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 76%"}
+{"ts": "2026-03-26T18:58:59.391902", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-3", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:58:59.783277", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 75%"}
+{"ts": "2026-03-26T18:58:59.791137", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-4", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:59:00.178934", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 74%"}
+{"ts": "2026-03-26T18:59:00.187035", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-5", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:59:00.589506", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 73%"}
+{"ts": "2026-03-26T18:59:00.596501", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-6", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T19:01:06.438695", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 72%"}
+{"ts": "2026-03-26T19:01:08.445218", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:01:08.907771", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 71%"}
+{"ts": "2026-03-26T19:01:10.922204", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:01:11.346591", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 70%"}
+{"ts": "2026-03-26T19:01:13.363693", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:01:13.777789", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 70%"}
+{"ts": "2026-03-26T19:01:13.798145", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T19:01:14.249037", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-2", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T19:01:14.660205", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-3", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T19:01:15.060807", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-4", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T19:01:15.448022", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-5", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T19:01:15.842213", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-6", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T19:03:04.603319", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1214, "elapsed": 108.36597609519958, "autonomous": true}
+{"ts": "2026-03-26T19:04:07.922901", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 2, "status": "done", "quality": 100, "tokens": 953, "elapsed": 126.94634509086609, "autonomous": true}
+{"ts": "2026-03-26T19:04:11.330599", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 72%"}
+{"ts": "2026-03-26T19:04:13.348641", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:04:32.332563", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 879, "elapsed": 87.36102390289307, "autonomous": true}
+{"ts": "2026-03-26T19:06:03.202999", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1596, "elapsed": 90.48378324508667, "autonomous": true}
+{"ts": "2026-03-26T19:06:37.498340", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1617, "elapsed": 33.92899823188782, "autonomous": true}
+{"ts": "2026-03-26T19:07:27.360826", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 2161, "elapsed": 49.47311472892761, "autonomous": true}
+{"ts": "2026-03-26T19:07:46.485739", "action": "execute_task", "agent": "executor", "task_id": 6, "attempt": 1, "status": "done", "quality": 90, "tokens": 801, "elapsed": 18.7442409992218, "autonomous": true}
+{"ts": "2026-03-26T19:08:10.820642", "action": "execute_task", "agent": "executor", "task_id": 7, "attempt": 1, "status": "done", "quality": 100, "tokens": 1083, "elapsed": 23.973193883895874, "autonomous": true}
+{"ts": "2026-03-26T19:08:36.389602", "action": "execute_task", "agent": "executor", "task_id": 8, "attempt": 1, "status": "done", "quality": 100, "tokens": 1237, "elapsed": 25.191402912139893, "autonomous": true}
+{"ts": "2026-03-26T19:09:31.314365", "action": "execute_task", "agent": "executor", "task_id": 9, "attempt": 1, "status": "done", "quality": 100, "tokens": 2629, "elapsed": 54.549216985702515, "autonomous": true}
+{"ts": "2026-03-26T19:10:05.859197", "action": "execute_task", "agent": "executor", "task_id": 10, "attempt": 1, "status": "done", "quality": 100, "tokens": 1634, "elapsed": 34.15998101234436, "autonomous": true}
+{"ts": "2026-03-26T19:12:46.739195", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:12:49.133076", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:12:51.547934", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:12:51.942792", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T19:12:52.309660", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-2", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T19:23:17.327920", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:23:19.738661", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:23:22.145814", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:23:22.562573", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T19:23:22.950523", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-2", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T19:23:45.546723", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:32:19.558710", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:32:21.976582", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:32:24.398978", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:32:24.815632", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T19:32:25.186548", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-2", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T19:33:37.568752", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:43:16.909754", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:43:19.324558", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:43:21.725563", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:43:22.127284", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T19:43:22.501442", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-2", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T19:43:45.440937", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:53:16.704773", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:53:19.125145", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:53:21.541520", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:53:21.963261", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T19:53:22.361419", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-2", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T19:53:46.975839", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:02:46.829744", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:02:49.240745", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:02:51.649229", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:02:52.061863", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T20:02:52.459157", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-2", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T20:03:09.593440", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:13:15.345993", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 50%"}
+{"ts": "2026-03-26T20:13:17.359215", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:13:17.768713", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 50%"}
+{"ts": "2026-03-26T20:13:19.782817", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:13:20.183702", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 50%"}
+{"ts": "2026-03-26T20:13:22.191675", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:13:22.583887", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 49%"}
+{"ts": "2026-03-26T20:13:22.604737", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T20:13:22.998568", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 49%"}
+{"ts": "2026-03-26T20:13:23.005511", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-2", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T20:13:44.934381", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 49%"}
+{"ts": "2026-03-26T20:13:46.944588", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:23:15.153360", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 48%"}
+{"ts": "2026-03-26T20:23:17.169743", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:23:17.555217", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 48%"}
+{"ts": "2026-03-26T20:23:19.565421", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:23:19.944589", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 48%"}
+{"ts": "2026-03-26T20:23:21.957363", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:23:22.334542", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 47%"}
+{"ts": "2026-03-26T20:23:22.353026", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T20:23:22.720704", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 47%"}
+{"ts": "2026-03-26T20:23:22.727865", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-2", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T20:23:42.911886", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 47%"}
+{"ts": "2026-03-26T20:23:44.928066", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:33:15.242094", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 46%"}
+{"ts": "2026-03-26T20:33:17.255119", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:33:17.654533", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 46%"}
+{"ts": "2026-03-26T20:33:19.665805", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:33:20.050273", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 46%"}
+{"ts": "2026-03-26T20:33:22.060978", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:33:22.462702", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 45%"}
+{"ts": "2026-03-26T20:33:22.483694", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T20:33:22.874395", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 45%"}
+{"ts": "2026-03-26T20:33:22.882170", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-2", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T20:34:05.135083", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 45%"}
+{"ts": "2026-03-26T20:34:07.145704", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:37:11.888430", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 44%"}
+{"ts": "2026-03-26T20:37:13.901121", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:37:14.277875", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 44%"}
+{"ts": "2026-03-26T20:37:16.295607", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:39:34.518531", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 44%"}
+{"ts": "2026-03-26T20:39:36.538296", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:42:45.063245", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 44%"}
+{"ts": "2026-03-26T20:42:47.074296", "action": "execute_failed", "agent": "executor", "task_id": "task-1", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:42:47.483719", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 43%"}
+{"ts": "2026-03-26T20:42:49.495646", "action": "execute_failed", "agent": "executor", "task_id": "task-2", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:42:49.904497", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 43%"}
+{"ts": "2026-03-26T20:42:51.922067", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:42:52.323864", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 43%"}
+{"ts": "2026-03-26T20:42:54.337962", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:42:54.737819", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 42%"}
+{"ts": "2026-03-26T20:42:56.753757", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:45:17.055543", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 42%"}
+{"ts": "2026-03-26T20:45:19.076961", "action": "execute_failed", "agent": "executor", "task_id": "task-1", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:48:52.049629", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 42%"}
+{"ts": "2026-03-26T20:48:54.057562", "action": "execute_failed", "agent": "executor", "task_id": "task-1", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:52:32.163323", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 42%"}
+{"ts": "2026-03-26T20:52:34.184812", "action": "execute_failed", "agent": "executor", "task_id": "task-1", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:52:34.579357", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 41%"}
+{"ts": "2026-03-26T20:52:36.590301", "action": "execute_failed", "agent": "executor", "task_id": "task-2", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:52:36.997982", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 41%"}
+{"ts": "2026-03-26T20:52:39.016371", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:52:39.415616", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 41%"}
+{"ts": "2026-03-26T20:52:41.435895", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:52:41.837543", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 41%"}
+{"ts": "2026-03-26T20:52:43.852560", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:52:51.574814", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 40%"}
+{"ts": "2026-03-26T20:52:53.579062", "action": "execute_failed", "agent": "executor", "task_id": "task-1", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:02:44.987898", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 40%"}
+{"ts": "2026-03-26T21:02:47.001438", "action": "execute_failed", "agent": "executor", "task_id": "task-1", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:02:47.396749", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 40%"}
+{"ts": "2026-03-26T21:02:49.411527", "action": "execute_failed", "agent": "executor", "task_id": "task-2", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:02:49.803227", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 40%"}
+{"ts": "2026-03-26T21:02:51.814780", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:02:52.229673", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 39%"}
+{"ts": "2026-03-26T21:02:54.240692", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:02:54.631065", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 39%"}
+{"ts": "2026-03-26T21:02:56.646261", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:13:15.760729", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 39%"}
+{"ts": "2026-03-26T21:13:17.781032", "action": "execute_failed", "agent": "executor", "task_id": "task-1", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:13:18.193090", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 39%"}
+{"ts": "2026-03-26T21:13:20.196838", "action": "execute_failed", "agent": "executor", "task_id": "task-2", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:13:20.604656", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 39%"}
+{"ts": "2026-03-26T21:13:22.615768", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:13:23.015266", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 38%"}
+{"ts": "2026-03-26T21:13:25.028764", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:13:25.430200", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 38%"}
+{"ts": "2026-03-26T21:13:27.445770", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:13:45.207874", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 38%"}
+{"ts": "2026-03-26T21:13:47.221937", "action": "execute_failed", "agent": "executor", "task_id": "task-1", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:23:11.259307", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 38%"}
+{"ts": "2026-03-26T21:23:13.279033", "action": "execute_failed", "agent": "executor", "task_id": "task-1", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:23:13.708761", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 37%"}
+{"ts": "2026-03-26T21:23:15.721673", "action": "execute_failed", "agent": "executor", "task_id": "task-2", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:23:16.119513", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 37%"}
+{"ts": "2026-03-26T21:23:18.137631", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:23:18.542470", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 37%"}
+{"ts": "2026-03-26T21:23:20.556458", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:23:20.963783", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 37%"}
+{"ts": "2026-03-26T21:23:22.978841", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:23:42.206445", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 37%"}
+{"ts": "2026-03-26T21:23:44.226815", "action": "execute_failed", "agent": "executor", "task_id": "task-1", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:32:02.795861", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 36%"}
+{"ts": "2026-03-26T21:32:04.805825", "action": "execute_failed", "agent": "executor", "task_id": "task-1", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:32:05.205829", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 36%"}
+{"ts": "2026-03-26T21:32:07.212332", "action": "execute_failed", "agent": "executor", "task_id": "task-2", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:32:07.610030", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 36%"}
+{"ts": "2026-03-26T21:32:09.613476", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:32:10.013167", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 36%"}
+{"ts": "2026-03-26T21:32:12.017042", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:32:12.427521", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 36%"}
+{"ts": "2026-03-26T21:32:14.437698", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:37:34.620255", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 35%"}
+{"ts": "2026-03-26T21:37:36.628947", "action": "execute_failed", "agent": "executor", "task_id": "task-1", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:37:37.018572", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 35%"}
+{"ts": "2026-03-26T21:37:39.025018", "action": "execute_failed", "agent": "executor", "task_id": "task-2", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:37:39.425116", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 35%"}
+{"ts": "2026-03-26T21:37:41.433192", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:37:41.822223", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 35%"}
+{"ts": "2026-03-26T21:37:43.828998", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:37:44.215772", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 35%"}
+{"ts": "2026-03-26T21:37:46.223663", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:42:12.594571", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 35%"}
+{"ts": "2026-03-26T21:42:14.606784", "action": "execute_failed", "agent": "executor", "task_id": "task-1", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:42:15.018143", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 34%"}
+{"ts": "2026-03-26T21:42:17.040688", "action": "execute_failed", "agent": "executor", "task_id": "task-2", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:42:17.445709", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 34%"}
+{"ts": "2026-03-26T21:42:19.464649", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:42:19.885808", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 34%"}
+{"ts": "2026-03-26T21:42:21.899173", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:42:22.310846", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 34%"}
+{"ts": "2026-03-26T21:42:24.322995", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:43:13.966583", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 34%"}
+{"ts": "2026-03-26T21:43:15.972999", "action": "execute_failed", "agent": "executor", "task_id": "task-1", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:52:25.141854", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 34%"}
+{"ts": "2026-03-26T21:52:27.149373", "action": "execute_failed", "agent": "executor", "task_id": "incident-1774572089", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:52:27.541031", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 33%"}
+{"ts": "2026-03-26T21:52:29.551193", "action": "execute_failed", "agent": "executor", "task_id": "incident-1774575243", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:52:44.566523", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 33%"}
+{"ts": "2026-03-26T21:52:46.583667", "action": "execute_failed", "agent": "executor", "task_id": "incident-1774572089", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:52:46.976095", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 33%"}
+{"ts": "2026-03-26T21:52:48.997219", "action": "execute_failed", "agent": "executor", "task_id": "incident-1774575243", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:56:46.890306", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 2, "status": "done", "quality": 90, "tokens": 1295, "elapsed": 76.9543468952179, "autonomous": true}
+{"ts": "2026-03-26T21:57:19.477154", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 2, "status": "done", "quality": 100, "tokens": 1583, "elapsed": 90.10666799545288, "autonomous": true}
+{"ts": "2026-03-26T21:57:35.840302", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 755, "elapsed": 48.55367398262024, "autonomous": true}
+{"ts": "2026-03-26T21:57:54.013770", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 853, "elapsed": 34.143452167510986, "autonomous": true}
+{"ts": "2026-03-26T21:58:17.035945", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1125, "elapsed": 40.80355405807495, "autonomous": true}
+{"ts": "2026-03-26T21:58:52.460612", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1781, "elapsed": 58.084887981414795, "autonomous": true}
+{"ts": "2026-03-26T22:03:14.826695", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 34%"}
+{"ts": "2026-03-26T22:03:16.838776", "action": "execute_failed", "agent": "executor", "task_id": "incident-1774572089", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T22:03:17.249322", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 34%"}
+{"ts": "2026-03-26T22:03:19.257442", "action": "execute_failed", "agent": "executor", "task_id": "incident-1774575243", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T22:05:25.705919", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1441, "elapsed": 126.0527560710907, "autonomous": true}
+{"ts": "2026-03-26T22:05:44.277828", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 826, "elapsed": 18.193181037902832, "autonomous": true}
+{"ts": "2026-03-26T22:06:16.716745", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1573, "elapsed": 32.066601276397705, "autonomous": true}
+{"ts": "2026-03-26T22:10:20.211883", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 34%"}
+{"ts": "2026-03-26T22:10:22.219179", "action": "execute_failed", "agent": "executor", "task_id": "incident-1774572089", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T22:10:22.607038", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 34%"}
+{"ts": "2026-03-26T22:10:24.615626", "action": "execute_failed", "agent": "executor", "task_id": "incident-1774575243", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T22:12:22.172613", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1352, "elapsed": 117.16498708724976, "autonomous": true}
+{"ts": "2026-03-26T22:12:38.798482", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 751, "elapsed": 16.253220081329346, "autonomous": true}
+{"ts": "2026-03-26T22:13:02.085732", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1192, "elapsed": 22.9187490940094, "autonomous": true}
+{"ts": "2026-03-26T22:13:43.188851", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1850, "elapsed": 40.73570489883423, "autonomous": true}
+{"ts": "2026-03-26T22:14:07.680904", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1135, "elapsed": 24.117876052856445, "autonomous": true}
+{"ts": "2026-03-26T22:14:22.908080", "action": "execute_task", "agent": "executor", "task_id": 6, "attempt": 1, "status": "done", "quality": 90, "tokens": 604, "elapsed": 14.85807204246521, "autonomous": true}
+{"ts": "2026-03-26T22:14:39.656043", "action": "execute_task", "agent": "executor", "task_id": 7, "attempt": 1, "status": "done", "quality": 100, "tokens": 708, "elapsed": 16.37252974510193, "autonomous": true}
+{"ts": "2026-03-26T22:15:06.085949", "action": "execute_task", "agent": "executor", "task_id": 8, "attempt": 1, "status": "done", "quality": 100, "tokens": 1276, "elapsed": 26.051226139068604, "autonomous": true}
+{"ts": "2026-03-26T22:15:42.319801", "action": "execute_task", "agent": "executor", "task_id": 9, "attempt": 1, "status": "done", "quality": 100, "tokens": 1676, "elapsed": 35.85133218765259, "autonomous": true}
+{"ts": "2026-03-26T22:16:22.513087", "action": "execute_task", "agent": "executor", "task_id": 10, "attempt": 1, "status": "done", "quality": 100, "tokens": 1946, "elapsed": 39.81853699684143, "autonomous": true}
+{"ts": "2026-03-26T22:17:00.320129", "action": "execute_task", "agent": "executor", "task_id": 11, "attempt": 1, "status": "done", "quality": 100, "tokens": 1599, "elapsed": 37.428338050842285, "autonomous": true}
+{"ts": "2026-03-26T22:18:02.343764", "action": "execute_task", "agent": "executor", "task_id": 12, "attempt": 1, "status": "done", "quality": 100, "tokens": 2758, "elapsed": 61.63508582115173, "autonomous": true}
+{"ts": "2026-03-26T22:19:07.270418", "action": "execute_task", "agent": "executor", "task_id": 13, "attempt": 1, "status": "done", "quality": 100, "tokens": 3224, "elapsed": 64.56295824050903, "autonomous": true}
+{"ts": "2026-03-26T22:20:11.317925", "action": "execute_task", "agent": "executor", "task_id": 14, "attempt": 1, "status": "done", "quality": 100, "tokens": 2844, "elapsed": 63.68631720542908, "autonomous": true}
+{"ts": "2026-03-26T22:20:47.005855", "action": "execute_task", "agent": "executor", "task_id": 15, "attempt": 1, "status": "done", "quality": 100, "tokens": 1703, "elapsed": 35.323729038238525, "autonomous": true}
+{"ts": "2026-03-26T22:21:30.256372", "action": "execute_task", "agent": "executor", "task_id": 16, "attempt": 1, "status": "done", "quality": 100, "tokens": 1938, "elapsed": 42.88390493392944, "autonomous": true}
+{"ts": "2026-03-26T22:22:56.320031", "action": "execute_task", "agent": "executor", "task_id": 17, "attempt": 1, "status": "done", "quality": 100, "tokens": 3296, "elapsed": 85.66702699661255, "autonomous": true}
+{"ts": "2026-03-26T22:23:38.101222", "action": "execute_task", "agent": "executor", "task_id": 18, "attempt": 1, "status": "done", "quality": 100, "tokens": 1936, "elapsed": 41.40152192115784, "autonomous": true}
+{"ts": "2026-03-26T22:24:14.591381", "action": "execute_task", "agent": "executor", "task_id": 19, "attempt": 1, "status": "done", "quality": 100, "tokens": 1873, "elapsed": 36.12128734588623, "autonomous": true}
+{"ts": "2026-03-26T22:24:42.958296", "action": "execute_task", "agent": "executor", "task_id": 20, "attempt": 1, "status": "done", "quality": 100, "tokens": 1350, "elapsed": 27.999850034713745, "autonomous": true}
+{"ts": "2026-03-26T22:25:06.695457", "action": "execute_task", "agent": "executor", "task_id": 21, "attempt": 1, "status": "done", "quality": 85, "tokens": 1091, "elapsed": 23.37635898590088, "autonomous": true}
+{"ts": "2026-03-26T22:25:23.515228", "action": "execute_task", "agent": "executor", "task_id": 22, "attempt": 1, "status": "done", "quality": 85, "tokens": 758, "elapsed": 16.43399691581726, "autonomous": true}
+{"ts": "2026-03-26T22:25:42.167944", "action": "execute_task", "agent": "executor", "task_id": 23, "attempt": 1, "status": "done", "quality": 85, "tokens": 970, "elapsed": 18.286341905593872, "autonomous": true}
+{"ts": "2026-03-26T22:26:02.897647", "action": "execute_task", "agent": "executor", "task_id": 24, "attempt": 1, "status": "done", "quality": 85, "tokens": 1019, "elapsed": 20.37140202522278, "autonomous": true}
+{"ts": "2026-03-26T22:26:14.277594", "action": "execute_task", "agent": "executor", "task_id": 25, "attempt": 1, "status": "done", "quality": 85, "tokens": 524, "elapsed": 11.008508920669556, "autonomous": true}
+{"ts": "2026-03-26T22:26:45.281686", "action": "execute_task", "agent": "executor", "task_id": 26, "attempt": 1, "status": "done", "quality": 85, "tokens": 1406, "elapsed": 30.63614320755005, "autonomous": true}
+{"ts": "2026-03-26T22:27:09.166344", "action": "execute_task", "agent": "executor", "task_id": 27, "attempt": 1, "status": "done", "quality": 85, "tokens": 1077, "elapsed": 23.519724130630493, "autonomous": true}
+{"ts": "2026-03-26T22:27:31.577294", "action": "execute_task", "agent": "executor", "task_id": 28, "attempt": 1, "status": "done", "quality": 85, "tokens": 993, "elapsed": 22.002313137054443, "autonomous": true}
+{"ts": "2026-03-26T22:27:57.289838", "action": "execute_task", "agent": "executor", "task_id": 29, "attempt": 1, "status": "done", "quality": 85, "tokens": 1238, "elapsed": 25.353963136672974, "autonomous": true}
+{"ts": "2026-03-26T22:28:17.220238", "action": "execute_task", "agent": "executor", "task_id": 30, "attempt": 1, "status": "done", "quality": 85, "tokens": 964, "elapsed": 19.559067964553833, "autonomous": true}
+{"ts": "2026-03-26T22:28:50.440772", "action": "execute_task", "agent": "executor", "task_id": 31, "attempt": 1, "status": "done", "quality": 70, "tokens": 1586, "elapsed": 32.84478211402893, "autonomous": true}
+{"ts": "2026-03-26T22:29:43.461033", "action": "execute_task", "agent": "executor", "task_id": 32, "attempt": 1, "status": "done", "quality": 85, "tokens": 2298, "elapsed": 52.65201187133789, "autonomous": true}
+{"ts": "2026-03-26T22:30:07.040019", "action": "execute_task", "agent": "executor", "task_id": 33, "attempt": 1, "status": "done", "quality": 85, "tokens": 1115, "elapsed": 23.218982219696045, "autonomous": true}
+{"ts": "2026-03-26T22:30:36.720337", "action": "execute_task", "agent": "executor", "task_id": 34, "attempt": 1, "status": "done", "quality": 85, "tokens": 1415, "elapsed": 29.32163405418396, "autonomous": true}
+{"ts": "2026-03-26T22:31:02.636246", "action": "execute_task", "agent": "executor", "task_id": 35, "attempt": 1, "status": "done", "quality": 85, "tokens": 1246, "elapsed": 25.54306697845459, "autonomous": true}
+{"ts": "2026-03-26T22:31:30.996879", "action": "execute_task", "agent": "executor", "task_id": 36, "attempt": 1, "status": "done", "quality": 85, "tokens": 1261, "elapsed": 27.98688817024231, "autonomous": true}
+{"ts": "2026-03-26T22:32:08.150207", "action": "execute_task", "agent": "executor", "task_id": 37, "attempt": 1, "status": "done", "quality": 85, "tokens": 1733, "elapsed": 36.80019688606262, "autonomous": true}
+{"ts": "2026-03-26T22:32:38.884668", "action": "execute_task", "agent": "executor", "task_id": 38, "attempt": 1, "status": "done", "quality": 85, "tokens": 958, "elapsed": 30.355002880096436, "autonomous": true}
+{"ts": "2026-03-26T22:33:07.657014", "action": "execute_task", "agent": "executor", "task_id": 39, "attempt": 1, "status": "done", "quality": 85, "tokens": 1507, "elapsed": 28.41314673423767, "autonomous": true}
+{"ts": "2026-03-26T22:33:24.374885", "action": "execute_task", "agent": "executor", "task_id": 40, "attempt": 1, "status": "done", "quality": 85, "tokens": 828, "elapsed": 16.341588973999023, "autonomous": true}
+{"ts": "2026-03-26T22:33:24.764489", "action": "execute_failed", "agent": "executor", "task_id": 41, "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T22:33:25.122760", "action": "execute_failed", "agent": "executor", "task_id": 42, "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T22:33:25.481015", "action": "execute_failed", "agent": "executor", "task_id": 43, "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T22:33:25.816850", "action": "execute_failed", "agent": "executor", "task_id": 44, "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T22:33:26.170932", "action": "execute_failed", "agent": "executor", "task_id": 45, "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T22:33:26.513280", "action": "execute_failed", "agent": "executor", "task_id": 46, "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T22:33:26.883114", "action": "execute_failed", "agent": "executor", "task_id": 47, "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T22:33:27.250373", "action": "execute_failed", "agent": "executor", "task_id": 48, "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T22:33:27.609767", "action": "execute_failed", "agent": "executor", "task_id": 49, "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T22:33:27.949081", "action": "execute_failed", "agent": "executor", "task_id": 50, "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T22:33:28.285772", "action": "execute_failed", "agent": "executor", "task_id": 51, "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T22:33:28.627563", "action": "execute_failed", "agent": "executor", "task_id": 52, "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T22:33:28.991912", "action": "execute_failed", "agent": "executor", "task_id": 53, "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T22:33:29.352401", "action": "execute_failed", "agent": "executor", "task_id": 54, "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T22:33:29.710276", "action": "execute_failed", "agent": "executor", "task_id": 55, "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T22:33:30.052428", "action": "execute_failed", "agent": "executor", "task_id": 56, "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T22:33:30.381975", "action": "execute_failed", "agent": "executor", "task_id": 57, "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T22:33:30.719491", "action": "execute_failed", "agent": "executor", "task_id": 58, "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T22:33:31.075937", "action": "execute_failed", "agent": "executor", "task_id": 59, "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T22:33:31.439488", "action": "execute_failed", "agent": "executor", "task_id": 60, "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T22:34:01.718865", "action": "execute_task", "agent": "executor", "task_id": 61, "attempt": 1, "status": "done", "quality": 75, "tokens": 1329, "elapsed": 29.917422771453857, "autonomous": true}
+{"ts": "2026-03-26T22:34:23.898733", "action": "execute_task", "agent": "executor", "task_id": 62, "attempt": 1, "status": "done", "quality": 65, "tokens": 1034, "elapsed": 21.847930192947388, "autonomous": true}
+{"ts": "2026-03-26T22:34:38.094792", "action": "execute_task", "agent": "executor", "task_id": 63, "attempt": 1, "status": "done", "quality": 55, "tokens": 622, "elapsed": 13.87116527557373, "autonomous": true}
+{"ts": "2026-03-26T22:34:50.794661", "action": "execute_task", "agent": "executor", "task_id": 64, "attempt": 1, "status": "done", "quality": 40, "tokens": 556, "elapsed": 12.349350929260254, "autonomous": true}
+{"ts": "2026-03-26T22:35:04.828180", "action": "execute_task", "agent": "executor", "task_id": 65, "attempt": 1, "status": "done", "quality": 65, "tokens": 626, "elapsed": 13.710624933242798, "autonomous": true}
+{"ts": "2026-03-26T22:35:20.027543", "action": "execute_task", "agent": "executor", "task_id": 66, "attempt": 1, "status": "done", "quality": 75, "tokens": 808, "elapsed": 14.842344999313354, "autonomous": true}
+{"ts": "2026-03-26T22:35:33.249469", "action": "execute_task", "agent": "executor", "task_id": 67, "attempt": 1, "status": "done", "quality": 65, "tokens": 628, "elapsed": 12.891737222671509, "autonomous": true}
+{"ts": "2026-03-26T22:35:49.880233", "action": "execute_task", "agent": "executor", "task_id": 68, "attempt": 1, "status": "done", "quality": 40, "tokens": 596, "elapsed": 16.281715869903564, "autonomous": true}
+{"ts": "2026-03-26T22:36:09.009132", "action": "execute_task", "agent": "executor", "task_id": 69, "attempt": 1, "status": "done", "quality": 65, "tokens": 951, "elapsed": 18.781980991363525, "autonomous": true}
+{"ts": "2026-03-26T22:36:28.093892", "action": "execute_task", "agent": "executor", "task_id": 70, "attempt": 1, "status": "done", "quality": 75, "tokens": 853, "elapsed": 18.74122405052185, "autonomous": true}
+{"ts": "2026-03-26T22:36:38.916287", "action": "execute_task", "agent": "executor", "task_id": 71, "attempt": 1, "status": "done", "quality": 65, "tokens": 505, "elapsed": 10.48567795753479, "autonomous": true}
+{"ts": "2026-03-26T22:36:51.964777", "action": "execute_task", "agent": "executor", "task_id": 72, "attempt": 1, "status": "done", "quality": 65, "tokens": 647, "elapsed": 12.687793254852295, "autonomous": true}
+{"ts": "2026-03-26T22:37:39.251587", "action": "execute_task", "agent": "executor", "task_id": 73, "attempt": 1, "status": "done", "quality": 75, "tokens": 1554, "elapsed": 46.93030309677124, "autonomous": true}
+{"ts": "2026-03-26T22:38:54.611690", "action": "execute_task", "agent": "executor", "task_id": 74, "attempt": 1, "status": "done", "quality": 75, "tokens": 2147, "elapsed": 74.98553609848022, "autonomous": true}
+{"ts": "2026-03-26T22:39:47.562851", "action": "execute_task", "agent": "executor", "task_id": 75, "attempt": 1, "status": "done", "quality": 30, "tokens": 678, "elapsed": 52.56832790374756, "autonomous": true}
+{"ts": "2026-03-26T22:40:18.464501", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1392, "elapsed": 45.582606077194214, "autonomous": true}
+{"ts": "2026-03-26T22:41:34.813680", "action": "execute_task", "agent": "executor", "task_id": 76, "attempt": 1, "status": "done", "quality": 100, "tokens": 1942, "elapsed": 106.88949608802795, "autonomous": true}
+{"ts": "2026-03-26T22:42:01.694862", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 1266, "elapsed": 102.85756611824036, "autonomous": true}
+{"ts": "2026-03-26T22:43:12.690650", "action": "execute_task", "agent": "executor", "task_id": 77, "attempt": 1, "status": "done", "quality": 100, "tokens": 1370, "elapsed": 97.51266503334045, "autonomous": true}
+{"ts": "2026-03-26T22:43:41.483109", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1462, "elapsed": 99.4184160232544, "autonomous": true}
+{"ts": "2026-03-26T22:44:08.818626", "action": "execute_task", "agent": "executor", "task_id": 78, "attempt": 1, "status": "done", "quality": 100, "tokens": 1470, "elapsed": 55.75023317337036, "autonomous": true}
+{"ts": "2026-03-26T22:45:00.573803", "action": "execute_task", "agent": "executor", "task_id": 79, "attempt": 1, "status": "done", "quality": 100, "tokens": 2881, "elapsed": 51.39528703689575, "autonomous": true}
+{"ts": "2026-03-26T22:45:36.134823", "action": "execute_task", "agent": "executor", "task_id": 80, "attempt": 1, "status": "done", "quality": 100, "tokens": 1658, "elapsed": 35.208786964416504, "autonomous": true}
+{"ts": "2026-03-26T22:46:20.960061", "action": "execute_task", "agent": "executor", "task_id": 81, "attempt": 1, "status": "done", "quality": 100, "tokens": 2254, "elapsed": 44.457178831100464, "autonomous": true}
+{"ts": "2026-03-26T22:46:49.176030", "action": "execute_task", "agent": "executor", "task_id": 82, "attempt": 1, "status": "done", "quality": 100, "tokens": 1390, "elapsed": 27.833920001983643, "autonomous": true}
+{"ts": "2026-03-26T22:47:22.886698", "action": "execute_task", "agent": "executor", "task_id": 83, "attempt": 1, "status": "done", "quality": 100, "tokens": 1831, "elapsed": 33.33261704444885, "autonomous": true}
+{"ts": "2026-03-26T22:47:53.227055", "action": "execute_task", "agent": "executor", "task_id": 84, "attempt": 1, "status": "done", "quality": 100, "tokens": 1423, "elapsed": 29.97911787033081, "autonomous": true}
+{"ts": "2026-03-26T22:48:19.953801", "action": "execute_task", "agent": "executor", "task_id": 85, "attempt": 1, "status": "done", "quality": 100, "tokens": 1323, "elapsed": 26.371180057525635, "autonomous": true}
+{"ts": "2026-03-26T22:48:41.001803", "action": "execute_task", "agent": "executor", "task_id": 86, "attempt": 1, "status": "done", "quality": 100, "tokens": 986, "elapsed": 20.686561107635498, "autonomous": true}
+{"ts": "2026-03-26T22:48:51.064319", "action": "execute_task", "agent": "executor", "task_id": 87, "attempt": 1, "status": "done", "quality": 100, "tokens": 473, "elapsed": 9.723649024963379, "autonomous": true}
+{"ts": "2026-03-26T22:48:52.860564", "action": "execute_task", "agent": "executor", "task_id": 88, "attempt": 1, "status": "done", "quality": 70, "tokens": 48, "elapsed": 1.4390430450439453, "autonomous": true}
+{"ts": "2026-03-26T22:49:02.469723", "action": "execute_task", "agent": "executor", "task_id": 89, "attempt": 1, "status": "done", "quality": 100, "tokens": 533, "elapsed": 9.252449035644531, "autonomous": true}
+{"ts": "2026-03-26T22:49:15.966521", "action": "execute_task", "agent": "executor", "task_id": 90, "attempt": 1, "status": "done", "quality": 100, "tokens": 579, "elapsed": 13.116915941238403, "autonomous": true}
+{"ts": "2026-03-26T22:49:25.767554", "action": "execute_task", "agent": "executor", "task_id": 91, "attempt": 1, "status": "done", "quality": 100, "tokens": 528, "elapsed": 9.443450212478638, "autonomous": true}
+{"ts": "2026-03-26T22:49:35.078065", "action": "execute_task", "agent": "executor", "task_id": 92, "attempt": 1, "status": "done", "quality": 100, "tokens": 421, "elapsed": 8.947121858596802, "autonomous": true}
+{"ts": "2026-03-26T22:49:45.279571", "action": "execute_task", "agent": "executor", "task_id": 93, "attempt": 1, "status": "done", "quality": 100, "tokens": 489, "elapsed": 9.861051321029663, "autonomous": true}
+{"ts": "2026-03-26T22:49:53.688757", "action": "execute_task", "agent": "executor", "task_id": 94, "attempt": 1, "status": "done", "quality": 100, "tokens": 400, "elapsed": 7.989126205444336, "autonomous": true}
+{"ts": "2026-03-26T22:49:59.753259", "action": "execute_task", "agent": "executor", "task_id": 95, "attempt": 1, "status": "done", "quality": 100, "tokens": 281, "elapsed": 5.694080114364624, "autonomous": true}
+{"ts": "2026-03-26T22:50:00.194713", "action": "execute_task", "agent": "executor", "task_id": 96, "attempt": 1, "status": "done", "quality": 100, "tokens": 0, "elapsed": 0.08983492851257324, "autonomous": true}
+{"ts": "2026-03-26T22:50:00.552991", "action": "execute_task", "agent": "executor", "task_id": 97, "attempt": 1, "status": "done", "quality": 100, "tokens": 0, "elapsed": 0.031170129776000977, "autonomous": true}
+{"ts": "2026-03-26T22:50:00.931840", "action": "execute_task", "agent": "executor", "task_id": 98, "attempt": 1, "status": "done", "quality": 100, "tokens": 0, "elapsed": 0.04067397117614746, "autonomous": true}
+{"ts": "2026-03-26T22:50:01.327431", "action": "execute_task", "agent": "executor", "task_id": 99, "attempt": 1, "status": "done", "quality": 100, "tokens": 0, "elapsed": 0.03767204284667969, "autonomous": true}
+{"ts": "2026-03-26T22:50:01.725021", "action": "execute_task", "agent": "executor", "task_id": 100, "attempt": 1, "status": "done", "quality": 100, "tokens": 0, "elapsed": 0.034471988677978516, "autonomous": true}
+{"ts": "2026-03-26T22:53:04.604008", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 49%"}
+{"ts": "2026-03-26T22:53:06.614046", "action": "execute_failed", "agent": "executor", "task_id": "incident-1774572089", "attempts": 3, "last_error": "cannot import name 'run_task' from 'agent_runner' (/Users/jimmymalhan/Documents/local-agent-runtime/"}
+{"ts": "2026-03-26T22:53:07.018660", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 49%"}
+{"ts": "2026-03-26T22:53:09.031514", "action": "execute_failed", "agent": "executor", "task_id": "incident-1774575243", "attempts": 3, "last_error": "cannot import name 'run_task' from 'agent_runner' (/Users/jimmymalhan/Documents/local-agent-runtime/"}
+{"ts": "2026-03-26T22:54:22.520326", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1306, "elapsed": 73.08747887611389, "autonomous": true}
+{"ts": "2026-03-26T22:54:39.831887", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 790, "elapsed": 16.951491832733154, "autonomous": true}
+{"ts": "2026-03-26T22:55:03.217949", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1180, "elapsed": 23.011605739593506, "autonomous": true}
+{"ts": "2026-03-26T23:07:39.340133", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1411, "elapsed": 71.9530098438263, "autonomous": true}
+{"ts": "2026-03-26T23:08:58.575130", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 908, "elapsed": 78.85399794578552, "autonomous": true}
+{"ts": "2026-03-26T23:09:18.139976", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 925, "elapsed": 73.21353125572205, "autonomous": true}
+{"ts": "2026-03-26T23:10:31.908135", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 845, "elapsed": 73.3684868812561, "autonomous": true}
+{"ts": "2026-03-26T23:15:59.870821", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 49%"}
+{"ts": "2026-03-26T23:15:59.871306", "action": "execute_failed", "agent": "executor", "task_id": "task-blocker-stuck-state", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T23:20:38.984564", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 49%"}
+{"ts": "2026-03-26T23:20:38.984990", "action": "execute_failed", "agent": "executor", "task_id": "task-blocker-stuck-state", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T23:26:02.382218", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 49%"}
+{"ts": "2026-03-26T23:26:02.401804", "action": "execute_failed", "agent": "executor", "task_id": "task-critical-stale-agents", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T23:30:39.438949", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 49%"}
+{"ts": "2026-03-26T23:30:39.453907", "action": "execute_failed", "agent": "executor", "task_id": "task-critical-stale-agents", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T23:35:55.968406", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 49%"}
+{"ts": "2026-03-26T23:35:55.968875", "action": "execute_failed", "agent": "executor", "task_id": "test-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T23:36:34.837598", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 49%"}
+{"ts": "2026-03-26T23:36:34.855575", "action": "execute_failed", "agent": "executor", "task_id": "task-critical-stale-agents", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T23:43:16.253198", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 48%"}
+{"ts": "2026-03-26T23:43:16.253708", "action": "execute_failed", "agent": "executor", "task_id": "test-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T23:43:31.791002", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 48%"}
+{"ts": "2026-03-26T23:43:31.791405", "action": "execute_failed", "agent": "executor", "task_id": "test-complete", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T23:43:37.575607", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 48%"}
+{"ts": "2026-03-26T23:43:37.576280", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T23:43:37.952217", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 48%"}
+{"ts": "2026-03-26T23:43:37.952341", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-2", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T23:44:02.579791", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1117, "elapsed": 24.25537919998169, "autonomous": true}
+{"ts": "2026-03-26T23:44:21.161325", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 840, "elapsed": 18.192941904067993, "autonomous": true}
+{"ts": "2026-03-26T23:44:46.975371", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1220, "elapsed": 25.395859003067017, "autonomous": true}
+{"ts": "2026-03-26T23:53:40.126564", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 48%"}
+{"ts": "2026-03-26T23:53:40.127127", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-task-execution", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T23:53:40.501609", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 48%"}
+{"ts": "2026-03-26T23:53:40.501914", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-executor-rate", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T23:53:40.852303", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 48%"}
+{"ts": "2026-03-26T23:53:40.852731", "action": "execute_failed", "agent": "executor", "task_id": "task-persistence-layer", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T23:53:41.215782", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 48%"}
+{"ts": "2026-03-26T23:53:41.215910", "action": "execute_failed", "agent": "executor", "task_id": "task-realtime-dashboard", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T23:53:41.616198", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 48%"}
+{"ts": "2026-03-26T23:53:41.616278", "action": "execute_failed", "agent": "executor", "task_id": "task-agent-autoexecution", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:03:43.020673", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 48%"}
+{"ts": "2026-03-27T00:03:43.021684", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-executor-rate", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:03:43.396543", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 48%"}
+{"ts": "2026-03-27T00:03:43.397267", "action": "execute_failed", "agent": "executor", "task_id": "task-persistence-layer", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:03:43.750853", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 47%"}
+{"ts": "2026-03-27T00:03:43.750977", "action": "execute_failed", "agent": "executor", "task_id": "task-realtime-dashboard", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:03:44.105242", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 47%"}
+{"ts": "2026-03-27T00:03:44.105315", "action": "execute_failed", "agent": "executor", "task_id": "task-agent-autoexecution", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:03:44.479360", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 47%"}
+{"ts": "2026-03-27T00:03:44.479501", "action": "execute_failed", "agent": "executor", "task_id": "task-quality-pipeline", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:13:45.902139", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 47%"}
+{"ts": "2026-03-27T00:13:45.903160", "action": "execute_failed", "agent": "executor", "task_id": "task-persistence-layer", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:13:46.261869", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 47%"}
+{"ts": "2026-03-27T00:13:46.261995", "action": "execute_failed", "agent": "executor", "task_id": "task-realtime-dashboard", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:13:46.635115", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 47%"}
+{"ts": "2026-03-27T00:13:46.635198", "action": "execute_failed", "agent": "executor", "task_id": "task-agent-autoexecution", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:13:47.015091", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 47%"}
+{"ts": "2026-03-27T00:13:47.015233", "action": "execute_failed", "agent": "executor", "task_id": "task-quality-pipeline", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:13:47.399722", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 46%"}
+{"ts": "2026-03-27T00:13:47.399869", "action": "execute_failed", "agent": "executor", "task_id": "task-parallel-execution", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:23:48.728398", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 46%"}
+{"ts": "2026-03-27T00:23:48.728914", "action": "execute_failed", "agent": "executor", "task_id": "task-realtime-dashboard", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:23:49.098590", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 46%"}
+{"ts": "2026-03-27T00:23:49.098679", "action": "execute_failed", "agent": "executor", "task_id": "task-agent-autoexecution", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:23:49.476148", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 46%"}
+{"ts": "2026-03-27T00:23:49.476303", "action": "execute_failed", "agent": "executor", "task_id": "task-quality-pipeline", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:23:49.851762", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 46%"}
+{"ts": "2026-03-27T00:23:49.851887", "action": "execute_failed", "agent": "executor", "task_id": "task-parallel-execution", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:23:50.234842", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 46%"}
+{"ts": "2026-03-27T00:23:50.234934", "action": "execute_failed", "agent": "executor", "task_id": "task-self-improvement", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:33:51.517123", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 46%"}
+{"ts": "2026-03-27T00:33:51.518043", "action": "execute_failed", "agent": "executor", "task_id": "task-agent-autoexecution", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:33:51.900168", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 46%"}
+{"ts": "2026-03-27T00:33:51.900279", "action": "execute_failed", "agent": "executor", "task_id": "task-quality-pipeline", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:33:52.270862", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 45%"}
+{"ts": "2026-03-27T00:33:52.270967", "action": "execute_failed", "agent": "executor", "task_id": "task-parallel-execution", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:33:52.642426", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 45%"}
+{"ts": "2026-03-27T00:33:52.642567", "action": "execute_failed", "agent": "executor", "task_id": "task-self-improvement", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:33:53.011555", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 45%"}
+{"ts": "2026-03-27T00:33:53.011641", "action": "execute_failed", "agent": "executor", "task_id": "task-network-mesh-upgrade", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:43:54.302183", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 45%"}
+{"ts": "2026-03-27T00:43:54.302804", "action": "execute_failed", "agent": "executor", "task_id": "task-quality-pipeline", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:43:54.646928", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 45%"}
+{"ts": "2026-03-27T00:43:54.647000", "action": "execute_failed", "agent": "executor", "task_id": "task-parallel-execution", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:43:55.012809", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 45%"}
+{"ts": "2026-03-27T00:43:55.012995", "action": "execute_failed", "agent": "executor", "task_id": "task-self-improvement", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:43:55.394887", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 45%"}
+{"ts": "2026-03-27T00:43:55.395133", "action": "execute_failed", "agent": "executor", "task_id": "task-network-mesh-upgrade", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:43:55.768004", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 45%"}
+{"ts": "2026-03-27T00:43:55.768171", "action": "execute_failed", "agent": "executor", "task_id": "task-complete-automation", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:53:57.150576", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 44%"}
+{"ts": "2026-03-27T00:53:57.151157", "action": "execute_failed", "agent": "executor", "task_id": "task-self-improvement", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:53:57.512687", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 44%"}
+{"ts": "2026-03-27T00:53:57.512833", "action": "execute_failed", "agent": "executor", "task_id": "task-network-mesh-upgrade", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:53:57.893074", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 44%"}
+{"ts": "2026-03-27T00:53:57.893170", "action": "execute_failed", "agent": "executor", "task_id": "task-complete-automation", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:53:58.273127", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 44%"}
+{"ts": "2026-03-27T00:53:58.273292", "action": "execute_failed", "agent": "executor", "task_id": "task-subagent-scaling", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T00:53:58.641926", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 44%"}
+{"ts": "2026-03-27T00:53:58.642070", "action": "execute_failed", "agent": "executor", "task_id": "task-test-suite", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T01:03:59.904796", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 44%"}
+{"ts": "2026-03-27T01:03:59.905298", "action": "execute_failed", "agent": "executor", "task_id": "task-network-mesh-upgrade", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T01:04:00.291389", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 44%"}
+{"ts": "2026-03-27T01:04:00.291574", "action": "execute_failed", "agent": "executor", "task_id": "task-complete-automation", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T01:04:00.666528", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 44%"}
+{"ts": "2026-03-27T01:04:00.666618", "action": "execute_failed", "agent": "executor", "task_id": "task-subagent-scaling", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T01:04:01.053696", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 43%"}
+{"ts": "2026-03-27T01:04:01.053807", "action": "execute_failed", "agent": "executor", "task_id": "task-test-suite", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T01:04:01.404245", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 43%"}
+{"ts": "2026-03-27T01:04:01.404463", "action": "execute_failed", "agent": "executor", "task_id": "task-performance-validation", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T01:14:02.457670", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 43%"}
+{"ts": "2026-03-27T01:14:02.458393", "action": "execute_failed", "agent": "executor", "task_id": "task-complete-automation", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T01:14:02.842994", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 43%"}
+{"ts": "2026-03-27T01:14:02.843114", "action": "execute_failed", "agent": "executor", "task_id": "task-subagent-scaling", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T01:14:03.230045", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 43%"}
+{"ts": "2026-03-27T01:14:03.230121", "action": "execute_failed", "agent": "executor", "task_id": "task-test-suite", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T01:14:03.606432", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 43%"}
+{"ts": "2026-03-27T01:14:03.606555", "action": "execute_failed", "agent": "executor", "task_id": "task-performance-validation", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T01:14:49.146343", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 2148, "elapsed": 45.1794319152832, "autonomous": true}
+{"ts": "2026-03-27T01:24:05.413276", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 43%"}
+{"ts": "2026-03-27T01:24:05.413804", "action": "execute_failed", "agent": "executor", "task_id": "task-subagent-scaling", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T01:24:05.765817", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 43%"}
+{"ts": "2026-03-27T01:24:05.765937", "action": "execute_failed", "agent": "executor", "task_id": "task-test-suite", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T01:24:06.138863", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 43%"}
+{"ts": "2026-03-27T01:24:06.138942", "action": "execute_failed", "agent": "executor", "task_id": "task-performance-validation", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T01:24:39.488106", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1539, "elapsed": 32.97644114494324, "autonomous": true}
+{"ts": "2026-03-27T01:25:08.612867", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 1343, "elapsed": 28.73451590538025, "autonomous": true}
+{"ts": "2026-03-27T01:34:08.179680", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 43%"}
+{"ts": "2026-03-27T01:34:08.180189", "action": "execute_failed", "agent": "executor", "task_id": "task-test-suite", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T01:34:08.529343", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 43%"}
+{"ts": "2026-03-27T01:34:08.529493", "action": "execute_failed", "agent": "executor", "task_id": "task-performance-validation", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T01:34:51.379979", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 2023, "elapsed": 42.489786863327026, "autonomous": true}
+{"ts": "2026-03-27T01:35:11.393591", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 90, "tokens": 914, "elapsed": 19.62253499031067, "autonomous": true}
+{"ts": "2026-03-27T01:35:49.218813", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1880, "elapsed": 37.45509195327759, "autonomous": true}
+{"ts": "2026-03-27T01:44:10.880289", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 43%"}
+{"ts": "2026-03-27T01:44:10.880894", "action": "execute_failed", "agent": "executor", "task_id": "task-performance-validation", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T01:44:39.286703", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1308, "elapsed": 28.039564847946167, "autonomous": true}
+{"ts": "2026-03-27T01:45:01.848590", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 1027, "elapsed": 22.1854510307312, "autonomous": true}
+{"ts": "2026-03-27T01:45:27.136706", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1218, "elapsed": 24.89671802520752, "autonomous": true}
+{"ts": "2026-03-27T01:46:11.490411", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 2046, "elapsed": 43.96949100494385, "autonomous": true}
+{"ts": "2026-03-27T01:54:48.769689", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1676, "elapsed": 35.081409215927124, "autonomous": true}
+{"ts": "2026-03-27T01:55:08.588489", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 898, "elapsed": 19.413939952850342, "autonomous": true}
+{"ts": "2026-03-27T01:55:37.539441", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1417, "elapsed": 28.557682037353516, "autonomous": true}
+{"ts": "2026-03-27T01:56:18.371228", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1840, "elapsed": 40.4096999168396, "autonomous": true}
+{"ts": "2026-03-27T01:56:35.213723", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 786, "elapsed": 16.465329885482788, "autonomous": true}
+{"ts": "2026-03-27T02:04:39.233716", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1083, "elapsed": 22.568470001220703, "autonomous": true}
+{"ts": "2026-03-27T02:04:55.747218", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 761, "elapsed": 16.120311975479126, "autonomous": true}
+{"ts": "2026-03-27T02:05:19.871157", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1159, "elapsed": 23.715624809265137, "autonomous": true}
+{"ts": "2026-03-27T02:05:57.130927", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1676, "elapsed": 36.88301706314087, "autonomous": true}
+{"ts": "2026-03-27T02:06:36.557798", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1850, "elapsed": 38.99467706680298, "autonomous": true}
+{"ts": "2026-03-27T02:14:41.590302", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1033, "elapsed": 21.976301908493042, "autonomous": true}
+{"ts": "2026-03-27T02:15:20.627530", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 1746, "elapsed": 38.635372161865234, "autonomous": true}
+{"ts": "2026-03-27T02:15:58.676454", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1869, "elapsed": 37.68855810165405, "autonomous": true}
+{"ts": "2026-03-27T02:16:36.267273", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1767, "elapsed": 37.19630694389343, "autonomous": true}
+{"ts": "2026-03-27T02:17:16.761420", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1845, "elapsed": 40.09853196144104, "autonomous": true}
+{"ts": "2026-03-27T02:24:58.945913", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1755, "elapsed": 36.47253179550171, "autonomous": true}
+{"ts": "2026-03-27T02:25:17.793893", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 860, "elapsed": 18.479084014892578, "autonomous": true}
+{"ts": "2026-03-27T02:25:47.230866", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1411, "elapsed": 29.03666114807129, "autonomous": true}
+{"ts": "2026-03-27T02:26:24.909127", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1657, "elapsed": 37.25834321975708, "autonomous": true}
+{"ts": "2026-03-27T02:26:50.241417", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1208, "elapsed": 24.93817710876465, "autonomous": true}
+{"ts": "2026-03-27T02:34:59.641065", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1616, "elapsed": 34.18021082878113, "autonomous": true}
+{"ts": "2026-03-27T02:35:16.056455", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 721, "elapsed": 16.035698175430298, "autonomous": true}
+{"ts": "2026-03-27T02:35:45.216029", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1440, "elapsed": 28.74371600151062, "autonomous": true}
+{"ts": "2026-03-27T02:36:15.495375", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1304, "elapsed": 29.886829137802124, "autonomous": true}
+{"ts": "2026-03-27T02:37:12.357393", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 2640, "elapsed": 56.427648067474365, "autonomous": true}
+{"ts": "2026-03-27T02:45:01.609910", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1563, "elapsed": 33.24125289916992, "autonomous": true}
+{"ts": "2026-03-27T02:45:21.680487", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 918, "elapsed": 19.67163109779358, "autonomous": true}
+{"ts": "2026-03-27T02:45:51.159183", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1413, "elapsed": 29.089223861694336, "autonomous": true}
+{"ts": "2026-03-27T02:46:26.426775", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1635, "elapsed": 34.86686587333679, "autonomous": true}
+{"ts": "2026-03-27T02:46:49.766366", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1103, "elapsed": 22.947357892990112, "autonomous": true}
+{"ts": "2026-03-27T02:54:54.275776", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1056, "elapsed": 22.96798610687256, "autonomous": true}
+{"ts": "2026-03-27T02:55:22.714729", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 1319, "elapsed": 28.027979135513306, "autonomous": true}
+{"ts": "2026-03-27T02:55:56.868825", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1694, "elapsed": 33.778321266174316, "autonomous": true}
+{"ts": "2026-03-27T02:56:29.578098", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1478, "elapsed": 32.31454586982727, "autonomous": true}
+{"ts": "2026-03-27T02:57:08.054778", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1743, "elapsed": 38.09075403213501, "autonomous": true}
+{"ts": "2026-03-27T03:04:57.210038", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1031, "elapsed": 22.96575379371643, "autonomous": true}
+{"ts": "2026-03-27T03:05:14.762734", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 817, "elapsed": 17.16636610031128, "autonomous": true}
+{"ts": "2026-03-27T03:05:49.088899", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1732, "elapsed": 33.940961837768555, "autonomous": true}
+{"ts": "2026-03-27T03:06:29.692668", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1956, "elapsed": 40.20495104789734, "autonomous": true}
+{"ts": "2026-03-27T03:06:52.495411", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1071, "elapsed": 22.410523891448975, "autonomous": true}
+{"ts": "2026-03-27T03:15:17.448493", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1927, "elapsed": 40.22368812561035, "autonomous": true}
+{"ts": "2026-03-27T03:15:37.297967", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 90, "tokens": 871, "elapsed": 19.456713914871216, "autonomous": true}
+{"ts": "2026-03-27T03:16:07.071418", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1403, "elapsed": 29.35930609703064, "autonomous": true}
+{"ts": "2026-03-27T03:16:55.110616", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 2289, "elapsed": 47.66758704185486, "autonomous": true}
+{"ts": "2026-03-27T03:17:33.421792", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1834, "elapsed": 37.921212911605835, "autonomous": true}
+{"ts": "2026-03-27T03:25:02.033721", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 986, "elapsed": 21.815663814544678, "autonomous": true}
+{"ts": "2026-03-27T03:25:18.579158", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 755, "elapsed": 16.14180302619934, "autonomous": true}
+{"ts": "2026-03-27T03:25:44.318550", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1257, "elapsed": 25.351294994354248, "autonomous": true}
+{"ts": "2026-03-27T03:26:20.044854", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1621, "elapsed": 35.32592797279358, "autonomous": true}
+{"ts": "2026-03-27T03:26:42.583044", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1064, "elapsed": 22.144724130630493, "autonomous": true}
+{"ts": "2026-03-27T03:35:13.015952", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1396, "elapsed": 29.932502031326294, "autonomous": true}
+{"ts": "2026-03-27T03:35:31.974172", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 865, "elapsed": 18.576625108718872, "autonomous": true}
+{"ts": "2026-03-27T03:36:00.959518", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1485, "elapsed": 28.587482929229736, "autonomous": true}
+{"ts": "2026-03-27T03:36:35.883043", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1642, "elapsed": 34.51279306411743, "autonomous": true}
+{"ts": "2026-03-27T03:37:09.794015", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1555, "elapsed": 33.49743676185608, "autonomous": true}
+{"ts": "2026-03-27T03:45:16.810106", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1439, "elapsed": 30.806415796279907, "autonomous": true}
+{"ts": "2026-03-27T03:45:33.804166", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 760, "elapsed": 16.59976601600647, "autonomous": true}
+{"ts": "2026-03-27T03:46:10.880253", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1851, "elapsed": 36.68965983390808, "autonomous": true}
+{"ts": "2026-03-27T03:46:44.565705", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1514, "elapsed": 33.29647779464722, "autonomous": true}
+{"ts": "2026-03-27T03:47:34.778936", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 2237, "elapsed": 49.823678970336914, "autonomous": true}
+{"ts": "2026-03-27T03:55:18.548648", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1349, "elapsed": 29.588019847869873, "autonomous": true}
+{"ts": "2026-03-27T03:55:36.562330", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 821, "elapsed": 17.6114239692688, "autonomous": true}
+{"ts": "2026-03-27T03:56:08.431401", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1520, "elapsed": 31.459025144577026, "autonomous": true}
+{"ts": "2026-03-27T03:56:49.840459", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1816, "elapsed": 41.01962494850159, "autonomous": true}
+{"ts": "2026-03-27T03:57:11.954245", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1041, "elapsed": 21.712783813476562, "autonomous": true}
+{"ts": "2026-03-27T04:05:13.465990", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 990, "elapsed": 21.57654619216919, "autonomous": true}
+{"ts": "2026-03-27T04:05:39.237682", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 1162, "elapsed": 25.370379209518433, "autonomous": true}
+{"ts": "2026-03-27T04:05:57.357087", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 900, "elapsed": 17.71074104309082, "autonomous": true}
+{"ts": "2026-03-27T04:06:41.178900", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1989, "elapsed": 43.42910075187683, "autonomous": true}
+{"ts": "2026-03-27T04:07:20.845261", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1725, "elapsed": 39.26869606971741, "autonomous": true}
+{"ts": "2026-03-27T04:15:30.885657", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1688, "elapsed": 36.11987280845642, "autonomous": true}
+{"ts": "2026-03-27T04:15:50.162225", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 893, "elapsed": 18.87663722038269, "autonomous": true}
+{"ts": "2026-03-27T04:16:22.670701", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1665, "elapsed": 32.104626178741455, "autonomous": true}
+{"ts": "2026-03-27T04:16:51.950146", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1283, "elapsed": 28.896393299102783, "autonomous": true}
+{"ts": "2026-03-27T04:17:34.767144", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1889, "elapsed": 42.41845703125, "autonomous": true}
+{"ts": "2026-03-27T04:25:18.856702", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 955, "elapsed": 21.142491817474365, "autonomous": true}
+{"ts": "2026-03-27T04:25:36.267141", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 786, "elapsed": 17.017826080322266, "autonomous": true}
+{"ts": "2026-03-27T04:25:59.430313", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1104, "elapsed": 22.76083517074585, "autonomous": true}
+{"ts": "2026-03-27T04:26:28.983824", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1282, "elapsed": 29.143271923065186, "autonomous": true}
+{"ts": "2026-03-27T04:26:54.231815", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1198, "elapsed": 24.869006872177124, "autonomous": true}
+{"ts": "2026-03-27T04:35:25.197754", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1117, "elapsed": 24.496052026748657, "autonomous": true}
+{"ts": "2026-03-27T04:35:44.214766", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 867, "elapsed": 18.622718811035156, "autonomous": true}
+{"ts": "2026-03-27T04:36:09.568739", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1217, "elapsed": 24.94533395767212, "autonomous": true}
+{"ts": "2026-03-27T04:36:43.963537", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1473, "elapsed": 33.98299717903137, "autonomous": true}
+{"ts": "2026-03-27T04:37:22.312090", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1712, "elapsed": 37.94372582435608, "autonomous": true}
+{"ts": "2026-03-27T04:45:32.712768", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1335, "elapsed": 29.084590911865234, "autonomous": true}
+{"ts": "2026-03-27T04:45:49.984455", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 785, "elapsed": 16.886348009109497, "autonomous": true}
+{"ts": "2026-03-27T04:46:18.378882", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1368, "elapsed": 28.001131057739258, "autonomous": true}
+{"ts": "2026-03-27T04:46:52.584979", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1513, "elapsed": 33.80840611457825, "autonomous": true}
+{"ts": "2026-03-27T04:47:33.891302", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1847, "elapsed": 40.909348249435425, "autonomous": true}
+{"ts": "2026-03-27T04:55:43.692611", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1787, "elapsed": 37.20857882499695, "autonomous": true}
+{"ts": "2026-03-27T04:56:01.354707", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 799, "elapsed": 17.27650785446167, "autonomous": true}
+{"ts": "2026-03-27T04:56:25.225798", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1206, "elapsed": 23.51041293144226, "autonomous": true}
+{"ts": "2026-03-27T04:56:55.090628", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1411, "elapsed": 29.470256090164185, "autonomous": true}
+{"ts": "2026-03-27T04:57:32.223458", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1686, "elapsed": 36.74516296386719, "autonomous": true}
+{"ts": "2026-03-27T05:05:46.742229", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1732, "elapsed": 37.33593392372131, "autonomous": true}
+{"ts": "2026-03-27T05:06:03.508304", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 759, "elapsed": 16.35684323310852, "autonomous": true}
+{"ts": "2026-03-27T05:06:30.251851", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1249, "elapsed": 26.32976984977722, "autonomous": true}
+{"ts": "2026-03-27T05:07:06.611926", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1636, "elapsed": 35.96891498565674, "autonomous": true}
+{"ts": "2026-03-27T05:07:31.468763", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1175, "elapsed": 24.45959997177124, "autonomous": true}
+{"ts": "2026-03-27T05:16:01.693857", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 2416, "elapsed": 49.499948024749756, "autonomous": true}
+{"ts": "2026-03-27T05:16:19.260276", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 785, "elapsed": 17.177489042282104, "autonomous": true}
+{"ts": "2026-03-27T05:16:41.530341", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1098, "elapsed": 21.898260831832886, "autonomous": true}
+{"ts": "2026-03-27T05:17:10.760733", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1419, "elapsed": 28.810447692871094, "autonomous": true}
+{"ts": "2026-03-27T05:17:52.907979", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 90, "tokens": 1926, "elapsed": 41.74698805809021, "autonomous": true}
+{"ts": "2026-03-27T05:25:50.007738", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1668, "elapsed": 34.73312830924988, "autonomous": true}
+{"ts": "2026-03-27T05:26:06.864972", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 781, "elapsed": 16.460510969161987, "autonomous": true}
+{"ts": "2026-03-27T05:26:29.845852", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1128, "elapsed": 22.594509840011597, "autonomous": true}
+{"ts": "2026-03-27T05:27:06.167552", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1728, "elapsed": 35.91699409484863, "autonomous": true}
+{"ts": "2026-03-27T05:27:29.144626", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1057, "elapsed": 22.601366758346558, "autonomous": true}
+{"ts": "2026-03-27T05:35:57.685181", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1829, "elapsed": 39.2226459980011, "autonomous": true}
+{"ts": "2026-03-27T05:36:16.212548", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 854, "elapsed": 18.144539833068848, "autonomous": true}
+{"ts": "2026-03-27T05:36:54.432887", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1903, "elapsed": 37.82728672027588, "autonomous": true}
+{"ts": "2026-03-27T05:37:29.569112", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1542, "elapsed": 34.73655891418457, "autonomous": true}
+{"ts": "2026-03-27T05:38:11.275521", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1826, "elapsed": 41.31207513809204, "autonomous": true}
+{"ts": "2026-03-27T05:45:46.737273", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1181, "elapsed": 25.608159065246582, "autonomous": true}
+{"ts": "2026-03-27T05:46:03.054953", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 739, "elapsed": 15.902261972427368, "autonomous": true}
+{"ts": "2026-03-27T05:46:36.593642", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1664, "elapsed": 33.11849069595337, "autonomous": true}
+{"ts": "2026-03-27T05:47:06.871157", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1400, "elapsed": 29.88119912147522, "autonomous": true}
+{"ts": "2026-03-27T05:47:28.064110", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 973, "elapsed": 20.798728942871094, "autonomous": true}
+{"ts": "2026-03-27T05:56:08.260772", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 2111, "elapsed": 44.367812156677246, "autonomous": true}
+{"ts": "2026-03-27T05:56:39.015083", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 1408, "elapsed": 30.371193885803223, "autonomous": true}
+{"ts": "2026-03-27T05:57:02.786608", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1131, "elapsed": 23.368163108825684, "autonomous": true}
+{"ts": "2026-03-27T05:57:40.964995", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1707, "elapsed": 37.786653995513916, "autonomous": true}
+{"ts": "2026-03-27T05:58:21.273198", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1922, "elapsed": 39.91112494468689, "autonomous": true}
+{"ts": "2026-03-27T06:06:01.557096", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1631, "elapsed": 34.9021520614624, "autonomous": true}
+{"ts": "2026-03-27T06:06:18.753158", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 772, "elapsed": 16.79058599472046, "autonomous": true}
+{"ts": "2026-03-27T06:06:58.272035", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1937, "elapsed": 39.140562295913696, "autonomous": true}
+{"ts": "2026-03-27T06:07:40.601679", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1890, "elapsed": 41.94564080238342, "autonomous": true}
+{"ts": "2026-03-27T06:08:04.500307", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1094, "elapsed": 23.53906798362732, "autonomous": true}
+{"ts": "2026-03-27T06:15:52.822415", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1062, "elapsed": 22.80467391014099, "autonomous": true}
+{"ts": "2026-03-27T06:16:11.035971", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 833, "elapsed": 17.81375002861023, "autonomous": true}
+{"ts": "2026-03-27T06:16:49.616310", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1935, "elapsed": 38.179765939712524, "autonomous": true}
+{"ts": "2026-03-27T06:17:25.912665", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1627, "elapsed": 35.89486813545227, "autonomous": true}
+{"ts": "2026-03-27T06:18:03.838408", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1672, "elapsed": 37.548667907714844, "autonomous": true}
+{"ts": "2026-03-27T06:26:19.721375", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 2259, "elapsed": 46.73629379272461, "autonomous": true}
+{"ts": "2026-03-27T06:26:37.550128", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 800, "elapsed": 17.43466067314148, "autonomous": true}
+{"ts": "2026-03-27T06:27:08.665344", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1552, "elapsed": 30.723512887954712, "autonomous": true}
+{"ts": "2026-03-27T06:27:38.608137", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1399, "elapsed": 29.553757190704346, "autonomous": true}
+{"ts": "2026-03-27T06:28:09.810979", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1426, "elapsed": 30.802446842193604, "autonomous": true}
+{"ts": "2026-03-27T06:36:06.700771", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1447, "elapsed": 30.83093786239624, "autonomous": true}
+{"ts": "2026-03-27T06:36:24.420548", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 827, "elapsed": 17.35549283027649, "autonomous": true}
+{"ts": "2026-03-27T06:36:57.552534", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1682, "elapsed": 32.73403596878052, "autonomous": true}
+{"ts": "2026-03-27T06:37:35.509539", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1699, "elapsed": 37.5621702671051, "autonomous": true}
+{"ts": "2026-03-27T06:37:53.965619", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 867, "elapsed": 18.062252044677734, "autonomous": true}
+{"ts": "2026-03-27T06:46:23.370691", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 2078, "elapsed": 44.60313296318054, "autonomous": true}
+{"ts": "2026-03-27T06:46:39.863192", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 748, "elapsed": 16.10720705986023, "autonomous": true}
+{"ts": "2026-03-27T06:47:15.626378", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1772, "elapsed": 35.353485107421875, "autonomous": true}
+{"ts": "2026-03-27T06:48:01.732809", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 2193, "elapsed": 45.718907833099365, "autonomous": true}
+{"ts": "2026-03-27T06:48:40.944417", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1776, "elapsed": 38.805567026138306, "autonomous": true}
+{"ts": "2026-03-27T06:56:05.346890", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1076, "elapsed": 23.533899068832397, "autonomous": true}
+{"ts": "2026-03-27T06:56:24.843950", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 915, "elapsed": 19.116308212280273, "autonomous": true}
+{"ts": "2026-03-27T06:57:05.455786", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 2003, "elapsed": 40.252227783203125, "autonomous": true}
+{"ts": "2026-03-27T06:57:44.991956", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 2007, "elapsed": 39.143203020095825, "autonomous": true}
+{"ts": "2026-03-27T06:58:23.817324", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1870, "elapsed": 38.4435658454895, "autonomous": true}
+{"ts": "2026-03-27T07:06:10.068386", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1178, "elapsed": 25.352461099624634, "autonomous": true}
+{"ts": "2026-03-27T07:06:27.575089", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 795, "elapsed": 17.12242293357849, "autonomous": true}
+{"ts": "2026-03-27T07:07:03.007139", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1745, "elapsed": 35.03704595565796, "autonomous": true}
+{"ts": "2026-03-27T07:07:36.401914", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1643, "elapsed": 32.98932671546936, "autonomous": true}
+{"ts": "2026-03-27T07:08:14.132170", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1758, "elapsed": 37.32693791389465, "autonomous": true}
+{"ts": "2026-03-27T07:16:12.719123", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1183, "elapsed": 24.970264673233032, "autonomous": true}
+{"ts": "2026-03-27T07:16:29.198616", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 747, "elapsed": 16.08715295791626, "autonomous": true}
+{"ts": "2026-03-27T07:16:50.822357", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1123, "elapsed": 21.22940993309021, "autonomous": true}
+{"ts": "2026-03-27T07:17:31.648525", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1818, "elapsed": 40.42862915992737, "autonomous": true}
+{"ts": "2026-03-27T07:17:53.083579", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1003, "elapsed": 21.054767847061157, "autonomous": true}
+{"ts": "2026-03-27T07:26:15.647182", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1198, "elapsed": 24.93661594390869, "autonomous": true}
+{"ts": "2026-03-27T07:26:35.154321", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 881, "elapsed": 19.105456113815308, "autonomous": true}
+{"ts": "2026-03-27T07:27:05.731677", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 90, "tokens": 1553, "elapsed": 30.18014907836914, "autonomous": true}
+{"ts": "2026-03-27T07:27:37.445890", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1435, "elapsed": 31.314185857772827, "autonomous": true}
+{"ts": "2026-03-27T07:27:59.365050", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1031, "elapsed": 21.51467227935791, "autonomous": true}
+{"ts": "2026-03-27T07:36:25.169901", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1487, "elapsed": 31.343857765197754, "autonomous": true}
+{"ts": "2026-03-27T07:36:43.826742", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 858, "elapsed": 18.262331008911133, "autonomous": true}
+{"ts": "2026-03-27T07:37:09.961987", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1270, "elapsed": 25.732988357543945, "autonomous": true}
+{"ts": "2026-03-27T07:37:46.321042", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1647, "elapsed": 35.96144485473633, "autonomous": true}
+{"ts": "2026-03-27T07:38:22.911858", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1686, "elapsed": 36.190959215164185, "autonomous": true}
+{"ts": "2026-03-27T07:46:24.594948", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1251, "elapsed": 27.558664083480835, "autonomous": true}
+{"ts": "2026-03-27T07:46:42.489309", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 814, "elapsed": 17.49167799949646, "autonomous": true}
+{"ts": "2026-03-27T07:47:08.439985", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1244, "elapsed": 25.55565905570984, "autonomous": true}
+{"ts": "2026-03-27T07:47:44.118598", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1687, "elapsed": 35.2628059387207, "autonomous": true}
+{"ts": "2026-03-27T07:48:10.019646", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1235, "elapsed": 25.50336194038391, "autonomous": true}
+{"ts": "2026-03-27T07:56:22.959793", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1032, "elapsed": 22.96590280532837, "autonomous": true}
+{"ts": "2026-03-27T07:56:39.501363", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 746, "elapsed": 16.143445014953613, "autonomous": true}
+{"ts": "2026-03-27T07:57:09.169329", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1510, "elapsed": 29.255394220352173, "autonomous": true}
+{"ts": "2026-03-27T07:57:49.924676", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1767, "elapsed": 40.371793270111084, "autonomous": true}
+{"ts": "2026-03-27T07:58:32.988757", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 2048, "elapsed": 42.7086660861969, "autonomous": true}
+{"ts": "2026-03-27T08:06:31.454841", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1333, "elapsed": 28.56720805168152, "autonomous": true}
+{"ts": "2026-03-27T08:06:49.330522", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 808, "elapsed": 17.48379921913147, "autonomous": true}
+{"ts": "2026-03-27T08:07:09.312386", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 979, "elapsed": 19.58736276626587, "autonomous": true}
+{"ts": "2026-03-27T08:07:59.365704", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 2158, "elapsed": 49.65651202201843, "autonomous": true}
+{"ts": "2026-03-27T08:08:20.843380", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 993, "elapsed": 21.098108053207397, "autonomous": true}
+{"ts": "2026-03-27T08:16:56.919234", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 90, "tokens": 2489, "elapsed": 51.15213179588318, "autonomous": true}
+{"ts": "2026-03-27T08:17:15.606970", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 846, "elapsed": 18.28590488433838, "autonomous": true}
+{"ts": "2026-03-27T08:17:54.339772", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1964, "elapsed": 38.344348192214966, "autonomous": true}
+{"ts": "2026-03-27T08:18:30.440479", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1572, "elapsed": 35.704890727996826, "autonomous": true}
+{"ts": "2026-03-27T08:18:58.950993", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1325, "elapsed": 28.126505136489868, "autonomous": true}
+{"ts": "2026-03-27T08:26:08.660315", "action": "execute_failed", "agent": "executor", "task_id": "task-advanced-caching", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:26:09.034257", "action": "execute_failed", "agent": "executor", "task_id": "task-network-grpc", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:26:09.413940", "action": "execute_failed", "agent": "executor", "task_id": "task-agent-selfimprove", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:26:09.758074", "action": "execute_failed", "agent": "executor", "task_id": "task-consensus-protocol", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:26:10.105601", "action": "execute_failed", "agent": "executor", "task_id": "task-emergent-behavior", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:36:11.486026", "action": "execute_failed", "agent": "executor", "task_id": "task-agent-selfimprove", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:36:11.827918", "action": "execute_failed", "agent": "executor", "task_id": "task-consensus-protocol", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:36:12.180754", "action": "execute_failed", "agent": "executor", "task_id": "task-emergent-behavior", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:36:12.555548", "action": "execute_failed", "agent": "executor", "task_id": "task-knowledge-sharing", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:36:12.946408", "action": "execute_failed", "agent": "executor", "task_id": "task-disaster-recovery", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:46:14.467785", "action": "execute_failed", "agent": "executor", "task_id": "fix-redundant-services", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:46:14.834270", "action": "execute_failed", "agent": "executor", "task_id": "impl-realtime-state-sync", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:46:15.182186", "action": "execute_failed", "agent": "executor", "task_id": "impl-token-tracker", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:46:15.547810", "action": "execute_failed", "agent": "executor", "task_id": "impl-continuous-work-queue", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:46:15.928860", "action": "execute_failed", "agent": "executor", "task_id": "impl-agent-autorecovery", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:56:17.812657", "action": "execute_failed", "agent": "executor", "task_id": "impl-realtime-state-sync", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:56:18.180034", "action": "execute_failed", "agent": "executor", "task_id": "impl-token-tracker", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:56:18.519440", "action": "execute_failed", "agent": "executor", "task_id": "impl-continuous-work-queue", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:56:18.878711", "action": "execute_failed", "agent": "executor", "task_id": "impl-agent-autorecovery", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:56:19.251629", "action": "execute_failed", "agent": "executor", "task_id": "verify-no-external-crons", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T09:06:21.121119", "action": "execute_failed", "agent": "executor", "task_id": "impl-token-tracker", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T09:06:21.457840", "action": "execute_failed", "agent": "executor", "task_id": "impl-continuous-work-queue", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T09:06:21.832801", "action": "execute_failed", "agent": "executor", "task_id": "impl-agent-autorecovery", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T09:06:22.212744", "action": "execute_failed", "agent": "executor", "task_id": "verify-no-external-crons", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T09:06:22.584711", "action": "execute_failed", "agent": "executor", "task_id": "impl-auto-pr-merge", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T09:16:23.990270", "action": "execute_failed", "agent": "executor", "task_id": "impl-continuous-work-queue", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T09:16:24.360071", "action": "execute_failed", "agent": "executor", "task_id": "impl-agent-autorecovery", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T09:16:24.696309", "action": "execute_failed", "agent": "executor", "task_id": "verify-no-external-crons", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T09:16:25.053598", "action": "execute_failed", "agent": "executor", "task_id": "impl-auto-pr-merge", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T09:16:25.430518", "action": "execute_failed", "agent": "executor", "task_id": "impl-workflow-autodispatch", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T09:26:27.107909", "action": "execute_failed", "agent": "executor", "task_id": "impl-agent-autorecovery", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T09:26:27.446216", "action": "execute_failed", "agent": "executor", "task_id": "verify-no-external-crons", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T09:26:27.815239", "action": "execute_failed", "agent": "executor", "task_id": "impl-auto-pr-merge", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T09:26:28.192637", "action": "execute_failed", "agent": "executor", "task_id": "impl-workflow-autodispatch", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T09:26:28.558908", "action": "execute_failed", "agent": "executor", "task_id": "upgrade-ui-realtime", "attempts": 3, "last_error": "Unknown error"}

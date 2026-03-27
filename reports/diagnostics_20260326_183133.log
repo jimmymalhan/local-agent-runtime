@@ -1,0 +1,88 @@
+╔════════════════════════════════════════════════════════════════════════╗
+║                    COMPREHENSIVE SYSTEM DIAGNOSTICS                     ║
+║                           2026-03-26 18:31:33                          ║
+╚════════════════════════════════════════════════════════════════════════╝
+
+━━━ SECTION 1: ACTIVE AGENTS & SUB-AGENTS ━━━
+
+🔍 Main Agent Processes:
+jimmymalhan      94058   0.0  0.0 435307792   3008   ??  Ss    6:31PM   0:00.01 /bin/zsh -c source /Users/jimmymalhan/.claude/shell-snapshots/snapshot-zsh-1774558682131-egx6gv.sh && setopt NO_EXTENDED_GLOB 2>/dev/null || true && eval '\012cd /Users/jimmymalhan/Documents/local-agent-runtime\012\012echo "=== TESTING ORCHESTRATOR DIRECTLY ==="\012python3 orchestrator/main.py --quick 3 --local-only 2>&1 | head -80\012' < /dev/null && pwd -P >| /var/folders/w2/x9kxl30144jdl1trp2b6bqz40000gn/T/claude-7d14-cwd
+
+🔍 Sub-Agent Worker Processes:
+       0
+  Sub-agents active:        0
+
+🔍 Daemon Processes:
+      11
+  Daemon processes:       11
+
+━━━ SECTION 2: COMPLETED WORK & PROGRESS ━━━
+
+📊 Projects Status:
+  Total projects: 6
+    - System Reliability & Health: 1 tasks (in_progress)
+    - Dashboard Quality & State Management: 1 tasks (pending)
+    - Policy Enforcement & Budget Control: 1 tasks (pending)
+    - Multi-Loop Execution & Self-Improvement: 1 tasks (pending)
+    - Local Agent Autonomy Setup: 1 tasks (pending)
+    - Incident Response: 1 tasks (active)
+
+📈 Task Completion:
+  Completed: 0/0 (waiting for tasks)
+
+🔄 Recent Commits:
+aac4a4e fix: add board_plan to schema validator and comprehensive health check
+c1ec099 docs: comprehensive system status report — all blockers resolved
+f0e7b53 feat: wire projects.json task dispatch into orchestrator
+6812251 docs: P0 integration complete — all root causes wired and verified
+2ac7805 feat(p0): integrate schema_validator into agent execution pipeline
+
+━━━ SECTION 3: 24/7 OPERATIONAL STATUS ━━━
+
+✓ Component Status:
+  ✓ Orchestrator RUNNING
+  ✓ Dashboard RUNNING
+  ✓ Self-heal RUNNING
+
+⏱️  Cron Jobs Installed:
+       5
+  Total monitoring cron jobs:        5
+
+📝 Cron Jobs Detail:
+* * * * * /Users/jimmymalhan/Documents/local-agent-runtime/scripts/rescue_orchestrator.sh >> /Users/jimmymalhan/Documents/local-agent-runtime/local-agents/logs/rescue_orchestrator.log 2>&1
+*/5 * * * * /Users/jimmymalhan/Documents/local-agent-runtime/scripts/cron_claude_rescue.sh >> /Users/jimmymalhan/Documents/local-agent-runtime/local-agents/logs/cron_rescue.log 2>&1
+*/2 * * * * cd /Users/jimmymalhan/Documents/local-agent-runtime && bash scripts/auto_recover.sh >> /tmp/auto_recover.log 2>&1
+*/30 * * * * python3 scripts/automated_health_check.py >> /tmp/automated_health_check.log 2>&1
+*/30 * * * * bash /Users/jimmymalhan/Documents/local-agent-runtime/scripts/comprehensive_health_check.sh >> /tmp/comprehensive_health.log 2>&1
+
+━━━ SECTION 4: BLOCKERS & ISSUES ━━━
+
+🚨 Critical Checks:
+  ✓ Schema validator integrated in main.py
+  ✓ State.json is valid JSON
+  ✓ Projects.json is valid
+
+━━━ SECTION 5: RECENT ERRORS ━━━
+
+📋 Last 5 Errors from Orchestrator:
+  (no recent errors)
+
+━━━ SECTION 6: RESOURCE USAGE ━━━
+
+💾 Disk Usage:
+  Used: 166Gi / Available: 272Gi (38% full)
+
+🧠 Memory Usage (Python processes):
+  Total: 3 MB
+
+━━━ SECTION 7: AUTOMATION INFRASTRUCTURE ━━━
+
+🤖 Automation Scripts Present:
+  ✓ health_check.sh (executable)
+  ✓ auto_recover.sh (executable)
+  ✓ schema_validator.py (exists)
+  ✓ resume_if_needed.sh (exists)
+
+═══════════════════════════════════════════════════════════════════════════
+Diagnostic Report Generated: /Users/jimmymalhan/Documents/local-agent-runtime/reports/diagnostics_20260326_183133.log
+═══════════════════════════════════════════════════════════════════════════

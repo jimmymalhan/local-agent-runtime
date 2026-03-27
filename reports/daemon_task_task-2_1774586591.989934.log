@@ -1,0 +1,9 @@
+Task: task-2
+Command: python3 -c "from orchestrator.schema_validator import read_state_safe; s=read_state_safe(); print('PASS' if 'quality' in s else 'FAIL')"
+Status: PASSED
+Elapsed: 0.0s
+
+STDOUT:
+PASS
+
+
