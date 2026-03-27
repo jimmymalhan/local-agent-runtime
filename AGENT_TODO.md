@@ -141,6 +141,39 @@
 
 ---
 
+## 🚨 CRITICAL P0 BLOCKERS (HIGHEST PRIORITY — DO IMMEDIATELY)
+
+### CRITICAL: Stale Agent Detection & Restart
+**Task ID**: task-critical-stale-agents
+**Severity**: P0 CRITICAL — System blocked, agents stuck for 7+ hours
+**Problem**: Executor and Architect agents stuck in "running" status for 430+ minutes with no activity. Dashboard shows false "running" status. blocker_monitor doesn't detect stale agents.
+
+**What To Do**:
+1. Read: orchestrator/blocker_monitor.py, function `detect_blocked_agents()`
+2. Add: Detect stale agents (elapsed_time > 600 seconds since last_activity)
+3. Add: Check agents with status in ["running", "idle", "pending"] AND elapsed > threshold
+4. Add: Auto-fix for stale agents:
+   - Set status = "stale"
+   - Send restart signal to agent
+   - Clear task assignment
+   - Reset agent state
+5. Test: Manually set agent activity to 1 hour ago, run blocker_monitor, verify detection and restart
+6. Success Criteria: Stale agents (>10min inactive) detected and auto-restarted within 30 seconds
+
+**Files to Edit**:
+- orchestrator/blocker_monitor.py (expand detect_blocked_agents, add stale detection)
+- orchestrator/blocker_monitor.py (add stale agent auto-fix)
+
+**Estimated Time**: 30 minutes
+**ETA**: 2026-03-27 06:30 UTC (CRITICAL — DO FIRST)
+
+**Current Impact**:
+- Executor: Running for 423+ minutes, no activity (assigned blocker_monitor fix task)
+- Architect: Running for 430+ minutes, no activity
+- All other agents: Idle/ready for 13+ minutes
+
+---
+
 ### BLOCKER 7: Stuck-State Detection in Blocker Monitor
 **Task ID**: task-blocker-stuck-state
 **Problem**: Executor stuck in "recovering" status for 6+ minutes not detected by blocker_monitor. Monitor only checks for status="blocked", misses stuck "recovering" states.
