@@ -1012,10 +1012,11 @@
           "title": "Add real-time metrics dashboard (CPU, memory, request latency)",
           "description": "Create advanced metrics panel with live graphs, percentile tracking, alerts",
           "agent": "frontend_agent",
-          "status": "pending",
+          "status": "completed",
           "priority": "P0",
           "success_criteria": "Metrics display <100ms update latency, 60+ fps animations",
-          "eta_hours": 3
+          "eta_hours": 3,
+          "completed_at": "projects_loader"
         },
         {
           "id": "ultra-dash-2",
