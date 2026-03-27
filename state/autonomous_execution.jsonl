@@ -113,3 +113,16 @@
 {"ts": "2026-03-26T18:59:00.187035", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-5", "attempts": 3, "last_error": "Unknown error"}
 {"ts": "2026-03-26T18:59:00.589506", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 73%"}
 {"ts": "2026-03-26T18:59:00.596501", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-6", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T19:01:06.438695", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 72%"}
+{"ts": "2026-03-26T19:01:08.445218", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:01:08.907771", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 71%"}
+{"ts": "2026-03-26T19:01:10.922204", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:01:11.346591", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 70%"}
+{"ts": "2026-03-26T19:01:13.363693", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:01:13.777789", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 70%"}
+{"ts": "2026-03-26T19:01:13.798145", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T19:01:14.249037", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-2", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T19:01:14.660205", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-3", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T19:01:15.060807", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-4", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T19:01:15.448022", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-5", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T19:01:15.842213", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-6", "attempts": 3, "last_error": "Unknown error"}

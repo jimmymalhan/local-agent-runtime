@@ -30,3 +30,8 @@ TASK PROGRESS: Waiting for tasks to start
 ━━━ SECTION 3.5: EXECUTE PENDING TASKS ━━━
 
 🚀 Executing pending tasks (max 5 tasks per cycle)...
+⚠️  Task execution timeout (30s limit, stopping)
+
+━━━ SECTION 4: GIT PUSH & PR MERGE ━━━
+
+📝 Uncommitted changes detected — committing...
