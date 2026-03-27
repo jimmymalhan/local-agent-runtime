@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-27T18:02:40.258804",
+  "ts": "2026-03-27T18:06:51.467092",
   "version": {
     "current": 1,
     "total": 100,
@@ -12,7 +12,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T18:02:34.147376",
+      "last_activity": "2026-03-27T18:06:34.211887",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -21,7 +21,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T18:02:34.147376",
+      "last_activity": "2026-03-27T18:06:34.211887",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -30,18 +30,18 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T18:02:34.147376",
+      "last_activity": "2026-03-27T18:06:34.211887",
       "sub_agents": [],
       "worker_count": 0
     },
     "test_engineer": {
-      "last_activity": "2026-03-27T18:02:34.147376",
+      "last_activity": "2026-03-27T18:06:34.211887",
       "status": "idle",
       "task": "",
       "task_id": null
     },
     "researcher": {
-      "last_activity": "2026-03-27T18:02:34.147376",
+      "last_activity": "2026-03-27T18:06:34.211887",
       "status": "idle",
       "task": "",
       "task_id": null
@@ -50,9 +50,9 @@
   "task_queue": {
     "total": 58,
     "completed": 55,
-    "pending": 3,
     "in_progress": 0,
-    "failed": 0
+    "failed": 0,
+    "pending": 3
   },
   "benchmark_scores": {
     "avg_local": 0.0,
@@ -85,9 +85,9 @@
   },
   "token_usage": {
     "claude_tokens": 0,
-    "local_tokens": 194624,
-    "budget_pct": 38.9,
-    "warning": false,
+    "local_tokens": 487500,
+    "budget_pct": 97.5,
+    "warning": true,
     "hard_limit_hit": false
   },
   "hardware": {
@@ -242,7 +242,7 @@
   ],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-27T11:02:35.631078",
+    "ts": "2026-03-27T11:06:50.863884",
     "epics": [
       {
         "id": "system-reliability",
@@ -402,7 +402,7 @@
         "id": "critical-system-fixes",
         "name": "\ud83d\udd34 CRITICAL: System Stability & Production Hardening",
         "track": "infrastructure",
-        "status": "active",
+        "status": "completed",
         "total_tasks": 11,
         "completed": 11,
         "in_progress": 0,
@@ -421,11 +421,11 @@
         "track": "infrastructure",
         "status": "pending",
         "total_tasks": 5,
-        "completed": 1,
+        "completed": 2,
         "in_progress": 0,
-        "pending": 4,
+        "pending": 3,
         "blocked": 0,
-        "progress_pct": 20.0,
+        "progress_pct": 40.0,
         "agents": [
           "architect",
           "benchmarker",
