@@ -33,6 +33,7 @@ REQUIRED_STATE_KEYS = {
         "pending": 0
     },
     "epic_board": lambda: {"epics": [], "operations": {}},
+    "board_plan": lambda: {"projects": [], "stages": []},
     "agents": lambda: {},
     "benchmark_scores": lambda: {},
     "token_usage": lambda: {
