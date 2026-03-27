@@ -917,24 +917,14 @@ def _write_version_file(version: int):
 
 def auto_loop(start_version: int):
     """Full autonomous v{start}→v1000 loop. Self-improves until beating Opus 4.6."""
-    # Load tasks from both task_suite.py (legacy) and projects.json (new)
-    from tasks.task_suite import build_task_suite
+    # Load tasks from projects.json (single source of truth)
     from orchestrator.projects_loader import load_projects_tasks
 
-    # CRITICAL FIX: Load projects.json tasks FIRST (higher priority)
-    # This ensures they execute when running in quick mode
+    # Load projects.json tasks ONLY (drop legacy task_suite for consistency)
     project_tasks = load_projects_tasks()
 
-    if project_tasks:
-        print(f"[PROJECTS] Prioritizing {len(project_tasks)} tasks from projects.json")
-        tasks = project_tasks
-    else:
-        tasks = []
-
-    # Add task_suite tasks second (lower priority, for testing)
-    suite_tasks = build_task_suite()
-    tasks.extend(suite_tasks)
-    print(f"[PROJECTS] Total task queue: {len(project_tasks)} projects + {len(suite_tasks)} suite = {len(tasks)} tasks")
+    tasks = project_tasks if project_tasks else []
+    print(f"[PROJECTS] Loaded {len(tasks)} tasks from projects.json (single source of truth)")
 
     # Start 1-minute rescue watchdog in background
     state_path   = os.path.join(BASE_DIR, "dashboard", "state.json")
