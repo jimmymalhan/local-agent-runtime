@@ -913,11 +913,25 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:50:48.686360"
+      },
+      {
+        "attempt": 7,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:58:23.944010"
+      },
+      {
+        "attempt": 8,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:59:13.740335"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T12:03:59.170837",
-    "rescue_escalated_at": "2026-03-27T12:50:48.689315"
+    "rescue_escalated_at": "2026-03-27T12:59:13.743554"
   },
   "agent-intel-5": {
     "attempts": [
@@ -955,11 +969,25 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:50:49.134109"
+      },
+      {
+        "attempt": 6,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T13:00:21.984309"
+      },
+      {
+        "attempt": 7,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T13:02:29.424270"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T12:03:59.586313",
-    "rescue_escalated_at": "2026-03-27T12:50:49.137008"
+    "rescue_escalated_at": "2026-03-27T13:02:29.427477"
   },
   "state-adv-1": {
     "attempts": [
@@ -990,11 +1018,25 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:50:49.559877"
+      },
+      {
+        "attempt": 5,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T13:04:26.806691"
+      },
+      {
+        "attempt": 6,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T13:07:29.831839"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T12:04:00.013289",
-    "rescue_escalated_at": "2026-03-27T12:50:49.562653"
+    "rescue_escalated_at": "2026-03-27T13:07:29.836778"
   },
   "state-adv-2": {
     "attempts": [
@@ -1018,11 +1060,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:50:50.009438"
+      },
+      {
+        "attempt": 4,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T13:08:10.017613"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T12:04:00.440552",
-    "rescue_escalated_at": "2026-03-27T12:50:50.012250"
+    "rescue_escalated_at": "2026-03-27T13:08:10.020958"
   },
   "state-adv-3": {
     "attempts": [
@@ -1693,11 +1742,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:57:30.425725"
+      },
+      {
+        "attempt": 5,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T13:08:02.785825"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T12:04:14.739272",
-    "rescue_escalated_at": "2026-03-27T12:57:30.429683"
+    "rescue_escalated_at": "2026-03-27T13:08:02.789677"
   },
   "e2-route-2": {
     "attempts": [
@@ -1721,11 +1777,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:51:05.013421"
+      },
+      {
+        "attempt": 4,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T13:08:29.019180"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T12:04:15.137867",
-    "rescue_escalated_at": "2026-03-27T12:51:05.016348"
+    "rescue_escalated_at": "2026-03-27T13:08:29.022377"
   },
   "e2-route-3": {
     "attempts": [
