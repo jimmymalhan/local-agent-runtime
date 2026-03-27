@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-27T19:42:45.357048",
+  "ts": "2026-03-27T12:47:24.457033",
   "version": {
     "current": 0,
     "total": 100,
@@ -8,34 +8,34 @@
   },
   "agents": {
     "executor": {
-      "last_activity": "2026-03-27T19:42:36.065579"
+      "last_activity": "2026-03-27T19:47:06.188082"
     },
     "architect": {
-      "last_activity": "2026-03-27T19:42:36.065579"
+      "last_activity": "2026-03-27T19:47:06.188082"
     },
     "test_engineer": {
-      "last_activity": "2026-03-27T19:42:36.065579"
+      "last_activity": "2026-03-27T19:47:06.188082"
     },
     "reviewer": {
-      "last_activity": "2026-03-27T19:42:36.065579"
+      "last_activity": "2026-03-27T19:47:06.188082"
     },
     "researcher": {
-      "last_activity": "2026-03-27T19:42:36.065579"
+      "last_activity": "2026-03-27T19:47:06.188082"
     }
   },
   "task_queue": {
     "total": 393,
     "completed": 65,
-    "pending": 328,
     "in_progress": 0,
-    "failed": 0
+    "failed": 0,
+    "pending": 328
   },
   "benchmark_scores": {},
   "token_usage": {
     "claude_tokens": 0,
-    "local_tokens": 194624,
-    "budget_pct": 38.9,
-    "warning": false,
+    "local_tokens": 492885,
+    "budget_pct": 98.577,
+    "warning": true,
     "hard_limit_hit": false
   },
   "hardware": {
@@ -53,7 +53,7 @@
   "recent_tasks": [],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-27T12:42:44.656365",
+    "ts": "2026-03-27T12:47:24.456195",
     "epics": [
       {
         "id": "system-reliability",
@@ -268,11 +268,11 @@
         "track": "infrastructure",
         "status": "pending",
         "total_tasks": 5,
-        "completed": 1,
+        "completed": 2,
         "in_progress": 0,
-        "pending": 4,
+        "pending": 3,
         "blocked": 0,
-        "progress_pct": 20.0,
+        "progress_pct": 40.0,
         "agents": [
           "backend_engineer"
         ],
