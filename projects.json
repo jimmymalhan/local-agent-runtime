@@ -2315,15 +2315,505 @@
         }
       ],
       "eta_hours": 20
+    },
+    {
+      "id": "ultra-multimodel-orchestration",
+      "name": "\ud83e\udd16 Ultra Multi-Model Orchestration Engine (Tier 1)",
+      "description": "Router chooses best model dynamically, ensemble voting, weighted scoring",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "ultra-multi-1",
+          "title": "Build intelligent model selector (analyze task, pick optimal model)",
+          "description": "ML model that predicts which model is best for each task",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Model selection accuracy >92%, latency <50ms",
+          "eta_hours": 5
+        },
+        {
+          "id": "ultra-multi-2",
+          "title": "Implement expert system with dynamic routing",
+          "description": "Multiple experts (Qwen for coding, Llama for analysis, etc.)",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Expert routing works, each expert optimized for domain",
+          "eta_hours": 6
+        },
+        {
+          "id": "ultra-multi-3",
+          "title": "Add ensemble voting with confidence scoring",
+          "description": "Multiple models vote, weighted by confidence",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Ensemble accuracy >Opus, confidence scoring accurate",
+          "eta_hours": 5
+        },
+        {
+          "id": "ultra-multi-4",
+          "title": "Implement model specialization (finetune for domains)",
+          "description": "Specialize models for specific domains (medical, legal, code)",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Domain-specific models outperform general by >20%",
+          "eta_hours": 7
+        }
+      ],
+      "eta_hours": 23
+    },
+    {
+      "id": "ultra-vision-audio-multimodal",
+      "name": "\ud83d\udc41\ufe0f\ud83d\udd0a Vision & Audio Multimodal Support (Tier 1)",
+      "description": "Image understanding, OCR, audio transcription, video analysis",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "ultra-vision-1",
+          "title": "Integrate vision models (Claude Vision parity)",
+          "description": "Image understanding, OCR, diagram analysis",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Vision understanding >95% accuracy, OCR <2% error",
+          "eta_hours": 6
+        },
+        {
+          "id": "ultra-vision-2",
+          "title": "Add audio transcription & speech-to-text",
+          "description": "Transcribe audio, support 50+ languages",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Transcription accuracy >95%, latency <2x audio duration",
+          "eta_hours": 4
+        },
+        {
+          "id": "ultra-vision-3",
+          "title": "Implement video analysis & frame extraction",
+          "description": "Analyze videos, extract key frames, summarize",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Video analysis works, key frames accurate",
+          "eta_hours": 5
+        },
+        {
+          "id": "ultra-vision-4",
+          "title": "Build document intelligence (extract tables, forms)",
+          "description": "Extract structured data from PDFs, images, forms",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Table extraction 100% accurate, form parsing >98%",
+          "eta_hours": 5
+        }
+      ],
+      "eta_hours": 20
+    },
+    {
+      "id": "ultra-reasoning-engine",
+      "name": "\ud83e\udde0 Ultra Reasoning & Logic Engine (Tier 1)",
+      "description": "Step-by-step reasoning, proof verification, mathematical logic",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "ultra-reason-1",
+          "title": "Implement step-by-step reasoning with verification",
+          "description": "Each step verified by logic engine",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Reasoning verified, error detection >95%",
+          "eta_hours": 6
+        },
+        {
+          "id": "ultra-reason-2",
+          "title": "Add mathematical proof verification",
+          "description": "Verify mathematical proofs using theorem provers",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Proofs verified 100% accurately",
+          "eta_hours": 7
+        },
+        {
+          "id": "ultra-reason-3",
+          "title": "Implement code execution sandbox with verification",
+          "description": "Execute code, verify outputs, trace execution",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Code execution safe, tracing accurate",
+          "eta_hours": 5
+        },
+        {
+          "id": "ultra-reason-4",
+          "title": "Build fact-checking & citation verification",
+          "description": "Verify facts, link to sources, check citations",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Fact-checking accuracy >90%, citations correct",
+          "eta_hours": 5
+        }
+      ],
+      "eta_hours": 23
+    },
+    {
+      "id": "ultra-realtime-streaming",
+      "name": "\u26a1 Ultra Real-Time Streaming & WebSocket (Tier 1)",
+      "description": "Server-sent events, bidirectional streams, live collaboration",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "ultra-stream-1",
+          "title": "Implement server-sent events with multiplexing",
+          "description": "Multiple concurrent streams per connection",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Streams work, latency <100ms per message",
+          "eta_hours": 4
+        },
+        {
+          "id": "ultra-stream-2",
+          "title": "Build bidirectional WebSocket with backpressure",
+          "description": "Full duplex with flow control",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Bidirectional streams working, no data loss",
+          "eta_hours": 4
+        },
+        {
+          "id": "ultra-stream-3",
+          "title": "Add live collaborative editing (CRDT)",
+          "description": "Conflict-free real-time data structures",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "CRDT works, conflicts resolved automatically",
+          "eta_hours": 6
+        },
+        {
+          "id": "ultra-stream-4",
+          "title": "Implement stream compression & optimization",
+          "description": "Compress streams, optimize bandwidth",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Compression 30-50%, latency impact <10ms",
+          "eta_hours": 3
+        }
+      ],
+      "eta_hours": 17
+    },
+    {
+      "id": "ultra-enterprise-compliance",
+      "name": "\u2705 Ultra Enterprise Compliance & Governance (Tier 1)",
+      "description": "Advanced audit, compliance automation, policy enforcement",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "ultra-comp-1",
+          "title": "Implement SOC2 Type II with continuous monitoring",
+          "description": "Real-time SOC2 compliance validation",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "SOC2 Type II certified, continuous validation",
+          "eta_hours": 7
+        },
+        {
+          "id": "ultra-comp-2",
+          "title": "Add advanced audit logging with tamper-proof storage",
+          "description": "Immutable logs, blockchain-backed verification",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Logs immutable, tamper-detection working",
+          "eta_hours": 5
+        },
+        {
+          "id": "ultra-comp-3",
+          "title": "Implement policy engine for data governance",
+          "description": "Auto-enforce data policies, track compliance",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Policies enforced, compliance 100%",
+          "eta_hours": 5
+        },
+        {
+          "id": "ultra-comp-4",
+          "title": "Build automated DLP (data loss prevention)",
+          "description": "Detect & prevent sensitive data leaks",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "DLP accuracy >99%, zero false negatives",
+          "eta_hours": 5
+        }
+      ],
+      "eta_hours": 22
+    },
+    {
+      "id": "ultra-white-label",
+      "name": "\ud83c\udfa8 Ultra White-Label & Custom Branding (Tier 1)",
+      "description": "Full white-label, custom domains, theming, white-label API",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "ultra-wl-1",
+          "title": "Implement white-label UI with custom branding",
+          "description": "Remove all Nexus branding, customer logos everywhere",
+          "agent": "frontend_agent",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "UI fully white-labeled, consistent branding",
+          "eta_hours": 6
+        },
+        {
+          "id": "ultra-wl-2",
+          "title": "Add custom domain & SSL certificate management",
+          "description": "Customers use their own domain names",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Custom domains work, SSL auto-renewed",
+          "eta_hours": 4
+        },
+        {
+          "id": "ultra-wl-3",
+          "title": "Build advanced theming system (colors, fonts, layouts)",
+          "description": "Fully customizable UI appearance",
+          "agent": "frontend_agent",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Theming system complete, 100+ customizations",
+          "eta_hours": 5
+        },
+        {
+          "id": "ultra-wl-4",
+          "title": "Implement white-label admin portal",
+          "description": "Customers manage white-label settings",
+          "agent": "frontend_agent",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Admin portal complete, all settings customizable",
+          "eta_hours": 4
+        }
+      ],
+      "eta_hours": 19
+    },
+    {
+      "id": "ultra-integrations-ecosystem",
+      "name": "\ud83d\udd17 Ultra Integrations Ecosystem (Tier 1)",
+      "description": "50+ integrations, marketplace, pre-built connectors",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "ultra-int-1",
+          "title": "Build connector framework with 50+ pre-built integrations",
+          "description": "Slack, Teams, Email, Salesforce, HubSpot, Zapier, etc.",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "50+ integrations working, easy to add more",
+          "eta_hours": 8
+        },
+        {
+          "id": "ultra-int-2",
+          "title": "Implement integration marketplace with discovery",
+          "description": "Browse, install, manage integrations",
+          "agent": "frontend_agent",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Marketplace working, discovery functional",
+          "eta_hours": 5
+        },
+        {
+          "id": "ultra-int-3",
+          "title": "Add webhook framework for custom integrations",
+          "description": "Custom webhooks, retries, monitoring",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Webhooks working, >99% delivery",
+          "eta_hours": 4
+        },
+        {
+          "id": "ultra-int-4",
+          "title": "Build integration logging & debugging tools",
+          "description": "Debug integrations, replay webhooks, test",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Debugging tools complete, logs detailed",
+          "eta_hours": 3
+        }
+      ],
+      "eta_hours": 20
+    },
+    {
+      "id": "ultra-mobile-apps",
+      "name": "\ud83d\udcf1 Ultra Native Mobile Apps (Tier 1)",
+      "description": "iOS/Android apps with offline sync, push notifications",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "ultra-mobile-1",
+          "title": "Build iOS app with offline sync",
+          "description": "Native iOS, syncs when online",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "iOS app published, offline sync working",
+          "eta_hours": 8
+        },
+        {
+          "id": "ultra-mobile-2",
+          "title": "Build Android app with offline sync",
+          "description": "Native Android, syncs when online",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Android app published, offline sync working",
+          "eta_hours": 8
+        },
+        {
+          "id": "ultra-mobile-3",
+          "title": "Add push notifications (APNs, FCM)",
+          "description": "Real-time push notifications on mobile",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Push notifications working, delivery >99%",
+          "eta_hours": 3
+        },
+        {
+          "id": "ultra-mobile-4",
+          "title": "Implement biometric auth (fingerprint, Face ID)",
+          "description": "Secure mobile authentication",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Biometric auth working on iOS/Android",
+          "eta_hours": 3
+        }
+      ],
+      "eta_hours": 22
+    },
+    {
+      "id": "ultra-data-warehouse",
+      "name": "\ud83c\udfed Ultra Data Warehouse & Analytics (Tier 1)",
+      "description": "DW for analytics, real-time OLAP, materialized views",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "ultra-dw-1",
+          "title": "Build columnar data warehouse (Parquet-based)",
+          "description": "Optimized for analytics queries",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "DW working, queries <1s on 1B rows",
+          "eta_hours": 7
+        },
+        {
+          "id": "ultra-dw-2",
+          "title": "Implement real-time OLAP (online analytical processing)",
+          "description": "Fast aggregations, real-time data",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "OLAP queries <100ms, real-time",
+          "eta_hours": 6
+        },
+        {
+          "id": "ultra-dw-3",
+          "title": "Add materialized views & incremental refresh",
+          "description": "Pre-compute common queries, incremental updates",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Materialized views working, refresh <1 minute",
+          "eta_hours": 4
+        },
+        {
+          "id": "ultra-dw-4",
+          "title": "Implement data lineage & impact analysis",
+          "description": "Track data transformations, impact analysis",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Lineage complete, impact analysis accurate",
+          "eta_hours": 4
+        }
+      ],
+      "eta_hours": 21
+    },
+    {
+      "id": "ultra-advanced-search",
+      "name": "\ud83d\udd0d Ultra Advanced Search & Discovery (Tier 1)",
+      "description": "Semantic search, faceted search, fuzzy matching, filters",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "ultra-search-1",
+          "title": "Implement semantic search with learned embeddings",
+          "description": "Search by meaning, not just keywords",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Semantic search accuracy >90%, latency <100ms",
+          "eta_hours": 5
+        },
+        {
+          "id": "ultra-search-2",
+          "title": "Add faceted search & advanced filters",
+          "description": "Filter by multiple dimensions, drill down",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Faceted search working, filters fast",
+          "eta_hours": 4
+        },
+        {
+          "id": "ultra-search-3",
+          "title": "Implement fuzzy matching & typo tolerance",
+          "description": "Find results despite typos",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Typo tolerance >95%, suggestions working",
+          "eta_hours": 3
+        },
+        {
+          "id": "ultra-search-4",
+          "title": "Build search results personalization",
+          "description": "Ranking based on user preferences & history",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Personalization improves relevance >20%",
+          "eta_hours": 4
+        }
+      ],
+      "eta_hours": 16
     }
   ],
   "metadata": {
     "created": "2026-03-26T20:00:00Z",
     "created_by": "claude",
     "mission": "Beat Opus 4.6 with 90% local / 10% Claude rescue",
-    "total_tasks": 167,
+    "total_tasks": 207,
     "total_epics": 7,
-    "updated": "2026-03-27T18:29:11.730295Z",
+    "updated": "2026-03-27T18:38:05.874982Z",
     "critical_path": "blocker-fixes (16h) \u2192 system-reliability (6h) \u2192 dashboard-quality (12h) \u2192 policy-governance (18h) \u2192 execution-optimization (30h)",
     "eta_all_complete": "2026-03-27T06:39:11.894496Z",
     "token_budget": {
@@ -2336,8 +2826,9 @@
     "crons_removed": true,
     "internal_scheduling": "unified_daemon.py",
     "launch_agent_updated": true,
-    "total_projects": 36,
+    "total_projects": 46,
     "last_epic_expansion": "2026-03-27T18:28:40.197174Z",
-    "premium_features_added": true
+    "premium_features_added": true,
+    "ultra_tier_1_added": true
   }
 }
