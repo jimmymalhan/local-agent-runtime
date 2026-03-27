@@ -436,6 +436,13 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T08:46:14.834689"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T08:56:17.813183"
       }
     ],
     "rescue_escalated": false,
@@ -449,6 +456,13 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T08:46:15.182639"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T08:56:18.180358"
       }
     ],
     "rescue_escalated": false,
@@ -462,6 +476,13 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T08:46:15.548156"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T08:56:18.519795"
       }
     ],
     "rescue_escalated": false,
@@ -475,9 +496,29 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T08:46:15.929338"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T08:56:18.879088"
       }
     ],
     "rescue_escalated": false,
     "first_attempt_at": "2026-03-27T08:46:15.929337"
+  },
+  "verify-no-external-crons": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T08:56:19.252056"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T08:56:19.252054"
   }
 }

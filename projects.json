@@ -774,7 +774,7 @@
           "title": "[P0] Implement real-time state.json sync from projects.json",
           "description": "Create state_sync_daemon.py that updates dashboard/state.json from projects.json every 1 second. Sync: task counts, completion %, agent status, quality score. Accept if state always reflects truth.",
           "agent": "executor",
-          "status": "pending",
+          "status": "completed",
           "priority": "P0",
           "eta_hours": 1,
           "quality_target": 95,
@@ -783,7 +783,8 @@
             "dashboard/state.json",
             "projects.json"
           ],
-          "success_criteria": "state.json updates every 1sec, metrics always accurate"
+          "success_criteria": "state.json updates every 1sec, metrics always accurate",
+          "completed_at": "projects_loader"
         },
         {
           "id": "impl-token-tracker",
