@@ -189,6 +189,14 @@ def run_cycle(test_mode=False):
     logger.info("📍 DAEMON SCHEDULER CYCLE")
     logger.info("=" * 70)
 
+    # FIRST: Check for blocked agents and auto-fix
+    logger.info("🔍 Checking for blocked agents...")
+    try:
+        from orchestrator.blocker_monitor import monitor_once
+        monitor_once()  # Auto-fix any blocked agents
+    except Exception as e:
+        logger.warning(f"⚠️  Blocker monitor failed (non-blocking): {e}")
+
     # Load state
     state = read_daemon_state()
     cycle_num = state.get("cycles_completed", 0) + 1
