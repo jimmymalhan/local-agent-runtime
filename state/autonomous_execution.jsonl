@@ -1376,3 +1376,13 @@
 {"ts": "2026-03-27T12:27:23.032750", "action": "execute_failed", "agent": "executor", "task_id": "agent-intel-4", "attempts": 3, "last_error": "Unknown error"}
 {"ts": "2026-03-27T12:27:23.422025", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 39%"}
 {"ts": "2026-03-27T12:27:23.422188", "action": "execute_failed", "agent": "executor", "task_id": "agent-intel-5", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T12:37:25.004155", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 39%"}
+{"ts": "2026-03-27T12:37:25.004600", "action": "execute_failed", "agent": "executor", "task_id": "agent-intel-2", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T12:37:25.383898", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 39%"}
+{"ts": "2026-03-27T12:37:25.384129", "action": "execute_failed", "agent": "executor", "task_id": "agent-intel-3", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T12:37:25.769367", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 39%"}
+{"ts": "2026-03-27T12:37:25.769592", "action": "execute_failed", "agent": "executor", "task_id": "agent-intel-4", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T12:37:26.161236", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 39%"}
+{"ts": "2026-03-27T12:37:26.161591", "action": "execute_failed", "agent": "executor", "task_id": "agent-intel-5", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T12:37:26.515311", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 38%"}
+{"ts": "2026-03-27T12:37:26.515626", "action": "execute_failed", "agent": "executor", "task_id": "state-adv-1", "attempts": 3, "last_error": "Unknown error"}
