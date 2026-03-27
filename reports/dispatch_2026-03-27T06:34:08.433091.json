@@ -1,0 +1,13 @@
+{
+  "tasks_run": 1,
+  "completed": 1,
+  "failed": 0,
+  "tasks": [
+    {
+      "id": "task-agent-autoexecution",
+      "status": "completed",
+      "quality": 75.0,
+      "elapsed_s": 0.00016617774963378906
+    }
+  ]
+}
