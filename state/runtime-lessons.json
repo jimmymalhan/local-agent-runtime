@@ -86,6 +86,13 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T00:43:55.013389"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T00:53:57.151856"
       }
     ]
   },
@@ -97,6 +104,13 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T00:43:55.395558"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T00:53:57.513132"
       }
     ]
   },
@@ -108,9 +122,42 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T00:43:55.768615"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T00:53:57.893517"
       }
     ],
     "rescue_escalated": false,
     "first_attempt_at": "2026-03-27T00:43:55.768613"
+  },
+  "task-subagent-scaling": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T00:53:58.273622"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T00:53:58.273620"
+  },
+  "task-test-suite": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T00:53:58.642459"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T00:53:58.642457"
   }
 }
