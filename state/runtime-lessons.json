@@ -64,15 +64,60 @@
     "attempts": []
   },
   "task-persistence-layer": {
-    "attempts": []
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T00:13:45.903663"
+      }
+    ]
   },
   "task-realtime-dashboard": {
-    "attempts": []
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T00:13:46.262339"
+      }
+    ]
   },
   "task-agent-autoexecution": {
-    "attempts": []
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T00:13:46.635674"
+      }
+    ]
   },
   "task-quality-pipeline": {
-    "attempts": []
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T00:13:47.015644"
+      }
+    ]
+  },
+  "task-parallel-execution": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T00:13:47.400322"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T00:13:47.400320"
   }
 }
