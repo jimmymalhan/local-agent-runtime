@@ -393,7 +393,7 @@
       "id": "production-upgrade",
       "name": "Production Upgrade: 49% \u2192 95%+ Success (Opus 4.6 Replica)",
       "description": "Complete overhaul to production-grade system with real-time dashboard, auto-execution, 95%+ success rate",
-      "status": "completed",
+      "status": "in_progress",
       "tasks": [
         {
           "id": "task-fix-dashboard-metrics",
@@ -402,7 +402,7 @@
           "agent": "executor",
           "priority": "P0",
           "phase": "CRITICAL",
-          "status": "completed",
+          "status": "pending",
           "files": [
             "orchestrator/metrics_aggregator.py"
           ],
@@ -418,7 +418,7 @@
           "agent": "executor",
           "priority": "P0",
           "phase": "CRITICAL",
-          "status": "completed",
+          "status": "pending",
           "files": [
             "orchestrator/task_dispatcher.py"
           ],
@@ -434,7 +434,7 @@
           "agent": "executor",
           "priority": "P0",
           "phase": "CRITICAL",
-          "status": "completed",
+          "status": "pending",
           "files": [
             "orchestrator/error_analyzer.py",
             "agents/executor.py"
@@ -451,7 +451,7 @@
           "agent": "architect",
           "priority": "P1",
           "phase": "HARDENING",
-          "status": "completed",
+          "status": "pending",
           "files": [
             "orchestrator/persistence_layer.py",
             "state/task_queue.json",
@@ -469,7 +469,7 @@
           "agent": "executor",
           "priority": "P1",
           "phase": "HARDENING",
-          "status": "completed",
+          "status": "pending",
           "files": [
             "orchestrator/dashboard_sync.py"
           ],
@@ -485,7 +485,7 @@
           "agent": "executor",
           "priority": "P1",
           "phase": "HARDENING",
-          "status": "completed",
+          "status": "pending",
           "files": [
             "orchestrator/agent_task_loop.py",
             "orchestrator/agent_supervisor.py"
@@ -502,7 +502,7 @@
           "agent": "architect",
           "priority": "P2",
           "phase": "ADVANCED",
-          "status": "completed",
+          "status": "pending",
           "files": [
             "orchestrator/quality_pipeline.py",
             "orchestrator/agent_router.py"
@@ -519,7 +519,7 @@
           "agent": "architect",
           "priority": "P2",
           "phase": "ADVANCED",
-          "status": "completed",
+          "status": "pending",
           "files": [
             "orchestrator/parallel_executor.py"
           ],
@@ -535,7 +535,7 @@
           "agent": "executor",
           "priority": "P2",
           "phase": "ADVANCED",
-          "status": "completed",
+          "status": "pending",
           "files": [
             "orchestrator/self_improvement.py"
           ],
@@ -551,7 +551,7 @@
           "agent": "architect",
           "priority": "P2",
           "phase": "ADVANCED",
-          "status": "completed",
+          "status": "pending",
           "files": [
             "orchestrator/network_mesh.py"
           ],
@@ -567,7 +567,7 @@
           "agent": "executor",
           "priority": "P2",
           "phase": "AUTOMATION",
-          "status": "completed",
+          "status": "pending",
           "files": [
             "orchestrator/automation_engine.py",
             "orchestrator/continuous_integration.py"
@@ -584,7 +584,7 @@
           "agent": "architect",
           "priority": "P2",
           "phase": "AUTOMATION",
-          "status": "completed",
+          "status": "pending",
           "files": [
             "orchestrator/subagent_pool.py"
           ],
@@ -600,7 +600,7 @@
           "agent": "test_engineer",
           "priority": "P3",
           "phase": "TESTING",
-          "status": "completed",
+          "status": "pending",
           "files": [
             "tests/test_production_pipeline.py"
           ],
@@ -616,7 +616,7 @@
           "agent": "test_engineer",
           "priority": "P3",
           "phase": "TESTING",
-          "status": "completed",
+          "status": "pending",
           "files": [
             "tests/benchmarks.py"
           ],
