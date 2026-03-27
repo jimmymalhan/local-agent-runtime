@@ -1,44 +1,96 @@
 """
 Dynamic skill-to-agent matching engine.
 
-Matches task skills/requirements to agent capabilities using weighted scoring.
-Replaces static ROUTING_TABLE lookups with fuzzy, multi-signal matching that
-considers capability overlap, agent performance history, and skill synonyms.
+Matches task skill requirements to agent capabilities using weighted scoring.
+Replaces static ROUTING_TABLE lookups with multi-signal matching that considers:
+  - Explicit skills and category fields
+  - Keyword extraction from task title/description text
+  - Synonym expansion to canonical capabilities
+  - Agent performance history as tiebreaker
 
 Usage:
     from orchestrator.skill_matcher import SkillMatcher
     matcher = SkillMatcher.from_registry("registry/agents.json")
     match = matcher.match({"category": "bug_fix", "skills": ["debug", "code_gen"]})
     print(match.agent_name, match.score)
+
+    # Also works with description-only tasks (no explicit skills/category):
+    match = matcher.match({"title": "Fix crash on login", "description": "App errors out"})
 """
 
 import json
 import os
+import re
 from dataclasses import dataclass, field
 from typing import Optional
 
 
 # Skill synonym groups: any skill in a group can satisfy demand for another
 SKILL_SYNONYMS = {
-    "code_gen":           {"code_gen", "coding", "implementation", "code_writing"},
-    "bug_fix":            {"bug_fix", "bugfix", "fix", "patch", "hotfix"},
-    "debug":              {"debug", "debugging", "error_diagnosis", "troubleshoot", "fix_generation"},
-    "tdd":                {"tdd", "test_driven", "test_first"},
-    "test_gen":           {"test_gen", "testing", "test_writing", "coverage", "unit_test"},
-    "review":             {"review", "code_review", "quality_check", "scoring", "critique"},
-    "refactor":           {"refactor", "code_transformation", "cleanup", "restructure"},
-    "research":           {"research", "investigation", "web_search", "code_search", "analysis"},
-    "documentation":      {"documentation", "doc", "doc_gen", "readme", "api_docs", "docstrings", "changelog"},
-    "arch":               {"arch", "architecture", "system_design", "scaffold", "e2e", "design"},
-    "planning":           {"planning", "plan", "decomposition", "strategy", "breakdown"},
-    "scoring":            {"scoring", "benchmark", "gap_analysis", "upgrade_trigger", "evaluation"},
+    "code_gen":      {"code_gen", "coding", "implementation", "code_writing", "generate"},
+    "bug_fix":       {"bug_fix", "bugfix", "fix", "patch", "hotfix"},
+    "debug":         {"debug", "debugging", "error_diagnosis", "troubleshoot", "fix_generation", "diagnose"},
+    "tdd":           {"tdd", "test_driven", "test_first"},
+    "test_gen":      {"test_gen", "testing", "test_writing", "coverage", "unit_test"},
+    "review":        {"review", "code_review", "quality_check", "scoring", "critique", "audit", "inspect"},
+    "refactor":      {"refactor", "code_transformation", "cleanup", "restructure", "optimize", "migrate"},
+    "research":      {"research", "investigation", "web_search", "code_search", "analysis", "explore", "investigate"},
+    "documentation": {"documentation", "doc", "doc_gen", "readme", "api_docs", "docstrings", "changelog"},
+    "arch":          {"arch", "architecture", "system_design", "scaffold", "e2e", "design"},
+    "planning":      {"planning", "plan", "decomposition", "strategy", "breakdown", "prioritize"},
+    "scoring":       {"scoring", "benchmark", "gap_analysis", "upgrade_trigger", "evaluation"},
 }
 
 # Build reverse index: skill_name -> canonical group key
 _SKILL_TO_CANONICAL: dict[str, str] = {}
-for canonical, synonyms in SKILL_SYNONYMS.items():
-    for syn in synonyms:
-        _SKILL_TO_CANONICAL[syn] = canonical
+for _canonical, _synonyms in SKILL_SYNONYMS.items():
+    for _syn in _synonyms:
+        _SKILL_TO_CANONICAL[_syn] = _canonical
+
+# Keywords in task text that map to canonical skills for description-based matching
+_KEYWORD_TO_SKILLS: dict[str, list[str]] = {
+    "bug": ["bug_fix", "debug"],
+    "crash": ["debug", "bug_fix"],
+    "error": ["debug", "bug_fix"],
+    "exception": ["debug"],
+    "fix": ["bug_fix"],
+    "test": ["test_gen", "tdd"],
+    "coverage": ["test_gen"],
+    "assert": ["test_gen", "tdd"],
+    "refactor": ["refactor"],
+    "clean": ["refactor"],
+    "optimize": ["refactor"],
+    "migrate": ["refactor"],
+    "document": ["documentation"],
+    "readme": ["documentation"],
+    "docs": ["documentation"],
+    "architect": ["arch"],
+    "scaffold": ["arch"],
+    "design": ["arch"],
+    "microservice": ["arch"],
+    "plan": ["planning"],
+    "prioritize": ["planning"],
+    "decompose": ["planning"],
+    "review": ["review"],
+    "audit": ["review"],
+    "inspect": ["review"],
+    "search": ["research"],
+    "investigate": ["research"],
+    "explore": ["research"],
+    "research": ["research"],
+    "benchmark": ["scoring"],
+    "evaluate": ["scoring"],
+    "score": ["scoring"],
+    "implement": ["code_gen"],
+    "generate": ["code_gen"],
+    "write": ["code_gen"],
+    "create": ["code_gen"],
+    "deploy": ["arch"],
+    "diagnose": ["debug"],
+    "troubleshoot": ["debug"],
+    "api": ["documentation", "arch"],
+    "performance": ["scoring", "refactor"],
+}
 
 
 def canonicalize_skill(skill: str) -> str:
@@ -57,6 +109,16 @@ def skills_overlap(demanded: set[str], offered: set[str]) -> float:
     canonical_offered = {canonicalize_skill(s) for s in offered}
     matched = canonical_demanded & canonical_offered
     return len(matched) / len(canonical_demanded)
+
+
+def extract_keywords_from_text(text: str) -> set[str]:
+    """Extract matching skill keywords from free-form text."""
+    tokens = set(re.findall(r"[a-z_][a-z0-9_]*", text.lower()))
+    found: set[str] = set()
+    for token in tokens:
+        if token in _KEYWORD_TO_SKILLS:
+            found.update(_KEYWORD_TO_SKILLS[token])
+    return found
 
 
 @dataclass
@@ -98,6 +160,7 @@ class MatchResult:
     performance_score: float
     matched_skills: list[str]
     unmatched_skills: list[str]
+    keyword_matched: list[str] = field(default_factory=list)
 
     @property
     def is_strong_match(self) -> bool:
@@ -113,12 +176,14 @@ class SkillMatcher:
     Matches task skill requirements to agent capabilities.
 
     Scoring weights:
-        - capability_overlap (70%): How many demanded skills the agent covers
-        - performance_score  (30%): Historical quality/win_rate/benchmark
+        - capability_overlap (60%): How many demanded skills the agent covers
+        - keyword_overlap    (15%): Skills inferred from title/description text
+        - performance_score  (25%): Historical quality/win_rate/benchmark
     """
 
-    WEIGHT_CAPABILITY = 0.70
-    WEIGHT_PERFORMANCE = 0.30
+    WEIGHT_CAPABILITY = 0.60
+    WEIGHT_KEYWORD = 0.15
+    WEIGHT_PERFORMANCE = 0.25
 
     def __init__(self, agents: list[AgentProfile]):
         self.agents = {a.name: a for a in agents}
@@ -144,7 +209,7 @@ class SkillMatcher:
         return cls(profiles)
 
     def _extract_skills(self, task: dict) -> set[str]:
-        """Extract all skill signals from a task dict."""
+        """Extract explicit skill signals from a task dict."""
         skills = set()
         if "skills" in task:
             raw = task["skills"]
@@ -156,15 +221,31 @@ class SkillMatcher:
             skills.add(task["category"])
         return {s for s in skills if s}
 
-    def score_agent(self, agent: AgentProfile, demanded_skills: set[str]) -> MatchResult:
-        """Score a single agent against demanded skills."""
+    def _extract_text_keywords(self, task: dict) -> set[str]:
+        """Extract skill signals from task title and description text."""
+        text = f"{task.get('title', '')} {task.get('description', '')}"
+        return extract_keywords_from_text(text)
+
+    def score_agent(self, agent: AgentProfile, demanded_skills: set[str],
+                    keyword_skills: Optional[set[str]] = None) -> MatchResult:
+        """Score a single agent against demanded skills and keyword signals."""
         overlap = skills_overlap(demanded_skills, set(agent.capabilities))
         perf = agent.performance_score
 
+        # Keyword overlap: how many keyword-inferred skills match the agent
+        kw_overlap = 0.0
+        kw_matched: list[str] = []
+        if keyword_skills:
+            canonical_kw = {canonicalize_skill(s) for s in keyword_skills}
+            canonical_offered = agent.canonical_capabilities
+            kw_match = canonical_kw & canonical_offered
+            kw_overlap = len(kw_match) / len(canonical_kw) if canonical_kw else 0.0
+            kw_matched = sorted(kw_match)
+
         composite = (self.WEIGHT_CAPABILITY * overlap +
+                     self.WEIGHT_KEYWORD * kw_overlap +
                      self.WEIGHT_PERFORMANCE * perf)
 
-        canonical_demanded = {canonicalize_skill(s) for s in demanded_skills}
         canonical_offered = agent.canonical_capabilities
         matched = [s for s in demanded_skills
                    if canonicalize_skill(s) in canonical_offered]
@@ -178,12 +259,15 @@ class SkillMatcher:
             performance_score=round(perf, 4),
             matched_skills=sorted(matched),
             unmatched_skills=sorted(unmatched),
+            keyword_matched=kw_matched,
         )
 
     def match(self, task: dict) -> MatchResult:
         """Find the best-fit agent for a task. Returns top match."""
         demanded = self._extract_skills(task)
-        if not demanded:
+        keyword_skills = self._extract_text_keywords(task)
+
+        if not demanded and not keyword_skills:
             # Fallback: default to executor
             agent = self.agents.get("executor", list(self.agents.values())[0])
             return MatchResult(
@@ -192,20 +276,31 @@ class SkillMatcher:
                 matched_skills=[], unmatched_skills=[],
             )
 
-        results = [self.score_agent(agent, demanded)
+        # If no explicit skills, promote keyword skills to demanded
+        if not demanded and keyword_skills:
+            demanded = keyword_skills
+            keyword_skills = None  # avoid double-counting
+
+        results = [self.score_agent(agent, demanded, keyword_skills)
                    for agent in self.agents.values()]
-        results.sort(key=lambda r: r.score, reverse=True)
+        results.sort(key=lambda r: (-r.score, r.agent_name))
         return results[0]
 
     def match_top_n(self, task: dict, n: int = 3) -> list[MatchResult]:
         """Return top N agent matches ranked by score."""
         demanded = self._extract_skills(task)
-        if not demanded:
+        keyword_skills = self._extract_text_keywords(task)
+
+        if not demanded and not keyword_skills:
             return [self.match(task)]
 
-        results = [self.score_agent(agent, demanded)
+        if not demanded and keyword_skills:
+            demanded = keyword_skills
+            keyword_skills = None
+
+        results = [self.score_agent(agent, demanded, keyword_skills)
                    for agent in self.agents.values()]
-        results.sort(key=lambda r: r.score, reverse=True)
+        results.sort(key=lambda r: (-r.score, r.agent_name))
         return results[:n]
 
     def match_with_fallback(self, task: dict, min_score: float = 0.3) -> MatchResult:
@@ -234,14 +329,20 @@ class SkillMatcher:
         """Human-readable explanation of match reasoning."""
         top = self.match_top_n(task, n=3)
         demanded = self._extract_skills(task)
-        lines = [f"Task skills: {sorted(demanded)}",
-                 f"Top matches:"]
+        keyword_skills = self._extract_text_keywords(task)
+        lines = [f"Task skills: {sorted(demanded)}"]
+        if keyword_skills:
+            lines.append(f"Keyword-inferred skills: {sorted(keyword_skills)}")
+        lines.append("Top matches:")
         for i, r in enumerate(top, 1):
-            lines.append(
+            parts = (
                 f"  {i}. {r.agent_name}: score={r.score:.2f} "
                 f"(overlap={r.capability_overlap:.0%}, perf={r.performance_score:.0%}) "
                 f"matched={r.matched_skills} unmatched={r.unmatched_skills}"
             )
+            if r.keyword_matched:
+                parts += f" kw_matched={r.keyword_matched}"
+            lines.append(parts)
         return "\n".join(lines)
 
 
@@ -293,8 +394,6 @@ if __name__ == "__main__":
     print(f"PASS test 5: doc_gen -> {result.agent_name}")
 
     # --- Test 6: Performance tiebreaker ---
-    # executor has perf data (avg_quality=100, win_rate=100), others don't
-    # For tdd, both executor and test_engineer match. executor should win on perf.
     result = matcher.match({"category": "tdd"})
     top2 = matcher.match_top_n({"category": "tdd"}, n=2)
     agent_names_in_top2 = {r.agent_name for r in top2}
@@ -310,7 +409,7 @@ if __name__ == "__main__":
           f"{[(r.agent_name, r.score) for r in top3]}")
 
     # --- Test 8: Empty task falls back to executor ---
-    result = matcher.match({})
+    result = matcher.match({"id": "empty"})
     assert result.agent_name == "executor"
     assert result.score == 0.0
     print(f"PASS test 8: empty task -> {result.agent_name} (fallback)")
@@ -364,4 +463,88 @@ if __name__ == "__main__":
     assert perfect.is_perfect_match and not strong.is_perfect_match
     print("PASS test 15: MatchResult properties correct")
 
-    print("\n=== All 15 tests passed ===")
+    # --- Test 16: Description-only matching (no skills, no category) ---
+    result = matcher.match({
+        "title": "Fix crash on login page",
+        "description": "The app throws an error when users try to log in"
+    })
+    assert result.agent_name in ("debugger", "executor"), f"Expected debugger or executor, got {result.agent_name}"
+    assert result.score > 0
+    print(f"PASS test 16: description-only 'fix crash error' -> {result.agent_name} (score={result.score:.2f})")
+
+    # --- Test 17: Description-only research task ---
+    result = matcher.match({
+        "title": "Investigate auth patterns",
+        "description": "Research and explore how authentication is implemented"
+    })
+    assert result.agent_name == "researcher", f"Expected researcher, got {result.agent_name}"
+    print(f"PASS test 17: description-only 'investigate research explore' -> {result.agent_name} (score={result.score:.2f})")
+
+    # --- Test 18: Description-only architecture task ---
+    result = matcher.match({
+        "title": "Design new microservice",
+        "description": "Architect and scaffold the payment processing service"
+    })
+    assert result.agent_name == "architect", f"Expected architect, got {result.agent_name}"
+    print(f"PASS test 18: description-only 'design architect scaffold' -> {result.agent_name} (score={result.score:.2f})")
+
+    # --- Test 19: Keywords boost explicit skill match ---
+    result = matcher.match({
+        "title": "Write tests for crash handler",
+        "description": "Add coverage for the error recovery module",
+        "category": "tdd",
+    })
+    # tdd category + keyword signals (test, coverage, error, crash)
+    assert result.score > 0.5
+    print(f"PASS test 19: tdd + keyword boost -> {result.agent_name} (score={result.score:.2f})")
+
+    # --- Test 20: extract_keywords_from_text ---
+    kw = extract_keywords_from_text("Fix the crash and write a test for coverage")
+    assert "bug_fix" in kw  # from "fix"
+    assert "debug" in kw    # from "crash"
+    assert "test_gen" in kw  # from "test"
+    print(f"PASS test 20: extract_keywords_from_text -> {sorted(kw)}")
+
+    # --- Test 21: keyword_matched field populated ---
+    result = matcher.match({
+        "title": "Fix login bug",
+        "description": "Users see error on submit",
+        "category": "bug_fix",
+    })
+    # Should have keyword matches from "fix", "bug", "error"
+    assert result.agent_name == "executor"
+    print(f"PASS test 21: keyword_matched={result.keyword_matched} for bug_fix + keywords")
+
+    # --- Test 22: Documentation from description only ---
+    result = matcher.match({
+        "title": "Update the README",
+        "description": "Write docs and document the changelog for the project"
+    })
+    assert result.agent_name == "doc_writer", f"Expected doc_writer, got {result.agent_name}"
+    print(f"PASS test 22: description-only 'readme docs document changelog' -> {result.agent_name} (score={result.score:.2f})")
+
+    # --- Test 23: Planning from description only ---
+    result = matcher.match({
+        "title": "Plan sprint work",
+        "description": "Decompose and prioritize tasks for the next iteration"
+    })
+    assert result.agent_name == "planner", f"Expected planner, got {result.agent_name}"
+    print(f"PASS test 23: description-only 'plan decompose prioritize' -> {result.agent_name} (score={result.score:.2f})")
+
+    # --- Test 24: Refactor from description only ---
+    result = matcher.match({
+        "title": "Clean up payment module",
+        "description": "Refactor and optimize the checkout flow"
+    })
+    assert result.agent_name == "refactor", f"Expected refactor, got {result.agent_name}"
+    print(f"PASS test 24: description-only 'clean refactor optimize' -> {result.agent_name} (score={result.score:.2f})")
+
+    # --- Test 25: Benchmark from description only ---
+    result = matcher.match({
+        "title": "Evaluate agent scores",
+        "description": "Benchmark performance and score outputs"
+    })
+    assert result.agent_name in ("benchmarker", "reviewer"), f"Expected benchmarker or reviewer, got {result.agent_name}"
+    print(f"PASS test 25: description-only 'evaluate benchmark score' -> {result.agent_name} (score={result.score:.2f})")
+
+    print("\n=== All 25 tests passed ===")

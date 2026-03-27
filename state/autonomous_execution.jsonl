@@ -1592,3 +1592,5 @@
 {"ts": "2026-03-27T12:54:13.307095", "action": "execute_failed", "agent": "executor", "task_id": "agent-intel-3", "attempts": 3, "last_error": "Unknown error"}
 {"ts": "2026-03-27T12:54:25.910648", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 35%"}
 {"ts": "2026-03-27T12:54:25.911341", "action": "execute_failed", "agent": "executor", "task_id": "agent-intel-3", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T12:57:30.424214", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 35%"}
+{"ts": "2026-03-27T12:57:30.424999", "action": "execute_failed", "agent": "executor", "task_id": "e2-route-1", "attempts": 3, "last_error": "Unknown error"}
