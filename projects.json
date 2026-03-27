@@ -4749,11 +4749,484 @@
       ],
       "eta_hours": 11,
       "eta_completion": "2026-03-28T22:00:00Z"
+    },
+    {
+      "id": "epic4-ultra-premium",
+      "name": "\ud83d\udc8e Epic 4: Ultra-Premium Enterprise Analytics & Intelligence",
+      "description": "25 advanced visualizations + AI recommendations + real-time streams = ZERO COMPETITION. Quality heatmaps, dynamic budgets, failure analysis, agent collaboration, smart simulation. $500+/month tier.",
+      "status": "pending",
+      "priority": "P0",
+      "tasks": [
+        {
+          "id": "e4-quality-heatmap",
+          "title": "Quality heatmap (agents \u00d7 projects)",
+          "description": "2D heatmap visualization of quality scores by agent/project. Colors: red<50, orange 50-80, green>80. Hover=exact score, click=detail report.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "dashboard/src/components/Analytics/QualityHeatmap.jsx"
+          ],
+          "success_criteria": "Heatmap renders all agents/projects, colors accurate, click/hover work, real-time updates",
+          "eta_hours": 4,
+          "quality_target": 90
+        },
+        {
+          "id": "e4-quality-trends",
+          "title": "Quality trend sparklines (per-agent)",
+          "description": "Mini line charts on agent cards showing last 10 tasks. Red regression alert if >10% drop.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "dashboard/src/components/Analytics/QualityTrendSparklines.jsx"
+          ],
+          "success_criteria": "Sparklines animate, regression detected, hover tooltip, real-time",
+          "eta_hours": 3,
+          "quality_target": 85
+        },
+        {
+          "id": "e4-success-matrix",
+          "title": "Agent capability radar (5D)",
+          "description": "Radial chart: Speed, Quality, Reliability, Efficiency, Resilience per agent.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/src/components/Analytics/SuccessRateMatrix.jsx"
+          ],
+          "success_criteria": "Radar renders 5 dimensions, agent comparison, capability ranking",
+          "eta_hours": 4,
+          "quality_target": 85
+        },
+        {
+          "id": "e4-gantt-chart",
+          "title": "Execution timeline Gantt chart",
+          "description": "Gantt chart: X=time, Y=epic/project. Bars show status by color. Bar width=elapsed_seconds. Critical path highlighted.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/src/components/Analytics/ExecutionTimelineGantt.jsx"
+          ],
+          "success_criteria": "Gantt renders tasks, critical path identified, hover shows details",
+          "eta_hours": 5,
+          "quality_target": 80
+        },
+        {
+          "id": "e4-regression-alerts",
+          "title": "Regression alert dashboard",
+          "description": "Show agents with quality drops >10%. Red background, recommendation ('needs recalibration').",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/src/components/Analytics/RegressionAlertDashboard.jsx"
+          ],
+          "success_criteria": "Alerts show regressions, recommendations, click opens detail",
+          "eta_hours": 2,
+          "quality_target": 85
+        },
+        {
+          "id": "e4-sla-tracker",
+          "title": "SLA tracker (expected vs actual)",
+          "description": "Table: Task | Expected | Actual | Status. Sortable, click for history. Highlight violations.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/src/components/Analytics/SLATracker.jsx"
+          ],
+          "success_criteria": "Table renders, sort works, status colors correct, violations highlighted",
+          "eta_hours": 3,
+          "quality_target": 85
+        },
+        {
+          "id": "e4-quality-by-cat",
+          "title": "Quality pie chart (by category)",
+          "description": "Pie/donut: task categories with quality distribution. Click segment=filter tab.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/src/components/Analytics/QualityByCategory.jsx"
+          ],
+          "success_criteria": "Pie renders, click filters, percentages labeled",
+          "eta_hours": 2,
+          "quality_target": 85
+        },
+        {
+          "id": "e4-workload-chart",
+          "title": "Agent workload balance",
+          "description": "Stacked bar chart: task states per agent. Highlight overloaded. Recommendation to rebalance.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/src/components/Analytics/AgentWorkloadBalance.jsx"
+          ],
+          "success_criteria": "Chart renders, overloaded highlighted, recommendation shown",
+          "eta_hours": 2,
+          "quality_target": 85
+        },
+        {
+          "id": "e4-budget-radar",
+          "title": "Dynamic budget radar",
+          "description": "Circle of agents, bubble size=tokens, color=success rate. Timeline slider shows evolution.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "dashboard/src/components/Budget/DynamicBudgetRadar.jsx"
+          ],
+          "success_criteria": "Radar renders all agents, timeline slider works, transfer lines visible",
+          "eta_hours": 5,
+          "quality_target": 80
+        },
+        {
+          "id": "e4-token-burndown",
+          "title": "Token burndown chart",
+          "description": "Area chart: X=versions, Y=tokens remaining. Projection line. Red alert if budget exhausts early.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "dashboard/src/components/Budget/TokenBurndownChart.jsx"
+          ],
+          "success_criteria": "Chart renders, projection accurate, red alert when budget exhausts",
+          "eta_hours": 3,
+          "quality_target": 85
+        },
+        {
+          "id": "e4-rescue-flow",
+          "title": "Rescue escalation flow",
+          "description": "Swimlane: Local Attempt | Auto-Heal | Rescue. Arrow sizes show task count.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/src/components/Budget/RescueEscalationFlow.jsx"
+          ],
+          "success_criteria": "Swimlane renders, arrows sized correct, click shows task list",
+          "eta_hours": 3,
+          "quality_target": 80
+        },
+        {
+          "id": "e4-budget-waterfall",
+          "title": "Budget allocation waterfall",
+          "description": "Waterfall: start \u2192 agents \u2192 rescue \u2192 remaining. Click step=breakdown by agent.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/src/components/Budget/BudgetAllocationWaterfall.jsx"
+          ],
+          "success_criteria": "Waterfall renders, percentages correct, click shows breakdown",
+          "eta_hours": 2,
+          "quality_target": 85
+        },
+        {
+          "id": "e4-resource-alerts",
+          "title": "Resource contention alerts",
+          "description": "5 gauges: CPU/RAM/disk/network/queue. Updates every 5s. Red alert when >threshold. Auto-pause button.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/src/components/Budget/ResourceContentionAlerts.jsx"
+          ],
+          "success_criteria": "Gauges update every 5s, alert triggers, auto-pause works",
+          "eta_hours": 3,
+          "quality_target": 85
+        },
+        {
+          "id": "e4-roi-chart",
+          "title": "ROI by agent",
+          "description": "Bar chart: agents vs ROI. Formula: (quality\u00d7tasks)/tokens. Star performers highlighted.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/src/components/Budget/ROIByAgent.jsx"
+          ],
+          "success_criteria": "Chart renders, ROI calculated, stars awarded",
+          "eta_hours": 2,
+          "quality_target": 85
+        },
+        {
+          "id": "e4-epic-radar",
+          "title": "Epic health radar (27 epics)",
+          "description": "Circle of 27 nodes. Size=% complete, color=health. Click=detail panel.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "dashboard/src/components/Health/EpicHealthRadar.jsx"
+          ],
+          "success_criteria": "Radar renders 27 epics, health correct, click opens detail",
+          "eta_hours": 4,
+          "quality_target": 85
+        },
+        {
+          "id": "e4-failure-analysis",
+          "title": "Failure root cause analyzer",
+          "description": "Categorize errors: network, timeout, validation, auth, db, deploy, resource, unknown. Suggest fixes.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "dashboard/src/components/Health/FailureRootCauseAnalyzer.jsx"
+          ],
+          "success_criteria": "Categorization works, pie shows distribution, suggestions appear",
+          "eta_hours": 4,
+          "quality_target": 80
+        },
+        {
+          "id": "e4-blocked-tasks",
+          "title": "Blocked task detector",
+          "description": "Find tasks blocked >600 sec. Red badge if >1 hour. Quick actions: reassign/escalate.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/src/components/Health/BlockedTaskDetection.jsx"
+          ],
+          "success_criteria": "Blocked tasks detected, durations shown, quick actions work",
+          "eta_hours": 2,
+          "quality_target": 85
+        },
+        {
+          "id": "e4-heal-chart",
+          "title": "Self-heal success rate",
+          "description": "Line chart: X=time, Y=success rate%. Hover=strategy used. Real-time updates.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/src/components/Health/SelfHealSuccessRate.jsx"
+          ],
+          "success_criteria": "Chart renders, recovery events marked, hover shows strategy",
+          "eta_hours": 2,
+          "quality_target": 85
+        },
+        {
+          "id": "e4-cascade-graph",
+          "title": "Cascade failure detector",
+          "description": "Network graph: agents=nodes, edges=failure correlation. Prediction: when A fails, B fails X% of time.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/src/components/Health/CascadeFailureDetector.jsx"
+          ],
+          "success_criteria": "Network renders, correlations shown, predictions accurate",
+          "eta_hours": 4,
+          "quality_target": 75
+        },
+        {
+          "id": "e4-timeline",
+          "title": "Incident timeline",
+          "description": "Horizontal timeline: failures, rescues, restarts, budgets. Range selector: zoom to 1h/1d/1w/1m.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/src/components/Health/IncidentTimeline.jsx"
+          ],
+          "success_criteria": "Timeline renders events, colors correct, zoom works, hover shows details",
+          "eta_hours": 3,
+          "quality_target": 85
+        },
+        {
+          "id": "e4-dispatch-feed",
+          "title": "Real-time dispatch stream",
+          "description": "Twitter-like feed of task dispatches. Newest at top. Search/filter by agent/epic/project.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "dashboard/src/components/RealTime/RealTimeDispatchStream.jsx"
+          ],
+          "success_criteria": "Feed updates real-time, search/filter works, newest first",
+          "eta_hours": 3,
+          "quality_target": 85
+        },
+        {
+          "id": "e4-sub-agent-tree",
+          "title": "Agent sub-agent tree",
+          "description": "Hierarchical tree: top agent \u2192 spawned sub-agents \u2192 tasks. Animated lines.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/src/components/RealTime/AgentSubAgentTree.jsx"
+          ],
+          "success_criteria": "Tree renders, collapse/expand works, click shows status",
+          "eta_hours": 3,
+          "quality_target": 80
+        },
+        {
+          "id": "e4-benchmark-viz",
+          "title": "Benchmark gap animation",
+          "description": "3D bar chart: versions vs scores. Nexus (blue) vs Opus (red). Green when Nexus wins. Playback slider.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/src/components/RealTime/BenchmarkGapAnimation.jsx"
+          ],
+          "success_criteria": "Animation plays, colors correct, green when win, speed control works",
+          "eta_hours": 4,
+          "quality_target": 80
+        },
+        {
+          "id": "e4-burndown",
+          "title": "Multi-epic burndown",
+          "description": "Line chart: ideal vs actual per epic. Red alert if at risk. Velocity calculated.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/src/components/RealTime/MultiEpicBurndown.jsx"
+          ],
+          "success_criteria": "Burndown renders, ideal shown, at-risk highlighted",
+          "eta_hours": 2,
+          "quality_target": 85
+        },
+        {
+          "id": "e4-collab-matrix",
+          "title": "Agent collaboration matrix",
+          "description": "Matrix: agents \u00d7 agents. Cell = task handoff count. Click cell=examples. Insight on patterns.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/src/components/RealTime/AgentCollaborationMatrix.jsx"
+          ],
+          "success_criteria": "Matrix renders, colors show frequency, click shows examples",
+          "eta_hours": 3,
+          "quality_target": 80
+        },
+        {
+          "id": "e4-whatif",
+          "title": "What-if simulator",
+          "description": "Change budget \u2192 see impact. Projection: 'If executor=5000, complete 15 more tasks in v50'. Apply button.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/src/components/Interactive/WhatIfSimulator.jsx"
+          ],
+          "success_criteria": "Simulation runs, projections shown, apply button works",
+          "eta_hours": 3,
+          "quality_target": 75
+        },
+        {
+          "id": "e4-recommendations",
+          "title": "Smart recommendations",
+          "description": "Cards: quality regressions, efficiency opportunities, timeline risks, budget alerts. ML-powered.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/src/components/Interactive/SmartRecommendations.jsx"
+          ],
+          "success_criteria": "Recommendations generate, suggest specific actions",
+          "eta_hours": 4,
+          "quality_target": 75
+        },
+        {
+          "id": "e4-epic-detail",
+          "title": "Epic detail panel",
+          "description": "Full-screen: Projects table, Tasks filtered, Timeline Gantt. Quick stats. Exit: Close or Escape.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/src/components/Interactive/EpicDetailPanel.jsx"
+          ],
+          "success_criteria": "Panel opens/closes, sections render, Gantt shows, filters work",
+          "eta_hours": 4,
+          "quality_target": 85
+        },
+        {
+          "id": "e4-bulk-assign",
+          "title": "Bulk task reassignment",
+          "description": "Shift+drag 3+ tasks \u2192 dialog. Select agent. POST /api/tasks/bulk-reassign. Confirm shown.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/src/components/Interactive/BulkTaskReassignment.jsx"
+          ],
+          "success_criteria": "Shift+drag works, dialog appears, POST succeeds, confirmation shown",
+          "eta_hours": 2,
+          "quality_target": 80
+        },
+        {
+          "id": "e4-layout-builder",
+          "title": "Custom dashboard widget builder",
+          "description": "Drag-drop layouts. Templates: Quality/Budget/Speed/Reliability. Save/load/export JSON.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/src/components/Interactive/CustomDashboardBuilder.jsx"
+          ],
+          "success_criteria": "Drag-drop works, templates load, save/load/export persist",
+          "eta_hours": 3,
+          "quality_target": 80
+        },
+        {
+          "id": "e4-qa-features",
+          "title": "Playwright QA tests (25 features)",
+          "description": "Test each visualization: renders, updates real-time, interactions work. npm run test:e4. HTML report.",
+          "agent": "qa_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/tests/e4-features.spec.js"
+          ],
+          "success_criteria": "All 25 tests pass, 100% coverage, HTML report generated",
+          "eta_hours": 8,
+          "quality_target": 90
+        },
+        {
+          "id": "e4-performance-test",
+          "title": "Performance stress test",
+          "description": "Load with 365 tasks. Measure: TTI <3s, memory <200MB. Report: metrics vs baseline.",
+          "agent": "qa_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/tests/e4-performance.test.js"
+          ],
+          "success_criteria": "TTI <3s, memory <200MB, report generated, no regressions",
+          "eta_hours": 3,
+          "quality_target": 85
+        },
+        {
+          "id": "e4-accessibility",
+          "title": "Accessibility audit (WCAG AAA)",
+          "description": "Keyboard nav, screen reader, 7:1 contrast, focus visible. Tools: axe-core, Lighthouse. Report score.",
+          "agent": "qa_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/tests/e4-accessibility.test.js"
+          ],
+          "success_criteria": "All nav works, screen reader compatible, contrast \u22657:1, AAA score",
+          "eta_hours": 2,
+          "quality_target": 90
+        }
+      ],
+      "eta_hours": 93,
+      "eta_completion": "2026-03-30T18:00:00Z"
     }
   ],
   "metadata": {
-    "total_tasks": 89,
-    "total_projects": 75,
-    "last_updated": "2026-03-27T20:15:00.000000"
+    "total_tasks": 114,
+    "total_projects": 76,
+    "last_updated": "2026-03-27T19:18:54.696562"
   }
 }
