@@ -328,13 +328,6 @@ async def get_dashboard():
         return f.read()
 
 
-@app.get("/workflow", response_class=HTMLResponse)
-async def get_workflow():
-    html_path = os.path.join(DASH_DIR, "workflow-editor.html")
-    with open(html_path) as f:
-        return f.read()
-
-
 @app.get("/api/state")
 async def get_state():
     return read_state()
@@ -539,18 +532,15 @@ async def get_workflow_config():
 async def execute_workflow(request: dict):
     """Trigger workflow execution with current configuration."""
     try:
-        # Get current workflow order from request or state
         workflow = request.get("workflow", [])
         state = read_state()
 
-        # Log workflow execution
         execution_log = {
             "ts": datetime.now().isoformat(),
             "workflow_order": workflow,
             "status": "started"
         }
 
-        # Append to workflow execution log
         workflow_log_path = os.path.join(REPORTS, "workflow_executions.jsonl")
         os.makedirs(REPORTS, exist_ok=True)
         with open(workflow_log_path, "a") as f:
@@ -560,6 +550,76 @@ async def execute_workflow(request: dict):
             "status": "execution_started",
             "workflow": workflow,
             "timestamp": datetime.now().isoformat()
+        }
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+
+
+@app.post("/api/tasks/auto-execute")
+async def auto_execute_tasks(request: dict = None):
+    """Auto-execute pending tasks from projects.json via quick_dispatcher."""
+    try:
+        max_tasks = (request or {}).get("max_tasks", 10) if request else 10
+
+        # Run quick_dispatcher asynchronously
+        result = subprocess.run(
+            ["python3", "orchestrator/quick_dispatcher.py", "--tasks", str(max_tasks)],
+            capture_output=True,
+            text=True,
+            timeout=60,
+            cwd=BASE_DIR
+        )
+
+        # Parse results
+        output = result.stdout + result.stderr
+        completed = 0
+        failed = 0
+        if "Tasks run:" in output:
+            import re
+            match = re.search(r"Tasks run: (\d+)", output)
+            if match:
+                completed = int(match.group(1))
+            match = re.search(r"Failed: (\d+)", output)
+            if match:
+                failed = int(match.group(1))
+
+        return {
+            "status": "complete",
+            "tasks_executed": completed,
+            "tasks_failed": failed,
+            "success_rate": f"{((completed-failed)/completed*100 if completed > 0 else 0):.1f}%",
+            "timestamp": datetime.now().isoformat()
+        }
+    except Exception as e:
+        return {"status": "error", "message": str(e), "timestamp": datetime.now().isoformat()}
+
+
+@app.get("/api/metrics/performance")
+async def get_performance_metrics():
+    """Get system performance metrics and analytics."""
+    try:
+        import psutil
+        cpu = psutil.cpu_percent(interval=0.1)
+        memory = psutil.virtual_memory()
+        disk = psutil.disk_usage("/")
+
+        # Read execution history
+        state = read_state()
+        tq = state.get("task_queue", {})
+        total = tq.get("total", 1)
+        completed = tq.get("completed", 0)
+        completion_rate = (completed / total * 100) if total > 0 else 0
+
+        return {
+            "timestamp": datetime.now().isoformat(),
+            "cpu_percent": cpu,
+            "memory_percent": memory.percent,
+            "memory_available_gb": round(memory.available / (1024**3), 1),
+            "disk_percent": disk.percent,
+            "task_completion_rate": round(completion_rate, 1),
+            "tasks_completed": completed,
+            "tasks_total": total,
+            "uptime_seconds": time.time() - os.stat(BASE_DIR).st_mtime
         }
     except Exception as e:
         return {"status": "error", "message": str(e)}
