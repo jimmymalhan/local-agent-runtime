@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "ts": "2026-03-27T04:32:50",
+  "ts": "2026-03-27T04:34:56",
   "state": {
-    "ts": "2026-03-26T21:32:49.871050",
+    "ts": "2026-03-26T21:34:55.005894",
     "version": {
       "current": 1,
       "total": 100,
@@ -168,6 +168,21 @@
     ],
     "research_feed": [
       {
+        "ts": "2026-03-26T21:34:20.165521",
+        "finding": "v5: Model produces code that fails assertion tests silently",
+        "source": ""
+      },
+      {
+        "ts": "2026-03-26T21:34:20.164694",
+        "finding": "v5: Model writes wrong import paths for multi-file projects",
+        "source": ""
+      },
+      {
+        "ts": "2026-03-26T21:34:20.163646",
+        "finding": "v5: Model truncates code in the middle of a function",
+        "source": ""
+      },
+      {
         "ts": "2026-03-26T21:20:29.463210",
         "finding": "v5: Model produces code that fails assertion tests silently",
         "source": ""
@@ -199,21 +214,6 @@
       },
       {
         "ts": "2026-03-26T21:00:30.087083",
-        "finding": "v5: Model produces code that fails assertion tests silently",
-        "source": ""
-      },
-      {
-        "ts": "2026-03-26T21:00:30.086346",
-        "finding": "v5: Model writes wrong import paths for multi-file projects",
-        "source": ""
-      },
-      {
-        "ts": "2026-03-26T21:00:30.085538",
-        "finding": "v5: Model truncates code in the middle of a function",
-        "source": ""
-      },
-      {
-        "ts": "2026-03-26T20:50:29.842075",
         "finding": "v5: Model produces code that fails assertion tests silently",
         "source": ""
       }
@@ -280,7 +280,7 @@
     ],
     "changelog": [],
     "epic_board": {
-      "ts": "2026-03-26T21:32:49.871010",
+      "ts": "2026-03-26T21:34:55.005848",
       "epics": [
         {
           "id": "system-reliability",
@@ -481,7 +481,7 @@
       "updated_at": "2026-03-26T21:32:14.443199"
     },
     "auto_heal_status": {
-      "ts": "2026-03-27T04:32:49",
+      "ts": "2026-03-27T04:34:56",
       "issues_this_cycle": [],
       "healthy": true,
       "dashboard_alive": true,
@@ -840,6 +840,20 @@
       },
       {
         "ts": "2026-03-27T04:32:49",
+        "level": "INFO",
+        "event": "started",
+        "detail": "Auto-heal monitor started (checks every 10s)",
+        "agent": ""
+      },
+      {
+        "ts": "2026-03-27T04:34:20",
+        "level": "INFO",
+        "event": "started",
+        "detail": "Auto-heal monitor started (checks every 10s)",
+        "agent": ""
+      },
+      {
+        "ts": "2026-03-27T04:34:56",
         "level": "INFO",
         "event": "started",
         "detail": "Auto-heal monitor started (checks every 10s)",
