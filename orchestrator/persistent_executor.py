@@ -1,18 +1,21 @@
 #!/usr/bin/env python3
 """
-persistent_executor.py - PERSISTENT TASK EXECUTOR
+persistent_executor.py - PERSISTENT TASK EXECUTOR (v2 - Real Orchestrator Integration)
 
-Ensures orchestrator NEVER goes idle. Replaces the broken main loop
-with a true persistent executor that:
+Ensures orchestrator NEVER goes idle. Integrated with real orchestrator.py:
 
-1. Loads pending tasks from projects.json
-2. Executes them in infinite loop (never exits)
-3. After each task, syncs results back to projects.json
-4. Automatically picks up newly added tasks
-5. Restarts on crash (wrapped by master daemon)
+1. Continuously loads pending tasks from projects.json
+2. Spawns orchestrator main.py in --auto mode to execute pending tasks
+3. Waits for orchestrator to complete that version
+4. Orchestrator updates projects.json with completions
+5. Persistent executor checks for remaining tasks and loops
+6. If no tasks, waits and retries (never exits)
 
-PERSISTENCE LAYER FIX: Task execution is now a daemon that never stops
-looking for work. No "task queue finished" scenario.
+This ensures:
+- Real agent execution (not just simulated completions)
+- Full orchestrator features (routing, Opus fallback, self-heal, etc.)
+- Persistent execution without manual intervention
+- Graceful handling of failures via orchestrator's built-in retry logic
 """
 
 import json
@@ -26,123 +29,126 @@ from datetime import datetime
 BASE_DIR = Path(__file__).parent.parent
 PROJECTS_FILE = BASE_DIR / "projects.json"
 
-def load_pending_tasks():
-    """Load all pending tasks from projects.json"""
+def count_pending_tasks():
+    """Count pending tasks in projects.json"""
     try:
         with open(PROJECTS_FILE) as f:
             data = json.load(f)
 
-        pending = []
-        for project in data.get('projects', []):
-            for task in project.get('tasks', []):
-                if task.get('status') == 'pending':
-                    pending.append({
-                        'project_id': project.get('id'),
-                        'project_name': project.get('name'),
-                        'task_id': task.get('id'),
-                        'title': task.get('title'),
-                        'description': task.get('description'),
-                        'category': task.get('category', 'code_gen'),
-                        'agent': task.get('agent', 'executor'),
-                        'priority': task.get('priority', 'P2'),
-                        'files': task.get('files', []),
-                        'success_criteria': task.get('success_criteria', ''),
-                    })
-
-        return pending
+        pending = sum(
+            1 for p in data.get('projects', [])
+            for t in p.get('tasks', [])
+            if t.get('status') == 'pending'
+        )
+        total = sum(
+            1 for p in data.get('projects', [])
+            for t in p.get('tasks', [])
+        )
+        return pending, total
     except Exception as e:
-        print(f"[EXECUTOR] Error loading tasks: {e}")
-        return []
+        print(f"[EXECUTOR] Error counting tasks: {e}")
+        return 0, 0
 
-def mark_task_completed(task_id, quality_score=85):
-    """Mark task as completed in projects.json"""
+def run_orchestrator_version(version: int):
+    """
+    Spawn orchestrator in --auto mode to execute one version.
+    Orchestrator will:
+    - Load all pending tasks from projects.json
+    - Route each to appropriate agent
+    - Compare with Opus 4.6
+    - Update projects.json with results
+    - Exit after version complete
+    """
     try:
-        with open(PROJECTS_FILE) as f:
-            data = json.load(f)
+        print(f"[EXECUTOR] ═════════════════════════════════════════════════")
+        print(f"[EXECUTOR] 🚀 Spawning orchestrator v{version}")
+        print(f"[EXECUTOR] ═════════════════════════════════════════════════")
 
-        for project in data.get('projects', []):
-            for task in project.get('tasks', []):
-                if task.get('id') == task_id:
-                    task['status'] = 'completed'
-                    task['quality_score'] = quality_score
-                    task['completed_at'] = datetime.now().isoformat()
+        result = subprocess.run(
+            [
+                "python3",
+                str(BASE_DIR / "orchestrator" / "main.py"),
+                "--auto", str(version)
+            ],
+            timeout=3600,  # 1 hour max per version
+            text=True
+        )
 
-                    with open(PROJECTS_FILE, 'w') as f:
-                        json.dump(data, f, indent=2)
+        if result.returncode == 0:
+            print(f"[EXECUTOR] ✅ Orchestrator v{version} completed successfully")
+            return True
+        else:
+            print(f"[EXECUTOR] ⚠️  Orchestrator v{version} exited with code {result.returncode}")
+            return True  # Still continue to next version
 
-                    return True
-
-        return False
-    except Exception as e:
-        print(f"[EXECUTOR] Error marking task complete: {e}")
-        return False
-
-def execute_task(task):
-    """Execute a single task using orchestrator"""
-    try:
-        print(f"[EXECUTOR] Running task {task['task_id']}: {task['title'][:60]}")
-
-        # For now, just mark as completed (orchestrator will handle actual execution)
-        # In production, this would call the actual agent execution
-        time.sleep(0.5)  # Simulate execution
-
-        # Mark complete
-        mark_task_completed(task['task_id'])
-
-        print(f"[EXECUTOR] ✅ Task {task['task_id']} completed")
+    except subprocess.TimeoutExpired:
+        print(f"[EXECUTOR] ⚠️  Orchestrator v{version} timeout (>1h)")
         return True
-
     except Exception as e:
-        print(f"[EXECUTOR] ❌ Task {task['task_id']} failed: {e}")
-        return False
+        print(f"[EXECUTOR] ❌ Failed to spawn orchestrator v{version}: {e}")
+        return True
 
 def persistent_loop():
     """
     Main persistent executor loop.
-    NEVER exits - continuously looks for pending tasks.
-    If no tasks, waits and retries.
-    """
-    print("[EXECUTOR] 🚀 PERSISTENT EXECUTOR STARTED")
-    print("[EXECUTOR] ════════════════════════════════════════")
-    print("[EXECUTOR] • Loads pending tasks every 10 seconds")
-    print("[EXECUTOR] • Executes them immediately")
-    print("[EXECUTOR] • Syncs results to projects.json")
-    print("[EXECUTOR] • NEVER goes idle")
-    print("[EXECUTOR] • NEVER exits")
-    print("[EXECUTOR] ════════════════════════════════════════")
 
-    check_interval = 10  # Check for new tasks every 10 seconds
+    NEVER exits. Continuously:
+    1. Checks for pending tasks
+    2. Spawns orchestrator to execute them
+    3. Waits for orchestrator to finish and update projects.json
+    4. Loops to check for more tasks
+
+    This ensures complete task execution at persistence layer.
+    """
+    print("[EXECUTOR] 🚀 PERSISTENT EXECUTOR STARTED (v2 - Real Orchestrator)")
+    print("[EXECUTOR] ════════════════════════════════════════════════════════")
+    print("[EXECUTOR] • Continuously checks for pending tasks every 30 seconds")
+    print("[EXECUTOR] • Spawns orchestrator in --auto mode for each version")
+    print("[EXECUTOR] • Orchestrator updates projects.json with completions")
+    print("[EXECUTOR] • NEVER exits until ALL tasks complete")
+    print("[EXECUTOR] • NEVER goes idle (waits for new tasks if needed)")
+    print("[EXECUTOR] ════════════════════════════════════════════════════════")
+
+    version = 1
+    check_interval = 30  # Check every 30 seconds
     last_check = 0
 
     while True:
         try:
             now = time.time()
 
-            # Check for pending tasks
+            # Check for pending tasks periodically
             if now - last_check > check_interval:
-                pending = load_pending_tasks()
+                pending, total = count_pending_tasks()
+                progress = 100 * (total - pending) / total if total > 0 else 0
+
+                print(f"[EXECUTOR] Status check: {pending} pending, {total} total ({progress:.1f}% complete)")
                 last_check = now
 
-                if pending:
-                    print(f"[EXECUTOR] Found {len(pending)} pending tasks")
+                if pending > 0:
+                    print(f"[EXECUTOR] 📊 Running orchestrator v{version} to process {pending} pending tasks")
+                    run_orchestrator_version(version)
+                    version += 1
 
-                    # Execute first task
-                    task = pending[0]
-                    execute_task(task)
+                    # After orchestrator runs, immediately recheck (don't wait interval)
+                    pending_new, _ = count_pending_tasks()
+                    if pending_new < pending:
+                        print(f"[EXECUTOR] ✅ Progress: {pending} → {pending_new} pending tasks")
+                    else:
+                        print(f"[EXECUTOR] ⚠️  No progress on version {version-1}")
 
                 else:
-                    print(f"[EXECUTOR] ⏳ No pending tasks (waiting for new tasks...)")
-                    print(f"[EXECUTOR] Next check in {check_interval}s")
+                    print(f"[EXECUTOR] ⏳ ALL {total} TASKS COMPLETED! 🎉")
+                    print(f"[EXECUTOR] Waiting for new tasks... (checking every {check_interval}s)")
 
-            # Brief sleep to avoid busy-waiting
-            time.sleep(1)
+            time.sleep(1)  # Brief sleep to avoid busy-waiting
 
         except KeyboardInterrupt:
             print("[EXECUTOR] Interrupted by user")
             break
         except Exception as e:
             print(f"[EXECUTOR] Error in main loop: {e}")
-            time.sleep(5)  # Brief delay before retry
+            time.sleep(5)
 
 if __name__ == '__main__':
     try:
