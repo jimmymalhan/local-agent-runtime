@@ -38,7 +38,7 @@ AGENT_META = {
 
 def _single_run(task: dict) -> dict:
     """One Ollama call. Used as the leaf agent_fn for sub-agent pools."""
-    from agent_runner import run_task
+    from agents import run_task
     start = time.time()
     try:
         result = run_task(task)

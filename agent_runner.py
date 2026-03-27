@@ -32,6 +32,16 @@ from typing import Dict, List, Optional
 # Add project root to path so agents can be imported
 sys.path.insert(0, str(Path(__file__).parent))
 
+# ── BACKWARD COMPATIBILITY: Re-export agents.run_task ────────────
+# Some modules import 'from agent_runner import run_task'
+# Re-export it here for backward compatibility
+try:
+    from agents import run_task
+except ImportError:
+    def run_task(task: dict) -> dict:
+        """Fallback if agents module not available."""
+        raise ImportError('agents module not found — cannot dispatch tasks')
+
 # Setup logging
 logging.basicConfig(
     level=logging.INFO,
