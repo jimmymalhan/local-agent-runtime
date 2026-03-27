@@ -440,3 +440,5 @@
 {"ts": "2026-03-26T22:53:06.614046", "action": "execute_failed", "agent": "executor", "task_id": "incident-1774572089", "attempts": 3, "last_error": "cannot import name 'run_task' from 'agent_runner' (/Users/jimmymalhan/Documents/local-agent-runtime/"}
 {"ts": "2026-03-26T22:53:07.018660", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 49%"}
 {"ts": "2026-03-26T22:53:09.031514", "action": "execute_failed", "agent": "executor", "task_id": "incident-1774575243", "attempts": 3, "last_error": "cannot import name 'run_task' from 'agent_runner' (/Users/jimmymalhan/Documents/local-agent-runtime/"}
+{"ts": "2026-03-26T22:54:22.520326", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1306, "elapsed": 73.08747887611389, "autonomous": true}
+{"ts": "2026-03-26T22:54:39.831887", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 790, "elapsed": 16.951491832733154, "autonomous": true}
