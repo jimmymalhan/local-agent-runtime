@@ -1,0 +1,170 @@
+{
+  "sla_target": 99.9,
+  "rolling_window_hours": 12,
+  "current_uptime_pct": 0.0,
+  "total_probes": 3,
+  "healthy_probes": 0,
+  "downtime_seconds_in_window": 90,
+  "max_downtime_budget_seconds": 43.199999999997544,
+  "budget_consumed_pct": 208.33,
+  "alert_level": "incident",
+  "last_probe_time": "2026-03-27T20:39:21.673220+00:00",
+  "last_healthy_time": null,
+  "probe_history": [
+    {
+      "timestamp": "2026-03-27T20:39:21.672437+00:00",
+      "all_healthy": false,
+      "components": {
+        "orchestrator": {
+          "component": "orchestrator",
+          "healthy": true,
+          "latency_ms": 0.1,
+          "timestamp": "2026-03-27T20:39:21.670563+00:00",
+          "detail": ""
+        },
+        "dashboard": {
+          "component": "dashboard",
+          "healthy": false,
+          "latency_ms": 0.2,
+          "timestamp": "2026-03-27T20:39:21.670565+00:00",
+          "detail": "stale"
+        },
+        "agents": {
+          "component": "agents",
+          "healthy": true,
+          "latency_ms": 0.1,
+          "timestamp": "2026-03-27T20:39:21.670566+00:00",
+          "detail": ""
+        },
+        "state_persistence": {
+          "component": "state_persistence",
+          "healthy": true,
+          "latency_ms": 0.05,
+          "timestamp": "2026-03-27T20:39:21.670567+00:00",
+          "detail": ""
+        },
+        "daemon": {
+          "component": "daemon",
+          "healthy": true,
+          "latency_ms": 0.1,
+          "timestamp": "2026-03-27T20:39:21.670568+00:00",
+          "detail": ""
+        }
+      }
+    },
+    {
+      "timestamp": "2026-03-27T20:39:21.672819+00:00",
+      "all_healthy": false,
+      "components": {
+        "orchestrator": {
+          "component": "orchestrator",
+          "healthy": true,
+          "latency_ms": 0.1,
+          "timestamp": "2026-03-27T20:39:21.670563+00:00",
+          "detail": ""
+        },
+        "dashboard": {
+          "component": "dashboard",
+          "healthy": false,
+          "latency_ms": 0.2,
+          "timestamp": "2026-03-27T20:39:21.670565+00:00",
+          "detail": "stale"
+        },
+        "agents": {
+          "component": "agents",
+          "healthy": true,
+          "latency_ms": 0.1,
+          "timestamp": "2026-03-27T20:39:21.670566+00:00",
+          "detail": ""
+        },
+        "state_persistence": {
+          "component": "state_persistence",
+          "healthy": true,
+          "latency_ms": 0.05,
+          "timestamp": "2026-03-27T20:39:21.670567+00:00",
+          "detail": ""
+        },
+        "daemon": {
+          "component": "daemon",
+          "healthy": true,
+          "latency_ms": 0.1,
+          "timestamp": "2026-03-27T20:39:21.670568+00:00",
+          "detail": ""
+        }
+      }
+    },
+    {
+      "timestamp": "2026-03-27T20:39:21.673220+00:00",
+      "all_healthy": false,
+      "components": {
+        "orchestrator": {
+          "component": "orchestrator",
+          "healthy": true,
+          "latency_ms": 0.1,
+          "timestamp": "2026-03-27T20:39:21.670563+00:00",
+          "detail": ""
+        },
+        "dashboard": {
+          "component": "dashboard",
+          "healthy": false,
+          "latency_ms": 0.2,
+          "timestamp": "2026-03-27T20:39:21.670565+00:00",
+          "detail": "stale"
+        },
+        "agents": {
+          "component": "agents",
+          "healthy": true,
+          "latency_ms": 0.1,
+          "timestamp": "2026-03-27T20:39:21.670566+00:00",
+          "detail": ""
+        },
+        "state_persistence": {
+          "component": "state_persistence",
+          "healthy": true,
+          "latency_ms": 0.05,
+          "timestamp": "2026-03-27T20:39:21.670567+00:00",
+          "detail": ""
+        },
+        "daemon": {
+          "component": "daemon",
+          "healthy": true,
+          "latency_ms": 0.1,
+          "timestamp": "2026-03-27T20:39:21.670568+00:00",
+          "detail": ""
+        }
+      }
+    }
+  ],
+  "incidents": [
+    {
+      "id": "INC-c748714882",
+      "component": "dashboard",
+      "status": "mitigating",
+      "opened_at": "2026-03-27T20:39:21.672437+00:00",
+      "acknowledged_at": null,
+      "resolved_at": null,
+      "downtime_seconds": 90,
+      "description": "Component 'dashboard' health check failed",
+      "remediation_actions": [
+        "2026-03-27T20:39:21.672437+00:00: touched dashboard state to refresh mtime"
+      ],
+      "alert_level": "critical"
+    }
+  ],
+  "alerts_sent": [
+    {
+      "timestamp": "2026-03-27T20:39:21.672483+00:00",
+      "level": "critical",
+      "component": "dashboard",
+      "message": "Incident opened: dashboard is unhealthy",
+      "incident_id": "INC-c748714882"
+    }
+  ],
+  "component_status": {
+    "orchestrator": true,
+    "dashboard": false,
+    "agents": true,
+    "state_persistence": true,
+    "daemon": true
+  }
+}
