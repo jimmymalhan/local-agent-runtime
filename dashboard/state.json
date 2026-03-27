@@ -1,10 +1,10 @@
 {
-  "ts": "2026-03-26T22:45:24.329534",
+  "ts": "2026-03-26T22:51:20.814040",
   "version": {
-    "current": 1,
+    "current": 5,
     "total": 100,
-    "pct_complete": 1.0,
-    "label": "v1 complete \u2014 win_rate=100.0%"
+    "pct_complete": 5.0,
+    "label": "v5 complete \u2014 win_rate=74.5%"
   },
   "agents": {
     "executor": {
@@ -46,7 +46,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-26T22:45:00.579841",
+      "last_activity": "2026-03-26T22:50:01.731040",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -60,21 +60,39 @@
       "worker_count": 0
     },
     "architect": {
-      "status": "running",
-      "task": "Design a hierarchical cache with L1/L2",
-      "task_id": 80,
+      "status": "done",
+      "task": "[100/100] Build an actor model concurrency system",
+      "task_id": 85,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-26T22:45:00.921180",
+      "last_activity": "2026-03-26T22:48:19.958278",
+      "sub_agents": [],
+      "worker_count": 0
+    },
+    "debugger": {
+      "status": "done",
+      "task": "[100/100] Fix incorrect async/await usage causing unhandled ",
+      "task_id": 95,
+      "elapsed_s": 0.0,
+      "last_activity": "2026-03-26T22:49:59.758875",
+      "sub_agents": [],
+      "worker_count": 0
+    },
+    "researcher": {
+      "status": "done",
+      "task": "[100/100] Research production observability stack for Python",
+      "task_id": 100,
+      "elapsed_s": 0.0,
+      "last_activity": "2026-03-26T22:50:01.727354",
       "sub_agents": [],
       "worker_count": 0
     }
   },
   "task_queue": {
     "total": 102,
-    "completed": 59,
-    "in_progress": 1,
+    "completed": 80,
+    "in_progress": 0,
     "failed": 22,
-    "pending": 42
+    "pending": 0
   },
   "benchmark_scores": {
     "v1": {
@@ -83,6 +101,13 @@
       "gap": 30.0,
       "win_rate": 100.0,
       "ts": "2026-03-26T22:43:41.492221"
+    },
+    "v5": {
+      "local": 69.4,
+      "opus": 70.0,
+      "gap": -0.6,
+      "win_rate": 74.5,
+      "ts": "2026-03-26T22:50:01.733397"
     }
   },
   "token_usage": {
@@ -93,8 +118,8 @@
     "hard_limit_hit": false
   },
   "hardware": {
-    "cpu_pct": 36.8,
-    "ram_pct": 70.9,
+    "cpu_pct": 40.6,
+    "ram_pct": 58.1,
     "disk_pct": 0.0,
     "gpu_pct": null,
     "alert_level": "ok"
@@ -139,6 +164,19 @@
       "after_score": 100.0,
       "delta": 30.0,
       "ts": "2026-03-26T22:43:41.492849"
+    },
+    "v5": {
+      "changes": [
+        "win_rate=74.5%",
+        "local_avg=69.4",
+        "opus_avg=70.0",
+        "rescued=0.0%",
+        "tasks=102"
+      ],
+      "before_score": 70.0,
+      "after_score": 69.4,
+      "delta": -0.6,
+      "ts": "2026-03-26T22:50:01.734092"
     }
   },
   "quality": 0,
@@ -172,7 +210,7 @@
   ],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-26T22:45:24.329373",
+    "ts": "2026-03-26T22:51:20.813926",
     "epics": [
       {
         "id": "system-reliability",
@@ -347,15 +385,15 @@
     "status": "planned"
   },
   "business_summary": {
-    "headline": "59 of 102 engineering tasks complete",
-    "pct_complete": 57.8,
+    "headline": "80 of 102 engineering tasks complete",
+    "pct_complete": 78.4,
     "projects_active": 0,
     "blockers_open": 0,
     "version": 1,
-    "updated_at": "2026-03-26T22:45:00.922682"
+    "updated_at": "2026-03-26T22:50:01.728844"
   },
   "auto_heal_status": {
-    "ts": "2026-03-27T05:45:23",
+    "ts": "2026-03-27T05:51:14",
     "issues_this_cycle": [],
     "healthy": true,
     "dashboard_alive": true,
@@ -658,5 +696,14 @@
       "doc_writer"
     ],
     "patched": []
+  },
+  "eta": {
+    "version": 206,
+    "date": "2026-04-04 06:50:01",
+    "hours": 200.0,
+    "days": 8.33,
+    "weeks": 1.19,
+    "improvement_rate": 0.5,
+    "confidence": "low"
   }
 }

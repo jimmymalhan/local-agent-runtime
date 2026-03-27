@@ -180,8 +180,8 @@
           "eta_hours": 3,
           "eta_completion": "2026-03-26T21:35:00Z",
           "started_at": "2026-03-26T18:35:00Z",
-          "quality_score": 100,
-          "completed_at": "2026-03-26T20:41:13.838015"
+          "quality_score": 100.0,
+          "completed_at": "2026-03-27T05:51:20.269901Z"
         },
         {
           "id": "task-fix-2",
@@ -198,8 +198,8 @@
           "eta_hours": 2,
           "eta_completion": "2026-03-26T20:35:00Z",
           "started_at": "2026-03-26T18:35:00Z",
-          "quality_score": 90,
-          "completed_at": "2026-03-26T20:41:13.838021"
+          "quality_score": 100.0,
+          "completed_at": "2026-03-27T05:51:20.269901Z"
         },
         {
           "id": "task-fix-3",
@@ -218,8 +218,8 @@
           "eta_hours": 4,
           "eta_completion": "2026-03-26T22:35:00Z",
           "started_at": "2026-03-26T18:35:00Z",
-          "quality_score": 90,
-          "completed_at": "2026-03-26T20:42:09.383541"
+          "quality_score": 100.0,
+          "completed_at": "2026-03-27T05:51:20.269901Z"
         },
         {
           "id": "task-fix-4",
@@ -236,8 +236,8 @@
           "eta_hours": 2,
           "eta_completion": "2026-03-26T20:35:00Z",
           "started_at": "2026-03-26T18:35:00Z",
-          "quality_score": 95,
-          "completed_at": "2026-03-26T20:42:09.383550"
+          "quality_score": 100.0,
+          "completed_at": "2026-03-27T05:51:20.269901Z"
         },
         {
           "id": "task-fix-5",
@@ -255,8 +255,8 @@
           "eta_hours": 3,
           "eta_completion": "2026-03-26T21:35:00Z",
           "started_at": "2026-03-26T18:35:00Z",
-          "quality_score": 95,
-          "completed_at": "2026-03-26T20:42:00.716658"
+          "quality_score": 100.0,
+          "completed_at": "2026-03-27T05:51:20.269901Z"
         },
         {
           "id": "task-fix-6",
@@ -274,8 +274,8 @@
           "eta_hours": 2,
           "eta_completion": "2026-03-26T20:35:00Z",
           "started_at": "2026-03-26T18:35:00Z",
-          "quality_score": 80,
-          "completed_at": "2026-03-26T20:41:13.838022"
+          "quality_score": 100.0,
+          "completed_at": "2026-03-27T05:51:20.269901Z"
         }
       ],
       "eta_hours": 16,

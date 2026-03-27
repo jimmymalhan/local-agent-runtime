@@ -6,10 +6,10 @@
     "success_rate": 0.09
   },
   "researcher": {
-    "success": 4,
-    "total": 10,
+    "success": 9,
+    "total": 15,
     "tokens": 1000,
-    "success_rate": 0.4
+    "success_rate": 0.6
   },
   "planner": {
     "success": 5,
@@ -18,9 +18,9 @@
     "success_rate": 0.5
   },
   "architect": {
-    "success": 70,
-    "total": 70,
-    "tokens": 107880,
+    "success": 76,
+    "total": 76,
+    "tokens": 117759,
     "success_rate": 1.0
   },
   "refactor": {
@@ -33,6 +33,12 @@
     "success": 15,
     "total": 15,
     "tokens": 13534,
+    "success_rate": 1.0
+  },
+  "debugger": {
+    "success": 10,
+    "total": 10,
+    "tokens": 4738,
     "success_rate": 1.0
   }
 }

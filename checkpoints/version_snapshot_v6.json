@@ -1,0 +1,713 @@
+{
+  "version": 6,
+  "ts": "2026-03-27T05:50:04",
+  "state": {
+    "ts": "2026-03-26T22:50:03.727250",
+    "version": {
+      "current": 5,
+      "total": 100,
+      "pct_complete": 5.0,
+      "label": "v5 complete \u2014 win_rate=74.5%"
+    },
+    "agents": {
+      "executor": {
+        "status": "blocked",
+        "task": "[0/100] Build a dead letter queue handler",
+        "task_id": 60,
+        "elapsed_s": 0.0,
+        "last_activity": "2026-03-26T22:33:31.441993",
+        "sub_agents": [
+          {
+            "id": 0,
+            "status": "failed",
+            "task": "Build a dead letter queue handler",
+            "model": "",
+            "elapsed_s": 0.0,
+            "quality": 0
+          },
+          {
+            "id": 1,
+            "status": "failed",
+            "task": "Build a dead letter queue handler",
+            "model": "",
+            "elapsed_s": 0.0,
+            "quality": 0
+          },
+          {
+            "id": 2,
+            "status": "failed",
+            "task": "Build a dead letter queue handler",
+            "model": "",
+            "elapsed_s": 0.0,
+            "quality": 0
+          }
+        ],
+        "worker_count": 0
+      },
+      "reviewer": {
+        "status": "idle",
+        "task": "",
+        "task_id": null,
+        "elapsed_s": 0.0,
+        "last_activity": "2026-03-26T22:50:01.731040",
+        "sub_agents": [],
+        "worker_count": 0
+      },
+      "test_engineer": {
+        "status": "done",
+        "task": "[30/100] Add type coverage with mypy",
+        "task_id": 75,
+        "elapsed_s": 0.0,
+        "last_activity": "2026-03-26T22:39:47.565406",
+        "sub_agents": [],
+        "worker_count": 0
+      },
+      "architect": {
+        "status": "done",
+        "task": "[100/100] Build an actor model concurrency system",
+        "task_id": 85,
+        "elapsed_s": 0.0,
+        "last_activity": "2026-03-26T22:48:19.958278",
+        "sub_agents": [],
+        "worker_count": 0
+      },
+      "debugger": {
+        "status": "done",
+        "task": "[100/100] Fix incorrect async/await usage causing unhandled ",
+        "task_id": 95,
+        "elapsed_s": 0.0,
+        "last_activity": "2026-03-26T22:49:59.758875",
+        "sub_agents": [],
+        "worker_count": 0
+      },
+      "researcher": {
+        "status": "done",
+        "task": "[100/100] Research production observability stack for Python",
+        "task_id": 100,
+        "elapsed_s": 0.0,
+        "last_activity": "2026-03-26T22:50:01.727354",
+        "sub_agents": [],
+        "worker_count": 0
+      }
+    },
+    "task_queue": {
+      "total": 102,
+      "completed": 80,
+      "in_progress": 0,
+      "failed": 22,
+      "pending": 0
+    },
+    "benchmark_scores": {
+      "v1": {
+        "local": 100.0,
+        "opus": 70.0,
+        "gap": 30.0,
+        "win_rate": 100.0,
+        "ts": "2026-03-26T22:43:41.492221"
+      },
+      "v5": {
+        "local": 69.4,
+        "opus": 70.0,
+        "gap": -0.6,
+        "win_rate": 74.5,
+        "ts": "2026-03-26T22:50:01.733397"
+      }
+    },
+    "token_usage": {
+      "claude_tokens": 0,
+      "local_tokens": 0,
+      "budget_pct": 0.0,
+      "warning": false,
+      "hard_limit_hit": false
+    },
+    "hardware": {
+      "cpu_pct": 40.6,
+      "ram_pct": 58.1,
+      "disk_pct": 0.0,
+      "gpu_pct": null,
+      "alert_level": "ok"
+    },
+    "failures": [
+      {
+        "ts": "2026-03-26T22:33:31.441312",
+        "agent": "executor",
+        "task": "Build a dead letter queue handler",
+        "task_id": 60,
+        "attempt": 1,
+        "tried": "unknown error"
+      }
+    ],
+    "research_feed": [
+      {
+        "ts": "2026-03-26T22:42:22.496836",
+        "finding": "v5: Model produces code that fails assertion tests silently",
+        "source": ""
+      },
+      {
+        "ts": "2026-03-26T22:42:22.495922",
+        "finding": "v5: Model writes wrong import paths for multi-file projects",
+        "source": ""
+      },
+      {
+        "ts": "2026-03-26T22:42:22.495177",
+        "finding": "v5: Model truncates code in the middle of a function",
+        "source": ""
+      }
+    ],
+    "version_changelog": {
+      "v1": {
+        "changes": [
+          "win_rate=100.0%",
+          "local_avg=100.0",
+          "opus_avg=70.0",
+          "rescued=0.0%",
+          "tasks=3"
+        ],
+        "before_score": 70.0,
+        "after_score": 100.0,
+        "delta": 30.0,
+        "ts": "2026-03-26T22:43:41.492849"
+      },
+      "v5": {
+        "changes": [
+          "win_rate=74.5%",
+          "local_avg=69.4",
+          "opus_avg=70.0",
+          "rescued=0.0%",
+          "tasks=102"
+        ],
+        "before_score": 70.0,
+        "after_score": 69.4,
+        "delta": -0.6,
+        "ts": "2026-03-26T22:50:01.734092"
+      }
+    },
+    "quality": 0,
+    "quality_score": 0,
+    "model": "local-v1",
+    "recent_tasks": [
+      {
+        "task_id": 1,
+        "title": "Build a production FastAPI REST API with JWT auth",
+        "category": "scaffold",
+        "agent_used": "architect",
+        "status": "done",
+        "local_quality": 100
+      },
+      {
+        "task_id": 2,
+        "title": "Build a CLI deployment tool with subcommands",
+        "category": "scaffold",
+        "agent_used": "architect",
+        "status": "done",
+        "local_quality": 100
+      },
+      {
+        "task_id": 3,
+        "title": "Build a real-time WebSocket chat server",
+        "category": "scaffold",
+        "agent_used": "architect",
+        "status": "done",
+        "local_quality": 100
+      }
+    ],
+    "changelog": [],
+    "epic_board": {
+      "ts": "2026-03-26T22:50:03.727146",
+      "epics": [
+        {
+          "id": "system-reliability",
+          "name": "System Reliability & Health",
+          "track": "infrastructure",
+          "status": "in_progress",
+          "total_tasks": 1,
+          "completed": 1,
+          "in_progress": 0,
+          "pending": 0,
+          "blocked": 0,
+          "progress_pct": 100.0,
+          "agents": [
+            "test_engineer"
+          ],
+          "agent_count": 1
+        },
+        {
+          "id": "dashboard-quality",
+          "name": "Dashboard Quality & State Management",
+          "track": "infrastructure",
+          "status": "in_progress",
+          "total_tasks": 1,
+          "completed": 1,
+          "in_progress": 0,
+          "pending": 0,
+          "blocked": 0,
+          "progress_pct": 100.0,
+          "agents": [
+            "test_engineer"
+          ],
+          "agent_count": 1
+        },
+        {
+          "id": "policy-governance",
+          "name": "Policy Enforcement & Budget Control",
+          "track": "infrastructure",
+          "status": "pending",
+          "total_tasks": 1,
+          "completed": 1,
+          "in_progress": 0,
+          "pending": 0,
+          "blocked": 0,
+          "progress_pct": 100.0,
+          "agents": [
+            "test_engineer"
+          ],
+          "agent_count": 1
+        },
+        {
+          "id": "execution-optimization",
+          "name": "Multi-Loop Execution & Self-Improvement",
+          "track": "infrastructure",
+          "status": "pending",
+          "total_tasks": 1,
+          "completed": 1,
+          "in_progress": 0,
+          "pending": 0,
+          "blocked": 0,
+          "progress_pct": 100.0,
+          "agents": [
+            "test_engineer"
+          ],
+          "agent_count": 1
+        },
+        {
+          "id": "agent-autonomy",
+          "name": "Local Agent Autonomy Setup",
+          "track": "infrastructure",
+          "status": "pending",
+          "total_tasks": 1,
+          "completed": 1,
+          "in_progress": 0,
+          "pending": 0,
+          "blocked": 0,
+          "progress_pct": 100.0,
+          "agents": [
+            "test_engineer"
+          ],
+          "agent_count": 1
+        },
+        {
+          "id": "blocker-fixes",
+          "name": "P0 Blockers \u2014 Unblock Task Execution (URGENT)",
+          "track": "infrastructure",
+          "status": "in_progress",
+          "total_tasks": 6,
+          "completed": 6,
+          "in_progress": 0,
+          "pending": 0,
+          "blocked": 0,
+          "progress_pct": 100.0,
+          "agents": [
+            "executor",
+            "test_engineer"
+          ],
+          "agent_count": 2
+        },
+        {
+          "id": "incidents",
+          "name": "Incident Response",
+          "track": "infrastructure",
+          "status": "active",
+          "total_tasks": 2,
+          "completed": 2,
+          "in_progress": 0,
+          "pending": 0,
+          "blocked": 0,
+          "progress_pct": 100.0,
+          "agents": [
+            "executor"
+          ],
+          "agent_count": 1
+        }
+      ],
+      "operations": {
+        "orchestrator": "running",
+        "task_intake": "continuous",
+        "health_monitor": "every 30 min",
+        "auto_restart": true,
+        "works_24_7": true
+      }
+    },
+    "board_plan": {
+      "version": 1,
+      "total_tasks": 3,
+      "total_projects": 1,
+      "projects": [
+        {
+          "id": "proj-scaffold",
+          "name": "Scaffolding",
+          "category": "scaffold",
+          "agent": "architect",
+          "tasks": [
+            {
+              "task_id": 1,
+              "title": "Build a production FastAPI REST API with JWT auth",
+              "difficulty": "hard",
+              "status": "done",
+              "agent": "architect",
+              "quality": 100,
+              "elapsed_s": 45.6
+            },
+            {
+              "task_id": 2,
+              "title": "Build a CLI deployment tool with subcommands",
+              "difficulty": "hard",
+              "status": "done",
+              "agent": "architect",
+              "quality": 100,
+              "elapsed_s": 102.9
+            },
+            {
+              "task_id": 3,
+              "title": "Build a real-time WebSocket chat server",
+              "difficulty": "hard",
+              "status": "done",
+              "agent": "architect",
+              "quality": 100,
+              "elapsed_s": 99.4
+            }
+          ],
+          "total": 3,
+          "done": 3,
+          "in_progress": 0,
+          "failed": 0,
+          "status": "done",
+          "pct": 100.0
+        }
+      ],
+      "initialized_at": "2026-03-26T22:39:32.513113",
+      "status": "planned"
+    },
+    "business_summary": {
+      "headline": "80 of 102 engineering tasks complete",
+      "pct_complete": 78.4,
+      "projects_active": 0,
+      "blockers_open": 0,
+      "version": 1,
+      "updated_at": "2026-03-26T22:50:01.728844"
+    },
+    "auto_heal_status": {
+      "ts": "2026-03-27T05:49:54",
+      "issues_this_cycle": [],
+      "healthy": true,
+      "dashboard_alive": true,
+      "disk_ok": true
+    },
+    "prompt_engine_feed": [
+      {
+        "event": "ab_started",
+        "agent": "test_engineer",
+        "ts": "2026-03-27T05:34:23",
+        "patch": "\n\n[AUTO-IMPROVEMENT 20260327-0534]\n- Return ONLY valid JSON. No markdown. No explanation. Raw JSON only.\n- Only use stdl"
+      },
+      {
+        "event": "ab_started",
+        "agent": "test_engineer",
+        "ts": "2026-03-27T05:34:50",
+        "patch": "\n\n[AUTO-IMPROVEMENT 20260327-0534]\n- Only use stdlib imports. Never import third-party packages unless listed."
+      },
+      {
+        "event": "ab_started",
+        "agent": "test_engineer",
+        "ts": "2026-03-27T05:35:20",
+        "patch": "\n\n[AUTO-IMPROVEMENT 20260327-0535]\n- Only use stdlib imports. Never import third-party packages unless listed."
+      },
+      {
+        "event": "ab_started",
+        "agent": "test_engineer",
+        "ts": "2026-03-27T05:35:49",
+        "patch": "\n\n[AUTO-IMPROVEMENT 20260327-0535]\n- Break complex tasks into steps. Complete each step before the next.\n- Only use stdl"
+      },
+      {
+        "event": "committed",
+        "agent": "test_engineer",
+        "ts": "2026-03-27T05:36:38",
+        "a_avg": 0,
+        "b_avg": 61.2,
+        "delta": 61.2
+      },
+      {
+        "event": "ab_started",
+        "agent": "test_engineer",
+        "ts": "2026-03-27T05:36:51",
+        "patch": "\n\n[AUTO-IMPROVEMENT 20260327-0536]\n- Only use stdlib imports. Never import third-party packages unless listed."
+      },
+      {
+        "event": "committed",
+        "agent": "test_engineer",
+        "ts": "2026-03-27T05:39:47",
+        "a_avg": 0,
+        "b_avg": 61.2,
+        "delta": 61.2
+      }
+    ],
+    "prompt_engine_summary": {
+      "total_improvements": 2,
+      "active_ab_tests": 5,
+      "last_ts": "2026-03-27T05:39:47"
+    },
+    "auto_heal_feed": [
+      {
+        "ts": "2026-03-27T05:36:40",
+        "level": "INFO",
+        "event": "started",
+        "detail": "Auto-heal monitor started (checks every 10s)",
+        "agent": ""
+      },
+      {
+        "ts": "2026-03-27T05:42:22",
+        "level": "INFO",
+        "event": "started",
+        "detail": "Auto-heal monitor started (checks every 10s)",
+        "agent": ""
+      }
+    ],
+    "auto_heal_counts": {
+      "restarts": 0,
+      "purges": 0,
+      "retrains": 0
+    },
+    "calibration": {
+      "version": 1,
+      "ts": "2026-03-27T05:39:32",
+      "results": {
+        "executor": {
+          "ts": "2026-03-27T05:36:41",
+          "version": 1,
+          "agent": "executor",
+          "avg_score": 75.0,
+          "prev_score": 0.0,
+          "regressed": false,
+          "pass": true,
+          "patched": false,
+          "tasks": [
+            {
+              "title": "Two Sum \u2014 return indices",
+              "score": 75.0,
+              "status": "completed",
+              "elapsed": 0.0
+            },
+            {
+              "title": "FizzBuzz 1-100",
+              "score": 75.0,
+              "status": "completed",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Reverse a linked list",
+              "score": 75.0,
+              "status": "completed",
+              "elapsed": 0.0
+            }
+          ]
+        },
+        "reviewer": {
+          "ts": "2026-03-27T05:36:41",
+          "version": 1,
+          "agent": "reviewer",
+          "avg_score": 0.0,
+          "prev_score": 0.0,
+          "regressed": false,
+          "pass": false,
+          "patched": false,
+          "tasks": [
+            {
+              "title": "Score this function: def add(a,b): return a+b",
+              "score": 0,
+              "status": "done",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Review a 20-line Python class for quality",
+              "score": 0,
+              "status": "done",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Rate correctness/completeness/style of a module",
+              "score": 0,
+              "status": "done",
+              "elapsed": 0.0
+            }
+          ]
+        },
+        "benchmarker": {
+          "ts": "2026-03-27T05:36:41",
+          "version": 1,
+          "agent": "benchmarker",
+          "avg_score": 0.0,
+          "prev_score": 0.0,
+          "regressed": false,
+          "pass": false,
+          "patched": false,
+          "tasks": [
+            {
+              "title": "Score output quality 0-100 with rubric",
+              "score": 0,
+              "status": "done",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Compare two solutions: which is better?",
+              "score": 0,
+              "status": "done",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Identify top 3 failure patterns in task batch",
+              "score": 0,
+              "status": "done",
+              "elapsed": 0.0
+            }
+          ]
+        },
+        "researcher": {
+          "ts": "2026-03-27T05:36:41",
+          "version": 1,
+          "agent": "researcher",
+          "avg_score": 100.0,
+          "prev_score": 0.0,
+          "regressed": false,
+          "pass": true,
+          "patched": false,
+          "tasks": [
+            {
+              "title": "Find top 3 Python HTTP libraries",
+              "score": 100,
+              "status": "done",
+              "elapsed": 0.06
+            },
+            {
+              "title": "Research best practices for retry logic",
+              "score": 100,
+              "status": "done",
+              "elapsed": 0.04
+            },
+            {
+              "title": "Summarise SWE-bench top agent techniques 2025",
+              "score": 100,
+              "status": "done",
+              "elapsed": 0.07
+            }
+          ]
+        },
+        "test_engineer": {
+          "ts": "2026-03-27T05:39:05",
+          "version": 1,
+          "agent": "test_engineer",
+          "avg_score": 60.0,
+          "prev_score": 0.0,
+          "regressed": false,
+          "pass": true,
+          "patched": false,
+          "tasks": [
+            {
+              "title": "Write pytest for add(a,b)",
+              "score": 75,
+              "status": "done",
+              "elapsed": 15.49
+            },
+            {
+              "title": "Write tests for a REST endpoint handler",
+              "score": 65,
+              "status": "done",
+              "elapsed": 57.26
+            },
+            {
+              "title": "Write integration test for DB migration",
+              "score": 40,
+              "status": "done",
+              "elapsed": 71.28
+            }
+          ]
+        },
+        "debugger": {
+          "ts": "2026-03-27T05:39:12",
+          "version": 1,
+          "agent": "debugger",
+          "avg_score": 90.0,
+          "prev_score": 0.0,
+          "regressed": false,
+          "pass": true,
+          "patched": false,
+          "tasks": [
+            {
+              "title": "Fix: AttributeError on NoneType",
+              "score": 70,
+              "status": "done",
+              "elapsed": 16.5
+            },
+            {
+              "title": "Fix: off-by-one in binary search",
+              "score": 100,
+              "status": "done",
+              "elapsed": 62.53
+            },
+            {
+              "title": "Debug race condition in thread-safe queue",
+              "score": 100,
+              "status": "done",
+              "elapsed": 72.14
+            }
+          ]
+        },
+        "doc_writer": {
+          "ts": "2026-03-27T05:39:32",
+          "version": 1,
+          "agent": "doc_writer",
+          "avg_score": 100.0,
+          "prev_score": 0.0,
+          "regressed": false,
+          "pass": true,
+          "patched": false,
+          "tasks": [
+            {
+              "title": "Write docstring for a 5-line function",
+              "score": 100,
+              "status": "done",
+              "elapsed": 26.76
+            },
+            {
+              "title": "Write README for a CLI tool",
+              "score": 100,
+              "status": "done",
+              "elapsed": 66.41
+            },
+            {
+              "title": "Write API reference for 5 endpoints",
+              "score": 100,
+              "status": "done",
+              "elapsed": 78.34
+            }
+          ]
+        }
+      },
+      "passing": [
+        "executor",
+        "researcher",
+        "test_engineer",
+        "debugger",
+        "doc_writer"
+      ],
+      "patched": []
+    },
+    "eta": {
+      "version": 206,
+      "date": "2026-04-04 06:50:01",
+      "hours": 200.0,
+      "days": 8.33,
+      "weeks": 1.19,
+      "improvement_rate": 0.5,
+      "confidence": "low"
+    }
+  }
+}
