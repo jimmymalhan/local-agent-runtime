@@ -82,6 +82,13 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T00:13:46.262339"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T00:23:48.729537"
       }
     ]
   },
@@ -93,6 +100,13 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T00:13:46.635674"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T00:23:49.099013"
       }
     ]
   },
@@ -104,6 +118,13 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T00:13:47.015644"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T00:23:49.476632"
       }
     ]
   },
@@ -115,9 +136,29 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T00:13:47.400322"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T00:23:49.852215"
       }
     ],
     "rescue_escalated": false,
     "first_attempt_at": "2026-03-27T00:13:47.400320"
+  },
+  "task-self-improvement": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T00:23:50.235279"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T00:23:50.235277"
   }
 }
