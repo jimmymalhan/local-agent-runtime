@@ -108,6 +108,13 @@ def load_projects_tasks() -> List[Dict[str, Any]]:
 
             tasks.append(orch_task)
 
+    # Save modified projects.json if any tasks were reset from in_progress to pending
+    try:
+        with open(PROJECTS_FILE, "w") as f:
+            json.dump(projects_data, f, indent=2)
+    except Exception as e:
+        print(f"[PROJECTS_LOADER] Warning: Could not save projects.json: {e}")
+
     print(f"[PROJECTS_LOADER] Loaded {len(tasks)} pending tasks from projects.json")
     return tasks
 
