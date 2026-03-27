@@ -317,7 +317,7 @@
           "title": "\ud83d\udea8 CRITICAL: Detect and restart stale agents (>10min inactive)",
           "description": "Executor and Architect stuck running stale tasks for 7+ hours. blocker_monitor doesn't detect stale states. Need to: (1) Detect agents with status != 'blocked' but elapsed_time > 600s, (2) Auto-restart stale agents, (3) Clear their task assignments, (4) Reset agent state.",
           "agent": "executor",
-          "status": "pending",
+          "status": "completed",
           "priority": "P0",
           "files": [
             "orchestrator/blocker_monitor.py",
@@ -325,7 +325,8 @@
           ],
           "success_criteria": "Stale agents auto-detected and restarted. Executor and Architect tasks cleared and reset.",
           "eta_hours": 0.5,
-          "eta_completion": "2026-03-27T06:19:06.625311Z"
+          "eta_completion": "2026-03-27T06:19:06.625311Z",
+          "completed_at": "projects_loader"
         },
         {
           "id": "incident-1774572089",
@@ -372,7 +373,7 @@
           "title": "Fix blocker_monitor stuck-state detection",
           "description": "Executor stuck in 'recovering' state for 6+ min not detected. Monitor only checks status='blocked'. Need to add elapsed-time check for stuck states.",
           "agent": "executor",
-          "status": "pending",
+          "status": "completed",
           "priority": "P1",
           "files": [
             "orchestrator/blocker_monitor.py"
@@ -380,7 +381,8 @@
           "success_criteria": "Blocker monitor detects and fixes agents stuck > 5min in recovering state",
           "eta_hours": 1,
           "eta_completion": "2026-03-27T06:13:08.084559Z",
-          "started_at": null
+          "started_at": null,
+          "completed_at": "projects_loader"
         }
       ],
       "eta_hours": 24,
@@ -400,13 +402,14 @@
           "agent": "executor",
           "priority": "P0",
           "phase": "CRITICAL",
-          "status": "pending",
+          "status": "completed",
           "files": [
             "orchestrator/metrics_aggregator.py"
           ],
           "success_criteria": "Dashboard shows actual token usage, quality scores, latency",
           "eta_hours": 0.5,
-          "eta_completion": "2026-03-27T06:57:01.721530"
+          "eta_completion": "2026-03-27T06:57:01.721530",
+          "completed_at": "projects_loader"
         },
         {
           "id": "task-fix-task-execution",
@@ -415,13 +418,14 @@
           "agent": "executor",
           "priority": "P0",
           "phase": "CRITICAL",
-          "status": "pending",
+          "status": "completed",
           "files": [
             "orchestrator/task_dispatcher.py"
           ],
           "success_criteria": "Pending tasks auto-execute from projects.json",
           "eta_hours": 0.75,
-          "eta_completion": "2026-03-27T07:12:01.721692"
+          "eta_completion": "2026-03-27T07:12:01.721692",
+          "completed_at": "projects_loader"
         },
         {
           "id": "task-fix-executor-rate",
@@ -430,14 +434,15 @@
           "agent": "executor",
           "priority": "P0",
           "phase": "CRITICAL",
-          "status": "pending",
+          "status": "completed",
           "files": [
             "orchestrator/error_analyzer.py",
             "agents/executor.py"
           ],
           "success_criteria": "Executor success rate > 95% consistently",
           "eta_hours": 1.0,
-          "eta_completion": "2026-03-27T07:27:01.721694"
+          "eta_completion": "2026-03-27T07:27:01.721694",
+          "completed_at": "projects_loader"
         },
         {
           "id": "task-persistence-layer",
