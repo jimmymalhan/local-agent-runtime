@@ -839,14 +839,15 @@
           "title": "[P0] Verify & remove all external cron jobs",
           "description": "Check crontab for any scheduled jobs. Verify no external crons running. Confirm all scheduling internal to daemon/10min_loop. Accept if zero external crons.",
           "agent": "executor",
-          "status": "pending",
+          "status": "completed",
           "priority": "P0",
           "eta_hours": 1,
           "quality_target": 100,
           "files": [
             ".claude/10min_loop.sh"
           ],
-          "success_criteria": "crontab -l shows empty, all internal scheduling"
+          "success_criteria": "crontab -l shows empty, all internal scheduling",
+          "completed_at": "projects_loader"
         },
         {
           "id": "impl-auto-pr-merge",

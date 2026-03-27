@@ -63,5 +63,70 @@
     ],
     "rescue_escalated": false,
     "first_attempt_at": "2026-03-27T09:39:01.809943"
+  },
+  "verify-no-external-crons": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T09:46:31.792783"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T09:46:31.792781"
+  },
+  "impl-auto-pr-merge": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T09:46:32.165577"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T09:46:32.165575"
+  },
+  "impl-workflow-autodispatch": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T09:46:32.526290"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T09:46:32.526288"
+  },
+  "upgrade-ui-realtime": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T09:46:32.894806"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T09:46:32.894804"
+  },
+  "benchmark-performance": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T09:46:33.225246"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T09:46:33.225245"
   }
 }
