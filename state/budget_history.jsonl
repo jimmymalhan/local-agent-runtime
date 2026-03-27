@@ -44,3 +44,5 @@
 {"ts": "2026-03-26T19:12:44.335036", "agent": "executor", "old_budget": 1593, "new_budget": 1433, "success_rate": 0.34, "reason": "Low success (34%) \u2014 focus easy wins"}
 {"ts": "2026-03-26T19:23:14.927064", "agent": "executor", "old_budget": 1433, "new_budget": 1289, "success_rate": 0.31, "reason": "Low success (31%) \u2014 focus easy wins"}
 {"ts": "2026-03-26T19:23:43.146387", "agent": "executor", "old_budget": 1289, "new_budget": 1160, "success_rate": 0.28, "reason": "Low success (28%) \u2014 focus easy wins"}
+{"ts": "2026-03-26T19:32:17.145202", "agent": "executor", "old_budget": 1160, "new_budget": 1044, "success_rate": 0.28, "reason": "Low success (28%) \u2014 focus easy wins"}
+{"ts": "2026-03-26T19:33:35.183711", "agent": "executor", "old_budget": 1044, "new_budget": 939, "success_rate": 0.25, "reason": "Low success (25%) \u2014 focus easy wins"}
