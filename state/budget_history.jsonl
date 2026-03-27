@@ -50,3 +50,5 @@
 {"ts": "2026-03-26T19:43:43.053004", "agent": "executor", "old_budget": 845, "new_budget": 760, "success_rate": 0.23, "reason": "Low success (23%) \u2014 focus easy wins"}
 {"ts": "2026-03-26T19:53:14.294665", "agent": "executor", "old_budget": 760, "new_budget": 684, "success_rate": 0.23, "reason": "Low success (23%) \u2014 focus easy wins"}
 {"ts": "2026-03-26T19:53:44.580860", "agent": "executor", "old_budget": 684, "new_budget": 615, "success_rate": 0.21, "reason": "Low success (21%) \u2014 focus easy wins"}
+{"ts": "2026-03-26T20:02:44.428152", "agent": "executor", "old_budget": 615, "new_budget": 553, "success_rate": 0.21, "reason": "Low success (21%) \u2014 focus easy wins"}
+{"ts": "2026-03-26T20:03:07.181454", "agent": "executor", "old_budget": 553, "new_budget": 500, "success_rate": 0.2, "reason": "Low success (20%) \u2014 focus easy wins"}

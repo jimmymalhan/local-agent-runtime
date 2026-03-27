@@ -168,3 +168,9 @@
 {"ts": "2026-03-26T19:53:21.963261", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-1", "attempts": 3, "last_error": "Unknown error"}
 {"ts": "2026-03-26T19:53:22.361419", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-2", "attempts": 3, "last_error": "Unknown error"}
 {"ts": "2026-03-26T19:53:46.975839", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:02:46.829744", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:02:49.240745", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:02:51.649229", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:02:52.061863", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T20:02:52.459157", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-2", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T20:03:09.593440", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
