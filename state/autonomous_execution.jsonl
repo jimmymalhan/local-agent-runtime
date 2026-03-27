@@ -795,3 +795,8 @@
 {"ts": "2026-03-27T08:56:18.519440", "action": "execute_failed", "agent": "executor", "task_id": "impl-continuous-work-queue", "attempts": 3, "last_error": "Unknown error"}
 {"ts": "2026-03-27T08:56:18.878711", "action": "execute_failed", "agent": "executor", "task_id": "impl-agent-autorecovery", "attempts": 3, "last_error": "Unknown error"}
 {"ts": "2026-03-27T08:56:19.251629", "action": "execute_failed", "agent": "executor", "task_id": "verify-no-external-crons", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T09:06:21.121119", "action": "execute_failed", "agent": "executor", "task_id": "impl-token-tracker", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T09:06:21.457840", "action": "execute_failed", "agent": "executor", "task_id": "impl-continuous-work-queue", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T09:06:21.832801", "action": "execute_failed", "agent": "executor", "task_id": "impl-agent-autorecovery", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T09:06:22.212744", "action": "execute_failed", "agent": "executor", "task_id": "verify-no-external-crons", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T09:06:22.584711", "action": "execute_failed", "agent": "executor", "task_id": "impl-auto-pr-merge", "attempts": 3, "last_error": "Unknown error"}

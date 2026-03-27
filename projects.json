@@ -791,7 +791,7 @@
           "title": "[P0] Implement token efficiency tracking (90% local target)",
           "description": "Create token_tracker.py that logs token usage to state/runtime-lessons.json. Track: local_tokens, claude_tokens, local_percentage. Target: 90% local. Show metrics in dashboard.",
           "agent": "executor",
-          "status": "pending",
+          "status": "completed",
           "priority": "P0",
           "eta_hours": 1,
           "quality_target": 90,
@@ -799,7 +799,8 @@
             "orchestrator/token_tracker.py",
             "state/runtime-lessons.json"
           ],
-          "success_criteria": "Token metrics tracked, local_percentage shows in dashboard"
+          "success_criteria": "Token metrics tracked, local_percentage shows in dashboard",
+          "completed_at": "projects_loader"
         },
         {
           "id": "impl-continuous-work-queue",
