@@ -900,7 +900,7 @@
           "title": "[P2] Performance benchmarking and optimization",
           "description": "Profile dashboard load time, task dispatch speed, render performance. Targets: <500ms dashboard load, <100ms dispatch, <30ms render. Optimize CSS/JS. Accept if all targets met.",
           "agent": "executor",
-          "status": "pending",
+          "status": "completed",
           "priority": "P2",
           "eta_hours": 2,
           "quality_target": 90,
@@ -908,7 +908,8 @@
             "dashboard/index.html",
             "orchestrator/quick_dispatcher.py"
           ],
-          "success_criteria": "Dashboard load <500ms, dispatch <100ms, render <30ms"
+          "success_criteria": "Dashboard load <500ms, dispatch <100ms, render <30ms",
+          "completed_at": "projects_loader"
         },
         {
           "id": "auto-epic-progress",
