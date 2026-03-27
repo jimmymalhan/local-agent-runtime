@@ -11,10 +11,10 @@
   {
     "category": "resource",
     "trigger": "auto_resolve_memory_ceiling",
-    "lesson": "Auto-resolved memory_ceiling with unload_ollama: No resident Ollama models to unload",
+    "lesson": "Auto-resolved memory_ceiling with unload_ollama: Unloaded Ollama models: qwen2.5-coder:7b",
     "fix": "Stop resident Ollama models first to recover memory now",
-    "context": "wait_event=2 snapshot=RESOURCE cpu=91.0%/70% mem=84.0%/70%",
-    "learned_at": "2026-03-26T23:01:06",
+    "context": "wait_event=1 snapshot=RESOURCE cpu=91.0%/70% mem=84.0%/70%",
+    "learned_at": "2026-03-26T23:03:28",
     "applied_count": 0
   }
 ]
