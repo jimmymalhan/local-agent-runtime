@@ -25,11 +25,11 @@
         "strategy": "autonomous",
         "error": null,
         "success": true,
-        "timestamp": "2026-03-27T07:16:12.720237"
+        "timestamp": "2026-03-27T07:26:15.648832"
       }
     ],
     "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T07:16:12.720226"
+    "first_attempt_at": "2026-03-27T07:26:15.648811"
   },
   "2": {
     "attempts": [
@@ -38,11 +38,11 @@
         "strategy": "autonomous",
         "error": null,
         "success": true,
-        "timestamp": "2026-03-27T07:16:29.199627"
+        "timestamp": "2026-03-27T07:26:35.154830"
       }
     ],
     "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T07:16:29.199615"
+    "first_attempt_at": "2026-03-27T07:26:35.154824"
   },
   "3": {
     "attempts": [
@@ -51,11 +51,11 @@
         "strategy": "autonomous",
         "error": null,
         "success": true,
-        "timestamp": "2026-03-27T07:16:50.823118"
+        "timestamp": "2026-03-27T07:27:05.732646"
       }
     ],
     "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T07:16:50.823109"
+    "first_attempt_at": "2026-03-27T07:27:05.732634"
   },
   "task-fix-task-execution": {
     "attempts": []
@@ -284,24 +284,11 @@
         "strategy": "autonomous",
         "error": null,
         "success": true,
-        "timestamp": "2026-03-27T07:17:31.648737"
+        "timestamp": "2026-03-27T07:27:37.446960"
       }
     ],
     "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T07:17:31.648735"
-  },
-  "5": {
-    "attempts": [
-      {
-        "attempt": 1,
-        "strategy": "autonomous",
-        "error": null,
-        "success": true,
-        "timestamp": "2026-03-27T07:08:14.133591"
-      }
-    ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T07:08:14.133575"
+    "first_attempt_at": "2026-03-27T07:27:37.446949"
   },
   "5": {
     "attempts": [
@@ -315,5 +302,18 @@
     ],
     "rescue_escalated": false,
     "first_attempt_at": "2026-03-27T07:17:53.084240"
+  },
+  "5": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": true,
+        "timestamp": "2026-03-27T07:27:59.365628"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T07:27:59.365622"
   }
 }
