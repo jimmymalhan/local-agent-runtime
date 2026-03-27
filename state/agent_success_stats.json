@@ -18,15 +18,15 @@
     "success_rate": 0.5
   },
   "architect": {
-    "success": 62,
-    "total": 62,
-    "tokens": 91762,
+    "success": 66,
+    "total": 66,
+    "tokens": 100217,
     "success_rate": 1.0
   },
   "refactor": {
-    "success": 20,
-    "total": 20,
-    "tokens": 26055,
+    "success": 37,
+    "total": 37,
+    "tokens": 46749,
     "success_rate": 1.0
   }
 }

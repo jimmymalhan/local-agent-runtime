@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-26T22:21:45.512618",
+  "ts": "2026-03-26T22:32:19.030280",
   "version": {
     "current": 5,
     "total": 100,
@@ -46,26 +46,35 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-26T22:21:30.271734",
+      "last_activity": "2026-03-26T22:32:08.162589",
       "sub_agents": [],
       "worker_count": 0
     },
     "architect": {
-      "status": "running",
-      "task": "Build an OAuth2 provider with PKCE",
-      "task_id": 17,
+      "status": "done",
+      "task": "[100/100] Build a request tracing and observability system",
+      "task_id": 20,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-26T22:21:30.645865",
+      "last_activity": "2026-03-26T22:24:42.962524",
+      "sub_agents": [],
+      "worker_count": 0
+    },
+    "refactor": {
+      "status": "running",
+      "task": "Refactor error handling from bare except to typed exceptions",
+      "task_id": 38,
+      "elapsed_s": 0.0,
+      "last_activity": "2026-03-26T22:32:08.521746",
       "sub_agents": [],
       "worker_count": 0
     }
   },
   "task_queue": {
     "total": 102,
-    "completed": 16,
+    "completed": 37,
     "in_progress": 1,
     "failed": 2,
-    "pending": 85
+    "pending": 64
   },
   "benchmark_scores": {
     "v1": {
@@ -84,8 +93,8 @@
     "hard_limit_hit": false
   },
   "hardware": {
-    "cpu_pct": 49.1,
-    "ram_pct": 70.6,
+    "cpu_pct": 37.2,
+    "ram_pct": 70.2,
     "disk_pct": 0.0,
     "gpu_pct": null,
     "alert_level": "ok"
@@ -174,6 +183,21 @@
   ],
   "research_feed": [
     {
+      "ts": "2026-03-26T22:31:50.841733",
+      "finding": "v5: Model produces code that fails assertion tests silently",
+      "source": ""
+    },
+    {
+      "ts": "2026-03-26T22:31:50.839856",
+      "finding": "v5: Model writes wrong import paths for multi-file projects",
+      "source": ""
+    },
+    {
+      "ts": "2026-03-26T22:31:50.837944",
+      "finding": "v5: Model truncates code in the middle of a function",
+      "source": ""
+    },
+    {
       "ts": "2026-03-26T22:21:19.053912",
       "finding": "v5: Model produces code that fails assertion tests silently",
       "source": ""
@@ -205,21 +229,6 @@
     },
     {
       "ts": "2026-03-26T22:07:28.636623",
-      "finding": "v5: Model produces code that fails assertion tests silently",
-      "source": ""
-    },
-    {
-      "ts": "2026-03-26T22:07:28.635831",
-      "finding": "v5: Model writes wrong import paths for multi-file projects",
-      "source": ""
-    },
-    {
-      "ts": "2026-03-26T22:07:28.634922",
-      "finding": "v5: Model truncates code in the middle of a function",
-      "source": ""
-    },
-    {
-      "ts": "2026-03-26T22:00:29.602873",
       "finding": "v5: Model produces code that fails assertion tests silently",
       "source": ""
     }
@@ -392,175 +401,175 @@
       "title": "Build an OAuth2 provider with PKCE",
       "category": "scaffold",
       "agent_used": "architect",
-      "status": "running",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 100
     },
     {
       "task_id": 18,
       "title": "Build a streaming data processor",
       "category": "scaffold",
       "agent_used": "architect",
-      "status": "todo",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 100
     },
     {
       "task_id": 19,
       "title": "Build a zero-downtime database migration tool",
       "category": "scaffold",
       "agent_used": "architect",
-      "status": "todo",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 100
     },
     {
       "task_id": 20,
       "title": "Build a request tracing and observability system",
       "category": "scaffold",
       "agent_used": "architect",
-      "status": "todo",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 100
     },
     {
       "task_id": 21,
       "title": "Refactor callback hell to async/await",
       "category": "refactor",
       "agent_used": "refactor",
-      "status": "todo",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 85
     },
     {
       "task_id": 22,
       "title": "Extract magic numbers and inline strings to constants",
       "category": "refactor",
       "agent_used": "refactor",
-      "status": "todo",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 85
     },
     {
       "task_id": 23,
       "title": "Refactor God class into focused modules",
       "category": "refactor",
       "agent_used": "refactor",
-      "status": "todo",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 85
     },
     {
       "task_id": 24,
       "title": "Migrate from raw SQL to SQLAlchemy ORM",
       "category": "refactor",
       "agent_used": "refactor",
-      "status": "todo",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 85
     },
     {
       "task_id": 25,
       "title": "Refactor synchronous I/O to async",
       "category": "refactor",
       "agent_used": "refactor",
-      "status": "todo",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 85
     },
     {
       "task_id": 26,
       "title": "Replace if/elif chain with strategy pattern",
       "category": "refactor",
       "agent_used": "refactor",
-      "status": "todo",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 85
     },
     {
       "task_id": 27,
       "title": "Extract hardcoded configuration to environment-aware config",
       "category": "refactor",
       "agent_used": "refactor",
-      "status": "todo",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 85
     },
     {
       "task_id": 28,
       "title": "Refactor deeply nested conditionals to early returns",
       "category": "refactor",
       "agent_used": "refactor",
-      "status": "todo",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 85
     },
     {
       "task_id": 29,
       "title": "Decompose monolithic function into pipeline",
       "category": "refactor",
       "agent_used": "refactor",
-      "status": "todo",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 85
     },
     {
       "task_id": 30,
       "title": "Add structured logging to replace print statements",
       "category": "refactor",
       "agent_used": "refactor",
-      "status": "todo",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 85
     },
     {
       "task_id": 31,
       "title": "Migrate from threading to asyncio",
       "category": "refactor",
       "agent_used": "refactor",
-      "status": "todo",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 70
     },
     {
       "task_id": 32,
       "title": "Add input validation and sanitization layer",
       "category": "refactor",
       "agent_used": "refactor",
-      "status": "todo",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 85
     },
     {
       "task_id": 33,
       "title": "Convert procedural script to testable module",
       "category": "refactor",
       "agent_used": "refactor",
-      "status": "todo",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 85
     },
     {
       "task_id": 34,
       "title": "Add retry and circuit breaker to HTTP client",
       "category": "refactor",
       "agent_used": "refactor",
-      "status": "todo",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 85
     },
     {
       "task_id": 35,
       "title": "Migrate password storage from MD5 to bcrypt",
       "category": "refactor",
       "agent_used": "refactor",
-      "status": "todo",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 85
     },
     {
       "task_id": 36,
       "title": "Extract shared utilities into a proper package",
       "category": "refactor",
       "agent_used": "refactor",
-      "status": "todo",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 85
     },
     {
       "task_id": 37,
       "title": "Add caching layer to expensive operations",
       "category": "refactor",
       "agent_used": "refactor",
-      "status": "todo",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 85
     },
     {
       "task_id": 38,
       "title": "Refactor error handling from bare except to typed exceptions",
       "category": "refactor",
       "agent_used": "refactor",
-      "status": "todo",
+      "status": "running",
       "local_quality": 0
     },
     {
@@ -1062,7 +1071,7 @@
   ],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-26T22:21:45.512406",
+    "ts": "2026-03-26T22:32:19.030135",
     "epics": [
       {
         "id": "system-reliability",
@@ -1377,45 +1386,45 @@
             "task_id": 17,
             "title": "Build an OAuth2 provider with PKCE",
             "difficulty": "hard",
-            "status": "running",
+            "status": "done",
             "agent": "architect",
-            "quality": 0,
-            "elapsed_s": 0.0
+            "quality": 100,
+            "elapsed_s": 85.7
           },
           {
             "task_id": 18,
             "title": "Build a streaming data processor",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "done",
             "agent": "architect",
-            "quality": 0,
-            "elapsed_s": 0
+            "quality": 100,
+            "elapsed_s": 41.4
           },
           {
             "task_id": 19,
             "title": "Build a zero-downtime database migration tool",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "done",
             "agent": "architect",
-            "quality": 0,
-            "elapsed_s": 0
+            "quality": 100,
+            "elapsed_s": 36.1
           },
           {
             "task_id": 20,
             "title": "Build a request tracing and observability system",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "done",
             "agent": "architect",
-            "quality": 0,
-            "elapsed_s": 0
+            "quality": 100,
+            "elapsed_s": 28.0
           }
         ],
         "total": 20,
-        "done": 16,
-        "in_progress": 1,
+        "done": 20,
+        "in_progress": 0,
         "failed": 0,
-        "status": "running",
-        "pct": 80.0
+        "status": "done",
+        "pct": 100.0
       },
       {
         "id": "proj-refactor",
@@ -1427,163 +1436,163 @@
             "task_id": 21,
             "title": "Refactor callback hell to async/await",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "done",
             "agent": "refactor",
-            "quality": 0,
-            "elapsed_s": 0
+            "quality": 85,
+            "elapsed_s": 23.4
           },
           {
             "task_id": 22,
             "title": "Extract magic numbers and inline strings to constants",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "done",
             "agent": "refactor",
-            "quality": 0,
-            "elapsed_s": 0
+            "quality": 85,
+            "elapsed_s": 16.4
           },
           {
             "task_id": 23,
             "title": "Refactor God class into focused modules",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "done",
             "agent": "refactor",
-            "quality": 0,
-            "elapsed_s": 0
+            "quality": 85,
+            "elapsed_s": 18.3
           },
           {
             "task_id": 24,
             "title": "Migrate from raw SQL to SQLAlchemy ORM",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "done",
             "agent": "refactor",
-            "quality": 0,
-            "elapsed_s": 0
+            "quality": 85,
+            "elapsed_s": 20.4
           },
           {
             "task_id": 25,
             "title": "Refactor synchronous I/O to async",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "done",
             "agent": "refactor",
-            "quality": 0,
-            "elapsed_s": 0
+            "quality": 85,
+            "elapsed_s": 11.0
           },
           {
             "task_id": 26,
             "title": "Replace if/elif chain with strategy pattern",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "done",
             "agent": "refactor",
-            "quality": 0,
-            "elapsed_s": 0
+            "quality": 85,
+            "elapsed_s": 30.6
           },
           {
             "task_id": 27,
             "title": "Extract hardcoded configuration to environment-aware config",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "done",
             "agent": "refactor",
-            "quality": 0,
-            "elapsed_s": 0
+            "quality": 85,
+            "elapsed_s": 23.5
           },
           {
             "task_id": 28,
             "title": "Refactor deeply nested conditionals to early returns",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "done",
             "agent": "refactor",
-            "quality": 0,
-            "elapsed_s": 0
+            "quality": 85,
+            "elapsed_s": 22.0
           },
           {
             "task_id": 29,
             "title": "Decompose monolithic function into pipeline",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "done",
             "agent": "refactor",
-            "quality": 0,
-            "elapsed_s": 0
+            "quality": 85,
+            "elapsed_s": 25.4
           },
           {
             "task_id": 30,
             "title": "Add structured logging to replace print statements",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "done",
             "agent": "refactor",
-            "quality": 0,
-            "elapsed_s": 0
+            "quality": 85,
+            "elapsed_s": 19.6
           },
           {
             "task_id": 31,
             "title": "Migrate from threading to asyncio",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "done",
             "agent": "refactor",
-            "quality": 0,
-            "elapsed_s": 0
+            "quality": 70,
+            "elapsed_s": 32.8
           },
           {
             "task_id": 32,
             "title": "Add input validation and sanitization layer",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "done",
             "agent": "refactor",
-            "quality": 0,
-            "elapsed_s": 0
+            "quality": 85,
+            "elapsed_s": 52.7
           },
           {
             "task_id": 33,
             "title": "Convert procedural script to testable module",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "done",
             "agent": "refactor",
-            "quality": 0,
-            "elapsed_s": 0
+            "quality": 85,
+            "elapsed_s": 23.2
           },
           {
             "task_id": 34,
             "title": "Add retry and circuit breaker to HTTP client",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "done",
             "agent": "refactor",
-            "quality": 0,
-            "elapsed_s": 0
+            "quality": 85,
+            "elapsed_s": 29.3
           },
           {
             "task_id": 35,
             "title": "Migrate password storage from MD5 to bcrypt",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "done",
             "agent": "refactor",
-            "quality": 0,
-            "elapsed_s": 0
+            "quality": 85,
+            "elapsed_s": 25.5
           },
           {
             "task_id": 36,
             "title": "Extract shared utilities into a proper package",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "done",
             "agent": "refactor",
-            "quality": 0,
-            "elapsed_s": 0
+            "quality": 85,
+            "elapsed_s": 28.0
           },
           {
             "task_id": 37,
             "title": "Add caching layer to expensive operations",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "done",
             "agent": "refactor",
-            "quality": 0,
-            "elapsed_s": 0
+            "quality": 85,
+            "elapsed_s": 36.8
           },
           {
             "task_id": 38,
             "title": "Refactor error handling from bare except to typed exceptions",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "running",
             "agent": "refactor",
             "quality": 0,
-            "elapsed_s": 0
+            "elapsed_s": 0.0
           },
           {
             "task_id": 39,
@@ -1605,11 +1614,11 @@
           }
         ],
         "total": 20,
-        "done": 0,
-        "in_progress": 0,
+        "done": 17,
+        "in_progress": 1,
         "failed": 0,
-        "status": "pending",
-        "pct": 0
+        "status": "running",
+        "pct": 85.0
       },
       {
         "id": "proj-code_gen",
@@ -2226,15 +2235,15 @@
     "status": "planned"
   },
   "business_summary": {
-    "headline": "16 of 102 engineering tasks complete",
-    "pct_complete": 15.7,
+    "headline": "37 of 102 engineering tasks complete",
+    "pct_complete": 36.3,
     "projects_active": 1,
     "blockers_open": 1,
     "version": 5,
-    "updated_at": "2026-03-26T22:21:30.649908"
+    "updated_at": "2026-03-26T22:32:08.525980"
   },
   "auto_heal_status": {
-    "ts": "2026-03-27T05:21:40",
+    "ts": "2026-03-27T05:32:12",
     "issues_this_cycle": [],
     "healthy": true,
     "dashboard_alive": true,
@@ -2680,6 +2689,13 @@
     },
     {
       "ts": "2026-03-27T05:21:19",
+      "level": "INFO",
+      "event": "started",
+      "detail": "Auto-heal monitor started (checks every 10s)",
+      "agent": ""
+    },
+    {
+      "ts": "2026-03-27T05:31:50",
       "level": "INFO",
       "event": "started",
       "detail": "Auto-heal monitor started (checks every 10s)",
