@@ -26,3 +26,12 @@ TASK PROGRESS: Waiting for tasks to start
 ━━━ SECTION 3: BLOCKER DETECTION ━━━
 
 🚨 BLOCKER: Orchestrator dead — restarting...
+⚠️  1 blocker(s) detected and auto-recovered
+
+━━━ SECTION 3.5: EXECUTE PENDING TASKS ━━━
+
+⚠️  Orchestrator not running, skipping task execution
+
+━━━ SECTION 4: GIT PUSH & PR MERGE ━━━
+
+📝 Uncommitted changes detected — committing...
