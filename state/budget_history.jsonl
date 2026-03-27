@@ -40,3 +40,4 @@
 {"ts": "2026-03-26T18:55:31.064596", "agent": "architect", "old_budget": 1948, "new_budget": 2000, "success_rate": 1.0, "reason": "High success (100%) \u2014 reward"}
 {"ts": "2026-03-26T18:55:31.065210", "agent": "refactor", "old_budget": 1948, "new_budget": 2000, "success_rate": 1.0, "reason": "High success (100%) \u2014 reward"}
 {"ts": "2026-03-26T19:01:06.069149", "agent": "executor", "old_budget": 1771, "new_budget": 1593, "success_rate": 0.42, "reason": "Low success (42%) \u2014 focus easy wins"}
+{"ts": "2026-03-26T19:04:10.940531", "agent": "executor", "old_budget": 1771, "new_budget": 1593, "success_rate": 0.42, "reason": "Low success (42%) \u2014 focus easy wins"}

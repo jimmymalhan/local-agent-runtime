@@ -126,3 +126,16 @@
 {"ts": "2026-03-26T19:01:15.060807", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-4", "attempts": 3, "last_error": "Unknown error"}
 {"ts": "2026-03-26T19:01:15.448022", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-5", "attempts": 3, "last_error": "Unknown error"}
 {"ts": "2026-03-26T19:01:15.842213", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-6", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T19:03:04.603319", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1214, "elapsed": 108.36597609519958, "autonomous": true}
+{"ts": "2026-03-26T19:04:07.922901", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 2, "status": "done", "quality": 100, "tokens": 953, "elapsed": 126.94634509086609, "autonomous": true}
+{"ts": "2026-03-26T19:04:11.330599", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 72%"}
+{"ts": "2026-03-26T19:04:13.348641", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:04:32.332563", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 879, "elapsed": 87.36102390289307, "autonomous": true}
+{"ts": "2026-03-26T19:06:03.202999", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1596, "elapsed": 90.48378324508667, "autonomous": true}
+{"ts": "2026-03-26T19:06:37.498340", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1617, "elapsed": 33.92899823188782, "autonomous": true}
+{"ts": "2026-03-26T19:07:27.360826", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 2161, "elapsed": 49.47311472892761, "autonomous": true}
+{"ts": "2026-03-26T19:07:46.485739", "action": "execute_task", "agent": "executor", "task_id": 6, "attempt": 1, "status": "done", "quality": 90, "tokens": 801, "elapsed": 18.7442409992218, "autonomous": true}
+{"ts": "2026-03-26T19:08:10.820642", "action": "execute_task", "agent": "executor", "task_id": 7, "attempt": 1, "status": "done", "quality": 100, "tokens": 1083, "elapsed": 23.973193883895874, "autonomous": true}
+{"ts": "2026-03-26T19:08:36.389602", "action": "execute_task", "agent": "executor", "task_id": 8, "attempt": 1, "status": "done", "quality": 100, "tokens": 1237, "elapsed": 25.191402912139893, "autonomous": true}
+{"ts": "2026-03-26T19:09:31.314365", "action": "execute_task", "agent": "executor", "task_id": 9, "attempt": 1, "status": "done", "quality": 100, "tokens": 2629, "elapsed": 54.549216985702515, "autonomous": true}
+{"ts": "2026-03-26T19:10:05.859197", "action": "execute_task", "agent": "executor", "task_id": 10, "attempt": 1, "status": "done", "quality": 100, "tokens": 1634, "elapsed": 34.15998101234436, "autonomous": true}
