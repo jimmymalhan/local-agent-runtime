@@ -1405,6 +1405,34 @@
           "eta_hours": 3,
           "quality_score": 0,
           "completed_at": "2026-03-27T12:04:08.289747"
+        },
+        {
+          "id": "e1-critical-distributed-inference",
+          "title": "Distributed inference across GPU/CPU clusters",
+          "description": "Implement distributed execution framework for multi-device inference. Target: 3x throughput improvement.",
+          "agent": "architect",
+          "status": "pending",
+          "priority": "P0",
+          "category": "infrastructure",
+          "files": [
+            "agents/executor.py",
+            "orchestrator/resource_guard.py"
+          ],
+          "success_criteria": "Distributed pool operational, 3+ devices coordinated, latency <2s per batch"
+        },
+        {
+          "id": "e1-critical-live-finetuning",
+          "title": "Real-time model fine-tuning on feedback loops",
+          "description": "Auto-improve models based on task feedback. Implement online learning with gradient accumulation.",
+          "agent": "architect",
+          "status": "pending",
+          "priority": "P0",
+          "category": "ai_ml",
+          "files": [
+            "agents/executor.py",
+            "benchmarks/quality_scorer.py"
+          ],
+          "success_criteria": "Model improves 2+ points per 100 tasks via feedback"
         }
       ],
       "eta_hours": 22
@@ -1714,6 +1742,33 @@
           "eta_hours": 2,
           "quality_score": 85,
           "completed_at": "2026-03-27T13:50:50.335411"
+        },
+        {
+          "id": "e2-critical-intelligent-batching",
+          "title": "Intelligent task batching and co-execution",
+          "description": "Batch similar tasks \u2192 single Claude call. Target: 40% token reduction.",
+          "agent": "architect",
+          "status": "pending",
+          "priority": "P0",
+          "category": "optimization",
+          "files": [
+            "orchestrator/main.py",
+            "orchestrator/token_enforcer.py"
+          ],
+          "success_criteria": "Batching reduces tokens by 40%, no quality loss"
+        },
+        {
+          "id": "e2-critical-predictive-compression",
+          "title": "Predictive token compression before Claude calls",
+          "description": "Pre-compress via LZ4/Zstd before API. Add semantic compression (remove redundancy).",
+          "agent": "architect",
+          "status": "pending",
+          "priority": "P0",
+          "category": "optimization",
+          "files": [
+            "agents/executor.py"
+          ],
+          "success_criteria": "50% compression ratio, <100ms overhead"
         }
       ],
       "eta_hours": 12
@@ -1885,6 +1940,33 @@
           "eta_hours": 4,
           "quality_score": 0,
           "completed_at": "2026-03-27T12:04:22.870300"
+        },
+        {
+          "id": "e3-critical-multi-region-failover",
+          "title": "Multi-region failover and disaster recovery",
+          "description": "Deploy backup orchestrator in different region. Auto-failover on primary failure.",
+          "agent": "architect",
+          "status": "pending",
+          "priority": "P0",
+          "category": "infrastructure",
+          "files": [
+            "orchestrator/master_daemon.py"
+          ],
+          "success_criteria": "Failover <30sec, zero data loss, 99.99% uptime"
+        },
+        {
+          "id": "e3-critical-automated-incident-response",
+          "title": "Automated incident detection and response",
+          "description": "Auto-detect failures, classify severity, execute remediation. Log all incidents.",
+          "agent": "architect",
+          "status": "pending",
+          "priority": "P0",
+          "category": "infrastructure",
+          "files": [
+            "orchestrator/auto_heal.py",
+            "orchestrator/supervisor.py"
+          ],
+          "success_criteria": "MTTD <60s, MTTR <5min, 0 manual ops"
         }
       ],
       "eta_hours": 21

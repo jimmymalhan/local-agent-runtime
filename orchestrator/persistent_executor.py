@@ -110,14 +110,15 @@ def persistent_loop():
     print("[EXECUTOR] ════════════════════════════════════════════════════════")
 
     version = 1
-    check_interval = 30  # Check every 30 seconds
+    check_interval = 5  # Check every 5 seconds (was 30s - 6x faster)
     last_check = 0
+    version = 1
 
     while True:
         try:
             now = time.time()
 
-            # Check for pending tasks periodically
+            # Check for pending tasks more frequently (5s = rapid response)
             if now - last_check > check_interval:
                 pending, total = count_pending_tasks()
                 progress = 100 * (total - pending) / total if total > 0 else 0
