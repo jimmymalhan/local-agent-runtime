@@ -1,10 +1,25 @@
 {
-  "ts": "2026-03-26T23:31:25.138794",
-  "version": {
-    "current": 0,
-    "total": 100,
-    "pct_complete": 0.0,
-    "label": "v0 \u2192 v100"
+  "ts": "2026-03-26T23:33:32.794234",
+  "quality": 0,
+  "quality_score": 0,
+  "model": "local-v1",
+  "recent_tasks": [],
+  "changelog": [],
+  "research_feed": [],
+  "task_queue": {
+    "total": 0,
+    "completed": 0,
+    "in_progress": 0,
+    "failed": 0,
+    "pending": 0
+  },
+  "epic_board": {
+    "epics": [],
+    "operations": {}
+  },
+  "board_plan": {
+    "projects": [],
+    "stages": []
   },
   "agents": {
     "executor": {
@@ -12,7 +27,7 @@
         {
           "id": 0,
           "status": "done",
-          "task": "\ud83d\udea8 CRITICAL: Detect and restart stale agents (",
+          "task": "\ud83d\udea8 EMERGENCY: Fix orchestrator/main.py hang (B",
           "model": "",
           "elapsed_s": 0.0,
           "quality": 75
@@ -20,7 +35,7 @@
         {
           "id": 1,
           "status": "done",
-          "task": "\ud83d\udea8 CRITICAL: Detect and restart stale agents (",
+          "task": "\ud83d\udea8 EMERGENCY: Fix orchestrator/main.py hang (B",
           "model": "",
           "elapsed_s": 0.0,
           "quality": 75
@@ -28,22 +43,15 @@
         {
           "id": 2,
           "status": "done",
-          "task": "\ud83d\udea8 CRITICAL: Detect and restart stale agents (",
+          "task": "\ud83d\udea8 EMERGENCY: Fix orchestrator/main.py hang (B",
           "model": "",
           "elapsed_s": 0.0,
           "quality": 75
         }
       ],
       "worker_count": 0,
-      "last_activity": "2026-03-26T23:30:39.453673"
+      "last_activity": "2026-03-26T23:33:32.794247"
     }
-  },
-  "task_queue": {
-    "total": 0,
-    "completed": 0,
-    "in_progress": 0,
-    "failed": 0,
-    "pending": 0
   },
   "benchmark_scores": {},
   "token_usage": {
@@ -61,179 +69,5 @@
     "alert_level": "ok"
   },
   "failures": [],
-  "research_feed": [],
-  "version_changelog": {},
-  "quality": 0,
-  "quality_score": 0,
-  "model": "local-v1",
-  "recent_tasks": [],
-  "changelog": [],
-  "epic_board": {
-    "ts": "2026-03-26T23:31:25.138630",
-    "epics": [
-      {
-        "id": "system-reliability",
-        "name": "System Reliability & Health",
-        "track": "infrastructure",
-        "status": "completed",
-        "total_tasks": 1,
-        "completed": 1,
-        "in_progress": 0,
-        "pending": 0,
-        "blocked": 0,
-        "progress_pct": 100.0,
-        "agents": [
-          "test_engineer"
-        ],
-        "agent_count": 1
-      },
-      {
-        "id": "dashboard-quality",
-        "name": "Dashboard Quality & State Management",
-        "track": "infrastructure",
-        "status": "completed",
-        "total_tasks": 1,
-        "completed": 1,
-        "in_progress": 0,
-        "pending": 0,
-        "blocked": 0,
-        "progress_pct": 100.0,
-        "agents": [
-          "test_engineer"
-        ],
-        "agent_count": 1
-      },
-      {
-        "id": "policy-governance",
-        "name": "Policy Enforcement & Budget Control",
-        "track": "infrastructure",
-        "status": "completed",
-        "total_tasks": 1,
-        "completed": 1,
-        "in_progress": 0,
-        "pending": 0,
-        "blocked": 0,
-        "progress_pct": 100.0,
-        "agents": [
-          "test_engineer"
-        ],
-        "agent_count": 1
-      },
-      {
-        "id": "execution-optimization",
-        "name": "Multi-Loop Execution & Self-Improvement",
-        "track": "infrastructure",
-        "status": "completed",
-        "total_tasks": 1,
-        "completed": 1,
-        "in_progress": 0,
-        "pending": 0,
-        "blocked": 0,
-        "progress_pct": 100.0,
-        "agents": [
-          "test_engineer"
-        ],
-        "agent_count": 1
-      },
-      {
-        "id": "agent-autonomy",
-        "name": "Local Agent Autonomy Setup",
-        "track": "infrastructure",
-        "status": "completed",
-        "total_tasks": 1,
-        "completed": 1,
-        "in_progress": 0,
-        "pending": 0,
-        "blocked": 0,
-        "progress_pct": 100.0,
-        "agents": [
-          "test_engineer"
-        ],
-        "agent_count": 1
-      },
-      {
-        "id": "blocker-fixes",
-        "name": "P0 Blockers \u2014 Unblock Task Execution (URGENT)",
-        "track": "infrastructure",
-        "status": "completed",
-        "total_tasks": 6,
-        "completed": 6,
-        "in_progress": 0,
-        "pending": 0,
-        "blocked": 0,
-        "progress_pct": 100.0,
-        "agents": [
-          "executor",
-          "test_engineer"
-        ],
-        "agent_count": 2
-      },
-      {
-        "id": "incidents",
-        "name": "Incident Response",
-        "track": "infrastructure",
-        "status": "completed",
-        "total_tasks": 4,
-        "completed": 2,
-        "in_progress": 0,
-        "pending": 2,
-        "blocked": 0,
-        "progress_pct": 50.0,
-        "agents": [
-          "executor"
-        ],
-        "agent_count": 1
-      },
-      {
-        "id": "production-upgrade",
-        "name": "Production Upgrade: 49% \u2192 95%+ Success (Opus 4.6 Replica)",
-        "track": "infrastructure",
-        "status": "pending",
-        "total_tasks": 14,
-        "completed": 0,
-        "in_progress": 0,
-        "pending": 14,
-        "blocked": 0,
-        "progress_pct": 0.0,
-        "agents": [
-          "architect",
-          "executor",
-          "test_engineer"
-        ],
-        "agent_count": 3
-      }
-    ],
-    "operations": {
-      "orchestrator": "running",
-      "task_intake": "continuous",
-      "health_monitor": "every 30 min",
-      "auto_restart": true,
-      "works_24_7": true
-    }
-  },
-  "board_plan": {
-    "projects": [],
-    "stages": []
-  },
-  "auto_heal_status": {
-    "ts": "2026-03-27T06:31:21",
-    "issues_this_cycle": [],
-    "healthy": true,
-    "dashboard_alive": true,
-    "disk_ok": true
-  },
-  "auto_heal_feed": [
-    {
-      "ts": "2026-03-27T06:31:18",
-      "level": "INFO",
-      "event": "started",
-      "detail": "Auto-heal monitor started (checks every 10s)",
-      "agent": ""
-    }
-  ],
-  "auto_heal_counts": {
-    "restarts": 0,
-    "purges": 0,
-    "retrains": 0
-  }
+  "version_changelog": {}
 }

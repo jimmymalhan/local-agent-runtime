@@ -353,9 +353,11 @@ def main():
     daemon.register_task(
         "pr-merge-check", 30, daemon.task_pr_merge_check
     )  # Every 30s
-    daemon.register_task(
-        "full-loop", 600, daemon.task_full_loop
-    )  # Every 10min
+    # TEMPORARY DISABLE: full-loop causes orchestrator/main.py hang
+    # TODO: Re-enable after task-emergency-orchestrator-hang is fixed
+    # daemon.register_task(
+    #     "full-loop", 600, daemon.task_full_loop
+    # )  # Every 10min
     daemon.register_task(
         "epic-status-update", 1800, daemon.task_update_epic_status
     )  # Every 30min
