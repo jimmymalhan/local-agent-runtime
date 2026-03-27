@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-27T10:24:03.886834",
+  "ts": "2026-03-27T10:24:37.191119",
   "version": {
     "current": 1,
     "total": 100,
@@ -12,7 +12,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T10:23:56.215671",
+      "last_activity": "2026-03-27T10:24:26.225851",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -21,26 +21,26 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T10:23:56.215671",
+      "last_activity": "2026-03-27T10:24:26.225851",
       "sub_agents": [],
       "worker_count": 0
     },
     "executor": {
-      "last_activity": "2026-03-27T10:23:56.215671"
+      "last_activity": "2026-03-27T10:24:26.225851"
     },
     "test_engineer": {
-      "last_activity": "2026-03-27T10:23:56.215671"
+      "last_activity": "2026-03-27T10:24:26.225851"
     },
     "researcher": {
-      "last_activity": "2026-03-27T10:23:56.215671"
+      "last_activity": "2026-03-27T10:24:26.225851"
     }
   },
   "task_queue": {
     "total": 30,
     "completed": 30,
-    "pending": 0,
     "in_progress": 0,
-    "failed": 0
+    "failed": 0,
+    "pending": 0
   },
   "benchmark_scores": {
     "v1": {
@@ -53,9 +53,9 @@
   },
   "token_usage": {
     "claude_tokens": 0,
-    "local_tokens": 194624,
-    "budget_pct": 38.9,
-    "warning": false,
+    "local_tokens": 278118,
+    "budget_pct": 55.623599999999996,
+    "warning": true,
     "hard_limit_hit": false
   },
   "hardware": {
@@ -128,7 +128,7 @@
   ],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-27T03:24:03.416089",
+    "ts": "2026-03-27T03:24:37.150998",
     "epics": [
       {
         "id": "system-reliability",
