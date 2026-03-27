@@ -1,13 +1,18 @@
 {
-  "ts": "2026-03-26T23:34:23.211438",
+  "ts": "2026-03-27T06:36:07.356102",
   "version": {
-    "current": 0,
+    "current": 1,
     "total": 100,
-    "pct_complete": 0.0,
-    "label": "v0 \u2192 v100"
+    "pct_complete": 1.0,
+    "label": "v1 running"
   },
   "agents": {
     "executor": {
+      "status": "running",
+      "task": "Test Task",
+      "task_id": "test-1",
+      "elapsed_s": 0.0,
+      "last_activity": "2026-03-26T23:35:55.964407",
       "sub_agents": [
         {
           "id": 0,
@@ -34,14 +39,13 @@
           "quality": 75
         }
       ],
-      "worker_count": 0,
-      "last_activity": "2026-03-26T23:33:41.106886"
+      "worker_count": 0
     }
   },
   "task_queue": {
-    "total": 0,
+    "total": 1,
     "completed": 0,
-    "in_progress": 0,
+    "in_progress": 1,
     "failed": 0,
     "pending": 0
   },
@@ -54,8 +58,8 @@
     "hard_limit_hit": false
   },
   "hardware": {
-    "cpu_pct": 0.0,
-    "ram_pct": 0.0,
+    "cpu_pct": 52.8,
+    "ram_pct": 69.8,
     "disk_pct": 0.0,
     "gpu_pct": null,
     "alert_level": "ok"
@@ -66,10 +70,19 @@
   "quality": 0,
   "quality_score": 0,
   "model": "local-v1",
-  "recent_tasks": [],
+  "recent_tasks": [
+    {
+      "task_id": "test-1",
+      "title": "Test Task",
+      "category": "test",
+      "agent_used": "executor",
+      "status": "running",
+      "local_quality": 0
+    }
+  ],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-26T23:34:23.211206",
+    "ts": "2026-03-26T23:36:04.287052",
     "epics": [
       {
         "id": "system-reliability",
@@ -212,14 +225,244 @@
     }
   },
   "board_plan": {
-    "projects": [],
-    "stages": []
+    "version": 1,
+    "total_tasks": 1,
+    "total_projects": 1,
+    "projects": [
+      {
+        "id": "proj-test",
+        "name": "Testing",
+        "category": "test",
+        "agent": "executor",
+        "tasks": [
+          {
+            "task_id": "test-1",
+            "title": "Test Task",
+            "difficulty": "hard",
+            "status": "running",
+            "agent": "executor",
+            "quality": 0,
+            "elapsed_s": 0.0
+          }
+        ],
+        "total": 1,
+        "done": 0,
+        "in_progress": 1,
+        "failed": 0,
+        "status": "running",
+        "pct": 0.0
+      }
+    ],
+    "initialized_at": "2026-03-26T23:35:55.585135",
+    "status": "planned"
   },
   "auto_heal_status": {
-    "ts": "2026-03-27T06:34:25",
+    "ts": "2026-03-27T06:36:04",
     "issues_this_cycle": [],
     "healthy": true,
     "dashboard_alive": true,
     "disk_ok": true
+  },
+  "calibration": {
+    "version": 1,
+    "ts": "2026-03-27T06:35:55",
+    "results": {
+      "reviewer": {
+        "ts": "2026-03-27T06:32:55",
+        "version": 1,
+        "agent": "reviewer",
+        "avg_score": 0.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": false,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Score this function: def add(a,b): return a+b",
+            "score": 0,
+            "status": "done",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Review a 20-line Python class for quality",
+            "score": 0,
+            "status": "done",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Rate correctness/completeness/style of a module",
+            "score": 0,
+            "status": "done",
+            "elapsed": 0.0
+          }
+        ]
+      },
+      "executor": {
+        "ts": "2026-03-27T06:32:55",
+        "version": 1,
+        "agent": "executor",
+        "avg_score": 75.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": true,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Two Sum \u2014 return indices",
+            "score": 75.0,
+            "status": "completed",
+            "elapsed": 0.0
+          },
+          {
+            "title": "FizzBuzz 1-100",
+            "score": 75.0,
+            "status": "completed",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Reverse a linked list",
+            "score": 75.0,
+            "status": "completed",
+            "elapsed": 0.0
+          }
+        ]
+      },
+      "benchmarker": {
+        "ts": "2026-03-27T06:32:55",
+        "version": 1,
+        "agent": "benchmarker",
+        "avg_score": 80.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": true,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Score output quality 0-100 with rubric",
+            "score": 80,
+            "status": "done",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Compare two solutions: which is better?",
+            "score": 80,
+            "status": "done",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Identify top 3 failure patterns in task batch",
+            "score": 80,
+            "status": "done",
+            "elapsed": 0.0
+          }
+        ]
+      },
+      "researcher": {
+        "ts": "2026-03-27T06:32:55",
+        "version": 1,
+        "agent": "researcher",
+        "avg_score": 100.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": true,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Find top 3 Python HTTP libraries",
+            "score": 100,
+            "status": "done",
+            "elapsed": 0.04
+          },
+          {
+            "title": "Research best practices for retry logic",
+            "score": 100,
+            "status": "done",
+            "elapsed": 0.04
+          },
+          {
+            "title": "Summarise SWE-bench top agent techniques 2025",
+            "score": 100,
+            "status": "done",
+            "elapsed": 0.08
+          }
+        ]
+      },
+      "refactor": {
+        "ts": "2026-03-27T06:35:14",
+        "version": 1,
+        "agent": "refactor",
+        "avg_score": 85.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": true,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Extract helper from 10-line function",
+            "score": 85,
+            "status": "done",
+            "elapsed": 21.27
+          },
+          {
+            "title": "Rename variables for clarity in a module",
+            "score": 85,
+            "status": "done",
+            "elapsed": 33.58
+          },
+          {
+            "title": "Split 200-line class into clean modules",
+            "score": 85,
+            "status": "done",
+            "elapsed": 83.91
+          }
+        ]
+      },
+      "planner": {
+        "ts": "2026-03-27T06:35:55",
+        "version": 1,
+        "agent": "planner",
+        "avg_score": 50.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": true,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Break 'build a REST API' into 5 atomic steps",
+            "score": 50,
+            "status": "done",
+            "elapsed": 60.0
+          },
+          {
+            "title": "Decompose database migration into sub-tasks",
+            "score": 50,
+            "status": "done",
+            "elapsed": 60.0
+          },
+          {
+            "title": "Plan a refactor of a 500-line module",
+            "score": 50,
+            "status": "done",
+            "elapsed": 60.0
+          }
+        ]
+      }
+    },
+    "passing": [
+      "executor",
+      "benchmarker",
+      "researcher",
+      "refactor",
+      "planner"
+    ],
+    "patched": []
+  },
+  "business_summary": {
+    "headline": "0 of 1 engineering tasks complete",
+    "pct_complete": 0.0,
+    "projects_active": 1,
+    "blockers_open": 0,
+    "version": 1,
+    "updated_at": "2026-03-26T23:35:55.966216"
   }
 }
