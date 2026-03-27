@@ -2102,11 +2102,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T14:21:17.228032"
+      },
+      {
+        "attempt": 11,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T14:31:48.938325"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T12:04:16.442390",
-    "rescue_escalated_at": "2026-03-27T14:21:17.233180"
+    "rescue_escalated_at": "2026-03-27T14:31:48.943397"
   },
   "e2-comp-2": {
     "attempts": [
@@ -6845,10 +6852,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T14:13:45.798384"
+      },
+      {
+        "attempt": 3,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T14:21:49.991208"
       }
     ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T14:06:04.736167"
+    "rescue_escalated": true,
+    "first_attempt_at": "2026-03-27T14:06:04.736167",
+    "rescue_escalated_at": "2026-03-27T14:21:49.996682"
   },
   "e4-rescue-flow": {
     "attempts": [
@@ -6865,10 +6880,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T14:13:49.736443"
+      },
+      {
+        "attempt": 3,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T14:25:42.864767"
       }
     ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T14:06:08.908970"
+    "rescue_escalated": true,
+    "first_attempt_at": "2026-03-27T14:06:08.908970",
+    "rescue_escalated_at": "2026-03-27T14:25:42.869891"
   },
   "e4-budget-waterfall": {
     "attempts": [
@@ -6885,10 +6908,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T14:13:53.684699"
+      },
+      {
+        "attempt": 3,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T14:28:51.262983"
       }
     ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T14:06:12.948460"
+    "rescue_escalated": true,
+    "first_attempt_at": "2026-03-27T14:06:12.948460",
+    "rescue_escalated_at": "2026-03-27T14:28:51.267824"
   },
   "e4-resource-alerts": {
     "attempts": [
@@ -6905,10 +6936,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T14:13:57.714876"
+      },
+      {
+        "attempt": 3,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T14:31:51.373957"
       }
     ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T14:06:18.180990"
+    "rescue_escalated": true,
+    "first_attempt_at": "2026-03-27T14:06:18.180990",
+    "rescue_escalated_at": "2026-03-27T14:31:51.379401"
   },
   "e4-roi-chart": {
     "attempts": [

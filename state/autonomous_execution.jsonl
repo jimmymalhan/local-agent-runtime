@@ -2284,3 +2284,13 @@
 {"ts": "2026-03-27T14:21:41.871415", "action": "execute_failed", "agent": "executor", "task_id": "e4-workload-chart", "attempts": 3, "last_error": "Unknown error"}
 {"ts": "2026-03-27T14:21:45.945870", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 26%"}
 {"ts": "2026-03-27T14:21:45.946131", "action": "execute_failed", "agent": "executor", "task_id": "e4-budget-radar", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T14:21:49.989914", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 26%"}
+{"ts": "2026-03-27T14:21:49.990231", "action": "execute_failed", "agent": "executor", "task_id": "e4-token-burndown", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T14:25:42.863625", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 26%"}
+{"ts": "2026-03-27T14:25:42.863884", "action": "execute_failed", "agent": "executor", "task_id": "e4-rescue-flow", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T14:28:51.261953", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 26%"}
+{"ts": "2026-03-27T14:28:51.262215", "action": "execute_failed", "agent": "executor", "task_id": "e4-budget-waterfall", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T14:31:48.936486", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 26%"}
+{"ts": "2026-03-27T14:31:48.937012", "action": "execute_failed", "agent": "executor", "task_id": "e2-comp-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T14:31:51.372874", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 26%"}
+{"ts": "2026-03-27T14:31:51.373144", "action": "execute_failed", "agent": "executor", "task_id": "e4-resource-alerts", "attempts": 3, "last_error": "Unknown error"}
