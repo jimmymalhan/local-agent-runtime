@@ -47,6 +47,20 @@ try:
     _SCHEMA_VALIDATOR = True
 except ImportError:
     _SCHEMA_VALIDATOR = False
+
+# Token enforcer — enforce rescue budget limits (TASK-FIX-5)
+try:
+    from orchestrator.token_enforcer import is_rescue_allowed, deduct_tokens, get_status as get_token_status
+    _TOKEN_ENFORCER = True
+except ImportError:
+    _TOKEN_ENFORCER = False
+    def is_rescue_allowed(task_id):
+        return True  # Fallback: allow rescue if enforcer unavailable
+    def deduct_tokens(tokens):
+        return True
+
+# Schema validator fallback (if import failed above)
+if not _SCHEMA_VALIDATOR:
     def normalize_task_status(status):
         if status in ["completed", "done", "is_done", True]:
             return "completed"
@@ -538,9 +552,14 @@ def run_task_with_fallback(task: dict, version: int,
 
         # Check if we should escalate to rescue
         if not success and can_escalate_to_rescue(task_id, max_attempts=3):
-            print(f"[RESCUE GATE] Task {task_id} escalated after 3 attempts")
-            mark_rescued(task_id)
-            result["rescue_eligible"] = True
+            # TASK-FIX-5: Check token enforcer before allowing rescue
+            if _TOKEN_ENFORCER and not is_rescue_allowed(task_id):
+                print(f"[RESCUE GATE] Task {task_id} blocked by token enforcer (budget exhausted)")
+                result["rescue_eligible"] = False
+            else:
+                print(f"[RESCUE GATE] Task {task_id} escalated after 3 attempts")
+                mark_rescued(task_id)
+                result["rescue_eligible"] = True
         else:
             result["rescue_eligible"] = False
 
