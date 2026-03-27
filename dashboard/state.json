@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-26T20:35:59.483721",
+  "ts": "2026-03-26T20:40:09.909321",
   "version": {
     "current": 1,
     "total": 100,
@@ -12,7 +12,7 @@
       "task": "[0/100] Policy enforcement \u2014 wire token/rescue budget limi",
       "task_id": "task-3",
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-26T20:34:07.153413",
+      "last_activity": "2026-03-26T20:39:36.546373",
       "sub_agents": [
         {
           "id": 0,
@@ -46,7 +46,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-26T20:34:07.158021",
+      "last_activity": "2026-03-26T20:39:36.550975",
       "sub_agents": [],
       "worker_count": 0
     }
@@ -64,7 +64,7 @@
       "opus": 70.0,
       "gap": -70.0,
       "win_rate": 0.0,
-      "ts": "2026-03-26T20:34:07.161307"
+      "ts": "2026-03-26T20:39:36.554747"
     }
   },
   "token_usage": {
@@ -75,13 +75,37 @@
     "hard_limit_hit": false
   },
   "hardware": {
-    "cpu_pct": 30.9,
-    "ram_pct": 71.0,
+    "cpu_pct": 44.5,
+    "ram_pct": 54.0,
     "disk_pct": 0.0,
     "gpu_pct": null,
     "alert_level": "ok"
   },
   "failures": [
+    {
+      "ts": "2026-03-26T20:39:36.544419",
+      "agent": "executor",
+      "task": "Policy enforcement \u2014 wire token/rescue budget limits",
+      "task_id": "task-3",
+      "attempt": 1,
+      "tried": "No module named 'agent_runner'"
+    },
+    {
+      "ts": "2026-03-26T20:37:16.302829",
+      "agent": "executor",
+      "task": "Optimize multi-loop execution \u2014 DAG + parallel + memory + se",
+      "task_id": "task-4",
+      "attempt": 1,
+      "tried": "No module named 'agent_runner'"
+    },
+    {
+      "ts": "2026-03-26T20:37:13.903245",
+      "agent": "executor",
+      "task": "Policy enforcement \u2014 wire token/rescue budget limits",
+      "task_id": "task-3",
+      "attempt": 1,
+      "tried": "No module named 'agent_runner'"
+    },
     {
       "ts": "2026-03-26T20:34:07.151038",
       "agent": "executor",
@@ -112,7 +136,7 @@
       "before_score": 70.0,
       "after_score": 0.0,
       "delta": -70.0,
-      "ts": "2026-03-26T20:34:07.161832"
+      "ts": "2026-03-26T20:39:36.555368"
     }
   },
   "quality": 0,
@@ -130,7 +154,7 @@
   ],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-26T20:35:59.483593",
+    "ts": "2026-03-26T20:40:09.909280",
     "epics": [
       {
         "id": "system-reliability",
@@ -283,7 +307,7 @@
         "pct": 0.0
       }
     ],
-    "initialized_at": "2026-03-26T20:34:04.768541",
+    "initialized_at": "2026-03-26T20:39:34.151334",
     "status": "planned"
   },
   "business_summary": {
@@ -292,10 +316,10 @@
     "projects_active": 0,
     "blockers_open": 1,
     "version": 1,
-    "updated_at": "2026-03-26T20:34:07.155759"
+    "updated_at": "2026-03-26T20:39:36.548279"
   },
   "auto_heal_status": {
-    "ts": "2026-03-27T03:35:51",
+    "ts": "2026-03-27T03:39:30",
     "issues_this_cycle": [],
     "healthy": true,
     "dashboard_alive": true,
@@ -303,10 +327,10 @@
   },
   "calibration": {
     "version": 1,
-    "ts": "2026-03-27T03:34:04",
+    "ts": "2026-03-27T03:39:34",
     "results": {
       "reviewer": {
-        "ts": "2026-03-27T03:31:04",
+        "ts": "2026-03-27T03:37:20",
         "version": 1,
         "agent": "reviewer",
         "avg_score": 0.0,
@@ -335,38 +359,8 @@
           }
         ]
       },
-      "benchmarker": {
-        "ts": "2026-03-27T03:31:04",
-        "version": 1,
-        "agent": "benchmarker",
-        "avg_score": 0.0,
-        "prev_score": 0.0,
-        "regressed": false,
-        "pass": false,
-        "patched": false,
-        "tasks": [
-          {
-            "title": "Score output quality 0-100 with rubric",
-            "score": 0,
-            "status": "done",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Compare two solutions: which is better?",
-            "score": 0,
-            "status": "done",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Identify top 3 failure patterns in task batch",
-            "score": 0,
-            "status": "done",
-            "elapsed": 0.0
-          }
-        ]
-      },
       "executor": {
-        "ts": "2026-03-27T03:31:04",
+        "ts": "2026-03-27T03:37:20",
         "version": 1,
         "agent": "executor",
         "avg_score": 0.0,
@@ -395,8 +389,38 @@
           }
         ]
       },
+      "benchmarker": {
+        "ts": "2026-03-27T03:37:20",
+        "version": 1,
+        "agent": "benchmarker",
+        "avg_score": 80.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": true,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Score output quality 0-100 with rubric",
+            "score": 80,
+            "status": "done",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Compare two solutions: which is better?",
+            "score": 80,
+            "status": "done",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Identify top 3 failure patterns in task batch",
+            "score": 80,
+            "status": "done",
+            "elapsed": 0.0
+          }
+        ]
+      },
       "researcher": {
-        "ts": "2026-03-27T03:31:04",
+        "ts": "2026-03-27T03:37:20",
         "version": 1,
         "agent": "researcher",
         "avg_score": 100.0,
@@ -415,56 +439,95 @@
             "title": "Research best practices for retry logic",
             "score": 100,
             "status": "done",
-            "elapsed": 0.05
+            "elapsed": 0.03
           },
           {
             "title": "Summarise SWE-bench top agent techniques 2025",
             "score": 100,
             "status": "done",
-            "elapsed": 0.07
+            "elapsed": 0.06
           }
         ]
       },
-      "planner": {
-        "ts": "2026-03-27T03:34:04",
+      "doc_writer": {
+        "ts": "2026-03-27T03:39:21",
         "version": 1,
-        "agent": "planner",
-        "avg_score": 50.0,
+        "agent": "doc_writer",
+        "avg_score": 100.0,
         "prev_score": 0.0,
         "regressed": false,
         "pass": true,
         "patched": false,
         "tasks": [
           {
-            "title": "Break 'build a REST API' into 5 atomic steps",
-            "score": 50,
+            "title": "Write docstring for a 5-line function",
+            "score": 100,
             "status": "done",
-            "elapsed": 60.0
+            "elapsed": 63.51
           },
           {
-            "title": "Decompose database migration into sub-tasks",
-            "score": 50,
+            "title": "Write README for a CLI tool",
+            "score": 100,
             "status": "done",
-            "elapsed": 60.0
+            "elapsed": 16.61
           },
           {
-            "title": "Plan a refactor of a 500-line module",
-            "score": 50,
+            "title": "Write API reference for 5 endpoints",
+            "score": 100,
             "status": "done",
-            "elapsed": 60.0
+            "elapsed": 40.45
+          }
+        ]
+      },
+      "test_engineer": {
+        "ts": "2026-03-27T03:39:34",
+        "version": 1,
+        "agent": "test_engineer",
+        "avg_score": 68.3,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": true,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Write pytest for add(a,b)",
+            "score": 75,
+            "status": "done",
+            "elapsed": 69.82
+          },
+          {
+            "title": "Write tests for a REST endpoint handler",
+            "score": 65,
+            "status": "done",
+            "elapsed": 26.72
+          },
+          {
+            "title": "Write integration test for DB migration",
+            "score": 65,
+            "status": "done",
+            "elapsed": 36.75
           }
         ]
       }
     },
     "passing": [
+      "benchmarker",
       "researcher",
-      "planner"
+      "doc_writer",
+      "test_engineer"
     ],
     "patched": []
   },
   "auto_heal_feed": [
     {
       "ts": "2026-03-27T03:34:41",
+      "level": "INFO",
+      "event": "started",
+      "detail": "Auto-heal monitor started (checks every 10s)",
+      "agent": ""
+    },
+    {
+      "ts": "2026-03-27T03:37:20",
       "level": "INFO",
       "event": "started",
       "detail": "Auto-heal monitor started (checks every 10s)",

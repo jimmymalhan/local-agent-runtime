@@ -5,6 +5,7 @@ projects_loader.py — Load tasks from projects.json
 Converts projects.json format to the format expected by orchestrator/main.py
 """
 import json
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import List, Dict, Any
 
@@ -52,10 +53,43 @@ def load_projects_tasks() -> List[Dict[str, Any]]:
 
         # Iterate through tasks in this project
         for task in project.get("tasks", []):
-            # Skip completed/in-progress tasks
             status = task.get("status", "pending")
+            task_id = task.get("id", "unknown")
+
+            # TASK-FIX-2: Check for stuck in_progress tasks (timeout > 5 min) and retry
+            if status == "in_progress":
+                started_at_str = task.get("started_at", None)
+                if started_at_str:
+                    try:
+                        # Parse ISO format timestamp
+                        started_at = datetime.fromisoformat(started_at_str.replace("Z", "+00:00"))
+                        elapsed = datetime.utcnow() - started_at.replace(tzinfo=None)
+
+                        # If stuck longer than 300 seconds, reset to pending and retry
+                        if elapsed.total_seconds() > 300:
+                            print(f"[PROJECTS_LOADER] Task {task_id} stuck (in_progress for {int(elapsed.total_seconds())}s) — resetting to pending")
+                            task["status"] = "pending"
+                            status = "pending"
+                            # The projects.json will be saved below
+                        else:
+                            print(f"[PROJECTS_LOADER] Skipping {task_id} (status=in_progress, elapsed={int(elapsed.total_seconds())}s)")
+                            continue
+                    except Exception as e:
+                        print(f"[PROJECTS_LOADER] Warning parsing timestamp for {task_id}: {e}")
+                        print(f"[PROJECTS_LOADER] Skipping {task_id} (status=in_progress)")
+                        continue
+                else:
+                    print(f"[PROJECTS_LOADER] Skipping {task_id} (status=in_progress, no started_at)")
+                    continue
+
+            # Skip completed tasks
+            if status == "completed":
+                print(f"[PROJECTS_LOADER] Skipping {task_id} (status=completed)")
+                continue
+
+            # Only process pending tasks
             if status != "pending":
-                print(f"[PROJECTS_LOADER] Skipping {task.get('id')} (status={status})")
+                print(f"[PROJECTS_LOADER] Skipping {task_id} (status={status})")
                 continue
 
             # Convert to orchestrator task format
