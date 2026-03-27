@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-27T09:14:00.414245",
+  "ts": "2026-03-27T02:14:14.960506",
   "version": {
     "current": 0,
     "total": 100,
@@ -26,16 +26,16 @@
   "task_queue": {
     "total": 30,
     "completed": 30,
-    "pending": 0,
     "in_progress": 0,
-    "failed": 0
+    "failed": 0,
+    "pending": 0
   },
   "benchmark_scores": {},
   "token_usage": {
     "claude_tokens": 0,
-    "local_tokens": 194624,
-    "budget_pct": 38.9,
-    "warning": false,
+    "local_tokens": 226393,
+    "budget_pct": 45.278600000000004,
+    "warning": true,
     "hard_limit_hit": false
   },
   "hardware": {
@@ -53,7 +53,7 @@
   "recent_tasks": [],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-27T02:13:55.690688",
+    "ts": "2026-03-27T02:14:14.960355",
     "epics": [
       {
         "id": "system-reliability",
@@ -172,7 +172,7 @@
         "id": "production-upgrade",
         "name": "Production Upgrade: 49% \u2192 95%+ Success (Opus 4.6 Replica)",
         "track": "infrastructure",
-        "status": "in_progress",
+        "status": "completed",
         "total_tasks": 14,
         "completed": 14,
         "in_progress": 0,
