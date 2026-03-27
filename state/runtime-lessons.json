@@ -1,102 +1,20 @@
-[
-  {
-    "category": "quality",
-    "trigger": "generic_output_retriever",
-    "lesson": "retriever produced generic or invalid output, retrying with refinement prompt",
-    "fix": "Improve role prompt specificity or use larger model for this stage",
-    "context": "stage=retriever model=qwen2.5:3b provider=ollama",
-    "learned_at": "2026-03-16T23:47:10",
-    "applied_count": 0
+{
+  "metadata": {
+    "version": 2,
+    "created": "2026-03-26T18:51:48",
+    "purpose": "Track agent attempts for 3-attempt rescue gate enforcement",
+    "note": "Migrated from malformed list format to proper dict structure"
   },
-  {
-    "attempts": [
-      {
-        "attempt": 1,
-        "strategy": "autonomous",
-        "error": null,
-        "success": true,
-        "timestamp": "2026-03-26T17:48:54.704717"
-      }
-    ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-26T17:48:54.704709"
-  },
-  {
-    "attempts": [
-      {
-        "attempt": 1,
-        "strategy": "autonomous",
-        "error": null,
-        "success": true,
-        "timestamp": "2026-03-26T17:49:50.842606"
-      }
-    ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-26T17:49:50.842599"
-  },
-  {
-    "attempts": [
-      {
-        "attempt": 1,
-        "strategy": "autonomous",
-        "error": null,
-        "success": true,
-        "timestamp": "2026-03-26T17:50:59.406483"
-      }
-    ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-26T17:50:59.406475"
-  },
-  {
-    "attempts": [
-      {
-        "attempt": 1,
-        "strategy": "autonomous",
-        "error": null,
-        "success": true,
-        "timestamp": "2026-03-26T17:51:56.396113"
-      }
-    ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-26T17:51:56.396106"
-  },
-  {
-    "attempts": [
-      {
-        "attempt": 1,
-        "strategy": "autonomous",
-        "error": null,
-        "success": true,
-        "timestamp": "2026-03-26T17:53:37.174853"
-      }
-    ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-26T17:53:37.174843"
-  },
-  {
-    "attempts": [
-      {
-        "attempt": 1,
-        "strategy": "autonomous",
-        "error": null,
-        "success": true,
-        "timestamp": "2026-03-26T17:54:03.246470"
-      }
-    ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-26T17:54:03.246460"
-  },
-  {
-    "attempts": [
-      {
-        "attempt": 1,
-        "strategy": "autonomous",
-        "error": null,
-        "success": true,
-        "timestamp": "2026-03-26T17:54:28.284488"
-      }
-    ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-26T17:54:28.284483"
-  }
-]
+  "lessons": {},
+  "global_insights": [
+    {
+      "category": "quality",
+      "trigger": "generic_output_retriever",
+      "lesson": "retriever produced generic or invalid output, retrying with refinement prompt",
+      "fix": "Improve role prompt specificity or use larger model for this stage",
+      "context": "stage=retriever model=qwen2.5:3b provider=ollama",
+      "learned_at": "2026-03-16T23:47:10",
+      "applied_count": 0
+    }
+  ]
+}
