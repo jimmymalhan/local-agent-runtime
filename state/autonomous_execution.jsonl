@@ -276,3 +276,13 @@
 {"ts": "2026-03-26T21:23:22.978841", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "No module named 'agent_runner'"}
 {"ts": "2026-03-26T21:23:42.206445", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 37%"}
 {"ts": "2026-03-26T21:23:44.226815", "action": "execute_failed", "agent": "executor", "task_id": "task-1", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:32:02.795861", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 36%"}
+{"ts": "2026-03-26T21:32:04.805825", "action": "execute_failed", "agent": "executor", "task_id": "task-1", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:32:05.205829", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 36%"}
+{"ts": "2026-03-26T21:32:07.212332", "action": "execute_failed", "agent": "executor", "task_id": "task-2", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:32:07.610030", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 36%"}
+{"ts": "2026-03-26T21:32:09.613476", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:32:10.013167", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 36%"}
+{"ts": "2026-03-26T21:32:12.017042", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:32:12.427521", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 36%"}
+{"ts": "2026-03-26T21:32:14.437698", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "No module named 'agent_runner'"}
