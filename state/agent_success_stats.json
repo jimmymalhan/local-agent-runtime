@@ -18,9 +18,9 @@
     "success_rate": 0.5
   },
   "architect": {
-    "success": 66,
-    "total": 66,
-    "tokens": 100217,
+    "success": 68,
+    "total": 68,
+    "tokens": 102875,
     "success_rate": 1.0
   },
   "refactor": {
@@ -30,9 +30,9 @@
     "success_rate": 1.0
   },
   "test_engineer": {
-    "success": 15,
-    "total": 15,
-    "tokens": 13534,
+    "success": 14,
+    "total": 14,
+    "tokens": 12856,
     "success_rate": 1.0
   }
 }
