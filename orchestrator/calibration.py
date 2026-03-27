@@ -152,6 +152,11 @@ def calibrate_agent(agent_mod, agent_name: str, version: int) -> dict:
     Run 3 calibration tasks for one agent.
     Returns {pass: bool, avg_score: float, patched: bool, tasks: list}.
     """
+    import signal
+
+    def timeout_handler(signum, frame):
+        raise TimeoutError(f"Agent {agent_name} timed out after 20 seconds")
+
     tasks = CALIBRATION_TASKS.get(agent_name, CALIBRATION_TASKS["executor"])
     scores = []
     task_results = []
@@ -159,10 +164,21 @@ def calibrate_agent(agent_mod, agent_name: str, version: int) -> dict:
     for cal_task in tasks:
         t0 = time.time()
         try:
+            # Set 20-second timeout for agent.run() to prevent hanging
+            signal.signal(signal.SIGALRM, timeout_handler)
+            signal.alarm(20)
+
             result = agent_mod.run(cal_task)
+
+            signal.alarm(0)  # Cancel timeout
             score  = result.get("quality", result.get("score", 0))
             status = result.get("status", "unknown")
+        except TimeoutError as e:
+            signal.alarm(0)
+            score  = 0
+            status = f"TIMEOUT: {str(e)}"
         except Exception as e:
+            signal.alarm(0)
             score  = 0
             status = f"error: {e}"
         elapsed = round(time.time() - t0, 2)

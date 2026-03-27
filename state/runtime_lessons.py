@@ -49,6 +49,9 @@ def log_attempt(
     try:
         with open(file_path) as f:
             lessons = json.load(f)
+            # Fix: if lessons is a list (old format), convert to dict
+            if isinstance(lessons, list):
+                lessons = {}
     except:
         lessons = {}
 

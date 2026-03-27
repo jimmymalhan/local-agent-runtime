@@ -1,1 +1,15 @@
-[]
+{
+  "test-complete": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-26T23:43:31.791748"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-26T23:43:31.791746"
+  }
+}
