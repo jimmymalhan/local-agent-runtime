@@ -1536,47 +1536,146 @@ const epics = [
 function renderProgressDashboard() {
   const container = document.getElementById('pg-epics-container');
 
-  container.innerHTML = epics.map(epic => `
-    <div class="pg-epic-card">
-      <div class="pg-epic-header">
-        <div class="pg-epic-icon">${epic.icon}</div>
-        <div class="pg-epic-title">
-          <div class="pg-epic-title-main">${epic.title}</div>
-          <div class="pg-epic-title-desc">${epic.desc}</div>
-        </div>
-        <div class="pg-epic-status">
-          <div class="pg-epic-pct" style="color: ${epic.color};">${epic.percentage}%</div>
-          <div class="pg-epic-meta">${epic.status}</div>
-        </div>
-      </div>
+  // Fetch projects.json for real-time data
+  fetch('/state.json')
+    .then(r => r.json())
+    .then(state => {
+      fetch('/../../projects.json')
+        .then(r => r.json())
+        .catch(() => ({ projects: [], metadata: {} }))
+        .then(projectsData => {
+          // Calculate real stats
+          const totalTasks = projectsData.metadata?.total_tasks || 207;
+          const totalProjects = projectsData.metadata?.total_projects || 46;
+          const completedTasks = projectsData.projects?.reduce((sum, p) => {
+            return sum + p.tasks.filter(t => t.status === 'completed').length;
+          }, 0) || 57;
 
-      <!-- Progress Bar -->
-      <div class="pg-progress-bar">
-        <div class="pg-progress-fill" style="width: ${epic.percentage}%; background: linear-gradient(90deg, ${epic.color}, rgba(52,199,89,.6));"></div>
-      </div>
+          const progressPct = Math.round((completedTasks / totalTasks) * 100);
 
-      <!-- Projects Grid -->
-      <div class="pg-projects-grid">
-        ${epic.projects.map(proj => {
-          const projPct = Math.round((proj.done / proj.tasks) * 100);
-          return `
-            <div class="pg-project-item">
-              <div class="pg-project-name">${proj.name}</div>
-              <div class="pg-project-progress">${proj.done}/${proj.tasks} tasks</div>
-              <div class="pg-mini-bar">
-                <div class="pg-mini-fill" style="width: ${projPct}%;"></div>
+          // Categorize projects by tier
+          const byTier = {
+            'Epic 1': projectsData.projects?.filter(p => p.id.includes('epic1')) || [],
+            'Epic 2': projectsData.projects?.filter(p => p.id.includes('epic2')) || [],
+            'Epic 3': projectsData.projects?.filter(p => p.id.includes('epic3')) || [],
+            'Premium': projectsData.projects?.filter(p => p.id.includes('premium')) || [],
+            'Ultra Tier-1': projectsData.projects?.filter(p => p.id.includes('ultra-')) || []
+          };
+
+          let html = `
+            <div style="margin-bottom: 32px; padding: 20px; background: linear-gradient(135deg, rgba(0,113,227,.08), rgba(52,199,89,.08)); border-radius: 16px; border: 1px solid var(--bd);">
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin-bottom: 16px;">
+                <div>
+                  <div style="font-size: 10px; color: var(--t3); text-transform: uppercase; font-weight: 600; margin-bottom: 4px;">Total Progress</div>
+                  <div style="font-size: 36px; font-weight: 700; color: var(--blue);">${progressPct}%</div>
+                  <div style="font-size: 12px; color: var(--t2);">${completedTasks}/${totalTasks} tasks</div>
+                </div>
+                <div>
+                  <div style="font-size: 10px; color: var(--t3); text-transform: uppercase; font-weight: 600; margin-bottom: 4px;">Projects</div>
+                  <div style="font-size: 36px; font-weight: 700; color: var(--green);">${totalProjects}</div>
+                  <div style="font-size: 12px; color: var(--t2);">active streams</div>
+                </div>
+                <div>
+                  <div style="font-size: 10px; color: var(--t3); text-transform: uppercase; font-weight: 600; margin-bottom: 4px;">ETA Hours</div>
+                  <div style="font-size: 36px; font-weight: 700; color: var(--orange);">${projectsData.metadata?.eta_total_hours || 828}</div>
+                  <div style="font-size: 12px; color: var(--t2);">continuous work</div>
+                </div>
+                <div>
+                  <div style="font-size: 10px; color: var(--t3); text-transform: uppercase; font-weight: 600; margin-bottom: 4px;">Revenue Ready</div>
+                  <div style="font-size: 36px; font-weight: 700; color: var(--purple);">💰</div>
+                  <div style="font-size: 12px; color: var(--t2);">premium features</div>
+                </div>
+              </div>
+              <div style="width: 100%; height: 12px; background: var(--bg); border-radius: 6px; overflow: hidden;">
+                <div style="width: ${progressPct}%; height: 100%; background: linear-gradient(90deg, var(--blue), var(--green)); transition: width 0.3s ease;"></div>
               </div>
             </div>
           `;
-        }).join('')}
-      </div>
 
-      <!-- Impact -->
-      <div style="font-size: 13px; color: var(--t2); font-style: italic; padding: 12px; background: var(--bg); border-radius: 10px; border-left: 3px solid ${epic.color};">
-        ${epic.impact}
-      </div>
-    </div>
-  `).join('');
+          // Render by tier
+          Object.entries(byTier).forEach(([tier, projects]) => {
+            if (projects.length === 0) return;
+
+            const tierCompleted = projects.reduce((sum, p) =>
+              sum + p.tasks.filter(t => t.status === 'completed').length, 0);
+            const tierTotal = projects.reduce((sum, p) => sum + p.tasks.length, 0);
+            const tierPct = Math.round((tierCompleted / tierTotal) * 100);
+
+            const tierColors = {
+              'Epic 1': 'var(--green)',
+              'Epic 2': 'var(--blue)',
+              'Epic 3': 'var(--purple)',
+              'Premium': 'var(--orange)',
+              'Ultra Tier-1': '#af52de'
+            };
+
+            html += `
+              <div style="margin-bottom: 24px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+                  <div style="font-size: 16px; font-weight: 700; color: var(--t1);">${tier}</div>
+                  <div style="font-size: 13px; color: var(--t2); font-weight: 500;">${tierCompleted}/${tierTotal} tasks (${tierPct}%)</div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;">
+                  ${projects.map(proj => {
+                    const projCompleted = proj.tasks.filter(t => t.status === 'completed').length;
+                    const projPct = Math.round((projCompleted / proj.tasks.length) * 100);
+                    return `
+                      <div style="background: var(--card); border: 1px solid var(--bd); border-radius: 12px; padding: 14px;">
+                        <div style="font-size: 12px; font-weight: 600; color: var(--t1); margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${proj.name}</div>
+                        <div style="font-size: 11px; color: var(--t2); margin-bottom: 6px;">${projCompleted}/${proj.tasks.length} tasks</div>
+                        <div style="width: 100%; height: 4px; background: var(--bg); border-radius: 2px; overflow: hidden;">
+                          <div style="width: ${projPct}%; height: 100%; background: ${tierColors[tier]}; transition: width 0.3s ease;"></div>
+                        </div>
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+            `;
+          });
+
+          container.innerHTML = html;
+        });
+    })
+    .catch(() => {
+      // Fallback to static view
+      container.innerHTML = epics.map(epic => `
+        <div class="pg-epic-card">
+          <div class="pg-epic-header">
+            <div class="pg-epic-icon">${epic.icon}</div>
+            <div class="pg-epic-title">
+              <div class="pg-epic-title-main">${epic.title}</div>
+              <div class="pg-epic-title-desc">${epic.desc}</div>
+            </div>
+            <div class="pg-epic-status">
+              <div class="pg-epic-pct" style="color: ${epic.color};">${epic.percentage}%</div>
+              <div class="pg-epic-meta">${epic.status}</div>
+            </div>
+          </div>
+          <div class="pg-progress-bar">
+            <div class="pg-progress-fill" style="width: ${epic.percentage}%; background: linear-gradient(90deg, ${epic.color}, rgba(52,199,89,.6));"></div>
+          </div>
+          <div class="pg-projects-grid">
+            ${epic.projects.map(proj => {
+              const projPct = Math.round((proj.done / proj.tasks) * 100);
+              return `
+                <div class="pg-project-item">
+                  <div class="pg-project-name">${proj.name}</div>
+                  <div class="pg-project-progress">${proj.done}/${proj.tasks} tasks</div>
+                  <div class="pg-mini-bar">
+                    <div class="pg-mini-fill" style="width: ${projPct}%;"></div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+          <div style="font-size: 13px; color: var(--t2); font-style: italic; padding: 12px; background: var(--bg); border-radius: 10px; border-left: 3px solid ${epic.color};">
+            ${epic.impact}
+          </div>
+        </div>
+      `).join('');
+    });
 }
 
 // Initialize on page load
