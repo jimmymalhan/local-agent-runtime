@@ -139,3 +139,8 @@
 {"ts": "2026-03-26T19:08:36.389602", "action": "execute_task", "agent": "executor", "task_id": 8, "attempt": 1, "status": "done", "quality": 100, "tokens": 1237, "elapsed": 25.191402912139893, "autonomous": true}
 {"ts": "2026-03-26T19:09:31.314365", "action": "execute_task", "agent": "executor", "task_id": 9, "attempt": 1, "status": "done", "quality": 100, "tokens": 2629, "elapsed": 54.549216985702515, "autonomous": true}
 {"ts": "2026-03-26T19:10:05.859197", "action": "execute_task", "agent": "executor", "task_id": 10, "attempt": 1, "status": "done", "quality": 100, "tokens": 1634, "elapsed": 34.15998101234436, "autonomous": true}
+{"ts": "2026-03-26T19:12:46.739195", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:12:49.133076", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:12:51.547934", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T19:12:51.942792", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T19:12:52.309660", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-2", "attempts": 3, "last_error": "Unknown error"}
