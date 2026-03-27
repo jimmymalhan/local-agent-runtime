@@ -884,7 +884,7 @@
           "title": "[P2] Ultra UI upgrades: Real-time metrics, live agent status, workflow viz",
           "description": "Upgrade dashboard/index.html with: real-time metric updates, live agent status cards, workflow visualization, performance graph, task timeline. Make ultra-modern Apple-style design.",
           "agent": "frontend_engineer",
-          "status": "pending",
+          "status": "completed",
           "priority": "P2",
           "eta_hours": 3,
           "quality_target": 80,
@@ -892,7 +892,8 @@
             "dashboard/index.html",
             "dashboard/server.py"
           ],
-          "success_criteria": "Dashboard shows real-time metrics, smooth animations, responsive"
+          "success_criteria": "Dashboard shows real-time metrics, smooth animations, responsive",
+          "completed_at": "projects_loader"
         },
         {
           "id": "benchmark-performance",
