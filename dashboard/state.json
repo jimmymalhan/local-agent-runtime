@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-26T23:23:33.409217",
+  "ts": "2026-03-26T23:24:02.300942",
   "version": {
     "current": 1,
     "total": 100,
@@ -8,61 +8,61 @@
   },
   "agents": {
     "executor": {
-      "status": "running",
-      "task": "Fix blocker_monitor stuck-state detection",
+      "status": "idle",
+      "task": "",
       "task_id": "task-blocker-stuck-state",
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-26T23:20:38.938983",
+      "last_activity": "2026-03-27T06:23:54.732459",
       "sub_agents": [],
       "worker_count": 0
     },
     "reviewer": {
-      "status": "stale",
+      "status": "idle",
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-26T23:09:18.146173",
+      "last_activity": "2026-03-27T06:23:54.733698",
       "sub_agents": [],
       "worker_count": 0,
       "last_check": "2026-03-27T06:19:12.622152"
     },
     "test_engineer": {
-      "status": "stale",
+      "status": "idle",
       "task": "",
       "task_id": null,
       "elapsed_s": 0,
-      "last_activity": "2026-03-27T06:06:32.172615",
+      "last_activity": "2026-03-27T06:23:54.734473",
       "sub_agents": [],
       "worker_count": 0,
       "last_check": "2026-03-27T06:19:12.622152"
     },
     "architect": {
-      "status": "stale",
-      "task": "STALE - needs restart",
+      "status": "idle",
+      "task": "",
       "task_id": 2,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-26T23:09:18.536516",
+      "last_activity": "2026-03-27T06:23:54.735241",
       "sub_agents": [],
       "worker_count": 0,
       "last_check": "2026-03-27T06:19:12.622152",
       "stale_since": "2026-03-26T23:09:18.536516"
     },
     "debugger": {
-      "status": "stale",
+      "status": "idle",
       "task": "",
       "task_id": null,
       "elapsed_s": 0,
-      "last_activity": "2026-03-27T06:06:32.172616",
+      "last_activity": "2026-03-27T06:23:54.735877",
       "sub_agents": [],
       "worker_count": 0,
       "last_check": "2026-03-27T06:19:12.622152"
     },
     "researcher": {
-      "status": "stale",
+      "status": "idle",
       "task": "",
       "task_id": null,
       "elapsed_s": 0,
-      "last_activity": "2026-03-27T06:06:32.172617",
+      "last_activity": "2026-03-27T06:23:54.736455",
       "sub_agents": [],
       "worker_count": 0,
       "last_check": "2026-03-27T06:19:12.622152"
@@ -94,7 +94,7 @@
   "research_feed": [],
   "version_changelog": {},
   "epic_board": {
-    "ts": "2026-03-26T23:23:33.409114",
+    "ts": "2026-03-26T23:24:02.300803",
     "epics": [
       {
         "id": "system-reliability",
@@ -219,7 +219,7 @@
     }
   },
   "auto_heal_status": {
-    "ts": "2026-03-27T06:23:31",
+    "ts": "2026-03-27T06:24:01",
     "issues_this_cycle": [],
     "healthy": true,
     "dashboard_alive": true,

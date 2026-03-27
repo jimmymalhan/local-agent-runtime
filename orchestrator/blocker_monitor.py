@@ -170,22 +170,49 @@ def escalate_to_prompt_upgrade(agent_name: str, failure_reason: str) -> bool:
 
 
 def restart_agent(agent_name: str) -> bool:
-    """Restart a blocked agent by clearing its state."""
+    """Restart a blocked/stale agent by clearing its state and task."""
     logger.info(f"🔄 Restarting agent: {agent_name}...")
     try:
-        # Clear stuck state
+        # Clear stuck state from runtime-lessons (it's a list, not dict)
         lessons_path = os.path.join(STATE_DIR, "runtime-lessons.json")
         if os.path.exists(lessons_path):
-            lessons = json.load(open(lessons_path))
-            # Clear attempts for this agent
-            for task_id in list(lessons.keys()):
-                if "task" in str(task_id) or task_id == agent_name:
-                    if task_id in lessons:
-                        lessons[task_id] = {"attempts": []}
-            with open(lessons_path, "w") as f:
-                json.dump(lessons, f, indent=2)
+            try:
+                lessons = json.load(open(lessons_path))
+                # If it's a list, clear it for fresh start
+                if isinstance(lessons, list):
+                    # Reset to empty list (fresh state)
+                    lessons = []
+                else:
+                    # If dict, clear attempts for this agent
+                    for task_id in list(lessons.keys()):
+                        if "task" in str(task_id) or task_id == agent_name:
+                            if task_id in lessons:
+                                lessons[task_id] = {"attempts": []}
 
-        logger.info(f"✅ Agent {agent_name} restarted (state cleared)")
+                with open(lessons_path, "w") as f:
+                    json.dump(lessons, f, indent=2)
+                logger.debug(f"  Cleared runtime lessons for {agent_name}")
+            except Exception as e:
+                logger.debug(f"  Could not clear lessons: {e}")
+
+        # Clear agent task assignment and reset status in dashboard
+        dashboard_path = os.path.join(BASE_DIR, "dashboard", "state.json")
+        if os.path.exists(dashboard_path):
+            with open(dashboard_path, "r") as f:
+                state = json.load(f)
+
+            if agent_name in state.get("agents", {}):
+                agent = state["agents"][agent_name]
+                # Clear stale task and reset status
+                agent["task"] = ""
+                agent["status"] = "idle"
+                agent["last_activity"] = datetime.utcnow().isoformat()
+                logger.info(f"  Reset {agent_name} to idle")
+
+            with open(dashboard_path, "w") as f:
+                json.dump(state, f, indent=2)
+
+        logger.info(f"✅ Agent {agent_name} restarted (state + task cleared)")
         return True
     except Exception as e:
         logger.error(f"❌ Restart failed: {e}")
