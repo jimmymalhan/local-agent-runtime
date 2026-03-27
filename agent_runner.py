@@ -17,11 +17,13 @@ import os
 import sys
 import time
 import logging
-import subprocess
 from pathlib import Path
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Dict, List, Optional
+
+# Add project root to path so agents can be imported
+sys.path.insert(0, str(Path(__file__).parent))
 
 # Setup logging
 logging.basicConfig(
@@ -90,60 +92,57 @@ class AgentOrchestrator:
         Returns:
             bool: True if dispatch successful
         """
+        task_id = task.get('id', 'unknown')
+
         try:
-            task_id = task.get('id', 'unknown')
-            task_type = task.get('type', 'general')
+            logger.info(f"Dispatching task {task_id}")
 
-            logger.info(f"Dispatching task {task_id} ({task_type})")
+            # Import agent interface
+            from agents import run_task
+            from agents.persistence import update_task_result, mark_task_attempted
 
-            # Map task type to agent module
-            agent_module = self._get_agent_for_task(task_type)
+            # Mark attempt before running
+            mark_task_attempted(task_id)
 
-            if not agent_module:
-                logger.warning(f"No agent for task type {task_type}")
-                return False
+            # Run agent (handles routing internally)
+            start_time = time.time()
+            result = run_task(task)
+            elapsed = time.time() - start_time
 
-            # Run agent in subprocess (isolated)
-            result = subprocess.run(
-                [sys.executable, '-m', agent_module, task_id],
-                cwd=str(BASE_DIR),
-                timeout=300,  # 5 minute timeout per task
-                capture_output=True,
-                text=True
+            logger.info(f"Task {task_id} result: {result}")
+
+            # Update persistence layer
+            status = result.get('status', 'failed')
+            quality = float(result.get('quality', result.get('quality_score', 0)))
+
+            # Normalize status
+            if status in ['completed', 'done', 'is_done']:
+                status = 'completed'
+            elif status in ['failed', 'error']:
+                status = 'failed'
+            else:
+                status = 'pending'
+
+            success = status == 'completed'
+            error_msg = result.get('error', '')
+
+            update_task_result(
+                task_id=task_id,
+                status=status,
+                quality_score=quality,
+                elapsed_time=elapsed,
+                error_msg=error_msg
             )
 
-            logger.info(f"Task {task_id} completed with return code {result.returncode}")
+            logger.info(f"Task {task_id} completed: status={status}, quality={quality}, elapsed={elapsed:.1f}s")
+            return success
 
-            if result.stdout:
-                logger.debug(f"Agent output: {result.stdout[:200]}")
-
-            if result.returncode != 0 and result.stderr:
-                logger.error(f"Agent error: {result.stderr[:200]}")
-
-            return result.returncode == 0
-
-        except subprocess.TimeoutExpired:
-            logger.error(f"Task {task_id} timed out after 300s")
+        except ImportError as e:
+            logger.error(f"Import error for task {task_id}: {e}")
             return False
         except Exception as e:
-            logger.error(f"Error dispatching task {task_id}: {e}")
+            logger.error(f"Error dispatching task {task_id}: {e}", exc_info=True)
             return False
-
-    def _get_agent_for_task(self, task_type: str) -> Optional[str]:
-        """Map task type to agent module name."""
-        mapping = {
-            'planning': 'agents.planner',
-            'research': 'agents.researcher',
-            'execution': 'agents.executor',
-            'review': 'agents.reviewer',
-            'testing': 'agents.test_engineer',
-            'documentation': 'agents.doc_writer',
-            'refactoring': 'agents.refactor',
-            'architecture': 'agents.architect',
-            'benchmarking': 'agents.benchmarker',
-            'debugging': 'agents.debugger',
-        }
-        return mapping.get(task_type, 'agents.executor')
 
     def run_loop(self, duration_seconds: Optional[int] = None):
         """

@@ -871,11 +871,11 @@
         "strategy": "autonomous",
         "error": null,
         "success": true,
-        "timestamp": "2026-03-26T19:06:37.498579"
+        "timestamp": "2026-03-26T22:13:43.189472"
       }
     ],
     "rescue_escalated": false,
-    "first_attempt_at": "2026-03-26T19:06:37.498577"
+    "first_attempt_at": "2026-03-26T22:13:43.189468"
   },
   "5": {
     "attempts": [
@@ -884,11 +884,11 @@
         "strategy": "autonomous",
         "error": null,
         "success": true,
-        "timestamp": "2026-03-26T19:07:27.361477"
+        "timestamp": "2026-03-26T22:14:07.681295"
       }
     ],
     "rescue_escalated": false,
-    "first_attempt_at": "2026-03-26T19:07:27.361472"
+    "first_attempt_at": "2026-03-26T22:14:07.681290"
   },
   "6": {
     "attempts": [
@@ -897,11 +897,11 @@
         "strategy": "autonomous",
         "error": null,
         "success": true,
-        "timestamp": "2026-03-26T19:07:46.486466"
+        "timestamp": "2026-03-26T22:14:22.908370"
       }
     ],
     "rescue_escalated": false,
-    "first_attempt_at": "2026-03-26T19:07:46.486460"
+    "first_attempt_at": "2026-03-26T22:14:22.908368"
   },
   "7": {
     "attempts": [
@@ -910,11 +910,11 @@
         "strategy": "autonomous",
         "error": null,
         "success": true,
-        "timestamp": "2026-03-26T19:08:10.821126"
+        "timestamp": "2026-03-26T22:14:39.656338"
       }
     ],
     "rescue_escalated": false,
-    "first_attempt_at": "2026-03-26T19:08:10.821121"
+    "first_attempt_at": "2026-03-26T22:14:39.656335"
   },
   "8": {
     "attempts": [
@@ -1193,17 +1193,17 @@
     "first_attempt_at": "2026-03-26T21:52:29.553385",
     "rescue_escalated_at": "2026-03-26T22:10:24.621165"
   },
-  "4": {
+  "8": {
     "attempts": [
       {
         "attempt": 1,
         "strategy": "autonomous",
         "error": null,
         "success": true,
-        "timestamp": "2026-03-26T22:13:43.189472"
+        "timestamp": "2026-03-26T22:15:06.088297"
       }
     ],
     "rescue_escalated": false,
-    "first_attempt_at": "2026-03-26T22:13:43.189468"
+    "first_attempt_at": "2026-03-26T22:15:06.088288"
   }
 }
