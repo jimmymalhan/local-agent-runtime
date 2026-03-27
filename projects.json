@@ -1076,10 +1076,11 @@
           "title": "Implement multi-level task classification (ML-based)",
           "description": "Use embeddings/ML to classify task difficulty, domain, dependencies",
           "agent": "backend_engineer",
-          "status": "pending",
+          "status": "completed",
           "priority": "P0",
           "success_criteria": "Classification accuracy >85%, latency <100ms",
-          "eta_hours": 4
+          "eta_hours": 4,
+          "completed_at": "projects_loader"
         },
         {
           "id": "agent-intel-2",
