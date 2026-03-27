@@ -198,3 +198,15 @@
 {"ts": "2026-03-26T20:23:22.727865", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-2", "attempts": 3, "last_error": "Unknown error"}
 {"ts": "2026-03-26T20:23:42.911886", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 47%"}
 {"ts": "2026-03-26T20:23:44.928066", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:33:15.242094", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 46%"}
+{"ts": "2026-03-26T20:33:17.255119", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:33:17.654533", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 46%"}
+{"ts": "2026-03-26T20:33:19.665805", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:33:20.050273", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 46%"}
+{"ts": "2026-03-26T20:33:22.060978", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T20:33:22.462702", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 45%"}
+{"ts": "2026-03-26T20:33:22.483694", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T20:33:22.874395", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 45%"}
+{"ts": "2026-03-26T20:33:22.882170", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-2", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T20:34:05.135083", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 45%"}
+{"ts": "2026-03-26T20:34:07.145704", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
