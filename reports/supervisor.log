@@ -1987,3 +1987,86 @@
   ✓ logs_purged
   ✓ state_store
 [2026-03-27 12:37:24] [INFO] SUPERVISOR: Pre-flight PASS — v1 cleared to run
+[2026-03-27 12:47:27] [INFO] SUPERVISOR: Supervisor started (background)
+[2026-03-27 12:47:27] [INFO] SUPERVISOR: Pre-flight for v1 (5 tasks)
+[2026-03-27 12:47:27] [INFO] SUPERVISOR: Pre-flight checklist:
+  ✓ registry
+  ✓ no_duplicates
+  ✓ hardware
+  ✓ claude_budget
+  ✓ logs_purged
+  ✓ state_store
+[2026-03-27 12:47:27] [INFO] SUPERVISOR: Pre-flight PASS — v1 cleared to run
+[2026-03-27 12:50:47] [INFO] SUPERVISOR: Supervisor started (background)
+[2026-03-27 12:50:47] [INFO] SUPERVISOR: Pre-flight for v1 (428 tasks)
+[2026-03-27 12:50:47] [INFO] SUPERVISOR: Pre-flight checklist:
+  ✓ registry
+  ✓ no_duplicates
+  ✓ hardware
+  ✓ claude_budget
+  ✓ logs_purged
+  ✓ state_store
+[2026-03-27 12:50:47] [INFO] SUPERVISOR: Pre-flight PASS — v1 cleared to run
+[2026-03-27 12:51:31] [INFO] SUPERVISOR: Supervisor started (background)
+[2026-03-27 12:51:31] [INFO] SUPERVISOR: Pre-flight for v1 (428 tasks)
+[2026-03-27 12:51:31] [INFO] SUPERVISOR: Pre-flight checklist:
+  ✓ registry
+  ✓ no_duplicates
+  ✓ hardware
+  ✓ claude_budget
+  ✓ logs_purged
+  ✓ state_store
+[2026-03-27 12:51:31] [INFO] SUPERVISOR: Pre-flight PASS — v1 cleared to run
+[2026-03-27 12:51:44] [INFO] SUPERVISOR: Supervisor started (background)
+[2026-03-27 12:51:44] [INFO] SUPERVISOR: Pre-flight for v1 (1 tasks)
+[2026-03-27 12:51:44] [INFO] SUPERVISOR: Pre-flight checklist:
+  ✓ registry
+  ✓ no_duplicates
+  ✓ hardware
+  ✓ claude_budget
+  ✓ logs_purged
+  ✓ state_store
+[2026-03-27 12:51:44] [INFO] SUPERVISOR: Pre-flight PASS — v1 cleared to run
+[2026-03-27 12:51:50] [INFO] SUPERVISOR: Supervisor started (background)
+[2026-03-27 12:51:50] [INFO] SUPERVISOR: Pre-flight for v1 (1 tasks)
+[2026-03-27 12:51:50] [INFO] SUPERVISOR: Pre-flight checklist:
+  ✓ registry
+  ✓ no_duplicates
+  ✓ hardware
+  ✓ claude_budget
+  ✓ logs_purged
+  ✓ state_store
+[2026-03-27 12:51:50] [INFO] SUPERVISOR: Pre-flight PASS — v1 cleared to run
+[2026-03-27 12:52:04] [INFO] SUPERVISOR: Supervisor started (background)
+[2026-03-27 12:52:04] [INFO] SUPERVISOR: Pre-flight for v5 (428 tasks)
+[2026-03-27 12:52:04] [INFO] SUPERVISOR: Purged old log: v1_compare.jsonl
+[2026-03-27 12:52:04] [INFO] SUPERVISOR: Pre-flight checklist:
+  ✓ registry
+  ✗ no_duplicates
+  ✓ hardware
+  ✓ claude_budget
+  ✓ logs_purged
+  ✓ state_store
+  Auto-fixes applied: 1
+[2026-03-27 12:52:04] [INFO] SUPERVISOR: Pre-flight PASS — v5 cleared to run
+[2026-03-27 12:54:12] [INFO] SUPERVISOR: Supervisor started (background)
+[2026-03-27 12:54:12] [INFO] SUPERVISOR: Pre-flight for v1 (328 tasks)
+[2026-03-27 12:54:12] [INFO] SUPERVISOR: Pre-flight checklist:
+  ✓ registry
+  ✓ no_duplicates
+  ✓ hardware
+  ✓ claude_budget
+  ✓ logs_purged
+  ✓ state_store
+[2026-03-27 12:54:12] [INFO] SUPERVISOR: Pre-flight PASS — v1 cleared to run
+[2026-03-27 12:54:25] [INFO] SUPERVISOR: Supervisor started (background)
+[2026-03-27 12:54:25] [INFO] SUPERVISOR: Pre-flight for v5 (328 tasks)
+[2026-03-27 12:54:25] [INFO] SUPERVISOR: Pre-flight checklist:
+  ✓ registry
+  ✗ no_duplicates
+  ✓ hardware
+  ✓ claude_budget
+  ✓ logs_purged
+  ✓ state_store
+  Auto-fixes applied: 1
+[2026-03-27 12:54:25] [INFO] SUPERVISOR: Pre-flight PASS — v5 cleared to run
