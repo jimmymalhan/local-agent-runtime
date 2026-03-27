@@ -11,7 +11,7 @@
           "title": "System health check \u2014 verify orchestrator/dashboard/agents running",
           "description": "Verify all runtime components are operational: orchestrator/main.py, dashboard server, agents, watchdog, cron jobs",
           "agent": "executor",
-          "status": "in_progress",
+          "status": "pending",
           "priority": "P0",
           "files": [
             "orchestrator/main.py",
@@ -39,7 +39,7 @@
           "title": "Fix dashboard state \u2014 implement missing quality/model fields",
           "description": "Implement schema validation for dashboard/state.json. Add defaults for missing fields: quality, model, recent_tasks, changelog, research_feed",
           "agent": "test_engineer",
-          "status": "in_progress",
+          "status": "pending",
           "priority": "P1",
           "files": [
             "dashboard/state_writer.py",
@@ -261,7 +261,7 @@
           "title": "P0: Task dispatch broken",
           "description": "All 5 tasks pending, none executing. Orchestrator not picking up tasks from projects.json.",
           "agent": "executor",
-          "status": "in_progress",
+          "status": "pending",
           "priority": "P0",
           "files": [
             "AUTOMATED"
@@ -276,7 +276,7 @@
           "title": "P0: Tasks not executing",
           "description": "No tasks executing (all pending). Orchestrator may not be dispatching tasks from projects.json.",
           "agent": "executor",
-          "status": "in_progress",
+          "status": "pending",
           "priority": "P0",
           "files": [
             "AUTOMATED"

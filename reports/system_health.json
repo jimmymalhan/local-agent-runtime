@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-03-26T20:40:55.683960",
+  "checks": {
+    "orchestrator": false,
+    "dashboard": true,
+    "agents": false,
+    "watchdog": false,
+    "cron": true
+  },
+  "passed": 2,
+  "total": 5,
+  "status": "FAIL"
+}

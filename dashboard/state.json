@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-26T20:40:09.909321",
+  "ts": "2026-03-26T20:40:58.055740",
   "version": {
     "current": 1,
     "total": 100,
@@ -123,7 +123,23 @@
       "tried": "unknown error"
     }
   ],
-  "research_feed": [],
+  "research_feed": [
+    {
+      "ts": "2026-03-26T20:40:30.116267",
+      "finding": "v5: Model produces code that fails assertion tests silently",
+      "source": ""
+    },
+    {
+      "ts": "2026-03-26T20:40:30.115668",
+      "finding": "v5: Model writes wrong import paths for multi-file projects",
+      "source": ""
+    },
+    {
+      "ts": "2026-03-26T20:40:30.114986",
+      "finding": "v5: Model truncates code in the middle of a function",
+      "source": ""
+    }
+  ],
   "version_changelog": {
     "v1": {
       "changes": [
@@ -154,7 +170,7 @@
   ],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-26T20:40:09.909280",
+    "ts": "2026-03-26T20:40:58.055685",
     "epics": [
       {
         "id": "system-reliability",
@@ -163,8 +179,8 @@
         "status": "in_progress",
         "total_tasks": 1,
         "completed": 0,
-        "in_progress": 1,
-        "pending": 0,
+        "in_progress": 0,
+        "pending": 1,
         "blocked": 0,
         "progress_pct": 0.0,
         "agents": [
@@ -179,8 +195,8 @@
         "status": "in_progress",
         "total_tasks": 1,
         "completed": 0,
-        "in_progress": 1,
-        "pending": 0,
+        "in_progress": 0,
+        "pending": 1,
         "blocked": 0,
         "progress_pct": 0.0,
         "agents": [
@@ -260,8 +276,8 @@
         "status": "active",
         "total_tasks": 2,
         "completed": 0,
-        "in_progress": 2,
-        "pending": 0,
+        "in_progress": 0,
+        "pending": 2,
         "blocked": 0,
         "progress_pct": 0.0,
         "agents": [
@@ -319,7 +335,7 @@
     "updated_at": "2026-03-26T20:39:36.548279"
   },
   "auto_heal_status": {
-    "ts": "2026-03-27T03:39:30",
+    "ts": "2026-03-27T03:40:54",
     "issues_this_cycle": [],
     "healthy": true,
     "dashboard_alive": true,
@@ -528,6 +544,20 @@
     },
     {
       "ts": "2026-03-27T03:37:20",
+      "level": "INFO",
+      "event": "started",
+      "detail": "Auto-heal monitor started (checks every 10s)",
+      "agent": ""
+    },
+    {
+      "ts": "2026-03-27T03:40:14",
+      "level": "INFO",
+      "event": "started",
+      "detail": "Auto-heal monitor started (checks every 10s)",
+      "agent": ""
+    },
+    {
+      "ts": "2026-03-27T03:40:30",
       "level": "INFO",
       "event": "started",
       "detail": "Auto-heal monitor started (checks every 10s)",
