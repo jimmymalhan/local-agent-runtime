@@ -297,23 +297,75 @@
         "strategy": "autonomous",
         "error": null,
         "success": true,
-        "timestamp": "2026-03-27T08:08:20.844254"
-      }
-    ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T08:08:20.844245"
-  },
-  "5": {
-    "attempts": [
-      {
-        "attempt": 1,
-        "strategy": "autonomous",
-        "error": null,
-        "success": true,
         "timestamp": "2026-03-27T08:18:58.951686"
       }
     ],
     "rescue_escalated": false,
     "first_attempt_at": "2026-03-27T08:18:58.951679"
+  },
+  "task-advanced-caching": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T08:26:08.661166"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T08:26:08.661164"
+  },
+  "task-network-grpc": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T08:26:09.034821"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T08:26:09.034820"
+  },
+  "task-agent-selfimprove": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T08:26:09.414321"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T08:26:09.414319"
+  },
+  "task-consensus-protocol": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T08:26:09.758476"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T08:26:09.758474"
+  },
+  "task-emergent-behavior": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T08:26:10.106105"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T08:26:10.106104"
   }
 }

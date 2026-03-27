@@ -775,3 +775,8 @@
 {"ts": "2026-03-27T08:17:54.339772", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1964, "elapsed": 38.344348192214966, "autonomous": true}
 {"ts": "2026-03-27T08:18:30.440479", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1572, "elapsed": 35.704890727996826, "autonomous": true}
 {"ts": "2026-03-27T08:18:58.950993", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1325, "elapsed": 28.126505136489868, "autonomous": true}
+{"ts": "2026-03-27T08:26:08.660315", "action": "execute_failed", "agent": "executor", "task_id": "task-advanced-caching", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:26:09.034257", "action": "execute_failed", "agent": "executor", "task_id": "task-network-grpc", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:26:09.413940", "action": "execute_failed", "agent": "executor", "task_id": "task-agent-selfimprove", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:26:09.758074", "action": "execute_failed", "agent": "executor", "task_id": "task-consensus-protocol", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:26:10.105601", "action": "execute_failed", "agent": "executor", "task_id": "task-emergent-behavior", "attempts": 3, "last_error": "Unknown error"}
