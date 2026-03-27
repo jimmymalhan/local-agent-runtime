@@ -977,12 +977,13 @@
           "id": "phase3-quality-gates",
           "title": "Add quality gates to task execution",
           "agent": "reviewer",
-          "status": "pending",
+          "status": "completed",
           "priority": "P0",
           "files": [],
           "success_criteria": "Complete: Add quality gates to task execution",
           "eta_hours": 4,
-          "eta_completion": "2026-03-27T16:36:38.442626Z"
+          "eta_completion": "2026-03-27T16:36:38.442626Z",
+          "completed_at": "projects_loader"
         },
         {
           "id": "phase3-performance-tuning",

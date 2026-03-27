@@ -399,11 +399,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T11:06:55.268272"
+      },
+      {
+        "attempt": 5,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T11:16:59.400560"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T10:36:47.864609",
-    "rescue_escalated_at": "2026-03-27T11:06:55.268787"
+    "rescue_escalated_at": "2026-03-27T11:16:59.401472"
   },
   "phase3-performance-tuning": {
     "attempts": [
@@ -427,11 +434,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T11:06:55.603314"
+      },
+      {
+        "attempt": 4,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T11:16:59.744975"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T10:46:50.776654",
-    "rescue_escalated_at": "2026-03-27T11:06:55.603885"
+    "rescue_escalated_at": "2026-03-27T11:16:59.745576"
   },
   "1": {
     "attempts": [
@@ -440,11 +454,11 @@
         "strategy": "autonomous",
         "error": null,
         "success": true,
-        "timestamp": "2026-03-27T11:07:19.825814"
+        "timestamp": "2026-03-27T11:17:20.773470"
       }
     ],
     "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T11:07:19.825812"
+    "first_attempt_at": "2026-03-27T11:17:20.773463"
   },
   "2": {
     "attempts": [
@@ -453,10 +467,23 @@
         "strategy": "autonomous",
         "error": null,
         "success": true,
-        "timestamp": "2026-03-27T11:07:36.223616"
+        "timestamp": "2026-03-27T11:17:37.944562"
       }
     ],
     "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T11:07:36.223613"
+    "first_attempt_at": "2026-03-27T11:17:37.944547"
+  },
+  "3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": true,
+        "timestamp": "2026-03-27T11:18:15.897709"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T11:18:15.897701"
   }
 }
