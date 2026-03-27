@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "ts": "2026-03-27T12:55:23",
+  "ts": "2026-03-27T13:05:26",
   "state": {
-    "ts": "2026-03-27T12:55:22.512767",
+    "ts": "2026-03-27T13:05:23.778015",
     "version": {
       "current": 1,
       "total": 100,
@@ -11,31 +11,31 @@
     },
     "agents": {
       "executor": {
-        "last_activity": "2026-03-27T12:54:59.080483"
+        "last_activity": "2026-03-27T13:04:59.277629"
       },
       "architect": {
         "status": "idle",
         "task": "",
         "task_id": null,
         "elapsed_s": 0.0,
-        "last_activity": "2026-03-27T12:54:59.080483",
+        "last_activity": "2026-03-27T13:04:59.277629",
         "sub_agents": [],
         "worker_count": 0
       },
       "test_engineer": {
-        "last_activity": "2026-03-27T12:54:59.080483"
+        "last_activity": "2026-03-27T13:04:59.277629"
       },
       "reviewer": {
         "status": "idle",
         "task": "",
         "task_id": null,
         "elapsed_s": 0.0,
-        "last_activity": "2026-03-27T12:54:59.080483",
+        "last_activity": "2026-03-27T13:04:59.277629",
         "sub_agents": [],
         "worker_count": 0
       },
       "researcher": {
-        "last_activity": "2026-03-27T12:54:59.080483"
+        "last_activity": "2026-03-27T13:04:59.277629"
       }
     },
     "task_queue": {
@@ -51,18 +51,18 @@
         "opus": 70.0,
         "gap": 30.0,
         "win_rate": 100.0,
-        "ts": "2026-03-27T05:47:28.090958"
+        "ts": "2026-03-27T05:58:21.293627"
       }
     },
     "token_usage": {
       "claude_tokens": 0,
-      "local_tokens": 379192,
-      "budget_pct": 75.8384,
+      "local_tokens": 387471,
+      "budget_pct": 77.4942,
       "warning": true,
       "hard_limit_hit": false
     },
     "hardware": {
-      "cpu_pct": 34.3,
+      "cpu_pct": 35.3,
       "ram_pct": 71.4,
       "disk_pct": 0.0,
       "gpu_pct": null,
@@ -82,7 +82,7 @@
         "before_score": 70.0,
         "after_score": 100.0,
         "delta": 30.0,
-        "ts": "2026-03-27T05:47:28.093134"
+        "ts": "2026-03-27T05:58:21.294488"
       }
     },
     "quality": 95,
@@ -131,7 +131,7 @@
     ],
     "changelog": [],
     "epic_board": {
-      "ts": "2026-03-27T05:55:20.376613",
+      "ts": "2026-03-27T06:05:22.909120",
       "epics": [
         {
           "id": "system-reliability",
@@ -292,7 +292,7 @@
               "status": "done",
               "agent": "architect",
               "quality": 100,
-              "elapsed_s": 25.6
+              "elapsed_s": 44.4
             },
             {
               "task_id": 2,
@@ -301,7 +301,7 @@
               "status": "done",
               "agent": "architect",
               "quality": 100,
-              "elapsed_s": 15.9
+              "elapsed_s": 30.4
             },
             {
               "task_id": 3,
@@ -310,7 +310,7 @@
               "status": "done",
               "agent": "architect",
               "quality": 100,
-              "elapsed_s": 33.1
+              "elapsed_s": 23.4
             },
             {
               "task_id": 4,
@@ -319,7 +319,7 @@
               "status": "done",
               "agent": "architect",
               "quality": 100,
-              "elapsed_s": 29.9
+              "elapsed_s": 37.8
             },
             {
               "task_id": 5,
@@ -328,7 +328,7 @@
               "status": "done",
               "agent": "architect",
               "quality": 100,
-              "elapsed_s": 20.8
+              "elapsed_s": 39.9
             }
           ],
           "total": 5,
@@ -339,7 +339,7 @@
           "pct": 100.0
         }
       ],
-      "initialized_at": "2026-03-27T05:45:20.752221",
+      "initialized_at": "2026-03-27T05:55:23.539970",
       "status": "planned"
     },
     "auto_heal_feed": [
@@ -412,6 +412,13 @@
         "event": "started",
         "detail": "Auto-heal monitor started (checks every 10s)",
         "agent": ""
+      },
+      {
+        "ts": "2026-03-27T13:05:25",
+        "level": "INFO",
+        "event": "started",
+        "detail": "Auto-heal monitor started (checks every 10s)",
+        "agent": ""
       }
     ],
     "auto_heal_counts": {
@@ -420,7 +427,7 @@
       "retrains": 0
     },
     "auto_heal_status": {
-      "ts": "2026-03-27T12:55:23",
+      "ts": "2026-03-27T13:05:25",
       "issues_this_cycle": [],
       "healthy": true,
       "dashboard_alive": true,
@@ -428,40 +435,10 @@
     },
     "calibration": {
       "version": 1,
-      "ts": "2026-03-27T12:45:20",
+      "ts": "2026-03-27T12:55:23",
       "results": {
-        "planner": {
-          "ts": "2026-03-27T12:45:20",
-          "version": 1,
-          "agent": "planner",
-          "avg_score": 0.0,
-          "prev_score": 0.0,
-          "regressed": false,
-          "pass": false,
-          "patched": false,
-          "tasks": [
-            {
-              "title": "Break 'build a REST API' into 5 atomic steps",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Decompose database migration into sub-tasks",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Plan a refactor of a 500-line module",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            }
-          ]
-        },
         "executor": {
-          "ts": "2026-03-27T12:45:20",
+          "ts": "2026-03-27T12:55:23",
           "version": 1,
           "agent": "executor",
           "avg_score": 0.0,
@@ -490,10 +467,10 @@
             }
           ]
         },
-        "test_engineer": {
-          "ts": "2026-03-27T12:45:20",
+        "planner": {
+          "ts": "2026-03-27T12:55:23",
           "version": 1,
-          "agent": "test_engineer",
+          "agent": "planner",
           "avg_score": 0.0,
           "prev_score": 0.0,
           "regressed": false,
@@ -501,19 +478,49 @@
           "patched": false,
           "tasks": [
             {
-              "title": "Write pytest for add(a,b)",
+              "title": "Break 'build a REST API' into 5 atomic steps",
               "score": 0,
               "status": "error: signal only works in main thread of the main interpreter",
               "elapsed": 0.0
             },
             {
-              "title": "Write tests for a REST endpoint handler",
+              "title": "Decompose database migration into sub-tasks",
               "score": 0,
               "status": "error: signal only works in main thread of the main interpreter",
               "elapsed": 0.0
             },
             {
-              "title": "Write integration test for DB migration",
+              "title": "Plan a refactor of a 500-line module",
+              "score": 0,
+              "status": "error: signal only works in main thread of the main interpreter",
+              "elapsed": 0.0
+            }
+          ]
+        },
+        "reviewer": {
+          "ts": "2026-03-27T12:55:23",
+          "version": 1,
+          "agent": "reviewer",
+          "avg_score": 0.0,
+          "prev_score": 0.0,
+          "regressed": false,
+          "pass": false,
+          "patched": false,
+          "tasks": [
+            {
+              "title": "Score this function: def add(a,b): return a+b",
+              "score": 0,
+              "status": "error: signal only works in main thread of the main interpreter",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Review a 20-line Python class for quality",
+              "score": 0,
+              "status": "error: signal only works in main thread of the main interpreter",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Rate correctness/completeness/style of a module",
               "score": 0,
               "status": "error: signal only works in main thread of the main interpreter",
               "elapsed": 0.0
@@ -521,7 +528,7 @@
           ]
         },
         "architect": {
-          "ts": "2026-03-27T12:45:20",
+          "ts": "2026-03-27T12:55:23",
           "version": 1,
           "agent": "architect",
           "avg_score": 0.0,
@@ -551,7 +558,7 @@
           ]
         },
         "debugger": {
-          "ts": "2026-03-27T12:45:20",
+          "ts": "2026-03-27T12:55:23",
           "version": 1,
           "agent": "debugger",
           "avg_score": 0.0,
@@ -580,8 +587,38 @@
             }
           ]
         },
+        "refactor": {
+          "ts": "2026-03-27T12:55:23",
+          "version": 1,
+          "agent": "refactor",
+          "avg_score": 0.0,
+          "prev_score": 0.0,
+          "regressed": false,
+          "pass": false,
+          "patched": false,
+          "tasks": [
+            {
+              "title": "Extract helper from 10-line function",
+              "score": 0,
+              "status": "error: signal only works in main thread of the main interpreter",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Rename variables for clarity in a module",
+              "score": 0,
+              "status": "error: signal only works in main thread of the main interpreter",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Split 200-line class into clean modules",
+              "score": 0,
+              "status": "error: signal only works in main thread of the main interpreter",
+              "elapsed": 0.0
+            }
+          ]
+        },
         "benchmarker": {
-          "ts": "2026-03-27T12:45:20",
+          "ts": "2026-03-27T12:55:23",
           "version": 1,
           "agent": "benchmarker",
           "avg_score": 0.0,
@@ -611,7 +648,7 @@
           ]
         },
         "researcher": {
-          "ts": "2026-03-27T12:45:20",
+          "ts": "2026-03-27T12:55:23",
           "version": 1,
           "agent": "researcher",
           "avg_score": 0.0,
@@ -640,38 +677,8 @@
             }
           ]
         },
-        "refactor": {
-          "ts": "2026-03-27T12:45:20",
-          "version": 1,
-          "agent": "refactor",
-          "avg_score": 0.0,
-          "prev_score": 0.0,
-          "regressed": false,
-          "pass": false,
-          "patched": false,
-          "tasks": [
-            {
-              "title": "Extract helper from 10-line function",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Rename variables for clarity in a module",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Split 200-line class into clean modules",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            }
-          ]
-        },
         "doc_writer": {
-          "ts": "2026-03-27T12:45:20",
+          "ts": "2026-03-27T12:55:23",
           "version": 1,
           "agent": "doc_writer",
           "avg_score": 0.0,
@@ -700,10 +707,10 @@
             }
           ]
         },
-        "reviewer": {
-          "ts": "2026-03-27T12:45:20",
+        "test_engineer": {
+          "ts": "2026-03-27T12:55:23",
           "version": 1,
-          "agent": "reviewer",
+          "agent": "test_engineer",
           "avg_score": 0.0,
           "prev_score": 0.0,
           "regressed": false,
@@ -711,19 +718,19 @@
           "patched": false,
           "tasks": [
             {
-              "title": "Score this function: def add(a,b): return a+b",
+              "title": "Write pytest for add(a,b)",
               "score": 0,
               "status": "error: signal only works in main thread of the main interpreter",
               "elapsed": 0.0
             },
             {
-              "title": "Review a 20-line Python class for quality",
+              "title": "Write tests for a REST endpoint handler",
               "score": 0,
               "status": "error: signal only works in main thread of the main interpreter",
               "elapsed": 0.0
             },
             {
-              "title": "Rate correctness/completeness/style of a module",
+              "title": "Write integration test for DB migration",
               "score": 0,
               "status": "error: signal only works in main thread of the main interpreter",
               "elapsed": 0.0
@@ -740,7 +747,7 @@
       "projects_active": 0,
       "blockers_open": 0,
       "version": 1,
-      "updated_at": "2026-03-27T05:47:28.078667"
+      "updated_at": "2026-03-27T05:58:21.284250"
     }
   }
 }
