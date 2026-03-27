@@ -823,7 +823,7 @@
           "title": "[P0] Implement agent auto-recovery (no more stuck agents)",
           "description": "Create agent_healer.py that monitors agent status every 30 seconds. If agent idle > 5 minutes without task, auto-assign next pending task. If fails 3x, escalate. Accept if agents never stuck.",
           "agent": "executor",
-          "status": "pending",
+          "status": "completed",
           "priority": "P0",
           "eta_hours": 2,
           "quality_target": 95,
@@ -831,7 +831,8 @@
             "orchestrator/agent_healer.py",
             "state/agent_stats.json"
           ],
-          "success_criteria": "No agent stuck idle >5min, auto-recovery working"
+          "success_criteria": "No agent stuck idle >5min, auto-recovery working",
+          "completed_at": "projects_loader"
         },
         {
           "id": "verify-no-external-crons",

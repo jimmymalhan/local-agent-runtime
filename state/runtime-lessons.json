@@ -1,11 +1,67 @@
-[
-  {
-    "category": "resource",
-    "trigger": "auto_resolve_memory_ceiling",
-    "lesson": "Auto-resolved memory_ceiling with unload_ollama: No resident Ollama models to unload",
-    "fix": "Stop resident Ollama models first to recover memory now",
-    "context": "wait_event=1 snapshot=RESOURCE cpu=91.0%/70% mem=84.0%/70%",
-    "learned_at": "2026-03-27T09:26:50",
-    "applied_count": 0
+{
+  "phase2-task-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T09:39:00.291004"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T09:39:00.291002"
+  },
+  "phase2-task-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T09:39:00.679912"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T09:39:00.679909"
+  },
+  "phase2-task-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T09:39:01.067376"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T09:39:01.067374"
+  },
+  "phase2-task-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T09:39:01.455249"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T09:39:01.455247"
+  },
+  "phase2-task-5": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T09:39:01.809945"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T09:39:01.809943"
   }
-]
+}
