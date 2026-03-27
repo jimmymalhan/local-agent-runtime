@@ -28,20 +28,24 @@
         "strategy": "autonomous",
         "error": null,
         "success": true,
-        "timestamp": "2026-03-26T17:14:58.901507"
+        "timestamp": "2026-03-26T17:15:16.520658"
       }
     ],
     "rescue_escalated": false,
-    "first_attempt_at": "2026-03-26T17:14:58.901494"
+    "first_attempt_at": "2026-03-26T17:15:16.520650"
   },
   {
-    "category": "blocker_resolution",
-    "trigger": "repeated_same_error",
-    "lesson": "Debugging the same error for more than 3 minutes without trying a different approach is a time sink. Switch approach or switch task.",
-    "fix": "After 2 failed attempts at the same fix: (1) try a completely different approach, (2) if still stuck, log blocker to auto-remediation.json and switch to next task, (3) return after completing one other task.",
-    "context": "skill=fast-iteration pattern=stuck-detection",
-    "learned_at": "2026-03-17T10:00:00",
-    "applied_count": 0
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": true,
+        "timestamp": "2026-03-26T17:16:23.585478"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-26T17:16:23.585472"
   },
   {
     "category": "parallel_execution",

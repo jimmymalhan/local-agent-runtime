@@ -861,8 +861,18 @@ def _write_version_file(version: int):
 
 def auto_loop(start_version: int):
     """Full autonomous v{start}→v1000 loop. Self-improves until beating Opus 4.6."""
+    # Load tasks from both task_suite.py (legacy) and projects.json (new)
     from tasks.task_suite import build_task_suite
+    from orchestrator.projects_loader import load_projects_tasks
+
     tasks = build_task_suite()
+
+    # Add pending tasks from projects.json (P0 FIX: Wire task dispatch)
+    project_tasks = load_projects_tasks()
+    if project_tasks:
+        print(f"[PROJECTS] Loaded {len(project_tasks)} tasks from projects.json")
+        tasks.extend(project_tasks)
+        print(f"[PROJECTS] Total tasks now: {len(tasks)} (suite + projects)")
 
     # Start 1-minute rescue watchdog in background
     state_path   = os.path.join(BASE_DIR, "dashboard", "state.json")
@@ -956,7 +966,16 @@ def main():
         return
 
     from tasks.task_suite import build_task_suite
+    from orchestrator.projects_loader import load_projects_tasks
+
     tasks = build_task_suite()
+
+    # Add pending tasks from projects.json (P0 FIX: Wire task dispatch)
+    project_tasks = load_projects_tasks()
+    if project_tasks:
+        print(f"[PROJECTS] Loaded {len(project_tasks)} tasks from projects.json")
+        tasks.extend(project_tasks)
+
     run_version(args.version, tasks, local_only=args.local_only, quick=args.quick)
 
 

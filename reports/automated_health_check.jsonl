@@ -1,0 +1,2 @@
+{"ts": "2026-03-26T17:41:29.276036", "status": "FAIL", "issue": "All 5 tasks pending, none executing", "severity": "P0", "action": "Wire orchestrator to projects.json, ensure task dispatch active"}
+{"ts": "2026-03-26T17:41:29.280559", "status": "OK", "issue": "Cron jobs active", "severity": "INFO", "action": ""}

@@ -4,7 +4,10 @@
     "autonomous coding agent self-improvement",
     "DAG task scheduling parallel agents",
     "vector memory retrieval coding agents",
-    "tree-sitter AST blast radius analysis"
+    "tree-sitter AST blast radius analysis",
+    "git worktree parallel agent isolation",
+    "OpenTelemetry tracing AI agents",
+    "RICE prioritization engineering backlogs"
   ],
   "queued": [
     {
@@ -41,7 +44,28 @@
       "topic": "tree-sitter AST blast radius analysis",
       "status": "pending",
       "ts": "2026-03-27T00:05:05.672593"
+    },
+    {
+      "id": "R1774570505",
+      "title": "Implement insight from: git worktree parallel agent isolation",
+      "topic": "git worktree parallel agent isolation",
+      "status": "pending",
+      "ts": "2026-03-27T00:15:05.678080"
+    },
+    {
+      "id": "R1774571105",
+      "title": "Implement insight from: OpenTelemetry tracing AI agents",
+      "topic": "OpenTelemetry tracing AI agents",
+      "status": "pending",
+      "ts": "2026-03-27T00:25:05.682845"
+    },
+    {
+      "id": "R1774571705",
+      "title": "Implement insight from: RICE prioritization engineering backlogs",
+      "topic": "RICE prioritization engineering backlogs",
+      "status": "pending",
+      "ts": "2026-03-27T00:35:05.691948"
     }
   ],
-  "ts": "2026-03-27T00:05:05.672645"
+  "ts": "2026-03-27T00:35:05.691968"
 }
