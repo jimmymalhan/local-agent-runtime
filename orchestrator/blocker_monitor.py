@@ -62,12 +62,37 @@ def read_dashboard_state() -> Dict:
 
 
 def detect_blocked_agents(state: Dict) -> List[str]:
-    """Find all agents with status='blocked'."""
+    """Find all agents with status='blocked' OR stale (inactive > 10 min)."""
     agents = state.get("agents", {})
     blocked = []
+    now = datetime.utcnow()
+    STALE_THRESHOLD = 600  # 10 minutes in seconds
+
     for agent_name, agent_data in agents.items():
-        if isinstance(agent_data, dict) and agent_data.get("status") == "blocked":
+        if not isinstance(agent_data, dict):
+            continue
+
+        status = agent_data.get("status")
+
+        # Check for explicitly blocked agents
+        if status == "blocked":
             blocked.append(agent_name)
+            continue
+
+        # Check for stale agents (elapsed > 10 min)
+        last_activity = agent_data.get("last_activity", "")
+        if last_activity:
+            try:
+                last_ts = datetime.fromisoformat(last_activity.replace("Z", "+00:00"))
+                elapsed = (now - last_ts).total_seconds()
+
+                if elapsed > STALE_THRESHOLD:
+                    # Mark as stale blocker
+                    blocked.append(agent_name)
+                    logger.debug(f"  Detected stale agent: {agent_name} (inactive {elapsed/60:.0f}min)")
+            except Exception as e:
+                logger.debug(f"  Could not parse activity time for {agent_name}: {e}")
+
     return blocked
 
 

@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-26T23:20:38.940157",
+  "ts": "2026-03-27T06:23:29.892909",
   "version": {
     "current": 1,
     "total": 100,
@@ -94,7 +94,7 @@
   "research_feed": [],
   "version_changelog": {},
   "epic_board": {
-    "ts": "2026-03-26T23:20:35.269412",
+    "ts": "2026-03-26T23:23:28.593524",
     "epics": [
       {
         "id": "system-reliability",
@@ -494,5 +494,7 @@
     "purges": 0,
     "retrains": 0
   },
-  "last_stale_check": "2026-03-27T06:19:12.622152"
+  "last_stale_check": "2026-03-27T06:19:12.622152",
+  "timestamp": "2026-03-27T06:23:27.902567Z",
+  "last_updated": "2026-03-27T06:23:27.902737Z"
 }
