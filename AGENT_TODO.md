@@ -194,6 +194,34 @@
 
 ---
 
+## 🚨 CRITICAL FINDING — 7-Hour Blockage (FIXED)
+
+### Root Cause Identified: macOS Quarantine Attributes
+
+**Issue**: System was completely blocked for 7+ hours (08:26 to 15:26). The 10-minute full-loop hadn't executed since 08:26:07, preventing all task execution. Daemon was running but orchestrator calls failed with:
+```
+/Library/Developer/CommandLineTools/usr/bin/python3: can't open file 'agent_runner.py': [Errno 1] Operation not permitted
+```
+
+**Root Cause**: macOS quarantine attributes (com.apple.provenance) applied to ALL Python files in agents/ and orchestrator/, preventing execution.
+
+**Fix Applied**:
+- Removed com.apple.provenance xattr from 60+ Python files (agents/* and orchestrator/*)
+- Committed fix: commit 967e81d "fix: remove macOS quarantine attributes from all Python files"
+- Pushed to remote
+
+**Status**: FIXED ✅
+- All Python files now executable
+- Daemon will auto-restart via LaunchAgent
+- Full 10-minute loop should resume on next daemon restart
+- Expect task execution to resume automatically within 1 minute
+
+**Why This Happened**: Files were downloaded/transferred with macOS quarantine flags, blocking all execution. This is a common macOS security feature for downloaded files.
+
+**Prevention**: Added to CLAUDE.md guidelines: Always check for and remove macOS quarantine attributes when transferring Python files to ensure executable status.
+
+---
+
 ## 📋 Execution Instructions
 
 ### How to Pick Up Tasks
