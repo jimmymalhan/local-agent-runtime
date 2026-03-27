@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "ts": "2026-03-27T02:50:44",
+  "ts": "2026-03-27T03:00:49",
   "state": {
-    "ts": "2026-03-26T19:50:42.971531",
+    "ts": "2026-03-26T20:00:45.111142",
     "version": {
       "current": 1,
       "total": 100,
@@ -15,7 +15,7 @@
         "task": "[0/100] Policy enforcement \u2014 wire token/rescue budget limi",
         "task_id": "task-3",
         "elapsed_s": 0.0,
-        "last_activity": "2026-03-26T19:43:45.443881",
+        "last_activity": "2026-03-26T19:53:46.983450",
         "sub_agents": [
           {
             "id": 0,
@@ -49,7 +49,7 @@
         "task": "",
         "task_id": null,
         "elapsed_s": 0.0,
-        "last_activity": "2026-03-26T19:43:45.446120",
+        "last_activity": "2026-03-26T19:53:46.985692",
         "sub_agents": [],
         "worker_count": 0
       }
@@ -67,7 +67,7 @@
         "opus": 70.0,
         "gap": -70.0,
         "win_rate": 0.0,
-        "ts": "2026-03-26T19:43:45.448177"
+        "ts": "2026-03-26T19:53:46.987467"
       }
     },
     "token_usage": {
@@ -78,15 +78,15 @@
       "hard_limit_hit": false
     },
     "hardware": {
-      "cpu_pct": 36.8,
-      "ram_pct": 70.7,
+      "cpu_pct": 43.8,
+      "ram_pct": 71.0,
       "disk_pct": 0.0,
       "gpu_pct": null,
       "alert_level": "ok"
     },
     "failures": [
       {
-        "ts": "2026-03-26T19:43:45.443125",
+        "ts": "2026-03-26T19:53:46.982565",
         "agent": "executor",
         "task": "Policy enforcement \u2014 wire token/rescue budget limits",
         "task_id": "task-3",
@@ -94,7 +94,7 @@
         "tried": "No module named 'agent_runner'"
       },
       {
-        "ts": "2026-03-26T19:43:22.502805",
+        "ts": "2026-03-26T19:53:22.362839",
         "agent": "executor",
         "task": "P0: Fix task router stuck-task logic \u2014 retry in_progress > 5",
         "task_id": "task-fix-2",
@@ -104,17 +104,17 @@
     ],
     "research_feed": [
       {
-        "ts": "2026-03-26T19:50:30.142229",
+        "ts": "2026-03-26T20:00:30.023017",
         "finding": "v5: Model produces code that fails assertion tests silently",
         "source": ""
       },
       {
-        "ts": "2026-03-26T19:50:30.141561",
+        "ts": "2026-03-26T20:00:30.022427",
         "finding": "v5: Model writes wrong import paths for multi-file projects",
         "source": ""
       },
       {
-        "ts": "2026-03-26T19:50:30.140797",
+        "ts": "2026-03-26T20:00:30.021753",
         "finding": "v5: Model truncates code in the middle of a function",
         "source": ""
       }
@@ -131,7 +131,7 @@
         "before_score": 70.0,
         "after_score": 0.0,
         "delta": -70.0,
-        "ts": "2026-03-26T19:43:45.448767"
+        "ts": "2026-03-26T19:53:46.988091"
       }
     },
     "quality": 0,
@@ -149,7 +149,7 @@
     ],
     "changelog": [],
     "epic_board": {
-      "ts": "2026-03-26T19:50:42.971449",
+      "ts": "2026-03-26T20:00:45.111039",
       "epics": [
         {
           "id": "system-reliability",
@@ -302,7 +302,7 @@
           "pct": 0.0
         }
       ],
-      "initialized_at": "2026-03-26T19:43:43.048443",
+      "initialized_at": "2026-03-26T19:53:44.576038",
       "status": "planned"
     },
     "business_summary": {
@@ -311,10 +311,10 @@
       "projects_active": 0,
       "blockers_open": 1,
       "version": 1,
-      "updated_at": "2026-03-26T19:43:45.444954"
+      "updated_at": "2026-03-26T19:53:46.984495"
     },
     "auto_heal_status": {
-      "ts": "2026-03-27T02:50:44",
+      "ts": "2026-03-27T03:00:48",
       "issues_this_cycle": [],
       "healthy": true,
       "dashboard_alive": true,
@@ -322,10 +322,10 @@
     },
     "calibration": {
       "version": 1,
-      "ts": "2026-03-27T02:43:43",
+      "ts": "2026-03-27T02:53:44",
       "results": {
         "reviewer": {
-          "ts": "2026-03-27T02:40:43",
+          "ts": "2026-03-27T02:50:44",
           "version": 1,
           "agent": "reviewer",
           "avg_score": 0.0,
@@ -354,38 +354,8 @@
             }
           ]
         },
-        "benchmarker": {
-          "ts": "2026-03-27T02:40:43",
-          "version": 1,
-          "agent": "benchmarker",
-          "avg_score": 0.0,
-          "prev_score": 0.0,
-          "regressed": false,
-          "pass": false,
-          "patched": false,
-          "tasks": [
-            {
-              "title": "Score output quality 0-100 with rubric",
-              "score": 0,
-              "status": "done",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Compare two solutions: which is better?",
-              "score": 0,
-              "status": "done",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Identify top 3 failure patterns in task batch",
-              "score": 0,
-              "status": "done",
-              "elapsed": 0.0
-            }
-          ]
-        },
         "executor": {
-          "ts": "2026-03-27T02:40:43",
+          "ts": "2026-03-27T02:50:44",
           "version": 1,
           "agent": "executor",
           "avg_score": 0.0,
@@ -414,8 +384,38 @@
             }
           ]
         },
+        "benchmarker": {
+          "ts": "2026-03-27T02:50:44",
+          "version": 1,
+          "agent": "benchmarker",
+          "avg_score": 0.0,
+          "prev_score": 0.0,
+          "regressed": false,
+          "pass": false,
+          "patched": false,
+          "tasks": [
+            {
+              "title": "Score output quality 0-100 with rubric",
+              "score": 0,
+              "status": "done",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Compare two solutions: which is better?",
+              "score": 0,
+              "status": "done",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Identify top 3 failure patterns in task batch",
+              "score": 0,
+              "status": "done",
+              "elapsed": 0.0
+            }
+          ]
+        },
         "researcher": {
-          "ts": "2026-03-27T02:40:43",
+          "ts": "2026-03-27T02:50:44",
           "version": 1,
           "agent": "researcher",
           "avg_score": 100.0,
@@ -428,24 +428,24 @@
               "title": "Find top 3 Python HTTP libraries",
               "score": 100,
               "status": "done",
-              "elapsed": 0.06
+              "elapsed": 0.04
             },
             {
               "title": "Research best practices for retry logic",
               "score": 100,
               "status": "done",
-              "elapsed": 0.03
+              "elapsed": 0.05
             },
             {
               "title": "Summarise SWE-bench top agent techniques 2025",
               "score": 100,
               "status": "done",
-              "elapsed": 0.06
+              "elapsed": 0.07
             }
           ]
         },
         "planner": {
-          "ts": "2026-03-27T02:43:43",
+          "ts": "2026-03-27T02:53:44",
           "version": 1,
           "agent": "planner",
           "avg_score": 50.0,
@@ -483,21 +483,21 @@
     },
     "auto_heal_feed": [
       {
-        "ts": "2026-03-27T02:50:13",
+        "ts": "2026-03-27T03:00:14",
         "level": "INFO",
         "event": "started",
         "detail": "Auto-heal monitor started (checks every 10s)",
         "agent": ""
       },
       {
-        "ts": "2026-03-27T02:50:30",
+        "ts": "2026-03-27T03:00:30",
         "level": "INFO",
         "event": "started",
         "detail": "Auto-heal monitor started (checks every 10s)",
         "agent": ""
       },
       {
-        "ts": "2026-03-27T02:50:44",
+        "ts": "2026-03-27T03:00:48",
         "level": "INFO",
         "event": "started",
         "detail": "Auto-heal monitor started (checks every 10s)",
