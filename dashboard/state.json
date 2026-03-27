@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-27T16:26:25.479738",
+  "ts": "2026-03-27T16:26:35.602643",
   "version": {
     "current": 1,
     "total": 100,
@@ -12,7 +12,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T16:26:02.743791",
+      "last_activity": "2026-03-27T16:26:32.748815",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -21,7 +21,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T16:26:02.743791",
+      "last_activity": "2026-03-27T16:26:32.748815",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -30,15 +30,15 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T16:26:02.743791",
+      "last_activity": "2026-03-27T16:26:32.748815",
       "sub_agents": [],
       "worker_count": 0
     },
     "test_engineer": {
-      "last_activity": "2026-03-27T16:26:02.743791"
+      "last_activity": "2026-03-27T16:26:32.748815"
     },
     "researcher": {
-      "last_activity": "2026-03-27T16:26:02.743791"
+      "last_activity": "2026-03-27T16:26:32.748815"
     }
   },
   "task_queue": {
@@ -74,7 +74,7 @@
       "opus": 70.0,
       "gap": -70.0,
       "win_rate": 0.0,
-      "ts": "2026-03-27T09:16:25.439171"
+      "ts": "2026-03-27T09:26:28.567468"
     }
   },
   "token_usage": {
@@ -85,13 +85,53 @@
     "hard_limit_hit": false
   },
   "hardware": {
-    "cpu_pct": 30.1,
-    "ram_pct": 55.9,
+    "cpu_pct": 33.7,
+    "ram_pct": 56.0,
     "disk_pct": 0.0,
     "gpu_pct": null,
     "alert_level": "ok"
   },
   "failures": [
+    {
+      "ts": "2026-03-27T09:26:28.559937",
+      "agent": "executor",
+      "task": "[P2] Ultra UI upgrades: Real-time metrics, live agent status",
+      "task_id": "upgrade-ui-realtime",
+      "attempt": 1,
+      "tried": "unknown error"
+    },
+    {
+      "ts": "2026-03-27T09:26:28.193699",
+      "agent": "executor",
+      "task": "[P1] Implement workflow phase auto-selection (no manual pick",
+      "task_id": "impl-workflow-autodispatch",
+      "attempt": 1,
+      "tried": "unknown error"
+    },
+    {
+      "ts": "2026-03-27T09:26:27.817117",
+      "agent": "executor",
+      "task": "[P1] Implement automatic PR detection and merge in 10min loo",
+      "task_id": "impl-auto-pr-merge",
+      "attempt": 1,
+      "tried": "unknown error"
+    },
+    {
+      "ts": "2026-03-27T09:26:27.447769",
+      "agent": "executor",
+      "task": "[P0] Verify & remove all external cron jobs",
+      "task_id": "verify-no-external-crons",
+      "attempt": 1,
+      "tried": "unknown error"
+    },
+    {
+      "ts": "2026-03-27T09:26:27.109938",
+      "agent": "executor",
+      "task": "[P0] Implement agent auto-recovery (no more stuck agents)",
+      "task_id": "impl-agent-autorecovery",
+      "attempt": 1,
+      "tried": "unknown error"
+    },
     {
       "ts": "2026-03-27T09:16:25.431431",
       "agent": "executor",
@@ -131,46 +171,6 @@
       "task_id": "impl-continuous-work-queue",
       "attempt": 1,
       "tried": "unknown error"
-    },
-    {
-      "ts": "2026-03-27T09:06:22.585736",
-      "agent": "executor",
-      "task": "[P1] Implement automatic PR detection and merge in 10min loo",
-      "task_id": "impl-auto-pr-merge",
-      "attempt": 1,
-      "tried": "unknown error"
-    },
-    {
-      "ts": "2026-03-27T09:06:22.213754",
-      "agent": "executor",
-      "task": "[P0] Verify & remove all external cron jobs",
-      "task_id": "verify-no-external-crons",
-      "attempt": 1,
-      "tried": "unknown error"
-    },
-    {
-      "ts": "2026-03-27T09:06:21.834246",
-      "agent": "executor",
-      "task": "[P0] Implement agent auto-recovery (no more stuck agents)",
-      "task_id": "impl-agent-autorecovery",
-      "attempt": 1,
-      "tried": "unknown error"
-    },
-    {
-      "ts": "2026-03-27T09:06:21.471899",
-      "agent": "executor",
-      "task": "[P0] Implement continuous work generation (never run out of ",
-      "task_id": "impl-continuous-work-queue",
-      "attempt": 1,
-      "tried": "unknown error"
-    },
-    {
-      "ts": "2026-03-27T09:06:21.122844",
-      "agent": "executor",
-      "task": "[P0] Implement token efficiency tracking (90% local target)",
-      "task_id": "impl-token-tracker",
-      "attempt": 1,
-      "tried": "unknown error"
     }
   ],
   "research_feed": [],
@@ -186,21 +186,13 @@
       "before_score": 70.0,
       "after_score": 0.0,
       "delta": -70.0,
-      "ts": "2026-03-27T09:16:25.440197"
+      "ts": "2026-03-27T09:26:28.568353"
     }
   },
   "quality": 82,
   "quality_score": 82,
   "model": "local-v1",
   "recent_tasks": [
-    {
-      "task_id": "impl-continuous-work-queue",
-      "title": "[P0] Implement continuous work generation (never run out of tasks)",
-      "category": "agent-setup",
-      "agent_used": "executor",
-      "status": "blocked",
-      "local_quality": 0
-    },
     {
       "task_id": "impl-agent-autorecovery",
       "title": "[P0] Implement agent auto-recovery (no more stuck agents)",
@@ -232,11 +224,19 @@
       "agent_used": "executor",
       "status": "blocked",
       "local_quality": 0
+    },
+    {
+      "task_id": "upgrade-ui-realtime",
+      "title": "[P2] Ultra UI upgrades: Real-time metrics, live agent status, workflow viz",
+      "category": "agent-setup",
+      "agent_used": "executor",
+      "status": "blocked",
+      "local_quality": 0
     }
   ],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-27T09:26:25.453751",
+    "ts": "2026-03-27T09:26:35.083388",
     "epics": [
       {
         "id": "system-reliability",
@@ -430,15 +430,6 @@
         "agent": "executor",
         "tasks": [
           {
-            "task_id": "impl-continuous-work-queue",
-            "title": "[P0] Implement continuous work generation (never run out of tasks)",
-            "difficulty": "hard",
-            "status": "blocked",
-            "agent": "executor",
-            "quality": 0,
-            "elapsed_s": 0.0
-          },
-          {
             "task_id": "impl-agent-autorecovery",
             "title": "[P0] Implement agent auto-recovery (no more stuck agents)",
             "difficulty": "hard",
@@ -473,6 +464,15 @@
             "agent": "executor",
             "quality": 0,
             "elapsed_s": 0.0
+          },
+          {
+            "task_id": "upgrade-ui-realtime",
+            "title": "[P2] Ultra UI upgrades: Real-time metrics, live agent status, workflow viz",
+            "difficulty": "hard",
+            "status": "blocked",
+            "agent": "executor",
+            "quality": 0,
+            "elapsed_s": 0.0
           }
         ],
         "total": 5,
@@ -483,7 +483,7 @@
         "pct": 0.0
       }
     ],
-    "initialized_at": "2026-03-27T09:16:23.615535",
+    "initialized_at": "2026-03-27T09:26:26.778660",
     "status": "planned"
   },
   "business_summary": {
@@ -492,10 +492,10 @@
     "projects_active": 0,
     "blockers_open": 1,
     "version": 1,
-    "updated_at": "2026-03-27T09:16:25.434284"
+    "updated_at": "2026-03-27T09:26:28.562841"
   },
   "auto_heal_status": {
-    "ts": "2026-03-27T16:16:23",
+    "ts": "2026-03-27T16:26:26",
     "issues_this_cycle": [],
     "healthy": true,
     "dashboard_alive": true,
@@ -564,6 +564,13 @@
       "event": "started",
       "detail": "Auto-heal monitor started (checks every 10s)",
       "agent": ""
+    },
+    {
+      "ts": "2026-03-27T16:26:26",
+      "level": "INFO",
+      "event": "started",
+      "detail": "Auto-heal monitor started (checks every 10s)",
+      "agent": ""
     }
   ],
   "auto_heal_counts": {
@@ -573,10 +580,10 @@
   },
   "calibration": {
     "version": 1,
-    "ts": "2026-03-27T16:16:23",
+    "ts": "2026-03-27T16:26:26",
     "results": {
       "executor": {
-        "ts": "2026-03-27T16:16:23",
+        "ts": "2026-03-27T16:26:26",
         "version": 1,
         "agent": "executor",
         "avg_score": 0.0,
@@ -605,128 +612,8 @@
           }
         ]
       },
-      "debugger": {
-        "ts": "2026-03-27T16:16:23",
-        "version": 1,
-        "agent": "debugger",
-        "avg_score": 0.0,
-        "prev_score": 0.0,
-        "regressed": false,
-        "pass": false,
-        "patched": false,
-        "tasks": [
-          {
-            "title": "Fix: AttributeError on NoneType",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Fix: off-by-one in binary search",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Debug race condition in thread-safe queue",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          }
-        ]
-      },
-      "planner": {
-        "ts": "2026-03-27T16:16:23",
-        "version": 1,
-        "agent": "planner",
-        "avg_score": 0.0,
-        "prev_score": 0.0,
-        "regressed": false,
-        "pass": false,
-        "patched": false,
-        "tasks": [
-          {
-            "title": "Break 'build a REST API' into 5 atomic steps",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Decompose database migration into sub-tasks",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Plan a refactor of a 500-line module",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          }
-        ]
-      },
-      "architect": {
-        "ts": "2026-03-27T16:16:23",
-        "version": 1,
-        "agent": "architect",
-        "avg_score": 0.0,
-        "prev_score": 0.0,
-        "regressed": false,
-        "pass": false,
-        "patched": false,
-        "tasks": [
-          {
-            "title": "Design schema for a todo app",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Design microservice boundary for auth + billing",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Design distributed task queue system",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          }
-        ]
-      },
-      "test_engineer": {
-        "ts": "2026-03-27T16:16:23",
-        "version": 1,
-        "agent": "test_engineer",
-        "avg_score": 0.0,
-        "prev_score": 0.0,
-        "regressed": false,
-        "pass": false,
-        "patched": false,
-        "tasks": [
-          {
-            "title": "Write pytest for add(a,b)",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Write tests for a REST endpoint handler",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Write integration test for DB migration",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          }
-        ]
-      },
       "researcher": {
-        "ts": "2026-03-27T16:16:23",
+        "ts": "2026-03-27T16:26:26",
         "version": 1,
         "agent": "researcher",
         "avg_score": 0.0,
@@ -756,7 +643,7 @@
         ]
       },
       "reviewer": {
-        "ts": "2026-03-27T16:16:23",
+        "ts": "2026-03-27T16:26:26",
         "version": 1,
         "agent": "reviewer",
         "avg_score": 0.0,
@@ -785,10 +672,10 @@
           }
         ]
       },
-      "doc_writer": {
-        "ts": "2026-03-27T16:16:23",
+      "debugger": {
+        "ts": "2026-03-27T16:26:26",
         "version": 1,
-        "agent": "doc_writer",
+        "agent": "debugger",
         "avg_score": 0.0,
         "prev_score": 0.0,
         "regressed": false,
@@ -796,19 +683,19 @@
         "patched": false,
         "tasks": [
           {
-            "title": "Write docstring for a 5-line function",
+            "title": "Fix: AttributeError on NoneType",
             "score": 0,
             "status": "error: signal only works in main thread of the main interpreter",
             "elapsed": 0.0
           },
           {
-            "title": "Write README for a CLI tool",
+            "title": "Fix: off-by-one in binary search",
             "score": 0,
             "status": "error: signal only works in main thread of the main interpreter",
             "elapsed": 0.0
           },
           {
-            "title": "Write API reference for 5 endpoints",
+            "title": "Debug race condition in thread-safe queue",
             "score": 0,
             "status": "error: signal only works in main thread of the main interpreter",
             "elapsed": 0.0
@@ -816,7 +703,7 @@
         ]
       },
       "refactor": {
-        "ts": "2026-03-27T16:16:23",
+        "ts": "2026-03-27T16:26:26",
         "version": 1,
         "agent": "refactor",
         "avg_score": 0.0,
@@ -845,8 +732,68 @@
           }
         ]
       },
+      "test_engineer": {
+        "ts": "2026-03-27T16:26:26",
+        "version": 1,
+        "agent": "test_engineer",
+        "avg_score": 0.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": false,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Write pytest for add(a,b)",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Write tests for a REST endpoint handler",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Write integration test for DB migration",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          }
+        ]
+      },
+      "planner": {
+        "ts": "2026-03-27T16:26:26",
+        "version": 1,
+        "agent": "planner",
+        "avg_score": 0.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": false,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Break 'build a REST API' into 5 atomic steps",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Decompose database migration into sub-tasks",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Plan a refactor of a 500-line module",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          }
+        ]
+      },
       "benchmarker": {
-        "ts": "2026-03-27T16:16:23",
+        "ts": "2026-03-27T16:26:26",
         "version": 1,
         "agent": "benchmarker",
         "avg_score": 0.0,
@@ -869,6 +816,66 @@
           },
           {
             "title": "Identify top 3 failure patterns in task batch",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          }
+        ]
+      },
+      "architect": {
+        "ts": "2026-03-27T16:26:26",
+        "version": 1,
+        "agent": "architect",
+        "avg_score": 0.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": false,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Design schema for a todo app",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Design microservice boundary for auth + billing",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Design distributed task queue system",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          }
+        ]
+      },
+      "doc_writer": {
+        "ts": "2026-03-27T16:26:26",
+        "version": 1,
+        "agent": "doc_writer",
+        "avg_score": 0.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": false,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Write docstring for a 5-line function",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Write README for a CLI tool",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Write API reference for 5 endpoints",
             "score": 0,
             "status": "error: signal only works in main thread of the main interpreter",
             "elapsed": 0.0

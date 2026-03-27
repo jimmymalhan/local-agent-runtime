@@ -540,11 +540,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T09:16:24.360441"
+      },
+      {
+        "attempt": 5,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T09:26:27.108816"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T08:46:15.929337",
-    "rescue_escalated_at": "2026-03-27T09:16:24.361058"
+    "rescue_escalated_at": "2026-03-27T09:26:27.109480"
   },
   "verify-no-external-crons": {
     "attempts": [
@@ -568,11 +575,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T09:16:24.696755"
+      },
+      {
+        "attempt": 4,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T09:26:27.446591"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T08:56:19.252054",
-    "rescue_escalated_at": "2026-03-27T09:16:24.697335"
+    "rescue_escalated_at": "2026-03-27T09:26:27.447224"
   },
   "impl-auto-pr-merge": {
     "attempts": [
@@ -589,10 +603,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T09:16:25.054049"
+      },
+      {
+        "attempt": 3,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T09:26:27.815975"
       }
     ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T09:06:22.585129"
+    "rescue_escalated": true,
+    "first_attempt_at": "2026-03-27T09:06:22.585129",
+    "rescue_escalated_at": "2026-03-27T09:26:27.816636"
   },
   "impl-workflow-autodispatch": {
     "attempts": [
@@ -602,9 +624,29 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T09:16:25.430864"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T09:26:28.193083"
       }
     ],
     "rescue_escalated": false,
     "first_attempt_at": "2026-03-27T09:16:25.430862"
+  },
+  "upgrade-ui-realtime": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T09:26:28.559328"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T09:26:28.559326"
   }
 }

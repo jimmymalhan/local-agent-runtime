@@ -805,3 +805,8 @@
 {"ts": "2026-03-27T09:16:24.696309", "action": "execute_failed", "agent": "executor", "task_id": "verify-no-external-crons", "attempts": 3, "last_error": "Unknown error"}
 {"ts": "2026-03-27T09:16:25.053598", "action": "execute_failed", "agent": "executor", "task_id": "impl-auto-pr-merge", "attempts": 3, "last_error": "Unknown error"}
 {"ts": "2026-03-27T09:16:25.430518", "action": "execute_failed", "agent": "executor", "task_id": "impl-workflow-autodispatch", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T09:26:27.107909", "action": "execute_failed", "agent": "executor", "task_id": "impl-agent-autorecovery", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T09:26:27.446216", "action": "execute_failed", "agent": "executor", "task_id": "verify-no-external-crons", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T09:26:27.815239", "action": "execute_failed", "agent": "executor", "task_id": "impl-auto-pr-merge", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T09:26:28.192637", "action": "execute_failed", "agent": "executor", "task_id": "impl-workflow-autodispatch", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T09:26:28.558908", "action": "execute_failed", "agent": "executor", "task_id": "upgrade-ui-realtime", "attempts": 3, "last_error": "Unknown error"}
