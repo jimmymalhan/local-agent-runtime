@@ -69,12 +69,13 @@ def update_task_result(task_id: str, status: str, quality_score: float = 0.0,
 
     # Write back atomically
     try:
-        tmp_file = PROJECTS_FILE.with_suffix('.tmp')
+        tmp_file = PROJECTS_FILE.parent / f"{PROJECTS_FILE.name}.tmp"
         with open(tmp_file, 'w') as f:
             json.dump(data, f, indent=2)
 
-        # Atomic replace
-        tmp_file.replace(PROJECTS_FILE)
+        # Atomic replace (use os.rename for cross-platform compatibility)
+        import os
+        os.replace(str(tmp_file), str(PROJECTS_FILE))
 
         print(f"[AGENT_PERSISTENCE] ✅ Updated {task_id}: status={status}, quality={quality_score}")
         return True
@@ -100,10 +101,11 @@ def mark_task_attempted(task_id: str):
                 task['last_attempt'] = datetime.now().isoformat()
 
                 try:
-                    tmp_file = PROJECTS_FILE.with_suffix('.tmp')
+                    import os
+                    tmp_file = PROJECTS_FILE.parent / f"{PROJECTS_FILE.name}.tmp"
                     with open(tmp_file, 'w') as f:
                         json.dump(data, f, indent=2)
-                    tmp_file.replace(PROJECTS_FILE)
+                    os.replace(str(tmp_file), str(PROJECTS_FILE))
                     return True
                 except:
                     return False
