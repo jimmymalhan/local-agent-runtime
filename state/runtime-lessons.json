@@ -823,6 +823,13 @@
         "error": "No module named 'agent_runner'",
         "success": false,
         "timestamp": "2026-03-26T20:45:19.082024"
+      },
+      {
+        "attempt": 3,
+        "strategy": "autonomous",
+        "error": "No module named 'agent_runner'",
+        "success": false,
+        "timestamp": "2026-03-26T20:48:54.058545"
       }
     ],
     "rescue_escalated": false,
