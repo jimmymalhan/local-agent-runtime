@@ -3366,15 +3366,506 @@
         }
       ],
       "eta_hours": 20
+    },
+    {
+      "id": "epic1-inference-advanced",
+      "name": "\ud83c\udfaf EPIC 1: Advanced Inference Engine Optimization",
+      "description": "Custom inference engines, kernel fusion, operator optimization",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "e1-inf-1",
+          "title": "Build custom CUDA kernels for inference (attention, linear ops)",
+          "description": "Hand-optimized kernels for 2-3x speedup",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Kernels working, 2-3x speedup on inference",
+          "eta_hours": 8
+        },
+        {
+          "id": "e1-inf-2",
+          "title": "Implement kernel fusion (merge operations)",
+          "description": "Reduce memory bandwidth, fuse operations",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Fusion reduces bandwidth 30-50%",
+          "eta_hours": 6
+        },
+        {
+          "id": "e1-inf-3",
+          "title": "Add mixed-precision inference (FP16/TF32)",
+          "description": "Keep accuracy, reduce memory, faster computation",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Mixed precision working, <0.1% accuracy loss",
+          "eta_hours": 5
+        },
+        {
+          "id": "e1-inf-4",
+          "title": "Implement speculative decoding (predict multiple tokens)",
+          "description": "Predict next N tokens, verify, skip redundant computation",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Speculative decoding 2x faster for common cases",
+          "eta_hours": 7
+        },
+        {
+          "id": "e1-inf-5",
+          "title": "Build custom attention implementation (FlashAttention)",
+          "description": "IO-optimized attention, 10x faster",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Attention 10x faster, same results",
+          "eta_hours": 8
+        }
+      ],
+      "eta_hours": 34
+    },
+    {
+      "id": "epic1-quality-assurance",
+      "name": "\ud83c\udfaf EPIC 1: Quality Assurance & Benchmarking",
+      "description": "Automated quality checks, benchmarking, regression testing",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "e1-qa-1",
+          "title": "Build comprehensive quality benchmark suite (MMLU, HumanEval, etc.)",
+          "description": "Track model quality across standard benchmarks",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Benchmarks automated, trending tracked",
+          "eta_hours": 6
+        },
+        {
+          "id": "e1-qa-2",
+          "title": "Implement regression testing (catch quality drops)",
+          "description": "Auto-test on every version change",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Regression tests catch 95%+ quality issues",
+          "eta_hours": 5
+        },
+        {
+          "id": "e1-qa-3",
+          "title": "Add continuous model evaluation pipeline",
+          "description": "Daily evaluation, track trends, alert on degradation",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Evaluation daily, alerts working",
+          "eta_hours": 4
+        },
+        {
+          "id": "e1-qa-4",
+          "title": "Build quality dashboards & reports",
+          "description": "Visualize quality metrics over time",
+          "agent": "frontend_agent",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Dashboards show trends, exportable",
+          "eta_hours": 4
+        },
+        {
+          "id": "e1-qa-5",
+          "title": "Implement human evaluation framework",
+          "description": "Crowdsource quality evaluation, collect feedback",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Human eval framework working, data collected",
+          "eta_hours": 5
+        }
+      ],
+      "eta_hours": 24
+    },
+    {
+      "id": "epic1-custom-models",
+      "name": "\ud83c\udfaf EPIC 1: Custom Model & Fine-Tuning Framework",
+      "description": "Customers train custom models on their domain data",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "e1-custom-1",
+          "title": "Build no-code fine-tuning UI (drag-drop data)",
+          "description": "Users upload data, click 'train', get custom model",
+          "agent": "frontend_agent",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "UI works, training starts, model deployed",
+          "eta_hours": 6
+        },
+        {
+          "id": "e1-custom-2",
+          "title": "Implement adaptive learning rate scheduler",
+          "description": "Auto-adjust learning rate during training",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Scheduler improves convergence, training faster",
+          "eta_hours": 4
+        },
+        {
+          "id": "e1-custom-3",
+          "title": "Add early stopping & best model selection",
+          "description": "Auto-stop when model stops improving",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Early stopping saves time, best model selected",
+          "eta_hours": 3
+        },
+        {
+          "id": "e1-custom-4",
+          "title": "Build model evaluation during training",
+          "description": "Evaluate on validation set every epoch",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Evaluation working, metrics tracked",
+          "eta_hours": 3
+        }
+      ],
+      "eta_hours": 16
+    },
+    {
+      "id": "epic2-smart-batching",
+      "name": "\u26a1 EPIC 2: Smart Batching & Token Pooling",
+      "description": "Intelligent request batching, token sharing, pool optimization",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "e2-batch-1",
+          "title": "Implement dynamic batch size optimization",
+          "description": "Auto-batch requests for GPU efficiency",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Batching 3-5x throughput improvement",
+          "eta_hours": 5
+        },
+        {
+          "id": "e2-batch-2",
+          "title": "Build request coalescing (merge similar requests)",
+          "description": "Combine similar requests, split results",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Coalescing reduces tokens 20-30%",
+          "eta_hours": 6
+        },
+        {
+          "id": "e2-batch-3",
+          "title": "Add token pooling & sharing (context reuse)",
+          "description": "Reuse computed tokens across requests",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Token reuse reduces 30-50% of token usage",
+          "eta_hours": 7
+        },
+        {
+          "id": "e2-batch-4",
+          "title": "Implement prefix caching (cache prompt tokens)",
+          "description": "Cache encoded prompts, reuse across requests",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Prefix cache hits >60%, tokens saved 20%+",
+          "eta_hours": 5
+        },
+        {
+          "id": "e2-batch-5",
+          "title": "Build dynamic batching scheduler",
+          "description": "Smart scheduling to maximize batch efficiency",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Scheduler improves batch efficiency 15-20%",
+          "eta_hours": 4
+        }
+      ],
+      "eta_hours": 27
+    },
+    {
+      "id": "epic2-compression",
+      "name": "\u26a1 EPIC 2: Advanced Token Compression",
+      "description": "Lossy/lossless compression, summarization, information density",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "e2-comp-1",
+          "title": "Implement lossless text compression (LZ4, zstd)",
+          "description": "Compress tokens for transmission/storage",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Compression 50-70%, decompression fast",
+          "eta_hours": 4
+        },
+        {
+          "id": "e2-comp-2",
+          "title": "Build smart summarization (extract key info)",
+          "description": "Summarize long texts, keep important info",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Summarization reduces tokens 30-50%, info loss <5%",
+          "eta_hours": 6
+        },
+        {
+          "id": "e2-comp-3",
+          "title": "Add entropy-based token filtering",
+          "description": "Remove low-information tokens",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Filtering removes 10-20% tokens, quality maintained",
+          "eta_hours": 4
+        },
+        {
+          "id": "e2-comp-4",
+          "title": "Implement information-dense representations",
+          "description": "Encode more info per token",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Info density improved 20%+",
+          "eta_hours": 5
+        }
+      ],
+      "eta_hours": 19
+    },
+    {
+      "id": "epic2-analytics",
+      "name": "\u26a1 EPIC 2: Token Analytics & Optimization Engine",
+      "description": "Real-time analytics, ML-based optimization recommendations",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "e2-analytics-1",
+          "title": "Build real-time token usage analytics",
+          "description": "Track tokens per task, agent, time of day",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Analytics accurate, real-time, queryable",
+          "eta_hours": 5
+        },
+        {
+          "id": "e2-analytics-2",
+          "title": "Implement ML-based waste detection",
+          "description": "Identify tasks wasting tokens, suggest fixes",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Detects waste >80%, recommendations save 20%+ tokens",
+          "eta_hours": 6
+        },
+        {
+          "id": "e2-analytics-3",
+          "title": "Add optimization recommendations engine",
+          "description": "Auto-suggest optimizations (better prompts, etc.)",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Recommendations accurate, implementable",
+          "eta_hours": 5
+        },
+        {
+          "id": "e2-analytics-4",
+          "title": "Build cost prediction model (forecast future costs)",
+          "description": "Predict daily/weekly/monthly token usage",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Forecast accuracy >85%, enables proactive optimization",
+          "eta_hours": 4
+        }
+      ],
+      "eta_hours": 20
+    },
+    {
+      "id": "epic3-predictive-maintenance",
+      "name": "\ud83d\udd04 EPIC 3: Predictive Maintenance & Proactive Healing",
+      "description": "Predict failures before they happen, proactive remediation",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "e3-pred-1",
+          "title": "Build failure prediction model (ML learns failure patterns)",
+          "description": "Predict failures 1-24 hours in advance",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Predictions accurate >75%, prevents failures",
+          "eta_hours": 7
+        },
+        {
+          "id": "e3-pred-2",
+          "title": "Implement proactive remediation (fix before failure)",
+          "description": "Auto-fix predicted issues before they cause outage",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Proactive fixes prevent 80%+ predicted failures",
+          "eta_hours": 6
+        },
+        {
+          "id": "e3-pred-3",
+          "title": "Add degradation detection (catch performance issues early)",
+          "description": "Detect when system starts degrading",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Degradation detected <5min after start",
+          "eta_hours": 5
+        },
+        {
+          "id": "e3-pred-4",
+          "title": "Build auto-scaling prediction (forecast load spikes)",
+          "description": "Predict load spikes, scale proactively",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Load spikes handled proactively, no latency spike",
+          "eta_hours": 5
+        },
+        {
+          "id": "e3-pred-5",
+          "title": "Implement resource leak detection (catch memory leaks early)",
+          "description": "Detect leaking memory before OOM",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Leaks detected, service restarted before crash",
+          "eta_hours": 4
+        }
+      ],
+      "eta_hours": 27
+    },
+    {
+      "id": "epic3-self-tuning",
+      "name": "\ud83d\udd04 EPIC 3: Self-Tuning & Continuous Optimization",
+      "description": "System auto-tunes itself, learns optimal configurations",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "e3-tune-1",
+          "title": "Build self-tuning parameter optimizer",
+          "description": "Auto-find optimal CPU/memory/disk settings",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Tuning improves performance 20-30%",
+          "eta_hours": 6
+        },
+        {
+          "id": "e3-tune-2",
+          "title": "Implement cost-optimal resource allocation",
+          "description": "Balance cost vs performance automatically",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Cost reduced 20-30%, performance maintained",
+          "eta_hours": 5
+        },
+        {
+          "id": "e3-tune-3",
+          "title": "Add automatic cache tuning (sizes, policies)",
+          "description": "Auto-tune cache for workload",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Cache hit rate +10-20%, memory used efficiently",
+          "eta_hours": 4
+        },
+        {
+          "id": "e3-tune-4",
+          "title": "Build query optimizer (learn access patterns)",
+          "description": "Learn query patterns, optimize indexes",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Query performance +30%, auto-optimized",
+          "eta_hours": 5
+        },
+        {
+          "id": "e3-tune-5",
+          "title": "Implement learning-based rate limiting",
+          "description": "Learn traffic patterns, adjust limits dynamically",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Rate limits optimal, no legitimate requests blocked",
+          "eta_hours": 3
+        }
+      ],
+      "eta_hours": 23
+    },
+    {
+      "id": "epic3-resilience",
+      "name": "\ud83d\udd04 EPIC 3: Advanced Resilience & Redundancy",
+      "description": "Multi-region, active-active, zero-downtime everything",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "e3-res-1",
+          "title": "Build active-active geo-replication",
+          "description": "Customers served from nearest region",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Multi-region active-active, latency <50ms",
+          "eta_hours": 8
+        },
+        {
+          "id": "e3-res-2",
+          "title": "Implement automatic failover (<5s)",
+          "description": "Seamless failover to backup region",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Failover automatic, <5s, zero data loss",
+          "eta_hours": 6
+        },
+        {
+          "id": "e3-res-3",
+          "title": "Add read replicas & consistency protocols",
+          "description": "Distribute reads, maintain consistency",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Read scaling 5-10x, consistency guaranteed",
+          "eta_hours": 7
+        },
+        {
+          "id": "e3-res-4",
+          "title": "Build backup + restore system (<1h RTO)",
+          "description": "Daily backups, test restores",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "RTO <1h, restores tested, zero data loss",
+          "eta_hours": 5
+        }
+      ],
+      "eta_hours": 26
     }
   ],
   "metadata": {
     "created": "2026-03-26T20:00:00Z",
     "created_by": "claude",
     "mission": "Beat Opus 4.6 with 90% local / 10% Claude rescue",
-    "total_tasks": 254,
+    "total_tasks": 295,
     "total_epics": 7,
-    "updated": "2026-03-27T18:43:49.733898Z",
+    "updated": "2026-03-27T18:47:42.087229Z",
     "critical_path": "blocker-fixes (16h) \u2192 system-reliability (6h) \u2192 dashboard-quality (12h) \u2192 policy-governance (18h) \u2192 execution-optimization (30h)",
     "eta_all_complete": "2026-03-27T06:39:11.894496Z",
     "token_budget": {
@@ -3387,9 +3878,10 @@
     "crons_removed": true,
     "internal_scheduling": "unified_daemon.py",
     "launch_agent_updated": true,
-    "total_projects": 56,
+    "total_projects": 65,
     "last_epic_expansion": "2026-03-27T18:28:40.197174Z",
     "premium_features_added": true,
-    "ultra_tier_1_added": true
+    "ultra_tier_1_added": true,
+    "epic_aligned_expansion": true
   }
 }

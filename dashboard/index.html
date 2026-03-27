@@ -793,9 +793,43 @@ main{position:relative;z-index:1;padding-top:52px;}
 
 <!-- ═══ TASKS TAB (unified Projects + Tasks + Todo) ══════════ -->
 <div id="tab-tasks" class="tab-panel" role="tabpanel">
-  <!-- ── Projects swimlane ──────────────────────────────────── -->
+  <!-- ── Epic → Project → Task Hierarchical View with Progress ──────────────── -->
   <div class="sec" style="padding-top:40px;padding-bottom:0;">
-    <div class="sh"><h2 class="st">Projects</h2><span class="ss" id="proj-ct">Workspaces</span></div>
+    <div class="sh">
+      <h2 class="st">📊 Projects & Tasks Hierarchy</h2>
+      <span class="ss" id="proj-ct">Epic breakdown • Real-time progress • Task details</span>
+    </div>
+
+    <!-- System-Wide Progress Overview -->
+    <div id="system-progress-overview" style="margin-bottom: 32px; padding: 20px; background: linear-gradient(135deg, rgba(0,113,227,.08), rgba(52,199,89,.08)); border-radius: 14px; border: 1px solid var(--bd);">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 16px; margin-bottom: 16px;">
+        <div>
+          <div style="font-size: 10px; color: var(--t3); text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">Overall</div>
+          <div style="font-size: 28px; font-weight: 800; color: var(--blue);" id="sys-pct">22%</div>
+        </div>
+        <div>
+          <div style="font-size: 10px; color: var(--t3); text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">Tasks</div>
+          <div style="font-size: 28px; font-weight: 800; color: var(--green);" id="sys-tasks">295</div>
+        </div>
+        <div>
+          <div style="font-size: 10px; color: var(--t3); text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">Projects</div>
+          <div style="font-size: 28px; font-weight: 800; color: var(--orange);" id="sys-projects">65</div>
+        </div>
+        <div>
+          <div style="font-size: 10px; color: var(--t3); text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">ETA</div>
+          <div style="font-size: 28px; font-weight: 800; color: var(--purple);" id="sys-eta">~1.2k h</div>
+        </div>
+      </div>
+      <div style="width: 100%; height: 14px; background: var(--bg); border-radius: 7px; overflow: hidden; border: 1px solid var(--bd);">
+        <div id="sys-progress-bar" style="width: 22%; height: 100%; background: linear-gradient(90deg, var(--blue), var(--green)); transition: width 0.3s ease;"></div>
+      </div>
+    </div>
+
+    <!-- Epic Hierarchy Container -->
+    <div id="epic-hierarchy-container" style="display: grid; grid-template-columns: 1fr; gap: 20px;">
+      <!-- Dynamically filled by JavaScript -->
+    </div>
+
     <div class="pg" id="pg"></div>
   </div>
   <!-- ── Tasks Kanban ───────────────────────────────────────── -->
@@ -1538,6 +1572,226 @@ main{position:relative;z-index:1;padding-top:52px;}
   font-size: 10px;
 }
 
+/* Epic Hierarchy Styles for Projects & Tasks Tab */
+.epic-card {
+  background: var(--card);
+  border: 2px solid var(--bd);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.epic-header-main {
+  padding: 18px;
+  background: linear-gradient(135deg, rgba(0,113,227,.06), rgba(52,199,89,.06));
+  border-bottom: 2px solid var(--bd);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: all 0.2s;
+}
+
+.epic-header-main:hover {
+  background: linear-gradient(135deg, rgba(0,113,227,.10), rgba(52,199,89,.10));
+}
+
+.epic-toggle-icon {
+  font-size: 18px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: var(--bg);
+  transition: transform 0.2s;
+}
+
+.epic-toggle-icon.open {
+  transform: rotate(90deg);
+}
+
+.epic-info-main {
+  flex: 1;
+}
+
+.epic-title-main {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--t1);
+  margin-bottom: 4px;
+}
+
+.epic-desc-main {
+  font-size: 11px;
+  color: var(--t2);
+}
+
+.epic-stats-main {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.epic-stat-badge {
+  font-size: 10px;
+  padding: 4px 8px;
+  background: var(--bg);
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.projects-container {
+  display: none;
+  padding: 16px;
+}
+
+.projects-container.open {
+  display: block;
+}
+
+.project-section {
+  margin-bottom: 16px;
+  background: var(--bg);
+  border-radius: 10px;
+  border-left: 4px solid var(--bd);
+  overflow: hidden;
+}
+
+.project-header {
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+  background: var(--card);
+}
+
+.project-header:hover {
+  background: rgba(0,113,227,.05);
+}
+
+.project-toggle {
+  font-size: 14px;
+  width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.project-toggle.open {
+  transform: rotate(90deg);
+}
+
+.project-info {
+  flex: 1;
+}
+
+.project-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--t1);
+  margin-bottom: 2px;
+}
+
+.project-progress-text {
+  font-size: 10px;
+  color: var(--t2);
+}
+
+.project-progress-bar {
+  width: 100%; height: 4px;
+  background: var(--bd);
+  border-radius: 2px;
+  margin-top: 6px;
+  overflow: hidden;
+}
+
+.project-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--blue), var(--green));
+  transition: width 0.3s ease;
+}
+
+.tasks-container {
+  display: none;
+  padding: 12px 14px;
+  background: var(--bg);
+  border-top: 1px solid var(--bd);
+}
+
+.tasks-container.open {
+  display: block;
+}
+
+.task-item {
+  display: flex;
+  gap: 10px;
+  padding: 8px;
+  margin-bottom: 6px;
+  background: var(--card);
+  border-radius: 6px;
+  border-left: 3px solid var(--bd);
+  font-size: 11px;
+  transition: all 0.2s;
+}
+
+.task-item:hover {
+  border-left-color: var(--blue);
+  background: rgba(0,113,227,.05);
+}
+
+.task-checkbox {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: bold;
+  color: white;
+}
+
+.task-item.completed .task-checkbox {
+  background: var(--green);
+}
+
+.task-item.pending .task-checkbox {
+  background: rgba(255,149,0,.6);
+  border: 1px solid var(--orange);
+}
+
+.task-details {
+  flex: 1;
+}
+
+.task-title {
+  font-weight: 600;
+  color: var(--t1);
+  margin-bottom: 2px;
+}
+
+.task-meta {
+  color: var(--t3);
+  font-size: 9px;
+  margin-bottom: 2px;
+}
+
+.task-stats {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex: 0 0 auto;
+  font-size: 9px;
+  color: var(--t2);
+  font-weight: 500;
+}
+
 <style>
 .wf-node {
   flex: 0 0 auto;
@@ -1682,7 +1936,139 @@ document.addEventListener('click', (e) => {
   if (e.target.closest('[data-tab="workflow"]')) {
     renderWorkflowUI();
   }
+  if (e.target.closest('[data-tab="tasks"]')) {
+    renderProjectsAndTasks();
+  }
 });
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// PROJECTS & TASKS TAB: Epic → Project → Task Hierarchy with Progress Bars
+// ═══════════════════════════════════════════════════════════════════════════════
+function renderProjectsAndTasks() {
+  fetch('/../../projects.json')
+    .then(r => r.json())
+    .catch(() => ({ projects: [], metadata: {} }))
+    .then(projectsData => {
+      const totalTasks = projectsData.metadata?.total_tasks || 295;
+      const totalProjects = projectsData.metadata?.total_projects || 65;
+      const completedTasks = projectsData.projects?.reduce((sum, p) => {
+        return sum + p.tasks.filter(t => t.status === 'completed').length;
+      }, 0) || 57;
+
+      const progressPct = Math.round((completedTasks / totalTasks) * 100);
+
+      // Update system-wide progress
+      document.getElementById('sys-pct').textContent = `${progressPct}%`;
+      document.getElementById('sys-tasks').textContent = totalTasks;
+      document.getElementById('sys-projects').textContent = totalProjects;
+      document.getElementById('sys-progress-bar').style.width = `${progressPct}%`;
+
+      // Categorize by epic/tier
+      const epicGroups = {
+        '🏗️ EPIC 1: Production-Grade LLM': { icon: '🏗️', projects: [] },
+        '⚡ EPIC 2: Token Efficiency': { icon: '⚡', projects: [] },
+        '🔄 EPIC 3: Autonomous 24/7': { icon: '🔄', projects: [] }
+      };
+
+      // Categorize projects
+      projectsData.projects?.forEach(proj => {
+        if (proj.id.includes('epic1') && !proj.id.includes('ultra')) {
+          epicGroups['🏗️ EPIC 1: Production-Grade LLM'].projects.push(proj);
+        } else if (proj.id.includes('epic2') && !proj.id.includes('ultra')) {
+          epicGroups['⚡ EPIC 2: Token Efficiency'].projects.push(proj);
+        } else if (proj.id.includes('epic3') && !proj.id.includes('ultra')) {
+          epicGroups['🔄 EPIC 3: Autonomous 24/7'].projects.push(proj);
+        }
+      });
+
+      let html = '';
+
+      Object.entries(epicGroups).forEach(([epicName, epicData]) => {
+        const epicProjects = epicData.projects;
+        if (epicProjects.length === 0) return;
+
+        const epicCompleted = epicProjects.reduce((sum, p) =>
+          sum + p.tasks.filter(t => t.status === 'completed').length, 0);
+        const epicTotal = epicProjects.reduce((sum, p) => sum + p.tasks.length, 0);
+        const epicPct = Math.round((epicCompleted / epicTotal) * 100);
+
+        html += `
+          <div class="epic-card" data-epic="${epicName}">
+            <div class="epic-header-main" onclick="toggleEpicTasksView(this)">
+              <div class="epic-toggle-icon open">▶</div>
+              <div class="epic-info-main">
+                <div class="epic-title-main">${epicName}</div>
+                <div class="epic-desc-main">${epicProjects.length} projects • ${epicTotal} tasks</div>
+              </div>
+              <div class="epic-stats-main">
+                <div class="epic-stat-badge">📊 ${epicPct}%</div>
+                <div class="epic-stat-badge">✅ ${epicCompleted}/${epicTotal}</div>
+              </div>
+            </div>
+
+            <div class="projects-container open">
+              ${epicProjects.map(proj => {
+                const projCompleted = proj.tasks.filter(t => t.status === 'completed').length;
+                const projTotal = proj.tasks.length;
+                const projPct = Math.round((projCompleted / projTotal) * 100);
+
+                return `
+                  <div class="project-section" data-project="${proj.id}">
+                    <div class="project-header" onclick="toggleProjectTasks(this)">
+                      <div class="project-toggle open">▶</div>
+                      <div class="project-info">
+                        <div class="project-name">${proj.name}</div>
+                        <div class="project-progress-text">${projPct}% • ${projCompleted}/${projTotal}</div>
+                        <div class="project-progress-bar">
+                          <div class="project-progress-fill" style="width: ${projPct}%;"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="tasks-container open">
+                      ${proj.tasks.map(task => {
+                        const isCompleted = task.status === 'completed';
+                        return `
+                          <div class="task-item ${task.status}">
+                            <div class="task-checkbox">${isCompleted ? '✓' : '○'}</div>
+                            <div class="task-details">
+                              <div class="task-title">${task.title}</div>
+                              <div class="task-meta">Agent: ${task.agent || '—'} • P${task.priority?.replace('P', '') || '?'} • ${task.eta_hours || '?'}h</div>
+                            </div>
+                            <div class="task-stats">${isCompleted ? '✓ Done' : '◯ Pending'}</div>
+                          </div>
+                        `;
+                      }).join('')}
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      });
+
+      document.getElementById('epic-hierarchy-container').innerHTML = html;
+
+      // Add event listeners
+      window.toggleEpicTasksView = function(el) {
+        const card = el.closest('.epic-card');
+        const toggle = el.querySelector('.epic-toggle-icon');
+        const container = card.querySelector('.projects-container');
+
+        toggle.classList.toggle('open');
+        container.classList.toggle('open');
+      };
+
+      window.toggleProjectTasks = function(el) {
+        const toggle = el.querySelector('.project-toggle');
+        const taskContainer = el.nextElementSibling;
+
+        toggle.classList.toggle('open');
+        taskContainer.classList.toggle('open');
+      };
+    });
+}
 
 // Real-time WebSocket updates
 const wfWs = new (window.WebSocket || window.MozWebSocket)(`${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/ws`);
