@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-27T16:02:35.274465",
+  "ts": "2026-03-27T16:06:16.706591",
   "version": {
     "current": 1,
     "total": 100,
@@ -12,7 +12,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T16:02:32.392352",
+      "last_activity": "2026-03-27T16:06:02.456349",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -21,7 +21,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T16:02:32.392352",
+      "last_activity": "2026-03-27T16:06:02.456349",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -30,23 +30,23 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T16:02:32.392352",
+      "last_activity": "2026-03-27T16:06:02.456349",
       "sub_agents": [],
       "worker_count": 0
     },
     "test_engineer": {
-      "last_activity": "2026-03-27T16:02:32.392352"
+      "last_activity": "2026-03-27T16:06:02.456349"
     },
     "researcher": {
-      "last_activity": "2026-03-27T16:02:32.392352"
+      "last_activity": "2026-03-27T16:06:02.456349"
     }
   },
   "task_queue": {
     "total": 53,
     "completed": 44,
-    "pending": 9,
     "in_progress": 0,
-    "failed": 0
+    "failed": 0,
+    "pending": 9
   },
   "benchmark_scores": {
     "avg_local": 0.0,
@@ -79,9 +79,9 @@
   },
   "token_usage": {
     "claude_tokens": 0,
-    "local_tokens": 194624,
-    "budget_pct": 38.9,
-    "warning": false,
+    "local_tokens": 486160,
+    "budget_pct": 97.232,
+    "warning": true,
     "hard_limit_hit": false
   },
   "hardware": {
@@ -236,7 +236,7 @@
   ],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-27T09:02:35.128185",
+    "ts": "2026-03-27T09:06:16.691605",
     "epics": [
       {
         "id": "system-reliability",
@@ -355,7 +355,7 @@
         "id": "production-upgrade",
         "name": "Production Upgrade: 49% \u2192 95%+ Success (Opus 4.6 Replica)",
         "track": "infrastructure",
-        "status": "in_progress",
+        "status": "completed",
         "total_tasks": 15,
         "completed": 15,
         "in_progress": 0,
@@ -378,7 +378,7 @@
         "id": "workflow-integration-ultra",
         "name": "Ultra Workflow Integration & Auto-Execution",
         "track": "infrastructure",
-        "status": "pending",
+        "status": "completed",
         "total_tasks": 11,
         "completed": 11,
         "in_progress": 0,
@@ -398,11 +398,11 @@
         "track": "infrastructure",
         "status": "active",
         "total_tasks": 11,
-        "completed": 1,
+        "completed": 2,
         "in_progress": 0,
-        "pending": 10,
+        "pending": 9,
         "blocked": 0,
-        "progress_pct": 9.1,
+        "progress_pct": 18.2,
         "agents": [
           "executor",
           "frontend_engineer"
