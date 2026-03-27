@@ -1410,10 +1410,25 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:50:54.421525"
+      },
+      {
+        "attempt": 3,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T13:41:16.770996"
+      },
+      {
+        "attempt": 4,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T13:44:28.945635"
       }
     ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T12:04:04.865337"
+    "rescue_escalated": true,
+    "first_attempt_at": "2026-03-27T12:04:04.865337",
+    "rescue_escalated_at": "2026-03-27T13:44:28.949545"
   },
   "ml-ai-2": {
     "attempts": [
@@ -1430,10 +1445,25 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:50:54.847894"
+      },
+      {
+        "attempt": 3,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T13:44:42.087266"
+      },
+      {
+        "attempt": 4,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T13:45:11.882433"
       }
     ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T12:04:05.304155"
+    "rescue_escalated": true,
+    "first_attempt_at": "2026-03-27T12:04:05.304155",
+    "rescue_escalated_at": "2026-03-27T13:45:11.885776"
   },
   "ml-ai-3": {
     "attempts": [

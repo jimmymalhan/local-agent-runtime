@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-27T13:40:07.572397",
+  "ts": "2026-03-27T20:50:07.751294",
   "version": {
     "current": 5,
     "total": 100,
@@ -12,7 +12,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T20:40:07.521093",
+      "last_activity": "2026-03-27T20:50:07.751294",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -21,26 +21,26 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T20:40:07.521093",
+      "last_activity": "2026-03-27T20:50:07.751294",
       "sub_agents": [],
       "worker_count": 0
     },
     "architect": {
-      "last_activity": "2026-03-27T20:40:07.521093"
+      "last_activity": "2026-03-27T20:50:07.751294"
     },
     "test_engineer": {
-      "last_activity": "2026-03-27T20:40:07.521093"
+      "last_activity": "2026-03-27T20:50:07.751294"
     },
     "researcher": {
-      "last_activity": "2026-03-27T20:40:07.521093"
+      "last_activity": "2026-03-27T20:50:07.751294"
     }
   },
   "task_queue": {
     "total": 417,
-    "completed": 295,
+    "completed": 298,
+    "pending": 119,
     "in_progress": 0,
-    "failed": 0,
-    "pending": 122
+    "failed": 0
   },
   "benchmark_scores": {},
   "token_usage": {
@@ -51,13 +51,45 @@
     "hard_limit_hit": false
   },
   "hardware": {
-    "cpu_pct": 35.2,
-    "ram_pct": 55.5,
+    "cpu_pct": 46.8,
+    "ram_pct": 55.0,
     "disk_pct": 0.0,
     "gpu_pct": null,
     "alert_level": "ok"
   },
   "failures": [
+    {
+      "ts": "2026-03-27T13:45:11.888614",
+      "agent": "executor",
+      "task": "Add A/B testing framework for agents",
+      "task_id": "ml-ai-2",
+      "attempt": 1,
+      "tried": "blocked"
+    },
+    {
+      "ts": "2026-03-27T13:44:42.093405",
+      "agent": "executor",
+      "task": "Add A/B testing framework for agents",
+      "task_id": "ml-ai-2",
+      "attempt": 1,
+      "tried": "blocked"
+    },
+    {
+      "ts": "2026-03-27T13:44:28.952484",
+      "agent": "executor",
+      "task": "Implement model versioning & rollback capability",
+      "task_id": "ml-ai-1",
+      "attempt": 1,
+      "tried": "blocked"
+    },
+    {
+      "ts": "2026-03-27T13:41:16.777446",
+      "agent": "executor",
+      "task": "Implement model versioning & rollback capability",
+      "task_id": "ml-ai-1",
+      "attempt": 1,
+      "tried": "blocked"
+    },
     {
       "ts": "2026-03-27T13:39:38.695686",
       "agent": "executor",
@@ -103,38 +135,6 @@
       "agent": "executor",
       "task": "Add comprehensive audit logging & compliance",
       "task_id": "prod-hard-4",
-      "attempt": 1,
-      "tried": "blocked"
-    },
-    {
-      "ts": "2026-03-27T13:32:09.322971",
-      "agent": "executor",
-      "task": "Add comprehensive audit logging & compliance",
-      "task_id": "prod-hard-4",
-      "attempt": 1,
-      "tried": "blocked"
-    },
-    {
-      "ts": "2026-03-27T13:30:35.919849",
-      "agent": "executor",
-      "task": "Implement distributed request tracing (OpenTelemetry)",
-      "task_id": "prod-hard-3",
-      "attempt": 1,
-      "tried": "blocked"
-    },
-    {
-      "ts": "2026-03-27T13:29:39.250354",
-      "agent": "executor",
-      "task": "Implement distributed request tracing (OpenTelemetry)",
-      "task_id": "prod-hard-3",
-      "attempt": 1,
-      "tried": "blocked"
-    },
-    {
-      "ts": "2026-03-27T13:29:06.893905",
-      "agent": "executor",
-      "task": "Build cost-aware routing (pick cheapest model that works)",
-      "task_id": "e2-route-1",
       "attempt": 1,
       "tried": "blocked"
     }
@@ -1175,7 +1175,7 @@
   ],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-27T13:40:07.571774",
+    "ts": "2026-03-27T13:44:23.721420",
     "epics": [
       {
         "id": "system-reliability",
@@ -3705,7 +3705,7 @@
     "status": "planned"
   },
   "auto_heal_status": {
-    "ts": "2026-03-27T20:40:00",
+    "ts": "2026-03-27T20:49:31",
     "issues_this_cycle": [],
     "healthy": true,
     "dashboard_alive": true,
@@ -4062,11 +4062,11 @@
     "patched": []
   },
   "business_summary": {
-    "headline": "0 of 122 engineering tasks complete",
+    "headline": "0 of 328 engineering tasks complete",
     "pct_complete": 0.0,
     "projects_active": 0,
     "blockers_open": 1,
     "version": 5,
-    "updated_at": "2026-03-27T13:39:38.703899"
+    "updated_at": "2026-03-27T13:45:11.896887"
   }
 }
