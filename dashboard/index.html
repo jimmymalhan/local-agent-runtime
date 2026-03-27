@@ -992,97 +992,84 @@ main{position:relative;z-index:1;padding-top:52px;}
 <!-- ═══ PROJECTS stub (hidden — merged into Tasks tab) ═════════ -->
 <div id="tab-projects" class="tab-panel" style="display:none!important;" role="tabpanel" aria-hidden="true"></div>
 
-<!-- ═══ TASKS TAB (unified Projects + Tasks + Todo) ══════════ -->
+<!-- ═══ TASKS TAB (UNIFIED: Projects + Kanban + Workflow + Progress) ══════════ -->
 <div id="tab-tasks" class="tab-panel" role="tabpanel">
-  <!-- ── Epic → Project → Task Hierarchical View with Progress ──────────────── -->
-  <div class="sec" style="padding-top:40px;padding-bottom:0;">
-    <div class="sh">
-      <h2 class="st">📊 Projects & Tasks Hierarchy</h2>
-      <span class="ss" id="proj-ct">Epic breakdown • Real-time progress • Task details</span>
-    </div>
-
-    <!-- System-Wide Progress Overview -->
-    <div id="system-progress-overview" style="margin-bottom: 32px; padding: 20px; background: linear-gradient(135deg, rgba(0,113,227,.08), rgba(52,199,89,.08)); border-radius: 14px; border: 1px solid var(--bd);">
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 16px; margin-bottom: 16px;">
-        <div>
-          <div style="font-size: 10px; color: var(--t3); text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">Overall</div>
-          <div style="font-size: 28px; font-weight: 800; color: var(--blue);" id="sys-pct">22%</div>
-        </div>
-        <div>
-          <div style="font-size: 10px; color: var(--t3); text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">Tasks</div>
-          <div style="font-size: 28px; font-weight: 800; color: var(--green);" id="sys-tasks">295</div>
-        </div>
-        <div>
-          <div style="font-size: 10px; color: var(--t3); text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">Projects</div>
-          <div style="font-size: 28px; font-weight: 800; color: var(--orange);" id="sys-projects">65</div>
-        </div>
-        <div>
-          <div style="font-size: 10px; color: var(--t3); text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">ETA</div>
-          <div style="font-size: 28px; font-weight: 800; color: var(--purple);" id="sys-eta">~1.2k h</div>
-        </div>
-      </div>
-      <div style="width: 100%; height: 14px; background: var(--bg); border-radius: 7px; overflow: hidden; border: 1px solid var(--bd);">
-        <div id="sys-progress-bar" style="width: 22%; height: 100%; background: linear-gradient(90deg, var(--blue), var(--green)); transition: width 0.3s ease;"></div>
+  <div class="sec" style="padding-top:40px;">
+    <!-- Header with Epic Selector -->
+    <div class="sh" style="margin-bottom: 24px;">
+      <h2 class="st">📊 Projects & Tasks</h2>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <span class="ss" id="task-header-subtitle">All epics • Real-time Kanban • Workflow details</span>
+        <select id="epic-filter" style="padding: 6px 12px; border-radius: 8px; border: 1px solid var(--bd); background: var(--card); color: var(--t1); font-size: 12px; cursor: pointer;">
+          <option value="all">All Epics</option>
+          <option value="epic1">🏗️ EPIC 1: Production LLM</option>
+          <option value="epic2">⚡ EPIC 2: Token Efficiency</option>
+          <option value="epic3">🔄 EPIC 3: Autonomous 24/7</option>
+        </select>
       </div>
     </div>
 
-    <!-- Epic Hierarchy Container -->
-    <div id="epic-hierarchy-container" style="display: grid; grid-template-columns: 1fr; gap: 20px;">
+    <!-- System-Wide Progress Stats -->
+    <div class="kanban-stats" id="kanban-stats-container">
+      <div class="stat-card">
+        <div class="stat-value" id="stat-todo">—</div>
+        <div class="stat-label">To Do</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-progress">—</div>
+        <div class="stat-label">In Progress</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-done">—</div>
+        <div class="stat-label">Done</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-completion">—</div>
+        <div class="stat-label">Completion</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-projects">—</div>
+        <div class="stat-label">Projects</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-eta">—</div>
+        <div class="stat-label">ETA (hours)</div>
+      </div>
+    </div>
+
+    <!-- Epic Overview Cards -->
+    <div id="epic-overview" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin: 24px 0;">
+      <!-- Dynamically filled -->
+    </div>
+
+    <!-- Workflow Configuration Section -->
+    <div style="margin: 24px 0; padding: 16px; background: var(--card2); border-radius: 12px; border: 1px solid var(--bd);">
+      <div style="font-size: 12px; font-weight: 700; color: var(--t3); text-transform: uppercase; margin-bottom: 12px;">⚙️ Workflow Configuration</div>
+      <div id="workflow-stages" style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+        <!-- Dynamically filled -->
+      </div>
+      <div style="display: flex; gap: 8px; margin-top: 12px;">
+        <button onclick="resetWorkflowUI()" style="padding: 6px 12px; background: var(--card); border: 1px solid var(--bd); border-radius: 6px; cursor: pointer; font-size: 11px;">↺ Reset</button>
+        <button onclick="exportWorkflowUI()" style="padding: 6px 12px; background: var(--card); border: 1px solid var(--bd); border-radius: 6px; cursor: pointer; font-size: 11px;">⬇ Export</button>
+        <button onclick="document.getElementById('workflow-import').click()" style="padding: 6px 12px; background: var(--card); border: 1px solid var(--bd); border-radius: 6px; cursor: pointer; font-size: 11px;">⬆ Import</button>
+        <button onclick="executeWorkflow()" style="padding: 6px 12px; background: var(--blue); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 11px;">▶ Execute</button>
+        <input type="file" id="workflow-import" style="display:none;" onchange="importWorkflowUI(event)">
+      </div>
+    </div>
+
+    <!-- Kanban Board — To Do | In Progress | Done -->
+    <div class="kanban-container" id="kanban-board" role="grid">
       <!-- Dynamically filled by JavaScript -->
     </div>
 
-    <div class="pg" id="pg"></div>
-  </div>
-  <!-- ── Tasks Kanban ───────────────────────────────────────── -->
-  <div class="sec" style="padding-top:24px;">
-    <div class="sh">
-      <h2 class="st">Tasks</h2>
-      <span class="ss" id="board-ct">—</span>
-      <span style="font-size:11px;color:var(--t3);margin-left:12px;">Updates every 5s</span>
-    </div>
-    <!-- Live Kanban — 4 columns: Blocked · Running · Backlog · Done -->
-    <div class="board" role="grid" style="grid-template-columns:repeat(4,1fr);">
-      <div>
-        <div class="col-h" style="color:var(--red);">
-          Blocked<span class="cn" id="c-bl">0</span>
-          <!-- also mirrors todo-cnt-blocked for compat -->
-          <span id="todo-cnt-blocked" style="display:none;">0</span>
-        </div>
-        <div id="cb-bl"></div>
-        <!-- mirror container used by old todo JS -->
-        <div id="todo-col-blocked" style="display:none;"></div>
-      </div>
-      <div>
-        <div class="col-h" style="color:var(--blue);">
-          Running<span class="cn" id="c-run">0</span>
-          <span id="todo-cnt-running" style="display:none;">0</span>
-        </div>
-        <div id="cb-run"></div>
-        <div id="todo-col-running" style="display:none;"></div>
-      </div>
-      <div>
-        <div class="col-h" style="color:var(--t3);">
-          Backlog<span class="cn" id="c-todo">0</span>
-          <span id="todo-cnt-todo" style="display:none;">0</span>
-        </div>
-        <div id="cb-todo"></div>
-        <div id="todo-col-todo" style="display:none;"></div>
-      </div>
-      <div>
-        <div class="col-h" style="color:var(--green);">
-          Done<span class="cn" id="c-done">0</span>
-          <span id="done-clean-badge" style="font-size:9px;font-weight:400;color:var(--t3);margin-left:6px;"></span>
-          <span id="todo-cnt-done" style="display:none;">0</span>
-        </div>
-        <div id="kanban-cb-done"></div>
-        <div id="todo-col-done" style="display:none;"></div>
+    <!-- Task Details Modal -->
+    <div id="task-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 10000; display: flex; align-items: center; justify-content: center;">
+      <div class="task-modal" style="position: relative;">
+        <button onclick="closeTaskModal()" style="position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 24px; cursor: pointer;">×</button>
+        <div id="task-modal-content"></div>
       </div>
     </div>
-    <div id="tasks-empty" style="display:none;text-align:center;padding:60px 0;color:var(--t3);font-size:13px;">
-      No tasks yet — CEO check populates the board every 60s
-    </div>
-    <div id="todo-ct" style="margin-top:12px;font-size:11px;color:var(--t3);text-align:right;"></div>
-  </div>
+
   </div>
 </div>
 
