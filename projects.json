@@ -332,6 +332,21 @@
           "quality_score": 75.0,
           "elapsed_seconds": 0.0013728141784667969,
           "completed_at": "2026-03-26T22:15:27.489302"
+        },
+        {
+          "id": "task-blocker-stuck-state",
+          "title": "Fix blocker_monitor stuck-state detection",
+          "description": "Executor stuck in 'recovering' state for 6+ min not detected. Monitor only checks status='blocked'. Need to add elapsed-time check for stuck states.",
+          "agent": "executor",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "orchestrator/blocker_monitor.py"
+          ],
+          "success_criteria": "Blocker monitor detects and fixes agents stuck > 5min in recovering state",
+          "eta_hours": 1,
+          "eta_completion": "2026-03-27T06:13:08.084559Z",
+          "started_at": null
         }
       ],
       "eta_hours": 24,
@@ -343,9 +358,9 @@
     "created": "2026-03-26T20:00:00Z",
     "created_by": "claude",
     "mission": "Beat Opus 4.6 with 90% local / 10% Claude rescue",
-    "total_tasks": 13,
+    "total_tasks": 14,
     "total_epics": 7,
-    "updated": "2026-03-27T06:08:54.244587Z",
+    "updated": "2026-03-27T06:13:08.084729Z",
     "critical_path": "blocker-fixes (16h) \u2192 system-reliability (6h) \u2192 dashboard-quality (12h) \u2192 policy-governance (18h) \u2192 execution-optimization (30h)",
     "eta_all_complete": "2026-03-27T06:39:11.894496Z",
     "token_budget": {

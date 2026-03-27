@@ -141,6 +141,26 @@
 
 ---
 
+### BLOCKER 7: Stuck-State Detection in Blocker Monitor
+**Task ID**: task-blocker-stuck-state
+**Problem**: Executor stuck in "recovering" status for 6+ minutes not detected by blocker_monitor. Monitor only checks for status="blocked", misses stuck "recovering" states.
+
+**What To Do**:
+1. Read: orchestrator/blocker_monitor.py, function `detect_blocked_agents()`
+2. Add: Also check for agents with status="recovering" that haven't updated in > 300 seconds
+3. Add: Function to check `last_activity` timestamp vs current time
+4. Add: Stuck agents to blocked list for auto-fix
+5. Test: Set executor status="recovering" with old timestamp, run blocker_monitor, verify detection
+6. Success Criteria: Stuck agents (recovering > 5min) detected and auto-fixed by monitor
+
+**Files to Edit**:
+- orchestrator/blocker_monitor.py (expand detect_blocked_agents() logic)
+
+**Estimated Time**: 1 hour
+**ETA**: 2026-03-27 08:00 UTC
+
+---
+
 ## 📋 Execution Instructions
 
 ### How to Pick Up Tasks
