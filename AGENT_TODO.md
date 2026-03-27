@@ -262,6 +262,41 @@ After each blocker is fixed:
 
 ---
 
+## 🚨 IMMEDIATE ACTION REQUIRED: Daemon Restart
+
+**Current Status**: Daemon process (PID 76184) is stuck and not executing full-loop task. Last log entry: 2026-03-27 08:28:33 (7+ hours ago).
+
+**Why It's Stuck**: The daemon tried to run the full-loop task at 08:26 and failed because all Python files had macOS quarantine attributes (com.apple.provenance). The subprocess call to bash failed with "Operation not permitted".
+
+**What Claude Fixed**:
+- ✅ Removed quarantine attributes from 60+ Python files (agents/*, orchestrator/*)
+- ✅ Removed quarantine attributes from 30+ shell scripts (scripts/*, .claude/*)
+- ✅ Committed fix to git (commits 967e81d, ff481e8)
+- ✅ Pushed to remote
+
+**What Needs to Happen Next**:
+The daemon process needs to be restarted to pick up the fix. When the daemon restarts, it will be able to execute the full-loop task properly.
+
+**Daemon Status**:
+- Process: Still running (PID 76184, 0% CPU)
+- LaunchAgent: Configured to auto-restart on crash/exit (KeepAlive+SuccessfulExit=false)
+- Auto-recovery: auto_recover.sh doesn't monitor unified_daemon (only checks live_dashboard.py, continuous_loop.py)
+
+**Options for Restart**:
+1. **Wait for natural restart**: Daemon will eventually crash or timeout (may take hours)
+2. **Update auto_recover.sh**: Add check for unified_daemon.py and restart if missing
+3. **Force restart via LaunchAgent**: `launchctl stop com.local-agent-runtime && launchctl start com.local-agent-runtime`
+
+**Recommended Path**: Option 2 - Update auto_recover.sh to also monitor and restart unified_daemon.py. This ensures the system is truly autonomous and won't get stuck again.
+
+**Post-Restart Expected Behavior**:
+- Daemon logs "Full loop completed successfully" every 10 minutes
+- Full task execution resumes (tasks from projects.json start executing)
+- Dashboard updates every 5 seconds
+- Health checks run every 60 seconds
+
+---
+
 ## 🔧 Testing Checklist
 
 Before marking blocker complete, verify:
