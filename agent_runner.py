@@ -68,6 +68,38 @@ class AgentOrchestrator:
         self.poll_interval = poll_interval
         self.executor = ThreadPoolExecutor(max_workers=max_workers)
         self.running_tasks = {}
+        self.health_check_interval = 60  # Health check every 60 seconds
+        self.last_health_check = 0
+        self.iteration_count = 0
+
+    def health_check(self):
+        """Internal health check (replaces external cron auto_recover.sh)."""
+        try:
+            # Verify projects.json is valid
+            with open(PROJECTS_FILE, 'r') as f:
+                json.load(f)
+
+            # Check state directory
+            STATE_DIR.mkdir(exist_ok=True)
+            REPORTS_DIR.mkdir(exist_ok=True)
+
+            logger.info(f"[HEALTH] Iteration {self.iteration_count} - all systems nominal")
+            return True
+
+        except json.JSONDecodeError:
+            logger.error("[HEALTH] projects.json corrupted - recovery needed")
+            try:
+                # Attempt restore from git if available
+                import subprocess
+                subprocess.run(['git', 'checkout', 'HEAD', '--', str(PROJECTS_FILE)],
+                             cwd=str(BASE_DIR), timeout=5)
+                logger.info("[HEALTH] Restored projects.json from git")
+            except Exception as e:
+                logger.error(f"[HEALTH] Recovery failed: {e}")
+            return False
+        except Exception as e:
+            logger.error(f"[HEALTH] Check failed: {e}")
+            return False
 
     def load_tasks(self) -> List[Dict]:
         """Load pending tasks from projects.json."""
@@ -79,7 +111,7 @@ class AgentOrchestrator:
             for project in data.get('projects', []):
                 for task in project.get('tasks', []):
                     # Pick up pending or failed tasks (retry logic)
-                    if task.get('status') in ['pending', 'failed']:
+                    if task.get('status') in ['pending', 'failed', 'in_progress']:
                         # Check retry limit
                         attempts = task.get('attempts', 0)
                         max_attempts = task.get('max_attempts', 3)
@@ -172,7 +204,13 @@ class AgentOrchestrator:
                     break
 
                 iteration += 1
+                self.iteration_count = iteration
                 logger.info(f"=== Iteration {iteration} ===")
+
+                # Run health check every 60 seconds (internal, no cron)
+                if (time.time() - self.last_health_check) > self.health_check_interval:
+                    self.health_check()
+                    self.last_health_check = time.time()
 
                 # Load pending tasks
                 tasks = self.load_tasks()

@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-26T22:38:06.021810",
+  "ts": "2026-03-26T22:39:13.424940",
   "version": {
     "current": 0,
     "total": 100,
@@ -46,26 +46,26 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-26T22:37:39.255390",
+      "last_activity": "2026-03-26T22:38:54.615813",
       "sub_agents": [],
       "worker_count": 0
     },
     "test_engineer": {
       "status": "running",
-      "task": "Write tests for a caching layer",
-      "task_id": 74,
+      "task": "Add type coverage with mypy",
+      "task_id": 75,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-26T22:37:39.623251",
+      "last_activity": "2026-03-26T22:38:54.992449",
       "sub_agents": [],
       "worker_count": 0
     }
   },
   "task_queue": {
     "total": 102,
-    "completed": 53,
+    "completed": 54,
     "in_progress": 1,
     "failed": 22,
-    "pending": 48
+    "pending": 47
   },
   "benchmark_scores": {},
   "token_usage": {
@@ -76,8 +76,8 @@
     "hard_limit_hit": false
   },
   "hardware": {
-    "cpu_pct": 45.4,
-    "ram_pct": 70.3,
+    "cpu_pct": 42.3,
+    "ram_pct": 70.2,
     "disk_pct": 0.0,
     "gpu_pct": null,
     "alert_level": "ok"
@@ -100,7 +100,7 @@
   "recent_tasks": [],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-26T22:38:06.021754",
+    "ts": "2026-03-26T22:39:13.424767",
     "epics": [
       {
         "id": "system-reliability",
@@ -229,15 +229,15 @@
     "stages": []
   },
   "business_summary": {
-    "headline": "53 of 102 engineering tasks complete",
-    "pct_complete": 52.0,
+    "headline": "54 of 102 engineering tasks complete",
+    "pct_complete": 52.9,
     "projects_active": 0,
     "blockers_open": 0,
     "version": 1,
-    "updated_at": "2026-03-26T22:37:39.624337"
+    "updated_at": "2026-03-26T22:38:54.993377"
   },
   "auto_heal_status": {
-    "ts": "2026-03-27T05:38:10",
+    "ts": "2026-03-27T05:39:13",
     "issues_this_cycle": [],
     "healthy": true,
     "dashboard_alive": true,
