@@ -582,6 +582,37 @@ def _write_leaderboard(version: int, avg_local: float, avg_opus: float,
         print(f"[LEADERBOARD] write error: {e}")
 
 
+def _update_projects_json_task(task_id: str, status: str, quality_score: float,
+                                elapsed_seconds: float = 0):
+    """Update task status in projects.json (PERSISTENCE LAYER FIX)."""
+    projects_file = os.path.join(BASE_DIR, "projects.json")
+    try:
+        with open(projects_file, "r") as f:
+            data = json.load(f)
+
+        # Find and update the task
+        for project in data.get("projects", []):
+            for task in project.get("tasks", []):
+                if task.get("id") == task_id:
+                    task["status"] = status
+                    task["quality_score"] = quality_score
+                    task["elapsed_seconds"] = elapsed_seconds
+                    task["completed_at"] = datetime.now().isoformat() if status == "completed" else None
+
+                    # Write back to projects.json
+                    with open(projects_file, "w") as f:
+                        json.dump(data, f, indent=2)
+
+                    print(f"[PERSISTENCE] Updated {task_id}: status={status}, quality={quality_score}")
+                    return True
+
+        print(f"[PERSISTENCE] WARNING: Task {task_id} not found in projects.json")
+        return False
+    except Exception as e:
+        print(f"[PERSISTENCE] ERROR: Failed to update projects.json: {e}")
+        return False
+
+
 def run_version(version: int, tasks: list, local_only: bool = False,
                 quick: int = 0) -> dict:
     """Run one benchmark version. Returns version summary."""
