@@ -75,7 +75,7 @@ class MasterDaemon:
         print(entry)
 
     def ensure_orchestrator_running(self):
-        """Make sure orchestrator is running, restart if needed"""
+        """Make sure orchestrator is running CONTINUOUSLY (never idles)"""
         pid_file = BASE_DIR / ".orchestrator_pid"
 
         # Check if PID is still alive
@@ -88,17 +88,20 @@ class MasterDaemon:
             except (FileNotFoundError, ProcessLookupError, ValueError):
                 pid_file.unlink(missing_ok=True)
 
-        # Start orchestrator
-        self.log("🚀 Starting orchestrator --auto 1")
+        # PERSISTENCE FIX: Start persistent executor (never idles, never exits)
+        self.log("🚀 Starting PERSISTENT executor (never-idle task processor)")
         proc = subprocess.Popen(
-            ["python3", str(BASE_DIR / "orchestrator" / "main.py"), "--auto", "1"],
+            ["python3", str(BASE_DIR / "orchestrator" / "persistent_executor.py")],
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
             preexec_fn=os.setsid  # Create new process group
         )
 
         pid_file.write_text(str(proc.pid))
-        self.log(f"✅ Orchestrator started (PID {proc.pid})")
+        self.log(f"✅ Persistent executor started (PID {proc.pid})")
+        self.log("   • Will continuously execute pending tasks")
+        self.log("   • Never goes idle, never exits")
+        self.log("   • Auto-restarts on crash")
         return proc.pid
 
     def ensure_dashboard_3001_only(self):
