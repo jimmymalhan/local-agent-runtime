@@ -90,6 +90,27 @@
     ]
   },
   "task-network-mesh-upgrade": {
-    "attempts": []
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T00:43:55.395558"
+      }
+    ]
+  },
+  "task-complete-automation": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T00:43:55.768615"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T00:43:55.768613"
   }
 }
