@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-26T18:36:52.798690",
+  "ts": "2026-03-26T18:42:48.815689",
   "version": {
     "current": 0,
     "total": 100,
@@ -12,7 +12,7 @@
         {
           "id": 0,
           "status": "failed",
-          "task": "System health check \u2014 verify orchestrator/das",
+          "task": "Optimize multi-loop execution \u2014 DAG + paralle",
           "model": "",
           "elapsed_s": 0.0,
           "quality": 0
@@ -20,7 +20,7 @@
         {
           "id": 1,
           "status": "failed",
-          "task": "System health check \u2014 verify orchestrator/das",
+          "task": "Optimize multi-loop execution \u2014 DAG + paralle",
           "model": "",
           "elapsed_s": 0.0,
           "quality": 0
@@ -28,32 +28,14 @@
         {
           "id": 2,
           "status": "failed",
-          "task": "System health check \u2014 verify orchestrator/das",
+          "task": "Optimize multi-loop execution \u2014 DAG + paralle",
           "model": "",
           "elapsed_s": 0.0,
           "quality": 0
         }
       ],
       "worker_count": 0,
-      "last_activity": "2026-03-26T18:33:31.406162"
-    },
-    "orchestrator": {
-      "status": "running",
-      "task": "Policy enforcement \u2014 wire token/rescue budget limits",
-      "task_id": "task-3",
-      "elapsed_s": 0.0,
-      "last_activity": "2026-03-26T18:34:58.240632",
-      "sub_agents": [],
-      "worker_count": 0
-    },
-    "frontend_agent": {
-      "status": "running",
-      "task": "Fix dashboard state \u2014 implement missing quality/model fields",
-      "task_id": "task-2",
-      "elapsed_s": 0.0,
-      "last_activity": "2026-03-26T18:34:50.664287",
-      "sub_agents": [],
-      "worker_count": 0
+      "last_activity": "2026-03-26T18:38:17.441009"
     }
   },
   "task_queue": {
@@ -87,7 +69,7 @@
   "recent_tasks": [],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-26T18:36:52.798631",
+    "ts": "2026-03-26T18:42:48.815579",
     "epics": [
       {
         "id": "system-reliability",
@@ -197,26 +179,5 @@
   "board_plan": {
     "projects": [],
     "stages": []
-  },
-  "auto_heal_feed": [
-    {
-      "ts": "2026-03-27T01:35:16",
-      "level": "INFO",
-      "event": "started",
-      "detail": "Auto-heal monitor started (checks every 10s)",
-      "agent": ""
-    }
-  ],
-  "auto_heal_counts": {
-    "restarts": 0,
-    "purges": 0,
-    "retrains": 0
-  },
-  "auto_heal_status": {
-    "ts": "2026-03-27T01:36:56",
-    "issues_this_cycle": [],
-    "healthy": true,
-    "dashboard_alive": true,
-    "disk_ok": true
   }
 }

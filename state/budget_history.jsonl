@@ -33,3 +33,5 @@
 {"ts": "2026-03-26T18:33:31.026452", "agent": "planner", "old_budget": 531, "new_budget": 500, "success_rate": 0.5, "reason": "Low success (50%) \u2014 focus easy wins"}
 {"ts": "2026-03-26T18:33:31.026494", "agent": "architect", "old_budget": 1464, "new_budget": 1610, "success_rate": 1.0, "reason": "High success (100%) \u2014 reward"}
 {"ts": "2026-03-26T18:33:31.026531", "agent": "refactor", "old_budget": 1464, "new_budget": 1610, "success_rate": 1.0, "reason": "High success (100%) \u2014 reward"}
+{"ts": "2026-03-26T18:38:17.057683", "agent": "architect", "old_budget": 1610, "new_budget": 1771, "success_rate": 1.0, "reason": "High success (100%) \u2014 reward"}
+{"ts": "2026-03-26T18:38:17.058085", "agent": "refactor", "old_budget": 1610, "new_budget": 1771, "success_rate": 1.0, "reason": "High success (100%) \u2014 reward"}
