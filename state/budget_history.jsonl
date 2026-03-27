@@ -52,3 +52,4 @@
 {"ts": "2026-03-26T19:53:44.580860", "agent": "executor", "old_budget": 684, "new_budget": 615, "success_rate": 0.21, "reason": "Low success (21%) \u2014 focus easy wins"}
 {"ts": "2026-03-26T20:02:44.428152", "agent": "executor", "old_budget": 615, "new_budget": 553, "success_rate": 0.21, "reason": "Low success (21%) \u2014 focus easy wins"}
 {"ts": "2026-03-26T20:03:07.181454", "agent": "executor", "old_budget": 553, "new_budget": 500, "success_rate": 0.2, "reason": "Low success (20%) \u2014 focus easy wins"}
+{"ts": "2026-03-26T22:39:32.519171", "agent": "test_engineer", "old_budget": 1000, "new_budget": 1100, "success_rate": 1.0, "reason": "High success (100%) \u2014 reward"}
