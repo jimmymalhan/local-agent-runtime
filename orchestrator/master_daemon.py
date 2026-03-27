@@ -4,16 +4,20 @@ master_daemon.py — MASTER AUTONOMY DAEMON
 
 This single daemon replaces ALL crons and manual interventions:
 1. Keeps orchestrator running (auto-restart on crash)
-2. Syncs task completions to projects.json every 30s
-3. Updates dashboard state in real-time
-4. Monitors agent health + restarts dead processes
-5. Handles PR merging + conflict resolution
-6. Rotates logs + cleans old reports
-7. Never stops - runs 24/7
+2. Keeps DASHBOARD on 3001 running (CANONICAL, single source of truth)
+3. Syncs task completions to projects.json every 30s
+4. Updates dashboard state in real-time
+5. Monitors agent health + restarts dead processes
+6. Handles PR merging + conflict resolution
+7. Rotates logs + cleans old reports
+8. Never stops - runs 24/7
 
 ZERO MANUAL INTERVENTION REQUIRED.
 NO CRON DEPENDENCIES.
 PERSISTENCE AT THE DAEMON LEVEL.
+
+CANONICAL DASHBOARD: http://localhost:3001 (only source of truth)
+All other ports (3000, 3002, etc.) are automatically disabled.
 """
 
 import os
@@ -96,6 +100,50 @@ class MasterDaemon:
         pid_file.write_text(str(proc.pid))
         self.log(f"✅ Orchestrator started (PID {proc.pid})")
         return proc.pid
+
+    def ensure_dashboard_3001_only(self):
+        """Ensure ONLY port 3001 dashboard is running (canonical source of truth)"""
+        try:
+            result = subprocess.run(['ps', 'aux'], capture_output=True, text=True)
+            lines = result.stdout.split('\n')
+
+            dashboard_pids = {}
+            for line in lines:
+                if 'dashboard/server.py' in line and 'grep' not in line:
+                    parts = line.split()
+                    if len(parts) > 10:
+                        pid = parts[1]
+                        cmd_line = ' '.join(parts[10:])
+                        if '--port 3001' in cmd_line:
+                            dashboard_pids['3001'] = pid
+                        elif '--port' in cmd_line:
+                            port = cmd_line.split('--port')[-1].strip().split()[0]
+                            dashboard_pids[f'other_{port}'] = pid
+                        else:
+                            dashboard_pids['default'] = pid
+
+            # Kill all non-3001 dashboards
+            for port, pid in dashboard_pids.items():
+                if port != '3001':
+                    try:
+                        os.kill(int(pid), 9)
+                        self.log(f"🗑️  Killed duplicate dashboard on {port} (PID {pid})")
+                    except:
+                        pass
+
+            # If no 3001 dashboard, start one
+            if '3001' not in dashboard_pids:
+                self.log("📊 Starting canonical dashboard on port 3001")
+                subprocess.Popen(
+                    ["python3", str(BASE_DIR / "dashboard" / "server.py"), "--port", "3001"],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                    preexec_fn=os.setsid
+                )
+                self.log("✅ Dashboard on port 3001 started (CANONICAL)")
+
+        except Exception as e:
+            self.log(f"⚠️  Dashboard monitor error: {e}", "WARN")
 
     def sync_task_completions(self):
         """Sync completed tasks from reports back to projects.json"""
@@ -234,6 +282,7 @@ class MasterDaemon:
         self.log("="*70)
         self.log("Functions:")
         self.log("  • Keeps orchestrator running 24/7")
+        self.log("  • Keeps DASHBOARD on PORT 3001 (canonical, single source of truth)")
         self.log("  • Syncs task completions every 30s")
         self.log("  • Updates dashboard state")
         self.log("  • Cleans old logs (>7 days)")
@@ -252,6 +301,9 @@ class MasterDaemon:
 
                 # 1. Ensure orchestrator is running
                 self.ensure_orchestrator_running()
+
+                # 1b. Ensure ONLY dashboard on 3001 is running (canonical)
+                self.ensure_dashboard_3001_only()
 
                 # 2. Sync every 30 seconds
                 if now - last_sync > sync_interval:
