@@ -517,8 +517,8 @@ if __name__ == "__main__":
 
     # --- Test 22: Documentation from description only ---
     result = matcher.match({
-        "title": "Update the README",
-        "description": "Write docs and document the changelog for the project"
+        "title": "Update the README for the project",
+        "description": "Add docs and document the changelog"
     })
     assert result.agent_name == "doc_writer", f"Expected doc_writer, got {result.agent_name}"
     print(f"PASS test 22: description-only 'readme docs document changelog' -> {result.agent_name} (score={result.score:.2f})")
