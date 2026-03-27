@@ -35,6 +35,7 @@ REGISTRY    = os.path.join(BASE_DIR, "registry", "agents.json")
 BENCHMARKS  = os.path.join(BASE_DIR, "benchmarks")
 sys.path.insert(0, BASE_DIR)
 sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, os.path.join(BASE_DIR, "scripts"))
 
 Path(REPORTS_DIR).mkdir(exist_ok=True)
 
