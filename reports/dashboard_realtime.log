@@ -17211,3 +17211,1001 @@
 2026-03-27 02:04:12,761 [INFO]    architect: idle
 2026-03-27 02:04:12,761 [INFO]    test_engineer: idle
 2026-03-27 02:04:12,761 [INFO]    researcher: idle
+2026-03-27 02:04:17,844 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:04:17,844 [WARNING] ⚠️  Executor health low: 44.0% success
+2026-03-27 02:04:17,845 [INFO] ✅ Dashboard updated
+2026-03-27 02:04:17,845 [INFO]    Timestamp: 2026-03-27T09:04:17.844784
+2026-03-27 02:04:17,845 [INFO]    executor: idle
+2026-03-27 02:04:17,845 [INFO]    reviewer: idle
+2026-03-27 02:04:17,845 [INFO]    architect: running
+2026-03-27 02:04:17,845 [INFO]    test_engineer: idle
+2026-03-27 02:04:17,846 [INFO]    researcher: idle
+2026-03-27 02:04:22,973 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:04:22,974 [WARNING] ⚠️  Executor health low: 44.0% success
+2026-03-27 02:04:22,974 [INFO] ✅ Dashboard updated
+2026-03-27 02:04:22,974 [INFO]    Timestamp: 2026-03-27T09:04:22.973948
+2026-03-27 02:04:22,974 [INFO]    executor: idle
+2026-03-27 02:04:22,974 [INFO]    reviewer: idle
+2026-03-27 02:04:22,974 [INFO]    architect: running
+2026-03-27 02:04:22,974 [INFO]    test_engineer: idle
+2026-03-27 02:04:22,975 [INFO]    researcher: idle
+2026-03-27 02:04:28,033 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:04:28,034 [WARNING] ⚠️  Executor health low: 44.0% success
+2026-03-27 02:04:28,035 [INFO] ✅ Dashboard updated
+2026-03-27 02:04:28,035 [INFO]    Timestamp: 2026-03-27T09:04:28.034417
+2026-03-27 02:04:28,035 [INFO]    executor: idle
+2026-03-27 02:04:28,035 [INFO]    reviewer: idle
+2026-03-27 02:04:28,035 [INFO]    architect: idle
+2026-03-27 02:04:28,035 [INFO]    test_engineer: idle
+2026-03-27 02:04:28,035 [INFO]    researcher: idle
+2026-03-27 02:04:33,115 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:04:33,116 [WARNING] ⚠️  Executor health low: 44.0% success
+2026-03-27 02:04:33,117 [INFO] ✅ Dashboard updated
+2026-03-27 02:04:33,117 [INFO]    Timestamp: 2026-03-27T09:04:33.115891
+2026-03-27 02:04:33,117 [INFO]    executor: idle
+2026-03-27 02:04:33,117 [INFO]    reviewer: idle
+2026-03-27 02:04:33,117 [INFO]    architect: idle
+2026-03-27 02:04:33,117 [INFO]    test_engineer: idle
+2026-03-27 02:04:33,117 [INFO]    researcher: idle
+2026-03-27 02:04:38,594 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:04:38,595 [WARNING] ⚠️  Executor health low: 44.0% success
+2026-03-27 02:04:38,596 [INFO] ✅ Dashboard updated
+2026-03-27 02:04:38,596 [INFO]    Timestamp: 2026-03-27T09:04:38.595549
+2026-03-27 02:04:38,596 [INFO]    executor: idle
+2026-03-27 02:04:38,596 [INFO]    reviewer: idle
+2026-03-27 02:04:38,596 [INFO]    architect: idle
+2026-03-27 02:04:38,596 [INFO]    test_engineer: idle
+2026-03-27 02:04:38,596 [INFO]    researcher: idle
+2026-03-27 02:04:43,679 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:04:43,680 [WARNING] ⚠️  Executor health low: 44.0% success
+2026-03-27 02:04:43,681 [INFO] ✅ Dashboard updated
+2026-03-27 02:04:43,681 [INFO]    Timestamp: 2026-03-27T09:04:43.680608
+2026-03-27 02:04:43,681 [INFO]    executor: idle
+2026-03-27 02:04:43,681 [INFO]    reviewer: idle
+2026-03-27 02:04:43,681 [INFO]    architect: running
+2026-03-27 02:04:43,681 [INFO]    test_engineer: idle
+2026-03-27 02:04:43,681 [INFO]    researcher: idle
+2026-03-27 02:04:48,756 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:04:48,757 [WARNING] ⚠️  Executor health low: 44.0% success
+2026-03-27 02:04:48,758 [INFO] ✅ Dashboard updated
+2026-03-27 02:04:48,758 [INFO]    Timestamp: 2026-03-27T09:04:48.757259
+2026-03-27 02:04:48,758 [INFO]    executor: idle
+2026-03-27 02:04:48,758 [INFO]    reviewer: idle
+2026-03-27 02:04:48,758 [INFO]    architect: running
+2026-03-27 02:04:48,758 [INFO]    test_engineer: idle
+2026-03-27 02:04:48,758 [INFO]    researcher: idle
+2026-03-27 02:04:53,836 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:04:53,837 [WARNING] ⚠️  Executor health low: 44.0% success
+2026-03-27 02:04:53,838 [INFO] ✅ Dashboard updated
+2026-03-27 02:04:53,838 [INFO]    Timestamp: 2026-03-27T09:04:53.837149
+2026-03-27 02:04:53,838 [INFO]    executor: idle
+2026-03-27 02:04:53,838 [INFO]    reviewer: idle
+2026-03-27 02:04:53,838 [INFO]    architect: running
+2026-03-27 02:04:53,838 [INFO]    test_engineer: idle
+2026-03-27 02:04:53,838 [INFO]    researcher: idle
+2026-03-27 02:04:58,926 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:04:58,927 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:04:58,928 [INFO] ✅ Dashboard updated
+2026-03-27 02:04:58,928 [INFO]    Timestamp: 2026-03-27T09:04:58.927557
+2026-03-27 02:04:58,928 [INFO]    executor: idle
+2026-03-27 02:04:58,928 [INFO]    reviewer: idle
+2026-03-27 02:04:58,928 [INFO]    architect: running
+2026-03-27 02:04:58,928 [INFO]    test_engineer: idle
+2026-03-27 02:04:58,928 [INFO]    researcher: idle
+2026-03-27 02:05:04,006 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:05:04,007 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:05:04,008 [INFO] ✅ Dashboard updated
+2026-03-27 02:05:04,008 [INFO]    Timestamp: 2026-03-27T09:05:04.006918
+2026-03-27 02:05:04,008 [INFO]    executor: idle
+2026-03-27 02:05:04,008 [INFO]    reviewer: idle
+2026-03-27 02:05:04,008 [INFO]    architect: running
+2026-03-27 02:05:04,008 [INFO]    test_engineer: idle
+2026-03-27 02:05:04,008 [INFO]    researcher: idle
+2026-03-27 02:05:09,477 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:05:09,478 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:05:09,479 [INFO] ✅ Dashboard updated
+2026-03-27 02:05:09,479 [INFO]    Timestamp: 2026-03-27T09:05:09.478560
+2026-03-27 02:05:09,479 [INFO]    executor: idle
+2026-03-27 02:05:09,479 [INFO]    reviewer: idle
+2026-03-27 02:05:09,479 [INFO]    architect: running
+2026-03-27 02:05:09,479 [INFO]    test_engineer: idle
+2026-03-27 02:05:09,479 [INFO]    researcher: idle
+2026-03-27 02:05:14,563 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:05:14,564 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:05:14,565 [INFO] ✅ Dashboard updated
+2026-03-27 02:05:14,565 [INFO]    Timestamp: 2026-03-27T09:05:14.564304
+2026-03-27 02:05:14,565 [INFO]    executor: idle
+2026-03-27 02:05:14,565 [INFO]    reviewer: idle
+2026-03-27 02:05:14,565 [INFO]    architect: running
+2026-03-27 02:05:14,565 [INFO]    test_engineer: idle
+2026-03-27 02:05:14,565 [INFO]    researcher: idle
+2026-03-27 02:05:20,677 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:05:20,678 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:05:20,679 [INFO] ✅ Dashboard updated
+2026-03-27 02:05:20,679 [INFO]    Timestamp: 2026-03-27T09:05:20.678160
+2026-03-27 02:05:20,679 [INFO]    executor: idle
+2026-03-27 02:05:20,679 [INFO]    reviewer: idle
+2026-03-27 02:05:20,679 [INFO]    architect: running
+2026-03-27 02:05:20,679 [INFO]    test_engineer: idle
+2026-03-27 02:05:20,679 [INFO]    researcher: idle
+2026-03-27 02:05:25,760 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:05:25,761 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:05:25,762 [INFO] ✅ Dashboard updated
+2026-03-27 02:05:25,762 [INFO]    Timestamp: 2026-03-27T09:05:25.761592
+2026-03-27 02:05:25,762 [INFO]    executor: idle
+2026-03-27 02:05:25,762 [INFO]    reviewer: idle
+2026-03-27 02:05:25,762 [INFO]    architect: idle
+2026-03-27 02:05:25,762 [INFO]    test_engineer: idle
+2026-03-27 02:05:25,762 [INFO]    researcher: idle
+2026-03-27 02:05:30,834 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:05:30,835 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:05:30,836 [INFO] ✅ Dashboard updated
+2026-03-27 02:05:30,836 [INFO]    Timestamp: 2026-03-27T09:05:30.835293
+2026-03-27 02:05:30,836 [INFO]    executor: idle
+2026-03-27 02:05:30,836 [INFO]    reviewer: idle
+2026-03-27 02:05:30,836 [INFO]    architect: idle
+2026-03-27 02:05:30,836 [INFO]    test_engineer: idle
+2026-03-27 02:05:30,836 [INFO]    researcher: idle
+2026-03-27 02:05:35,914 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:05:35,915 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:05:35,916 [INFO] ✅ Dashboard updated
+2026-03-27 02:05:35,916 [INFO]    Timestamp: 2026-03-27T09:05:35.915025
+2026-03-27 02:05:35,916 [INFO]    executor: idle
+2026-03-27 02:05:35,916 [INFO]    reviewer: idle
+2026-03-27 02:05:35,916 [INFO]    architect: idle
+2026-03-27 02:05:35,916 [INFO]    test_engineer: idle
+2026-03-27 02:05:35,916 [INFO]    researcher: idle
+2026-03-27 02:05:41,606 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:05:41,607 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:05:41,608 [INFO] ✅ Dashboard updated
+2026-03-27 02:05:41,608 [INFO]    Timestamp: 2026-03-27T09:05:41.607451
+2026-03-27 02:05:41,608 [INFO]    executor: idle
+2026-03-27 02:05:41,608 [INFO]    reviewer: idle
+2026-03-27 02:05:41,608 [INFO]    architect: idle
+2026-03-27 02:05:41,608 [INFO]    test_engineer: idle
+2026-03-27 02:05:41,608 [INFO]    researcher: idle
+2026-03-27 02:05:46,686 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:05:46,687 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:05:46,688 [INFO] ✅ Dashboard updated
+2026-03-27 02:05:46,688 [INFO]    Timestamp: 2026-03-27T09:05:46.687573
+2026-03-27 02:05:46,688 [INFO]    executor: idle
+2026-03-27 02:05:46,688 [INFO]    reviewer: idle
+2026-03-27 02:05:46,688 [INFO]    architect: idle
+2026-03-27 02:05:46,688 [INFO]    test_engineer: idle
+2026-03-27 02:05:46,688 [INFO]    researcher: idle
+2026-03-27 02:05:51,743 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:05:51,744 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:05:51,745 [INFO] ✅ Dashboard updated
+2026-03-27 02:05:51,745 [INFO]    Timestamp: 2026-03-27T09:05:51.744677
+2026-03-27 02:05:51,745 [INFO]    executor: idle
+2026-03-27 02:05:51,745 [INFO]    reviewer: idle
+2026-03-27 02:05:51,745 [INFO]    architect: idle
+2026-03-27 02:05:51,745 [INFO]    test_engineer: idle
+2026-03-27 02:05:51,745 [INFO]    researcher: idle
+2026-03-27 02:05:56,810 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:05:56,811 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:05:56,812 [INFO] ✅ Dashboard updated
+2026-03-27 02:05:56,812 [INFO]    Timestamp: 2026-03-27T09:05:56.811329
+2026-03-27 02:05:56,812 [INFO]    executor: idle
+2026-03-27 02:05:56,812 [INFO]    reviewer: idle
+2026-03-27 02:05:56,812 [INFO]    architect: idle
+2026-03-27 02:05:56,812 [INFO]    test_engineer: idle
+2026-03-27 02:05:56,812 [INFO]    researcher: idle
+2026-03-27 02:06:01,889 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:06:01,890 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:06:01,891 [INFO] ✅ Dashboard updated
+2026-03-27 02:06:01,891 [INFO]    Timestamp: 2026-03-27T09:06:01.890062
+2026-03-27 02:06:01,891 [INFO]    executor: idle
+2026-03-27 02:06:01,891 [INFO]    reviewer: idle
+2026-03-27 02:06:01,891 [INFO]    architect: running
+2026-03-27 02:06:01,891 [INFO]    test_engineer: idle
+2026-03-27 02:06:01,891 [INFO]    researcher: idle
+2026-03-27 02:06:06,976 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:06:06,977 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:06:06,977 [INFO] ✅ Dashboard updated
+2026-03-27 02:06:06,977 [INFO]    Timestamp: 2026-03-27T09:06:06.977007
+2026-03-27 02:06:06,977 [INFO]    executor: idle
+2026-03-27 02:06:06,977 [INFO]    reviewer: idle
+2026-03-27 02:06:06,977 [INFO]    architect: running
+2026-03-27 02:06:06,978 [INFO]    test_engineer: idle
+2026-03-27 02:06:06,978 [INFO]    researcher: idle
+2026-03-27 02:06:12,599 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:06:12,600 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:06:12,600 [INFO] ✅ Dashboard updated
+2026-03-27 02:06:12,600 [INFO]    Timestamp: 2026-03-27T09:06:12.599812
+2026-03-27 02:06:12,600 [INFO]    executor: idle
+2026-03-27 02:06:12,600 [INFO]    reviewer: idle
+2026-03-27 02:06:12,600 [INFO]    architect: running
+2026-03-27 02:06:12,600 [INFO]    test_engineer: idle
+2026-03-27 02:06:12,600 [INFO]    researcher: idle
+2026-03-27 02:06:17,680 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:06:17,680 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:06:17,681 [INFO] ✅ Dashboard updated
+2026-03-27 02:06:17,681 [INFO]    Timestamp: 2026-03-27T09:06:17.680790
+2026-03-27 02:06:17,681 [INFO]    executor: idle
+2026-03-27 02:06:17,681 [INFO]    reviewer: idle
+2026-03-27 02:06:17,681 [INFO]    architect: running
+2026-03-27 02:06:17,681 [INFO]    test_engineer: idle
+2026-03-27 02:06:17,681 [INFO]    researcher: idle
+2026-03-27 02:06:22,798 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:06:22,798 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:06:22,799 [INFO] ✅ Dashboard updated
+2026-03-27 02:06:22,799 [INFO]    Timestamp: 2026-03-27T09:06:22.798761
+2026-03-27 02:06:22,799 [INFO]    executor: idle
+2026-03-27 02:06:22,799 [INFO]    reviewer: idle
+2026-03-27 02:06:22,799 [INFO]    architect: running
+2026-03-27 02:06:22,799 [INFO]    test_engineer: idle
+2026-03-27 02:06:22,799 [INFO]    researcher: idle
+2026-03-27 02:06:27,873 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:06:27,874 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:06:27,875 [INFO] ✅ Dashboard updated
+2026-03-27 02:06:27,875 [INFO]    Timestamp: 2026-03-27T09:06:27.874100
+2026-03-27 02:06:27,875 [INFO]    executor: idle
+2026-03-27 02:06:27,875 [INFO]    reviewer: idle
+2026-03-27 02:06:27,875 [INFO]    architect: idle
+2026-03-27 02:06:27,875 [INFO]    test_engineer: idle
+2026-03-27 02:06:27,875 [INFO]    researcher: idle
+2026-03-27 02:06:32,940 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:06:32,941 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:06:32,941 [INFO] ✅ Dashboard updated
+2026-03-27 02:06:32,941 [INFO]    Timestamp: 2026-03-27T09:06:32.940969
+2026-03-27 02:06:32,941 [INFO]    executor: idle
+2026-03-27 02:06:32,942 [INFO]    reviewer: idle
+2026-03-27 02:06:32,942 [INFO]    architect: idle
+2026-03-27 02:06:32,942 [INFO]    test_engineer: idle
+2026-03-27 02:06:32,942 [INFO]    researcher: idle
+2026-03-27 02:06:38,014 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:06:38,015 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:06:38,016 [INFO] ✅ Dashboard updated
+2026-03-27 02:06:38,016 [INFO]    Timestamp: 2026-03-27T09:06:38.015390
+2026-03-27 02:06:38,016 [INFO]    executor: idle
+2026-03-27 02:06:38,016 [INFO]    reviewer: idle
+2026-03-27 02:06:38,016 [INFO]    architect: done
+2026-03-27 02:06:38,016 [INFO]    test_engineer: idle
+2026-03-27 02:06:38,016 [INFO]    researcher: idle
+2026-03-27 02:06:43,822 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:06:43,823 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:06:43,824 [INFO] ✅ Dashboard updated
+2026-03-27 02:06:43,824 [INFO]    Timestamp: 2026-03-27T09:06:43.823420
+2026-03-27 02:06:43,824 [INFO]    executor: idle
+2026-03-27 02:06:43,824 [INFO]    reviewer: idle
+2026-03-27 02:06:43,824 [INFO]    architect: done
+2026-03-27 02:06:43,824 [INFO]    test_engineer: idle
+2026-03-27 02:06:43,824 [INFO]    researcher: idle
+2026-03-27 02:06:48,892 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:06:48,893 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:06:48,894 [INFO] ✅ Dashboard updated
+2026-03-27 02:06:48,894 [INFO]    Timestamp: 2026-03-27T09:06:48.893478
+2026-03-27 02:06:48,894 [INFO]    executor: idle
+2026-03-27 02:06:48,894 [INFO]    reviewer: idle
+2026-03-27 02:06:48,894 [INFO]    architect: done
+2026-03-27 02:06:48,894 [INFO]    test_engineer: idle
+2026-03-27 02:06:48,894 [INFO]    researcher: idle
+2026-03-27 02:06:53,985 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:06:53,986 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:06:53,987 [INFO] ✅ Dashboard updated
+2026-03-27 02:06:53,987 [INFO]    Timestamp: 2026-03-27T09:06:53.986681
+2026-03-27 02:06:53,987 [INFO]    executor: idle
+2026-03-27 02:06:53,987 [INFO]    reviewer: idle
+2026-03-27 02:06:53,987 [INFO]    architect: done
+2026-03-27 02:06:53,987 [INFO]    test_engineer: idle
+2026-03-27 02:06:53,987 [INFO]    researcher: idle
+2026-03-27 02:06:59,061 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:06:59,061 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:06:59,062 [INFO] ✅ Dashboard updated
+2026-03-27 02:06:59,062 [INFO]    Timestamp: 2026-03-27T09:06:59.061781
+2026-03-27 02:06:59,062 [INFO]    executor: idle
+2026-03-27 02:06:59,062 [INFO]    reviewer: idle
+2026-03-27 02:06:59,062 [INFO]    architect: idle
+2026-03-27 02:06:59,062 [INFO]    test_engineer: idle
+2026-03-27 02:06:59,062 [INFO]    researcher: idle
+2026-03-27 02:07:04,135 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:07:04,135 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:07:04,136 [INFO] ✅ Dashboard updated
+2026-03-27 02:07:04,136 [INFO]    Timestamp: 2026-03-27T09:07:04.135784
+2026-03-27 02:07:04,136 [INFO]    executor: idle
+2026-03-27 02:07:04,136 [INFO]    reviewer: idle
+2026-03-27 02:07:04,136 [INFO]    architect: idle
+2026-03-27 02:07:04,136 [INFO]    test_engineer: idle
+2026-03-27 02:07:04,136 [INFO]    researcher: idle
+2026-03-27 02:07:09,695 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:07:09,695 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:07:09,696 [INFO] ✅ Dashboard updated
+2026-03-27 02:07:09,696 [INFO]    Timestamp: 2026-03-27T09:07:09.695768
+2026-03-27 02:07:09,696 [INFO]    executor: idle
+2026-03-27 02:07:09,696 [INFO]    reviewer: idle
+2026-03-27 02:07:09,696 [INFO]    architect: idle
+2026-03-27 02:07:09,696 [INFO]    test_engineer: idle
+2026-03-27 02:07:09,696 [INFO]    researcher: idle
+2026-03-27 02:07:14,776 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:07:14,777 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:07:14,778 [INFO] ✅ Dashboard updated
+2026-03-27 02:07:14,778 [INFO]    Timestamp: 2026-03-27T09:07:14.777277
+2026-03-27 02:07:14,778 [INFO]    executor: idle
+2026-03-27 02:07:14,778 [INFO]    reviewer: idle
+2026-03-27 02:07:14,778 [INFO]    architect: idle
+2026-03-27 02:07:14,778 [INFO]    test_engineer: idle
+2026-03-27 02:07:14,778 [INFO]    researcher: idle
+2026-03-27 02:07:20,906 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:07:20,907 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:07:20,908 [INFO] ✅ Dashboard updated
+2026-03-27 02:07:20,908 [INFO]    Timestamp: 2026-03-27T09:07:20.907074
+2026-03-27 02:07:20,908 [INFO]    executor: idle
+2026-03-27 02:07:20,908 [INFO]    reviewer: idle
+2026-03-27 02:07:20,908 [INFO]    architect: idle
+2026-03-27 02:07:20,908 [INFO]    test_engineer: idle
+2026-03-27 02:07:20,908 [INFO]    researcher: idle
+2026-03-27 02:07:25,994 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:07:25,995 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:07:25,996 [INFO] ✅ Dashboard updated
+2026-03-27 02:07:25,996 [INFO]    Timestamp: 2026-03-27T09:07:25.995762
+2026-03-27 02:07:25,996 [INFO]    executor: idle
+2026-03-27 02:07:25,996 [INFO]    reviewer: idle
+2026-03-27 02:07:25,996 [INFO]    architect: idle
+2026-03-27 02:07:25,996 [INFO]    test_engineer: idle
+2026-03-27 02:07:25,996 [INFO]    researcher: idle
+2026-03-27 02:07:31,064 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:07:31,065 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:07:31,066 [INFO] ✅ Dashboard updated
+2026-03-27 02:07:31,066 [INFO]    Timestamp: 2026-03-27T09:07:31.065367
+2026-03-27 02:07:31,066 [INFO]    executor: idle
+2026-03-27 02:07:31,066 [INFO]    reviewer: idle
+2026-03-27 02:07:31,066 [INFO]    architect: idle
+2026-03-27 02:07:31,066 [INFO]    test_engineer: idle
+2026-03-27 02:07:31,066 [INFO]    researcher: idle
+2026-03-27 02:07:36,134 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:07:36,135 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:07:36,136 [INFO] ✅ Dashboard updated
+2026-03-27 02:07:36,136 [INFO]    Timestamp: 2026-03-27T09:07:36.135479
+2026-03-27 02:07:36,136 [INFO]    executor: idle
+2026-03-27 02:07:36,136 [INFO]    reviewer: idle
+2026-03-27 02:07:36,136 [INFO]    architect: idle
+2026-03-27 02:07:36,136 [INFO]    test_engineer: idle
+2026-03-27 02:07:36,136 [INFO]    researcher: idle
+2026-03-27 02:07:41,622 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:07:41,623 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:07:41,624 [INFO] ✅ Dashboard updated
+2026-03-27 02:07:41,624 [INFO]    Timestamp: 2026-03-27T09:07:41.623189
+2026-03-27 02:07:41,624 [INFO]    executor: idle
+2026-03-27 02:07:41,624 [INFO]    reviewer: idle
+2026-03-27 02:07:41,624 [INFO]    architect: idle
+2026-03-27 02:07:41,624 [INFO]    test_engineer: idle
+2026-03-27 02:07:41,624 [INFO]    researcher: idle
+2026-03-27 02:07:46,697 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:07:46,698 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:07:46,699 [INFO] ✅ Dashboard updated
+2026-03-27 02:07:46,699 [INFO]    Timestamp: 2026-03-27T09:07:46.698634
+2026-03-27 02:07:46,699 [INFO]    executor: idle
+2026-03-27 02:07:46,699 [INFO]    reviewer: idle
+2026-03-27 02:07:46,699 [INFO]    architect: idle
+2026-03-27 02:07:46,699 [INFO]    test_engineer: idle
+2026-03-27 02:07:46,699 [INFO]    researcher: idle
+2026-03-27 02:07:51,778 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:07:51,779 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:07:51,780 [INFO] ✅ Dashboard updated
+2026-03-27 02:07:51,780 [INFO]    Timestamp: 2026-03-27T09:07:51.779244
+2026-03-27 02:07:51,780 [INFO]    executor: idle
+2026-03-27 02:07:51,780 [INFO]    reviewer: idle
+2026-03-27 02:07:51,780 [INFO]    architect: idle
+2026-03-27 02:07:51,780 [INFO]    test_engineer: idle
+2026-03-27 02:07:51,780 [INFO]    researcher: idle
+2026-03-27 02:07:56,866 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:07:56,867 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:07:56,868 [INFO] ✅ Dashboard updated
+2026-03-27 02:07:56,868 [INFO]    Timestamp: 2026-03-27T09:07:56.867362
+2026-03-27 02:07:56,868 [INFO]    executor: idle
+2026-03-27 02:07:56,868 [INFO]    reviewer: idle
+2026-03-27 02:07:56,868 [INFO]    architect: idle
+2026-03-27 02:07:56,868 [INFO]    test_engineer: idle
+2026-03-27 02:07:56,868 [INFO]    researcher: idle
+2026-03-27 02:08:01,945 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:08:01,946 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:08:01,947 [INFO] ✅ Dashboard updated
+2026-03-27 02:08:01,947 [INFO]    Timestamp: 2026-03-27T09:08:01.946649
+2026-03-27 02:08:01,947 [INFO]    executor: idle
+2026-03-27 02:08:01,947 [INFO]    reviewer: idle
+2026-03-27 02:08:01,947 [INFO]    architect: idle
+2026-03-27 02:08:01,947 [INFO]    test_engineer: idle
+2026-03-27 02:08:01,947 [INFO]    researcher: idle
+2026-03-27 02:08:07,030 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:08:07,031 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:08:07,031 [INFO] ✅ Dashboard updated
+2026-03-27 02:08:07,031 [INFO]    Timestamp: 2026-03-27T09:08:07.030989
+2026-03-27 02:08:07,031 [INFO]    executor: idle
+2026-03-27 02:08:07,031 [INFO]    reviewer: idle
+2026-03-27 02:08:07,031 [INFO]    architect: idle
+2026-03-27 02:08:07,032 [INFO]    test_engineer: idle
+2026-03-27 02:08:07,032 [INFO]    researcher: idle
+2026-03-27 02:08:12,537 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:08:12,538 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:08:12,538 [INFO] ✅ Dashboard updated
+2026-03-27 02:08:12,538 [INFO]    Timestamp: 2026-03-27T09:08:12.538041
+2026-03-27 02:08:12,538 [INFO]    executor: idle
+2026-03-27 02:08:12,538 [INFO]    reviewer: idle
+2026-03-27 02:08:12,539 [INFO]    architect: idle
+2026-03-27 02:08:12,539 [INFO]    test_engineer: idle
+2026-03-27 02:08:12,539 [INFO]    researcher: idle
+2026-03-27 02:08:17,622 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:08:17,623 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:08:17,624 [INFO] ✅ Dashboard updated
+2026-03-27 02:08:17,624 [INFO]    Timestamp: 2026-03-27T09:08:17.623323
+2026-03-27 02:08:17,624 [INFO]    executor: idle
+2026-03-27 02:08:17,624 [INFO]    reviewer: idle
+2026-03-27 02:08:17,624 [INFO]    architect: idle
+2026-03-27 02:08:17,624 [INFO]    test_engineer: idle
+2026-03-27 02:08:17,624 [INFO]    researcher: idle
+2026-03-27 02:08:22,745 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:08:22,746 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:08:22,746 [INFO] ✅ Dashboard updated
+2026-03-27 02:08:22,746 [INFO]    Timestamp: 2026-03-27T09:08:22.745905
+2026-03-27 02:08:22,746 [INFO]    executor: idle
+2026-03-27 02:08:22,746 [INFO]    reviewer: idle
+2026-03-27 02:08:22,746 [INFO]    architect: idle
+2026-03-27 02:08:22,746 [INFO]    test_engineer: idle
+2026-03-27 02:08:22,746 [INFO]    researcher: idle
+2026-03-27 02:08:27,817 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:08:27,818 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:08:27,819 [INFO] ✅ Dashboard updated
+2026-03-27 02:08:27,819 [INFO]    Timestamp: 2026-03-27T09:08:27.818220
+2026-03-27 02:08:27,819 [INFO]    executor: idle
+2026-03-27 02:08:27,819 [INFO]    reviewer: idle
+2026-03-27 02:08:27,819 [INFO]    architect: idle
+2026-03-27 02:08:27,819 [INFO]    test_engineer: idle
+2026-03-27 02:08:27,819 [INFO]    researcher: idle
+2026-03-27 02:08:32,900 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:08:32,901 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:08:32,902 [INFO] ✅ Dashboard updated
+2026-03-27 02:08:32,902 [INFO]    Timestamp: 2026-03-27T09:08:32.901535
+2026-03-27 02:08:32,902 [INFO]    executor: idle
+2026-03-27 02:08:32,902 [INFO]    reviewer: idle
+2026-03-27 02:08:32,902 [INFO]    architect: idle
+2026-03-27 02:08:32,902 [INFO]    test_engineer: idle
+2026-03-27 02:08:32,902 [INFO]    researcher: idle
+2026-03-27 02:08:37,983 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:08:37,984 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:08:37,985 [INFO] ✅ Dashboard updated
+2026-03-27 02:08:37,985 [INFO]    Timestamp: 2026-03-27T09:08:37.984478
+2026-03-27 02:08:37,985 [INFO]    executor: idle
+2026-03-27 02:08:37,985 [INFO]    reviewer: idle
+2026-03-27 02:08:37,985 [INFO]    architect: idle
+2026-03-27 02:08:37,985 [INFO]    test_engineer: idle
+2026-03-27 02:08:37,985 [INFO]    researcher: idle
+2026-03-27 02:08:43,518 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:08:43,519 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:08:43,519 [INFO] ✅ Dashboard updated
+2026-03-27 02:08:43,519 [INFO]    Timestamp: 2026-03-27T09:08:43.519053
+2026-03-27 02:08:43,519 [INFO]    executor: idle
+2026-03-27 02:08:43,520 [INFO]    reviewer: idle
+2026-03-27 02:08:43,520 [INFO]    architect: idle
+2026-03-27 02:08:43,520 [INFO]    test_engineer: idle
+2026-03-27 02:08:43,520 [INFO]    researcher: idle
+2026-03-27 02:08:48,600 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:08:48,601 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:08:48,602 [INFO] ✅ Dashboard updated
+2026-03-27 02:08:48,602 [INFO]    Timestamp: 2026-03-27T09:08:48.601738
+2026-03-27 02:08:48,602 [INFO]    executor: idle
+2026-03-27 02:08:48,602 [INFO]    reviewer: idle
+2026-03-27 02:08:48,602 [INFO]    architect: idle
+2026-03-27 02:08:48,602 [INFO]    test_engineer: idle
+2026-03-27 02:08:48,602 [INFO]    researcher: idle
+2026-03-27 02:08:53,694 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:08:53,695 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:08:53,696 [INFO] ✅ Dashboard updated
+2026-03-27 02:08:53,696 [INFO]    Timestamp: 2026-03-27T09:08:53.695079
+2026-03-27 02:08:53,696 [INFO]    executor: idle
+2026-03-27 02:08:53,696 [INFO]    reviewer: idle
+2026-03-27 02:08:53,696 [INFO]    architect: idle
+2026-03-27 02:08:53,696 [INFO]    test_engineer: idle
+2026-03-27 02:08:53,696 [INFO]    researcher: idle
+2026-03-27 02:08:58,781 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:08:58,782 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:08:58,783 [INFO] ✅ Dashboard updated
+2026-03-27 02:08:58,783 [INFO]    Timestamp: 2026-03-27T09:08:58.782709
+2026-03-27 02:08:58,783 [INFO]    executor: idle
+2026-03-27 02:08:58,783 [INFO]    reviewer: idle
+2026-03-27 02:08:58,783 [INFO]    architect: idle
+2026-03-27 02:08:58,783 [INFO]    test_engineer: idle
+2026-03-27 02:08:58,783 [INFO]    researcher: idle
+2026-03-27 02:09:03,850 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:09:03,851 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:09:03,852 [INFO] ✅ Dashboard updated
+2026-03-27 02:09:03,852 [INFO]    Timestamp: 2026-03-27T09:09:03.851464
+2026-03-27 02:09:03,852 [INFO]    executor: idle
+2026-03-27 02:09:03,852 [INFO]    reviewer: idle
+2026-03-27 02:09:03,852 [INFO]    architect: idle
+2026-03-27 02:09:03,852 [INFO]    test_engineer: idle
+2026-03-27 02:09:03,852 [INFO]    researcher: idle
+2026-03-27 02:09:08,929 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:09:08,930 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:09:08,930 [INFO] ✅ Dashboard updated
+2026-03-27 02:09:08,930 [INFO]    Timestamp: 2026-03-27T09:09:08.930057
+2026-03-27 02:09:08,931 [INFO]    executor: idle
+2026-03-27 02:09:08,931 [INFO]    reviewer: idle
+2026-03-27 02:09:08,931 [INFO]    architect: idle
+2026-03-27 02:09:08,931 [INFO]    test_engineer: idle
+2026-03-27 02:09:08,931 [INFO]    researcher: idle
+2026-03-27 02:09:14,524 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:09:14,525 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:09:14,525 [INFO] ✅ Dashboard updated
+2026-03-27 02:09:14,525 [INFO]    Timestamp: 2026-03-27T09:09:14.524908
+2026-03-27 02:09:14,526 [INFO]    executor: idle
+2026-03-27 02:09:14,526 [INFO]    reviewer: idle
+2026-03-27 02:09:14,526 [INFO]    architect: idle
+2026-03-27 02:09:14,526 [INFO]    test_engineer: idle
+2026-03-27 02:09:14,526 [INFO]    researcher: idle
+2026-03-27 02:09:19,595 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:09:19,596 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:09:19,597 [INFO] ✅ Dashboard updated
+2026-03-27 02:09:19,597 [INFO]    Timestamp: 2026-03-27T09:09:19.596348
+2026-03-27 02:09:19,597 [INFO]    executor: idle
+2026-03-27 02:09:19,597 [INFO]    reviewer: idle
+2026-03-27 02:09:19,597 [INFO]    architect: idle
+2026-03-27 02:09:19,597 [INFO]    test_engineer: idle
+2026-03-27 02:09:19,597 [INFO]    researcher: idle
+2026-03-27 02:09:24,697 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:09:24,698 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:09:24,699 [INFO] ✅ Dashboard updated
+2026-03-27 02:09:24,699 [INFO]    Timestamp: 2026-03-27T09:09:24.698077
+2026-03-27 02:09:24,699 [INFO]    executor: idle
+2026-03-27 02:09:24,699 [INFO]    reviewer: idle
+2026-03-27 02:09:24,699 [INFO]    architect: idle
+2026-03-27 02:09:24,699 [INFO]    test_engineer: idle
+2026-03-27 02:09:24,699 [INFO]    researcher: idle
+2026-03-27 02:09:29,767 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:09:29,768 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:09:29,769 [INFO] ✅ Dashboard updated
+2026-03-27 02:09:29,769 [INFO]    Timestamp: 2026-03-27T09:09:29.768261
+2026-03-27 02:09:29,769 [INFO]    executor: idle
+2026-03-27 02:09:29,769 [INFO]    reviewer: idle
+2026-03-27 02:09:29,769 [INFO]    architect: idle
+2026-03-27 02:09:29,769 [INFO]    test_engineer: idle
+2026-03-27 02:09:29,769 [INFO]    researcher: idle
+2026-03-27 02:09:34,859 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:09:34,860 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:09:34,861 [INFO] ✅ Dashboard updated
+2026-03-27 02:09:34,861 [INFO]    Timestamp: 2026-03-27T09:09:34.860111
+2026-03-27 02:09:34,861 [INFO]    executor: idle
+2026-03-27 02:09:34,861 [INFO]    reviewer: idle
+2026-03-27 02:09:34,861 [INFO]    architect: idle
+2026-03-27 02:09:34,861 [INFO]    test_engineer: idle
+2026-03-27 02:09:34,861 [INFO]    researcher: idle
+2026-03-27 02:09:39,952 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:09:39,953 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:09:39,954 [INFO] ✅ Dashboard updated
+2026-03-27 02:09:39,954 [INFO]    Timestamp: 2026-03-27T09:09:39.953640
+2026-03-27 02:09:39,954 [INFO]    executor: idle
+2026-03-27 02:09:39,954 [INFO]    reviewer: idle
+2026-03-27 02:09:39,954 [INFO]    architect: idle
+2026-03-27 02:09:39,954 [INFO]    test_engineer: idle
+2026-03-27 02:09:39,954 [INFO]    researcher: idle
+2026-03-27 02:09:45,823 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:09:45,824 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:09:45,825 [INFO] ✅ Dashboard updated
+2026-03-27 02:09:45,825 [INFO]    Timestamp: 2026-03-27T09:09:45.824170
+2026-03-27 02:09:45,825 [INFO]    executor: idle
+2026-03-27 02:09:45,825 [INFO]    reviewer: idle
+2026-03-27 02:09:45,825 [INFO]    architect: idle
+2026-03-27 02:09:45,825 [INFO]    test_engineer: idle
+2026-03-27 02:09:45,825 [INFO]    researcher: idle
+2026-03-27 02:09:50,914 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:09:50,915 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:09:50,916 [INFO] ✅ Dashboard updated
+2026-03-27 02:09:50,916 [INFO]    Timestamp: 2026-03-27T09:09:50.915084
+2026-03-27 02:09:50,916 [INFO]    executor: idle
+2026-03-27 02:09:50,916 [INFO]    reviewer: idle
+2026-03-27 02:09:50,916 [INFO]    architect: idle
+2026-03-27 02:09:50,916 [INFO]    test_engineer: idle
+2026-03-27 02:09:50,916 [INFO]    researcher: idle
+2026-03-27 02:09:56,007 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:09:56,008 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:09:56,009 [INFO] ✅ Dashboard updated
+2026-03-27 02:09:56,009 [INFO]    Timestamp: 2026-03-27T09:09:56.008433
+2026-03-27 02:09:56,009 [INFO]    executor: idle
+2026-03-27 02:09:56,009 [INFO]    reviewer: idle
+2026-03-27 02:09:56,009 [INFO]    architect: idle
+2026-03-27 02:09:56,009 [INFO]    test_engineer: idle
+2026-03-27 02:09:56,009 [INFO]    researcher: idle
+2026-03-27 02:10:01,077 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:10:01,078 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:10:01,079 [INFO] ✅ Dashboard updated
+2026-03-27 02:10:01,079 [INFO]    Timestamp: 2026-03-27T09:10:01.078208
+2026-03-27 02:10:01,079 [INFO]    executor: idle
+2026-03-27 02:10:01,079 [INFO]    reviewer: idle
+2026-03-27 02:10:01,079 [INFO]    architect: idle
+2026-03-27 02:10:01,079 [INFO]    test_engineer: idle
+2026-03-27 02:10:01,079 [INFO]    researcher: idle
+2026-03-27 02:10:06,151 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:10:06,152 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:10:06,153 [INFO] ✅ Dashboard updated
+2026-03-27 02:10:06,153 [INFO]    Timestamp: 2026-03-27T09:10:06.152190
+2026-03-27 02:10:06,153 [INFO]    executor: idle
+2026-03-27 02:10:06,153 [INFO]    reviewer: idle
+2026-03-27 02:10:06,153 [INFO]    architect: idle
+2026-03-27 02:10:06,153 [INFO]    test_engineer: idle
+2026-03-27 02:10:06,153 [INFO]    researcher: idle
+2026-03-27 02:10:11,224 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:10:11,225 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:10:11,225 [INFO] ✅ Dashboard updated
+2026-03-27 02:10:11,225 [INFO]    Timestamp: 2026-03-27T09:10:11.224947
+2026-03-27 02:10:11,225 [INFO]    executor: idle
+2026-03-27 02:10:11,225 [INFO]    reviewer: idle
+2026-03-27 02:10:11,225 [INFO]    architect: idle
+2026-03-27 02:10:11,225 [INFO]    test_engineer: idle
+2026-03-27 02:10:11,225 [INFO]    researcher: idle
+2026-03-27 02:10:16,809 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:10:16,810 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:10:16,811 [INFO] ✅ Dashboard updated
+2026-03-27 02:10:16,811 [INFO]    Timestamp: 2026-03-27T09:10:16.810644
+2026-03-27 02:10:16,811 [INFO]    executor: idle
+2026-03-27 02:10:16,811 [INFO]    reviewer: idle
+2026-03-27 02:10:16,811 [INFO]    architect: idle
+2026-03-27 02:10:16,811 [INFO]    test_engineer: idle
+2026-03-27 02:10:16,811 [INFO]    researcher: idle
+2026-03-27 02:10:22,916 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:10:22,917 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:10:22,918 [INFO] ✅ Dashboard updated
+2026-03-27 02:10:22,918 [INFO]    Timestamp: 2026-03-27T09:10:22.917193
+2026-03-27 02:10:22,918 [INFO]    executor: idle
+2026-03-27 02:10:22,918 [INFO]    reviewer: idle
+2026-03-27 02:10:22,918 [INFO]    architect: idle
+2026-03-27 02:10:22,918 [INFO]    test_engineer: idle
+2026-03-27 02:10:22,918 [INFO]    researcher: idle
+2026-03-27 02:10:28,005 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:10:28,006 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:10:28,007 [INFO] ✅ Dashboard updated
+2026-03-27 02:10:28,007 [INFO]    Timestamp: 2026-03-27T09:10:28.006533
+2026-03-27 02:10:28,007 [INFO]    executor: idle
+2026-03-27 02:10:28,007 [INFO]    reviewer: idle
+2026-03-27 02:10:28,007 [INFO]    architect: idle
+2026-03-27 02:10:28,007 [INFO]    test_engineer: idle
+2026-03-27 02:10:28,007 [INFO]    researcher: idle
+2026-03-27 02:10:33,071 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:10:33,072 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:10:33,073 [INFO] ✅ Dashboard updated
+2026-03-27 02:10:33,073 [INFO]    Timestamp: 2026-03-27T09:10:33.072774
+2026-03-27 02:10:33,073 [INFO]    executor: idle
+2026-03-27 02:10:33,073 [INFO]    reviewer: idle
+2026-03-27 02:10:33,073 [INFO]    architect: idle
+2026-03-27 02:10:33,073 [INFO]    test_engineer: idle
+2026-03-27 02:10:33,073 [INFO]    researcher: idle
+2026-03-27 02:10:38,144 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:10:38,145 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:10:38,145 [INFO] ✅ Dashboard updated
+2026-03-27 02:10:38,145 [INFO]    Timestamp: 2026-03-27T09:10:38.145099
+2026-03-27 02:10:38,145 [INFO]    executor: idle
+2026-03-27 02:10:38,146 [INFO]    reviewer: idle
+2026-03-27 02:10:38,146 [INFO]    architect: idle
+2026-03-27 02:10:38,146 [INFO]    test_engineer: idle
+2026-03-27 02:10:38,146 [INFO]    researcher: idle
+2026-03-27 02:10:43,227 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:10:43,228 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:10:43,229 [INFO] ✅ Dashboard updated
+2026-03-27 02:10:43,229 [INFO]    Timestamp: 2026-03-27T09:10:43.228417
+2026-03-27 02:10:43,229 [INFO]    executor: idle
+2026-03-27 02:10:43,229 [INFO]    reviewer: idle
+2026-03-27 02:10:43,229 [INFO]    architect: idle
+2026-03-27 02:10:43,229 [INFO]    test_engineer: idle
+2026-03-27 02:10:43,229 [INFO]    researcher: idle
+2026-03-27 02:10:48,860 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:10:48,861 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:10:48,862 [INFO] ✅ Dashboard updated
+2026-03-27 02:10:48,862 [INFO]    Timestamp: 2026-03-27T09:10:48.861657
+2026-03-27 02:10:48,862 [INFO]    executor: idle
+2026-03-27 02:10:48,862 [INFO]    reviewer: idle
+2026-03-27 02:10:48,862 [INFO]    architect: idle
+2026-03-27 02:10:48,862 [INFO]    test_engineer: idle
+2026-03-27 02:10:48,862 [INFO]    researcher: idle
+2026-03-27 02:10:53,945 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:10:53,945 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:10:53,946 [INFO] ✅ Dashboard updated
+2026-03-27 02:10:53,946 [INFO]    Timestamp: 2026-03-27T09:10:53.945702
+2026-03-27 02:10:53,946 [INFO]    executor: idle
+2026-03-27 02:10:53,946 [INFO]    reviewer: idle
+2026-03-27 02:10:53,946 [INFO]    architect: idle
+2026-03-27 02:10:53,946 [INFO]    test_engineer: idle
+2026-03-27 02:10:53,946 [INFO]    researcher: idle
+2026-03-27 02:10:59,027 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:10:59,028 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:10:59,029 [INFO] ✅ Dashboard updated
+2026-03-27 02:10:59,029 [INFO]    Timestamp: 2026-03-27T09:10:59.028476
+2026-03-27 02:10:59,029 [INFO]    executor: idle
+2026-03-27 02:10:59,029 [INFO]    reviewer: idle
+2026-03-27 02:10:59,029 [INFO]    architect: idle
+2026-03-27 02:10:59,029 [INFO]    test_engineer: idle
+2026-03-27 02:10:59,029 [INFO]    researcher: idle
+2026-03-27 02:11:04,113 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:11:04,114 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:11:04,115 [INFO] ✅ Dashboard updated
+2026-03-27 02:11:04,115 [INFO]    Timestamp: 2026-03-27T09:11:04.114482
+2026-03-27 02:11:04,115 [INFO]    executor: idle
+2026-03-27 02:11:04,115 [INFO]    reviewer: idle
+2026-03-27 02:11:04,115 [INFO]    architect: idle
+2026-03-27 02:11:04,115 [INFO]    test_engineer: idle
+2026-03-27 02:11:04,115 [INFO]    researcher: idle
+2026-03-27 02:11:09,202 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:11:09,203 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:11:09,204 [INFO] ✅ Dashboard updated
+2026-03-27 02:11:09,204 [INFO]    Timestamp: 2026-03-27T09:11:09.203280
+2026-03-27 02:11:09,204 [INFO]    executor: idle
+2026-03-27 02:11:09,204 [INFO]    reviewer: idle
+2026-03-27 02:11:09,204 [INFO]    architect: idle
+2026-03-27 02:11:09,204 [INFO]    test_engineer: idle
+2026-03-27 02:11:09,204 [INFO]    researcher: idle
+2026-03-27 02:11:14,779 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:11:14,781 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:11:14,781 [INFO] ✅ Dashboard updated
+2026-03-27 02:11:14,781 [INFO]    Timestamp: 2026-03-27T09:11:14.780860
+2026-03-27 02:11:14,781 [INFO]    executor: idle
+2026-03-27 02:11:14,781 [INFO]    reviewer: idle
+2026-03-27 02:11:14,781 [INFO]    architect: idle
+2026-03-27 02:11:14,781 [INFO]    test_engineer: idle
+2026-03-27 02:11:14,781 [INFO]    researcher: idle
+2026-03-27 02:11:19,850 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:11:19,851 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:11:19,852 [INFO] ✅ Dashboard updated
+2026-03-27 02:11:19,852 [INFO]    Timestamp: 2026-03-27T09:11:19.851495
+2026-03-27 02:11:19,852 [INFO]    executor: idle
+2026-03-27 02:11:19,852 [INFO]    reviewer: idle
+2026-03-27 02:11:19,852 [INFO]    architect: idle
+2026-03-27 02:11:19,852 [INFO]    test_engineer: idle
+2026-03-27 02:11:19,852 [INFO]    researcher: idle
+2026-03-27 02:11:24,975 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:11:24,976 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:11:24,976 [INFO] ✅ Dashboard updated
+2026-03-27 02:11:24,976 [INFO]    Timestamp: 2026-03-27T09:11:24.975920
+2026-03-27 02:11:24,976 [INFO]    executor: idle
+2026-03-27 02:11:24,976 [INFO]    reviewer: idle
+2026-03-27 02:11:24,977 [INFO]    architect: idle
+2026-03-27 02:11:24,977 [INFO]    test_engineer: idle
+2026-03-27 02:11:24,977 [INFO]    researcher: idle
+2026-03-27 02:11:30,070 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:11:30,071 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:11:30,072 [INFO] ✅ Dashboard updated
+2026-03-27 02:11:30,072 [INFO]    Timestamp: 2026-03-27T09:11:30.071230
+2026-03-27 02:11:30,072 [INFO]    executor: idle
+2026-03-27 02:11:30,072 [INFO]    reviewer: idle
+2026-03-27 02:11:30,072 [INFO]    architect: idle
+2026-03-27 02:11:30,072 [INFO]    test_engineer: idle
+2026-03-27 02:11:30,072 [INFO]    researcher: idle
+2026-03-27 02:11:35,154 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:11:35,155 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:11:35,155 [INFO] ✅ Dashboard updated
+2026-03-27 02:11:35,156 [INFO]    Timestamp: 2026-03-27T09:11:35.155058
+2026-03-27 02:11:35,156 [INFO]    executor: idle
+2026-03-27 02:11:35,156 [INFO]    reviewer: idle
+2026-03-27 02:11:35,156 [INFO]    architect: idle
+2026-03-27 02:11:35,156 [INFO]    test_engineer: idle
+2026-03-27 02:11:35,156 [INFO]    researcher: idle
+2026-03-27 02:11:40,235 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:11:40,236 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:11:40,237 [INFO] ✅ Dashboard updated
+2026-03-27 02:11:40,237 [INFO]    Timestamp: 2026-03-27T09:11:40.236189
+2026-03-27 02:11:40,237 [INFO]    executor: idle
+2026-03-27 02:11:40,237 [INFO]    reviewer: idle
+2026-03-27 02:11:40,237 [INFO]    architect: idle
+2026-03-27 02:11:40,237 [INFO]    test_engineer: idle
+2026-03-27 02:11:40,237 [INFO]    researcher: idle
+2026-03-27 02:11:45,935 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:11:45,936 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:11:45,936 [INFO] ✅ Dashboard updated
+2026-03-27 02:11:45,937 [INFO]    Timestamp: 2026-03-27T09:11:45.935971
+2026-03-27 02:11:45,937 [INFO]    executor: idle
+2026-03-27 02:11:45,937 [INFO]    reviewer: idle
+2026-03-27 02:11:45,937 [INFO]    architect: idle
+2026-03-27 02:11:45,937 [INFO]    test_engineer: idle
+2026-03-27 02:11:45,937 [INFO]    researcher: idle
+2026-03-27 02:11:51,006 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:11:51,007 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:11:51,007 [INFO] ✅ Dashboard updated
+2026-03-27 02:11:51,007 [INFO]    Timestamp: 2026-03-27T09:11:51.006986
+2026-03-27 02:11:51,007 [INFO]    executor: idle
+2026-03-27 02:11:51,007 [INFO]    reviewer: idle
+2026-03-27 02:11:51,007 [INFO]    architect: idle
+2026-03-27 02:11:51,007 [INFO]    test_engineer: idle
+2026-03-27 02:11:51,007 [INFO]    researcher: idle
+2026-03-27 02:11:56,090 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:11:56,091 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:11:56,092 [INFO] ✅ Dashboard updated
+2026-03-27 02:11:56,092 [INFO]    Timestamp: 2026-03-27T09:11:56.091627
+2026-03-27 02:11:56,092 [INFO]    executor: idle
+2026-03-27 02:11:56,092 [INFO]    reviewer: idle
+2026-03-27 02:11:56,092 [INFO]    architect: idle
+2026-03-27 02:11:56,092 [INFO]    test_engineer: idle
+2026-03-27 02:11:56,092 [INFO]    researcher: idle
+2026-03-27 02:12:01,172 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:12:01,174 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:12:01,174 [INFO] ✅ Dashboard updated
+2026-03-27 02:12:01,174 [INFO]    Timestamp: 2026-03-27T09:12:01.173843
+2026-03-27 02:12:01,174 [INFO]    executor: idle
+2026-03-27 02:12:01,175 [INFO]    reviewer: idle
+2026-03-27 02:12:01,175 [INFO]    architect: idle
+2026-03-27 02:12:01,175 [INFO]    test_engineer: idle
+2026-03-27 02:12:01,175 [INFO]    researcher: idle
+2026-03-27 02:12:06,248 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:12:06,249 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:12:06,249 [INFO] ✅ Dashboard updated
+2026-03-27 02:12:06,250 [INFO]    Timestamp: 2026-03-27T09:12:06.249087
+2026-03-27 02:12:06,250 [INFO]    executor: idle
+2026-03-27 02:12:06,250 [INFO]    reviewer: idle
+2026-03-27 02:12:06,250 [INFO]    architect: idle
+2026-03-27 02:12:06,250 [INFO]    test_engineer: idle
+2026-03-27 02:12:06,250 [INFO]    researcher: idle
+2026-03-27 02:12:11,330 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:12:11,331 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:12:11,331 [INFO] ✅ Dashboard updated
+2026-03-27 02:12:11,331 [INFO]    Timestamp: 2026-03-27T09:12:11.330946
+2026-03-27 02:12:11,331 [INFO]    executor: idle
+2026-03-27 02:12:11,331 [INFO]    reviewer: idle
+2026-03-27 02:12:11,331 [INFO]    architect: idle
+2026-03-27 02:12:11,331 [INFO]    test_engineer: idle
+2026-03-27 02:12:11,331 [INFO]    researcher: idle
+2026-03-27 02:12:16,985 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:12:16,986 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:12:16,987 [INFO] ✅ Dashboard updated
+2026-03-27 02:12:16,987 [INFO]    Timestamp: 2026-03-27T09:12:16.986463
+2026-03-27 02:12:16,987 [INFO]    executor: idle
+2026-03-27 02:12:16,987 [INFO]    reviewer: idle
+2026-03-27 02:12:16,987 [INFO]    architect: idle
+2026-03-27 02:12:16,987 [INFO]    test_engineer: idle
+2026-03-27 02:12:16,987 [INFO]    researcher: idle
+2026-03-27 02:12:23,105 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:12:23,106 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:12:23,107 [INFO] ✅ Dashboard updated
+2026-03-27 02:12:23,107 [INFO]    Timestamp: 2026-03-27T09:12:23.106420
+2026-03-27 02:12:23,107 [INFO]    executor: idle
+2026-03-27 02:12:23,107 [INFO]    reviewer: idle
+2026-03-27 02:12:23,107 [INFO]    architect: idle
+2026-03-27 02:12:23,107 [INFO]    test_engineer: idle
+2026-03-27 02:12:23,107 [INFO]    researcher: idle
+2026-03-27 02:12:28,174 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:12:28,175 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:12:28,176 [INFO] ✅ Dashboard updated
+2026-03-27 02:12:28,176 [INFO]    Timestamp: 2026-03-27T09:12:28.175519
+2026-03-27 02:12:28,176 [INFO]    executor: idle
+2026-03-27 02:12:28,176 [INFO]    reviewer: idle
+2026-03-27 02:12:28,176 [INFO]    architect: idle
+2026-03-27 02:12:28,176 [INFO]    test_engineer: idle
+2026-03-27 02:12:28,176 [INFO]    researcher: idle
+2026-03-27 02:12:33,279 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:12:33,280 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:12:33,280 [INFO] ✅ Dashboard updated
+2026-03-27 02:12:33,280 [INFO]    Timestamp: 2026-03-27T09:12:33.280000
+2026-03-27 02:12:33,280 [INFO]    executor: idle
+2026-03-27 02:12:33,280 [INFO]    reviewer: idle
+2026-03-27 02:12:33,280 [INFO]    architect: idle
+2026-03-27 02:12:33,280 [INFO]    test_engineer: idle
+2026-03-27 02:12:33,280 [INFO]    researcher: idle
+2026-03-27 02:12:38,357 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:12:38,358 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:12:38,358 [INFO] ✅ Dashboard updated
+2026-03-27 02:12:38,358 [INFO]    Timestamp: 2026-03-27T09:12:38.357950
+2026-03-27 02:12:38,358 [INFO]    executor: idle
+2026-03-27 02:12:38,358 [INFO]    reviewer: idle
+2026-03-27 02:12:38,358 [INFO]    architect: idle
+2026-03-27 02:12:38,358 [INFO]    test_engineer: idle
+2026-03-27 02:12:38,358 [INFO]    researcher: idle
+2026-03-27 02:12:43,434 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:12:43,435 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:12:43,436 [INFO] ✅ Dashboard updated
+2026-03-27 02:12:43,436 [INFO]    Timestamp: 2026-03-27T09:12:43.435571
+2026-03-27 02:12:43,436 [INFO]    executor: idle
+2026-03-27 02:12:43,436 [INFO]    reviewer: idle
+2026-03-27 02:12:43,436 [INFO]    architect: idle
+2026-03-27 02:12:43,436 [INFO]    test_engineer: idle
+2026-03-27 02:12:43,436 [INFO]    researcher: idle
+2026-03-27 02:12:49,240 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:12:49,241 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:12:49,242 [INFO] ✅ Dashboard updated
+2026-03-27 02:12:49,242 [INFO]    Timestamp: 2026-03-27T09:12:49.241749
+2026-03-27 02:12:54,321 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:12:54,322 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:12:54,322 [INFO] ✅ Dashboard updated
+2026-03-27 02:12:54,322 [INFO]    Timestamp: 2026-03-27T09:12:54.322192
+2026-03-27 02:12:59,407 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:12:59,408 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:12:59,408 [INFO] ✅ Dashboard updated
+2026-03-27 02:12:59,408 [INFO]    Timestamp: 2026-03-27T09:12:59.408452
+2026-03-27 02:12:59,408 [INFO]    executor: unknown
+2026-03-27 02:12:59,408 [INFO]    architect: unknown
+2026-03-27 02:12:59,408 [INFO]    test_engineer: unknown
+2026-03-27 02:12:59,408 [INFO]    reviewer: unknown
+2026-03-27 02:12:59,408 [INFO]    researcher: unknown
+2026-03-27 02:13:04,481 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:13:04,481 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:13:04,482 [INFO] ✅ Dashboard updated
+2026-03-27 02:13:04,482 [INFO]    Timestamp: 2026-03-27T09:13:04.481835
+2026-03-27 02:13:04,482 [INFO]    executor: unknown
+2026-03-27 02:13:04,482 [INFO]    architect: unknown
+2026-03-27 02:13:04,482 [INFO]    test_engineer: unknown
+2026-03-27 02:13:04,482 [INFO]    reviewer: unknown
+2026-03-27 02:13:04,482 [INFO]    researcher: unknown
+2026-03-27 02:13:09,586 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:13:09,587 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:13:09,588 [INFO] ✅ Dashboard updated
+2026-03-27 02:13:09,588 [INFO]    Timestamp: 2026-03-27T09:13:09.587606
+2026-03-27 02:13:09,588 [INFO]    executor: unknown
+2026-03-27 02:13:09,588 [INFO]    architect: unknown
+2026-03-27 02:13:09,588 [INFO]    test_engineer: unknown
+2026-03-27 02:13:09,588 [INFO]    reviewer: unknown
+2026-03-27 02:13:09,588 [INFO]    researcher: unknown
+2026-03-27 02:13:15,135 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:13:15,136 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:13:15,136 [INFO] ✅ Dashboard updated
+2026-03-27 02:13:15,136 [INFO]    Timestamp: 2026-03-27T09:13:15.136452
+2026-03-27 02:13:15,136 [INFO]    executor: unknown
+2026-03-27 02:13:15,136 [INFO]    architect: unknown
+2026-03-27 02:13:15,137 [INFO]    test_engineer: unknown
+2026-03-27 02:13:15,137 [INFO]    reviewer: unknown
+2026-03-27 02:13:15,137 [INFO]    researcher: unknown
+2026-03-27 02:13:20,210 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:13:20,211 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:13:20,212 [INFO] ✅ Dashboard updated
+2026-03-27 02:13:20,212 [INFO]    Timestamp: 2026-03-27T09:13:20.211567
+2026-03-27 02:13:20,212 [INFO]    executor: unknown
+2026-03-27 02:13:20,212 [INFO]    architect: unknown
+2026-03-27 02:13:20,212 [INFO]    test_engineer: unknown
+2026-03-27 02:13:20,212 [INFO]    reviewer: unknown
+2026-03-27 02:13:20,212 [INFO]    researcher: unknown
+2026-03-27 02:13:25,302 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:13:25,303 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:13:25,303 [INFO] ✅ Dashboard updated
+2026-03-27 02:13:25,303 [INFO]    Timestamp: 2026-03-27T09:13:25.303498
+2026-03-27 02:13:25,304 [INFO]    executor: unknown
+2026-03-27 02:13:25,304 [INFO]    architect: unknown
+2026-03-27 02:13:25,304 [INFO]    test_engineer: unknown
+2026-03-27 02:13:25,304 [INFO]    reviewer: unknown
+2026-03-27 02:13:25,304 [INFO]    researcher: unknown
+2026-03-27 02:13:30,386 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:13:30,387 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:13:30,388 [INFO] ✅ Dashboard updated
+2026-03-27 02:13:30,388 [INFO]    Timestamp: 2026-03-27T09:13:30.387771
+2026-03-27 02:13:30,388 [INFO]    executor: unknown
+2026-03-27 02:13:30,388 [INFO]    architect: unknown
+2026-03-27 02:13:30,388 [INFO]    test_engineer: unknown
+2026-03-27 02:13:30,388 [INFO]    reviewer: unknown
+2026-03-27 02:13:30,388 [INFO]    researcher: unknown
+2026-03-27 02:13:35,465 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:13:35,466 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:13:35,466 [INFO] ✅ Dashboard updated
+2026-03-27 02:13:35,466 [INFO]    Timestamp: 2026-03-27T09:13:35.466070
+2026-03-27 02:13:35,466 [INFO]    executor: unknown
+2026-03-27 02:13:35,466 [INFO]    architect: unknown
+2026-03-27 02:13:35,466 [INFO]    test_engineer: unknown
+2026-03-27 02:13:35,466 [INFO]    reviewer: unknown
+2026-03-27 02:13:35,466 [INFO]    researcher: unknown
+2026-03-27 02:13:40,532 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:13:40,533 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:13:40,533 [INFO] ✅ Dashboard updated
+2026-03-27 02:13:40,533 [INFO]    Timestamp: 2026-03-27T09:13:40.532921
+2026-03-27 02:13:40,533 [INFO]    executor: unknown
+2026-03-27 02:13:40,533 [INFO]    architect: unknown
+2026-03-27 02:13:40,533 [INFO]    test_engineer: unknown
+2026-03-27 02:13:40,533 [INFO]    reviewer: unknown
+2026-03-27 02:13:40,533 [INFO]    researcher: unknown
+2026-03-27 02:13:46,057 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:13:46,058 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:13:46,059 [INFO] ✅ Dashboard updated
+2026-03-27 02:13:46,059 [INFO]    Timestamp: 2026-03-27T09:13:46.058536
+2026-03-27 02:13:46,059 [INFO]    executor: unknown
+2026-03-27 02:13:46,059 [INFO]    architect: unknown
+2026-03-27 02:13:46,059 [INFO]    test_engineer: unknown
+2026-03-27 02:13:46,059 [INFO]    reviewer: unknown
+2026-03-27 02:13:46,059 [INFO]    researcher: unknown
+2026-03-27 02:13:51,153 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:13:51,154 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:13:51,154 [INFO] ✅ Dashboard updated
+2026-03-27 02:13:51,154 [INFO]    Timestamp: 2026-03-27T09:13:51.154294
+2026-03-27 02:13:51,154 [INFO]    executor: unknown
+2026-03-27 02:13:51,154 [INFO]    architect: unknown
+2026-03-27 02:13:51,154 [INFO]    test_engineer: unknown
+2026-03-27 02:13:51,154 [INFO]    reviewer: unknown
+2026-03-27 02:13:51,154 [INFO]    researcher: unknown
+2026-03-27 02:13:56,231 [INFO] 📊 Updating dashboard state...
+2026-03-27 02:13:56,232 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 02:13:56,232 [INFO] ✅ Dashboard updated
+2026-03-27 02:13:56,232 [INFO]    Timestamp: 2026-03-27T09:13:56.231884
+2026-03-27 02:13:56,232 [INFO]    executor: unknown
+2026-03-27 02:13:56,232 [INFO]    architect: unknown
+2026-03-27 02:13:56,232 [INFO]    test_engineer: unknown
+2026-03-27 02:13:56,232 [INFO]    reviewer: unknown
+2026-03-27 02:13:56,232 [INFO]    researcher: unknown
