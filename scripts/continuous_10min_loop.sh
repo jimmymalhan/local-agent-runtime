@@ -108,19 +108,23 @@ PYEOF
     if [ "$ORCH" -gt 0 ]; then
         echo "🚀 Executing pending tasks (max 5 tasks per cycle)..."
         EXEC_LOG=$(mktemp)
-        timeout 60 python3 "${BASE_DIR}/orchestrator/main.py" --auto 5 > "$EXEC_LOG" 2>&1
-        EXEC_EXIT=$?
+        cd "${BASE_DIR}" || exit 1
+        /usr/bin/python3 "${BASE_DIR}/orchestrator/main.py" --auto 5 > "$EXEC_LOG" 2>&1 &
+        EXEC_PID=$!
+        sleep 30  # Allow 30 seconds for task execution
 
-        # Count how many tasks were executed
-        COMPLETED=$(grep -c "COMPLETED\|completed" "$EXEC_LOG" 2>/dev/null || echo "0")
-        FAILED=$(grep -c "FAILED\|failed" "$EXEC_LOG" 2>/dev/null || echo "0")
-
-        if [ $EXEC_EXIT -eq 0 ]; then
-            echo "✅ Task execution completed (timeout: 60s)"
-        elif [ $EXEC_EXIT -eq 124 ]; then
-            echo "⚠️  Task execution timeout (60s limit reached, tasks may still be processing)"
+        # Check if process is still running (killed by timeout) or completed
+        if kill -0 $EXEC_PID 2>/dev/null; then
+            kill -9 $EXEC_PID 2>/dev/null || true
+            echo "⚠️  Task execution timeout (30s limit, stopping)"
         else
-            echo "⚠️  Task execution had issues (exit code: $EXEC_EXIT)"
+            wait $EXEC_PID
+            EXEC_EXIT=$?
+            if [ $EXEC_EXIT -eq 0 ]; then
+                echo "✅ Task execution completed"
+            else
+                echo "⚠️  Task execution had issues (exit code: $EXEC_EXIT)"
+            fi
         fi
 
         rm -f "$EXEC_LOG"
