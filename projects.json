@@ -953,12 +953,13 @@
           "id": "phase3-concurrent-execution",
           "title": "Enable concurrent task execution",
           "agent": "executor",
-          "status": "pending",
+          "status": "completed",
           "priority": "P0",
           "files": [],
           "success_criteria": "Complete: Enable concurrent task execution",
           "eta_hours": 4,
-          "eta_completion": "2026-03-27T16:36:38.442624Z"
+          "eta_completion": "2026-03-27T16:36:38.442624Z",
+          "completed_at": "projects_loader"
         },
         {
           "id": "phase3-self-healing",
