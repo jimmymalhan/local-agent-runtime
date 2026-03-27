@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-27T09:03:59.758722",
+  "ts": "2026-03-27T09:04:12.760629",
   "version": {
     "current": 1,
     "total": 100,
@@ -56,9 +56,9 @@
   "task_queue": {
     "total": 30,
     "completed": 30,
-    "pending": 0,
     "in_progress": 0,
-    "failed": 0
+    "failed": 0,
+    "pending": 0
   },
   "benchmark_scores": {
     "v1": {
@@ -71,9 +71,9 @@
   },
   "token_usage": {
     "claude_tokens": 0,
-    "local_tokens": 194624,
-    "budget_pct": 38.9,
-    "warning": false,
+    "local_tokens": 219864,
+    "budget_pct": 43.9728,
+    "warning": true,
     "hard_limit_hit": false
   },
   "hardware": {
@@ -228,7 +228,7 @@
   ],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-27T02:03:57.918172",
+    "ts": "2026-03-27T02:04:12.369014",
     "epics": [
       {
         "id": "system-reliability",
