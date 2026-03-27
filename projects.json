@@ -759,14 +759,15 @@
           "title": "[P0] URGENT: Kill redundant dashboard instances (3000, 3002)",
           "description": "Stop all Python processes on ports 3000 and 3002. Keep ONLY 3001 running. Verify no conflicts. Accept if only 3001 listens.",
           "agent": "executor",
-          "status": "pending",
+          "status": "completed",
           "priority": "P0",
           "eta_hours": 1,
           "quality_target": 100,
           "files": [
             "dashboard/server.py"
           ],
-          "success_criteria": "Only port 3001 running, other ports free"
+          "success_criteria": "Only port 3001 running, other ports free",
+          "completed_at": "projects_loader"
         },
         {
           "id": "impl-realtime-state-sync",

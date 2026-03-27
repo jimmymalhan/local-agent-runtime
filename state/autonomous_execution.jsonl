@@ -785,3 +785,8 @@
 {"ts": "2026-03-27T08:36:12.180754", "action": "execute_failed", "agent": "executor", "task_id": "task-emergent-behavior", "attempts": 3, "last_error": "Unknown error"}
 {"ts": "2026-03-27T08:36:12.555548", "action": "execute_failed", "agent": "executor", "task_id": "task-knowledge-sharing", "attempts": 3, "last_error": "Unknown error"}
 {"ts": "2026-03-27T08:36:12.946408", "action": "execute_failed", "agent": "executor", "task_id": "task-disaster-recovery", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:46:14.467785", "action": "execute_failed", "agent": "executor", "task_id": "fix-redundant-services", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:46:14.834270", "action": "execute_failed", "agent": "executor", "task_id": "impl-realtime-state-sync", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:46:15.182186", "action": "execute_failed", "agent": "executor", "task_id": "impl-token-tracker", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:46:15.547810", "action": "execute_failed", "agent": "executor", "task_id": "impl-continuous-work-queue", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T08:46:15.928860", "action": "execute_failed", "agent": "executor", "task_id": "impl-agent-autorecovery", "attempts": 3, "last_error": "Unknown error"}

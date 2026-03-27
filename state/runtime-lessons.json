@@ -414,5 +414,70 @@
     ],
     "rescue_escalated": false,
     "first_attempt_at": "2026-03-27T08:36:12.947117"
+  },
+  "fix-redundant-services": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T08:46:14.468333"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T08:46:14.468331"
+  },
+  "impl-realtime-state-sync": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T08:46:14.834689"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T08:46:14.834688"
+  },
+  "impl-token-tracker": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T08:46:15.182639"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T08:46:15.182637"
+  },
+  "impl-continuous-work-queue": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T08:46:15.548156"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T08:46:15.548155"
+  },
+  "impl-agent-autorecovery": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T08:46:15.929338"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T08:46:15.929337"
   }
 }
