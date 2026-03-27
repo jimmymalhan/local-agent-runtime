@@ -916,7 +916,7 @@
           "title": "[P2] Implement epic progress tracking with ETA",
           "description": "Create epic_tracker.py that calculates: % complete per epic, time remaining, ETA completion. Show in dashboard. Update every 10min. Accept if all epics show ETA.",
           "agent": "executor",
-          "status": "pending",
+          "status": "completed",
           "priority": "P2",
           "eta_hours": 2,
           "quality_target": 85,
@@ -924,7 +924,8 @@
             "orchestrator/epic_tracker.py",
             "projects.json"
           ],
-          "success_criteria": "All epics show % complete and ETA completion date"
+          "success_criteria": "All epics show % complete and ETA completion date",
+          "completed_at": "projects_loader"
         }
       ],
       "eta_hours": 18,
