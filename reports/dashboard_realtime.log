@@ -7806,3 +7806,12 @@
 2026-03-27 00:33:49,390 [INFO]    architect: idle
 2026-03-27 00:33:49,390 [INFO]    test_engineer: idle
 2026-03-27 00:33:49,390 [INFO]    researcher: idle
+2026-03-27 00:33:54,466 [INFO] 📊 Updating dashboard state...
+2026-03-27 00:33:54,467 [WARNING] ⚠️  Executor health low: 45.0% success
+2026-03-27 00:33:54,468 [INFO] ✅ Dashboard updated
+2026-03-27 00:33:54,468 [INFO]    Timestamp: 2026-03-27T07:33:54.467541
+2026-03-27 00:33:54,468 [INFO]    executor: blocked
+2026-03-27 00:33:54,468 [INFO]    reviewer: idle
+2026-03-27 00:33:54,468 [INFO]    architect: idle
+2026-03-27 00:33:54,468 [INFO]    test_engineer: idle
+2026-03-27 00:33:54,468 [INFO]    researcher: idle
