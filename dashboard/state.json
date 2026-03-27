@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-27T08:53:59.711121",
+  "ts": "2026-03-27T01:54:09.706641",
   "version": {
     "current": 1,
     "total": 100,
@@ -56,9 +56,9 @@
   "task_queue": {
     "total": 30,
     "completed": 30,
-    "pending": 0,
     "in_progress": 0,
-    "failed": 0
+    "failed": 0,
+    "pending": 0
   },
   "benchmark_scores": {
     "v1": {
@@ -71,9 +71,9 @@
   },
   "token_usage": {
     "claude_tokens": 0,
-    "local_tokens": 194624,
-    "budget_pct": 38.9,
-    "warning": false,
+    "local_tokens": 213247,
+    "budget_pct": 42.6494,
+    "warning": true,
     "hard_limit_hit": false
   },
   "hardware": {
@@ -228,7 +228,7 @@
   ],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-27T01:53:55.244702",
+    "ts": "2026-03-27T01:54:09.706582",
     "epics": [
       {
         "id": "system-reliability",
@@ -349,11 +349,11 @@
         "track": "infrastructure",
         "status": "in_progress",
         "total_tasks": 14,
-        "completed": 13,
+        "completed": 14,
         "in_progress": 0,
-        "pending": 1,
+        "pending": 0,
         "blocked": 0,
-        "progress_pct": 92.9,
+        "progress_pct": 100.0,
         "agents": [
           "architect",
           "executor",
