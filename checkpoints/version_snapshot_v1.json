@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "ts": "2026-03-27T03:10:44",
+  "ts": "2026-03-27T03:20:42",
   "state": {
-    "ts": "2026-03-26T20:10:42.464030",
+    "ts": "2026-03-26T20:20:39.804195",
     "version": {
       "current": 1,
       "total": 100,
@@ -15,7 +15,7 @@
         "task": "[0/100] Policy enforcement \u2014 wire token/rescue budget limi",
         "task_id": "task-3",
         "elapsed_s": 0.0,
-        "last_activity": "2026-03-26T20:03:09.600836",
+        "last_activity": "2026-03-26T20:13:46.952911",
         "sub_agents": [
           {
             "id": 0,
@@ -49,7 +49,7 @@
         "task": "",
         "task_id": null,
         "elapsed_s": 0.0,
-        "last_activity": "2026-03-26T20:03:09.603470",
+        "last_activity": "2026-03-26T20:13:46.955650",
         "sub_agents": [],
         "worker_count": 0
       }
@@ -67,7 +67,7 @@
         "opus": 70.0,
         "gap": -70.0,
         "win_rate": 0.0,
-        "ts": "2026-03-26T20:03:09.605563"
+        "ts": "2026-03-26T20:13:46.957572"
       }
     },
     "token_usage": {
@@ -78,15 +78,15 @@
       "hard_limit_hit": false
     },
     "hardware": {
-      "cpu_pct": 49.4,
-      "ram_pct": 53.2,
+      "cpu_pct": 36.0,
+      "ram_pct": 71.2,
       "disk_pct": 0.0,
       "gpu_pct": null,
       "alert_level": "ok"
     },
     "failures": [
       {
-        "ts": "2026-03-26T20:03:09.598589",
+        "ts": "2026-03-26T20:13:46.950876",
         "agent": "executor",
         "task": "Policy enforcement \u2014 wire token/rescue budget limits",
         "task_id": "task-3",
@@ -94,7 +94,7 @@
         "tried": "No module named 'agent_runner'"
       },
       {
-        "ts": "2026-03-26T20:02:52.460654",
+        "ts": "2026-03-26T20:13:23.007038",
         "agent": "executor",
         "task": "P0: Fix task router stuck-task logic \u2014 retry in_progress > 5",
         "task_id": "task-fix-2",
@@ -104,17 +104,17 @@
     ],
     "research_feed": [
       {
-        "ts": "2026-03-26T20:10:30.339299",
+        "ts": "2026-03-26T20:20:29.605015",
         "finding": "v5: Model produces code that fails assertion tests silently",
         "source": ""
       },
       {
-        "ts": "2026-03-26T20:10:30.338678",
+        "ts": "2026-03-26T20:20:29.604459",
         "finding": "v5: Model writes wrong import paths for multi-file projects",
         "source": ""
       },
       {
-        "ts": "2026-03-26T20:10:30.337957",
+        "ts": "2026-03-26T20:20:29.603787",
         "finding": "v5: Model truncates code in the middle of a function",
         "source": ""
       }
@@ -131,7 +131,7 @@
         "before_score": 70.0,
         "after_score": 0.0,
         "delta": -70.0,
-        "ts": "2026-03-26T20:03:09.606710"
+        "ts": "2026-03-26T20:13:46.958172"
       }
     },
     "quality": 0,
@@ -149,7 +149,7 @@
     ],
     "changelog": [],
     "epic_board": {
-      "ts": "2026-03-26T20:10:42.463978",
+      "ts": "2026-03-26T20:20:39.804147",
       "epics": [
         {
           "id": "system-reliability",
@@ -302,7 +302,7 @@
           "pct": 0.0
         }
       ],
-      "initialized_at": "2026-03-26T20:03:07.178450",
+      "initialized_at": "2026-03-26T20:13:44.541586",
       "status": "planned"
     },
     "business_summary": {
@@ -311,10 +311,10 @@
       "projects_active": 0,
       "blockers_open": 1,
       "version": 1,
-      "updated_at": "2026-03-26T20:03:09.602062"
+      "updated_at": "2026-03-26T20:13:46.954201"
     },
     "auto_heal_status": {
-      "ts": "2026-03-27T03:10:44",
+      "ts": "2026-03-27T03:20:42",
       "issues_this_cycle": [],
       "healthy": true,
       "dashboard_alive": true,
@@ -322,10 +322,10 @@
     },
     "calibration": {
       "version": 1,
-      "ts": "2026-03-27T03:03:07",
+      "ts": "2026-03-27T03:13:44",
       "results": {
         "reviewer": {
-          "ts": "2026-03-27T03:00:49",
+          "ts": "2026-03-27T03:10:44",
           "version": 1,
           "agent": "reviewer",
           "avg_score": 0.0,
@@ -354,38 +354,8 @@
             }
           ]
         },
-        "benchmarker": {
-          "ts": "2026-03-27T03:00:49",
-          "version": 1,
-          "agent": "benchmarker",
-          "avg_score": 0.0,
-          "prev_score": 0.0,
-          "regressed": false,
-          "pass": false,
-          "patched": false,
-          "tasks": [
-            {
-              "title": "Score output quality 0-100 with rubric",
-              "score": 0,
-              "status": "done",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Compare two solutions: which is better?",
-              "score": 0,
-              "status": "done",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Identify top 3 failure patterns in task batch",
-              "score": 0,
-              "status": "done",
-              "elapsed": 0.0
-            }
-          ]
-        },
         "executor": {
-          "ts": "2026-03-27T03:00:49",
+          "ts": "2026-03-27T03:10:44",
           "version": 1,
           "agent": "executor",
           "avg_score": 0.0,
@@ -414,8 +384,38 @@
             }
           ]
         },
+        "benchmarker": {
+          "ts": "2026-03-27T03:10:44",
+          "version": 1,
+          "agent": "benchmarker",
+          "avg_score": 0.0,
+          "prev_score": 0.0,
+          "regressed": false,
+          "pass": false,
+          "patched": false,
+          "tasks": [
+            {
+              "title": "Score output quality 0-100 with rubric",
+              "score": 0,
+              "status": "done",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Compare two solutions: which is better?",
+              "score": 0,
+              "status": "done",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Identify top 3 failure patterns in task batch",
+              "score": 0,
+              "status": "done",
+              "elapsed": 0.0
+            }
+          ]
+        },
         "researcher": {
-          "ts": "2026-03-27T03:00:49",
+          "ts": "2026-03-27T03:10:44",
           "version": 1,
           "agent": "researcher",
           "avg_score": 100.0,
@@ -428,13 +428,13 @@
               "title": "Find top 3 Python HTTP libraries",
               "score": 100,
               "status": "done",
-              "elapsed": 0.07
+              "elapsed": 0.04
             },
             {
               "title": "Research best practices for retry logic",
               "score": 100,
               "status": "done",
-              "elapsed": 0.04
+              "elapsed": 0.05
             },
             {
               "title": "Summarise SWE-bench top agent techniques 2025",
@@ -444,40 +444,10 @@
             }
           ]
         },
-        "debugger": {
-          "ts": "2026-03-27T03:02:36",
+        "architect": {
+          "ts": "2026-03-27T03:13:27",
           "version": 1,
-          "agent": "debugger",
-          "avg_score": 90.0,
-          "prev_score": 0.0,
-          "regressed": false,
-          "pass": true,
-          "patched": false,
-          "tasks": [
-            {
-              "title": "Fix: AttributeError on NoneType",
-              "score": 70,
-              "status": "done",
-              "elapsed": 23.4
-            },
-            {
-              "title": "Fix: off-by-one in binary search",
-              "score": 100,
-              "status": "done",
-              "elapsed": 49.05
-            },
-            {
-              "title": "Debug race condition in thread-safe queue",
-              "score": 100,
-              "status": "done",
-              "elapsed": 35.25
-            }
-          ]
-        },
-        "doc_writer": {
-          "ts": "2026-03-27T03:02:52",
-          "version": 1,
-          "agent": "doc_writer",
+          "agent": "architect",
           "avg_score": 100.0,
           "prev_score": 0.0,
           "regressed": false,
@@ -485,81 +455,80 @@
           "patched": false,
           "tasks": [
             {
-              "title": "Write docstring for a 5-line function",
+              "title": "Design schema for a todo app",
               "score": 100,
               "status": "done",
-              "elapsed": 32.11
+              "elapsed": 66.73
             },
             {
-              "title": "Write README for a CLI tool",
+              "title": "Design microservice boundary for auth + billing",
               "score": 100,
               "status": "done",
-              "elapsed": 51.23
+              "elapsed": 59.06
             },
             {
-              "title": "Write API reference for 5 endpoints",
+              "title": "Design distributed task queue system",
               "score": 100,
               "status": "done",
-              "elapsed": 39.6
+              "elapsed": 36.94
             }
           ]
         },
-        "test_engineer": {
-          "ts": "2026-03-27T03:03:07",
+        "planner": {
+          "ts": "2026-03-27T03:13:44",
           "version": 1,
-          "agent": "test_engineer",
-          "avg_score": 68.3,
+          "agent": "planner",
+          "avg_score": 50.0,
           "prev_score": 0.0,
           "regressed": false,
           "pass": true,
           "patched": false,
           "tasks": [
             {
-              "title": "Write pytest for add(a,b)",
-              "score": 75,
+              "title": "Break 'build a REST API' into 5 atomic steps",
+              "score": 50,
               "status": "done",
-              "elapsed": 38.39
+              "elapsed": 60.01
             },
             {
-              "title": "Write tests for a REST endpoint handler",
-              "score": 65,
+              "title": "Decompose database migration into sub-tasks",
+              "score": 50,
               "status": "done",
-              "elapsed": 61.01
+              "elapsed": 60.0
             },
             {
-              "title": "Write integration test for DB migration",
-              "score": 65,
+              "title": "Plan a refactor of a 500-line module",
+              "score": 50,
               "status": "done",
-              "elapsed": 38.57
+              "elapsed": 60.0
             }
           ]
         }
       },
       "passing": [
         "researcher",
-        "debugger",
-        "doc_writer",
-        "test_engineer"
+        "architect",
+        "planner"
       ],
       "patched": []
     },
     "auto_heal_feed": [
       {
-        "ts": "2026-03-27T03:10:14",
+        "ts": "2026-03-27T03:20:14",
         "level": "INFO",
         "event": "started",
         "detail": "Auto-heal monitor started (checks every 10s)",
         "agent": ""
       },
       {
-        "ts": "2026-03-27T03:10:30",
+        "ts": "2026-03-27T03:20:29",
         "level": "INFO",
         "event": "started",
         "detail": "Auto-heal monitor started (checks every 10s)",
         "agent": ""
       },
       {
-        "ts": "2026-03-27T03:10:44",
+        "ts": "2026-03-27T03:20:42",
         "level": "INFO",
         "event": "started",
         "detail": "Auto-heal monitor started (checks every 10s)",

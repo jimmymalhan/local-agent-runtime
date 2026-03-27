@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-26T20:20:10.906344",
+  "ts": "2026-03-26T20:20:49.428643",
   "version": {
     "current": 1,
     "total": 100,
@@ -99,7 +99,23 @@
       "tried": "unknown error"
     }
   ],
-  "research_feed": [],
+  "research_feed": [
+    {
+      "ts": "2026-03-26T20:20:29.605015",
+      "finding": "v5: Model produces code that fails assertion tests silently",
+      "source": ""
+    },
+    {
+      "ts": "2026-03-26T20:20:29.604459",
+      "finding": "v5: Model writes wrong import paths for multi-file projects",
+      "source": ""
+    },
+    {
+      "ts": "2026-03-26T20:20:29.603787",
+      "finding": "v5: Model truncates code in the middle of a function",
+      "source": ""
+    }
+  ],
   "version_changelog": {
     "v1": {
       "changes": [
@@ -130,7 +146,7 @@
   ],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-26T20:20:10.906186",
+    "ts": "2026-03-26T20:20:49.428597",
     "epics": [
       {
         "id": "system-reliability",
@@ -295,7 +311,7 @@
     "updated_at": "2026-03-26T20:13:46.954201"
   },
   "auto_heal_status": {
-    "ts": "2026-03-27T03:13:44",
+    "ts": "2026-03-27T03:20:52",
     "issues_this_cycle": [],
     "healthy": true,
     "dashboard_alive": true,
@@ -492,5 +508,33 @@
       "planner"
     ],
     "patched": []
+  },
+  "auto_heal_feed": [
+    {
+      "ts": "2026-03-27T03:20:14",
+      "level": "INFO",
+      "event": "started",
+      "detail": "Auto-heal monitor started (checks every 10s)",
+      "agent": ""
+    },
+    {
+      "ts": "2026-03-27T03:20:29",
+      "level": "INFO",
+      "event": "started",
+      "detail": "Auto-heal monitor started (checks every 10s)",
+      "agent": ""
+    },
+    {
+      "ts": "2026-03-27T03:20:42",
+      "level": "INFO",
+      "event": "started",
+      "detail": "Auto-heal monitor started (checks every 10s)",
+      "agent": ""
+    }
+  ],
+  "auto_heal_counts": {
+    "restarts": 0,
+    "purges": 0,
+    "retrains": 0
   }
 }
