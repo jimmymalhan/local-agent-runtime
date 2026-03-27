@@ -112,10 +112,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T09:56:35.351371"
+      },
+      {
+        "attempt": 3,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T10:06:38.001071"
       }
     ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T09:46:32.526288"
+    "rescue_escalated": true,
+    "first_attempt_at": "2026-03-27T09:46:32.526288",
+    "rescue_escalated_at": "2026-03-27T10:06:38.001698"
   },
   "upgrade-ui-realtime": {
     "attempts": [
@@ -132,10 +140,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T09:56:35.749826"
+      },
+      {
+        "attempt": 3,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T10:06:38.330714"
       }
     ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T09:46:32.894804"
+    "rescue_escalated": true,
+    "first_attempt_at": "2026-03-27T09:46:32.894804",
+    "rescue_escalated_at": "2026-03-27T10:06:38.331070"
   },
   "benchmark-performance": {
     "attempts": [
@@ -152,10 +168,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T09:56:36.126890"
+      },
+      {
+        "attempt": 3,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T10:06:38.660911"
       }
     ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T09:46:33.225245"
+    "rescue_escalated": true,
+    "first_attempt_at": "2026-03-27T09:46:33.225245",
+    "rescue_escalated_at": "2026-03-27T10:06:38.661205"
   },
   "auto-epic-progress": {
     "attempts": [
@@ -165,9 +189,29 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T09:56:36.453364"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T10:06:39.016690"
       }
     ],
     "rescue_escalated": false,
     "first_attempt_at": "2026-03-27T09:56:36.453363"
+  },
+  "phase3-advanced-routing": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T10:06:39.380642"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T10:06:39.380640"
   }
 }
