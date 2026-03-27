@@ -4353,3 +4353,16 @@
 {"ts": "2026-03-27T06:36:04.061761", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.hb", "value": 1774593364.061759}
 {"ts": "2026-03-27T06:36:19.063516", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.alive", "value": true}
 {"ts": "2026-03-27T06:36:19.063582", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.hb", "value": 1774593379.063576}
+{"ts": "2026-03-27T06:36:34.032796", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.check.ts", "value": 1774593394.0327868}
+{"ts": "2026-03-27T06:36:34.065786", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.alive", "value": true}
+{"ts": "2026-03-27T06:36:34.065846", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.hb", "value": 1774593394.0658429}
+{"ts": "2026-03-27T06:36:34.846840", "ns": "default", "agent": "subagent_pool", "action": "set", "key": "pool.running", "value": true}
+{"ts": "2026-03-27T06:36:34.846855", "ns": "default", "agent": "subagent_pool", "action": "set", "key": "pool.total", "value": 3}
+{"ts": "2026-03-27T06:36:34.846858", "ns": "default", "agent": "subagent_pool", "action": "set", "key": "pool.done", "value": 0}
+{"ts": "2026-03-27T06:36:34.850103", "ns": "default", "agent": "subagent_pool", "action": "set", "key": "pool.done", "value": 1}
+{"ts": "2026-03-27T06:36:34.850111", "ns": "default", "agent": "subagent_pool", "action": "set", "key": "pool.done", "value": 2}
+{"ts": "2026-03-27T06:36:34.850168", "ns": "default", "agent": "subagent_pool", "action": "set", "key": "pool.done", "value": 3}
+{"ts": "2026-03-27T06:36:34.850217", "ns": "default", "agent": "subagent_pool", "action": "set", "key": "pool.running", "value": false}
+{"ts": "2026-03-27T06:36:34.850835", "ns": "default", "agent": "subagent_pool", "action": "set", "key": "pool.running", "value": true}
+{"ts": "2026-03-27T06:36:34.850839", "ns": "default", "agent": "subagent_pool", "action": "set", "key": "pool.total", "value": 3}
+{"ts": "2026-03-27T06:36:34.850841", "ns": "default", "agent": "subagent_pool", "action": "set", "key": "pool.done", "value": 0}
