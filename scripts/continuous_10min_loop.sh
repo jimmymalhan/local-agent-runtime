@@ -152,9 +152,7 @@ PYEOF
             git commit -m "chore: auto-commit from 10-minute loop ($TIMESTAMP)
 
 Changes:
-$(git diff --cached --name-only | head -5)
-
-Co-Authored-By: Claude Haiku 4.5 <noreply@anthropic.com>" 2>/dev/null || true
+$(git diff --cached --name-only | head -5)" 2>/dev/null || true
             echo "✅ Committed changes"
         fi
     else

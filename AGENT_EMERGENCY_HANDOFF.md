@@ -243,8 +243,6 @@ All modified state files now tracked in git:
 - checkpoints/version_snapshot_*.json (version recovery)
 
 Effect: Agents read consistent state from git, no divergence.
-
-Co-Authored-By: Claude Haiku 4.5 <noreply@anthropic.com>"
 ```
 
 ### Files to Stage:
