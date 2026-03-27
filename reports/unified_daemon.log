@@ -357,3 +357,37 @@
 2026-03-26 23:28:00,348 [INFO] 🔄 Running: dashboard-update
 2026-03-26 23:28:05,400 [INFO] 🔄 Running: dashboard-update
 2026-03-26 23:28:10,481 [INFO] 🔄 Running: dashboard-update
+2026-03-26 23:28:14,535 [INFO] 🔄 Running: pr-merge-check
+2026-03-26 23:28:14,535 [INFO] 🔀 Checking for ready PRs to merge...
+2026-03-26 23:28:16,226 [INFO] 🔄 Running: dashboard-update
+2026-03-26 23:28:21,285 [INFO] 🔄 Running: dashboard-update
+2026-03-26 23:28:26,346 [INFO] 🔄 Running: dashboard-update
+2026-03-26 23:28:31,419 [INFO] 🔄 Running: dashboard-update
+2026-03-26 23:28:36,486 [INFO] 🔄 Running: dashboard-update
+2026-03-26 23:28:38,537 [INFO] 🔄 Running: full-loop
+2026-03-26 23:28:38,538 [INFO] 🚀 Running full 10-minute loop...
+2026-03-26 23:29:59,467 [INFO] 🚀 UnifiedDaemon initializing...
+2026-03-26 23:29:59,467 [INFO]   Registered: health-check (interval: 60s)
+2026-03-26 23:29:59,467 [INFO]   Registered: auto-recovery (interval: 120s)
+2026-03-26 23:29:59,467 [INFO]   Registered: dashboard-update (interval: 5s)
+2026-03-26 23:29:59,467 [INFO]   Registered: pr-merge-check (interval: 30s)
+2026-03-26 23:29:59,467 [INFO]   Registered: full-loop (interval: 600s)
+2026-03-26 23:29:59,467 [INFO]   Registered: epic-status-update (interval: 1800s)
+2026-03-26 23:29:59,467 [INFO] ======================================================================
+2026-03-26 23:29:59,467 [INFO] UNIFIED DAEMON — Replaces All External Crons
+2026-03-26 23:29:59,467 [INFO] ======================================================================
+2026-03-26 23:29:59,467 [INFO] ✨ All scheduling now internal to daemon
+2026-03-26 23:29:59,467 [INFO] ✨ Zero external cron dependencies
+2026-03-26 23:29:59,467 [INFO] ✨ 24/7 autonomous operation
+2026-03-26 23:29:59,467 [INFO] ======================================================================
+2026-03-26 23:29:59,467 [INFO] ✅ UnifiedDaemon started (all crons replaced with internal scheduling)
+2026-03-26 23:29:59,467 [INFO] ======================================================================
+2026-03-26 23:29:59,467 [INFO] 🔄 Running: health-check
+2026-03-26 23:30:00,524 [INFO] 📊 Health: CPU 20.3% | Memory 76.4% | Processes: agent_runner=✗, dashboard=✓
+2026-03-26 23:30:00,526 [INFO] 🔄 Running: auto-recovery
+2026-03-26 23:30:00,526 [INFO] 🔧 Running auto-recovery...
+2026-03-26 23:30:00,527 [INFO] 🔄 Running: dashboard-update
+2026-03-26 23:30:00,568 [INFO] 🔄 Running: pr-merge-check
+2026-03-26 23:30:00,568 [INFO] 🔀 Checking for ready PRs to merge...
+2026-03-26 23:30:01,376 [INFO] 🔄 Running: full-loop
+2026-03-26 23:30:01,376 [INFO] 🚀 Running full 10-minute loop...
