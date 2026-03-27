@@ -1088,10 +1088,11 @@
           "title": "Implement intelligent agent load-balancing algorithm",
           "description": "Smart routing based on agent skills, load, success rate, ETA",
           "agent": "backend_engineer",
-          "status": "pending",
+          "status": "completed",
           "priority": "P0",
           "success_criteria": "Load balanced evenly, success rate +5% vs random",
-          "eta_hours": 3
+          "eta_hours": 3,
+          "completed_at": "projects_loader"
         },
         {
           "id": "agent-intel-3",

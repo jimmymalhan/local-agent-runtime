@@ -759,11 +759,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:27:22.241143"
+      },
+      {
+        "attempt": 6,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:37:25.005579"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T11:57:12.724376",
-    "rescue_escalated_at": "2026-03-27T12:27:22.243742"
+    "rescue_escalated_at": "2026-03-27T12:37:25.008103"
   },
   "agent-intel-3": {
     "attempts": [
@@ -794,11 +801,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:27:22.623510"
+      },
+      {
+        "attempt": 5,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:37:25.384876"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T12:03:58.773348",
-    "rescue_escalated_at": "2026-03-27T12:27:22.626159"
+    "rescue_escalated_at": "2026-03-27T12:37:25.387613"
   },
   "agent-intel-4": {
     "attempts": [
@@ -822,11 +836,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:27:23.033314"
+      },
+      {
+        "attempt": 4,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:37:25.770212"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T12:03:59.170837",
-    "rescue_escalated_at": "2026-03-27T12:27:23.036031"
+    "rescue_escalated_at": "2026-03-27T12:37:25.772979"
   },
   "agent-intel-5": {
     "attempts": [
@@ -843,10 +864,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:27:23.422758"
+      },
+      {
+        "attempt": 3,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:37:26.162244"
       }
     ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T12:03:59.586313"
+    "rescue_escalated": true,
+    "first_attempt_at": "2026-03-27T12:03:59.586313",
+    "rescue_escalated_at": "2026-03-27T12:37:26.165040"
   },
   "state-adv-1": {
     "attempts": [
@@ -856,6 +885,13 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:04:00.013293"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:37:26.516254"
       }
     ],
     "rescue_escalated": false,
