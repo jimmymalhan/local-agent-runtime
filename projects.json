@@ -187,7 +187,7 @@
           "title": "P0: Wire quality score pipeline \u2014 executor \u2192 projects.json \u2192 dashboard",
           "description": "Quality metric completely broken: executor returns quality=85 but dashboard shows 0. Trace: agents/executor.py \u2192 orchestrator/main.py \u2192 orchestrator/projects_loader.py \u2192 dashboard/state.json. Add logging at each step. Ensure quality_score is normalized and persisted. Test: executor returns quality=85, verify it appears in projects.json AND dashboard/state.json.",
           "agent": "executor",
-          "status": "pending",
+          "status": "completed",
           "priority": "P0",
           "files": [
             "orchestrator/main.py",
@@ -198,14 +198,16 @@
           "success_criteria": "Dashboard state.json shows quality > 0 for completed tasks; quality flows end-to-end",
           "eta_hours": 4,
           "eta_completion": "2026-03-26T22:35:00Z",
-          "started_at": "2026-03-26T18:35:00Z"
+          "started_at": "2026-03-26T18:35:00Z",
+          "quality_score": 90,
+          "completed_at": "2026-03-26T20:42:09.383541"
         },
         {
           "id": "task-fix-4",
           "title": "P0: Dashboard state writer \u2014 enforce schema validation",
           "description": "state.json has null/empty fields: quality, model, recent_tasks, changelog, research_feed. Writer must validate: (1) no null values allowed, (2) missing fields get defaults, (3) types validated. Test: attempt to write invalid state, verify schema correction.",
           "agent": "test_engineer",
-          "status": "pending",
+          "status": "completed",
           "priority": "P0",
           "files": [
             "dashboard/state_writer.py",
@@ -214,14 +216,16 @@
           "success_criteria": "state.json never has null/empty required fields; all writes pass schema validation",
           "eta_hours": 2,
           "eta_completion": "2026-03-26T20:35:00Z",
-          "started_at": "2026-03-26T18:35:00Z"
+          "started_at": "2026-03-26T18:35:00Z",
+          "quality_score": 95,
+          "completed_at": "2026-03-26T20:42:09.383550"
         },
         {
           "id": "task-fix-5",
           "title": "P0: Wire token enforcer module into orchestrator",
           "description": "Module exists (orchestrator/token_enforcer.py) but not connected to execution flow. Must wire: (1) Check is_rescue_allowed() before any rescue decision, (2) Deduct tokens on rescue, (3) Block rescue if limit exceeded (10% budget), (4) Log all decisions to reports/token_decisions.jsonl. Test: hit token limit, verify rescue is blocked.",
           "agent": "executor",
-          "status": "pending",
+          "status": "completed",
           "priority": "P0",
           "files": [
             "orchestrator/token_enforcer.py",
@@ -231,7 +235,9 @@
           "success_criteria": "Rescue decisions logged and budget-enforced; token limit blocks rescue when 10% exceeded",
           "eta_hours": 3,
           "eta_completion": "2026-03-26T21:35:00Z",
-          "started_at": "2026-03-26T18:35:00Z"
+          "started_at": "2026-03-26T18:35:00Z",
+          "quality_score": 95,
+          "completed_at": "2026-03-26T20:42:00.716658"
         },
         {
           "id": "task-fix-6",
