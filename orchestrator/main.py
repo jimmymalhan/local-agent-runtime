@@ -41,6 +41,29 @@ Path(REPORTS_DIR).mkdir(exist_ok=True)
 from orchestrator.resource_guard import ResourceGuard
 from agents.benchmarker import analyze_version
 
+# Schema validation — normalize task status and agent outputs (P0 root cause fixes)
+try:
+    from orchestrator.schema_validator import normalize_task_status, update_task_status
+    _SCHEMA_VALIDATOR = True
+except ImportError:
+    _SCHEMA_VALIDATOR = False
+    def normalize_task_status(status):
+        if status in ["completed", "done", "is_done", True]:
+            return "completed"
+        elif status in ["in_progress", "running"]:
+            return "in_progress"
+        elif status in ["pending", "queued"]:
+            return "pending"
+        elif status in ["failed", "error"]:
+            return "failed"
+        else:
+            return "pending"
+    def update_task_status(task, status):
+        task["status"] = normalize_task_status(status)
+        if normalize_task_status(status) == "completed":
+            task["is_done"] = True
+        return task
+
 # Supervisor — runs pre-flight + background health monitoring
 try:
     from orchestrator.supervisor import get_supervisor as _get_sv
@@ -638,8 +661,10 @@ def run_version(version: int, tasks: list, local_only: bool = False,
 
     for i, task in enumerate(tasks, 1):
         # FIX 3: Skip done tasks — prevent re-runs
-        if task.get("is_done") == True:
-            print(f"  [{i:3}/{total_tasks}] SKIP (is_done=True)")
+        # P0 FIX: Use normalize_task_status to handle all status format variations
+        task_status = normalize_task_status(task.get("status", task.get("is_done", False)))
+        if task_status == "completed" or task.get("is_done") == True:
+            print(f"  [{i:3}/{total_tasks}] SKIP (status={task_status})")
             completed += 1
             continue
 
@@ -674,7 +699,9 @@ def run_version(version: int, tasks: list, local_only: bool = False,
         local_quality = local_result.get("quality", 0)
 
         # Update completed/failed counts
-        task_successful = local_result.get("status") == "done" and local_quality >= 30
+        # P0 FIX: Use normalize_task_status to handle all status format variations
+        result_status = normalize_task_status(local_result.get("status", "pending"))
+        task_successful = result_status == "completed" and local_quality >= 30
         if task_successful:
             completed += 1
         else:
@@ -697,7 +724,8 @@ def run_version(version: int, tasks: list, local_only: bool = False,
             ab.update_success_rate(agent_used, successful=task_successful, tokens_used=tokens_used)
 
         # Update queue counts (keep agent status as result of run)
-        status_after = "done" if local_result.get("status") == "done" else "blocked"
+        # P0 FIX: Use normalized status for consistent state tracking
+        status_after = "done" if result_status == "completed" else "blocked"
         update_agent(agent_name_hint, status_after, f"[{local_quality}/100] {title[:50]}", task_id)
         update_task_queue(total_tasks, completed, 0, failed_count, total_tasks - completed - failed_count)
 

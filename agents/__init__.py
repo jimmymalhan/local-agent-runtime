@@ -16,9 +16,43 @@ Quick start:
 Agent router:
     from agents import route, run_task
     result = run_task({"category": "tdd", "title": "...", "description": "..."})
+
+SCHEMA VALIDATION: All results are normalized via schema_validator before returning.
+This ensures:
+  - Task status: "done", "is_done", "completed" all map to canonical "completed"
+  - Quality scores: both "quality" and "quality_score" keys present
+  - No partial results: missing fields filled with defaults
 """
 import importlib
 from typing import Optional
+
+try:
+    from orchestrator.schema_validator import normalize_agent_output, normalize_task_status
+except ImportError:
+    # Fallback if schema_validator not available (legacy compatibility)
+    def normalize_agent_output(output):
+        if isinstance(output, dict):
+            if "quality" in output and "quality_score" not in output:
+                output["quality_score"] = output["quality"]
+            elif "quality_score" in output and "quality" not in output:
+                output["quality"] = output["quality_score"]
+            output["quality_score"] = float(output.get("quality_score", 0))
+            output["quality"] = float(output.get("quality", 0))
+        return output
+
+    def normalize_task_status(status):
+        if status in ["completed", "done", "is_done", True]:
+            return "completed"
+        elif status in ["in_progress", "running"]:
+            return "in_progress"
+        elif status in ["pending", "queued"]:
+            return "pending"
+        elif status in ["failed", "error"]:
+            return "failed"
+        elif status in ["blocked"]:
+            return "blocked"
+        else:
+            return "pending"
 
 # Category → agent module mapping (single source of truth)
 ROUTING_TABLE = {
@@ -64,11 +98,25 @@ def run_task(task: dict) -> dict:
 
     Returns:
         dict with keys: status, output, quality (0-100), tokens_used, elapsed_s, agent
+
+    All results are automatically normalized via schema_validator:
+      - Task status mapped to canonical format (completed/in_progress/pending/failed/blocked)
+      - Quality scores ensure both "quality" and "quality_score" keys present
+      - Missing fields filled with sensible defaults
     """
     agent_name = route(task)
     agent = get_agent(agent_name)
     result = agent.run(task)
     result.setdefault("agent_name", agent_name)
+
+    # CRITICAL P0 FIX: Normalize result before returning
+    # Ensures format consistency across all agents
+    result = normalize_agent_output(result)
+
+    # Normalize status if present
+    if "status" in result:
+        result["status"] = normalize_task_status(result["status"])
+
     return result
 
 

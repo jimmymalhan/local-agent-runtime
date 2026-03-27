@@ -3,7 +3,8 @@
     "local LLM inference optimization ollama llama",
     "autonomous coding agent self-improvement",
     "DAG task scheduling parallel agents",
-    "vector memory retrieval coding agents"
+    "vector memory retrieval coding agents",
+    "tree-sitter AST blast radius analysis"
   ],
   "queued": [
     {
@@ -33,7 +34,14 @@
       "topic": "vector memory retrieval coding agents",
       "status": "pending",
       "ts": "2026-03-26T20:35:05.549121"
+    },
+    {
+      "id": "R1774569905",
+      "title": "Implement insight from: tree-sitter AST blast radius analysis",
+      "topic": "tree-sitter AST blast radius analysis",
+      "status": "pending",
+      "ts": "2026-03-27T00:05:05.672593"
     }
   ],
-  "ts": "2026-03-26T20:35:05.549147"
+  "ts": "2026-03-27T00:05:05.672645"
 }

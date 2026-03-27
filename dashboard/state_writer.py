@@ -9,12 +9,26 @@ Usage:
   from dashboard.state_writer import update_agent, update_task_queue, log_failure
 
 Protocol: The board updates FIRST. Always. No agent moves without updating state.
+
+SCHEMA VALIDATION: All reads/writes use schema_validator for consistency:
+  - read_state_safe(): Never crashes on parse errors or missing keys
+  - write_state_safe(): Always writes complete valid state with all required keys
+  - Ensures state.json is always readable and valid
 """
 import os, json, time, fcntl
 from pathlib import Path
 from datetime import datetime
 
 STATE_FILE = str(Path(__file__).parent / "state.json")
+
+# Import schema validator functions (with fallback for compatibility)
+try:
+    from orchestrator.schema_validator import (
+        read_state_safe, write_state_safe, validate_and_repair_state
+    )
+    _USE_SCHEMA_VALIDATOR = True
+except ImportError:
+    _USE_SCHEMA_VALIDATOR = False
 _DEFAULT_STATE = {
     "ts": "",
     "version": {"current": 0, "total": 100, "pct_complete": 0.0, "label": ""},
@@ -32,30 +46,56 @@ _DEFAULT_STATE = {
 
 
 def _read() -> dict:
+    """
+    Read state.json with fallback protection.
+    Uses schema_validator.read_state_safe() if available for robust parsing.
+    """
+    if _USE_SCHEMA_VALIDATOR:
+        return read_state_safe()
+
     try:
         with open(STATE_FILE) as f:
             return json.load(f)
-    except Exception:
+    except json.JSONDecodeError:
+        print(f"[STATE READER] JSON parse error in {STATE_FILE}, using defaults")
+        return dict(_DEFAULT_STATE)
+    except FileNotFoundError:
+        return dict(_DEFAULT_STATE)
+    except Exception as e:
+        print(f"[STATE READER] Error reading {STATE_FILE}: {e}")
         return dict(_DEFAULT_STATE)
 
 
 def _write(state: dict):
-    # Validate state before writing (prevents empty values)
-    try:
-        from state.dashboard_schema import validate_and_fix_state
-        state = validate_and_fix_state(state)
-    except ImportError:
-        # Fallback: ensure minimal structure
-        state.setdefault("ts", datetime.now().isoformat())
-        state.setdefault("version", {"current": 0, "total": 0, "pct_complete": 0.0, "label": ""})
-        state.setdefault("agents", {})
-        state.setdefault("task_queue", {"total": 0, "completed": 0, "in_progress": 0, "failed": 0, "pending": 0})
+    """
+    Write state.json with validation and atomic operations.
+    Uses schema_validator.write_state_safe() if available for robustness.
+    """
+    if _USE_SCHEMA_VALIDATOR:
+        # Let schema_validator handle all validation and atomic writes
+        write_state_safe(state)
+        return
+
+    # Fallback: manual validation + atomic write
+    state.setdefault("ts", datetime.now().isoformat())
+    state.setdefault("version", {"current": 0, "total": 0, "pct_complete": 0.0, "label": ""})
+    state.setdefault("agents", {})
+    state.setdefault("task_queue", {"total": 0, "completed": 0, "in_progress": 0, "failed": 0, "pending": 0})
+    state.setdefault("failures", [])
+    state.setdefault("research_feed", [])
+    state.setdefault("version_changelog", {})
+    state.setdefault("benchmark_scores", {})
+    state.setdefault("token_usage", {})
+    state.setdefault("hardware", {})
 
     state["ts"] = datetime.now().isoformat()
     tmp = STATE_FILE + ".tmp"
-    with open(tmp, "w") as f:
-        json.dump(state, f, indent=2)
-    os.replace(tmp, STATE_FILE)  # atomic replace
+    try:
+        with open(tmp, "w") as f:
+            json.dump(state, f, indent=2)
+        os.replace(tmp, STATE_FILE)  # atomic replace
+    except Exception as e:
+        print(f"[STATE WRITER] Error writing {STATE_FILE}: {e}")
 
 
 def update_agent(agent_name: str, status: str, task: str = "", task_id=None,

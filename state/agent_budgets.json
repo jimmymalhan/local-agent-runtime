@@ -1,20 +1,32 @@
 {
   "executor": {
-    "current": 1210,
-    "last_adjusted": "2026-03-26T13:08:49.615844",
-    "previous": 1100,
-    "reason": "High success (94%) \u2014 reward"
+    "current": 1331,
+    "last_adjusted": "2026-03-26T17:11:49.334286",
+    "previous": 1210,
+    "reason": "High success (88%) \u2014 reward"
   },
   "researcher": {
-    "current": 810,
-    "last_adjusted": "2026-03-26T13:08:49.616355",
-    "previous": 900,
+    "current": 729,
+    "last_adjusted": "2026-03-26T17:11:49.334858",
+    "previous": 810,
     "reason": "Low success (40%) \u2014 focus easy wins"
   },
   "planner": {
-    "current": 810,
-    "last_adjusted": "2026-03-26T13:08:49.616441",
-    "previous": 900,
+    "current": 729,
+    "last_adjusted": "2026-03-26T17:11:49.334911",
+    "previous": 810,
     "reason": "Low success (50%) \u2014 focus easy wins"
+  },
+  "architect": {
+    "current": 1100,
+    "last_adjusted": "2026-03-26T17:11:49.335613",
+    "previous": 1000,
+    "reason": "High success (100%) \u2014 reward"
+  },
+  "refactor": {
+    "current": 1100,
+    "last_adjusted": "2026-03-26T17:11:49.335824",
+    "previous": 1000,
+    "reason": "High success (100%) \u2014 reward"
   }
 }

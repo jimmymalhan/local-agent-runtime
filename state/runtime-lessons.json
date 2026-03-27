@@ -9,22 +9,30 @@
     "applied_count": 0
   },
   {
-    "category": "iteration",
-    "trigger": "slow_task_completion",
-    "lesson": "Tasks exceeding 5 minutes produce diminishing returns. Break into smaller increments and commit partial progress.",
-    "fix": "Time-box every task to 5 minutes. At 3 minutes, assess and simplify if under 50% done. Commit partial work and move on.",
-    "context": "skill=fast-iteration pattern=time-boxing",
-    "learned_at": "2026-03-17T10:00:00",
-    "applied_count": 0
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": true,
+        "timestamp": "2026-03-26T17:14:38.620259"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-26T17:14:38.620254"
   },
   {
-    "category": "model_selection",
-    "trigger": "model_unavailable_stall",
-    "lesson": "Waiting for a preferred model wastes entire session time. Downgrade immediately and continue working.",
-    "fix": "Maintain fallback chain: opus -> sonnet -> haiku -> local ollama -> pseudocode. Never wait more than 30 seconds for any model.",
-    "context": "skill=fast-iteration pattern=model-fallback-chain",
-    "learned_at": "2026-03-17T10:00:00",
-    "applied_count": 0
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": true,
+        "timestamp": "2026-03-26T17:14:58.901507"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-26T17:14:58.901494"
   },
   {
     "category": "blocker_resolution",
