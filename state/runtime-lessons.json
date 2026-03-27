@@ -56,5 +56,20 @@
     ],
     "rescue_escalated": false,
     "first_attempt_at": "2026-03-26T23:44:46.975744"
+  },
+  "task-fix-task-execution": {
+    "attempts": []
+  },
+  "task-fix-executor-rate": {
+    "attempts": []
+  },
+  "task-persistence-layer": {
+    "attempts": []
+  },
+  "task-realtime-dashboard": {
+    "attempts": []
+  },
+  "task-agent-autoexecution": {
+    "attempts": []
   }
 }
