@@ -5630,3 +5630,9 @@
 {"ts": "2026-03-27T16:56:34.603357", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.alive", "value": true}
 {"ts": "2026-03-27T16:56:34.603536", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.preflight.v", "value": 1}
 {"ts": "2026-03-27T16:56:34.603544", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.preflight.ts", "value": 1774630594.603543}
+{"ts": "2026-03-27T17:06:37.226592", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.alive", "value": true}
+{"ts": "2026-03-27T17:06:37.226606", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.hb", "value": 1774631197.226605}
+{"ts": "2026-03-27T17:06:37.226622", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.check.ts", "value": 1774631197.2216609}
+{"ts": "2026-03-27T17:06:37.627559", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.alive", "value": true}
+{"ts": "2026-03-27T17:06:37.627823", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.preflight.v", "value": 1}
+{"ts": "2026-03-27T17:06:37.627830", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.preflight.ts", "value": 1774631197.627829}

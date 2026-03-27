@@ -869,14 +869,15 @@
           "title": "[P1] Implement workflow phase auto-selection (no manual picking)",
           "description": "Create workflow_dispatcher.py that auto-selects workflow phases based on task type (code_gen->full pipeline, bugfix->execution+validation, analysis->retrieval+analysis). No manual workflow picking needed.",
           "agent": "executor",
-          "status": "pending",
+          "status": "completed",
           "priority": "P1",
           "eta_hours": 2,
           "quality_target": 85,
           "files": [
             "orchestrator/workflow_dispatcher.py"
           ],
-          "success_criteria": "Workflow phases auto-selected per task type"
+          "success_criteria": "Workflow phases auto-selected per task type",
+          "completed_at": "projects_loader"
         },
         {
           "id": "upgrade-ui-realtime",

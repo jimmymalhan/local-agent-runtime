@@ -825,3 +825,8 @@
 {"ts": "2026-03-27T09:56:35.749482", "action": "execute_failed", "agent": "executor", "task_id": "upgrade-ui-realtime", "attempts": 3, "last_error": "Unknown error"}
 {"ts": "2026-03-27T09:56:36.126525", "action": "execute_failed", "agent": "executor", "task_id": "benchmark-performance", "attempts": 3, "last_error": "Unknown error"}
 {"ts": "2026-03-27T09:56:36.453018", "action": "execute_failed", "agent": "executor", "task_id": "auto-epic-progress", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T10:06:38.000533", "action": "execute_failed", "agent": "executor", "task_id": "impl-workflow-autodispatch", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T10:06:38.330301", "action": "execute_failed", "agent": "executor", "task_id": "upgrade-ui-realtime", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T10:06:38.660593", "action": "execute_failed", "agent": "executor", "task_id": "benchmark-performance", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T10:06:39.016275", "action": "execute_failed", "agent": "executor", "task_id": "auto-epic-progress", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T10:06:39.380288", "action": "execute_failed", "agent": "executor", "task_id": "phase3-advanced-routing", "attempts": 3, "last_error": "Unknown error"}
