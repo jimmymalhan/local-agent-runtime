@@ -63,5 +63,18 @@
     ],
     "rescue_escalated": false,
     "first_attempt_at": "2026-03-26T23:44:21.162004"
+  },
+  "3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": true,
+        "timestamp": "2026-03-26T23:44:46.975750"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-26T23:44:46.975744"
   }
 }

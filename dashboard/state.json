@@ -1,10 +1,10 @@
 {
-  "ts": "2026-03-27T06:44:25.250283",
+  "ts": "2026-03-26T23:45:08.088602",
   "version": {
     "current": 1,
     "total": 100,
     "pct_complete": 1.0,
-    "label": "v1 running"
+    "label": "v1 complete \u2014 win_rate=60.0%"
   },
   "agents": {
     "executor": {
@@ -46,40 +46,40 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-26T23:44:21.174501",
+      "last_activity": "2026-03-26T23:44:46.987802",
       "sub_agents": [],
       "worker_count": 0
     },
     "architect": {
-      "status": "running",
-      "task": "Build a real-time WebSocket chat server",
+      "status": "done",
+      "task": "[100/100] Build a real-time WebSocket chat server",
       "task_id": 3,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-26T23:44:21.575823",
+      "last_activity": "2026-03-26T23:44:46.977008",
       "sub_agents": [],
       "worker_count": 0
     }
   },
   "task_queue": {
-    "total": 30,
-    "completed": 30,
-    "pending": 0,
+    "total": 5,
+    "completed": 3,
     "in_progress": 0,
-    "failed": 0
+    "failed": 2,
+    "pending": 0
   },
   "benchmark_scores": {
     "v1": {
-      "local": 0.0,
+      "local": 60.0,
       "opus": 70.0,
-      "gap": -70.0,
-      "win_rate": 0.0,
-      "ts": "2026-03-26T23:43:31.798140"
+      "gap": -10.0,
+      "win_rate": 60.0,
+      "ts": "2026-03-26T23:44:46.998132"
     }
   },
   "token_usage": {
     "claude_tokens": 0,
-    "local_tokens": 194624,
-    "budget_pct": 38.9,
+    "local_tokens": 197801,
+    "budget_pct": 39.5602,
     "warning": false,
     "hard_limit_hit": false
   },
@@ -120,16 +120,16 @@
   "version_changelog": {
     "v1": {
       "changes": [
-        "win_rate=0.0%",
-        "local_avg=0.0",
+        "win_rate=60.0%",
+        "local_avg=60.0",
         "opus_avg=70.0",
         "rescued=0.0%",
-        "tasks=1"
+        "tasks=5"
       ],
       "before_score": 70.0,
-      "after_score": 0.0,
-      "delta": -70.0,
-      "ts": "2026-03-26T23:43:31.798878"
+      "after_score": 60.0,
+      "delta": -10.0,
+      "ts": "2026-03-26T23:44:47.000362"
     }
   },
   "quality": 95,
@@ -173,13 +173,13 @@
       "title": "Build a real-time WebSocket chat server",
       "category": "scaffold",
       "agent_used": "architect",
-      "status": "running",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 100
     }
   ],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-26T23:44:24.735037",
+    "ts": "2026-03-26T23:45:08.088463",
     "epics": [
       {
         "id": "system-reliability",
@@ -267,11 +267,11 @@
         "track": "infrastructure",
         "status": "completed",
         "total_tasks": 7,
-        "completed": 6,
+        "completed": 7,
         "in_progress": 0,
-        "pending": 1,
+        "pending": 0,
         "blocked": 0,
-        "progress_pct": 85.7,
+        "progress_pct": 100.0,
         "agents": [
           "executor",
           "test_engineer"
@@ -386,18 +386,18 @@
             "task_id": 3,
             "title": "Build a real-time WebSocket chat server",
             "difficulty": "hard",
-            "status": "running",
+            "status": "done",
             "agent": "architect",
-            "quality": 0,
-            "elapsed_s": 0.0
+            "quality": 100,
+            "elapsed_s": 25.4
           }
         ],
         "total": 3,
-        "done": 2,
-        "in_progress": 1,
+        "done": 3,
+        "in_progress": 0,
         "failed": 0,
-        "status": "running",
-        "pct": 66.7
+        "status": "done",
+        "pct": 100.0
       }
     ],
     "initialized_at": "2026-03-26T23:43:37.193355",
@@ -439,7 +439,7 @@
     "retrains": 0
   },
   "auto_heal_status": {
-    "ts": "2026-03-27T06:44:16",
+    "ts": "2026-03-27T06:44:46",
     "issues_this_cycle": [],
     "healthy": true,
     "dashboard_alive": true,
@@ -754,11 +754,11 @@
     "patched": []
   },
   "business_summary": {
-    "headline": "2 of 5 engineering tasks complete",
-    "pct_complete": 40.0,
-    "projects_active": 1,
+    "headline": "3 of 5 engineering tasks complete",
+    "pct_complete": 60.0,
+    "projects_active": 0,
     "blockers_open": 1,
     "version": 1,
-    "updated_at": "2026-03-26T23:44:21.577369"
+    "updated_at": "2026-03-26T23:44:46.981247"
   }
 }
