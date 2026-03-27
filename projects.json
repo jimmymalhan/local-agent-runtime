@@ -1615,40 +1615,48 @@
           "title": "Build cost-aware routing (pick cheapest model that works)",
           "description": "Analyze task, estimate tokens, pick model with best cost/quality ratio",
           "agent": "backend_engineer",
-          "status": "pending",
+          "status": "completed",
           "priority": "P0",
           "success_criteria": "Cost reduced >30%, quality maintained, routing <100ms",
-          "eta_hours": 4
+          "eta_hours": 4,
+          "quality_score": 85,
+          "completed_at": "2026-03-27T13:49:36.454410"
         },
         {
           "id": "e2-route-2",
           "title": "Implement predictive token estimation",
           "description": "ML model predicts token count before execution, guides routing",
           "agent": "backend_engineer",
-          "status": "pending",
+          "status": "completed",
           "priority": "P0",
           "success_criteria": "Token prediction accuracy >90%, enables proactive routing",
-          "eta_hours": 3
+          "eta_hours": 3,
+          "quality_score": 85,
+          "completed_at": "2026-03-27T13:49:47.004184"
         },
         {
           "id": "e2-route-3",
           "title": "Add adaptive complexity detection (analyze task, pick model)",
           "description": "Detect easy/medium/hard tasks, route to appropriate model",
           "agent": "backend_engineer",
-          "status": "pending",
+          "status": "completed",
           "priority": "P0",
           "success_criteria": "Complexity detection >85% accurate, routing improves efficiency",
-          "eta_hours": 3
+          "eta_hours": 3,
+          "quality_score": 85,
+          "completed_at": "2026-03-27T13:49:57.568202"
         },
         {
           "id": "e2-route-4",
           "title": "Implement model cascade (try local first, fallback to Claude)",
           "description": "Try small model, if confidence <threshold, escalate to Claude",
           "agent": "backend_engineer",
-          "status": "pending",
+          "status": "completed",
           "priority": "P1",
           "success_criteria": "Cascade works, token usage reduced, quality maintained",
-          "eta_hours": 3
+          "eta_hours": 3,
+          "quality_score": 85,
+          "completed_at": "2026-03-27T13:50:08.123878"
         }
       ],
       "eta_hours": 13
