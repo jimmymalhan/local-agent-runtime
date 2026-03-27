@@ -150,7 +150,7 @@
           "title": "P0: Fix task state persistence \u2014 results must update projects.json",
           "description": "After each agent completes a task, orchestrator must persist: status='completed', quality_score, elapsed_time, result summary. Currently agent results are lost and tasks never transition from in_progress. Test: run_version() with any pending task, verify projects.json status updates and quality is non-zero.",
           "agent": "executor",
-          "status": "pending",
+          "status": "completed",
           "priority": "P0",
           "files": [
             "orchestrator/main.py",
@@ -160,14 +160,16 @@
           "success_criteria": "At least 1 task transitions from pending\u2192completed in projects.json; quality_score is non-zero",
           "eta_hours": 3,
           "eta_completion": "2026-03-26T21:35:00Z",
-          "started_at": "2026-03-26T18:35:00Z"
+          "started_at": "2026-03-26T18:35:00Z",
+          "quality_score": 100,
+          "completed_at": "2026-03-26T20:41:13.838015"
         },
         {
           "id": "task-fix-2",
           "title": "P0: Fix task router stuck-task logic \u2014 retry in_progress > 5 min",
           "description": "Currently projects_loader.py skips all in_progress tasks forever, so they get stuck. Must add: if task status='in_progress' AND elapsed > 300s, reset to 'pending' and re-execute. Add timeout field to track when task entered in_progress state. Test: create stuck task, verify it retries after 5 min timeout.",
           "agent": "executor",
-          "status": "pending",
+          "status": "completed",
           "priority": "P0",
           "files": [
             "orchestrator/projects_loader.py",
@@ -176,7 +178,9 @@
           "success_criteria": "Stuck task (in_progress > 5min) resets to pending and re-executes; add test case to verify",
           "eta_hours": 2,
           "eta_completion": "2026-03-26T20:35:00Z",
-          "started_at": "2026-03-26T18:35:00Z"
+          "started_at": "2026-03-26T18:35:00Z",
+          "quality_score": 90,
+          "completed_at": "2026-03-26T20:41:13.838021"
         },
         {
           "id": "task-fix-3",
@@ -234,7 +238,7 @@
           "title": "P0: System health check baseline \u2014 all 5 checks pass",
           "description": "Establish baseline: Verify orchestrator running, dashboard server alive, agents responsive, watchdog active, cron jobs executing. Create reports/system_health.json with results. Test: run each check independently, document expected values, add to CI/CD health monitoring.",
           "agent": "executor",
-          "status": "pending",
+          "status": "completed",
           "priority": "P0",
           "files": [
             "orchestrator/health_check.py",
@@ -244,7 +248,9 @@
           "success_criteria": "5/5 health checks pass; results logged to reports/system_health.json with timestamps",
           "eta_hours": 2,
           "eta_completion": "2026-03-26T20:35:00Z",
-          "started_at": "2026-03-26T18:35:00Z"
+          "started_at": "2026-03-26T18:35:00Z",
+          "quality_score": 80,
+          "completed_at": "2026-03-26T20:41:13.838022"
         }
       ],
       "eta_hours": 16,
