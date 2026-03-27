@@ -501,6 +501,13 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T11:27:02.755807"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T11:37:05.461451"
       }
     ],
     "rescue_escalated": false,
@@ -514,6 +521,13 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T11:27:03.141567"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T11:37:05.840515"
       }
     ],
     "rescue_escalated": false,
@@ -527,6 +541,13 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T11:27:03.513726"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T11:37:06.228474"
       }
     ],
     "rescue_escalated": false,
@@ -540,9 +561,29 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T11:27:03.877748"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T11:37:06.599509"
       }
     ],
     "rescue_escalated": false,
     "first_attempt_at": "2026-03-27T11:27:03.877746"
+  },
+  "ultra-dash-5": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T11:37:06.947672"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T11:37:06.947671"
   }
 }
