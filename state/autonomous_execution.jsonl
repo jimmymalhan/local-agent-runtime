@@ -447,3 +447,7 @@
 {"ts": "2026-03-26T23:08:58.575130", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 908, "elapsed": 78.85399794578552, "autonomous": true}
 {"ts": "2026-03-26T23:09:18.139976", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 925, "elapsed": 73.21353125572205, "autonomous": true}
 {"ts": "2026-03-26T23:10:31.908135", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 845, "elapsed": 73.3684868812561, "autonomous": true}
+{"ts": "2026-03-26T23:15:59.870821", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 49%"}
+{"ts": "2026-03-26T23:15:59.871306", "action": "execute_failed", "agent": "executor", "task_id": "task-blocker-stuck-state", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T23:20:38.984564", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 49%"}
+{"ts": "2026-03-26T23:20:38.984990", "action": "execute_failed", "agent": "executor", "task_id": "task-blocker-stuck-state", "attempts": 3, "last_error": "Unknown error"}

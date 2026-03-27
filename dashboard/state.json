@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-26T23:19:13.396860",
+  "ts": "2026-03-26T23:20:38.940157",
   "version": {
     "current": 1,
     "total": 100,
@@ -8,15 +8,13 @@
   },
   "agents": {
     "executor": {
-      "status": "stale",
-      "task": "STALE - needs restart",
+      "status": "running",
+      "task": "Fix blocker_monitor stuck-state detection",
       "task_id": "task-blocker-stuck-state",
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-26T23:15:59.867955",
+      "last_activity": "2026-03-26T23:20:38.938983",
       "sub_agents": [],
-      "worker_count": 0,
-      "last_check": "2026-03-27T06:19:12.622152",
-      "stale_since": "2026-03-26T23:15:59.867955"
+      "worker_count": 0
     },
     "reviewer": {
       "status": "stale",
@@ -71,11 +69,11 @@
     }
   },
   "task_queue": {
-    "total": 5,
+    "total": 1,
     "completed": 0,
     "in_progress": 1,
     "failed": 0,
-    "pending": 4
+    "pending": 0
   },
   "benchmark_scores": {},
   "token_usage": {
@@ -86,8 +84,8 @@
     "hard_limit_hit": false
   },
   "hardware": {
-    "cpu_pct": 33.8,
-    "ram_pct": 69.5,
+    "cpu_pct": 44.2,
+    "ram_pct": 70.7,
     "disk_pct": 0.0,
     "gpu_pct": null,
     "alert_level": "ok"
@@ -96,7 +94,7 @@
   "research_feed": [],
   "version_changelog": {},
   "epic_board": {
-    "ts": "2026-03-26T23:19:13.396695",
+    "ts": "2026-03-26T23:20:35.269412",
     "epics": [
       {
         "id": "system-reliability",
@@ -221,7 +219,7 @@
     }
   },
   "auto_heal_status": {
-    "ts": "2026-03-27T06:19:08",
+    "ts": "2026-03-27T06:20:38",
     "issues_this_cycle": [],
     "healthy": true,
     "dashboard_alive": true,
@@ -238,45 +236,13 @@
       "agent_used": "executor",
       "status": "running",
       "local_quality": 0
-    },
-    {
-      "task_id": 1,
-      "title": "Build a production FastAPI REST API with JWT auth",
-      "category": "scaffold",
-      "agent_used": "architect",
-      "status": "todo",
-      "local_quality": 0
-    },
-    {
-      "task_id": 2,
-      "title": "Build a CLI deployment tool with subcommands",
-      "category": "scaffold",
-      "agent_used": "architect",
-      "status": "todo",
-      "local_quality": 0
-    },
-    {
-      "task_id": 3,
-      "title": "Build a real-time WebSocket chat server",
-      "category": "scaffold",
-      "agent_used": "architect",
-      "status": "todo",
-      "local_quality": 0
-    },
-    {
-      "task_id": 4,
-      "title": "Build a data pipeline with ETL + validation",
-      "category": "scaffold",
-      "agent_used": "architect",
-      "status": "todo",
-      "local_quality": 0
     }
   ],
   "changelog": [],
   "board_plan": {
     "version": 1,
-    "total_tasks": 5,
-    "total_projects": 2,
+    "total_tasks": 1,
+    "total_projects": 1,
     "projects": [
       {
         "id": "proj-project",
@@ -300,75 +266,25 @@
         "failed": 0,
         "status": "running",
         "pct": 0.0
-      },
-      {
-        "id": "proj-scaffold",
-        "name": "Scaffolding",
-        "category": "scaffold",
-        "agent": "architect",
-        "tasks": [
-          {
-            "task_id": 1,
-            "title": "Build a production FastAPI REST API with JWT auth",
-            "difficulty": "hard",
-            "status": "pending",
-            "agent": "architect",
-            "quality": 0,
-            "elapsed_s": 0
-          },
-          {
-            "task_id": 2,
-            "title": "Build a CLI deployment tool with subcommands",
-            "difficulty": "hard",
-            "status": "pending",
-            "agent": "architect",
-            "quality": 0,
-            "elapsed_s": 0
-          },
-          {
-            "task_id": 3,
-            "title": "Build a real-time WebSocket chat server",
-            "difficulty": "hard",
-            "status": "pending",
-            "agent": "architect",
-            "quality": 0,
-            "elapsed_s": 0
-          },
-          {
-            "task_id": 4,
-            "title": "Build a data pipeline with ETL + validation",
-            "difficulty": "hard",
-            "status": "pending",
-            "agent": "architect",
-            "quality": 0,
-            "elapsed_s": 0
-          }
-        ],
-        "total": 4,
-        "done": 0,
-        "in_progress": 0,
-        "failed": 0,
-        "status": "pending",
-        "pct": 0
       }
     ],
-    "initialized_at": "2026-03-26T23:15:59.452147",
+    "initialized_at": "2026-03-26T23:20:38.565269",
     "status": "planned"
   },
   "business_summary": {
-    "headline": "0 of 5 engineering tasks complete",
+    "headline": "0 of 1 engineering tasks complete",
     "pct_complete": 0.0,
     "projects_active": 1,
     "blockers_open": 0,
     "version": 1,
-    "updated_at": "2026-03-26T23:15:59.869168"
+    "updated_at": "2026-03-26T23:20:38.940155"
   },
   "calibration": {
     "version": 1,
-    "ts": "2026-03-27T06:15:59",
+    "ts": "2026-03-27T06:20:38",
     "results": {
       "executor": {
-        "ts": "2026-03-27T06:13:29",
+        "ts": "2026-03-27T06:18:38",
         "version": 1,
         "agent": "executor",
         "avg_score": 75.0,
@@ -398,7 +314,7 @@
         ]
       },
       "reviewer": {
-        "ts": "2026-03-27T06:13:29",
+        "ts": "2026-03-27T06:18:38",
         "version": 1,
         "agent": "reviewer",
         "avg_score": 0.0,
@@ -428,7 +344,7 @@
         ]
       },
       "benchmarker": {
-        "ts": "2026-03-27T06:13:29",
+        "ts": "2026-03-27T06:18:38",
         "version": 1,
         "agent": "benchmarker",
         "avg_score": 80.0,
@@ -458,7 +374,7 @@
         ]
       },
       "researcher": {
-        "ts": "2026-03-27T06:13:29",
+        "ts": "2026-03-27T06:18:38",
         "version": 1,
         "agent": "researcher",
         "avg_score": 100.0,
@@ -471,7 +387,7 @@
             "title": "Find top 3 Python HTTP libraries",
             "score": 100,
             "status": "done",
-            "elapsed": 0.1
+            "elapsed": 0.13
           },
           {
             "title": "Research best practices for retry logic",
@@ -483,12 +399,42 @@
             "title": "Summarise SWE-bench top agent techniques 2025",
             "score": 100,
             "status": "done",
-            "elapsed": 0.08
+            "elapsed": 0.07
+          }
+        ]
+      },
+      "test_engineer": {
+        "ts": "2026-03-27T06:19:30",
+        "version": 1,
+        "agent": "test_engineer",
+        "avg_score": 60.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": true,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Write pytest for add(a,b)",
+            "score": 75,
+            "status": "done",
+            "elapsed": 8.72
+          },
+          {
+            "title": "Write tests for a REST endpoint handler",
+            "score": 65,
+            "status": "done",
+            "elapsed": 22.4
+          },
+          {
+            "title": "Write integration test for DB migration",
+            "score": 40,
+            "status": "done",
+            "elapsed": 21.14
           }
         ]
       },
       "doc_writer": {
-        "ts": "2026-03-27T06:15:16",
+        "ts": "2026-03-27T06:19:54",
         "version": 1,
         "agent": "doc_writer",
         "avg_score": 100.0,
@@ -501,49 +447,19 @@
             "title": "Write docstring for a 5-line function",
             "score": 100,
             "status": "done",
-            "elapsed": 8.37
+            "elapsed": 15.26
           },
           {
             "title": "Write README for a CLI tool",
             "score": 100,
             "status": "done",
-            "elapsed": 70.43
+            "elapsed": 26.48
           },
           {
             "title": "Write API reference for 5 endpoints",
             "score": 100,
             "status": "done",
-            "elapsed": 28.25
-          }
-        ]
-      },
-      "debugger": {
-        "ts": "2026-03-27T06:15:27",
-        "version": 1,
-        "agent": "debugger",
-        "avg_score": 90.0,
-        "prev_score": 0.0,
-        "regressed": false,
-        "pass": true,
-        "patched": false,
-        "tasks": [
-          {
-            "title": "Fix: AttributeError on NoneType",
-            "score": 70,
-            "status": "done",
-            "elapsed": 65.25
-          },
-          {
-            "title": "Fix: off-by-one in binary search",
-            "score": 100,
-            "status": "done",
-            "elapsed": 20.65
-          },
-          {
-            "title": "Debug race condition in thread-safe queue",
-            "score": 100,
-            "status": "done",
-            "elapsed": 32.13
+            "elapsed": 34.69
           }
         ]
       }
@@ -552,8 +468,8 @@
       "executor",
       "benchmarker",
       "researcher",
-      "doc_writer",
-      "debugger"
+      "test_engineer",
+      "doc_writer"
     ],
     "patched": []
   },
