@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-27T03:34:39.787365",
+  "ts": "2026-03-27T10:44:05.915843",
   "version": {
     "current": 1,
     "total": 100,
@@ -12,7 +12,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T10:34:26.397437",
+      "last_activity": "2026-03-27T10:43:56.554272",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -21,26 +21,26 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T10:34:26.397437",
+      "last_activity": "2026-03-27T10:43:56.554272",
       "sub_agents": [],
       "worker_count": 0
     },
     "executor": {
-      "last_activity": "2026-03-27T10:34:26.397437"
+      "last_activity": "2026-03-27T10:43:56.554272"
     },
     "test_engineer": {
-      "last_activity": "2026-03-27T10:34:26.397437"
+      "last_activity": "2026-03-27T10:43:56.554272"
     },
     "researcher": {
-      "last_activity": "2026-03-27T10:34:26.397437"
+      "last_activity": "2026-03-27T10:43:56.554272"
     }
   },
   "task_queue": {
     "total": 30,
     "completed": 30,
+    "pending": 0,
     "in_progress": 0,
-    "failed": 0,
-    "pending": 0
+    "failed": 0
   },
   "benchmark_scores": {
     "v1": {
@@ -48,19 +48,19 @@
       "opus": 70.0,
       "gap": 30.0,
       "win_rate": 100.0,
-      "ts": "2026-03-27T03:26:42.603567"
+      "ts": "2026-03-27T03:37:09.818682"
     }
   },
   "token_usage": {
     "claude_tokens": 0,
-    "local_tokens": 283801,
-    "budget_pct": 56.760200000000005,
-    "warning": true,
+    "local_tokens": 194624,
+    "budget_pct": 38.9,
+    "warning": false,
     "hard_limit_hit": false
   },
   "hardware": {
-    "cpu_pct": 41.1,
-    "ram_pct": 72.2,
+    "cpu_pct": 40.3,
+    "ram_pct": 72.3,
     "disk_pct": 0.0,
     "gpu_pct": null,
     "alert_level": "ok"
@@ -79,7 +79,7 @@
       "before_score": 70.0,
       "after_score": 100.0,
       "delta": 30.0,
-      "ts": "2026-03-27T03:26:42.607453"
+      "ts": "2026-03-27T03:37:09.820176"
     }
   },
   "quality": 95,
@@ -128,7 +128,7 @@
   ],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-27T03:34:39.787056",
+    "ts": "2026-03-27T03:44:03.774699",
     "epics": [
       {
         "id": "system-reliability",
@@ -271,7 +271,7 @@
     }
   },
   "auto_heal_status": {
-    "ts": "2026-03-27T10:26:39",
+    "ts": "2026-03-27T10:37:02",
     "issues_this_cycle": [],
     "healthy": true,
     "dashboard_alive": true,
@@ -296,7 +296,7 @@
             "status": "done",
             "agent": "architect",
             "quality": 100,
-            "elapsed_s": 21.8
+            "elapsed_s": 29.9
           },
           {
             "task_id": 2,
@@ -305,7 +305,7 @@
             "status": "done",
             "agent": "architect",
             "quality": 100,
-            "elapsed_s": 16.1
+            "elapsed_s": 18.6
           },
           {
             "task_id": 3,
@@ -314,7 +314,7 @@
             "status": "done",
             "agent": "architect",
             "quality": 100,
-            "elapsed_s": 25.4
+            "elapsed_s": 28.6
           },
           {
             "task_id": 4,
@@ -323,7 +323,7 @@
             "status": "done",
             "agent": "architect",
             "quality": 100,
-            "elapsed_s": 35.3
+            "elapsed_s": 34.5
           },
           {
             "task_id": 5,
@@ -332,7 +332,7 @@
             "status": "done",
             "agent": "architect",
             "quality": 100,
-            "elapsed_s": 22.1
+            "elapsed_s": 33.5
           }
         ],
         "total": 5,
@@ -343,7 +343,7 @@
         "pct": 100.0
       }
     ],
-    "initialized_at": "2026-03-27T03:24:39.858475",
+    "initialized_at": "2026-03-27T03:34:42.685415",
     "status": "planned"
   },
   "business_summary": {
@@ -352,7 +352,7 @@
     "projects_active": 0,
     "blockers_open": 0,
     "version": 1,
-    "updated_at": "2026-03-27T03:26:42.591498"
+    "updated_at": "2026-03-27T03:37:09.805281"
   },
   "auto_heal_feed": [
     {
@@ -403,6 +403,13 @@
       "event": "started",
       "detail": "Auto-heal monitor started (checks every 10s)",
       "agent": ""
+    },
+    {
+      "ts": "2026-03-27T10:34:42",
+      "level": "INFO",
+      "event": "started",
+      "detail": "Auto-heal monitor started (checks every 10s)",
+      "agent": ""
     }
   ],
   "auto_heal_counts": {
@@ -412,12 +419,12 @@
   },
   "calibration": {
     "version": 1,
-    "ts": "2026-03-27T10:24:39",
+    "ts": "2026-03-27T10:34:42",
     "results": {
-      "executor": {
-        "ts": "2026-03-27T10:24:39",
+      "architect": {
+        "ts": "2026-03-27T10:34:42",
         "version": 1,
-        "agent": "executor",
+        "agent": "architect",
         "avg_score": 0.0,
         "prev_score": 0.0,
         "regressed": false,
@@ -425,19 +432,19 @@
         "patched": false,
         "tasks": [
           {
-            "title": "Two Sum \u2014 return indices",
+            "title": "Design schema for a todo app",
             "score": 0,
             "status": "error: signal only works in main thread of the main interpreter",
             "elapsed": 0.0
           },
           {
-            "title": "FizzBuzz 1-100",
+            "title": "Design microservice boundary for auth + billing",
             "score": 0,
             "status": "error: signal only works in main thread of the main interpreter",
             "elapsed": 0.0
           },
           {
-            "title": "Reverse a linked list",
+            "title": "Design distributed task queue system",
             "score": 0,
             "status": "error: signal only works in main thread of the main interpreter",
             "elapsed": 0.0
@@ -445,7 +452,7 @@
         ]
       },
       "planner": {
-        "ts": "2026-03-27T10:24:39",
+        "ts": "2026-03-27T10:34:42",
         "version": 1,
         "agent": "planner",
         "avg_score": 0.0,
@@ -475,7 +482,7 @@
         ]
       },
       "debugger": {
-        "ts": "2026-03-27T10:24:39",
+        "ts": "2026-03-27T10:34:42",
         "version": 1,
         "agent": "debugger",
         "avg_score": 0.0,
@@ -504,38 +511,8 @@
           }
         ]
       },
-      "reviewer": {
-        "ts": "2026-03-27T10:24:39",
-        "version": 1,
-        "agent": "reviewer",
-        "avg_score": 0.0,
-        "prev_score": 0.0,
-        "regressed": false,
-        "pass": false,
-        "patched": false,
-        "tasks": [
-          {
-            "title": "Score this function: def add(a,b): return a+b",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Review a 20-line Python class for quality",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Rate correctness/completeness/style of a module",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          }
-        ]
-      },
       "researcher": {
-        "ts": "2026-03-27T10:24:39",
+        "ts": "2026-03-27T10:34:42",
         "version": 1,
         "agent": "researcher",
         "avg_score": 0.0,
@@ -564,38 +541,8 @@
           }
         ]
       },
-      "benchmarker": {
-        "ts": "2026-03-27T10:24:39",
-        "version": 1,
-        "agent": "benchmarker",
-        "avg_score": 0.0,
-        "prev_score": 0.0,
-        "regressed": false,
-        "pass": false,
-        "patched": false,
-        "tasks": [
-          {
-            "title": "Score output quality 0-100 with rubric",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Compare two solutions: which is better?",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Identify top 3 failure patterns in task batch",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          }
-        ]
-      },
       "refactor": {
-        "ts": "2026-03-27T10:24:39",
+        "ts": "2026-03-27T10:34:42",
         "version": 1,
         "agent": "refactor",
         "avg_score": 0.0,
@@ -624,68 +571,8 @@
           }
         ]
       },
-      "architect": {
-        "ts": "2026-03-27T10:24:39",
-        "version": 1,
-        "agent": "architect",
-        "avg_score": 0.0,
-        "prev_score": 0.0,
-        "regressed": false,
-        "pass": false,
-        "patched": false,
-        "tasks": [
-          {
-            "title": "Design schema for a todo app",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Design microservice boundary for auth + billing",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Design distributed task queue system",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          }
-        ]
-      },
-      "doc_writer": {
-        "ts": "2026-03-27T10:24:39",
-        "version": 1,
-        "agent": "doc_writer",
-        "avg_score": 0.0,
-        "prev_score": 0.0,
-        "regressed": false,
-        "pass": false,
-        "patched": false,
-        "tasks": [
-          {
-            "title": "Write docstring for a 5-line function",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Write README for a CLI tool",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Write API reference for 5 endpoints",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          }
-        ]
-      },
       "test_engineer": {
-        "ts": "2026-03-27T10:24:39",
+        "ts": "2026-03-27T10:34:42",
         "version": 1,
         "agent": "test_engineer",
         "avg_score": 0.0,
@@ -708,6 +595,126 @@
           },
           {
             "title": "Write integration test for DB migration",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          }
+        ]
+      },
+      "benchmarker": {
+        "ts": "2026-03-27T10:34:42",
+        "version": 1,
+        "agent": "benchmarker",
+        "avg_score": 0.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": false,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Score output quality 0-100 with rubric",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Compare two solutions: which is better?",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Identify top 3 failure patterns in task batch",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          }
+        ]
+      },
+      "executor": {
+        "ts": "2026-03-27T10:34:42",
+        "version": 1,
+        "agent": "executor",
+        "avg_score": 0.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": false,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Two Sum \u2014 return indices",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "FizzBuzz 1-100",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Reverse a linked list",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          }
+        ]
+      },
+      "reviewer": {
+        "ts": "2026-03-27T10:34:42",
+        "version": 1,
+        "agent": "reviewer",
+        "avg_score": 0.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": false,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Score this function: def add(a,b): return a+b",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Review a 20-line Python class for quality",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Rate correctness/completeness/style of a module",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          }
+        ]
+      },
+      "doc_writer": {
+        "ts": "2026-03-27T10:34:42",
+        "version": 1,
+        "agent": "doc_writer",
+        "avg_score": 0.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": false,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Write docstring for a 5-line function",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Write README for a CLI tool",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Write API reference for 5 endpoints",
             "score": 0,
             "status": "error: signal only works in main thread of the main interpreter",
             "elapsed": 0.0
