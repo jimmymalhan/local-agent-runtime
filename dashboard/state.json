@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-27T11:57:07.991205",
+  "ts": "2026-03-27T19:02:42.716844",
   "version": {
     "current": 1,
     "total": 100,
@@ -12,7 +12,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T18:57:05.041624",
+      "last_activity": "2026-03-27T19:02:35.140647",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -21,7 +21,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T18:57:05.041624",
+      "last_activity": "2026-03-27T19:02:35.140647",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -30,29 +30,29 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T18:57:05.041624",
+      "last_activity": "2026-03-27T19:02:35.140647",
       "sub_agents": [],
       "worker_count": 0
     },
     "test_engineer": {
-      "last_activity": "2026-03-27T18:57:05.041624",
+      "last_activity": "2026-03-27T19:02:35.140647",
       "status": "idle",
       "task": "",
       "task_id": null
     },
     "researcher": {
-      "last_activity": "2026-03-27T18:57:05.041624",
+      "last_activity": "2026-03-27T19:02:35.140647",
       "status": "idle",
       "task": "",
       "task_id": null
     }
   },
   "task_queue": {
-    "total": 295,
-    "completed": 60,
+    "total": 326,
+    "completed": 61,
+    "pending": 265,
     "in_progress": 0,
-    "failed": 0,
-    "pending": 235
+    "failed": 0
   },
   "benchmark_scores": {
     "avg_local": 0.0,
@@ -80,24 +80,64 @@
       "opus": 70.0,
       "gap": -70.0,
       "win_rate": 0.0,
-      "ts": "2026-03-27T11:47:09.842663"
+      "ts": "2026-03-27T11:57:12.737306"
     }
   },
   "token_usage": {
     "claude_tokens": 0,
-    "local_tokens": 492885,
-    "budget_pct": 98.577,
-    "warning": true,
+    "local_tokens": 194624,
+    "budget_pct": 38.9,
+    "warning": false,
     "hard_limit_hit": false
   },
   "hardware": {
-    "cpu_pct": 34.7,
-    "ram_pct": 57.6,
+    "cpu_pct": 40.9,
+    "ram_pct": 56.9,
     "disk_pct": 0.0,
     "gpu_pct": null,
     "alert_level": "ok"
   },
   "failures": [
+    {
+      "ts": "2026-03-27T11:57:12.725054",
+      "agent": "executor",
+      "task": "Implement intelligent agent load-balancing algorithm",
+      "task_id": "agent-intel-2",
+      "attempt": 1,
+      "tried": "unknown error"
+    },
+    {
+      "ts": "2026-03-27T11:57:12.336212",
+      "agent": "executor",
+      "task": "Implement multi-level task classification (ML-based)",
+      "task_id": "agent-intel-1",
+      "attempt": 1,
+      "tried": "unknown error"
+    },
+    {
+      "ts": "2026-03-27T11:57:11.957138",
+      "agent": "executor",
+      "task": "Add notifications & alert system (toast, badges, sound)",
+      "task_id": "ultra-dash-5",
+      "attempt": 1,
+      "tried": "unknown error"
+    },
+    {
+      "ts": "2026-03-27T11:57:11.576833",
+      "agent": "executor",
+      "task": "Implement data export (CSV, JSON, PDF reports)",
+      "task_id": "ultra-dash-4",
+      "attempt": 1,
+      "tried": "unknown error"
+    },
+    {
+      "ts": "2026-03-27T11:57:11.212058",
+      "agent": "executor",
+      "task": "Add advanced task search/filtering/sorting UI",
+      "task_id": "ultra-dash-3",
+      "attempt": 1,
+      "tried": "unknown error"
+    },
     {
       "ts": "2026-03-27T11:47:09.830996",
       "agent": "executor",
@@ -137,46 +177,6 @@
       "task_id": "ultra-dash-2",
       "attempt": 1,
       "tried": "unknown error"
-    },
-    {
-      "ts": "2026-03-27T11:37:06.948593",
-      "agent": "executor",
-      "task": "Add notifications & alert system (toast, badges, sound)",
-      "task_id": "ultra-dash-5",
-      "attempt": 1,
-      "tried": "unknown error"
-    },
-    {
-      "ts": "2026-03-27T11:37:06.600097",
-      "agent": "executor",
-      "task": "Implement data export (CSV, JSON, PDF reports)",
-      "task_id": "ultra-dash-4",
-      "attempt": 1,
-      "tried": "unknown error"
-    },
-    {
-      "ts": "2026-03-27T11:37:06.229081",
-      "agent": "executor",
-      "task": "Add advanced task search/filtering/sorting UI",
-      "task_id": "ultra-dash-3",
-      "attempt": 1,
-      "tried": "unknown error"
-    },
-    {
-      "ts": "2026-03-27T11:37:05.841102",
-      "agent": "executor",
-      "task": "Implement dark mode with smooth transitions",
-      "task_id": "ultra-dash-2",
-      "attempt": 1,
-      "tried": "unknown error"
-    },
-    {
-      "ts": "2026-03-27T11:37:05.462063",
-      "agent": "executor",
-      "task": "Add real-time metrics dashboard (CPU, memory, request latenc",
-      "task_id": "ultra-dash-1",
-      "attempt": 1,
-      "tried": "unknown error"
     }
   ],
   "research_feed": [],
@@ -192,21 +192,13 @@
       "before_score": 70.0,
       "after_score": 0.0,
       "delta": -70.0,
-      "ts": "2026-03-27T11:47:09.843981"
+      "ts": "2026-03-27T11:57:12.738785"
     }
   },
-  "quality": 19,
-  "quality_score": 19,
+  "quality": 17,
+  "quality_score": 17,
   "model": "local-v1",
   "recent_tasks": [
-    {
-      "task_id": "ultra-dash-2",
-      "title": "Implement dark mode with smooth transitions",
-      "category": "project",
-      "agent_used": "executor",
-      "status": "blocked",
-      "local_quality": 0
-    },
     {
       "task_id": "ultra-dash-3",
       "title": "Add advanced task search/filtering/sorting UI",
@@ -238,11 +230,19 @@
       "agent_used": "executor",
       "status": "blocked",
       "local_quality": 0
+    },
+    {
+      "task_id": "agent-intel-2",
+      "title": "Implement intelligent agent load-balancing algorithm",
+      "category": "agent-setup",
+      "agent_used": "executor",
+      "status": "blocked",
+      "local_quality": 0
     }
   ],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-27T11:57:07.990613",
+    "ts": "2026-03-27T12:02:40.752520",
     "epics": [
       {
         "id": "system-reliability",
@@ -1328,15 +1328,6 @@
         "agent": "executor",
         "tasks": [
           {
-            "task_id": "ultra-dash-2",
-            "title": "Implement dark mode with smooth transitions",
-            "difficulty": "hard",
-            "status": "blocked",
-            "agent": "executor",
-            "quality": 0,
-            "elapsed_s": 0.0
-          },
-          {
             "task_id": "ultra-dash-3",
             "title": "Add advanced task search/filtering/sorting UI",
             "difficulty": "hard",
@@ -1364,10 +1355,10 @@
             "elapsed_s": 0.0
           }
         ],
-        "total": 4,
+        "total": 3,
         "done": 0,
         "in_progress": 0,
-        "failed": 4,
+        "failed": 3,
         "status": "blocked",
         "pct": 0.0
       },
@@ -1385,17 +1376,26 @@
             "agent": "executor",
             "quality": 0,
             "elapsed_s": 0.0
+          },
+          {
+            "task_id": "agent-intel-2",
+            "title": "Implement intelligent agent load-balancing algorithm",
+            "difficulty": "hard",
+            "status": "blocked",
+            "agent": "executor",
+            "quality": 0,
+            "elapsed_s": 0.0
           }
         ],
-        "total": 1,
+        "total": 2,
         "done": 0,
         "in_progress": 0,
-        "failed": 1,
+        "failed": 2,
         "status": "blocked",
         "pct": 0.0
       }
     ],
-    "initialized_at": "2026-03-27T11:47:07.921873",
+    "initialized_at": "2026-03-27T11:57:10.828576",
     "status": "planned"
   },
   "business_summary": {
@@ -1404,10 +1404,10 @@
     "projects_active": 0,
     "blockers_open": 2,
     "version": 1,
-    "updated_at": "2026-03-27T11:47:09.835332"
+    "updated_at": "2026-03-27T11:57:12.729590"
   },
   "auto_heal_status": {
-    "ts": "2026-03-27T18:47:07",
+    "ts": "2026-03-27T18:57:10",
     "issues_this_cycle": [],
     "healthy": true,
     "dashboard_alive": true,
@@ -1574,6 +1574,13 @@
       "event": "started",
       "detail": "Auto-heal monitor started (checks every 10s)",
       "agent": ""
+    },
+    {
+      "ts": "2026-03-27T18:57:10",
+      "level": "INFO",
+      "event": "started",
+      "detail": "Auto-heal monitor started (checks every 10s)",
+      "agent": ""
     }
   ],
   "auto_heal_counts": {
@@ -1583,70 +1590,10 @@
   },
   "calibration": {
     "version": 1,
-    "ts": "2026-03-27T18:47:07",
+    "ts": "2026-03-27T18:57:10",
     "results": {
-      "executor": {
-        "ts": "2026-03-27T18:47:07",
-        "version": 1,
-        "agent": "executor",
-        "avg_score": 0.0,
-        "prev_score": 0.0,
-        "regressed": false,
-        "pass": false,
-        "patched": false,
-        "tasks": [
-          {
-            "title": "Two Sum \u2014 return indices",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "FizzBuzz 1-100",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Reverse a linked list",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          }
-        ]
-      },
-      "debugger": {
-        "ts": "2026-03-27T18:47:07",
-        "version": 1,
-        "agent": "debugger",
-        "avg_score": 0.0,
-        "prev_score": 0.0,
-        "regressed": false,
-        "pass": false,
-        "patched": false,
-        "tasks": [
-          {
-            "title": "Fix: AttributeError on NoneType",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Fix: off-by-one in binary search",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Debug race condition in thread-safe queue",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          }
-        ]
-      },
       "planner": {
-        "ts": "2026-03-27T18:47:07",
+        "ts": "2026-03-27T18:57:10",
         "version": 1,
         "agent": "planner",
         "avg_score": 0.0,
@@ -1675,8 +1622,158 @@
           }
         ]
       },
+      "executor": {
+        "ts": "2026-03-27T18:57:10",
+        "version": 1,
+        "agent": "executor",
+        "avg_score": 0.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": false,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Two Sum \u2014 return indices",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "FizzBuzz 1-100",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Reverse a linked list",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          }
+        ]
+      },
+      "benchmarker": {
+        "ts": "2026-03-27T18:57:10",
+        "version": 1,
+        "agent": "benchmarker",
+        "avg_score": 0.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": false,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Score output quality 0-100 with rubric",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Compare two solutions: which is better?",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Identify top 3 failure patterns in task batch",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          }
+        ]
+      },
+      "debugger": {
+        "ts": "2026-03-27T18:57:10",
+        "version": 1,
+        "agent": "debugger",
+        "avg_score": 0.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": false,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Fix: AttributeError on NoneType",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Fix: off-by-one in binary search",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Debug race condition in thread-safe queue",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          }
+        ]
+      },
+      "test_engineer": {
+        "ts": "2026-03-27T18:57:10",
+        "version": 1,
+        "agent": "test_engineer",
+        "avg_score": 0.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": false,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Write pytest for add(a,b)",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Write tests for a REST endpoint handler",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Write integration test for DB migration",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          }
+        ]
+      },
+      "architect": {
+        "ts": "2026-03-27T18:57:10",
+        "version": 1,
+        "agent": "architect",
+        "avg_score": 0.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": false,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Design schema for a todo app",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Design microservice boundary for auth + billing",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Design distributed task queue system",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          }
+        ]
+      },
       "reviewer": {
-        "ts": "2026-03-27T18:47:07",
+        "ts": "2026-03-27T18:57:10",
         "version": 1,
         "agent": "reviewer",
         "avg_score": 0.0,
@@ -1706,7 +1803,7 @@
         ]
       },
       "researcher": {
-        "ts": "2026-03-27T18:47:07",
+        "ts": "2026-03-27T18:57:10",
         "version": 1,
         "agent": "researcher",
         "avg_score": 0.0,
@@ -1735,38 +1832,8 @@
           }
         ]
       },
-      "benchmarker": {
-        "ts": "2026-03-27T18:47:07",
-        "version": 1,
-        "agent": "benchmarker",
-        "avg_score": 0.0,
-        "prev_score": 0.0,
-        "regressed": false,
-        "pass": false,
-        "patched": false,
-        "tasks": [
-          {
-            "title": "Score output quality 0-100 with rubric",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Compare two solutions: which is better?",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Identify top 3 failure patterns in task batch",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          }
-        ]
-      },
       "refactor": {
-        "ts": "2026-03-27T18:47:07",
+        "ts": "2026-03-27T18:57:10",
         "version": 1,
         "agent": "refactor",
         "avg_score": 0.0,
@@ -1795,68 +1862,8 @@
           }
         ]
       },
-      "architect": {
-        "ts": "2026-03-27T18:47:07",
-        "version": 1,
-        "agent": "architect",
-        "avg_score": 0.0,
-        "prev_score": 0.0,
-        "regressed": false,
-        "pass": false,
-        "patched": false,
-        "tasks": [
-          {
-            "title": "Design schema for a todo app",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Design microservice boundary for auth + billing",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Design distributed task queue system",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          }
-        ]
-      },
-      "test_engineer": {
-        "ts": "2026-03-27T18:47:07",
-        "version": 1,
-        "agent": "test_engineer",
-        "avg_score": 0.0,
-        "prev_score": 0.0,
-        "regressed": false,
-        "pass": false,
-        "patched": false,
-        "tasks": [
-          {
-            "title": "Write pytest for add(a,b)",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Write tests for a REST endpoint handler",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Write integration test for DB migration",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          }
-        ]
-      },
       "doc_writer": {
-        "ts": "2026-03-27T18:47:07",
+        "ts": "2026-03-27T18:57:10",
         "version": 1,
         "agent": "doc_writer",
         "avg_score": 0.0,

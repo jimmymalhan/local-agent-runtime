@@ -880,3 +880,8 @@
 {"ts": "2026-03-27T11:47:09.111302", "action": "execute_failed", "agent": "executor", "task_id": "ultra-dash-4", "attempts": 3, "last_error": "Unknown error"}
 {"ts": "2026-03-27T11:47:09.471502", "action": "execute_failed", "agent": "executor", "task_id": "ultra-dash-5", "attempts": 3, "last_error": "Unknown error"}
 {"ts": "2026-03-27T11:47:09.829985", "action": "execute_failed", "agent": "executor", "task_id": "agent-intel-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T11:57:11.209773", "action": "execute_failed", "agent": "executor", "task_id": "ultra-dash-3", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T11:57:11.575337", "action": "execute_failed", "agent": "executor", "task_id": "ultra-dash-4", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T11:57:11.955332", "action": "execute_failed", "agent": "executor", "task_id": "ultra-dash-5", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T11:57:12.335209", "action": "execute_failed", "agent": "executor", "task_id": "agent-intel-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T11:57:12.723947", "action": "execute_failed", "agent": "executor", "task_id": "agent-intel-2", "attempts": 3, "last_error": "Unknown error"}

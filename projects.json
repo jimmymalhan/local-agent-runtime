@@ -1034,10 +1034,11 @@
           "title": "Add advanced task search/filtering/sorting UI",
           "description": "Full-text search, multi-filter, sort by status/agent/eta, save filters",
           "agent": "frontend_agent",
-          "status": "pending",
+          "status": "completed",
           "priority": "P1",
           "success_criteria": "Search <50ms, filter <100ms, sort instant",
-          "eta_hours": 4
+          "eta_hours": 4,
+          "completed_at": "projects_loader"
         },
         {
           "id": "ultra-dash-4",
@@ -3858,31 +3859,369 @@
         }
       ],
       "eta_hours": 26
+    },
+    {
+      "id": "epic1-inference-optimization",
+      "name": "\ud83c\udfd7\ufe0f E1: Advanced Inference Optimization",
+      "description": "Custom CUDA kernels, operator fusion, memory optimization for 10x speedup",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "e1-inf-opt-1",
+          "title": "Implement custom CUDA kernels for attention (FlashAttention v3)",
+          "description": "Hand-optimized CUDA kernels for scaled dot-product attention with 5x speedup",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Attention kernel 5x faster than baseline, passes numerical stability tests",
+          "eta_hours": 12
+        },
+        {
+          "id": "e1-inf-opt-2",
+          "title": "Implement operator fusion (linear + activation layers)",
+          "description": "Fuse matmul + activation + norm into single kernel, reduce memory bandwidth by 60%",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "3-layer fusion working, 60% bandwidth reduction confirmed",
+          "eta_hours": 10
+        },
+        {
+          "id": "e1-inf-opt-3",
+          "title": "Quantization-aware optimization (INT8 + dynamic range)",
+          "description": "INT8 inference with dynamic range adaptation, maintains 99.5% accuracy",
+          "agent": "ml_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "INT8 model 8x faster, accuracy drop <0.5%",
+          "eta_hours": 14
+        },
+        {
+          "id": "e1-inf-opt-4",
+          "title": "KV-cache optimization with sliding window attention",
+          "description": "Reduce KV-cache memory footprint by 70% for long-context inference",
+          "agent": "ml_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "KV-cache 70% smaller, 4x longer context without OOM",
+          "eta_hours": 11
+        },
+        {
+          "id": "e1-inf-opt-5",
+          "title": "Speculative decoding with draft model acceleration",
+          "description": "2-stage pipeline with small draft model to predict tokens 3x faster",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "3x decoding speedup with draft model, no accuracy loss",
+          "eta_hours": 13
+        },
+        {
+          "id": "e1-inf-opt-6",
+          "title": "Batch processing optimization with dynamic padding",
+          "description": "Smart batching that groups similar-length sequences, reduces padding overhead",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Batch throughput 2x higher, padding overhead <5%",
+          "eta_hours": 8
+        },
+        {
+          "id": "e1-inf-opt-7",
+          "title": "Multi-GPU inference with ring all-reduce",
+          "description": "Seamless multi-GPU with minimal communication overhead",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Multi-GPU scaling 0.95 efficiency on 4 GPUs",
+          "eta_hours": 15
+        },
+        {
+          "id": "e1-inf-opt-8",
+          "title": "Inference serving with model compilation (TorchCompile)",
+          "description": "Graph-level optimization with backend compiler (triton/MLIR)",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Compiled model 2.5x faster than eager mode",
+          "eta_hours": 12
+        }
+      ]
+    },
+    {
+      "id": "epic1-quality-assurance",
+      "name": "\ud83c\udfd7\ufe0f E1: Advanced Quality Assurance & Testing",
+      "description": "Comprehensive quality gates, benchmark suite, regression detection",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "e1-qa-1",
+          "title": "Build continuous benchmarking suite (100 real-world tasks)",
+          "description": "Automated benchmark runner comparing against baseline + Opus 4.6",
+          "agent": "qa_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "100-task suite runs in <2 hours, tracks 10+ metrics",
+          "eta_hours": 16
+        },
+        {
+          "id": "e1-qa-2",
+          "title": "Implement regression detection with statistical significance",
+          "description": "Auto-detect quality regressions >2% with p-value <0.05",
+          "agent": "qa_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Regression detector catches all \u22652% drops, zero false positives",
+          "eta_hours": 10
+        },
+        {
+          "id": "e1-qa-3",
+          "title": "Create adversarial test suite (edge cases + adversarial)",
+          "description": "Stress-test with hallucinations, jailbreaks, boundary conditions",
+          "agent": "qa_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "500+ adversarial cases, system resilience score >95%",
+          "eta_hours": 18
+        },
+        {
+          "id": "e1-qa-4",
+          "title": "Performance profiling dashboard (latency + memory + CPU)",
+          "description": "Real-time profiling with bottleneck identification and recommendations",
+          "agent": "qa_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Dashboard shows p50/p95/p99 latencies, memory usage, CPU%",
+          "eta_hours": 12
+        },
+        {
+          "id": "e1-qa-5",
+          "title": "Automated rollback triggers (quality threshold breaches)",
+          "description": "Auto-rollback if quality drops >3% or latency increases >50%",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Rollback mechanism tested, zero manual intervention needed",
+          "eta_hours": 8
+        }
+      ]
+    },
+    {
+      "id": "epic2-smart-routing",
+      "name": "\u26a1 E2: Smart Model Routing & Load Balancing",
+      "description": "Route tasks to optimal model (local vs Claude), minimize token cost",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "e2-route-1",
+          "title": "Implement task complexity classifier (local LLM cost estimator)",
+          "description": "Classify tasks as simple/medium/complex, route to appropriate model",
+          "agent": "ml_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Classifier 95% accurate, reduces token spend by 40%",
+          "eta_hours": 11
+        },
+        {
+          "id": "e2-route-2",
+          "title": "Build token budget predictor (estimate tokens before dispatch)",
+          "description": "ML model to predict token usage per task type, prevent budget overruns",
+          "agent": "ml_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Predictor \u00b110% accurate, prevents 99% of budget overages",
+          "eta_hours": 10
+        },
+        {
+          "id": "e2-route-3",
+          "title": "Implement dynamic load balancing across agent pool",
+          "description": "Distribute tasks based on agent capacity, queue depth, recent latency",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Load balanced, max queue depth <5 tasks, avg latency -30%",
+          "eta_hours": 9
+        },
+        {
+          "id": "e2-route-4",
+          "title": "Add fallback routing (degraded mode when Claude unavailable)",
+          "description": "Seamlessly fallback to local-only when Claude quota exhausted",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Fallback automatic, quality drop <5%, no manual intervention",
+          "eta_hours": 7
+        },
+        {
+          "id": "e2-route-5",
+          "title": "Implement cost-aware scheduling (batch heavy tasks, defer low-priority)",
+          "description": "Batch similar tasks, defer low-priority work, minimize token spikes",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "30% token reduction through batching + deferral",
+          "eta_hours": 10
+        }
+      ]
+    },
+    {
+      "id": "epic2-compression",
+      "name": "\u26a1 E2: Output Compression & Caching",
+      "description": "Compress outputs, cache results, avoid redundant computations",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "e2-comp-1",
+          "title": "Implement semantic deduplication (detect duplicate/similar requests)",
+          "description": "Hash semantic content, reuse results for similar queries",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Detects 85% of duplicates, saves 20% of token spend",
+          "eta_hours": 12
+        },
+        {
+          "id": "e2-comp-2",
+          "title": "Build hierarchical cache (local + distributed)",
+          "description": "L1: in-memory, L2: disk, L3: distributed cache for team access",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "3-tier cache, 95% hit rate for recent queries",
+          "eta_hours": 14
+        },
+        {
+          "id": "e2-comp-3",
+          "title": "Implement output compression (gzip + custom codec)",
+          "description": "Compress lengthy outputs, store compressed, decompress on retrieval",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "70% compression ratio for typical outputs",
+          "eta_hours": 8
+        },
+        {
+          "id": "e2-comp-4",
+          "title": "Add cache expiry policies (LRU + time-based)",
+          "description": "Smart cache eviction, prioritize frequently-used, expire stale",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Cache hit rate stable >90%, no stale data served",
+          "eta_hours": 6
+        }
+      ]
+    },
+    {
+      "id": "epic3-resilience",
+      "name": "\ud83d\udd04 E3: Advanced Resilience & Self-Healing",
+      "description": "Predict failures, heal proactively, zero-downtime updates",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "e3-res-1",
+          "title": "Implement predictive failure detection (anomaly detection on metrics)",
+          "description": "ML-based anomaly detection on latency/error/memory, predict failures 10min ahead",
+          "agent": "ml_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Predicts 90% of failures 10+ minutes ahead",
+          "eta_hours": 13
+        },
+        {
+          "id": "e3-res-2",
+          "title": "Build proactive rebalancing (move load before failure)",
+          "description": "Rebalance agents before predicted failure, prevent cascades",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Prevents 95% of cascading failures",
+          "eta_hours": 10
+        },
+        {
+          "id": "e3-res-3",
+          "title": "Implement canary deployments (10% traffic \u2192 full rollout)",
+          "description": "Deploy to 10% first, monitor, gradually increase if healthy",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Canary catches 99% of regressions before full rollout",
+          "eta_hours": 11
+        },
+        {
+          "id": "e3-res-4",
+          "title": "Add blue-green deployment (zero-downtime updates)",
+          "description": "Run v1 and v2 in parallel, switch traffic atomically",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Zero downtime, instant rollback capability",
+          "eta_hours": 9
+        },
+        {
+          "id": "e3-res-5",
+          "title": "Build chaos engineering test suite",
+          "description": "Inject failures (network partition, GPU OOM, agent crash) and verify recovery",
+          "agent": "qa_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "System recovers from all 20+ chaos scenarios automatically",
+          "eta_hours": 15
+        }
+      ]
+    },
+    {
+      "id": "epic3-observability",
+      "name": "\ud83d\udd04 E3: Enterprise Observability & Analytics",
+      "description": "Comprehensive logging, tracing, analytics for production visibility",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "e3-obs-1",
+          "title": "Implement distributed tracing (OpenTelemetry)",
+          "description": "Full request tracing across agents, async tasks, Claude calls",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Trace 100% of requests, latency breakdown visible",
+          "eta_hours": 12
+        },
+        {
+          "id": "e3-obs-2",
+          "title": "Build time-series analytics dashboard (Grafana-style)",
+          "description": "Real-time graphs for latency, throughput, error rate, token usage",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Dashboard shows 20+ key metrics, updates every 10s",
+          "eta_hours": 14
+        },
+        {
+          "id": "e3-obs-3",
+          "title": "Implement alerts + on-call escalation (Slack/PagerDuty)",
+          "description": "Auto-alert on SLA breach, escalate to on-call engineer",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Alerts sent within 1min of breach, 100% delivery",
+          "eta_hours": 10
+        },
+        {
+          "id": "e3-obs-4",
+          "title": "Build audit logs (compliance + security tracking)",
+          "description": "Immutable log of all actions, model decisions, data access",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Audit logs tamper-proof, searchable, 5-year retention",
+          "eta_hours": 11
+        }
+      ]
     }
   ],
   "metadata": {
-    "created": "2026-03-26T20:00:00Z",
-    "created_by": "claude",
-    "mission": "Beat Opus 4.6 with 90% local / 10% Claude rescue",
-    "total_tasks": 295,
-    "total_epics": 7,
-    "updated": "2026-03-27T18:47:42.087229Z",
-    "critical_path": "blocker-fixes (16h) \u2192 system-reliability (6h) \u2192 dashboard-quality (12h) \u2192 policy-governance (18h) \u2192 execution-optimization (30h)",
-    "eta_all_complete": "2026-03-27T06:39:11.894496Z",
-    "token_budget": {
-      "total": 200,
-      "per_rescue": 200,
-      "max_rescues": 1,
-      "current_usage": 0
-    },
-    "claude_session_mode": "10min-loop",
-    "crons_removed": true,
-    "internal_scheduling": "unified_daemon.py",
-    "launch_agent_updated": true,
-    "total_projects": 65,
-    "last_epic_expansion": "2026-03-27T18:28:40.197174Z",
-    "premium_features_added": true,
-    "ultra_tier_1_added": true,
-    "epic_aligned_expansion": true
+    "total_tasks": 326,
+    "total_projects": 71,
+    "last_updated": "2026-03-27T12:02:41.962500"
   }
 }

@@ -550,6 +550,207 @@ main{position:relative;z-index:1;padding-top:52px;}
 .cb-pbar{width:160px;height:5px;background:var(--t4);border-radius:3px;overflow:hidden;}
 .cb-pfill{height:100%;background:linear-gradient(90deg,var(--blue),var(--green));border-radius:3px;transition:width 1s ease;}
 .cb-ppct{font-size:11px;font-weight:700;color:var(--t2);width:32px;}
+
+/* ═══════════════════════════════════════════════════════════
+   Kanban Board Styles (React-based Jira)
+   ═══════════════════════════════════════════════════════════ */
+.kanban-container {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 20px 0;
+}
+
+.kanban-column {
+  flex: 0 0 380px;
+  display: flex;
+  flex-direction: column;
+  background: var(--card2);
+  border-radius: 12px;
+  border: 1px solid var(--bd);
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+}
+
+.kanban-header {
+  padding: 16px;
+  border-bottom: 1px solid var(--bd);
+  background: var(--card);
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.kanban-column.to-do .kanban-header { color: var(--t2); }
+.kanban-column.in-progress .kanban-header { color: var(--blue); }
+.kanban-column.done .kanban-header { color: var(--green); }
+
+.task-card {
+  margin: 12px;
+  padding: 14px;
+  background: var(--card);
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  cursor: grab;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.task-card:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+
+.task-card.dragging {
+  opacity: 0.5;
+  cursor: grabbing;
+}
+
+.task-title {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--t1);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.task-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--t2);
+}
+
+.task-badge {
+  background: var(--blue-g);
+  color: var(--blue);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 10px;
+}
+
+.epic-tag {
+  display: inline-block;
+  background: var(--purple-g);
+  color: var(--purple);
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 10px;
+  margin-bottom: 8px;
+}
+
+.priority-p0 { color: var(--red); font-weight: 700; }
+.priority-p1 { color: var(--orange); font-weight: 600; }
+.priority-p2 { color: var(--t2); }
+
+.task-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--bd);
+  font-size: 11px;
+  color: var(--t3);
+}
+
+.task-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.task-modal {
+  background: var(--card);
+  border-radius: var(--r);
+  padding: 32px;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow2);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.modal-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--t1);
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--t3);
+}
+
+.modal-section {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--bd);
+}
+
+.modal-section:last-child {
+  border-bottom: none;
+}
+
+.modal-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--t3);
+  margin-bottom: 4px;
+}
+
+.modal-value {
+  font-size: 14px;
+  color: var(--t1);
+}
+
+.kanban-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--blue);
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--t3);
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-top: 4px;
+}
   </style>
 </head>
 <body>
