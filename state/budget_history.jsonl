@@ -55,3 +55,7 @@
 {"ts": "2026-03-26T22:39:32.519171", "agent": "test_engineer", "old_budget": 1000, "new_budget": 1100, "success_rate": 1.0, "reason": "High success (100%) \u2014 reward"}
 {"ts": "2026-03-26T22:53:04.212868", "agent": "test_engineer", "old_budget": 1000, "new_budget": 1100, "success_rate": 1.0, "reason": "High success (100%) \u2014 reward"}
 {"ts": "2026-03-26T22:53:04.213557", "agent": "debugger", "old_budget": 1000, "new_budget": 1100, "success_rate": 1.0, "reason": "High success (100%) \u2014 reward"}
+{"ts": "2026-03-26T23:06:26.993565", "agent": "test_engineer", "old_budget": 1100, "new_budget": 1210, "success_rate": 1.0, "reason": "High success (100%) \u2014 reward"}
+{"ts": "2026-03-26T23:06:26.994687", "agent": "debugger", "old_budget": 1100, "new_budget": 1210, "success_rate": 1.0, "reason": "High success (100%) \u2014 reward"}
+{"ts": "2026-03-26T23:08:04.532109", "agent": "test_engineer", "old_budget": 1210, "new_budget": 1331, "success_rate": 1.0, "reason": "High success (100%) \u2014 reward"}
+{"ts": "2026-03-26T23:08:04.532561", "agent": "debugger", "old_budget": 1210, "new_budget": 1331, "success_rate": 1.0, "reason": "High success (100%) \u2014 reward"}

@@ -187,11 +187,46 @@ def commit_and_push():
 def run_cycle(test_mode=False):
     """Run one health check + recovery cycle."""
     logger.info("=" * 70)
-    logger.info("📍 DAEMON SCHEDULER CYCLE")
+    logger.info("📍 DAEMON SCHEDULER CYCLE (Ultra-Advanced)")
     logger.info("=" * 70)
 
-    # FIRST: Check for blocked agents and auto-fix
-    logger.info("🔍 Checking for blocked agents...")
+    # PHASE 1: Ultra-Advanced Observability
+    logger.info("📊 Phase 1: Collecting Advanced Metrics...")
+    try:
+        from orchestrator.advanced_observability import observability
+        metrics = observability.get_metrics_snapshot()
+        logger.info(f"   ✅ Quality: {metrics['quality']['mean']:.1f}/100")
+        logger.info(f"   ✅ Throughput: {metrics['throughput']['tasks_per_minute']:.2f} tasks/min")
+        logger.info(f"   ✅ Success Rate: {metrics['throughput']['success_rate']*100:.1f}%")
+    except Exception as e:
+        logger.warning(f"⚠️  Observability failed (non-blocking): {e}")
+
+    # PHASE 2: Network Mesh Synchronization
+    logger.info("🌐 Phase 2: Synchronizing Network Mesh...")
+    try:
+        from orchestrator.network_mesh import network
+        network_stats = network.get_network_stats()
+        logger.info(f"   ✅ Network: {network_stats['agents_online']}/{network_stats['agents_total']} agents")
+        logger.info(f"   ✅ Health: {network_stats['network_health'].upper()}")
+    except Exception as e:
+        logger.warning(f"⚠️  Network mesh failed (non-blocking): {e}")
+
+    # PHASE 3: Advanced Scheduling
+    logger.info("⚡ Phase 3: Advanced Scheduling & Auto-Scaling...")
+    try:
+        from orchestrator.advanced_scheduler import scheduler
+        sched_stats = scheduler.get_scheduling_stats()
+        logger.info(f"   ✅ Queue: {sched_stats['queue_depth']} tasks")
+        logger.info(f"   ✅ Workers: {sched_stats['sub_agents']} sub-agents")
+        if sched_stats['should_scale_up']:
+            logger.info(f"   ⬆️  SCALING UP (queue high)")
+        if sched_stats['should_scale_down']:
+            logger.info(f"   ⬇️  SCALING DOWN (queue empty)")
+    except Exception as e:
+        logger.warning(f"⚠️  Advanced scheduler failed (non-blocking): {e}")
+
+    # PHASE 4: Check for blocked agents and auto-fix
+    logger.info("🔧 Phase 4: Checking for blocked agents...")
     try:
         from orchestrator.blocker_monitor import monitor_once
         monitor_once()  # Auto-fix any blocked agents

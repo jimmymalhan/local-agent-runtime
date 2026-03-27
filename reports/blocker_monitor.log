@@ -12,3 +12,17 @@
 2026-03-26 23:03:29,210 [INFO] 
 ======================================================================
 2026-03-26 23:03:29,210 [INFO] ✅ Blocker monitor cycle complete
+2026-03-26 23:05:20,624 [INFO] ======================================================================
+2026-03-26 23:05:20,625 [INFO] 📍 BLOCKER MONITOR CYCLE
+2026-03-26 23:05:20,625 [INFO] ======================================================================
+2026-03-26 23:05:20,625 [WARNING] ⚠️  1 blocked agent(s) detected: ['executor']
+2026-03-26 23:05:20,625 [INFO] 
+🔍 Analyzing executor...
+2026-03-26 23:05:20,625 [INFO]    Failure: cannot import name 'run_task' from 'agent_runner' (/Users/jimmymalhan/Documents/local-agent-runtime/agent_runner.py)
+2026-03-26 23:05:20,625 [INFO] 🔧 Attempting auto-fix for import error: cannot import name 'run_task' from 'agent_runner' (/Users/jimmymalhan/Documents/...
+2026-03-26 23:05:20,625 [INFO] ✅ Applying fix: Re-export run_task in agent_runner.py
+2026-03-26 23:05:20,658 [INFO]    ✅ Fix applied for executor
+2026-03-26 23:05:20,658 [INFO]    ✅ Fixed via code change
+2026-03-26 23:05:20,658 [INFO] 
+======================================================================
+2026-03-26 23:05:20,658 [INFO] ✅ Blocker monitor cycle complete
