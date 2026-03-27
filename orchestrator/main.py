@@ -735,6 +735,9 @@ def run_version(version: int, tasks: list, local_only: bool = False,
         task_successful = result_status == "completed" and local_quality >= 30
         if task_successful:
             completed += 1
+            # ★ PERSISTENCE LAYER FIX: Update projects.json with completed task ★
+            elapsed = local_result.get("elapsed_s", 0.0)
+            _update_projects_json_task(str(task_id), "completed", local_quality, elapsed)
         else:
             failed_count += 1
             # Handle case where agent returns None
