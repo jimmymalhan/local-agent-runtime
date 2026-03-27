@@ -435,8 +435,9 @@
           "category": "scaling",
           "agent": "architect",
           "priority": "P1",
-          "status": "pending",
-          "created_at": "2026-03-27T15:24:13.068353Z"
+          "status": "completed",
+          "created_at": "2026-03-27T15:24:13.068353Z",
+          "completed_at": "projects_loader"
         },
         {
           "id": "task-agent-selfimprove",
