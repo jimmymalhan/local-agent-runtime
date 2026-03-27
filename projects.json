@@ -746,6 +746,179 @@
       ],
       "eta_hours": 14,
       "eta_completion": "2026-03-27T20:00:00Z"
+    },
+    {
+      "id": "critical-system-fixes",
+      "name": "\ud83d\udd34 CRITICAL: System Stability & Production Hardening",
+      "description": "Extreme remediation for agent stalls, token tracking, state sync, auto-recovery, and production readiness",
+      "status": "active",
+      "priority": "P0",
+      "tasks": [
+        {
+          "id": "fix-redundant-services",
+          "title": "[P0] URGENT: Kill redundant dashboard instances (3000, 3002)",
+          "description": "Stop all Python processes on ports 3000 and 3002. Keep ONLY 3001 running. Verify no conflicts. Accept if only 3001 listens.",
+          "agent": "executor",
+          "status": "pending",
+          "priority": "P0",
+          "eta_hours": 1,
+          "quality_target": 100,
+          "files": [
+            "dashboard/server.py"
+          ],
+          "success_criteria": "Only port 3001 running, other ports free"
+        },
+        {
+          "id": "impl-realtime-state-sync",
+          "title": "[P0] Implement real-time state.json sync from projects.json",
+          "description": "Create state_sync_daemon.py that updates dashboard/state.json from projects.json every 1 second. Sync: task counts, completion %, agent status, quality score. Accept if state always reflects truth.",
+          "agent": "executor",
+          "status": "pending",
+          "priority": "P0",
+          "eta_hours": 1,
+          "quality_target": 95,
+          "files": [
+            "orchestrator/state_sync_daemon.py",
+            "dashboard/state.json",
+            "projects.json"
+          ],
+          "success_criteria": "state.json updates every 1sec, metrics always accurate"
+        },
+        {
+          "id": "impl-token-tracker",
+          "title": "[P0] Implement token efficiency tracking (90% local target)",
+          "description": "Create token_tracker.py that logs token usage to state/runtime-lessons.json. Track: local_tokens, claude_tokens, local_percentage. Target: 90% local. Show metrics in dashboard.",
+          "agent": "executor",
+          "status": "pending",
+          "priority": "P0",
+          "eta_hours": 1,
+          "quality_target": 90,
+          "files": [
+            "orchestrator/token_tracker.py",
+            "state/runtime-lessons.json"
+          ],
+          "success_criteria": "Token metrics tracked, local_percentage shows in dashboard"
+        },
+        {
+          "id": "impl-continuous-work-queue",
+          "title": "[P0] Implement continuous work generation (never run out of tasks)",
+          "description": "Create task_generator.py that monitors pending queue. If pending < 3 tasks, auto-create 5 new tasks (based on project needs). Keep queue always full. Accept if queue never empty.",
+          "agent": "executor",
+          "status": "pending",
+          "priority": "P0",
+          "eta_hours": 2,
+          "quality_target": 85,
+          "files": [
+            "orchestrator/task_generator.py",
+            "projects.json"
+          ],
+          "success_criteria": "Pending queue always has 3+ tasks, auto-generated as needed"
+        },
+        {
+          "id": "impl-agent-autorecovery",
+          "title": "[P0] Implement agent auto-recovery (no more stuck agents)",
+          "description": "Create agent_healer.py that monitors agent status every 30 seconds. If agent idle > 5 minutes without task, auto-assign next pending task. If fails 3x, escalate. Accept if agents never stuck.",
+          "agent": "executor",
+          "status": "pending",
+          "priority": "P0",
+          "eta_hours": 2,
+          "quality_target": 95,
+          "files": [
+            "orchestrator/agent_healer.py",
+            "state/agent_stats.json"
+          ],
+          "success_criteria": "No agent stuck idle >5min, auto-recovery working"
+        },
+        {
+          "id": "verify-no-external-crons",
+          "title": "[P0] Verify & remove all external cron jobs",
+          "description": "Check crontab for any scheduled jobs. Verify no external crons running. Confirm all scheduling internal to daemon/10min_loop. Accept if zero external crons.",
+          "agent": "executor",
+          "status": "pending",
+          "priority": "P0",
+          "eta_hours": 1,
+          "quality_target": 100,
+          "files": [
+            ".claude/10min_loop.sh"
+          ],
+          "success_criteria": "crontab -l shows empty, all internal scheduling"
+        },
+        {
+          "id": "impl-auto-pr-merge",
+          "title": "[P1] Implement automatic PR detection and merge in 10min loop",
+          "description": "Update 10min_loop.sh to: detect open PRs, check if >=1 approval, check for conflicts. Auto-merge clean PRs. Skip if conflicts. Accept if PRs auto-merged.",
+          "agent": "executor",
+          "status": "pending",
+          "priority": "P1",
+          "eta_hours": 2,
+          "quality_target": 90,
+          "files": [
+            ".claude/10min_loop.sh"
+          ],
+          "success_criteria": "Open PRs auto-merged if approved and no conflicts"
+        },
+        {
+          "id": "impl-workflow-autodispatch",
+          "title": "[P1] Implement workflow phase auto-selection (no manual picking)",
+          "description": "Create workflow_dispatcher.py that auto-selects workflow phases based on task type (code_gen->full pipeline, bugfix->execution+validation, analysis->retrieval+analysis). No manual workflow picking needed.",
+          "agent": "executor",
+          "status": "pending",
+          "priority": "P1",
+          "eta_hours": 2,
+          "quality_target": 85,
+          "files": [
+            "orchestrator/workflow_dispatcher.py"
+          ],
+          "success_criteria": "Workflow phases auto-selected per task type"
+        },
+        {
+          "id": "upgrade-ui-realtime",
+          "title": "[P2] Ultra UI upgrades: Real-time metrics, live agent status, workflow viz",
+          "description": "Upgrade dashboard/index.html with: real-time metric updates, live agent status cards, workflow visualization, performance graph, task timeline. Make ultra-modern Apple-style design.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P2",
+          "eta_hours": 3,
+          "quality_target": 80,
+          "files": [
+            "dashboard/index.html",
+            "dashboard/server.py"
+          ],
+          "success_criteria": "Dashboard shows real-time metrics, smooth animations, responsive"
+        },
+        {
+          "id": "benchmark-performance",
+          "title": "[P2] Performance benchmarking and optimization",
+          "description": "Profile dashboard load time, task dispatch speed, render performance. Targets: <500ms dashboard load, <100ms dispatch, <30ms render. Optimize CSS/JS. Accept if all targets met.",
+          "agent": "executor",
+          "status": "pending",
+          "priority": "P2",
+          "eta_hours": 2,
+          "quality_target": 90,
+          "files": [
+            "dashboard/index.html",
+            "orchestrator/quick_dispatcher.py"
+          ],
+          "success_criteria": "Dashboard load <500ms, dispatch <100ms, render <30ms"
+        },
+        {
+          "id": "auto-epic-progress",
+          "title": "[P2] Implement epic progress tracking with ETA",
+          "description": "Create epic_tracker.py that calculates: % complete per epic, time remaining, ETA completion. Show in dashboard. Update every 10min. Accept if all epics show ETA.",
+          "agent": "executor",
+          "status": "pending",
+          "priority": "P2",
+          "eta_hours": 2,
+          "quality_target": 85,
+          "files": [
+            "orchestrator/epic_tracker.py",
+            "projects.json"
+          ],
+          "success_criteria": "All epics show % complete and ETA completion date"
+        }
+      ],
+      "eta_hours": 18,
+      "eta_completion": "2026-03-28T02:00:00Z"
     }
   ],
   "metadata": {
