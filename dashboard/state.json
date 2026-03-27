@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-27T21:32:08.610983",
+  "ts": "2026-03-27T21:42:38.844939",
   "quality": 93,
   "quality_score": 93,
   "model": "local-v1",
@@ -72,6 +72,21 @@
   "changelog": [],
   "research_feed": [
     {
+      "ts": "2026-03-27T14:42:18.780728",
+      "finding": "v5: Model produces code that fails assertion tests silently",
+      "source": ""
+    },
+    {
+      "ts": "2026-03-27T14:42:18.779982",
+      "finding": "v5: Model writes wrong import paths for multi-file projects",
+      "source": ""
+    },
+    {
+      "ts": "2026-03-27T14:42:18.779224",
+      "finding": "v5: Model truncates code in the middle of a function",
+      "source": ""
+    },
+    {
       "ts": "2026-03-27T14:31:48.172800",
       "finding": "v5: Model produces code that fails assertion tests silently",
       "source": ""
@@ -103,21 +118,6 @@
     },
     {
       "ts": "2026-03-27T14:10:44.466399",
-      "finding": "v5: Model produces code that fails assertion tests silently",
-      "source": ""
-    },
-    {
-      "ts": "2026-03-27T14:10:44.464232",
-      "finding": "v5: Model writes wrong import paths for multi-file projects",
-      "source": ""
-    },
-    {
-      "ts": "2026-03-27T14:10:44.462312",
-      "finding": "v5: Model truncates code in the middle of a function",
-      "source": ""
-    },
-    {
-      "ts": "2026-03-27T14:00:12.493748",
       "finding": "v5: Model produces code that fails assertion tests silently",
       "source": ""
     }
@@ -225,7 +225,7 @@
         "pct": 0.0
       }
     ],
-    "initialized_at": "2026-03-27T14:31:48.559828",
+    "initialized_at": "2026-03-27T14:42:18.978135",
     "status": "planned"
   },
   "agents": {
@@ -234,7 +234,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T21:32:08.610983",
+      "last_activity": "2026-03-27T21:42:38.844939",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -243,18 +243,18 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T21:32:08.610983",
+      "last_activity": "2026-03-27T21:42:38.844939",
       "sub_agents": [],
       "worker_count": 0
     },
     "architect": {
-      "last_activity": "2026-03-27T21:32:08.610983"
+      "last_activity": "2026-03-27T21:42:38.844939"
     },
     "test_engineer": {
-      "last_activity": "2026-03-27T21:32:08.610983"
+      "last_activity": "2026-03-27T21:42:38.844939"
     },
     "researcher": {
-      "last_activity": "2026-03-27T21:32:08.610983"
+      "last_activity": "2026-03-27T21:42:38.844939"
     }
   },
   "benchmark_scores": {
@@ -281,13 +281,45 @@
     "hard_limit_hit": false
   },
   "hardware": {
-    "cpu_pct": 18.1,
-    "ram_pct": 54.9,
+    "cpu_pct": 30.5,
+    "ram_pct": 26.8,
     "disk_pct": 0.0,
     "gpu_pct": null,
     "alert_level": "ok"
   },
   "failures": [
+    {
+      "ts": "2026-03-27T14:42:19.125194",
+      "agent": "executor",
+      "task": "Implement lossless text compression (LZ4, zstd)",
+      "task_id": "e2-comp-1",
+      "attempt": 1,
+      "tried": "blocked"
+    },
+    {
+      "ts": "2026-03-27T14:40:54.435637",
+      "agent": "executor",
+      "task": "Failure root cause analyzer",
+      "task_id": "e4-failure-analysis",
+      "attempt": 1,
+      "tried": "blocked"
+    },
+    {
+      "ts": "2026-03-27T14:37:56.329067",
+      "agent": "executor",
+      "task": "Epic health radar (27 epics)",
+      "task_id": "e4-epic-radar",
+      "attempt": 1,
+      "tried": "blocked"
+    },
+    {
+      "ts": "2026-03-27T14:34:53.495184",
+      "agent": "executor",
+      "task": "ROI by agent",
+      "task_id": "e4-roi-chart",
+      "attempt": 1,
+      "tried": "blocked"
+    },
     {
       "ts": "2026-03-27T14:31:51.384051",
       "agent": "executor",
@@ -335,38 +367,6 @@
       "task_id": "e4-budget-radar",
       "attempt": 1,
       "tried": "blocked"
-    },
-    {
-      "ts": "2026-03-27T14:21:41.881087",
-      "agent": "executor",
-      "task": "Agent workload balance",
-      "task_id": "e4-workload-chart",
-      "attempt": 1,
-      "tried": "blocked"
-    },
-    {
-      "ts": "2026-03-27T14:21:41.253703",
-      "agent": "executor",
-      "task": "Add read replicas & consistency protocols",
-      "task_id": "e3-res-3",
-      "attempt": 1,
-      "tried": "blocked"
-    },
-    {
-      "ts": "2026-03-27T14:21:37.941681",
-      "agent": "executor",
-      "task": "Quality pie chart (by category)",
-      "task_id": "e4-quality-by-cat",
-      "attempt": 1,
-      "tried": "blocked"
-    },
-    {
-      "ts": "2026-03-27T14:21:37.190993",
-      "agent": "executor",
-      "task": "Implement automatic failover (<5s)",
-      "task_id": "e3-res-2",
-      "attempt": 1,
-      "tried": "blocked"
     }
   ],
   "version_changelog": {
@@ -398,15 +398,15 @@
     }
   },
   "business_summary": {
-    "headline": "0 of 111 engineering tasks complete",
+    "headline": "0 of 8 engineering tasks complete",
     "pct_complete": 0.0,
     "projects_active": 0,
     "blockers_open": 1,
     "version": 5,
-    "updated_at": "2026-03-27T14:31:51.386670"
+    "updated_at": "2026-03-27T14:42:19.127584"
   },
   "auto_heal_status": {
-    "ts": "2026-03-27T21:32:15",
+    "ts": "2026-03-27T21:42:46",
     "issues_this_cycle": [],
     "healthy": true,
     "dashboard_alive": true,
@@ -453,6 +453,13 @@
       "event": "started",
       "detail": "Auto-heal monitor started (checks every 10s)",
       "agent": ""
+    },
+    {
+      "ts": "2026-03-27T21:42:18",
+      "level": "INFO",
+      "event": "started",
+      "detail": "Auto-heal monitor started (checks every 10s)",
+      "agent": ""
     }
   ],
   "auto_heal_counts": {
@@ -462,10 +469,40 @@
   },
   "calibration": {
     "version": 5,
-    "ts": "2026-03-27T21:31:48",
+    "ts": "2026-03-27T21:42:18",
     "results": {
+      "benchmarker": {
+        "ts": "2026-03-27T21:42:18",
+        "version": 5,
+        "agent": "benchmarker",
+        "avg_score": 0.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": false,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Score output quality 0-100 with rubric",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Compare two solutions: which is better?",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Identify top 3 failure patterns in task batch",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          }
+        ]
+      },
       "planner": {
-        "ts": "2026-03-27T21:31:48",
+        "ts": "2026-03-27T21:42:18",
         "version": 5,
         "agent": "planner",
         "avg_score": 0.0,
@@ -495,7 +532,7 @@
         ]
       },
       "reviewer": {
-        "ts": "2026-03-27T21:31:48",
+        "ts": "2026-03-27T21:42:18",
         "version": 5,
         "agent": "reviewer",
         "avg_score": 0.0,
@@ -524,10 +561,10 @@
           }
         ]
       },
-      "benchmarker": {
-        "ts": "2026-03-27T21:31:48",
+      "refactor": {
+        "ts": "2026-03-27T21:42:18",
         "version": 5,
-        "agent": "benchmarker",
+        "agent": "refactor",
         "avg_score": 0.0,
         "prev_score": 0.0,
         "regressed": false,
@@ -535,49 +572,19 @@
         "patched": false,
         "tasks": [
           {
-            "title": "Score output quality 0-100 with rubric",
+            "title": "Extract helper from 10-line function",
             "score": 0,
             "status": "error: signal only works in main thread of the main interpreter",
             "elapsed": 0.0
           },
           {
-            "title": "Compare two solutions: which is better?",
+            "title": "Rename variables for clarity in a module",
             "score": 0,
             "status": "error: signal only works in main thread of the main interpreter",
             "elapsed": 0.0
           },
           {
-            "title": "Identify top 3 failure patterns in task batch",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          }
-        ]
-      },
-      "executor": {
-        "ts": "2026-03-27T21:31:48",
-        "version": 5,
-        "agent": "executor",
-        "avg_score": 0.0,
-        "prev_score": 0.0,
-        "regressed": false,
-        "pass": false,
-        "patched": false,
-        "tasks": [
-          {
-            "title": "Two Sum \u2014 return indices",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "FizzBuzz 1-100",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Reverse a linked list",
+            "title": "Split 200-line class into clean modules",
             "score": 0,
             "status": "error: signal only works in main thread of the main interpreter",
             "elapsed": 0.0
@@ -585,7 +592,7 @@
         ]
       },
       "architect": {
-        "ts": "2026-03-27T21:31:48",
+        "ts": "2026-03-27T21:42:18",
         "version": 5,
         "agent": "architect",
         "avg_score": 0.0,
@@ -614,98 +621,8 @@
           }
         ]
       },
-      "test_engineer": {
-        "ts": "2026-03-27T21:31:48",
-        "version": 5,
-        "agent": "test_engineer",
-        "avg_score": 0.0,
-        "prev_score": 0.0,
-        "regressed": false,
-        "pass": false,
-        "patched": false,
-        "tasks": [
-          {
-            "title": "Write pytest for add(a,b)",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Write tests for a REST endpoint handler",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Write integration test for DB migration",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          }
-        ]
-      },
-      "doc_writer": {
-        "ts": "2026-03-27T21:31:48",
-        "version": 5,
-        "agent": "doc_writer",
-        "avg_score": 0.0,
-        "prev_score": 0.0,
-        "regressed": false,
-        "pass": false,
-        "patched": false,
-        "tasks": [
-          {
-            "title": "Write docstring for a 5-line function",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Write README for a CLI tool",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Write API reference for 5 endpoints",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          }
-        ]
-      },
-      "researcher": {
-        "ts": "2026-03-27T21:31:48",
-        "version": 5,
-        "agent": "researcher",
-        "avg_score": 0.0,
-        "prev_score": 0.0,
-        "regressed": false,
-        "pass": false,
-        "patched": false,
-        "tasks": [
-          {
-            "title": "Find top 3 Python HTTP libraries",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Research best practices for retry logic",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Summarise SWE-bench top agent techniques 2025",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          }
-        ]
-      },
       "debugger": {
-        "ts": "2026-03-27T21:31:48",
+        "ts": "2026-03-27T21:42:18",
         "version": 5,
         "agent": "debugger",
         "avg_score": 0.0,
@@ -734,10 +651,10 @@
           }
         ]
       },
-      "refactor": {
-        "ts": "2026-03-27T21:31:48",
+      "doc_writer": {
+        "ts": "2026-03-27T21:42:18",
         "version": 5,
-        "agent": "refactor",
+        "agent": "doc_writer",
         "avg_score": 0.0,
         "prev_score": 0.0,
         "regressed": false,
@@ -745,19 +662,109 @@
         "patched": false,
         "tasks": [
           {
-            "title": "Extract helper from 10-line function",
+            "title": "Write docstring for a 5-line function",
             "score": 0,
             "status": "error: signal only works in main thread of the main interpreter",
             "elapsed": 0.0
           },
           {
-            "title": "Rename variables for clarity in a module",
+            "title": "Write README for a CLI tool",
             "score": 0,
             "status": "error: signal only works in main thread of the main interpreter",
             "elapsed": 0.0
           },
           {
-            "title": "Split 200-line class into clean modules",
+            "title": "Write API reference for 5 endpoints",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          }
+        ]
+      },
+      "test_engineer": {
+        "ts": "2026-03-27T21:42:18",
+        "version": 5,
+        "agent": "test_engineer",
+        "avg_score": 0.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": false,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Write pytest for add(a,b)",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Write tests for a REST endpoint handler",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Write integration test for DB migration",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          }
+        ]
+      },
+      "executor": {
+        "ts": "2026-03-27T21:42:18",
+        "version": 5,
+        "agent": "executor",
+        "avg_score": 0.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": false,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Two Sum \u2014 return indices",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "FizzBuzz 1-100",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Reverse a linked list",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          }
+        ]
+      },
+      "researcher": {
+        "ts": "2026-03-27T21:42:18",
+        "version": 5,
+        "agent": "researcher",
+        "avg_score": 0.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": false,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Find top 3 Python HTTP libraries",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Research best practices for retry logic",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Summarise SWE-bench top agent techniques 2025",
             "score": 0,
             "status": "error: signal only works in main thread of the main interpreter",
             "elapsed": 0.0

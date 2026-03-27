@@ -2109,11 +2109,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T14:31:48.938325"
+      },
+      {
+        "attempt": 12,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T14:42:19.116072"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T12:04:16.442390",
-    "rescue_escalated_at": "2026-03-27T14:31:48.943397"
+    "rescue_escalated_at": "2026-03-27T14:42:19.121225"
   },
   "e2-comp-2": {
     "attempts": [
@@ -6964,10 +6971,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T14:14:01.562519"
+      },
+      {
+        "attempt": 3,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T14:34:53.485638"
       }
     ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T14:06:22.549260"
+    "rescue_escalated": true,
+    "first_attempt_at": "2026-03-27T14:06:22.549260",
+    "rescue_escalated_at": "2026-03-27T14:34:53.491054"
   },
   "e4-epic-radar": {
     "attempts": [
@@ -6984,10 +6999,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T14:14:05.471070"
+      },
+      {
+        "attempt": 3,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T14:37:56.320319"
       }
     ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T14:06:26.412365"
+    "rescue_escalated": true,
+    "first_attempt_at": "2026-03-27T14:06:26.412365",
+    "rescue_escalated_at": "2026-03-27T14:37:56.325168"
   },
   "e4-failure-analysis": {
     "attempts": [
@@ -7004,10 +7027,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T14:14:09.394115"
+      },
+      {
+        "attempt": 3,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T14:40:54.425724"
       }
     ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T14:06:30.949743"
+    "rescue_escalated": true,
+    "first_attempt_at": "2026-03-27T14:06:30.949743",
+    "rescue_escalated_at": "2026-03-27T14:40:54.431266"
   },
   "e4-blocked-tasks": {
     "attempts": [
