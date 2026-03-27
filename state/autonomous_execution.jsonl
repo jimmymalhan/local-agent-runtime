@@ -306,3 +306,5 @@
 {"ts": "2026-03-26T21:42:21.899173", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
 {"ts": "2026-03-26T21:42:22.310846", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 34%"}
 {"ts": "2026-03-26T21:42:24.322995", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T21:43:13.966583", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 34%"}
+{"ts": "2026-03-26T21:43:15.972999", "action": "execute_failed", "agent": "executor", "task_id": "task-1", "attempts": 3, "last_error": "No module named 'agent_runner'"}

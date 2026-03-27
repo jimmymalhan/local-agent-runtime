@@ -2809,3 +2809,5 @@
 {"ts": "2026-03-27T04:42:51.609777", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.hb", "value": 1774586571.609772}
 {"ts": "2026-03-27T04:42:58.205007", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.alive", "value": true}
 {"ts": "2026-03-27T04:42:58.205032", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.hb", "value": 1774586578.205031}
+{"ts": "2026-03-27T04:43:13.209730", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.alive", "value": true}
+{"ts": "2026-03-27T04:43:13.209763", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.hb", "value": 1774586593.2097611}

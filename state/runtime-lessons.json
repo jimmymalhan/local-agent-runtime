@@ -1047,11 +1047,18 @@
         "error": "No module named 'agent_runner'",
         "success": false,
         "timestamp": "2026-03-26T21:42:14.608502"
+      },
+      {
+        "attempt": 14,
+        "strategy": "autonomous",
+        "error": "No module named 'agent_runner'",
+        "success": false,
+        "timestamp": "2026-03-26T21:43:15.977533"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-26T20:42:47.076337",
-    "rescue_escalated_at": "2026-03-26T21:42:14.610731"
+    "rescue_escalated_at": "2026-03-26T21:43:15.986346"
   },
   "task-2": {
     "attempts": [
