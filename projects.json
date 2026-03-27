@@ -854,14 +854,15 @@
           "title": "[P1] Implement automatic PR detection and merge in 10min loop",
           "description": "Update 10min_loop.sh to: detect open PRs, check if >=1 approval, check for conflicts. Auto-merge clean PRs. Skip if conflicts. Accept if PRs auto-merged.",
           "agent": "executor",
-          "status": "pending",
+          "status": "completed",
           "priority": "P1",
           "eta_hours": 2,
           "quality_target": 90,
           "files": [
             ".claude/10min_loop.sh"
           ],
-          "success_criteria": "Open PRs auto-merged if approved and no conflicts"
+          "success_criteria": "Open PRs auto-merged if approved and no conflicts",
+          "completed_at": "projects_loader"
         },
         {
           "id": "impl-workflow-autodispatch",

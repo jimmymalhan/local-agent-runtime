@@ -85,6 +85,13 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T09:46:32.165577"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T09:56:34.972873"
       }
     ],
     "rescue_escalated": false,
@@ -98,6 +105,13 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T09:46:32.526290"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T09:56:35.351371"
       }
     ],
     "rescue_escalated": false,
@@ -111,6 +125,13 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T09:46:32.894806"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T09:56:35.749826"
       }
     ],
     "rescue_escalated": false,
@@ -124,9 +145,29 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T09:46:33.225246"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T09:56:36.126890"
       }
     ],
     "rescue_escalated": false,
     "first_attempt_at": "2026-03-27T09:46:33.225245"
+  },
+  "auto-epic-progress": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T09:56:36.453364"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T09:56:36.453363"
   }
 }
