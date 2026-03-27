@@ -999,15 +999,310 @@
       ],
       "eta_hours": 20,
       "eta_completion": "2026-03-27T16:36:38.442628Z"
+    },
+    {
+      "id": "ultra-dashboard-polish",
+      "name": "Ultra Dashboard Polish & Real-Time Analytics",
+      "description": "Advanced UI/UX, real-time metrics, performance monitoring, beautiful visualizations",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "ultra-dash-1",
+          "title": "Add real-time metrics dashboard (CPU, memory, request latency)",
+          "description": "Create advanced metrics panel with live graphs, percentile tracking, alerts",
+          "agent": "frontend_agent",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Metrics display <100ms update latency, 60+ fps animations",
+          "eta_hours": 3
+        },
+        {
+          "id": "ultra-dash-2",
+          "title": "Implement dark mode with smooth transitions",
+          "description": "Add theme toggle, localStorage persistence, smooth CSS transitions",
+          "agent": "frontend_agent",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Dark mode fully functional, no layout shift on toggle",
+          "eta_hours": 2
+        },
+        {
+          "id": "ultra-dash-3",
+          "title": "Add advanced task search/filtering/sorting UI",
+          "description": "Full-text search, multi-filter, sort by status/agent/eta, save filters",
+          "agent": "frontend_agent",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Search <50ms, filter <100ms, sort instant",
+          "eta_hours": 4
+        },
+        {
+          "id": "ultra-dash-4",
+          "title": "Implement data export (CSV, JSON, PDF reports)",
+          "description": "Export tasks, metrics, reports to various formats with formatting",
+          "agent": "frontend_agent",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "All formats export correctly, no data loss",
+          "eta_hours": 2
+        },
+        {
+          "id": "ultra-dash-5",
+          "title": "Add notifications & alert system (toast, badges, sound)",
+          "description": "Real-time notifications for task completion, errors, milestones",
+          "agent": "frontend_agent",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Notifications appear <200ms, dismissible, sound toggleable",
+          "eta_hours": 3
+        }
+      ],
+      "eta_hours": 14
+    },
+    {
+      "id": "agent-intelligence-plus",
+      "name": "Agent Intelligence & Smart Routing Optimization",
+      "description": "Enhance task classification, agent routing, load balancing, skill-matching",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "agent-intel-1",
+          "title": "Implement multi-level task classification (ML-based)",
+          "description": "Use embeddings/ML to classify task difficulty, domain, dependencies",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Classification accuracy >85%, latency <100ms",
+          "eta_hours": 4
+        },
+        {
+          "id": "agent-intel-2",
+          "title": "Implement intelligent agent load-balancing algorithm",
+          "description": "Smart routing based on agent skills, load, success rate, ETA",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Load balanced evenly, success rate +5% vs random",
+          "eta_hours": 3
+        },
+        {
+          "id": "agent-intel-3",
+          "title": "Add dynamic skill-to-agent matching engine",
+          "description": "Match task skills to agent capabilities, find best fit",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Skill matching accuracy >90%, dispatch <50ms",
+          "eta_hours": 3
+        },
+        {
+          "id": "agent-intel-4",
+          "title": "Implement task dependency graph & parallel execution",
+          "description": "Build DAG for tasks, identify parallel-able work, execute concurrently",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Parallel tasks execute simultaneously, no deadlocks",
+          "eta_hours": 4
+        },
+        {
+          "id": "agent-intel-5",
+          "title": "Add agent performance profiling & self-optimization",
+          "description": "Profile agent performance, identify slow paths, auto-optimize",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Profiling works, improvements measured, logged",
+          "eta_hours": 3
+        }
+      ],
+      "eta_hours": 17
+    },
+    {
+      "id": "state-management-advanced",
+      "name": "Advanced State Management & Event-Driven Architecture",
+      "description": "Event streaming, CQRS pattern, real-time sync, checkpoint/recovery",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "state-adv-1",
+          "title": "Implement event-driven state updates (publish-subscribe)",
+          "description": "Add pub-sub for state changes, eliminate polling",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "All state changes via events, <50ms propagation",
+          "eta_hours": 4
+        },
+        {
+          "id": "state-adv-2",
+          "title": "Implement CQRS pattern (Command Query Responsibility Segregation)",
+          "description": "Separate read/write models, optimize for each independently",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "CQRS fully implemented, reads 10x faster",
+          "eta_hours": 5
+        },
+        {
+          "id": "state-adv-3",
+          "title": "Add distributed event log (WAL - write-ahead logging)",
+          "description": "Persist all events for recovery, audit trail, replay",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Event log 100% durable, replay works perfectly",
+          "eta_hours": 3
+        },
+        {
+          "id": "state-adv-4",
+          "title": "Implement checkpoint/snapshot recovery system",
+          "description": "Periodic snapshots, fast recovery from crashes",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Recovery <1s from crash, zero data loss",
+          "eta_hours": 3
+        },
+        {
+          "id": "state-adv-5",
+          "title": "Add state versioning & time-travel debugging",
+          "description": "Version state changes, replay to any point in time",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P2",
+          "success_criteria": "Versioning works, time-travel debugging functional",
+          "eta_hours": 3
+        }
+      ],
+      "eta_hours": 18
+    },
+    {
+      "id": "production-hardening-ultra",
+      "name": "Production Hardening & Security Fortress",
+      "description": "Security, validation, rate limiting, monitoring, SLA enforcement",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "prod-hard-1",
+          "title": "Implement comprehensive input validation & sanitization",
+          "description": "Schema validation, type checking, SQL injection prevention, XSS protection",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "All inputs validated, OWASP top 10 mitigated",
+          "eta_hours": 3
+        },
+        {
+          "id": "prod-hard-2",
+          "title": "Add rate limiting & DDoS protection",
+          "description": "Per-IP, per-user, per-endpoint rate limits, circuit breakers",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Rate limiting enforced, no legitimate requests blocked",
+          "eta_hours": 2
+        },
+        {
+          "id": "prod-hard-3",
+          "title": "Implement distributed request tracing (OpenTelemetry)",
+          "description": "Trace IDs, latency tracking, error propagation, correlations",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "All requests traced, visualizable in dashboard",
+          "eta_hours": 4
+        },
+        {
+          "id": "prod-hard-4",
+          "title": "Add comprehensive audit logging & compliance",
+          "description": "Immutable logs, user actions, data access, regulatory compliance",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Audit logs complete, tamper-proof, compliant",
+          "eta_hours": 3
+        },
+        {
+          "id": "prod-hard-5",
+          "title": "Implement SLA monitoring & alerting (99.9% uptime)",
+          "description": "Monitor uptime, alert on SLA violations, incident response",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "SLA tracked accurately, alerts working, <5min response",
+          "eta_hours": 3
+        },
+        {
+          "id": "prod-hard-6",
+          "title": "Add API versioning & backward compatibility",
+          "description": "Support multiple API versions, smooth deprecation path",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "V1 and V2 APIs functional, no breaking changes",
+          "eta_hours": 2
+        }
+      ],
+      "eta_hours": 17
+    },
+    {
+      "id": "ml-ai-continuous-improvement",
+      "name": "ML/AI Continuous Improvement & Feedback Loops",
+      "description": "Model versioning, A/B testing, feedback collection, auto-retraining",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "ml-ai-1",
+          "title": "Implement model versioning & rollback capability",
+          "description": "Version all models, track performance, quick rollback",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Models versioned, rollback <1min, perf tracked",
+          "eta_hours": 3
+        },
+        {
+          "id": "ml-ai-2",
+          "title": "Add A/B testing framework for agents",
+          "description": "Route traffic to test agents, collect metrics, auto-winner",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "A/B tests run, winner determined statistically",
+          "eta_hours": 4
+        },
+        {
+          "id": "ml-ai-3",
+          "title": "Implement feedback collection & annotation pipeline",
+          "description": "Collect user feedback, annotate results, build training data",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Feedback collected, annotated, stored for training",
+          "eta_hours": 3
+        },
+        {
+          "id": "ml-ai-4",
+          "title": "Add automated model retraining triggers",
+          "description": "Monitor performance drift, auto-retrain on degradation",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P2",
+          "success_criteria": "Drift detected, retraining triggered, new model deployed",
+          "eta_hours": 3
+        }
+      ],
+      "eta_hours": 13
     }
   ],
   "metadata": {
     "created": "2026-03-26T20:00:00Z",
     "created_by": "claude",
     "mission": "Beat Opus 4.6 with 90% local / 10% Claude rescue",
-    "total_tasks": 29,
+    "total_tasks": 83,
     "total_epics": 7,
-    "updated": "2026-03-27T06:43:51.148912Z",
+    "updated": "2026-03-27T18:26:55.119848Z",
     "critical_path": "blocker-fixes (16h) \u2192 system-reliability (6h) \u2192 dashboard-quality (12h) \u2192 policy-governance (18h) \u2192 execution-optimization (30h)",
     "eta_all_complete": "2026-03-27T06:39:11.894496Z",
     "token_budget": {
@@ -1020,6 +1315,6 @@
     "crons_removed": true,
     "internal_scheduling": "unified_daemon.py",
     "launch_agent_updated": true,
-    "total_projects": 8
+    "total_projects": 16
   }
 }
