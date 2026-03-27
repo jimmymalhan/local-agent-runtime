@@ -4257,3 +4257,181 @@
 2026-03-27 02:54:27,961 [INFO] 🔄 Running: dashboard-update
 2026-03-27 02:54:30,017 [INFO] 🔄 Running: pr-merge-check
 2026-03-27 02:54:30,017 [INFO] 🔀 Checking for ready PRs to merge...
+2026-03-27 02:54:33,636 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:54:38,715 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:54:43,775 [INFO] 🔄 Running: health-check
+2026-03-27 02:54:44,811 [INFO] 📊 Health: CPU 16.9% | Memory 79.2% | Processes: agent_runner=✗, dashboard=✓
+2026-03-27 02:54:44,811 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:54:49,877 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:54:54,967 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:55:00,059 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:55:00,119 [INFO] 🔄 Running: pr-merge-check
+2026-03-27 02:55:00,119 [INFO] 🔀 Checking for ready PRs to merge...
+2026-03-27 02:55:05,687 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:55:10,777 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:55:15,839 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:55:20,920 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:55:26,011 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:55:31,087 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:55:31,126 [INFO] 🔄 Running: pr-merge-check
+2026-03-27 02:55:31,126 [INFO] 🔀 Checking for ready PRs to merge...
+2026-03-27 02:55:36,624 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:55:41,707 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:55:44,765 [INFO] 🔄 Running: health-check
+2026-03-27 02:55:45,819 [INFO] 📊 Health: CPU 35.9% | Memory 79.3% | Processes: agent_runner=✗, dashboard=✓
+2026-03-27 02:55:45,820 [INFO] 🔄 Running: auto-recovery
+2026-03-27 02:55:45,820 [INFO] 🔧 Running auto-recovery...
+2026-03-27 02:55:46,824 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:55:51,905 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:55:56,984 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:56:02,069 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:56:02,127 [INFO] 🔄 Running: pr-merge-check
+2026-03-27 02:56:02,127 [INFO] 🔀 Checking for ready PRs to merge...
+2026-03-27 02:56:07,583 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:56:12,661 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:56:17,735 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:56:22,818 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:56:27,885 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:56:32,961 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:56:33,004 [INFO] 🔄 Running: pr-merge-check
+2026-03-27 02:56:33,004 [INFO] 🔀 Checking for ready PRs to merge...
+2026-03-27 02:56:38,492 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:56:43,586 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:56:45,634 [INFO] 🔄 Running: health-check
+2026-03-27 02:56:46,678 [INFO] 📊 Health: CPU 30.8% | Memory 80.7% | Processes: agent_runner=✗, dashboard=✓
+2026-03-27 02:56:48,694 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:56:53,786 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:56:58,855 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:57:03,938 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:57:03,993 [INFO] 🔄 Running: pr-merge-check
+2026-03-27 02:57:03,993 [INFO] 🔀 Checking for ready PRs to merge...
+2026-03-27 02:57:08,944 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:57:14,030 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:57:19,119 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:57:24,199 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:57:29,275 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:57:34,372 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:57:34,417 [INFO] 🔄 Running: pr-merge-check
+2026-03-27 02:57:34,417 [INFO] 🔀 Checking for ready PRs to merge...
+2026-03-27 02:57:40,153 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:57:45,256 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:57:46,335 [INFO] 🔄 Running: health-check
+2026-03-27 02:57:47,380 [INFO] 📊 Health: CPU 30.7% | Memory 70.2% | Processes: agent_runner=✗, dashboard=✓
+2026-03-27 02:57:47,380 [INFO] 🔄 Running: auto-recovery
+2026-03-27 02:57:47,380 [INFO] 🔧 Running auto-recovery...
+2026-03-27 02:57:50,404 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:57:55,513 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:58:00,608 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:58:04,695 [INFO] 🔄 Running: pr-merge-check
+2026-03-27 02:58:04,696 [INFO] 🔀 Checking for ready PRs to merge...
+2026-03-27 02:58:06,494 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:58:11,568 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:58:16,655 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:58:21,793 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:58:26,866 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:58:31,946 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:58:35,004 [INFO] 🔄 Running: pr-merge-check
+2026-03-27 02:58:35,004 [INFO] 🔀 Checking for ready PRs to merge...
+2026-03-27 02:58:37,636 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:58:42,721 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:58:46,816 [INFO] 🔄 Running: health-check
+2026-03-27 02:58:47,861 [INFO] 📊 Health: CPU 23.1% | Memory 70.1% | Processes: agent_runner=✗, dashboard=✓
+2026-03-27 02:58:47,861 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:58:52,931 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:58:58,050 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:59:03,109 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:59:05,195 [INFO] 🔄 Running: pr-merge-check
+2026-03-27 02:59:05,196 [INFO] 🔀 Checking for ready PRs to merge...
+2026-03-27 02:59:09,047 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:59:14,138 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:59:19,212 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:59:24,298 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:59:29,377 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:59:34,457 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:59:35,505 [INFO] 🔄 Running: pr-merge-check
+2026-03-27 02:59:35,505 [INFO] 🔀 Checking for ready PRs to merge...
+2026-03-27 02:59:40,186 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:59:45,290 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:59:47,350 [INFO] 🔄 Running: health-check
+2026-03-27 02:59:48,387 [INFO] 📊 Health: CPU 28.3% | Memory 70.5% | Processes: agent_runner=✗, dashboard=✓
+2026-03-27 02:59:48,388 [INFO] 🔄 Running: auto-recovery
+2026-03-27 02:59:48,388 [INFO] 🔧 Running auto-recovery...
+2026-03-27 02:59:50,404 [INFO] 🔄 Running: dashboard-update
+2026-03-27 02:59:55,497 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:00:00,559 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:00:05,654 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:00:05,697 [INFO] 🔄 Running: pr-merge-check
+2026-03-27 03:00:05,697 [INFO] 🔀 Checking for ready PRs to merge...
+2026-03-27 03:00:11,183 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:00:16,266 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:00:21,364 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:00:26,455 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:00:31,538 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:00:36,604 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:00:36,646 [INFO] 🔄 Running: pr-merge-check
+2026-03-27 03:00:36,646 [INFO] 🔀 Checking for ready PRs to merge...
+2026-03-27 03:00:42,290 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:00:47,381 [INFO] 🔄 Running: health-check
+2026-03-27 03:00:48,423 [INFO] 📊 Health: CPU 29.5% | Memory 70.2% | Processes: agent_runner=✗, dashboard=✓
+2026-03-27 03:00:48,424 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:00:53,498 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:00:58,568 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:01:03,649 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:01:06,729 [INFO] 🔄 Running: pr-merge-check
+2026-03-27 03:01:06,729 [INFO] 🔀 Checking for ready PRs to merge...
+2026-03-27 03:01:09,167 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:01:14,253 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:01:19,342 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:01:24,430 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:01:29,505 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:01:34,607 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:01:37,668 [INFO] 🔄 Running: pr-merge-check
+2026-03-27 03:01:37,669 [INFO] 🔀 Checking for ready PRs to merge...
+2026-03-27 03:01:40,117 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:01:45,187 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:01:48,257 [INFO] 🔄 Running: health-check
+2026-03-27 03:01:49,308 [INFO] 📊 Health: CPU 30.6% | Memory 70.4% | Processes: agent_runner=✗, dashboard=✓
+2026-03-27 03:01:49,309 [INFO] 🔄 Running: auto-recovery
+2026-03-27 03:01:49,309 [INFO] 🔧 Running auto-recovery...
+2026-03-27 03:01:50,319 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:01:55,397 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:02:00,467 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:02:05,553 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:02:08,612 [INFO] 🔄 Running: pr-merge-check
+2026-03-27 03:02:08,614 [INFO] 🔀 Checking for ready PRs to merge...
+2026-03-27 03:02:11,320 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:02:16,391 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:02:21,469 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:02:26,539 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:02:31,609 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:02:36,676 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:02:38,730 [INFO] 🔄 Running: pr-merge-check
+2026-03-27 03:02:38,731 [INFO] 🔀 Checking for ready PRs to merge...
+2026-03-27 03:02:42,254 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:02:47,331 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:02:48,381 [INFO] 🔄 Running: health-check
+2026-03-27 03:02:49,425 [INFO] 📊 Health: CPU 19.9% | Memory 70.2% | Processes: agent_runner=✗, dashboard=✓
+2026-03-27 03:02:52,439 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:02:57,521 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:03:02,608 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:03:07,678 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:03:08,746 [INFO] 🔄 Running: pr-merge-check
+2026-03-27 03:03:08,746 [INFO] 🔀 Checking for ready PRs to merge...
+2026-03-27 03:03:13,333 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:03:18,435 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:03:23,508 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:03:28,600 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:03:33,677 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:03:38,745 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:03:38,803 [INFO] 🔄 Running: pr-merge-check
+2026-03-27 03:03:38,803 [INFO] 🔀 Checking for ready PRs to merge...
+2026-03-27 03:03:44,281 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:03:49,349 [INFO] 🔄 Running: health-check
+2026-03-27 03:03:50,387 [INFO] 📊 Health: CPU 15.2% | Memory 70.1% | Processes: agent_runner=✗, dashboard=✓
+2026-03-27 03:03:50,387 [INFO] 🔄 Running: auto-recovery
+2026-03-27 03:03:50,387 [INFO] 🔧 Running auto-recovery...
+2026-03-27 03:03:50,387 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:03:55,459 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:04:00,539 [INFO] 🔄 Running: dashboard-update
+2026-03-27 03:04:03,615 [INFO] 🔄 Running: full-loop
+2026-03-27 03:04:03,615 [INFO] 🚀 Running full 10-minute loop...
