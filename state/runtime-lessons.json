@@ -71,5 +71,8 @@
   },
   "task-agent-autoexecution": {
     "attempts": []
+  },
+  "task-quality-pipeline": {
+    "attempts": []
   }
 }
