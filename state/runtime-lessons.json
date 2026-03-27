@@ -832,11 +832,11 @@
         "strategy": "autonomous",
         "error": null,
         "success": true,
-        "timestamp": "2026-03-26T22:05:25.707031"
+        "timestamp": "2026-03-26T22:12:22.173527"
       }
     ],
     "rescue_escalated": false,
-    "first_attempt_at": "2026-03-26T22:05:25.707020"
+    "first_attempt_at": "2026-03-26T22:12:22.173518"
   },
   "2": {
     "attempts": [
@@ -845,11 +845,11 @@
         "strategy": "autonomous",
         "error": null,
         "success": true,
-        "timestamp": "2026-03-26T22:05:44.278258"
+        "timestamp": "2026-03-26T22:12:38.799360"
       }
     ],
     "rescue_escalated": false,
-    "first_attempt_at": "2026-03-26T22:05:44.278256"
+    "first_attempt_at": "2026-03-26T22:12:38.799351"
   },
   "3": {
     "attempts": [
@@ -858,11 +858,11 @@
         "strategy": "autonomous",
         "error": null,
         "success": true,
-        "timestamp": "2026-03-26T22:06:16.718044"
+        "timestamp": "2026-03-26T22:13:02.086034"
       }
     ],
     "rescue_escalated": false,
-    "first_attempt_at": "2026-03-26T22:06:16.718041"
+    "first_attempt_at": "2026-03-26T22:13:02.086031"
   },
   "4": {
     "attempts": [
@@ -1192,5 +1192,18 @@
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-26T21:52:29.553385",
     "rescue_escalated_at": "2026-03-26T22:10:24.621165"
+  },
+  "4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": true,
+        "timestamp": "2026-03-26T22:13:43.189472"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-26T22:13:43.189468"
   }
 }

@@ -333,3 +333,7 @@
 {"ts": "2026-03-26T22:10:22.219179", "action": "execute_failed", "agent": "executor", "task_id": "incident-1774572089", "attempts": 3, "last_error": "No module named 'agent_runner'"}
 {"ts": "2026-03-26T22:10:22.607038", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 34%"}
 {"ts": "2026-03-26T22:10:24.615626", "action": "execute_failed", "agent": "executor", "task_id": "incident-1774575243", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T22:12:22.172613", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1352, "elapsed": 117.16498708724976, "autonomous": true}
+{"ts": "2026-03-26T22:12:38.798482", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 751, "elapsed": 16.253220081329346, "autonomous": true}
+{"ts": "2026-03-26T22:13:02.085732", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1192, "elapsed": 22.9187490940094, "autonomous": true}
+{"ts": "2026-03-26T22:13:43.188851", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1850, "elapsed": 40.73570489883423, "autonomous": true}
