@@ -63,3 +63,5 @@
 {"ts": "2026-03-26T23:15:59.463344", "agent": "debugger", "old_budget": 1331, "new_budget": 1464, "success_rate": 1.0, "reason": "High success (100%) \u2014 reward"}
 {"ts": "2026-03-26T23:20:38.567394", "agent": "test_engineer", "old_budget": 1464, "new_budget": 1610, "success_rate": 1.0, "reason": "High success (100%) \u2014 reward"}
 {"ts": "2026-03-26T23:20:38.567782", "agent": "debugger", "old_budget": 1464, "new_budget": 1610, "success_rate": 1.0, "reason": "High success (100%) \u2014 reward"}
+{"ts": "2026-03-26T23:26:01.968263", "agent": "test_engineer", "old_budget": 1610, "new_budget": 1771, "success_rate": 1.0, "reason": "High success (100%) \u2014 reward"}
+{"ts": "2026-03-26T23:26:01.969943", "agent": "debugger", "old_budget": 1610, "new_budget": 1771, "success_rate": 1.0, "reason": "High success (100%) \u2014 reward"}

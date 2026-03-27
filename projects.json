@@ -367,15 +367,242 @@
       "eta_hours": 24,
       "eta_completion": "2026-03-27T06:08:39.005035Z",
       "completion_timestamp": "2026-03-27T06:08:54.244586Z"
+    },
+    {
+      "id": "production-upgrade",
+      "name": "Production Upgrade: 49% \u2192 95%+ Success (Opus 4.6 Replica)",
+      "description": "Complete overhaul to production-grade system with real-time dashboard, auto-execution, 95%+ success rate",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "task-fix-dashboard-metrics",
+          "title": "\ud83d\udea8 P0: Fix dashboard metrics (showing zeros)",
+          "description": "Create metrics_aggregator.py to collect real values and push to dashboard. Dashboard currently shows 0 tokens, 0 quality.",
+          "agent": "executor",
+          "priority": "P0",
+          "phase": "CRITICAL",
+          "status": "pending",
+          "files": [
+            "orchestrator/metrics_aggregator.py"
+          ],
+          "success_criteria": "Dashboard shows actual token usage, quality scores, latency",
+          "eta_hours": 0.5,
+          "eta_completion": "2026-03-27T06:57:01.721530"
+        },
+        {
+          "id": "task-fix-task-execution",
+          "title": "\ud83d\udea8 P0: Fix task execution pipeline",
+          "description": "Create task_dispatcher.py. Pending tasks in projects.json not being executed. Dispatcher should load pending tasks and trigger agent execution.",
+          "agent": "executor",
+          "priority": "P0",
+          "phase": "CRITICAL",
+          "status": "pending",
+          "files": [
+            "orchestrator/task_dispatcher.py"
+          ],
+          "success_criteria": "Pending tasks auto-execute from projects.json",
+          "eta_hours": 0.75,
+          "eta_completion": "2026-03-27T07:12:01.721692"
+        },
+        {
+          "id": "task-fix-executor-rate",
+          "title": "\ud83d\udea8 P0: Fix executor success rate (49% \u2192 95%)",
+          "description": "Implement error_analyzer.py to identify failure modes. Currently at 49%, need 95%+. Debug top 3 failures, implement fixes.",
+          "agent": "executor",
+          "priority": "P0",
+          "phase": "CRITICAL",
+          "status": "pending",
+          "files": [
+            "orchestrator/error_analyzer.py",
+            "agents/executor.py"
+          ],
+          "success_criteria": "Executor success rate > 95% consistently",
+          "eta_hours": 1.0,
+          "eta_completion": "2026-03-27T07:27:01.721694"
+        },
+        {
+          "id": "task-persistence-layer",
+          "title": "P1: Implement persistence layer (no crons)",
+          "description": "Remove all cron jobs. Implement persistent task queue, agent state, transaction log. All scheduling internal to daemon.",
+          "agent": "architect",
+          "priority": "P1",
+          "phase": "HARDENING",
+          "status": "pending",
+          "files": [
+            "orchestrator/persistence_layer.py",
+            "state/task_queue.json",
+            "state/agent_state.json"
+          ],
+          "success_criteria": "No external crons, all state persists across restarts",
+          "eta_hours": 1.5,
+          "eta_completion": "2026-03-27T08:57:01.721695"
+        },
+        {
+          "id": "task-realtime-dashboard",
+          "title": "P1: Real-time dashboard updates",
+          "description": "Create dashboard_sync.py. Update dashboard on task START/COMPLETE immediately.",
+          "agent": "executor",
+          "priority": "P1",
+          "phase": "HARDENING",
+          "status": "pending",
+          "files": [
+            "orchestrator/dashboard_sync.py"
+          ],
+          "success_criteria": "Dashboard updates within 1 second of task status change",
+          "eta_hours": 0.75,
+          "eta_completion": "2026-03-27T09:42:01.721697"
+        },
+        {
+          "id": "task-agent-autoexecution",
+          "title": "P1: Agent auto-execution framework",
+          "description": "Implement internal task loop in each agent. Auto-pick pending tasks from projects.json every 5 sec.",
+          "agent": "executor",
+          "priority": "P1",
+          "phase": "HARDENING",
+          "status": "pending",
+          "files": [
+            "orchestrator/agent_task_loop.py",
+            "orchestrator/agent_supervisor.py"
+          ],
+          "success_criteria": "Agents auto-execute pending tasks without dispatcher",
+          "eta_hours": 2.0,
+          "eta_completion": "2026-03-27T11:42:01.721698"
+        },
+        {
+          "id": "task-quality-pipeline",
+          "title": "P2: Quality pipeline (Opus-level routing)",
+          "description": "Route tasks to highest-quality agents. Implement quality scoring (0-100), thresholds, quality gates.",
+          "agent": "architect",
+          "priority": "P2",
+          "phase": "ADVANCED",
+          "status": "pending",
+          "files": [
+            "orchestrator/quality_pipeline.py",
+            "orchestrator/agent_router.py"
+          ],
+          "success_criteria": "Tasks routed to highest-quality agents, 95%+ quality maintained",
+          "eta_hours": 2.0,
+          "eta_completion": "2026-03-27T13:42:01.721699"
+        },
+        {
+          "id": "task-parallel-execution",
+          "title": "P2: Parallel task execution (up to 4 concurrent)",
+          "description": "Implement parallel executor. Resource-aware, dead-letter queue for failures.",
+          "agent": "architect",
+          "priority": "P2",
+          "phase": "ADVANCED",
+          "status": "pending",
+          "files": [
+            "orchestrator/parallel_executor.py"
+          ],
+          "success_criteria": "4 tasks execute simultaneously without resource exhaustion",
+          "eta_hours": 1.5,
+          "eta_completion": "2026-03-27T15:12:01.721702"
+        },
+        {
+          "id": "task-self-improvement",
+          "title": "P2: Self-improvement loop",
+          "description": "Auto-tune agent prompts based on failure patterns. Auto-scale agents.",
+          "agent": "executor",
+          "priority": "P2",
+          "phase": "ADVANCED",
+          "status": "pending",
+          "files": [
+            "orchestrator/self_improvement.py"
+          ],
+          "success_criteria": "Agents improve success rate without manual intervention",
+          "eta_hours": 2.0,
+          "eta_completion": "2026-03-27T17:12:01.721703"
+        },
+        {
+          "id": "task-network-mesh-upgrade",
+          "title": "P2: Network mesh Opus-level enhancements",
+          "description": "Real-time health monitoring, predictive load balancing, automatic failover, network consensus.",
+          "agent": "architect",
+          "priority": "P2",
+          "phase": "ADVANCED",
+          "status": "pending",
+          "files": [
+            "orchestrator/network_mesh.py"
+          ],
+          "success_criteria": "Automatic failover works, load optimally distributed",
+          "eta_hours": 2.5,
+          "eta_completion": "2026-03-27T19:42:01.721705"
+        },
+        {
+          "id": "task-complete-automation",
+          "title": "P2: Complete automation (zero manual intervention)",
+          "description": "Auto-detect tasks every 10 min, auto-execute, auto-commit, auto-push, auto-merge.",
+          "agent": "executor",
+          "priority": "P2",
+          "phase": "AUTOMATION",
+          "status": "pending",
+          "files": [
+            "orchestrator/automation_engine.py",
+            "orchestrator/continuous_integration.py"
+          ],
+          "success_criteria": "System runs 24/7 without manual intervention",
+          "eta_hours": 2.0,
+          "eta_completion": "2026-03-27T21:42:01.721706"
+        },
+        {
+          "id": "task-subagent-scaling",
+          "title": "P2: Dynamic sub-agent management",
+          "description": "Spawn/kill agents dynamically. Max 4-8 sub-agents. Auto-distribute tasks.",
+          "agent": "architect",
+          "priority": "P2",
+          "phase": "AUTOMATION",
+          "status": "pending",
+          "files": [
+            "orchestrator/subagent_pool.py"
+          ],
+          "success_criteria": "Sub-agents spawn on high load, kill when idle",
+          "eta_hours": 1.5,
+          "eta_completion": "2026-03-27T23:12:01.721707"
+        },
+        {
+          "id": "task-test-suite",
+          "title": "P3: Comprehensive test suite",
+          "description": "Test execution pipeline, retry logic, failover, crash recovery, quality gates.",
+          "agent": "test_engineer",
+          "priority": "P3",
+          "phase": "TESTING",
+          "status": "pending",
+          "files": [
+            "tests/test_production_pipeline.py"
+          ],
+          "success_criteria": "All tests pass, 95%+ coverage of critical paths",
+          "eta_hours": 1.0,
+          "eta_completion": "2026-03-28T00:12:01.721708"
+        },
+        {
+          "id": "task-performance-validation",
+          "title": "P3: Performance validation (24-hour test)",
+          "description": "Benchmark latency, success rate, quality, uptime. Verify 99.9% availability.",
+          "agent": "test_engineer",
+          "priority": "P3",
+          "phase": "TESTING",
+          "status": "pending",
+          "files": [
+            "tests/benchmarks.py"
+          ],
+          "success_criteria": ">95% success, <5s p95 latency, 99.9% uptime",
+          "eta_hours": 0.5,
+          "eta_completion": "2026-03-28T00:42:01.721709"
+        }
+      ],
+      "eta_hours": 18,
+      "eta_completion": "2026-03-28T00:27:01.721710",
+      "completion_timestamp": null
     }
   ],
   "metadata": {
     "created": "2026-03-26T20:00:00Z",
     "created_by": "claude",
     "mission": "Beat Opus 4.6 with 90% local / 10% Claude rescue",
-    "total_tasks": 14,
+    "total_tasks": 29,
     "total_epics": 7,
-    "updated": "2026-03-27T06:20:39.028085Z",
+    "updated": "2026-03-27T06:27:01.721711",
     "critical_path": "blocker-fixes (16h) \u2192 system-reliability (6h) \u2192 dashboard-quality (12h) \u2192 policy-governance (18h) \u2192 execution-optimization (30h)",
     "eta_all_complete": "2026-03-27T06:39:11.894496Z",
     "token_budget": {
@@ -387,6 +614,7 @@
     "claude_session_mode": "10min-loop",
     "crons_removed": true,
     "internal_scheduling": "unified_daemon.py",
-    "launch_agent_updated": true
+    "launch_agent_updated": true,
+    "total_projects": 8
   }
 }

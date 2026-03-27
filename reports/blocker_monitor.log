@@ -34,3 +34,101 @@
 2026-03-26 23:18:32,533 [INFO] 📍 BLOCKER MONITOR CYCLE
 2026-03-26 23:18:32,533 [INFO] ======================================================================
 2026-03-26 23:18:32,533 [INFO] ✅ No blocked agents detected
+2026-03-26 23:23:41,283 [INFO] ======================================================================
+2026-03-26 23:23:41,284 [INFO] 📍 BLOCKER MONITOR CYCLE
+2026-03-26 23:23:41,284 [INFO] ======================================================================
+2026-03-26 23:23:41,284 [WARNING] ⚠️  6 blocked agent(s) detected: ['executor', 'reviewer', 'test_engineer', 'architect', 'debugger', 'researcher']
+2026-03-26 23:23:41,284 [INFO] 
+🔍 Analyzing executor...
+2026-03-26 23:23:41,284 [INFO]    Failure: None
+2026-03-26 23:23:41,284 [INFO] 🔄 Restarting agent: executor...
+2026-03-26 23:23:41,284 [ERROR] ❌ Restart failed: 'list' object has no attribute 'keys'
+2026-03-26 23:23:41,284 [WARNING] ⚠️  Could not auto-fix executor with code fix. Escalating to prompt upgrade...
+2026-03-26 23:23:41,284 [INFO] ✅ Escalated executor to rescue queue (Claude will upgrade prompt)
+2026-03-26 23:23:41,285 [INFO] 
+🔍 Analyzing reviewer...
+2026-03-26 23:23:41,285 [INFO]    Failure: None
+2026-03-26 23:23:41,285 [INFO] 🔄 Restarting agent: reviewer...
+2026-03-26 23:23:41,285 [ERROR] ❌ Restart failed: 'list' object has no attribute 'keys'
+2026-03-26 23:23:41,285 [WARNING] ⚠️  Could not auto-fix reviewer with code fix. Escalating to prompt upgrade...
+2026-03-26 23:23:41,285 [INFO] ✅ Escalated reviewer to rescue queue (Claude will upgrade prompt)
+2026-03-26 23:23:41,285 [INFO] 
+🔍 Analyzing test_engineer...
+2026-03-26 23:23:41,285 [INFO]    Failure: None
+2026-03-26 23:23:41,285 [INFO] 🔄 Restarting agent: test_engineer...
+2026-03-26 23:23:41,285 [ERROR] ❌ Restart failed: 'list' object has no attribute 'keys'
+2026-03-26 23:23:41,285 [WARNING] ⚠️  Could not auto-fix test_engineer with code fix. Escalating to prompt upgrade...
+2026-03-26 23:23:41,285 [INFO] ✅ Escalated test_engineer to rescue queue (Claude will upgrade prompt)
+2026-03-26 23:23:41,285 [INFO] 
+🔍 Analyzing architect...
+2026-03-26 23:23:41,285 [INFO]    Failure: None
+2026-03-26 23:23:41,285 [INFO] 🔄 Restarting agent: architect...
+2026-03-26 23:23:41,285 [ERROR] ❌ Restart failed: 'list' object has no attribute 'keys'
+2026-03-26 23:23:41,285 [WARNING] ⚠️  Could not auto-fix architect with code fix. Escalating to prompt upgrade...
+2026-03-26 23:23:41,285 [INFO] ✅ Escalated architect to rescue queue (Claude will upgrade prompt)
+2026-03-26 23:23:41,285 [INFO] 
+🔍 Analyzing debugger...
+2026-03-26 23:23:41,285 [INFO]    Failure: None
+2026-03-26 23:23:41,285 [INFO] 🔄 Restarting agent: debugger...
+2026-03-26 23:23:41,285 [ERROR] ❌ Restart failed: 'list' object has no attribute 'keys'
+2026-03-26 23:23:41,285 [WARNING] ⚠️  Could not auto-fix debugger with code fix. Escalating to prompt upgrade...
+2026-03-26 23:23:41,286 [INFO] ✅ Escalated debugger to rescue queue (Claude will upgrade prompt)
+2026-03-26 23:23:41,286 [INFO] 
+🔍 Analyzing researcher...
+2026-03-26 23:23:41,286 [INFO]    Failure: None
+2026-03-26 23:23:41,286 [INFO] 🔄 Restarting agent: researcher...
+2026-03-26 23:23:41,286 [ERROR] ❌ Restart failed: 'list' object has no attribute 'keys'
+2026-03-26 23:23:41,286 [WARNING] ⚠️  Could not auto-fix researcher with code fix. Escalating to prompt upgrade...
+2026-03-26 23:23:41,286 [INFO] ✅ Escalated researcher to rescue queue (Claude will upgrade prompt)
+2026-03-26 23:23:41,286 [INFO] 
+======================================================================
+2026-03-26 23:23:41,286 [INFO] ✅ Blocker monitor cycle complete
+2026-03-26 23:23:54,731 [INFO] ======================================================================
+2026-03-26 23:23:54,731 [INFO] 📍 BLOCKER MONITOR CYCLE
+2026-03-26 23:23:54,731 [INFO] ======================================================================
+2026-03-26 23:23:54,731 [WARNING] ⚠️  6 blocked agent(s) detected: ['executor', 'reviewer', 'test_engineer', 'architect', 'debugger', 'researcher']
+2026-03-26 23:23:54,732 [INFO] 
+🔍 Analyzing executor...
+2026-03-26 23:23:54,732 [INFO]    Failure: None
+2026-03-26 23:23:54,732 [INFO] 🔄 Restarting agent: executor...
+2026-03-26 23:23:54,732 [INFO]   Reset executor to idle
+2026-03-26 23:23:54,733 [INFO] ✅ Agent executor restarted (state + task cleared)
+2026-03-26 23:23:54,733 [INFO]    ✅ Restarted agent
+2026-03-26 23:23:54,733 [INFO] 
+🔍 Analyzing reviewer...
+2026-03-26 23:23:54,733 [INFO]    Failure: None
+2026-03-26 23:23:54,733 [INFO] 🔄 Restarting agent: reviewer...
+2026-03-26 23:23:54,733 [INFO]   Reset reviewer to idle
+2026-03-26 23:23:54,734 [INFO] ✅ Agent reviewer restarted (state + task cleared)
+2026-03-26 23:23:54,734 [INFO]    ✅ Restarted agent
+2026-03-26 23:23:54,734 [INFO] 
+🔍 Analyzing test_engineer...
+2026-03-26 23:23:54,734 [INFO]    Failure: None
+2026-03-26 23:23:54,734 [INFO] 🔄 Restarting agent: test_engineer...
+2026-03-26 23:23:54,734 [INFO]   Reset test_engineer to idle
+2026-03-26 23:23:54,734 [INFO] ✅ Agent test_engineer restarted (state + task cleared)
+2026-03-26 23:23:54,734 [INFO]    ✅ Restarted agent
+2026-03-26 23:23:54,734 [INFO] 
+🔍 Analyzing architect...
+2026-03-26 23:23:54,734 [INFO]    Failure: None
+2026-03-26 23:23:54,735 [INFO] 🔄 Restarting agent: architect...
+2026-03-26 23:23:54,735 [INFO]   Reset architect to idle
+2026-03-26 23:23:54,735 [INFO] ✅ Agent architect restarted (state + task cleared)
+2026-03-26 23:23:54,735 [INFO]    ✅ Restarted agent
+2026-03-26 23:23:54,735 [INFO] 
+🔍 Analyzing debugger...
+2026-03-26 23:23:54,735 [INFO]    Failure: None
+2026-03-26 23:23:54,735 [INFO] 🔄 Restarting agent: debugger...
+2026-03-26 23:23:54,735 [INFO]   Reset debugger to idle
+2026-03-26 23:23:54,736 [INFO] ✅ Agent debugger restarted (state + task cleared)
+2026-03-26 23:23:54,736 [INFO]    ✅ Restarted agent
+2026-03-26 23:23:54,736 [INFO] 
+🔍 Analyzing researcher...
+2026-03-26 23:23:54,736 [INFO]    Failure: None
+2026-03-26 23:23:54,736 [INFO] 🔄 Restarting agent: researcher...
+2026-03-26 23:23:54,736 [INFO]   Reset researcher to idle
+2026-03-26 23:23:54,736 [INFO] ✅ Agent researcher restarted (state + task cleared)
+2026-03-26 23:23:54,736 [INFO]    ✅ Restarted agent
+2026-03-26 23:23:54,736 [INFO] 
+======================================================================
+2026-03-26 23:23:54,736 [INFO] ✅ Blocker monitor cycle complete

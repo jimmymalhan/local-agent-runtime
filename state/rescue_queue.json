@@ -1,0 +1,44 @@
+[
+  {
+    "ts": "2026-03-27T06:23:41.284784",
+    "agent": "executor",
+    "reason": "unknown",
+    "status": "pending",
+    "attempt_count": 3
+  },
+  {
+    "ts": "2026-03-27T06:23:41.285218",
+    "agent": "reviewer",
+    "reason": "unknown",
+    "status": "pending",
+    "attempt_count": 3
+  },
+  {
+    "ts": "2026-03-27T06:23:41.285483",
+    "agent": "test_engineer",
+    "reason": "unknown",
+    "status": "pending",
+    "attempt_count": 3
+  },
+  {
+    "ts": "2026-03-27T06:23:41.285764",
+    "agent": "architect",
+    "reason": "unknown",
+    "status": "pending",
+    "attempt_count": 3
+  },
+  {
+    "ts": "2026-03-27T06:23:41.286026",
+    "agent": "debugger",
+    "reason": "unknown",
+    "status": "pending",
+    "attempt_count": 3
+  },
+  {
+    "ts": "2026-03-27T06:23:41.286265",
+    "agent": "researcher",
+    "reason": "unknown",
+    "status": "pending",
+    "attempt_count": 3
+  }
+]
