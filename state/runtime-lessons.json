@@ -2137,11 +2137,25 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:51:07.262448"
+      },
+      {
+        "attempt": 4,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T13:57:00.702153"
+      },
+      {
+        "attempt": 5,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T13:57:47.695992"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T12:04:17.255121",
-    "rescue_escalated_at": "2026-03-27T12:51:07.265337"
+    "rescue_escalated_at": "2026-03-27T13:57:47.699322"
   },
   "e2-comp-4": {
     "attempts": [
@@ -2165,11 +2179,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:51:07.712367"
+      },
+      {
+        "attempt": 4,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T13:58:39.692770"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T12:04:17.685728",
-    "rescue_escalated_at": "2026-03-27T12:51:07.715500"
+    "rescue_escalated_at": "2026-03-27T13:58:39.696766"
   },
   "e2-budget-1": {
     "attempts": [
@@ -4524,10 +4545,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:05:33.596387"
+      },
+      {
+        "attempt": 3,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T13:58:09.229553"
       }
     ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T12:05:17.068156"
+    "rescue_escalated": true,
+    "first_attempt_at": "2026-03-27T12:05:17.068156",
+    "rescue_escalated_at": "2026-03-27T13:58:09.232814"
   },
   "e1-custom-1": {
     "attempts": [
@@ -4983,5 +5012,18 @@
     ],
     "rescue_escalated": false,
     "first_attempt_at": "2026-03-27T12:05:31.726977"
+  },
+  "e1-critical-distributed-inference": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T14:00:13.291328"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T14:00:13.291326"
   }
 }
