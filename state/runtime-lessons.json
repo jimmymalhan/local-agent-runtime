@@ -1686,11 +1686,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:51:04.583972"
+      },
+      {
+        "attempt": 4,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:57:30.425725"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T12:04:14.739272",
-    "rescue_escalated_at": "2026-03-27T12:51:04.587532"
+    "rescue_escalated_at": "2026-03-27T12:57:30.429683"
   },
   "e2-route-2": {
     "attempts": [
