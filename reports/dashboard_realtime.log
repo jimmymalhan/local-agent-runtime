@@ -2661,3 +2661,17 @@
 2026-03-26 23:43:40,836 [INFO]    executor: blocked
 2026-03-26 23:43:40,836 [INFO]    reviewer: idle
 2026-03-26 23:43:40,836 [INFO]    architect: running
+2026-03-26 23:43:45,904 [INFO] 📊 Updating dashboard state...
+2026-03-26 23:43:45,904 [WARNING] ⚠️  Executor health low: 48.0% success
+2026-03-26 23:43:45,905 [INFO] ✅ Dashboard updated
+2026-03-26 23:43:45,905 [INFO]    Timestamp: 2026-03-27T06:43:45.904520
+2026-03-26 23:43:45,905 [INFO]    executor: blocked
+2026-03-26 23:43:45,905 [INFO]    reviewer: idle
+2026-03-26 23:43:45,905 [INFO]    architect: running
+2026-03-26 23:43:50,314 [INFO] 📊 Updating dashboard state...
+2026-03-26 23:43:50,315 [WARNING] ⚠️  Executor health low: 48.0% success
+2026-03-26 23:43:50,316 [INFO] ✅ Dashboard updated
+2026-03-26 23:43:50,316 [INFO]    Timestamp: 2026-03-27T06:43:50.315222
+2026-03-26 23:43:50,316 [INFO]    executor: blocked
+2026-03-26 23:43:50,316 [INFO]    reviewer: idle
+2026-03-26 23:43:50,316 [INFO]    architect: running

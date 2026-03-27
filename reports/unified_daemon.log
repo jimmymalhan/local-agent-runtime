@@ -642,3 +642,29 @@
 2026-03-26 23:43:34,028 [INFO] 🔀 Checking for ready PRs to merge...
 2026-03-26 23:43:35,701 [INFO] 🔄 Running: dashboard-update
 2026-03-26 23:43:40,764 [INFO] 🔄 Running: dashboard-update
+2026-03-26 23:43:45,863 [INFO] 🔄 Running: dashboard-update
+2026-03-26 23:43:49,226 [INFO] 🚀 UnifiedDaemon initializing...
+2026-03-26 23:43:49,226 [INFO]   Registered: health-check (interval: 60s)
+2026-03-26 23:43:49,226 [INFO]   Registered: auto-recovery (interval: 120s)
+2026-03-26 23:43:49,226 [INFO]   Registered: dashboard-update (interval: 5s)
+2026-03-26 23:43:49,226 [INFO]   Registered: pr-merge-check (interval: 30s)
+2026-03-26 23:43:49,226 [INFO]   Registered: full-loop (interval: 600s)
+2026-03-26 23:43:49,226 [INFO]   Registered: epic-status-update (interval: 1800s)
+2026-03-26 23:43:49,226 [INFO] ======================================================================
+2026-03-26 23:43:49,226 [INFO] UNIFIED DAEMON — Replaces All External Crons
+2026-03-26 23:43:49,226 [INFO] ======================================================================
+2026-03-26 23:43:49,226 [INFO] ✨ All scheduling now internal to daemon
+2026-03-26 23:43:49,226 [INFO] ✨ Zero external cron dependencies
+2026-03-26 23:43:49,226 [INFO] ✨ 24/7 autonomous operation
+2026-03-26 23:43:49,226 [INFO] ======================================================================
+2026-03-26 23:43:49,226 [INFO] ✅ UnifiedDaemon started (all crons replaced with internal scheduling)
+2026-03-26 23:43:49,226 [INFO] ======================================================================
+2026-03-26 23:43:49,226 [INFO] 🔄 Running: health-check
+2026-03-26 23:43:50,275 [INFO] 📊 Health: CPU 26.4% | Memory 77.6% | Processes: agent_runner=✗, dashboard=✓
+2026-03-26 23:43:50,276 [INFO] 🔄 Running: auto-recovery
+2026-03-26 23:43:50,276 [INFO] 🔧 Running auto-recovery...
+2026-03-26 23:43:50,276 [INFO] 🔄 Running: dashboard-update
+2026-03-26 23:43:50,319 [INFO] 🔄 Running: pr-merge-check
+2026-03-26 23:43:50,319 [INFO] 🔀 Checking for ready PRs to merge...
+2026-03-26 23:43:51,005 [INFO] 🔄 Running: full-loop
+2026-03-26 23:43:51,005 [INFO] 🚀 Running full 10-minute loop...

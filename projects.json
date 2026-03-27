@@ -174,7 +174,7 @@
           "title": "P0: Fix task state persistence \u2014 results must update projects.json",
           "description": "After each agent completes a task, orchestrator must persist: status='completed', quality_score, elapsed_time, result summary. Currently agent results are lost and tasks never transition from in_progress. Test: run_version() with any pending task, verify projects.json status updates and quality is non-zero.",
           "agent": "executor",
-          "status": "pending",
+          "status": "completed",
           "priority": "P0",
           "files": [
             "orchestrator/main.py",
@@ -185,7 +185,8 @@
           "eta_hours": 3,
           "eta_completion": "2026-03-26T21:35:00Z",
           "started_at": "2026-03-26T18:35:00Z",
-          "quality_score": 100.0
+          "quality_score": 100.0,
+          "completed_at": "projects_loader"
         },
         {
           "id": "task-fix-2",
@@ -635,7 +636,7 @@
     "mission": "Beat Opus 4.6 with 90% local / 10% Claude rescue",
     "total_tasks": 29,
     "total_epics": 7,
-    "updated": "2026-03-27T06:33:59.748379Z",
+    "updated": "2026-03-27T06:43:51.148912Z",
     "critical_path": "blocker-fixes (16h) \u2192 system-reliability (6h) \u2192 dashboard-quality (12h) \u2192 policy-governance (18h) \u2192 execution-optimization (30h)",
     "eta_all_complete": "2026-03-27T06:39:11.894496Z",
     "token_budget": {
