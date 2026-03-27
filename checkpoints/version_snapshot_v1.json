@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "ts": "2026-03-27T01:35:17",
+  "ts": "2026-03-27T01:50:47",
   "state": {
-    "ts": "2026-03-26T18:35:16.610164",
+    "ts": "2026-03-26T18:50:45.169461",
     "version": {
       "current": 0,
       "total": 100,
@@ -15,7 +15,7 @@
           {
             "id": 0,
             "status": "failed",
-            "task": "System health check \u2014 verify orchestrator/das",
+            "task": "Policy enforcement \u2014 wire token/rescue budget",
             "model": "",
             "elapsed_s": 0.0,
             "quality": 0
@@ -23,7 +23,7 @@
           {
             "id": 1,
             "status": "failed",
-            "task": "System health check \u2014 verify orchestrator/das",
+            "task": "Policy enforcement \u2014 wire token/rescue budget",
             "model": "",
             "elapsed_s": 0.0,
             "quality": 0
@@ -31,32 +31,14 @@
           {
             "id": 2,
             "status": "failed",
-            "task": "System health check \u2014 verify orchestrator/das",
+            "task": "Policy enforcement \u2014 wire token/rescue budget",
             "model": "",
             "elapsed_s": 0.0,
             "quality": 0
           }
         ],
         "worker_count": 0,
-        "last_activity": "2026-03-26T18:33:31.406162"
-      },
-      "orchestrator": {
-        "status": "running",
-        "task": "Policy enforcement \u2014 wire token/rescue budget limits",
-        "task_id": "task-3",
-        "elapsed_s": 0.0,
-        "last_activity": "2026-03-26T18:34:58.240632",
-        "sub_agents": [],
-        "worker_count": 0
-      },
-      "frontend_agent": {
-        "status": "running",
-        "task": "Fix dashboard state \u2014 implement missing quality/model fields",
-        "task_id": "task-2",
-        "elapsed_s": 0.0,
-        "last_activity": "2026-03-26T18:34:50.664287",
-        "sub_agents": [],
-        "worker_count": 0
+        "last_activity": "2026-03-26T18:44:54.162779"
       }
     },
     "task_queue": {
@@ -90,7 +72,7 @@
     "recent_tasks": [],
     "changelog": [],
     "epic_board": {
-      "ts": "2026-03-26T18:35:16.610125",
+      "ts": "2026-03-26T18:50:45.169418",
       "epics": [
         {
           "id": "system-reliability",
@@ -98,11 +80,11 @@
           "track": "infrastructure",
           "status": "in_progress",
           "total_tasks": 1,
-          "completed": 1,
-          "in_progress": 0,
+          "completed": 0,
+          "in_progress": 1,
           "pending": 0,
           "blocked": 0,
-          "progress_pct": 100.0,
+          "progress_pct": 0.0,
           "agents": [
             "orchestrator"
           ],
@@ -112,7 +94,7 @@
           "id": "dashboard-quality",
           "name": "Dashboard Quality & State Management",
           "track": "infrastructure",
-          "status": "pending",
+          "status": "in_progress",
           "total_tasks": 1,
           "completed": 0,
           "in_progress": 1,
@@ -130,11 +112,11 @@
           "track": "infrastructure",
           "status": "pending",
           "total_tasks": 1,
-          "completed": 1,
+          "completed": 0,
           "in_progress": 0,
-          "pending": 0,
+          "pending": 1,
           "blocked": 0,
-          "progress_pct": 100.0,
+          "progress_pct": 0.0,
           "agents": [
             "orchestrator"
           ],
@@ -173,14 +155,31 @@
           "agent_count": 1
         },
         {
+          "id": "blocker-fixes",
+          "name": "P0 Blockers \u2014 Unblock Task Execution (URGENT)",
+          "track": "infrastructure",
+          "status": "in_progress",
+          "total_tasks": 6,
+          "completed": 0,
+          "in_progress": 0,
+          "pending": 6,
+          "blocked": 0,
+          "progress_pct": 0.0,
+          "agents": [
+            "frontend_agent",
+            "orchestrator"
+          ],
+          "agent_count": 2
+        },
+        {
           "id": "incidents",
           "name": "Incident Response",
           "track": "infrastructure",
           "status": "active",
           "total_tasks": 2,
           "completed": 0,
-          "in_progress": 0,
-          "pending": 2,
+          "in_progress": 2,
+          "pending": 0,
           "blocked": 0,
           "progress_pct": 0.0,
           "agents": [
@@ -203,7 +202,7 @@
     },
     "auto_heal_feed": [
       {
-        "ts": "2026-03-27T01:35:16",
+        "ts": "2026-03-27T01:50:47",
         "level": "INFO",
         "event": "started",
         "detail": "Auto-heal monitor started (checks every 10s)",
@@ -216,7 +215,7 @@
       "retrains": 0
     },
     "auto_heal_status": {
-      "ts": "2026-03-27T01:35:16",
+      "ts": "2026-03-27T01:50:47",
       "issues_this_cycle": [],
       "healthy": true,
       "dashboard_alive": true,

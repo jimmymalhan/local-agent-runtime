@@ -77,3 +77,5 @@
 {"ts": "2026-03-26T18:33:31.406742", "action": "execute_failed", "agent": "executor", "task_id": "task-1", "attempts": 3, "last_error": "Unknown error"}
 {"ts": "2026-03-26T18:38:17.425708", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "expert", "reason": "Success rate 95%"}
 {"ts": "2026-03-26T18:38:17.441373", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:44:54.147254", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "expert", "reason": "Success rate 93%"}
+{"ts": "2026-03-26T18:44:54.163114", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "Unknown error"}

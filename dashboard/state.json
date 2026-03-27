@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-26T18:42:48.815689",
+  "ts": "2026-03-26T18:51:47.712612",
   "version": {
     "current": 0,
     "total": 100,
@@ -12,7 +12,7 @@
         {
           "id": 0,
           "status": "failed",
-          "task": "Optimize multi-loop execution \u2014 DAG + paralle",
+          "task": "Policy enforcement \u2014 wire token/rescue budget",
           "model": "",
           "elapsed_s": 0.0,
           "quality": 0
@@ -20,7 +20,7 @@
         {
           "id": 1,
           "status": "failed",
-          "task": "Optimize multi-loop execution \u2014 DAG + paralle",
+          "task": "Policy enforcement \u2014 wire token/rescue budget",
           "model": "",
           "elapsed_s": 0.0,
           "quality": 0
@@ -28,14 +28,14 @@
         {
           "id": 2,
           "status": "failed",
-          "task": "Optimize multi-loop execution \u2014 DAG + paralle",
+          "task": "Policy enforcement \u2014 wire token/rescue budget",
           "model": "",
           "elapsed_s": 0.0,
           "quality": 0
         }
       ],
       "worker_count": 0,
-      "last_activity": "2026-03-26T18:38:17.441009"
+      "last_activity": "2026-03-26T18:44:54.162779"
     }
   },
   "task_queue": {
@@ -69,7 +69,7 @@
   "recent_tasks": [],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-26T18:42:48.815579",
+    "ts": "2026-03-26T18:51:47.712564",
     "epics": [
       {
         "id": "system-reliability",
@@ -152,6 +152,23 @@
         "agent_count": 1
       },
       {
+        "id": "blocker-fixes",
+        "name": "P0 Blockers \u2014 Unblock Task Execution (URGENT)",
+        "track": "infrastructure",
+        "status": "in_progress",
+        "total_tasks": 6,
+        "completed": 0,
+        "in_progress": 0,
+        "pending": 6,
+        "blocked": 0,
+        "progress_pct": 0.0,
+        "agents": [
+          "frontend_agent",
+          "orchestrator"
+        ],
+        "agent_count": 2
+      },
+      {
         "id": "incidents",
         "name": "Incident Response",
         "track": "infrastructure",
@@ -179,5 +196,26 @@
   "board_plan": {
     "projects": [],
     "stages": []
+  },
+  "auto_heal_feed": [
+    {
+      "ts": "2026-03-27T01:50:47",
+      "level": "INFO",
+      "event": "started",
+      "detail": "Auto-heal monitor started (checks every 10s)",
+      "agent": ""
+    }
+  ],
+  "auto_heal_counts": {
+    "restarts": 0,
+    "purges": 0,
+    "retrains": 0
+  },
+  "auto_heal_status": {
+    "ts": "2026-03-27T01:51:47",
+    "issues_this_cycle": [],
+    "healthy": true,
+    "dashboard_alive": true,
+    "disk_ok": true
   }
 }
