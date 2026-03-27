@@ -1,29 +1,41 @@
 {
   "version": 1,
-  "ts": "2026-03-27T09:14:19",
+  "ts": "2026-03-27T09:24:22",
   "state": {
-    "ts": "2026-03-27T09:14:18.966271",
+    "ts": "2026-03-27T02:24:21.890090",
     "version": {
-      "current": 0,
+      "current": 1,
       "total": 100,
-      "pct_complete": 0.0,
-      "label": "v0 \u2192 v100"
+      "pct_complete": 1.0,
+      "label": "v1 complete \u2014 win_rate=100.0%"
     },
     "agents": {
-      "executor": {
-        "last_activity": "2026-03-27T09:13:54.910330"
-      },
       "architect": {
-        "last_activity": "2026-03-27T09:13:54.910330"
-      },
-      "test_engineer": {
-        "last_activity": "2026-03-27T09:13:54.910330"
+        "status": "idle",
+        "task": "",
+        "task_id": null,
+        "elapsed_s": 0.0,
+        "last_activity": "2026-03-27T09:23:55.074506",
+        "sub_agents": [],
+        "worker_count": 0
       },
       "reviewer": {
-        "last_activity": "2026-03-27T09:13:54.910330"
+        "status": "idle",
+        "task": "",
+        "task_id": null,
+        "elapsed_s": 0.0,
+        "last_activity": "2026-03-27T09:23:55.074506",
+        "sub_agents": [],
+        "worker_count": 0
+      },
+      "executor": {
+        "last_activity": "2026-03-27T09:23:55.074506"
+      },
+      "test_engineer": {
+        "last_activity": "2026-03-27T09:23:55.074506"
       },
       "researcher": {
-        "last_activity": "2026-03-27T09:13:54.910330"
+        "last_activity": "2026-03-27T09:23:55.074506"
       }
     },
     "task_queue": {
@@ -33,30 +45,52 @@
       "failed": 0,
       "pending": 0
     },
-    "benchmark_scores": {},
+    "benchmark_scores": {
+      "v1": {
+        "local": 100.0,
+        "opus": 70.0,
+        "gap": 30.0,
+        "win_rate": 100.0,
+        "ts": "2026-03-27T02:17:16.778967"
+      }
+    },
     "token_usage": {
       "claude_tokens": 0,
-      "local_tokens": 226393,
-      "budget_pct": 45.278600000000004,
+      "local_tokens": 234653,
+      "budget_pct": 46.9306,
       "warning": true,
       "hard_limit_hit": false
     },
     "hardware": {
-      "cpu_pct": 0.0,
-      "ram_pct": 0.0,
+      "cpu_pct": 34.5,
+      "ram_pct": 71.3,
       "disk_pct": 0.0,
       "gpu_pct": null,
       "alert_level": "ok"
     },
     "failures": [],
     "research_feed": [],
-    "version_changelog": {},
+    "version_changelog": {
+      "v1": {
+        "changes": [
+          "win_rate=100.0%",
+          "local_avg=100.0",
+          "opus_avg=70.0",
+          "rescued=0.0%",
+          "tasks=5"
+        ],
+        "before_score": 70.0,
+        "after_score": 100.0,
+        "delta": 30.0,
+        "ts": "2026-03-27T02:17:16.779957"
+      }
+    },
     "quality": 95,
     "model": "local-v1",
     "recent_tasks": [],
     "changelog": [],
     "epic_board": {
-      "ts": "2026-03-27T02:14:14.960355",
+      "ts": "2026-03-27T02:24:21.890043",
       "epics": [
         {
           "id": "system-reliability",
@@ -198,11 +232,29 @@
         "works_24_7": true
       }
     },
+    "auto_heal_status": {
+      "ts": "2026-03-27T09:24:21",
+      "issues_this_cycle": [],
+      "healthy": true,
+      "dashboard_alive": true,
+      "disk_ok": true
+    },
     "quality_score": 95,
-    "board_plan": {},
+    "board_plan": {
+      "projects": [],
+      "stages": []
+    },
+    "business_summary": {
+      "headline": "5 of 5 engineering tasks complete",
+      "pct_complete": 100.0,
+      "projects_active": 0,
+      "blockers_open": 0,
+      "version": 1,
+      "updated_at": "2026-03-27T02:17:16.770160"
+    },
     "auto_heal_feed": [
       {
-        "ts": "2026-03-27T09:14:18",
+        "ts": "2026-03-27T09:24:21",
         "level": "INFO",
         "event": "started",
         "detail": "Auto-heal monitor started (checks every 10s)",
@@ -213,13 +265,6 @@
       "restarts": 0,
       "purges": 0,
       "retrains": 0
-    },
-    "auto_heal_status": {
-      "ts": "2026-03-27T09:14:18",
-      "issues_this_cycle": [],
-      "healthy": true,
-      "dashboard_alive": true,
-      "disk_ok": true
     }
   }
 }
