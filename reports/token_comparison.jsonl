@@ -1089,3 +1089,6 @@
 {"ts": "2026-03-27T13:44:28.581409", "version": 5, "task_id": "prod-hard-6", "local_tokens": 0, "opus_tokens": 0, "claude_rescue_tokens": 0}
 {"ts": "2026-03-27T13:44:41.694493", "version": 1, "task_id": "ml-ai-1", "local_tokens": 0, "opus_tokens": 223, "claude_rescue_tokens": 0}
 {"ts": "2026-03-27T13:45:11.476728", "version": 5, "task_id": "ml-ai-1", "local_tokens": 0, "opus_tokens": 167, "claude_rescue_tokens": 0}
+{"ts": "2026-03-27T13:54:30.552772", "version": 5, "task_id": "e1-qa-3", "local_tokens": 0, "opus_tokens": 159, "claude_rescue_tokens": 0}
+{"ts": "2026-03-27T13:54:55.554653", "version": 1, "task_id": "e2-comp-1", "local_tokens": 0, "opus_tokens": 177, "claude_rescue_tokens": 0}
+{"ts": "2026-03-27T13:55:00.068993", "version": 1, "task_id": "e2-comp-1", "local_tokens": 0, "opus_tokens": 172, "claude_rescue_tokens": 0}

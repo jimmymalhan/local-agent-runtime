@@ -2053,11 +2053,25 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:51:06.361511"
+      },
+      {
+        "attempt": 4,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T13:50:11.595954"
+      },
+      {
+        "attempt": 5,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T13:52:48.998558"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T12:04:16.442390",
-    "rescue_escalated_at": "2026-03-27T12:51:06.364453"
+    "rescue_escalated_at": "2026-03-27T13:52:49.002103"
   },
   "e2-comp-2": {
     "attempts": [
@@ -2081,11 +2095,25 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:51:06.811837"
+      },
+      {
+        "attempt": 4,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T13:54:55.922581"
+      },
+      {
+        "attempt": 5,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T13:55:00.450403"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T12:04:16.847403",
-    "rescue_escalated_at": "2026-03-27T12:51:06.814741"
+    "rescue_escalated_at": "2026-03-27T13:55:00.453596"
   },
   "e2-comp-3": {
     "attempts": [
@@ -4440,10 +4468,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:05:32.823393"
+      },
+      {
+        "attempt": 3,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T13:52:04.572092"
       }
     ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T12:05:16.341653"
+    "rescue_escalated": true,
+    "first_attempt_at": "2026-03-27T12:05:16.341653",
+    "rescue_escalated_at": "2026-03-27T13:52:04.575573"
   },
   "e1-qa-4": {
     "attempts": [
@@ -4460,10 +4496,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:05:33.215626"
+      },
+      {
+        "attempt": 3,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T13:54:30.943635"
       }
     ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T12:05:16.698826"
+    "rescue_escalated": true,
+    "first_attempt_at": "2026-03-27T12:05:16.698826",
+    "rescue_escalated_at": "2026-03-27T13:54:30.947333"
   },
   "e1-qa-5": {
     "attempts": [
