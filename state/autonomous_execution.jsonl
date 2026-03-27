@@ -57,3 +57,21 @@
 {"ts": "2026-03-26T17:15:16.520119", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 813, "elapsed": 37.53356170654297, "autonomous": true}
 {"ts": "2026-03-26T17:15:45.792020", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1402, "elapsed": 46.47878694534302, "autonomous": true}
 {"ts": "2026-03-26T17:16:23.584705", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1878, "elapsed": 66.67831611633301, "autonomous": true}
+{"ts": "2026-03-26T17:48:17.035445", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1212, "elapsed": 74.49707436561584, "autonomous": true}
+{"ts": "2026-03-26T17:48:54.704175", "action": "execute_task", "agent": "executor", "task_id": 1, "attempt": 1, "status": "done", "quality": 100, "tokens": 1851, "elapsed": 101.11028003692627, "autonomous": true}
+{"ts": "2026-03-26T17:49:33.313286", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 790, "elapsed": 75.89638924598694, "autonomous": true}
+{"ts": "2026-03-26T17:49:50.841968", "action": "execute_task", "agent": "executor", "task_id": 2, "attempt": 1, "status": "done", "quality": 100, "tokens": 822, "elapsed": 55.750081062316895, "autonomous": true}
+{"ts": "2026-03-26T17:50:23.761966", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1748, "elapsed": 50.075501680374146, "autonomous": true}
+{"ts": "2026-03-26T17:50:59.405873", "action": "execute_task", "agent": "executor", "task_id": 3, "attempt": 1, "status": "done", "quality": 100, "tokens": 1787, "elapsed": 68.18281817436218, "autonomous": true}
+{"ts": "2026-03-26T17:51:27.870444", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1249, "elapsed": 63.711590051651, "autonomous": true}
+{"ts": "2026-03-26T17:51:56.395635", "action": "execute_task", "agent": "executor", "task_id": 4, "attempt": 1, "status": "done", "quality": 100, "tokens": 1391, "elapsed": 56.60144281387329, "autonomous": true}
+{"ts": "2026-03-26T17:52:38.980138", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 1977, "elapsed": 70.72213912010193, "autonomous": true}
+{"ts": "2026-03-26T17:53:37.174170", "action": "execute_task", "agent": "executor", "task_id": 5, "attempt": 1, "status": "done", "quality": 100, "tokens": 2708, "elapsed": 100.41698479652405, "autonomous": true}
+{"ts": "2026-03-26T17:53:50.254890", "action": "execute_task", "agent": "executor", "task_id": 6, "attempt": 1, "status": "done", "quality": 90, "tokens": 554, "elapsed": 70.8669798374176, "autonomous": true}
+{"ts": "2026-03-26T17:54:03.245896", "action": "execute_task", "agent": "executor", "task_id": 6, "attempt": 1, "status": "done", "quality": 90, "tokens": 557, "elapsed": 25.683586835861206, "autonomous": true}
+{"ts": "2026-03-26T17:54:28.283905", "action": "execute_task", "agent": "executor", "task_id": 7, "attempt": 1, "status": "done", "quality": 100, "tokens": 1074, "elapsed": 37.644745111465454, "autonomous": true}
+{"ts": "2026-03-26T17:54:52.747849", "action": "execute_task", "agent": "executor", "task_id": 8, "attempt": 1, "status": "done", "quality": 100, "tokens": 1154, "elapsed": 24.094798803329468, "autonomous": true}
+{"ts": "2026-03-26T18:33:17.246283", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "expert", "reason": "Success rate 98%"}
+{"ts": "2026-03-26T18:33:17.267102", "action": "execute_failed", "agent": "executor", "task_id": "task-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:33:31.391645", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "expert", "reason": "Success rate 97%"}
+{"ts": "2026-03-26T18:33:31.406742", "action": "execute_failed", "agent": "executor", "task_id": "task-1", "attempts": 3, "last_error": "Unknown error"}

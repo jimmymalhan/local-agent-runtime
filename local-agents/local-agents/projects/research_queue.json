@@ -7,7 +7,9 @@
     "tree-sitter AST blast radius analysis",
     "git worktree parallel agent isolation",
     "OpenTelemetry tracing AI agents",
-    "RICE prioritization engineering backlogs"
+    "RICE prioritization engineering backlogs",
+    "incremental validation test generation",
+    "agent runtime multi-loop 83pct success patterns"
   ],
   "queued": [
     {
@@ -65,7 +67,21 @@
       "topic": "RICE prioritization engineering backlogs",
       "status": "pending",
       "ts": "2026-03-27T00:35:05.691948"
+    },
+    {
+      "id": "R1774572305",
+      "title": "Implement insight from: incremental validation test generation",
+      "topic": "incremental validation test generation",
+      "status": "pending",
+      "ts": "2026-03-27T00:45:05.700467"
+    },
+    {
+      "id": "R1774572905",
+      "title": "Implement insight from: agent runtime multi-loop 83pct success patterns",
+      "topic": "agent runtime multi-loop 83pct success patterns",
+      "status": "pending",
+      "ts": "2026-03-27T00:55:05.711481"
     }
   ],
-  "ts": "2026-03-27T00:35:05.691968"
+  "ts": "2026-03-27T00:55:05.711505"
 }

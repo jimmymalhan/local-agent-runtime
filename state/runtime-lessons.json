@@ -15,11 +15,11 @@
         "strategy": "autonomous",
         "error": null,
         "success": true,
-        "timestamp": "2026-03-26T17:14:38.620259"
+        "timestamp": "2026-03-26T17:48:54.704717"
       }
     ],
     "rescue_escalated": false,
-    "first_attempt_at": "2026-03-26T17:14:38.620254"
+    "first_attempt_at": "2026-03-26T17:48:54.704709"
   },
   {
     "attempts": [
@@ -28,11 +28,11 @@
         "strategy": "autonomous",
         "error": null,
         "success": true,
-        "timestamp": "2026-03-26T17:15:16.520658"
+        "timestamp": "2026-03-26T17:49:50.842606"
       }
     ],
     "rescue_escalated": false,
-    "first_attempt_at": "2026-03-26T17:15:16.520650"
+    "first_attempt_at": "2026-03-26T17:49:50.842599"
   },
   {
     "attempts": [
@@ -41,46 +41,62 @@
         "strategy": "autonomous",
         "error": null,
         "success": true,
-        "timestamp": "2026-03-26T17:16:23.585478"
+        "timestamp": "2026-03-26T17:50:59.406483"
       }
     ],
     "rescue_escalated": false,
-    "first_attempt_at": "2026-03-26T17:16:23.585472"
+    "first_attempt_at": "2026-03-26T17:50:59.406475"
   },
   {
-    "category": "parallel_execution",
-    "trigger": "sequential_bottleneck",
-    "lesson": "Running agents sequentially when their tasks are independent wastes time. Always check for parallelizable work.",
-    "fix": "Before starting a task queue: identify independent tasks, spawn parallel agents for non-overlapping file sets, use agent-coordination.json to prevent collisions.",
-    "context": "skill=self-coordination pattern=parallel-by-default",
-    "learned_at": "2026-03-17T10:00:00",
-    "applied_count": 0
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": true,
+        "timestamp": "2026-03-26T17:51:56.396113"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-26T17:51:56.396106"
   },
   {
-    "category": "parallel_execution",
-    "trigger": "file_collision_detected",
-    "lesson": "Two agents writing the same file causes corrupted output. Always lock files before writing.",
-    "fix": "Check agent-coordination.json claims before touching any file. Lock with 5-minute expiry. Older lock has priority on collision.",
-    "context": "skill=self-coordination pattern=file-locking",
-    "learned_at": "2026-03-17T10:00:00",
-    "applied_count": 0
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": true,
+        "timestamp": "2026-03-26T17:53:37.174853"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-26T17:53:37.174843"
   },
   {
-    "category": "resource",
-    "trigger": "auto_resolve_roi_kill_switch",
-    "lesson": "Auto-resolved roi_kill_switch with reset_roi: ROI kill switch reset. Retrying with clean state.",
-    "fix": "Clear negative events, switch to fast profile",
-    "context": "wait_event=1 snapshot=RESOURCE cpu=91.0%/70% mem=84.0%/70%",
-    "learned_at": "2026-03-17T04:34:54",
-    "applied_count": 0
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": true,
+        "timestamp": "2026-03-26T17:54:03.246470"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-26T17:54:03.246460"
   },
   {
-    "category": "resource",
-    "trigger": "auto_resolve_memory_ceiling",
-    "lesson": "Auto-resolved memory_ceiling with unload_ollama: No resident Ollama models to unload",
-    "fix": "Stop resident Ollama models first to recover memory now",
-    "context": "wait_event=2 snapshot=RESOURCE cpu=91.0%/70% mem=84.0%/70%",
-    "learned_at": "2026-03-17T04:34:54",
-    "applied_count": 0
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": true,
+        "timestamp": "2026-03-26T17:54:28.284488"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-26T17:54:28.284483"
   }
 ]

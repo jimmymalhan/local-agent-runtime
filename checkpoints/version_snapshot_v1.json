@@ -1,54 +1,67 @@
 {
   "version": 1,
-  "ts": "2026-03-27T00:09:00",
+  "ts": "2026-03-27T01:35:17",
   "state": {
-    "ts": "2026-03-26T17:08:59.850065",
+    "ts": "2026-03-26T18:35:16.610164",
     "version": {
       "current": 0,
-      "total": 0,
+      "total": 100,
       "pct_complete": 0.0,
-      "label": "v0 \u2192 v0"
+      "label": "v0 \u2192 v100"
     },
     "agents": {
       "executor": {
-        "status": "unknown",
-        "task": "",
-        "task_id": null,
-        "quality": 0,
-        "elapsed_s": 0,
-        "last_activity": "2026-03-26T13:32:46.382431",
         "sub_agents": [
           {
             "id": 0,
-            "status": "running",
-            "task": "sub-agent 0",
+            "status": "failed",
+            "task": "System health check \u2014 verify orchestrator/das",
             "model": "",
             "elapsed_s": 0.0,
             "quality": 0
           },
           {
             "id": 1,
-            "status": "running",
-            "task": "sub-agent 1",
+            "status": "failed",
+            "task": "System health check \u2014 verify orchestrator/das",
             "model": "",
             "elapsed_s": 0.0,
             "quality": 0
           },
           {
             "id": 2,
-            "status": "running",
-            "task": "sub-agent 2",
+            "status": "failed",
+            "task": "System health check \u2014 verify orchestrator/das",
             "model": "",
             "elapsed_s": 0.0,
             "quality": 0
           }
         ],
-        "worker_count": 3
+        "worker_count": 0,
+        "last_activity": "2026-03-26T18:33:31.406162"
+      },
+      "orchestrator": {
+        "status": "running",
+        "task": "Policy enforcement \u2014 wire token/rescue budget limits",
+        "task_id": "task-3",
+        "elapsed_s": 0.0,
+        "last_activity": "2026-03-26T18:34:58.240632",
+        "sub_agents": [],
+        "worker_count": 0
+      },
+      "frontend_agent": {
+        "status": "running",
+        "task": "Fix dashboard state \u2014 implement missing quality/model fields",
+        "task_id": "task-2",
+        "elapsed_s": 0.0,
+        "last_activity": "2026-03-26T18:34:50.664287",
+        "sub_agents": [],
+        "worker_count": 0
       }
     },
     "task_queue": {
-      "total": 5,
-      "completed": 5,
+      "total": 0,
+      "completed": 0,
       "in_progress": 0,
       "failed": 0,
       "pending": 0
@@ -69,63 +82,15 @@
       "alert_level": "ok"
     },
     "failures": [],
-    "research_feed": [
-      {
-        "ts": "2026-03-26T17:08:48.953682",
-        "finding": "v5: Model produces code that fails assertion tests silently",
-        "source": ""
-      },
-      {
-        "ts": "2026-03-26T17:08:48.953353",
-        "finding": "v5: Model writes wrong import paths for multi-file projects",
-        "source": ""
-      },
-      {
-        "ts": "2026-03-26T17:08:48.952355",
-        "finding": "v5: Model truncates code in the middle of a function",
-        "source": ""
-      },
-      {
-        "ts": "2026-03-26T13:35:42.762772",
-        "finding": "\ud83d\udeab BLOCKER: Only 1/10 agents loaded",
-        "message": "\ud83d\udeab BLOCKER: Only 1/10 agents loaded",
-        "agent": "system"
-      },
-      {
-        "ts": "2026-03-26T13:35:42.762777",
-        "finding": "\ud83d\udca1 IMPROVEMENT: Dashboard updates slow (174s)",
-        "message": "\ud83d\udca1 IMPROVEMENT: Dashboard updates slow (174s)",
-        "agent": "system"
-      }
-    ],
+    "research_feed": [],
     "version_changelog": {},
-    "comprehensive": {
-      "agents_count": 1,
-      "sub_agents_count": 3,
-      "projects_count": 5,
-      "operations": {
-        "orchestrator": "running",
-        "task_intake": "continuous",
-        "health_monitor": "every 30 min",
-        "auto_restart": true,
-        "works_24_7": true,
-        "launchd_service": "active"
-      },
-      "blockers": [
-        "Only 1/10 agents loaded"
-      ],
-      "improvements": [
-        "Dashboard updates slow (174s)"
-      ],
-      "summary": {
-        "system_status": "warning",
-        "agents_active": 1,
-        "projects_active": 5,
-        "tasks_in_progress": 0
-      }
-    },
+    "quality": 0,
+    "quality_score": 0,
+    "model": "local-v1",
+    "recent_tasks": [],
+    "changelog": [],
     "epic_board": {
-      "ts": "2026-03-26T17:08:59.850021",
+      "ts": "2026-03-26T18:35:16.610125",
       "epics": [
         {
           "id": "system-reliability",
@@ -133,11 +98,11 @@
           "track": "infrastructure",
           "status": "in_progress",
           "total_tasks": 1,
-          "completed": 0,
+          "completed": 1,
           "in_progress": 0,
-          "pending": 1,
+          "pending": 0,
           "blocked": 0,
-          "progress_pct": 0.0,
+          "progress_pct": 100.0,
           "agents": [
             "orchestrator"
           ],
@@ -150,8 +115,8 @@
           "status": "pending",
           "total_tasks": 1,
           "completed": 0,
-          "in_progress": 0,
-          "pending": 1,
+          "in_progress": 1,
+          "pending": 0,
           "blocked": 0,
           "progress_pct": 0.0,
           "agents": [
@@ -165,11 +130,11 @@
           "track": "infrastructure",
           "status": "pending",
           "total_tasks": 1,
-          "completed": 0,
+          "completed": 1,
           "in_progress": 0,
-          "pending": 1,
+          "pending": 0,
           "blocked": 0,
-          "progress_pct": 0.0,
+          "progress_pct": 100.0,
           "agents": [
             "orchestrator"
           ],
@@ -206,6 +171,22 @@
             "orchestrator"
           ],
           "agent_count": 1
+        },
+        {
+          "id": "incidents",
+          "name": "Incident Response",
+          "track": "infrastructure",
+          "status": "active",
+          "total_tasks": 2,
+          "completed": 0,
+          "in_progress": 0,
+          "pending": 2,
+          "blocked": 0,
+          "progress_pct": 0.0,
+          "agents": [
+            "orchestrator"
+          ],
+          "agent_count": 1
         }
       ],
       "operations": {
@@ -216,16 +197,13 @@
         "works_24_7": true
       }
     },
+    "board_plan": {
+      "projects": [],
+      "stages": []
+    },
     "auto_heal_feed": [
       {
-        "ts": "2026-03-27T00:08:48",
-        "level": "INFO",
-        "event": "started",
-        "detail": "Auto-heal monitor started (checks every 10s)",
-        "agent": ""
-      },
-      {
-        "ts": "2026-03-27T00:08:59",
+        "ts": "2026-03-27T01:35:16",
         "level": "INFO",
         "event": "started",
         "detail": "Auto-heal monitor started (checks every 10s)",
@@ -238,7 +216,7 @@
       "retrains": 0
     },
     "auto_heal_status": {
-      "ts": "2026-03-27T00:08:59",
+      "ts": "2026-03-27T01:35:16",
       "issues_this_cycle": [],
       "healthy": true,
       "dashboard_alive": true,

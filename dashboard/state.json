@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-26T17:42:13.165268",
+  "ts": "2026-03-26T18:36:52.798690",
   "version": {
     "current": 0,
     "total": 100,
@@ -7,22 +7,61 @@
     "label": "v0 \u2192 v100"
   },
   "agents": {
-    "architect": {
-      "status": "done",
-      "task": "[100/100] Build a real-time WebSocket chat server",
-      "task_id": 3,
+    "executor": {
+      "sub_agents": [
+        {
+          "id": 0,
+          "status": "failed",
+          "task": "System health check \u2014 verify orchestrator/das",
+          "model": "",
+          "elapsed_s": 0.0,
+          "quality": 0
+        },
+        {
+          "id": 1,
+          "status": "failed",
+          "task": "System health check \u2014 verify orchestrator/das",
+          "model": "",
+          "elapsed_s": 0.0,
+          "quality": 0
+        },
+        {
+          "id": 2,
+          "status": "failed",
+          "task": "System health check \u2014 verify orchestrator/das",
+          "model": "",
+          "elapsed_s": 0.0,
+          "quality": 0
+        }
+      ],
+      "worker_count": 0,
+      "last_activity": "2026-03-26T18:33:31.406162"
+    },
+    "orchestrator": {
+      "status": "running",
+      "task": "Policy enforcement \u2014 wire token/rescue budget limits",
+      "task_id": "task-3",
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-26T17:16:23.586332",
+      "last_activity": "2026-03-26T18:34:58.240632",
+      "sub_agents": [],
+      "worker_count": 0
+    },
+    "frontend_agent": {
+      "status": "running",
+      "task": "Fix dashboard state \u2014 implement missing quality/model fields",
+      "task_id": "task-2",
+      "elapsed_s": 0.0,
+      "last_activity": "2026-03-26T18:34:50.664287",
       "sub_agents": [],
       "worker_count": 0
     }
   },
   "task_queue": {
-    "total": 100,
-    "completed": 3,
+    "total": 0,
+    "completed": 0,
     "in_progress": 0,
     "failed": 0,
-    "pending": 97
+    "pending": 0
   },
   "benchmark_scores": {},
   "token_usage": {
@@ -48,7 +87,7 @@
   "recent_tasks": [],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-26T17:42:13.165154",
+    "ts": "2026-03-26T18:36:52.798631",
     "epics": [
       {
         "id": "system-reliability",
@@ -57,8 +96,8 @@
         "status": "in_progress",
         "total_tasks": 1,
         "completed": 0,
-        "in_progress": 0,
-        "pending": 1,
+        "in_progress": 1,
+        "pending": 0,
         "blocked": 0,
         "progress_pct": 0.0,
         "agents": [
@@ -70,11 +109,11 @@
         "id": "dashboard-quality",
         "name": "Dashboard Quality & State Management",
         "track": "infrastructure",
-        "status": "pending",
+        "status": "in_progress",
         "total_tasks": 1,
         "completed": 0,
-        "in_progress": 0,
-        "pending": 1,
+        "in_progress": 1,
+        "pending": 0,
         "blocked": 0,
         "progress_pct": 0.0,
         "agents": [
@@ -135,10 +174,10 @@
         "name": "Incident Response",
         "track": "infrastructure",
         "status": "active",
-        "total_tasks": 1,
+        "total_tasks": 2,
         "completed": 0,
-        "in_progress": 0,
-        "pending": 1,
+        "in_progress": 2,
+        "pending": 0,
         "blocked": 0,
         "progress_pct": 0.0,
         "agents": [
@@ -155,8 +194,26 @@
       "works_24_7": true
     }
   },
+  "board_plan": {
+    "projects": [],
+    "stages": []
+  },
+  "auto_heal_feed": [
+    {
+      "ts": "2026-03-27T01:35:16",
+      "level": "INFO",
+      "event": "started",
+      "detail": "Auto-heal monitor started (checks every 10s)",
+      "agent": ""
+    }
+  ],
+  "auto_heal_counts": {
+    "restarts": 0,
+    "purges": 0,
+    "retrains": 0
+  },
   "auto_heal_status": {
-    "ts": "2026-03-27T00:16:20",
+    "ts": "2026-03-27T01:36:56",
     "issues_this_cycle": [],
     "healthy": true,
     "dashboard_alive": true,

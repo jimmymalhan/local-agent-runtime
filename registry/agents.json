@@ -12,10 +12,10 @@
       ],
       "model": "qwen2.5-coder:7b",
       "benchmark_scores": {
-        "v1": 78.1
+        "v1": 98.3
       },
-      "win_rate": 97.3,
-      "avg_quality": 78.1,
+      "win_rate": 100.0,
+      "avg_quality": 98.3,
       "last_updated": "2026-03-25"
     },
     "planner": {
