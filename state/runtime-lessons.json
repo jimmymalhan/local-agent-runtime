@@ -920,11 +920,18 @@
         "error": "No module named 'agent_runner'",
         "success": false,
         "timestamp": "2026-03-26T22:10:22.221842"
+      },
+      {
+        "attempt": 5,
+        "strategy": "autonomous",
+        "error": "cannot import name 'run_task' from 'agent_runner' (/Users/jimmymalhan/Documents/local-agent-runtime/agent_runner.py)",
+        "success": false,
+        "timestamp": "2026-03-26T22:53:06.615801"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-26T21:52:27.150352",
-    "rescue_escalated_at": "2026-03-26T22:10:22.226269"
+    "rescue_escalated_at": "2026-03-26T22:53:06.618967"
   },
   "incident-1774575243": {
     "attempts": [
@@ -955,11 +962,18 @@
         "error": "No module named 'agent_runner'",
         "success": false,
         "timestamp": "2026-03-26T22:10:24.617757"
+      },
+      {
+        "attempt": 5,
+        "strategy": "autonomous",
+        "error": "cannot import name 'run_task' from 'agent_runner' (/Users/jimmymalhan/Documents/local-agent-runtime/agent_runner.py)",
+        "success": false,
+        "timestamp": "2026-03-26T22:53:09.035508"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-26T21:52:29.553385",
-    "rescue_escalated_at": "2026-03-26T22:10:24.621165"
+    "rescue_escalated_at": "2026-03-26T22:53:09.040661"
   },
   "11": {
     "attempts": [

@@ -1,13 +1,13 @@
 {
   "version": 5,
-  "ts": "2026-03-27T05:42:22",
+  "ts": "2026-03-27T05:52:54",
   "state": {
-    "ts": "2026-03-26T22:42:21.218071",
+    "ts": "2026-03-26T22:52:52.353033",
     "version": {
-      "current": 1,
+      "current": 5,
       "total": 100,
-      "pct_complete": 1.0,
-      "label": "v1 running"
+      "pct_complete": 5.0,
+      "label": "v5 complete \u2014 win_rate=74.5%"
     },
     "agents": {
       "executor": {
@@ -49,7 +49,7 @@
         "task": "",
         "task_id": null,
         "elapsed_s": 0.0,
-        "last_activity": "2026-03-26T22:42:01.704817",
+        "last_activity": "2026-03-26T22:50:01.731040",
         "sub_agents": [],
         "worker_count": 0
       },
@@ -63,23 +63,56 @@
         "worker_count": 0
       },
       "architect": {
-        "status": "running",
-        "task": "Build a real-time WebSocket chat server",
-        "task_id": 3,
+        "status": "done",
+        "task": "[100/100] Build an actor model concurrency system",
+        "task_id": 85,
         "elapsed_s": 0.0,
-        "last_activity": "2026-03-26T22:42:02.059927",
+        "last_activity": "2026-03-26T22:48:19.958278",
+        "sub_agents": [],
+        "worker_count": 0
+      },
+      "debugger": {
+        "status": "done",
+        "task": "[100/100] Fix incorrect async/await usage causing unhandled ",
+        "task_id": 95,
+        "elapsed_s": 0.0,
+        "last_activity": "2026-03-26T22:49:59.758875",
+        "sub_agents": [],
+        "worker_count": 0
+      },
+      "researcher": {
+        "status": "done",
+        "task": "[100/100] Research production observability stack for Python",
+        "task_id": 100,
+        "elapsed_s": 0.0,
+        "last_activity": "2026-03-26T22:50:01.727354",
         "sub_agents": [],
         "worker_count": 0
       }
     },
     "task_queue": {
-      "total": 3,
-      "completed": 2,
-      "in_progress": 1,
-      "failed": 0,
+      "total": 102,
+      "completed": 80,
+      "in_progress": 0,
+      "failed": 22,
       "pending": 0
     },
-    "benchmark_scores": {},
+    "benchmark_scores": {
+      "v1": {
+        "local": 100.0,
+        "opus": 70.0,
+        "gap": 30.0,
+        "win_rate": 100.0,
+        "ts": "2026-03-26T22:43:41.492221"
+      },
+      "v5": {
+        "local": 69.4,
+        "opus": 70.0,
+        "gap": -0.6,
+        "win_rate": 74.5,
+        "ts": "2026-03-26T22:50:01.733397"
+      }
+    },
     "token_usage": {
       "claude_tokens": 0,
       "local_tokens": 0,
@@ -88,8 +121,8 @@
       "hard_limit_hit": false
     },
     "hardware": {
-      "cpu_pct": 43.4,
-      "ram_pct": 70.8,
+      "cpu_pct": 40.6,
+      "ram_pct": 58.1,
       "disk_pct": 0.0,
       "gpu_pct": null,
       "alert_level": "ok"
@@ -106,6 +139,21 @@
     ],
     "research_feed": [
       {
+        "ts": "2026-03-26T22:52:54.035317",
+        "finding": "v5: Model produces code that fails assertion tests silently",
+        "source": ""
+      },
+      {
+        "ts": "2026-03-26T22:52:54.034630",
+        "finding": "v5: Model writes wrong import paths for multi-file projects",
+        "source": ""
+      },
+      {
+        "ts": "2026-03-26T22:52:54.033812",
+        "finding": "v5: Model truncates code in the middle of a function",
+        "source": ""
+      },
+      {
         "ts": "2026-03-26T22:42:22.496836",
         "finding": "v5: Model produces code that fails assertion tests silently",
         "source": ""
@@ -121,7 +169,34 @@
         "source": ""
       }
     ],
-    "version_changelog": {},
+    "version_changelog": {
+      "v1": {
+        "changes": [
+          "win_rate=100.0%",
+          "local_avg=100.0",
+          "opus_avg=70.0",
+          "rescued=0.0%",
+          "tasks=3"
+        ],
+        "before_score": 70.0,
+        "after_score": 100.0,
+        "delta": 30.0,
+        "ts": "2026-03-26T22:43:41.492849"
+      },
+      "v5": {
+        "changes": [
+          "win_rate=74.5%",
+          "local_avg=69.4",
+          "opus_avg=70.0",
+          "rescued=0.0%",
+          "tasks=102"
+        ],
+        "before_score": 70.0,
+        "after_score": 69.4,
+        "delta": -0.6,
+        "ts": "2026-03-26T22:50:01.734092"
+      }
+    },
     "quality": 0,
     "quality_score": 0,
     "model": "local-v1",
@@ -147,13 +222,13 @@
         "title": "Build a real-time WebSocket chat server",
         "category": "scaffold",
         "agent_used": "architect",
-        "status": "running",
-        "local_quality": 0
+        "status": "done",
+        "local_quality": 100
       }
     ],
     "changelog": [],
     "epic_board": {
-      "ts": "2026-03-26T22:42:21.217874",
+      "ts": "2026-03-26T22:52:52.352886",
       "epics": [
         {
           "id": "system-reliability",
@@ -310,33 +385,33 @@
               "task_id": 3,
               "title": "Build a real-time WebSocket chat server",
               "difficulty": "hard",
-              "status": "running",
+              "status": "done",
               "agent": "architect",
-              "quality": 0,
-              "elapsed_s": 0.0
+              "quality": 100,
+              "elapsed_s": 99.4
             }
           ],
           "total": 3,
-          "done": 2,
-          "in_progress": 1,
+          "done": 3,
+          "in_progress": 0,
           "failed": 0,
-          "status": "running",
-          "pct": 66.7
+          "status": "done",
+          "pct": 100.0
         }
       ],
       "initialized_at": "2026-03-26T22:39:32.513113",
       "status": "planned"
     },
     "business_summary": {
-      "headline": "2 of 3 engineering tasks complete",
-      "pct_complete": 66.7,
-      "projects_active": 1,
+      "headline": "80 of 102 engineering tasks complete",
+      "pct_complete": 78.4,
+      "projects_active": 0,
       "blockers_open": 0,
       "version": 1,
-      "updated_at": "2026-03-26T22:42:02.061209"
+      "updated_at": "2026-03-26T22:50:01.728844"
     },
     "auto_heal_status": {
-      "ts": "2026-03-27T05:42:22",
+      "ts": "2026-03-27T05:52:54",
       "issues_this_cycle": [],
       "healthy": true,
       "dashboard_alive": true,
@@ -405,6 +480,13 @@
       },
       {
         "ts": "2026-03-27T05:42:22",
+        "level": "INFO",
+        "event": "started",
+        "detail": "Auto-heal monitor started (checks every 10s)",
+        "agent": ""
+      },
+      {
+        "ts": "2026-03-27T05:52:54",
         "level": "INFO",
         "event": "started",
         "detail": "Auto-heal monitor started (checks every 10s)",
@@ -639,6 +721,15 @@
         "doc_writer"
       ],
       "patched": []
+    },
+    "eta": {
+      "version": 206,
+      "date": "2026-04-04 06:50:01",
+      "hours": 200.0,
+      "days": 8.33,
+      "weeks": 1.19,
+      "improvement_rate": 0.5,
+      "confidence": "low"
     }
   }
 }

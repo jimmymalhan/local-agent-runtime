@@ -15,3 +15,4 @@
 {"event": "committed", "agent": "test_engineer", "ts": "2026-03-27T05:36:38", "a_avg": 0, "b_avg": 61.2, "delta": 61.2}
 {"event": "ab_started", "agent": "test_engineer", "ts": "2026-03-27T05:36:51", "failure_pattern": "import pytest\nfrom impl import naive_function, optimized_function\n\n@pytest.mark.benchmark(group=\"algorithm_benchmark\")\ndef test_naive_performance(benchmark):\n    result = benchmark(naive_function, 100", "patch_preview": "\n\n[AUTO-IMPROVEMENT 20260327-0536]\n- Only use stdlib imports. Never import third-party packages unless listed."}
 {"event": "committed", "agent": "test_engineer", "ts": "2026-03-27T05:39:47", "a_avg": 0, "b_avg": 61.2, "delta": 61.2}
+{"event": "rolled_back", "agent": "executor", "ts": "2026-03-27T05:53:09", "a_avg": 0, "b_avg": 0.0, "delta": 0.0}

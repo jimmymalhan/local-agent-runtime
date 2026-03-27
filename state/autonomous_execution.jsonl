@@ -436,3 +436,7 @@
 {"ts": "2026-03-26T22:50:00.931840", "action": "execute_task", "agent": "executor", "task_id": 98, "attempt": 1, "status": "done", "quality": 100, "tokens": 0, "elapsed": 0.04067397117614746, "autonomous": true}
 {"ts": "2026-03-26T22:50:01.327431", "action": "execute_task", "agent": "executor", "task_id": 99, "attempt": 1, "status": "done", "quality": 100, "tokens": 0, "elapsed": 0.03767204284667969, "autonomous": true}
 {"ts": "2026-03-26T22:50:01.725021", "action": "execute_task", "agent": "executor", "task_id": 100, "attempt": 1, "status": "done", "quality": 100, "tokens": 0, "elapsed": 0.034471988677978516, "autonomous": true}
+{"ts": "2026-03-26T22:53:04.604008", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 49%"}
+{"ts": "2026-03-26T22:53:06.614046", "action": "execute_failed", "agent": "executor", "task_id": "incident-1774572089", "attempts": 3, "last_error": "cannot import name 'run_task' from 'agent_runner' (/Users/jimmymalhan/Documents/local-agent-runtime/"}
+{"ts": "2026-03-26T22:53:07.018660", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 49%"}
+{"ts": "2026-03-26T22:53:09.031514", "action": "execute_failed", "agent": "executor", "task_id": "incident-1774575243", "attempts": 3, "last_error": "cannot import name 'run_task' from 'agent_runner' (/Users/jimmymalhan/Documents/local-agent-runtime/"}
