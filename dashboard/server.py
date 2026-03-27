@@ -18,11 +18,11 @@ import os, sys, json, time, asyncio, argparse, socket, subprocess
 from pathlib import Path
 from datetime import datetime
 
-BASE_DIR   = str(Path(__file__).parent.parent)
-DASH_DIR   = str(Path(__file__).parent)
-STATE_FILE = os.path.join(DASH_DIR, "state.json")
-ROOT_DIR   = str(Path(__file__).parent.parent.parent)
-REPORTS    = os.path.join(BASE_DIR, "reports")
+BASE_DIR   = Path(__file__).parent.parent
+DASH_DIR   = Path(__file__).parent
+STATE_FILE = str(DASH_DIR / "state.json")
+ROOT_DIR   = Path(__file__).parent.parent.parent
+REPORTS    = str(BASE_DIR / "reports")
 RESCUE_LOG = os.path.join(REPORTS, "claude_rescue_upgrades.jsonl")
 TOKEN_LOG  = os.path.join(REPORTS, "claude_token_log.jsonl")
 
