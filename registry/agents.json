@@ -129,7 +129,10 @@
       "benchmark_scores": {},
       "win_rate": null,
       "avg_quality": null,
-      "last_updated": "2026-03-25"
+      "last_updated": "2026-03-25",
+      "system_prompt_override": "\n\n[AUTO-IMPROVEMENT 20260327-0535]\n- Break complex tasks into steps. Complete each step before the next.\n- Only use stdlib imports. Never import third-party packages unless listed.",
+      "prompt_version": 1,
+      "prompt_updated": "2026-03-27T05:36:38"
     },
     "doc_writer": {
       "file": "agents/doc_writer.py",

@@ -1,9 +1,9 @@
 {
   "executor": {
     "success": 16,
-    "total": 157,
+    "total": 177,
     "tokens": 3094,
-    "success_rate": 0.1
+    "success_rate": 0.09
   },
   "researcher": {
     "success": 4,
@@ -24,9 +24,15 @@
     "success_rate": 1.0
   },
   "refactor": {
-    "success": 37,
-    "total": 37,
-    "tokens": 46749,
+    "success": 40,
+    "total": 40,
+    "tokens": 50042,
+    "success_rate": 1.0
+  },
+  "test_engineer": {
+    "success": 12,
+    "total": 12,
+    "tokens": 9155,
     "success_rate": 1.0
   }
 }

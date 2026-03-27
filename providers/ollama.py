@@ -86,7 +86,7 @@ class OllamaProvider(NexusProvider):
             "type": "code_gen",
         }
         try:
-            sys.path.insert(0, BASE_DIR)
+            sys.path.insert(0, os.path.join(BASE_DIR, 'scripts'))
             from agent_runner import run_agent
             result = run_agent(
                 task=task,
