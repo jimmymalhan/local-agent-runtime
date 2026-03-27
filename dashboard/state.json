@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-27T15:24:34.334780",
+  "ts": "2026-03-27T15:26:07.817496",
   "version": {
     "current": 1,
     "total": 100,
@@ -12,7 +12,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T15:24:31.857369",
+      "last_activity": "2026-03-27T15:26:01.876899",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -21,26 +21,26 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T15:24:31.857369",
+      "last_activity": "2026-03-27T15:26:01.876899",
       "sub_agents": [],
       "worker_count": 0
     },
     "executor": {
-      "last_activity": "2026-03-27T15:24:31.857369"
+      "last_activity": "2026-03-27T15:26:01.876899"
     },
     "test_engineer": {
-      "last_activity": "2026-03-27T15:24:31.857369"
+      "last_activity": "2026-03-27T15:26:01.876899"
     },
     "researcher": {
-      "last_activity": "2026-03-27T15:24:31.857369"
+      "last_activity": "2026-03-27T15:26:01.876899"
     }
   },
   "task_queue": {
     "total": 31,
     "completed": 18,
-    "pending": 13,
     "in_progress": 0,
-    "failed": 0
+    "failed": 0,
+    "pending": 13
   },
   "benchmark_scores": {
     "v1": {
@@ -53,9 +53,9 @@
   },
   "token_usage": {
     "claude_tokens": 0,
-    "local_tokens": 194624,
-    "budget_pct": 38.9,
-    "warning": false,
+    "local_tokens": 486160,
+    "budget_pct": 97.232,
+    "warning": true,
     "hard_limit_hit": false
   },
   "hardware": {
@@ -129,7 +129,7 @@
   ],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-27T08:24:31.927766",
+    "ts": "2026-03-27T08:26:03.430259",
     "epics": [
       {
         "id": "system-reliability",
@@ -250,11 +250,11 @@
         "track": "infrastructure",
         "status": "in_progress",
         "total_tasks": 15,
-        "completed": 1,
+        "completed": 2,
         "in_progress": 0,
-        "pending": 14,
+        "pending": 13,
         "blocked": 0,
-        "progress_pct": 6.7,
+        "progress_pct": 13.3,
         "agents": [
           "architect",
           "benchmarker",
