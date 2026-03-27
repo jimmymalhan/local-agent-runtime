@@ -91,3 +91,25 @@
 {"ts": "2026-03-26T18:55:32.670831", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-1", "attempts": 3, "last_error": "Unknown error"}
 {"ts": "2026-03-26T18:55:33.049413", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "expert", "reason": "Success rate 85%"}
 {"ts": "2026-03-26T18:55:33.056995", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-2", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:55:50.748946", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 84%"}
+{"ts": "2026-03-26T18:55:52.767398", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T18:55:53.167772", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 83%"}
+{"ts": "2026-03-26T18:55:55.180343", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T18:58:51.298852", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 81%"}
+{"ts": "2026-03-26T18:58:53.309430", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T18:58:53.723085", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 80%"}
+{"ts": "2026-03-26T18:58:55.730218", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T18:58:56.137873", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 79%"}
+{"ts": "2026-03-26T18:58:58.159924", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "No module named 'agent_runner'"}
+{"ts": "2026-03-26T18:58:58.570899", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 78%"}
+{"ts": "2026-03-26T18:58:58.592537", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:58:58.967968", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 77%"}
+{"ts": "2026-03-26T18:58:58.977266", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-2", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:58:59.383797", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 76%"}
+{"ts": "2026-03-26T18:58:59.391902", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-3", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:58:59.783277", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 75%"}
+{"ts": "2026-03-26T18:58:59.791137", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-4", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:59:00.178934", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 74%"}
+{"ts": "2026-03-26T18:59:00.187035", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-5", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:59:00.589506", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "complex", "reason": "Success rate 73%"}
+{"ts": "2026-03-26T18:59:00.596501", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-6", "attempts": 3, "last_error": "Unknown error"}

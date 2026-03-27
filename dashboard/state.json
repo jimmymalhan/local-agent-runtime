@@ -1,23 +1,23 @@
 {
-  "ts": "2026-03-26T18:55:43.469577",
+  "ts": "2026-03-26T19:00:08.357538",
   "version": {
-    "current": 1,
+    "current": 0,
     "total": 100,
-    "pct_complete": 1.0,
-    "label": "v1 complete \u2014 win_rate=0.0%"
+    "pct_complete": 0.0,
+    "label": "v0 \u2192 v100"
   },
   "agents": {
     "executor": {
       "status": "blocked",
-      "task": "[0/100] P0: Fix task router stuck-task logic \u2014 retry in_pr",
-      "task_id": "task-fix-2",
+      "task": "[0/100] P0: System health check baseline \u2014 all 5 checks pa",
+      "task_id": "task-fix-6",
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-26T18:55:33.058101",
+      "last_activity": "2026-03-26T18:59:00.597555",
       "sub_agents": [
         {
           "id": 0,
           "status": "failed",
-          "task": "P0: Fix task router stuck-task logic \u2014 retry ",
+          "task": "P0: System health check baseline \u2014 all 5 chec",
           "model": "",
           "elapsed_s": 0.0,
           "quality": 0
@@ -25,7 +25,7 @@
         {
           "id": 1,
           "status": "failed",
-          "task": "P0: Fix task router stuck-task logic \u2014 retry ",
+          "task": "P0: System health check baseline \u2014 all 5 chec",
           "model": "",
           "elapsed_s": 0.0,
           "quality": 0
@@ -33,7 +33,7 @@
         {
           "id": 2,
           "status": "failed",
-          "task": "P0: Fix task router stuck-task logic \u2014 retry ",
+          "task": "P0: System health check baseline \u2014 all 5 chec",
           "model": "",
           "elapsed_s": 0.0,
           "quality": 0
@@ -46,27 +46,28 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-26T18:55:33.059577",
+      "last_activity": "2026-03-26T18:59:00.598886",
+      "sub_agents": [],
+      "worker_count": 0
+    },
+    "architect": {
+      "status": "running",
+      "task": "Build a production FastAPI REST API with JWT auth",
+      "task_id": 1,
+      "elapsed_s": 0.0,
+      "last_activity": "2026-03-26T18:59:00.971723",
       "sub_agents": [],
       "worker_count": 0
     }
   },
   "task_queue": {
-    "total": 5,
+    "total": 109,
     "completed": 0,
-    "in_progress": 0,
-    "failed": 5,
-    "pending": 0
+    "in_progress": 1,
+    "failed": 9,
+    "pending": 108
   },
-  "benchmark_scores": {
-    "v1": {
-      "local": 0.0,
-      "opus": 70.0,
-      "gap": -70.0,
-      "win_rate": 0.0,
-      "ts": "2026-03-26T18:55:33.060851"
-    }
-  },
+  "benchmark_scores": {},
   "token_usage": {
     "claude_tokens": 0,
     "local_tokens": 0,
@@ -75,45 +76,47 @@
     "hard_limit_hit": false
   },
   "hardware": {
-    "cpu_pct": 0.0,
-    "ram_pct": 0.0,
+    "cpu_pct": 38.7,
+    "ram_pct": 70.2,
     "disk_pct": 0.0,
     "gpu_pct": null,
     "alert_level": "ok"
   },
   "failures": [
     {
-      "ts": "2026-03-26T18:55:33.057591",
+      "ts": "2026-03-26T18:59:00.597120",
       "agent": "executor",
-      "task": "P0: Fix task router stuck-task logic \u2014 retry in_progress > 5",
-      "task_id": "task-fix-2",
+      "task": "P0: System health check baseline \u2014 all 5 checks pass",
+      "task_id": "task-fix-6",
       "attempt": 1,
       "tried": "unknown error"
     }
   ],
-  "research_feed": [],
-  "version_changelog": {
-    "v1": {
-      "changes": [
-        "win_rate=0.0%",
-        "local_avg=0.0",
-        "opus_avg=70.0",
-        "rescued=0.0%",
-        "tasks=5"
-      ],
-      "before_score": 70.0,
-      "after_score": 0.0,
-      "delta": -70.0,
-      "ts": "2026-03-26T18:55:33.061181"
+  "research_feed": [
+    {
+      "ts": "2026-03-26T18:59:41.919597",
+      "finding": "v5: Model produces code that fails assertion tests silently",
+      "source": ""
+    },
+    {
+      "ts": "2026-03-26T18:59:41.919141",
+      "finding": "v5: Model writes wrong import paths for multi-file projects",
+      "source": ""
+    },
+    {
+      "ts": "2026-03-26T18:59:41.918503",
+      "finding": "v5: Model truncates code in the middle of a function",
+      "source": ""
     }
-  },
+  ],
+  "version_changelog": {},
   "quality": 0,
   "quality_score": 0,
   "model": "local-v1",
   "recent_tasks": [],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-26T18:55:43.469475",
+    "ts": "2026-03-26T19:00:08.357435",
     "epics": [
       {
         "id": "system-reliability",
@@ -127,7 +130,7 @@
         "blocked": 0,
         "progress_pct": 0.0,
         "agents": [
-          "orchestrator"
+          "executor"
         ],
         "agent_count": 1
       },
@@ -143,7 +146,7 @@
         "blocked": 0,
         "progress_pct": 0.0,
         "agents": [
-          "frontend_agent"
+          "test_engineer"
         ],
         "agent_count": 1
       },
@@ -159,7 +162,7 @@
         "blocked": 0,
         "progress_pct": 0.0,
         "agents": [
-          "orchestrator"
+          "executor"
         ],
         "agent_count": 1
       },
@@ -175,7 +178,7 @@
         "blocked": 0,
         "progress_pct": 0.0,
         "agents": [
-          "orchestrator"
+          "executor"
         ],
         "agent_count": 1
       },
@@ -191,7 +194,7 @@
         "blocked": 0,
         "progress_pct": 0.0,
         "agents": [
-          "orchestrator"
+          "executor"
         ],
         "agent_count": 1
       },
@@ -207,8 +210,8 @@
         "blocked": 0,
         "progress_pct": 0.0,
         "agents": [
-          "frontend_agent",
-          "orchestrator"
+          "executor",
+          "test_engineer"
         ],
         "agent_count": 2
       },
@@ -224,7 +227,7 @@
         "blocked": 0,
         "progress_pct": 0.0,
         "agents": [
-          "orchestrator"
+          "executor"
         ],
         "agent_count": 1
       }
@@ -242,18 +245,32 @@
     "stages": []
   },
   "business_summary": {
-    "headline": "0 of 5 engineering tasks complete",
+    "headline": "0 of 109 engineering tasks complete",
     "pct_complete": 0.0,
     "projects_active": 0,
     "blockers_open": 0,
     "version": 1,
-    "updated_at": "2026-03-26T18:55:33.058728"
+    "updated_at": "2026-03-26T18:59:00.972578"
   },
   "auto_heal_status": {
-    "ts": "2026-03-27T01:55:39",
+    "ts": "2026-03-27T02:00:10",
     "issues_this_cycle": [],
     "healthy": true,
     "dashboard_alive": true,
     "disk_ok": true
+  },
+  "auto_heal_feed": [
+    {
+      "ts": "2026-03-27T01:59:41",
+      "level": "INFO",
+      "event": "started",
+      "detail": "Auto-heal monitor started (checks every 10s)",
+      "agent": ""
+    }
+  ],
+  "auto_heal_counts": {
+    "restarts": 0,
+    "purges": 0,
+    "retrains": 0
   }
 }
