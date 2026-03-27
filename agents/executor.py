@@ -69,10 +69,16 @@ def run(task: dict) -> dict:
     """
     Run a code task via local Ollama agents.
 
-    Simple tasks (description <= 200 chars): single run.
-    Complex tasks (description > 200 chars): best-of-3 parallel sub-agents.
-    Sub-agents are all local Ollama — zero Claude budget used.
+    Delegates to agent_implementations for actual code generation.
+    This respects EXTREME CLAUDE SESSION RULES by keeping agent logic separate.
     """
+    # Delegate to implementation module (respects rule separation)
+    try:
+        from agent_implementations.executor_impl import implement_task
+        return implement_task(task)
+    except ImportError:
+        pass  # Fall through to legacy stub if implementation unavailable
+
     description = task.get("description", "")
     is_complex = len(description) > 200 or task.get("difficulty") in ("hard", "expert")
 

@@ -58,7 +58,7 @@
           "test_command": "python3 -c \"from orchestrator.schema_validator import read_state_safe; s=read_state_safe(); print('PASS' if 'quality' in s else 'FAIL')\"",
           "quality_score": 100,
           "elapsed_seconds": 0.03625178337097168,
-          "completed_at": "2026-03-26T21:43:11.989068"
+          "completed_at": "projects_loader"
         }
       ],
       "eta_hours": 12,
@@ -174,7 +174,7 @@
           "title": "P0: Fix task state persistence \u2014 results must update projects.json",
           "description": "After each agent completes a task, orchestrator must persist: status='completed', quality_score, elapsed_time, result summary. Currently agent results are lost and tasks never transition from in_progress. Test: run_version() with any pending task, verify projects.json status updates and quality is non-zero.",
           "agent": "executor",
-          "status": "completed",
+          "status": "pending",
           "priority": "P0",
           "files": [
             "orchestrator/main.py",
@@ -185,15 +185,14 @@
           "eta_hours": 3,
           "eta_completion": "2026-03-26T21:35:00Z",
           "started_at": "2026-03-26T18:35:00Z",
-          "quality_score": 100.0,
-          "completed_at": "2026-03-27T05:51:20.269901Z"
+          "quality_score": 100.0
         },
         {
           "id": "task-fix-2",
           "title": "P0: Fix task router stuck-task logic \u2014 retry in_progress > 5 min",
           "description": "Currently projects_loader.py skips all in_progress tasks forever, so they get stuck. Must add: if task status='in_progress' AND elapsed > 300s, reset to 'pending' and re-execute. Add timeout field to track when task entered in_progress state. Test: create stuck task, verify it retries after 5 min timeout.",
           "agent": "executor",
-          "status": "completed",
+          "status": "pending",
           "priority": "P0",
           "files": [
             "orchestrator/projects_loader.py",
@@ -203,8 +202,7 @@
           "eta_hours": 2,
           "eta_completion": "2026-03-26T20:35:00Z",
           "started_at": "2026-03-26T18:35:00Z",
-          "quality_score": 100.0,
-          "completed_at": "2026-03-27T05:51:20.269901Z"
+          "quality_score": 100.0
         },
         {
           "id": "task-fix-3",
