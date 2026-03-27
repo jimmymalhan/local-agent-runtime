@@ -214,11 +214,18 @@
         "error": "No module named 'agent_runner'",
         "success": false,
         "timestamp": "2026-03-26T21:02:51.815551"
+      },
+      {
+        "attempt": 29,
+        "strategy": "autonomous",
+        "error": "No module named 'agent_runner'",
+        "success": false,
+        "timestamp": "2026-03-26T21:13:22.616522"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-26T18:55:31.505847",
-    "rescue_escalated_at": "2026-03-26T20:42:51.926263"
+    "rescue_escalated_at": "2026-03-26T21:13:22.617411"
   },
   "task-4": {
     "attempts": [
@@ -340,11 +347,18 @@
         "error": "No module named 'agent_runner'",
         "success": false,
         "timestamp": "2026-03-26T21:02:54.242851"
+      },
+      {
+        "attempt": 18,
+        "strategy": "autonomous",
+        "error": "No module named 'agent_runner'",
+        "success": false,
+        "timestamp": "2026-03-26T21:13:25.029664"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-26T18:55:31.907226",
-    "rescue_escalated_at": "2026-03-26T20:42:54.341374"
+    "rescue_escalated_at": "2026-03-26T21:13:25.030720"
   },
   "task-5": {
     "attempts": [
@@ -452,11 +466,18 @@
         "error": "No module named 'agent_runner'",
         "success": false,
         "timestamp": "2026-03-26T21:02:56.648524"
+      },
+      {
+        "attempt": 16,
+        "strategy": "autonomous",
+        "error": "No module named 'agent_runner'",
+        "success": false,
+        "timestamp": "2026-03-26T21:13:27.447332"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-26T18:55:32.294569",
-    "rescue_escalated_at": "2026-03-26T20:42:56.755165"
+    "rescue_escalated_at": "2026-03-26T21:13:27.450463"
   },
   "task-fix-1": {
     "attempts": [
@@ -893,10 +914,25 @@
         "error": "No module named 'agent_runner'",
         "success": false,
         "timestamp": "2026-03-26T21:02:47.004586"
+      },
+      {
+        "attempt": 7,
+        "strategy": "autonomous",
+        "error": "No module named 'agent_runner'",
+        "success": false,
+        "timestamp": "2026-03-26T21:13:17.785662"
+      },
+      {
+        "attempt": 8,
+        "strategy": "autonomous",
+        "error": "No module named 'agent_runner'",
+        "success": false,
+        "timestamp": "2026-03-26T21:13:47.223958"
       }
     ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-26T20:42:47.076337"
+    "rescue_escalated": true,
+    "first_attempt_at": "2026-03-26T20:42:47.076337",
+    "rescue_escalated_at": "2026-03-26T21:13:47.227138"
   },
   "task-2": {
     "attempts": [
@@ -920,9 +956,17 @@
         "error": "No module named 'agent_runner'",
         "success": false,
         "timestamp": "2026-03-26T21:02:49.415364"
+      },
+      {
+        "attempt": 4,
+        "strategy": "autonomous",
+        "error": "No module named 'agent_runner'",
+        "success": false,
+        "timestamp": "2026-03-26T21:13:20.198701"
       }
     ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-26T20:42:49.497874"
+    "rescue_escalated": true,
+    "first_attempt_at": "2026-03-26T20:42:49.497874",
+    "rescue_escalated_at": "2026-03-26T21:13:20.201563"
   }
 }
