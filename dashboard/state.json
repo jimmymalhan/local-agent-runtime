@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-26T13:35:42.762780",
+  "ts": "2026-03-26T17:10:45.696656",
   "version": {
     "current": 0,
     "total": 0,
@@ -68,6 +68,21 @@
   "failures": [],
   "research_feed": [
     {
+      "ts": "2026-03-26T17:08:48.953682",
+      "finding": "v5: Model produces code that fails assertion tests silently",
+      "source": ""
+    },
+    {
+      "ts": "2026-03-26T17:08:48.953353",
+      "finding": "v5: Model writes wrong import paths for multi-file projects",
+      "source": ""
+    },
+    {
+      "ts": "2026-03-26T17:08:48.952355",
+      "finding": "v5: Model truncates code in the middle of a function",
+      "source": ""
+    },
+    {
       "ts": "2026-03-26T13:35:42.762772",
       "finding": "\ud83d\udeab BLOCKER: Only 1/10 agents loaded",
       "message": "\ud83d\udeab BLOCKER: Only 1/10 agents loaded",
@@ -105,5 +120,125 @@
       "projects_active": 5,
       "tasks_in_progress": 0
     }
+  },
+  "epic_board": {
+    "ts": "2026-03-26T17:10:45.696478",
+    "epics": [
+      {
+        "id": "system-reliability",
+        "name": "System Reliability & Health",
+        "track": "infrastructure",
+        "status": "in_progress",
+        "total_tasks": 1,
+        "completed": 0,
+        "in_progress": 0,
+        "pending": 1,
+        "blocked": 0,
+        "progress_pct": 0.0,
+        "agents": [
+          "orchestrator"
+        ],
+        "agent_count": 1
+      },
+      {
+        "id": "dashboard-quality",
+        "name": "Dashboard Quality & State Management",
+        "track": "infrastructure",
+        "status": "pending",
+        "total_tasks": 1,
+        "completed": 0,
+        "in_progress": 0,
+        "pending": 1,
+        "blocked": 0,
+        "progress_pct": 0.0,
+        "agents": [
+          "frontend_agent"
+        ],
+        "agent_count": 1
+      },
+      {
+        "id": "policy-governance",
+        "name": "Policy Enforcement & Budget Control",
+        "track": "infrastructure",
+        "status": "pending",
+        "total_tasks": 1,
+        "completed": 0,
+        "in_progress": 0,
+        "pending": 1,
+        "blocked": 0,
+        "progress_pct": 0.0,
+        "agents": [
+          "orchestrator"
+        ],
+        "agent_count": 1
+      },
+      {
+        "id": "execution-optimization",
+        "name": "Multi-Loop Execution & Self-Improvement",
+        "track": "infrastructure",
+        "status": "pending",
+        "total_tasks": 1,
+        "completed": 0,
+        "in_progress": 0,
+        "pending": 1,
+        "blocked": 0,
+        "progress_pct": 0.0,
+        "agents": [
+          "orchestrator"
+        ],
+        "agent_count": 1
+      },
+      {
+        "id": "agent-autonomy",
+        "name": "Local Agent Autonomy Setup",
+        "track": "infrastructure",
+        "status": "pending",
+        "total_tasks": 1,
+        "completed": 0,
+        "in_progress": 0,
+        "pending": 1,
+        "blocked": 0,
+        "progress_pct": 0.0,
+        "agents": [
+          "orchestrator"
+        ],
+        "agent_count": 1
+      }
+    ],
+    "operations": {
+      "orchestrator": "running",
+      "task_intake": "continuous",
+      "health_monitor": "every 30 min",
+      "auto_restart": true,
+      "works_24_7": true
+    }
+  },
+  "auto_heal_feed": [
+    {
+      "ts": "2026-03-27T00:08:48",
+      "level": "INFO",
+      "event": "started",
+      "detail": "Auto-heal monitor started (checks every 10s)",
+      "agent": ""
+    },
+    {
+      "ts": "2026-03-27T00:08:59",
+      "level": "INFO",
+      "event": "started",
+      "detail": "Auto-heal monitor started (checks every 10s)",
+      "agent": ""
+    }
+  ],
+  "auto_heal_counts": {
+    "restarts": 0,
+    "purges": 0,
+    "retrains": 0
+  },
+  "auto_heal_status": {
+    "ts": "2026-03-27T00:10:39",
+    "issues_this_cycle": [],
+    "healthy": true,
+    "dashboard_alive": true,
+    "disk_ok": true
   }
 }
