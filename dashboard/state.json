@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-27T16:22:35.980894",
+  "ts": "2026-03-27T16:26:25.479738",
   "version": {
     "current": 1,
     "total": 100,
@@ -12,7 +12,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T16:22:32.691425",
+      "last_activity": "2026-03-27T16:26:02.743791",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -21,7 +21,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T16:22:32.691425",
+      "last_activity": "2026-03-27T16:26:02.743791",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -30,23 +30,23 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T16:22:32.691425",
+      "last_activity": "2026-03-27T16:26:02.743791",
       "sub_agents": [],
       "worker_count": 0
     },
     "test_engineer": {
-      "last_activity": "2026-03-27T16:22:32.691425"
+      "last_activity": "2026-03-27T16:26:02.743791"
     },
     "researcher": {
-      "last_activity": "2026-03-27T16:22:32.691425"
+      "last_activity": "2026-03-27T16:26:02.743791"
     }
   },
   "task_queue": {
     "total": 53,
     "completed": 46,
-    "pending": 7,
     "in_progress": 0,
-    "failed": 0
+    "failed": 0,
+    "pending": 7
   },
   "benchmark_scores": {
     "avg_local": 0.0,
@@ -79,9 +79,9 @@
   },
   "token_usage": {
     "claude_tokens": 0,
-    "local_tokens": 194624,
-    "budget_pct": 38.9,
-    "warning": false,
+    "local_tokens": 486160,
+    "budget_pct": 97.232,
+    "warning": true,
     "hard_limit_hit": false
   },
   "hardware": {
@@ -236,7 +236,7 @@
   ],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-27T09:22:34.335630",
+    "ts": "2026-03-27T09:26:25.453751",
     "epics": [
       {
         "id": "system-reliability",
@@ -398,11 +398,11 @@
         "track": "infrastructure",
         "status": "active",
         "total_tasks": 11,
-        "completed": 3,
+        "completed": 4,
         "in_progress": 0,
-        "pending": 8,
+        "pending": 7,
         "blocked": 0,
-        "progress_pct": 27.3,
+        "progress_pct": 36.4,
         "agents": [
           "executor",
           "frontend_engineer"
