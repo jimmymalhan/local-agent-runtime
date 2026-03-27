@@ -140,6 +140,117 @@
       "eta_completion": "2026-03-28T06:35:00Z"
     },
     {
+      "id": "blocker-fixes",
+      "name": "P0 Blockers — Unblock Task Execution (URGENT)",
+      "description": "Fix 6 critical blockers preventing local agents from executing tasks. Must complete within 12 hours.",
+      "status": "in_progress",
+      "tasks": [
+        {
+          "id": "task-fix-1",
+          "title": "P0: Fix task state persistence — results must update projects.json",
+          "description": "After each agent completes a task, orchestrator must persist: status='completed', quality_score, elapsed_time, result summary. Currently agent results are lost and tasks never transition from in_progress. Test: run_version() with any pending task, verify projects.json status updates and quality is non-zero.",
+          "agent": "orchestrator",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "orchestrator/main.py",
+            "orchestrator/projects_loader.py",
+            "projects.json"
+          ],
+          "success_criteria": "At least 1 task transitions from pending→completed in projects.json; quality_score is non-zero",
+          "eta_hours": 3,
+          "eta_completion": "2026-03-26T21:35:00Z",
+          "started_at": "2026-03-26T18:35:00Z"
+        },
+        {
+          "id": "task-fix-2",
+          "title": "P0: Fix task router stuck-task logic — retry in_progress > 5 min",
+          "description": "Currently projects_loader.py skips all in_progress tasks forever, so they get stuck. Must add: if task status='in_progress' AND elapsed > 300s, reset to 'pending' and re-execute. Add timeout field to track when task entered in_progress state. Test: create stuck task, verify it retries after 5 min timeout.",
+          "agent": "orchestrator",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "orchestrator/projects_loader.py",
+            "orchestrator/main.py"
+          ],
+          "success_criteria": "Stuck task (in_progress > 5min) resets to pending and re-executes; add test case to verify",
+          "eta_hours": 2,
+          "eta_completion": "2026-03-26T20:35:00Z",
+          "started_at": "2026-03-26T18:35:00Z"
+        },
+        {
+          "id": "task-fix-3",
+          "title": "P0: Wire quality score pipeline — executor → projects.json → dashboard",
+          "description": "Quality metric completely broken: executor returns quality=85 but dashboard shows 0. Trace: agents/executor.py → orchestrator/main.py → orchestrator/projects_loader.py → dashboard/state.json. Add logging at each step. Ensure quality_score is normalized and persisted. Test: executor returns quality=85, verify it appears in projects.json AND dashboard/state.json.",
+          "agent": "orchestrator",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "orchestrator/main.py",
+            "orchestrator/projects_loader.py",
+            "dashboard/state_writer.py",
+            "dashboard/state.json"
+          ],
+          "success_criteria": "Dashboard state.json shows quality > 0 for completed tasks; quality flows end-to-end",
+          "eta_hours": 4,
+          "eta_completion": "2026-03-26T22:35:00Z",
+          "started_at": "2026-03-26T18:35:00Z"
+        },
+        {
+          "id": "task-fix-4",
+          "title": "P0: Dashboard state writer — enforce schema validation",
+          "description": "state.json has null/empty fields: quality, model, recent_tasks, changelog, research_feed. Writer must validate: (1) no null values allowed, (2) missing fields get defaults, (3) types validated. Test: attempt to write invalid state, verify schema correction.",
+          "agent": "frontend_agent",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "dashboard/state_writer.py",
+            "dashboard/state.json"
+          ],
+          "success_criteria": "state.json never has null/empty required fields; all writes pass schema validation",
+          "eta_hours": 2,
+          "eta_completion": "2026-03-26T20:35:00Z",
+          "started_at": "2026-03-26T18:35:00Z"
+        },
+        {
+          "id": "task-fix-5",
+          "title": "P0: Wire token enforcer module into orchestrator",
+          "description": "Module exists (orchestrator/token_enforcer.py) but not connected to execution flow. Must wire: (1) Check is_rescue_allowed() before any rescue decision, (2) Deduct tokens on rescue, (3) Block rescue if limit exceeded (10% budget), (4) Log all decisions to reports/token_decisions.jsonl. Test: hit token limit, verify rescue is blocked.",
+          "agent": "orchestrator",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "orchestrator/token_enforcer.py",
+            "orchestrator/main.py",
+            "providers/router.py"
+          ],
+          "success_criteria": "Rescue decisions logged and budget-enforced; token limit blocks rescue when 10% exceeded",
+          "eta_hours": 3,
+          "eta_completion": "2026-03-26T21:35:00Z",
+          "started_at": "2026-03-26T18:35:00Z"
+        },
+        {
+          "id": "task-fix-6",
+          "title": "P0: System health check baseline — all 5 checks pass",
+          "description": "Establish baseline: Verify orchestrator running, dashboard server alive, agents responsive, watchdog active, cron jobs executing. Create reports/system_health.json with results. Test: run each check independently, document expected values, add to CI/CD health monitoring.",
+          "agent": "orchestrator",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "orchestrator/health_check.py",
+            "reports/system_health.json",
+            "scripts/watchdog_daemon.py"
+          ],
+          "success_criteria": "5/5 health checks pass; results logged to reports/system_health.json with timestamps",
+          "eta_hours": 2,
+          "eta_completion": "2026-03-26T20:35:00Z",
+          "started_at": "2026-03-26T18:35:00Z"
+        }
+      ],
+      "eta_hours": 16,
+      "eta_completion": "2026-03-27T10:35:00Z"
+    },
+    {
       "id": "incidents",
       "name": "Incident Response",
       "description": "Auto-filed system incidents",
@@ -184,9 +295,17 @@
     "created": "2026-03-26T20:00:00Z",
     "created_by": "claude",
     "mission": "Beat Opus 4.6 with 90% local / 10% Claude rescue",
-    "total_tasks": 7,
-    "total_epics": 6,
-    "updated": "2026-03-26T18:36:21.088907Z",
-    "eta_all_complete": "2026-03-28T18:35:00Z"
+    "total_tasks": 13,
+    "total_epics": 7,
+    "updated": "2026-03-26T18:44:00Z",
+    "critical_path": "blocker-fixes (16h) → system-reliability (6h) → dashboard-quality (12h) → policy-governance (18h) → execution-optimization (30h)",
+    "eta_all_complete": "2026-03-28T18:35:00Z",
+    "token_budget": {
+      "total": 200,
+      "per_rescue": 200,
+      "max_rescues": 1,
+      "current_usage": 0
+    },
+    "claude_session_mode": "10min-loop"
   }
 }
