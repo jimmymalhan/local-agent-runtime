@@ -1,9 +1,9 @@
 {
   "executor": {
     "success": 16,
-    "total": 149,
+    "total": 153,
     "tokens": 3094,
-    "success_rate": 0.11
+    "success_rate": 0.1
   },
   "researcher": {
     "success": 4,
@@ -18,9 +18,9 @@
     "success_rate": 0.5
   },
   "architect": {
-    "success": 40,
-    "total": 40,
-    "tokens": 57149,
+    "success": 43,
+    "total": 43,
+    "tokens": 61366,
     "success_rate": 1.0
   },
   "refactor": {
