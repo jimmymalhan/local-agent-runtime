@@ -4,8 +4,8 @@
     "trigger": "auto_resolve_roi_kill_switch",
     "lesson": "Auto-resolved roi_kill_switch with reset_roi: ROI kill switch reset. Retrying with clean state.",
     "fix": "Clear negative events, switch to fast profile",
-    "context": "wait_event=1 snapshot=RESOURCE cpu=91.0%/70% mem=84.0%/70%",
-    "learned_at": "2026-03-26T22:56:22",
+    "context": "wait_event=1 snapshot=RESOURCE cpu=25.0%/70% mem=84.0%/70%",
+    "learned_at": "2026-03-26T22:56:36",
     "applied_count": 0
   },
   {
@@ -13,8 +13,8 @@
     "trigger": "auto_resolve_memory_ceiling",
     "lesson": "Auto-resolved memory_ceiling with unload_ollama: No resident Ollama models to unload",
     "fix": "Stop resident Ollama models first to recover memory now",
-    "context": "wait_event=2 snapshot=RESOURCE cpu=91.0%/70% mem=84.0%/70%",
-    "learned_at": "2026-03-26T22:56:23",
+    "context": "wait_event=1 snapshot=RESOURCE cpu=91.0%/70% mem=84.0%/70%",
+    "learned_at": "2026-03-26T22:56:36",
     "applied_count": 0
   }
 ]
