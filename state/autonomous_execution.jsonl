@@ -1356,3 +1356,13 @@
 {"ts": "2026-03-27T12:07:15.375364", "action": "execute_failed", "agent": "executor", "task_id": "agent-intel-2", "attempts": 3, "last_error": "Unknown error"}
 {"ts": "2026-03-27T12:07:15.771675", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 39%"}
 {"ts": "2026-03-27T12:07:15.771779", "action": "execute_failed", "agent": "executor", "task_id": "agent-intel-3", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T12:17:17.474239", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 39%"}
+{"ts": "2026-03-27T12:17:17.474913", "action": "execute_failed", "agent": "executor", "task_id": "ultra-dash-5", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T12:17:17.866015", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 39%"}
+{"ts": "2026-03-27T12:17:17.866207", "action": "execute_failed", "agent": "executor", "task_id": "agent-intel-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T12:17:18.253324", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 39%"}
+{"ts": "2026-03-27T12:17:18.253516", "action": "execute_failed", "agent": "executor", "task_id": "agent-intel-2", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T12:17:18.644354", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 39%"}
+{"ts": "2026-03-27T12:17:18.644459", "action": "execute_failed", "agent": "executor", "task_id": "agent-intel-3", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T12:17:18.996041", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 39%"}
+{"ts": "2026-03-27T12:17:18.996201", "action": "execute_failed", "agent": "executor", "task_id": "agent-intel-4", "attempts": 3, "last_error": "Unknown error"}

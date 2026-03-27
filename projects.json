@@ -1056,10 +1056,11 @@
           "title": "Add notifications & alert system (toast, badges, sound)",
           "description": "Real-time notifications for task completion, errors, milestones",
           "agent": "frontend_agent",
-          "status": "pending",
+          "status": "completed",
           "priority": "P1",
           "success_criteria": "Notifications appear <200ms, dismissible, sound toggleable",
-          "eta_hours": 3
+          "eta_hours": 3,
+          "completed_at": "projects_loader"
         }
       ],
       "eta_hours": 14
