@@ -294,6 +294,21 @@
       "status": "completed",
       "tasks": [
         {
+          "id": "task-critical-stale-agents",
+          "title": "\ud83d\udea8 CRITICAL: Detect and restart stale agents (>10min inactive)",
+          "description": "Executor and Architect stuck running stale tasks for 7+ hours. blocker_monitor doesn't detect stale states. Need to: (1) Detect agents with status != 'blocked' but elapsed_time > 600s, (2) Auto-restart stale agents, (3) Clear their task assignments, (4) Reset agent state.",
+          "agent": "executor",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "orchestrator/blocker_monitor.py",
+            "dashboard/state.json"
+          ],
+          "success_criteria": "Stale agents auto-detected and restarted. Executor and Architect tasks cleared and reset.",
+          "eta_hours": 0.5,
+          "eta_completion": "2026-03-27T06:19:06.625311Z"
+        },
+        {
           "id": "incident-1774572089",
           "title": "P0: Task dispatch broken",
           "description": "All 5 tasks pending, none executing. Orchestrator not picking up tasks from projects.json.",
