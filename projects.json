@@ -11,7 +11,7 @@
           "title": "Validate system health checks (4/5 passing)",
           "description": "Run health check suite: verify orchestrator, dashboard, agents, watchdog, cron. Accept if >=4/5 pass.",
           "agent": "test_engineer",
-          "status": "pending",
+          "status": "failed",
           "priority": "P0",
           "files": [
             "orchestrator/main.py",
@@ -19,11 +19,14 @@
             "scripts/watchdog_daemon.py"
           ],
           "success_criteria": "4/5 health checks passing, logged to system_health.json",
-          "completed_at": "projects_loader",
+          "completed_at": "2026-03-26T21:43:01.934409",
           "eta_hours": 6,
           "eta_completion": "2026-03-27T00:35:00Z",
           "started_at": "2026-03-26T18:35:00Z",
-          "test_command": "python3 orchestrator/health_check.py && jq '.passed' reports/system_health.json | grep -q '4'"
+          "test_command": "python3 orchestrator/health_check.py && jq '.passed' reports/system_health.json | grep -q '4'",
+          "quality_score": 0,
+          "elapsed_seconds": 0.06609296798706055,
+          "error": "\n============================================================\nSYSTEM HEALTH CHECK\n============================================================\n\n\u2713 Orchestrator main.py found\n\u2713 Dashboard server respondi"
         }
       ],
       "eta_hours": 6,

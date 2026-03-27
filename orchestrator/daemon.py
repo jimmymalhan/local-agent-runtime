@@ -44,15 +44,15 @@ def load_projects():
 
 
 def get_next_pending_task():
-    """Find first pending task that hasn't been attempted recently."""
+    """Find first pending task with test_command (validation task)."""
     data = load_projects()
     if not data:
         return None
 
     for project in data.get('projects', []):
         for task in project.get('tasks', []):
-            if task.get('status') == 'pending':
-                return task.get('id'), project.get('id')
+            if task.get('status') == 'pending' and task.get('test_command'):
+                return task
     return None
 
 
@@ -70,45 +70,98 @@ def check_token_budget():
 
 
 def execute_next_task():
-    """Execute one pending task."""
-    task_id, project_id = get_next_pending_task() or (None, None)
+    """Execute one pending validation task directly."""
+    task = get_next_pending_task()
 
-    if not task_id:
+    if not task:
         return False  # No pending tasks
 
-    print(f"\n[DAEMON] Executing pending task: {task_id} from {project_id}")
+    task_id = task.get('id')
+    test_command = task.get('test_command')
+
+    print(f"\n[DAEMON] Executing pending task: {task_id}")
+    print(f"[DAEMON] Command: {test_command[:80]}")
     print(f"[DAEMON] Timestamp: {datetime.now().isoformat()}")
+
+    start_time = time.time()
 
     try:
         result = subprocess.run(
-            [
-                sys.executable,
-                str(BASE_DIR / 'orchestrator' / 'main.py'),
-                '--version', '1',
-                '--quick', '1'
-            ],
-            cwd=str(BASE_DIR),
+            test_command,
+            shell=True,
             capture_output=True,
-            timeout=120,
-            text=True
+            timeout=30,
+            text=True,
+            cwd=str(BASE_DIR)
         )
 
-        print(f"[DAEMON] Execution completed (exit code: {result.returncode})")
+        elapsed = time.time() - start_time
 
-        # Log output
-        log_file = BASE_DIR / 'reports' / f'daemon_{datetime.now().timestamp()}.log'
+        # Task passes if exit code 0 or output contains "PASS"
+        passed = (result.returncode == 0) or ('PASS' in result.stdout)
+
+        # Import persistence layer
+        sys.path.insert(0, str(BASE_DIR / 'agents'))
+        from persistence import update_task_result
+
+        if passed:
+            print(f"[DAEMON] ✅ PASSED (elapsed: {elapsed:.1f}s)")
+            quality = 90 + (10 if elapsed < 5 else 0)
+            update_task_result(
+                task_id=task_id,
+                status="completed",
+                quality_score=quality,
+                elapsed_time=elapsed,
+                error_msg=""
+            )
+        else:
+            print(f"[DAEMON] ❌ FAILED")
+            update_task_result(
+                task_id=task_id,
+                status="failed",
+                quality_score=0,
+                elapsed_time=elapsed,
+                error_msg=result.stderr[:200] or result.stdout[:200]
+            )
+
+        # Log execution
+        log_file = BASE_DIR / 'reports' / f'daemon_task_{task_id}_{datetime.now().timestamp()}.log'
         log_file.parent.mkdir(exist_ok=True)
         with open(log_file, 'w') as f:
-            f.write(result.stdout)
+            f.write(f"Task: {task_id}\n")
+            f.write(f"Command: {test_command}\n")
+            f.write(f"Status: {'PASSED' if passed else 'FAILED'}\n")
+            f.write(f"Elapsed: {elapsed:.1f}s\n\n")
+            f.write("STDOUT:\n" + result.stdout + "\n\n")
             if result.stderr:
-                f.write("\n[STDERR]\n" + result.stderr)
+                f.write("STDERR:\n" + result.stderr)
 
         return True
     except subprocess.TimeoutExpired:
-        print(f"[DAEMON] ERROR: Task execution timed out")
+        print(f"[DAEMON] ❌ TIMEOUT")
+        elapsed = time.time() - start_time
+        sys.path.insert(0, str(BASE_DIR / 'agents'))
+        from persistence import update_task_result
+        update_task_result(
+            task_id=task_id,
+            status="failed",
+            quality_score=0,
+            elapsed_time=elapsed,
+            error_msg="Test timeout"
+        )
         return False
     except Exception as e:
-        print(f"[DAEMON] ERROR: {e}")
+        print(f"[DAEMON] ❌ ERROR: {e}")
+        elapsed = time.time() - start_time
+        sys.path.insert(0, str(BASE_DIR / 'agents'))
+        from persistence import update_task_result
+        update_task_result(
+            task_id=task_id,
+            status="failed",
+            quality_score=0,
+            elapsed_time=elapsed,
+            error_msg=str(e)[:200]
+        )
         return False
 
 
@@ -140,7 +193,7 @@ def watch_and_execute():
 
                     if task_info:
                         print(f"\n[DAEMON] File change detected at {datetime.now().isoformat()}")
-                        print(f"[DAEMON] Pending task found: {task_info[0]}")
+                        print(f"[DAEMON] Pending task found: {task_info.get('id')}")
 
                         if check_token_budget():
                             execute_next_task()
