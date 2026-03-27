@@ -865,14 +865,20 @@ def auto_loop(start_version: int):
     from tasks.task_suite import build_task_suite
     from orchestrator.projects_loader import load_projects_tasks
 
-    tasks = build_task_suite()
-
-    # Add pending tasks from projects.json (P0 FIX: Wire task dispatch)
+    # CRITICAL FIX: Load projects.json tasks FIRST (higher priority)
+    # This ensures they execute when running in quick mode
     project_tasks = load_projects_tasks()
+
     if project_tasks:
-        print(f"[PROJECTS] Loaded {len(project_tasks)} tasks from projects.json")
-        tasks.extend(project_tasks)
-        print(f"[PROJECTS] Total tasks now: {len(tasks)} (suite + projects)")
+        print(f"[PROJECTS] Prioritizing {len(project_tasks)} tasks from projects.json")
+        tasks = project_tasks
+    else:
+        tasks = []
+
+    # Add task_suite tasks second (lower priority, for testing)
+    suite_tasks = build_task_suite()
+    tasks.extend(suite_tasks)
+    print(f"[PROJECTS] Total task queue: {len(project_tasks)} projects + {len(suite_tasks)} suite = {len(tasks)} tasks")
 
     # Start 1-minute rescue watchdog in background
     state_path   = os.path.join(BASE_DIR, "dashboard", "state.json")
@@ -968,13 +974,20 @@ def main():
     from tasks.task_suite import build_task_suite
     from orchestrator.projects_loader import load_projects_tasks
 
-    tasks = build_task_suite()
-
-    # Add pending tasks from projects.json (P0 FIX: Wire task dispatch)
+    # CRITICAL FIX: Load projects.json tasks FIRST (higher priority)
+    # This ensures they execute when --quick N is used
     project_tasks = load_projects_tasks()
+
     if project_tasks:
-        print(f"[PROJECTS] Loaded {len(project_tasks)} tasks from projects.json")
-        tasks.extend(project_tasks)
+        print(f"[PROJECTS] Prioritizing {len(project_tasks)} tasks from projects.json")
+        tasks = project_tasks  # Start with projects
+    else:
+        tasks = []
+
+    # Add task_suite tasks second (lower priority, for testing)
+    suite_tasks = build_task_suite()
+    tasks.extend(suite_tasks)
+    print(f"[PROJECTS] Total task queue: {len(project_tasks)} projects + {len(suite_tasks)} suite = {len(tasks)} tasks")
 
     run_version(args.version, tasks, local_only=args.local_only, quick=args.quick)
 
