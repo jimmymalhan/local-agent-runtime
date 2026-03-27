@@ -451,7 +451,7 @@
           "agent": "architect",
           "priority": "P1",
           "phase": "HARDENING",
-          "status": "pending",
+          "status": "completed",
           "files": [
             "orchestrator/persistence_layer.py",
             "state/task_queue.json",
@@ -459,7 +459,8 @@
           ],
           "success_criteria": "No external crons, all state persists across restarts",
           "eta_hours": 1.5,
-          "eta_completion": "2026-03-27T08:57:01.721695"
+          "eta_completion": "2026-03-27T08:57:01.721695",
+          "completed_at": "projects_loader"
         },
         {
           "id": "task-realtime-dashboard",
@@ -626,7 +627,7 @@
     "mission": "Beat Opus 4.6 with 90% local / 10% Claude rescue",
     "total_tasks": 29,
     "total_epics": 7,
-    "updated": "2026-03-27T06:31:27.137664Z",
+    "updated": "2026-03-27T06:33:59.748379Z",
     "critical_path": "blocker-fixes (16h) \u2192 system-reliability (6h) \u2192 dashboard-quality (12h) \u2192 policy-governance (18h) \u2192 execution-optimization (30h)",
     "eta_all_complete": "2026-03-27T06:39:11.894496Z",
     "token_budget": {
