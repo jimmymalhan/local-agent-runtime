@@ -564,6 +564,177 @@
       "eta_hours": 18,
       "eta_completion": "2026-03-27T09:13:58.255561Z",
       "completion_timestamp": null
+    },
+    {
+      "id": "workflow-integration-ultra",
+      "name": "Ultra Workflow Integration & Auto-Execution",
+      "description": "Complete inline workflow editor integration, auto-execute pending tasks, performance metrics, and validation",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "task-wf-inline-test",
+          "title": "Test inline workflow editor in dashboard",
+          "description": "Verify Workflow tab loads correctly on localhost:3001. Test drag-drop reorder, export/import, execute button. Verify all controls work. Accept if UI loads and all buttons functional.",
+          "agent": "test_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "dashboard/index.html",
+            "dashboard/server.py"
+          ],
+          "success_criteria": "Workflow tab loads, drag-drop works, all buttons responsive",
+          "eta_hours": 1,
+          "quality_target": 95
+        },
+        {
+          "id": "task-auto-execute-test",
+          "title": "Validate auto-execute API endpoint",
+          "description": "Test POST /api/tasks/auto-execute endpoint. Verify it dispatches tasks correctly and returns proper response format. Accept if endpoint works and returns execution summary.",
+          "agent": "test_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "dashboard/server.py",
+            "orchestrator/quick_dispatcher.py"
+          ],
+          "success_criteria": "API returns successful execution data with task counts",
+          "eta_hours": 1,
+          "quality_target": 95
+        },
+        {
+          "id": "task-metrics-api-test",
+          "title": "Verify performance metrics API",
+          "description": "Test GET /api/metrics/performance endpoint. Verify it returns CPU, memory, disk, task completion metrics. Check data accuracy and format. Accept if all metrics return and are properly formatted.",
+          "agent": "test_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "dashboard/server.py"
+          ],
+          "success_criteria": "Metrics endpoint returns all required fields",
+          "eta_hours": 1,
+          "quality_target": 95
+        },
+        {
+          "id": "task-state-sync",
+          "title": "Sync state.json with real project metrics",
+          "description": "Update dashboard/state.json to reflect actual task completion from projects.json (31/31 tasks). Ensure metrics match reality: quality score, task counts, agent status. Accept if state.json shows correct metrics.",
+          "agent": "executor",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "dashboard/state.json",
+            "projects.json"
+          ],
+          "success_criteria": "state.json shows 31/31 tasks completed, quality ~95",
+          "eta_hours": 1,
+          "quality_target": 90
+        },
+        {
+          "id": "task-websocket-workflow",
+          "title": "Verify WebSocket sync between workflow editor and agents",
+          "description": "Test real-time status updates in workflow editor when agents execute tasks. Verify stage status changes (idle/running/completed) sync via WebSocket. Accept if status updates appear within 1 second.",
+          "agent": "test_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/index.html",
+            "dashboard/server.py"
+          ],
+          "success_criteria": "WebSocket updates workflow stage status in real-time",
+          "eta_hours": 1,
+          "quality_target": 90
+        },
+        {
+          "id": "task-consolidate-ports",
+          "title": "Ensure single dashboard on localhost:3001",
+          "description": "Verify only port 3001 is running (no 3002, 3003, 8000, 3000). Kill any extra dashboard processes. Confirm single unified dashboard works. Accept if only 3001 runs.",
+          "agent": "executor",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "dashboard/server.py"
+          ],
+          "success_criteria": "Only localhost:3001 running with unified dashboard",
+          "eta_hours": 1,
+          "quality_target": 100
+        },
+        {
+          "id": "task-workflow-persistence",
+          "title": "Test workflow configuration persistence",
+          "description": "Change workflow order in UI (drag arrows). Refresh page. Verify order persists. Export config, import on fresh page, verify loads correctly. Accept if persistence works both ways.",
+          "agent": "test_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/index.html"
+          ],
+          "success_criteria": "Workflow order persists across page refresh",
+          "eta_hours": 1,
+          "quality_target": 90
+        },
+        {
+          "id": "task-auto-dispatch-loop",
+          "title": "Enable auto-dispatch of pending tasks in 10min loop",
+          "description": "Update .claude/10min_loop.sh to call POST /api/tasks/auto-execute endpoint every cycle. Ensure pending tasks auto-execute without manual intervention. Accept if loop calls endpoint and executes tasks.",
+          "agent": "executor",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            ".claude/10min_loop.sh",
+            "dashboard/server.py"
+          ],
+          "success_criteria": "10min loop auto-executes pending tasks via API",
+          "eta_hours": 1,
+          "quality_target": 90
+        },
+        {
+          "id": "task-ui-polish",
+          "title": "Polish workflow editor UI and responsiveness",
+          "description": "Enhance workflow editor visuals: better mobile support, smoother animations, improved colors, better spacing. Test on multiple screen sizes. Accept if UI looks polished and works on mobile/tablet.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P2",
+          "files": [
+            "dashboard/index.html"
+          ],
+          "success_criteria": "UI responsive on all screen sizes, smooth animations",
+          "eta_hours": 2,
+          "quality_target": 85
+        },
+        {
+          "id": "task-performance-optimization",
+          "title": "Optimize dashboard performance (load time, render speed)",
+          "description": "Profile dashboard load time on localhost:3001. Optimize CSS/JS, reduce bundle size. Measure: dashboard load <1s, workflow render <200ms, WebSocket update <50ms. Accept if all targets met.",
+          "agent": "executor",
+          "status": "pending",
+          "priority": "P2",
+          "files": [
+            "dashboard/index.html",
+            "dashboard/server.py"
+          ],
+          "success_criteria": "Dashboard load <1s, workflow render <200ms",
+          "eta_hours": 2,
+          "quality_target": 90
+        },
+        {
+          "id": "task-docs-integration",
+          "title": "Update documentation to reflect inline workflow integration",
+          "description": "Update WORKFLOW_EDITOR_README.md and related docs to reflect new inline integration (no iframe, single port 3001). Update API documentation with new endpoints. Accept if docs are current and complete.",
+          "agent": "executor",
+          "status": "pending",
+          "priority": "P2",
+          "files": [
+            "WORKFLOW_EDITOR_README.md",
+            "README.md"
+          ],
+          "success_criteria": "Documentation updated and accurate",
+          "eta_hours": 1,
+          "quality_target": 85
+        }
+      ],
+      "eta_hours": 14,
+      "eta_completion": "2026-03-27T20:00:00Z"
     }
   ],
   "metadata": {
