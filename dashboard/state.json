@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-26T22:16:22.888562",
+  "ts": "2026-03-26T22:21:45.512618",
   "version": {
     "current": 5,
     "total": 100,
@@ -46,26 +46,26 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-26T22:16:22.522795",
+      "last_activity": "2026-03-26T22:21:30.271734",
       "sub_agents": [],
       "worker_count": 0
     },
     "architect": {
       "status": "running",
-      "task": "Build a document search engine with TF-IDF",
-      "task_id": 11,
+      "task": "Build an OAuth2 provider with PKCE",
+      "task_id": 17,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-26T22:16:22.884770",
+      "last_activity": "2026-03-26T22:21:30.645865",
       "sub_agents": [],
       "worker_count": 0
     }
   },
   "task_queue": {
     "total": 102,
-    "completed": 10,
+    "completed": 16,
     "in_progress": 1,
     "failed": 2,
-    "pending": 91
+    "pending": 85
   },
   "benchmark_scores": {
     "v1": {
@@ -84,8 +84,8 @@
     "hard_limit_hit": false
   },
   "hardware": {
-    "cpu_pct": 45.9,
-    "ram_pct": 70.9,
+    "cpu_pct": 49.1,
+    "ram_pct": 70.6,
     "disk_pct": 0.0,
     "gpu_pct": null,
     "alert_level": "ok"
@@ -174,6 +174,21 @@
   ],
   "research_feed": [
     {
+      "ts": "2026-03-26T22:21:19.053912",
+      "finding": "v5: Model produces code that fails assertion tests silently",
+      "source": ""
+    },
+    {
+      "ts": "2026-03-26T22:21:19.052040",
+      "finding": "v5: Model writes wrong import paths for multi-file projects",
+      "source": ""
+    },
+    {
+      "ts": "2026-03-26T22:21:19.050049",
+      "finding": "v5: Model truncates code in the middle of a function",
+      "source": ""
+    },
+    {
       "ts": "2026-03-26T22:10:47.529848",
       "finding": "v5: Model produces code that fails assertion tests silently",
       "source": ""
@@ -205,21 +220,6 @@
     },
     {
       "ts": "2026-03-26T22:00:29.602873",
-      "finding": "v5: Model produces code that fails assertion tests silently",
-      "source": ""
-    },
-    {
-      "ts": "2026-03-26T22:00:29.601712",
-      "finding": "v5: Model writes wrong import paths for multi-file projects",
-      "source": ""
-    },
-    {
-      "ts": "2026-03-26T22:00:29.600756",
-      "finding": "v5: Model truncates code in the middle of a function",
-      "source": ""
-    },
-    {
-      "ts": "2026-03-26T22:00:16.096651",
       "finding": "v5: Model produces code that fails assertion tests silently",
       "source": ""
     }
@@ -344,55 +344,55 @@
       "title": "Build a document search engine with TF-IDF",
       "category": "scaffold",
       "agent_used": "architect",
-      "status": "running",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 100
     },
     {
       "task_id": 12,
       "title": "Build a GraphQL API with subscriptions",
       "category": "scaffold",
       "agent_used": "architect",
-      "status": "todo",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 100
     },
     {
       "task_id": 13,
       "title": "Build a gRPC microservice for user management",
       "category": "scaffold",
       "agent_used": "architect",
-      "status": "todo",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 100
     },
     {
       "task_id": 14,
       "title": "Build a cron job scheduler",
       "category": "scaffold",
       "agent_used": "architect",
-      "status": "todo",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 100
     },
     {
       "task_id": 15,
       "title": "Build a file upload service with processing pipeline",
       "category": "scaffold",
       "agent_used": "architect",
-      "status": "todo",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 100
     },
     {
       "task_id": 16,
       "title": "Build a config management system",
       "category": "scaffold",
       "agent_used": "architect",
-      "status": "todo",
-      "local_quality": 0
+      "status": "done",
+      "local_quality": 100
     },
     {
       "task_id": 17,
       "title": "Build an OAuth2 provider with PKCE",
       "category": "scaffold",
       "agent_used": "architect",
-      "status": "todo",
+      "status": "running",
       "local_quality": 0
     },
     {
@@ -1062,7 +1062,7 @@
   ],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-26T22:16:21.825850",
+    "ts": "2026-03-26T22:21:45.512406",
     "epics": [
       {
         "id": "system-reliability",
@@ -1323,64 +1323,64 @@
             "task_id": 11,
             "title": "Build a document search engine with TF-IDF",
             "difficulty": "hard",
-            "status": "running",
+            "status": "done",
             "agent": "architect",
-            "quality": 0,
-            "elapsed_s": 0.0
+            "quality": 100,
+            "elapsed_s": 37.4
           },
           {
             "task_id": 12,
             "title": "Build a GraphQL API with subscriptions",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "done",
             "agent": "architect",
-            "quality": 0,
-            "elapsed_s": 0
+            "quality": 100,
+            "elapsed_s": 61.6
           },
           {
             "task_id": 13,
             "title": "Build a gRPC microservice for user management",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "done",
             "agent": "architect",
-            "quality": 0,
-            "elapsed_s": 0
+            "quality": 100,
+            "elapsed_s": 64.6
           },
           {
             "task_id": 14,
             "title": "Build a cron job scheduler",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "done",
             "agent": "architect",
-            "quality": 0,
-            "elapsed_s": 0
+            "quality": 100,
+            "elapsed_s": 63.7
           },
           {
             "task_id": 15,
             "title": "Build a file upload service with processing pipeline",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "done",
             "agent": "architect",
-            "quality": 0,
-            "elapsed_s": 0
+            "quality": 100,
+            "elapsed_s": 35.3
           },
           {
             "task_id": 16,
             "title": "Build a config management system",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "done",
             "agent": "architect",
-            "quality": 0,
-            "elapsed_s": 0
+            "quality": 100,
+            "elapsed_s": 42.9
           },
           {
             "task_id": 17,
             "title": "Build an OAuth2 provider with PKCE",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "running",
             "agent": "architect",
             "quality": 0,
-            "elapsed_s": 0
+            "elapsed_s": 0.0
           },
           {
             "task_id": 18,
@@ -1411,11 +1411,11 @@
           }
         ],
         "total": 20,
-        "done": 10,
+        "done": 16,
         "in_progress": 1,
         "failed": 0,
         "status": "running",
-        "pct": 50.0
+        "pct": 80.0
       },
       {
         "id": "proj-refactor",
@@ -2226,15 +2226,15 @@
     "status": "planned"
   },
   "business_summary": {
-    "headline": "10 of 102 engineering tasks complete",
-    "pct_complete": 9.8,
+    "headline": "16 of 102 engineering tasks complete",
+    "pct_complete": 15.7,
     "projects_active": 1,
     "blockers_open": 1,
     "version": 5,
-    "updated_at": "2026-03-26T22:16:22.888558"
+    "updated_at": "2026-03-26T22:21:30.649908"
   },
   "auto_heal_status": {
-    "ts": "2026-03-27T05:16:19",
+    "ts": "2026-03-27T05:21:40",
     "issues_this_cycle": [],
     "healthy": true,
     "dashboard_alive": true,
@@ -2673,6 +2673,13 @@
     },
     {
       "ts": "2026-03-27T05:10:47",
+      "level": "INFO",
+      "event": "started",
+      "detail": "Auto-heal monitor started (checks every 10s)",
+      "agent": ""
+    },
+    {
+      "ts": "2026-03-27T05:21:19",
       "level": "INFO",
       "event": "started",
       "detail": "Auto-heal monitor started (checks every 10s)",

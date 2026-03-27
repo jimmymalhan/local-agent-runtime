@@ -1,8 +1,8 @@
 {
   "version": 5,
-  "ts": "2026-03-27T05:10:47",
+  "ts": "2026-03-27T05:21:19",
   "state": {
-    "ts": "2026-03-26T22:10:43.840687",
+    "ts": "2026-03-26T22:21:16.543199",
     "version": {
       "current": 5,
       "total": 100,
@@ -49,26 +49,26 @@
         "task": "",
         "task_id": null,
         "elapsed_s": 0.0,
-        "last_activity": "2026-03-26T22:10:24.634379",
+        "last_activity": "2026-03-26T22:20:47.017205",
         "sub_agents": [],
         "worker_count": 0
       },
       "architect": {
         "status": "running",
-        "task": "Build a production FastAPI REST API with JWT auth",
-        "task_id": 1,
+        "task": "Build a config management system",
+        "task_id": 16,
         "elapsed_s": 0.0,
-        "last_activity": "2026-03-26T22:10:25.000257",
+        "last_activity": "2026-03-26T22:20:47.365874",
         "sub_agents": [],
         "worker_count": 0
       }
     },
     "task_queue": {
       "total": 102,
-      "completed": 0,
+      "completed": 15,
       "in_progress": 1,
       "failed": 2,
-      "pending": 101
+      "pending": 86
     },
     "benchmark_scores": {
       "v1": {
@@ -87,8 +87,8 @@
       "hard_limit_hit": false
     },
     "hardware": {
-      "cpu_pct": 38.1,
-      "ram_pct": 69.8,
+      "cpu_pct": 41.1,
+      "ram_pct": 70.3,
       "disk_pct": 0.0,
       "gpu_pct": null,
       "alert_level": "ok"
@@ -177,6 +177,21 @@
     ],
     "research_feed": [
       {
+        "ts": "2026-03-26T22:21:19.053912",
+        "finding": "v5: Model produces code that fails assertion tests silently",
+        "source": ""
+      },
+      {
+        "ts": "2026-03-26T22:21:19.052040",
+        "finding": "v5: Model writes wrong import paths for multi-file projects",
+        "source": ""
+      },
+      {
+        "ts": "2026-03-26T22:21:19.050049",
+        "finding": "v5: Model truncates code in the middle of a function",
+        "source": ""
+      },
+      {
         "ts": "2026-03-26T22:10:47.529848",
         "finding": "v5: Model produces code that fails assertion tests silently",
         "source": ""
@@ -208,21 +223,6 @@
       },
       {
         "ts": "2026-03-26T22:00:29.602873",
-        "finding": "v5: Model produces code that fails assertion tests silently",
-        "source": ""
-      },
-      {
-        "ts": "2026-03-26T22:00:29.601712",
-        "finding": "v5: Model writes wrong import paths for multi-file projects",
-        "source": ""
-      },
-      {
-        "ts": "2026-03-26T22:00:29.600756",
-        "finding": "v5: Model truncates code in the middle of a function",
-        "source": ""
-      },
-      {
-        "ts": "2026-03-26T22:00:16.096651",
         "finding": "v5: Model produces code that fails assertion tests silently",
         "source": ""
       }
@@ -267,127 +267,127 @@
         "title": "Build a production FastAPI REST API with JWT auth",
         "category": "scaffold",
         "agent_used": "architect",
-        "status": "running",
-        "local_quality": 0
+        "status": "done",
+        "local_quality": 100
       },
       {
         "task_id": 2,
         "title": "Build a CLI deployment tool with subcommands",
         "category": "scaffold",
         "agent_used": "architect",
-        "status": "todo",
-        "local_quality": 0
+        "status": "done",
+        "local_quality": 100
       },
       {
         "task_id": 3,
         "title": "Build a real-time WebSocket chat server",
         "category": "scaffold",
         "agent_used": "architect",
-        "status": "todo",
-        "local_quality": 0
+        "status": "done",
+        "local_quality": 100
       },
       {
         "task_id": 4,
         "title": "Build a data pipeline with ETL + validation",
         "category": "scaffold",
         "agent_used": "architect",
-        "status": "todo",
-        "local_quality": 0
+        "status": "done",
+        "local_quality": 100
       },
       {
         "task_id": 5,
         "title": "Build a Markdown blog static site generator",
         "category": "scaffold",
         "agent_used": "architect",
-        "status": "todo",
-        "local_quality": 0
+        "status": "done",
+        "local_quality": 100
       },
       {
         "task_id": 6,
         "title": "Build a GitHub Actions CI pipeline for a Python project",
         "category": "scaffold",
         "agent_used": "architect",
-        "status": "todo",
-        "local_quality": 0
+        "status": "done",
+        "local_quality": 90
       },
       {
         "task_id": 7,
         "title": "Build a multi-tenant SaaS API with RBAC",
         "category": "scaffold",
         "agent_used": "architect",
-        "status": "todo",
-        "local_quality": 0
+        "status": "done",
+        "local_quality": 100
       },
       {
         "task_id": 8,
         "title": "Build a distributed task queue with workers",
         "category": "scaffold",
         "agent_used": "architect",
-        "status": "todo",
-        "local_quality": 0
+        "status": "done",
+        "local_quality": 100
       },
       {
         "task_id": 9,
         "title": "Build a feature flag service",
         "category": "scaffold",
         "agent_used": "architect",
-        "status": "todo",
-        "local_quality": 0
+        "status": "done",
+        "local_quality": 100
       },
       {
         "task_id": 10,
         "title": "Build a metrics collection and alerting system",
         "category": "scaffold",
         "agent_used": "architect",
-        "status": "todo",
-        "local_quality": 0
+        "status": "done",
+        "local_quality": 100
       },
       {
         "task_id": 11,
         "title": "Build a document search engine with TF-IDF",
         "category": "scaffold",
         "agent_used": "architect",
-        "status": "todo",
-        "local_quality": 0
+        "status": "done",
+        "local_quality": 100
       },
       {
         "task_id": 12,
         "title": "Build a GraphQL API with subscriptions",
         "category": "scaffold",
         "agent_used": "architect",
-        "status": "todo",
-        "local_quality": 0
+        "status": "done",
+        "local_quality": 100
       },
       {
         "task_id": 13,
         "title": "Build a gRPC microservice for user management",
         "category": "scaffold",
         "agent_used": "architect",
-        "status": "todo",
-        "local_quality": 0
+        "status": "done",
+        "local_quality": 100
       },
       {
         "task_id": 14,
         "title": "Build a cron job scheduler",
         "category": "scaffold",
         "agent_used": "architect",
-        "status": "todo",
-        "local_quality": 0
+        "status": "done",
+        "local_quality": 100
       },
       {
         "task_id": 15,
         "title": "Build a file upload service with processing pipeline",
         "category": "scaffold",
         "agent_used": "architect",
-        "status": "todo",
-        "local_quality": 0
+        "status": "done",
+        "local_quality": 100
       },
       {
         "task_id": 16,
         "title": "Build a config management system",
         "category": "scaffold",
         "agent_used": "architect",
-        "status": "todo",
+        "status": "running",
         "local_quality": 0
       },
       {
@@ -1065,7 +1065,7 @@
     ],
     "changelog": [],
     "epic_board": {
-      "ts": "2026-03-26T22:10:43.840379",
+      "ts": "2026-03-26T22:21:16.542961",
       "epics": [
         {
           "id": "system-reliability",
@@ -1170,11 +1170,11 @@
           "track": "infrastructure",
           "status": "active",
           "total_tasks": 2,
-          "completed": 0,
+          "completed": 2,
           "in_progress": 0,
-          "pending": 2,
+          "pending": 0,
           "blocked": 0,
-          "progress_pct": 0.0,
+          "progress_pct": 100.0,
           "agents": [
             "executor"
           ],
@@ -1236,145 +1236,145 @@
               "task_id": 1,
               "title": "Build a production FastAPI REST API with JWT auth",
               "difficulty": "hard",
-              "status": "running",
+              "status": "done",
               "agent": "architect",
-              "quality": 0,
-              "elapsed_s": 0.0
+              "quality": 100,
+              "elapsed_s": 117.2
             },
             {
               "task_id": 2,
               "title": "Build a CLI deployment tool with subcommands",
               "difficulty": "hard",
-              "status": "pending",
+              "status": "done",
               "agent": "architect",
-              "quality": 0,
-              "elapsed_s": 0
+              "quality": 100,
+              "elapsed_s": 16.3
             },
             {
               "task_id": 3,
               "title": "Build a real-time WebSocket chat server",
               "difficulty": "hard",
-              "status": "pending",
+              "status": "done",
               "agent": "architect",
-              "quality": 0,
-              "elapsed_s": 0
+              "quality": 100,
+              "elapsed_s": 22.9
             },
             {
               "task_id": 4,
               "title": "Build a data pipeline with ETL + validation",
               "difficulty": "hard",
-              "status": "pending",
+              "status": "done",
               "agent": "architect",
-              "quality": 0,
-              "elapsed_s": 0
+              "quality": 100,
+              "elapsed_s": 40.7
             },
             {
               "task_id": 5,
               "title": "Build a Markdown blog static site generator",
               "difficulty": "hard",
-              "status": "pending",
+              "status": "done",
               "agent": "architect",
-              "quality": 0,
-              "elapsed_s": 0
+              "quality": 100,
+              "elapsed_s": 24.1
             },
             {
               "task_id": 6,
               "title": "Build a GitHub Actions CI pipeline for a Python project",
               "difficulty": "hard",
-              "status": "pending",
+              "status": "done",
               "agent": "architect",
-              "quality": 0,
-              "elapsed_s": 0
+              "quality": 90,
+              "elapsed_s": 14.9
             },
             {
               "task_id": 7,
               "title": "Build a multi-tenant SaaS API with RBAC",
               "difficulty": "hard",
-              "status": "pending",
+              "status": "done",
               "agent": "architect",
-              "quality": 0,
-              "elapsed_s": 0
+              "quality": 100,
+              "elapsed_s": 16.4
             },
             {
               "task_id": 8,
               "title": "Build a distributed task queue with workers",
               "difficulty": "hard",
-              "status": "pending",
+              "status": "done",
               "agent": "architect",
-              "quality": 0,
-              "elapsed_s": 0
+              "quality": 100,
+              "elapsed_s": 26.1
             },
             {
               "task_id": 9,
               "title": "Build a feature flag service",
               "difficulty": "hard",
-              "status": "pending",
+              "status": "done",
               "agent": "architect",
-              "quality": 0,
-              "elapsed_s": 0
+              "quality": 100,
+              "elapsed_s": 35.9
             },
             {
               "task_id": 10,
               "title": "Build a metrics collection and alerting system",
               "difficulty": "hard",
-              "status": "pending",
+              "status": "done",
               "agent": "architect",
-              "quality": 0,
-              "elapsed_s": 0
+              "quality": 100,
+              "elapsed_s": 39.8
             },
             {
               "task_id": 11,
               "title": "Build a document search engine with TF-IDF",
               "difficulty": "hard",
-              "status": "pending",
+              "status": "done",
               "agent": "architect",
-              "quality": 0,
-              "elapsed_s": 0
+              "quality": 100,
+              "elapsed_s": 37.4
             },
             {
               "task_id": 12,
               "title": "Build a GraphQL API with subscriptions",
               "difficulty": "hard",
-              "status": "pending",
+              "status": "done",
               "agent": "architect",
-              "quality": 0,
-              "elapsed_s": 0
+              "quality": 100,
+              "elapsed_s": 61.6
             },
             {
               "task_id": 13,
               "title": "Build a gRPC microservice for user management",
               "difficulty": "hard",
-              "status": "pending",
+              "status": "done",
               "agent": "architect",
-              "quality": 0,
-              "elapsed_s": 0
+              "quality": 100,
+              "elapsed_s": 64.6
             },
             {
               "task_id": 14,
               "title": "Build a cron job scheduler",
               "difficulty": "hard",
-              "status": "pending",
+              "status": "done",
               "agent": "architect",
-              "quality": 0,
-              "elapsed_s": 0
+              "quality": 100,
+              "elapsed_s": 63.7
             },
             {
               "task_id": 15,
               "title": "Build a file upload service with processing pipeline",
               "difficulty": "hard",
-              "status": "pending",
+              "status": "done",
               "agent": "architect",
-              "quality": 0,
-              "elapsed_s": 0
+              "quality": 100,
+              "elapsed_s": 35.3
             },
             {
               "task_id": 16,
               "title": "Build a config management system",
               "difficulty": "hard",
-              "status": "pending",
+              "status": "running",
               "agent": "architect",
               "quality": 0,
-              "elapsed_s": 0
+              "elapsed_s": 0.0
             },
             {
               "task_id": 17,
@@ -1414,11 +1414,11 @@
             }
           ],
           "total": 20,
-          "done": 0,
+          "done": 15,
           "in_progress": 1,
           "failed": 0,
           "status": "running",
-          "pct": 0.0
+          "pct": 75.0
         },
         {
           "id": "proj-refactor",
@@ -2229,15 +2229,15 @@
       "status": "planned"
     },
     "business_summary": {
-      "headline": "0 of 102 engineering tasks complete",
-      "pct_complete": 0.0,
+      "headline": "15 of 102 engineering tasks complete",
+      "pct_complete": 14.7,
       "projects_active": 1,
       "blockers_open": 1,
       "version": 5,
-      "updated_at": "2026-03-26T22:10:25.003967"
+      "updated_at": "2026-03-26T22:20:47.369600"
     },
     "auto_heal_status": {
-      "ts": "2026-03-27T05:10:47",
+      "ts": "2026-03-27T05:21:19",
       "issues_this_cycle": [],
       "healthy": true,
       "dashboard_alive": true,
@@ -2676,6 +2676,13 @@
       },
       {
         "ts": "2026-03-27T05:10:47",
+        "level": "INFO",
+        "event": "started",
+        "detail": "Auto-heal monitor started (checks every 10s)",
+        "agent": ""
+      },
+      {
+        "ts": "2026-03-27T05:21:19",
         "level": "INFO",
         "event": "started",
         "detail": "Auto-heal monitor started (checks every 10s)",
