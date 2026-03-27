@@ -322,6 +322,27 @@ class UnifiedDaemon:
         except Exception as e:
             logger.warning(f"Epic status update failed: {e}")
 
+    def task_quarantine_monitor(self):
+        """Every 5min: Detect and fix macOS quarantine attributes blocking execution."""
+        try:
+            from orchestrator.quarantine_monitor import report_quarantine_status
+
+            if not report_quarantine_status():
+                logger.warning("⚠️  Quarantine attributes detected and fixed")
+
+        except Exception as e:
+            logger.debug(f"Quarantine monitor failed: {e}")
+
+    def task_phase_progression(self):
+        """Every 10min: Check phase completion and auto-generate next phases."""
+        try:
+            from orchestrator.phase_progression import auto_progress_phases
+
+            auto_progress_phases()
+
+        except Exception as e:
+            logger.warning(f"Phase progression failed: {e}")
+
     def _check_process(self, name: str) -> str:
         """Check if a process is running."""
         try:
@@ -348,6 +369,9 @@ def main():
         "auto-recovery", 120, daemon.task_auto_recovery
     )  # Every 2min
     daemon.register_task(
+        "quarantine-monitor", 300, daemon.task_quarantine_monitor
+    )  # Every 5min - PREVENTS 7-HOUR BLOCKAGE
+    daemon.register_task(
         "dashboard-update", 5, daemon.task_dashboard_update
     )  # Every 5s
     daemon.register_task(
@@ -356,6 +380,9 @@ def main():
     daemon.register_task(
         "full-loop", 600, daemon.task_full_loop
     )  # Every 10min
+    daemon.register_task(
+        "phase-progression", 600, daemon.task_phase_progression
+    )  # Every 10min - AUTO-GENERATE NEXT PHASES
     daemon.register_task(
         "epic-status-update", 1800, daemon.task_update_epic_status
     )  # Every 30min

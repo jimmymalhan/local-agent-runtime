@@ -30,6 +30,7 @@ check_and_restart_processes() {
     # List of critical processes to monitor (add more as needed)
     # This is a simple check; replace with actual process names in your setup
     local processes=(
+        "unified_daemon.py"
         "live_dashboard.py"
         "continuous_loop.py"
     )
@@ -39,7 +40,11 @@ check_and_restart_processes() {
             echo "[$(date +'%Y-%m-%d %H:%M:%S')] ⚠️  Process $proc not running, attempting restart..."
 
             # Try to restart based on process type
-            if [[ "$proc" == "live_dashboard.py" ]]; then
+            if [[ "$proc" == "unified_daemon.py" ]]; then
+                cd "$REPO_ROOT"
+                nohup python3 orchestrator/unified_daemon.py >> reports/unified_daemon.log 2>&1 &
+                echo "[$(date +'%Y-%m-%d %H:%M:%S')] ✓ Restarted $proc"
+            elif [[ "$proc" == "live_dashboard.py" ]]; then
                 cd "$REPO_ROOT"
                 python3 scripts/live_dashboard.py > /tmp/dashboard_restart.log 2>&1 &
                 echo "[$(date +'%Y-%m-%d %H:%M:%S')] ✓ Restarted $proc"
