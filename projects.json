@@ -2806,15 +2806,575 @@
         }
       ],
       "eta_hours": 16
+    },
+    {
+      "id": "ultra-govt-compliance",
+      "name": "\ud83c\udfdb\ufe0f Government & Advanced Compliance (Tier 2)",
+      "description": "ITAR, FedRAMP, HIPAA Advanced, PCI-DSS Level 1, NIST 800-53",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "ultra-govt-1",
+          "title": "Implement FedRAMP Moderate certification process",
+          "description": "Full FedRAMP compliance for government agencies",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "FedRAMP Moderate certified, audit complete",
+          "eta_hours": 12
+        },
+        {
+          "id": "ultra-govt-2",
+          "title": "Add ITAR compliance for defense contractors",
+          "description": "International Traffic in Arms Regulations compliance",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "ITAR compliant, data segregation verified",
+          "eta_hours": 10
+        },
+        {
+          "id": "ultra-govt-3",
+          "title": "Build NIST 800-53 security controls framework",
+          "description": "NIST SP 800-53 controls for federal systems",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "All required controls implemented & tested",
+          "eta_hours": 12
+        },
+        {
+          "id": "ultra-govt-4",
+          "title": "Implement advanced HIPAA BAA (Business Associate Agreement)",
+          "description": "Full HIPAA compliance with encryption, audit, breach notification",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "HIPAA BAA signed, compliance proven",
+          "eta_hours": 8
+        },
+        {
+          "id": "ultra-govt-5",
+          "title": "Add PCI-DSS Level 1 certification (payment processing)",
+          "description": "Level 1 PCI-DSS for secure payment handling",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "PCI-DSS Level 1 certified",
+          "eta_hours": 10
+        }
+      ],
+      "eta_hours": 52
+    },
+    {
+      "id": "ultra-advanced-performance",
+      "name": "\u26a1 Advanced Performance & GPU Computing (Tier 2)",
+      "description": "GPU acceleration, distributed computing, edge processing",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "ultra-perf-1",
+          "title": "Implement GPU acceleration (CUDA/Metal/OpenCL)",
+          "description": "GPU-accelerated model inference, 5-10x speedup",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "GPU inference working, 5x speedup measured",
+          "eta_hours": 8
+        },
+        {
+          "id": "ultra-perf-2",
+          "title": "Build distributed model serving (multi-GPU)",
+          "description": "Distribute inference across multiple GPUs/servers",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Distributed serving working, load balanced",
+          "eta_hours": 7
+        },
+        {
+          "id": "ultra-perf-3",
+          "title": "Add edge processing (on-device inference)",
+          "description": "Run models on edge devices (mobile, edge servers)",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Edge inference working, latency <100ms",
+          "eta_hours": 6
+        },
+        {
+          "id": "ultra-perf-4",
+          "title": "Implement dynamic batch processing optimization",
+          "description": "Auto-batch requests for GPU efficiency",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Batching improves throughput 3-5x",
+          "eta_hours": 5
+        },
+        {
+          "id": "ultra-perf-5",
+          "title": "Add performance profiling & optimization service",
+          "description": "Auto-detect bottlenecks, suggest optimizations",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Profiling accurate, optimizations effective",
+          "eta_hours": 4
+        }
+      ],
+      "eta_hours": 30
+    },
+    {
+      "id": "ultra-advanced-infrastructure",
+      "name": "\ud83c\udfd7\ufe0f Advanced Infrastructure & Multi-Cloud (Tier 2)",
+      "description": "Kubernetes, multi-cloud, disaster recovery, auto-scaling",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "ultra-infra-1",
+          "title": "Build Kubernetes deployment with auto-scaling",
+          "description": "K8s clusters with HPA, multi-region",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "K8s deployment complete, auto-scaling working",
+          "eta_hours": 8
+        },
+        {
+          "id": "ultra-infra-2",
+          "title": "Implement multi-cloud deployment (AWS/GCP/Azure)",
+          "description": "Deploy across multiple cloud providers",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Multi-cloud working, failover functional",
+          "eta_hours": 10
+        },
+        {
+          "id": "ultra-infra-3",
+          "title": "Add disaster recovery & backup strategy (RTO <1h)",
+          "description": "Automated backups, cross-region replication",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "DR working, RTO <1 hour, RPO <15min",
+          "eta_hours": 7
+        },
+        {
+          "id": "ultra-infra-4",
+          "title": "Implement infrastructure-as-code (Terraform/Helm)",
+          "description": "IaC for reproducible infrastructure",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "IaC complete, infrastructure reproducible",
+          "eta_hours": 6
+        },
+        {
+          "id": "ultra-infra-5",
+          "title": "Add advanced networking (CDN, edge locations)",
+          "description": "CloudFront/CDN for global distribution",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "CDN working, latency <50ms globally",
+          "eta_hours": 5
+        }
+      ],
+      "eta_hours": 36
+    },
+    {
+      "id": "ultra-advanced-devops",
+      "name": "\ud83d\ude80 Advanced DevOps & CI/CD (Tier 2)",
+      "description": "Full CI/CD pipeline, testing, deployment, observability",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "ultra-devops-1",
+          "title": "Build complete CI/CD pipeline (GitHub Actions/GitLab)",
+          "description": "Automated testing, building, deployment",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "CI/CD pipeline complete, all checks passing",
+          "eta_hours": 6
+        },
+        {
+          "id": "ultra-devops-2",
+          "title": "Implement advanced testing (unit/integration/e2e/mutation)",
+          "description": "Comprehensive test coverage with mutation testing",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Test suite complete, 90%+ coverage, mutation score >80%",
+          "eta_hours": 8
+        },
+        {
+          "id": "ultra-devops-3",
+          "title": "Add continuous deployment with blue-green/canary",
+          "description": "Zero-downtime deployments",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Deployments zero-downtime, rollback working",
+          "eta_hours": 5
+        },
+        {
+          "id": "ultra-devops-4",
+          "title": "Implement feature flags & progressive rollouts",
+          "description": "Control feature availability per user/region",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Feature flags working, rollouts controlled",
+          "eta_hours": 4
+        },
+        {
+          "id": "ultra-devops-5",
+          "title": "Build advanced observability dashboard",
+          "description": "Centralized logs, metrics, traces, dashboards",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Observability complete, all signals visible",
+          "eta_hours": 6
+        }
+      ],
+      "eta_hours": 29
+    },
+    {
+      "id": "ultra-voice-video",
+      "name": "\ud83c\udf99\ufe0f\ud83d\udcf9 Voice & Video Communication (Tier 2)",
+      "description": "Real-time voice/video, transcription, speaker identification",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "ultra-av-1",
+          "title": "Implement real-time voice (WebRTC, SIP)",
+          "description": "Voice calls, conferencing, recording",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Voice working, <150ms latency, echo cancellation",
+          "eta_hours": 7
+        },
+        {
+          "id": "ultra-av-2",
+          "title": "Add video conferencing (up to 100 participants)",
+          "description": "Video calls, screen sharing, recording",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Video working, 100+ participants, <200ms latency",
+          "eta_hours": 8
+        },
+        {
+          "id": "ultra-av-3",
+          "title": "Build live transcription & subtitle generation",
+          "description": "Real-time transcription with speaker identification",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Transcription <500ms latency, 95% accuracy",
+          "eta_hours": 6
+        },
+        {
+          "id": "ultra-av-4",
+          "title": "Implement speech-to-intent (voice commands)",
+          "description": "Voice control interface",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Voice commands working, >90% accuracy",
+          "eta_hours": 4
+        }
+      ],
+      "eta_hours": 25
+    },
+    {
+      "id": "ultra-advanced-monetization",
+      "name": "\ud83d\udcb0 Advanced Monetization & Metering (Tier 2)",
+      "description": "Usage-based pricing, metering, billing, revenue optimization",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "ultra-money-1",
+          "title": "Build advanced usage metering system",
+          "description": "Track every resource (tokens, calls, storage, compute)",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Metering accurate, real-time, audit-ready",
+          "eta_hours": 6
+        },
+        {
+          "id": "ultra-money-2",
+          "title": "Implement usage-based pricing with tiers",
+          "description": "Auto-calculate pricing based on consumption",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Pricing auto-calculated, invoices accurate",
+          "eta_hours": 5
+        },
+        {
+          "id": "ultra-money-3",
+          "title": "Add revenue optimization (upsell, cross-sell recommendations)",
+          "description": "ML suggests upgrades based on usage patterns",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Recommendations accurate, conversion +20%",
+          "eta_hours": 5
+        },
+        {
+          "id": "ultra-money-4",
+          "title": "Implement seat-based + usage hybrid pricing",
+          "description": "Combine fixed seats with overage usage",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Pricing flexible, invoicing accurate",
+          "eta_hours": 4
+        },
+        {
+          "id": "ultra-money-5",
+          "title": "Build advanced reporting for finance/accounting",
+          "description": "MRR, ARR, churn, LTV, CAC dashboards",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Financial reports accurate, exportable",
+          "eta_hours": 4
+        }
+      ],
+      "eta_hours": 24
+    },
+    {
+      "id": "ultra-advanced-ml",
+      "name": "\ud83e\udde0 Advanced ML/AI Continuous Learning (Tier 2)",
+      "description": "Training pipeline, evaluation, feedback loops, active learning",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "ultra-ml-1",
+          "title": "Build automated model training pipeline",
+          "description": "Auto-retrain on new data, version management",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Training automated, models versioned, improvements tracked",
+          "eta_hours": 8
+        },
+        {
+          "id": "ultra-ml-2",
+          "title": "Implement continuous evaluation & benchmarking",
+          "description": "Auto-benchmark models, track performance over time",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Evaluation continuous, benchmarks tracked",
+          "eta_hours": 6
+        },
+        {
+          "id": "ultra-ml-3",
+          "title": "Add active learning (smart sample selection)",
+          "description": "Choose hardest samples for human labeling",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Active learning improves training efficiency 2-3x",
+          "eta_hours": 6
+        },
+        {
+          "id": "ultra-ml-4",
+          "title": "Implement model distillation + compression",
+          "description": "Create smaller models from larger ones",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Distilled models 50% smaller, 95% accuracy",
+          "eta_hours": 5
+        },
+        {
+          "id": "ultra-ml-5",
+          "title": "Build federated learning (privacy-preserving training)",
+          "description": "Train on customer data without centralization",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P2",
+          "success_criteria": "Federated learning working, privacy proven",
+          "eta_hours": 8
+        }
+      ],
+      "eta_hours": 33
+    },
+    {
+      "id": "ultra-advanced-databases",
+      "name": "\ud83d\uddc4\ufe0f Advanced Database & Caching (Tier 2)",
+      "description": "Sharding, replication, multi-tenant isolation, caching layers",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "ultra-db-1",
+          "title": "Implement horizontal sharding (scale DB horizontally)",
+          "description": "Partition data across multiple servers",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Sharding working, queries efficient, no hot spots",
+          "eta_hours": 8
+        },
+        {
+          "id": "ultra-db-2",
+          "title": "Add advanced replication (leader-follower + peer-to-peer)",
+          "description": "Multi-master replication, conflict resolution",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Replication working, conflicts resolved, data consistent",
+          "eta_hours": 7
+        },
+        {
+          "id": "ultra-db-3",
+          "title": "Build multi-tier caching (in-memory + Redis + CDN)",
+          "description": "Layered caching for optimal performance",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Cache hit rate >80%, latency <50ms",
+          "eta_hours": 6
+        },
+        {
+          "id": "ultra-db-4",
+          "title": "Implement column-oriented storage optimization",
+          "description": "Optimize for analytics queries",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Analytics queries 10-100x faster",
+          "eta_hours": 5
+        },
+        {
+          "id": "ultra-db-5",
+          "title": "Add time-series database optimization",
+          "description": "Optimized storage & queries for time-series data",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Time-series queries <100ms on billions of rows",
+          "eta_hours": 5
+        }
+      ],
+      "eta_hours": 31
+    },
+    {
+      "id": "ultra-reporting-export",
+      "name": "\ud83d\udccb Advanced Reporting & Data Export (Tier 2)",
+      "description": "Scheduled reports, templates, multi-format export, compliance",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "ultra-report-1",
+          "title": "Build advanced report builder (templates + customization)",
+          "description": "Create custom reports with drag-drop builder",
+          "agent": "frontend_agent",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Report builder complete, 50+ templates",
+          "eta_hours": 6
+        },
+        {
+          "id": "ultra-report-2",
+          "title": "Implement scheduled report generation & delivery",
+          "description": "Auto-generate & send reports (email, Slack, Teams)",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Reports generated on schedule, delivery reliable",
+          "eta_hours": 4
+        },
+        {
+          "id": "ultra-report-3",
+          "title": "Add multi-format export (PDF, Excel, CSV, Parquet)",
+          "description": "Export data in multiple formats",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "All formats export correctly, no data loss",
+          "eta_hours": 4
+        },
+        {
+          "id": "ultra-report-4",
+          "title": "Implement embedded reports & dashboards",
+          "description": "Embed reports in customer websites",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Embedded reports working, styling customizable",
+          "eta_hours": 3
+        }
+      ],
+      "eta_hours": 17
+    },
+    {
+      "id": "ultra-streaming-media",
+      "name": "\ud83c\udfac Advanced Streaming & Media (Tier 2)",
+      "description": "HLS, DASH, RTMP streaming, media processing",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "ultra-stream-1",
+          "title": "Implement HLS + DASH streaming (adaptive bitrate)",
+          "description": "Adaptive bitrate video streaming",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Streaming working, bitrate adapts to network",
+          "eta_hours": 6
+        },
+        {
+          "id": "ultra-stream-2",
+          "title": "Add live streaming (RTMP ingestion + distribution)",
+          "description": "Accept RTMP streams, distribute to viewers",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Live streaming working, <5s latency",
+          "eta_hours": 6
+        },
+        {
+          "id": "ultra-stream-3",
+          "title": "Build media processing pipeline (transcode, encode)",
+          "description": "Auto-transcode videos to multiple formats/qualities",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "success_criteria": "Transcoding working, quality auto-selected",
+          "eta_hours": 5
+        },
+        {
+          "id": "ultra-stream-4",
+          "title": "Implement thumbnail generation & preview",
+          "description": "Auto-generate thumbnails, spritesheet for scrubbing",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "success_criteria": "Thumbnails generated, scrubbing smooth",
+          "eta_hours": 3
+        }
+      ],
+      "eta_hours": 20
     }
   ],
   "metadata": {
     "created": "2026-03-26T20:00:00Z",
     "created_by": "claude",
     "mission": "Beat Opus 4.6 with 90% local / 10% Claude rescue",
-    "total_tasks": 207,
+    "total_tasks": 254,
     "total_epics": 7,
-    "updated": "2026-03-27T18:38:05.874982Z",
+    "updated": "2026-03-27T18:43:49.733898Z",
     "critical_path": "blocker-fixes (16h) \u2192 system-reliability (6h) \u2192 dashboard-quality (12h) \u2192 policy-governance (18h) \u2192 execution-optimization (30h)",
     "eta_all_complete": "2026-03-27T06:39:11.894496Z",
     "token_budget": {
@@ -2827,7 +3387,7 @@
     "crons_removed": true,
     "internal_scheduling": "unified_daemon.py",
     "launch_agent_updated": true,
-    "total_projects": 46,
+    "total_projects": 56,
     "last_epic_expansion": "2026-03-27T18:28:40.197174Z",
     "premium_features_added": true,
     "ultra_tier_1_added": true

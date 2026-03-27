@@ -1154,9 +1154,9 @@ main{position:relative;z-index:1;padding-top:52px;}
       </div>
     </div>
 
-    <!-- 3 Epics Cards -->
+    <!-- Comprehensive Epic → Project → Task Hierarchy -->
     <div id="pg-epics-container" style="display: grid; grid-template-columns: 1fr; gap: 24px;">
-      <!-- Filled by JavaScript -->
+      <!-- Dynamically filled by JavaScript with expandable sections -->
     </div>
   </div>
 </div>
@@ -1319,6 +1319,223 @@ main{position:relative;z-index:1;padding-top:52px;}
 .pg-task-status.pending {
   background: rgba(255,149,0,.2);
   color: var(--orange);
+}
+
+/* Enhanced Hierarchical View Styles */
+.pg-hierarchy {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.pg-epic-section {
+  background: var(--card);
+  border: 2px solid var(--bd);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.pg-epic-header-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(0,113,227,.08), rgba(52,199,89,.08));
+  border-bottom: 2px solid var(--bd);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pg-epic-header-row:hover {
+  background: linear-gradient(135deg, rgba(0,113,227,.12), rgba(52,199,89,.12));
+}
+
+.pg-epic-toggle {
+  font-size: 20px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: var(--bg);
+  transition: transform 0.2s;
+}
+
+.pg-epic-toggle.expanded {
+  transform: rotate(90deg);
+}
+
+.pg-epic-icon-main {
+  font-size: 32px;
+  flex: 0 0 auto;
+}
+
+.pg-epic-info {
+  flex: 1;
+}
+
+.pg-epic-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--t1);
+  margin-bottom: 4px;
+}
+
+.pg-epic-desc {
+  font-size: 12px;
+  color: var(--t2);
+  margin-bottom: 8px;
+}
+
+.pg-epic-stats {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pg-stat-badge {
+  font-size: 11px;
+  padding: 4px 8px;
+  background: var(--bg);
+  border-radius: 6px;
+  font-weight: 600;
+  color: var(--t1);
+}
+
+.pg-projects-section {
+  display: none;
+  padding: 20px;
+  border-top: 1px solid var(--bd);
+}
+
+.pg-projects-section.expanded {
+  display: block;
+}
+
+.pg-project-group {
+  margin-bottom: 20px;
+  border-left: 4px solid var(--bd);
+  padding-left: 16px;
+}
+
+.pg-project-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  margin-bottom: 12px;
+  background: var(--bg);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pg-project-header:hover {
+  background: rgba(0,113,227,.08);
+}
+
+.pg-project-toggle {
+  font-size: 16px;
+  width: 20px;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.pg-project-toggle.expanded {
+  transform: rotate(90deg);
+}
+
+.pg-project-title {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--t1);
+}
+
+.pg-project-progress {
+  font-size: 11px;
+  color: var(--t2);
+  font-weight: 500;
+}
+
+.pg-tasks-list {
+  display: none;
+  padding-left: 12px;
+}
+
+.pg-tasks-list.expanded {
+  display: block;
+}
+
+.pg-task-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  background: var(--bg);
+  border-radius: 8px;
+  border-left: 3px solid var(--bd);
+  font-size: 12px;
+  transition: all 0.2s;
+}
+
+.pg-task-row:hover {
+  border-left-color: var(--blue);
+  background: rgba(0,113,227,.05);
+}
+
+.pg-task-row.completed {
+  opacity: 0.7;
+}
+
+.pg-task-checkbox {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.pg-task-row.pending .pg-task-checkbox {
+  background: rgba(255,149,0,.2);
+  color: var(--orange);
+  border: 1px solid var(--orange);
+}
+
+.pg-task-row.completed .pg-task-checkbox {
+  background: rgba(52,199,89,.2);
+  color: var(--green);
+}
+
+.pg-task-info {
+  flex: 1;
+}
+
+.pg-task-title {
+  font-weight: 600;
+  color: var(--t1);
+  margin-bottom: 2px;
+}
+
+.pg-task-meta {
+  font-size: 10px;
+  color: var(--t3);
+}
+
+.pg-task-stats {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex: 0 0 auto;
+  font-size: 10px;
 }
 
 <style>
@@ -1536,145 +1753,150 @@ const epics = [
 function renderProgressDashboard() {
   const container = document.getElementById('pg-epics-container');
 
-  // Fetch projects.json for real-time data
-  fetch('/state.json')
+  fetch('/../../projects.json')
     .then(r => r.json())
-    .then(state => {
-      fetch('/../../projects.json')
-        .then(r => r.json())
-        .catch(() => ({ projects: [], metadata: {} }))
-        .then(projectsData => {
-          // Calculate real stats
-          const totalTasks = projectsData.metadata?.total_tasks || 207;
-          const totalProjects = projectsData.metadata?.total_projects || 46;
-          const completedTasks = projectsData.projects?.reduce((sum, p) => {
-            return sum + p.tasks.filter(t => t.status === 'completed').length;
-          }, 0) || 57;
+    .catch(() => ({ projects: [], metadata: {} }))
+    .then(projectsData => {
+      // Calculate real stats
+      const totalTasks = projectsData.metadata?.total_tasks || 254;
+      const totalProjects = projectsData.metadata?.total_projects || 56;
+      const completedTasks = projectsData.projects?.reduce((sum, p) => {
+        return sum + p.tasks.filter(t => t.status === 'completed').length;
+      }, 0) || 57;
 
-          const progressPct = Math.round((completedTasks / totalTasks) * 100);
+      const progressPct = Math.round((completedTasks / totalTasks) * 100);
 
-          // Categorize projects by tier
-          const byTier = {
-            'Epic 1': projectsData.projects?.filter(p => p.id.includes('epic1')) || [],
-            'Epic 2': projectsData.projects?.filter(p => p.id.includes('epic2')) || [],
-            'Epic 3': projectsData.projects?.filter(p => p.id.includes('epic3')) || [],
-            'Premium': projectsData.projects?.filter(p => p.id.includes('premium')) || [],
-            'Ultra Tier-1': projectsData.projects?.filter(p => p.id.includes('ultra-')) || []
-          };
+      // Categorize projects by tier
+      const byTier = {
+        'Epic 1': projectsData.projects?.filter(p => p.id.includes('epic1') && !p.id.includes('ultra')) || [],
+        'Epic 2': projectsData.projects?.filter(p => p.id.includes('epic2') && !p.id.includes('ultra')) || [],
+        'Epic 3': projectsData.projects?.filter(p => p.id.includes('epic3') && !p.id.includes('ultra')) || [],
+        'Premium': projectsData.projects?.filter(p => p.id.includes('premium')) || [],
+        'Ultra Tier-1': projectsData.projects?.filter(p => p.id.startsWith('ultra-') && !p.id.includes('govt') && !p.id.includes('advanced')) || [],
+        'Ultra Tier-2': projectsData.projects?.filter(p => p.id.startsWith('ultra-') && (p.id.includes('govt') || p.id.includes('advanced'))) || []
+      };
 
-          let html = `
-            <div style="margin-bottom: 32px; padding: 20px; background: linear-gradient(135deg, rgba(0,113,227,.08), rgba(52,199,89,.08)); border-radius: 16px; border: 1px solid var(--bd);">
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin-bottom: 16px;">
-                <div>
-                  <div style="font-size: 10px; color: var(--t3); text-transform: uppercase; font-weight: 600; margin-bottom: 4px;">Total Progress</div>
-                  <div style="font-size: 36px; font-weight: 700; color: var(--blue);">${progressPct}%</div>
-                  <div style="font-size: 12px; color: var(--t2);">${completedTasks}/${totalTasks} tasks</div>
-                </div>
-                <div>
-                  <div style="font-size: 10px; color: var(--t3); text-transform: uppercase; font-weight: 600; margin-bottom: 4px;">Projects</div>
-                  <div style="font-size: 36px; font-weight: 700; color: var(--green);">${totalProjects}</div>
-                  <div style="font-size: 12px; color: var(--t2);">active streams</div>
-                </div>
-                <div>
-                  <div style="font-size: 10px; color: var(--t3); text-transform: uppercase; font-weight: 600; margin-bottom: 4px;">ETA Hours</div>
-                  <div style="font-size: 36px; font-weight: 700; color: var(--orange);">${projectsData.metadata?.eta_total_hours || 828}</div>
-                  <div style="font-size: 12px; color: var(--t2);">continuous work</div>
-                </div>
-                <div>
-                  <div style="font-size: 10px; color: var(--t3); text-transform: uppercase; font-weight: 600; margin-bottom: 4px;">Revenue Ready</div>
-                  <div style="font-size: 36px; font-weight: 700; color: var(--purple);">💰</div>
-                  <div style="font-size: 12px; color: var(--t2);">premium features</div>
-                </div>
-              </div>
-              <div style="width: 100%; height: 12px; background: var(--bg); border-radius: 6px; overflow: hidden;">
-                <div style="width: ${progressPct}%; height: 100%; background: linear-gradient(90deg, var(--blue), var(--green)); transition: width 0.3s ease;"></div>
-              </div>
+      const tierEmojis = {
+        'Epic 1': '🏗️',
+        'Epic 2': '⚡',
+        'Epic 3': '🔄',
+        'Premium': '💰',
+        'Ultra Tier-1': '🚀',
+        'Ultra Tier-2': '🏛️'
+      };
+
+      let html = `
+        <div style="margin-bottom: 32px; padding: 24px; background: linear-gradient(135deg, rgba(0,113,227,.08), rgba(52,199,89,.08)); border-radius: 16px; border: 2px solid var(--bd);">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin-bottom: 20px;">
+            <div>
+              <div style="font-size: 10px; color: var(--t3); text-transform: uppercase; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.5px;">📊 Total Progress</div>
+              <div style="font-size: 40px; font-weight: 800; color: var(--blue); line-height: 1;">${progressPct}%</div>
+              <div style="font-size: 12px; color: var(--t2); margin-top: 2px;">${completedTasks}/${totalTasks} tasks</div>
             </div>
-          `;
-
-          // Render by tier
-          Object.entries(byTier).forEach(([tier, projects]) => {
-            if (projects.length === 0) return;
-
-            const tierCompleted = projects.reduce((sum, p) =>
-              sum + p.tasks.filter(t => t.status === 'completed').length, 0);
-            const tierTotal = projects.reduce((sum, p) => sum + p.tasks.length, 0);
-            const tierPct = Math.round((tierCompleted / tierTotal) * 100);
-
-            const tierColors = {
-              'Epic 1': 'var(--green)',
-              'Epic 2': 'var(--blue)',
-              'Epic 3': 'var(--purple)',
-              'Premium': 'var(--orange)',
-              'Ultra Tier-1': '#af52de'
-            };
-
-            html += `
-              <div style="margin-bottom: 24px;">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-                  <div style="font-size: 16px; font-weight: 700; color: var(--t1);">${tier}</div>
-                  <div style="font-size: 13px; color: var(--t2); font-weight: 500;">${tierCompleted}/${tierTotal} tasks (${tierPct}%)</div>
-                </div>
-
-                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;">
-                  ${projects.map(proj => {
-                    const projCompleted = proj.tasks.filter(t => t.status === 'completed').length;
-                    const projPct = Math.round((projCompleted / proj.tasks.length) * 100);
-                    return `
-                      <div style="background: var(--card); border: 1px solid var(--bd); border-radius: 12px; padding: 14px;">
-                        <div style="font-size: 12px; font-weight: 600; color: var(--t1); margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${proj.name}</div>
-                        <div style="font-size: 11px; color: var(--t2); margin-bottom: 6px;">${projCompleted}/${proj.tasks.length} tasks</div>
-                        <div style="width: 100%; height: 4px; background: var(--bg); border-radius: 2px; overflow: hidden;">
-                          <div style="width: ${projPct}%; height: 100%; background: ${tierColors[tier]}; transition: width 0.3s ease;"></div>
-                        </div>
-                      </div>
-                    `;
-                  }).join('')}
-                </div>
-              </div>
-            `;
-          });
-
-          container.innerHTML = html;
-        });
-    })
-    .catch(() => {
-      // Fallback to static view
-      container.innerHTML = epics.map(epic => `
-        <div class="pg-epic-card">
-          <div class="pg-epic-header">
-            <div class="pg-epic-icon">${epic.icon}</div>
-            <div class="pg-epic-title">
-              <div class="pg-epic-title-main">${epic.title}</div>
-              <div class="pg-epic-title-desc">${epic.desc}</div>
+            <div>
+              <div style="font-size: 10px; color: var(--t3); text-transform: uppercase; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.5px;">🎯 Projects</div>
+              <div style="font-size: 40px; font-weight: 800; color: var(--green); line-height: 1;">${totalProjects}</div>
+              <div style="font-size: 12px; color: var(--t2); margin-top: 2px;">active streams</div>
             </div>
-            <div class="pg-epic-status">
-              <div class="pg-epic-pct" style="color: ${epic.color};">${epic.percentage}%</div>
-              <div class="pg-epic-meta">${epic.status}</div>
+            <div>
+              <div style="font-size: 10px; color: var(--t3); text-transform: uppercase; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.5px;">⏱️ ETA Hours</div>
+              <div style="font-size: 40px; font-weight: 800; color: var(--orange); line-height: 1;">~${projectsData.metadata?.eta_total_hours || 1125}</div>
+              <div style="font-size: 12px; color: var(--t2); margin-top: 2px;">continuous upgrade</div>
+            </div>
+            <div>
+              <div style="font-size: 10px; color: var(--t3); text-transform: uppercase; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.5px;">💎 Revenue</div>
+              <div style="font-size: 40px; font-weight: 800; color: var(--purple); line-height: 1;">$$$</div>
+              <div style="font-size: 12px; color: var(--t2); margin-top: 2px;">premium ready</div>
             </div>
           </div>
-          <div class="pg-progress-bar">
-            <div class="pg-progress-fill" style="width: ${epic.percentage}%; background: linear-gradient(90deg, ${epic.color}, rgba(52,199,89,.6));"></div>
-          </div>
-          <div class="pg-projects-grid">
-            ${epic.projects.map(proj => {
-              const projPct = Math.round((proj.done / proj.tasks) * 100);
-              return `
-                <div class="pg-project-item">
-                  <div class="pg-project-name">${proj.name}</div>
-                  <div class="pg-project-progress">${proj.done}/${proj.tasks} tasks</div>
-                  <div class="pg-mini-bar">
-                    <div class="pg-mini-fill" style="width: ${projPct}%;"></div>
-                  </div>
-                </div>
-              `;
-            }).join('')}
-          </div>
-          <div style="font-size: 13px; color: var(--t2); font-style: italic; padding: 12px; background: var(--bg); border-radius: 10px; border-left: 3px solid ${epic.color};">
-            ${epic.impact}
+          <div style="width: 100%; height: 16px; background: var(--bg); border-radius: 8px; overflow: hidden; border: 1px solid var(--bd);">
+            <div style="width: ${progressPct}%; height: 100%; background: linear-gradient(90deg, var(--blue) 0%, var(--green) 50%, var(--purple) 100%); transition: width 0.5s ease;"></div>
           </div>
         </div>
-      `).join('');
+      `;
+
+      // Render by tier with expandable Epic → Project → Task hierarchy
+      Object.entries(byTier).forEach(([tier, projects]) => {
+        if (projects.length === 0) return;
+
+        const tierCompleted = projects.reduce((sum, p) =>
+          sum + p.tasks.filter(t => t.status === 'completed').length, 0);
+        const tierTotal = projects.reduce((sum, p) => sum + p.tasks.length, 0);
+        const tierPct = Math.round((tierCompleted / tierTotal) * 100);
+
+        html += `
+          <div class="pg-epic-section" data-tier="${tier}">
+            <div class="pg-epic-header-row" onclick="toggleEpicSection(this)">
+              <div class="pg-epic-toggle expanded">▶</div>
+              <div class="pg-epic-icon-main">${tierEmojis[tier]}</div>
+              <div class="pg-epic-info">
+                <div class="pg-epic-name">${tier}</div>
+                <div class="pg-epic-desc">${projects.length} projects • ${tierTotal} tasks</div>
+                <div class="pg-epic-stats">
+                  <div class="pg-stat-badge">📊 ${tierPct}% complete</div>
+                  <div class="pg-stat-badge">✅ ${tierCompleted}/${tierTotal}</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pg-projects-section expanded">
+              ${projects.map(proj => {
+                const projCompleted = proj.tasks.filter(t => t.status === 'completed').length;
+                const projTotal = proj.tasks.length;
+                const projPct = Math.round((projCompleted / projTotal) * 100);
+
+                return `
+                  <div class="pg-project-group">
+                    <div class="pg-project-header" onclick="toggleProjectTasks(this)">
+                      <div class="pg-project-toggle expanded">▶</div>
+                      <div class="pg-project-title">${proj.name}</div>
+                      <div class="pg-project-progress">${projPct}% (${projCompleted}/${projTotal})</div>
+                    </div>
+
+                    <div class="pg-tasks-list expanded">
+                      ${proj.tasks.map(task => {
+                        const isCompleted = task.status === 'completed';
+                        return `
+                          <div class="pg-task-row ${task.status}">
+                            <div class="pg-task-checkbox">${isCompleted ? '✓' : '◯'}</div>
+                            <div class="pg-task-info">
+                              <div class="pg-task-title">${task.title}</div>
+                              <div class="pg-task-meta">Agent: <strong>${task.agent || 'unassigned'}</strong> • P${task.priority?.replace('P', '') || '2'} • ${task.eta_hours || '?'}h</div>
+                            </div>
+                            <div class="pg-task-stats">
+                              ${isCompleted ? '<span style="color: var(--green); font-weight: 600;">Done</span>' : '<span style="color: var(--orange); font-weight: 600;">Pending</span>'}
+                            </div>
+                          </div>
+                        `;
+                      }).join('')}
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+
+      // Add event listeners
+      window.toggleEpicSection = function(el) {
+        const section = el.closest('.pg-epic-section');
+        const toggle = el.querySelector('.pg-epic-toggle');
+        const projectsSection = section.querySelector('.pg-projects-section');
+
+        toggle.classList.toggle('expanded');
+        projectsSection.classList.toggle('expanded');
+      };
+
+      window.toggleProjectTasks = function(el) {
+        const toggle = el.querySelector('.pg-project-toggle');
+        const tasksList = el.nextElementSibling;
+
+        toggle.classList.toggle('expanded');
+        tasksList.classList.toggle('expanded');
+      };
     });
 }
 
