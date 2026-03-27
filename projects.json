@@ -193,7 +193,7 @@
           "title": "P0: Fix task router stuck-task logic \u2014 retry in_progress > 5 min",
           "description": "Currently projects_loader.py skips all in_progress tasks forever, so they get stuck. Must add: if task status='in_progress' AND elapsed > 300s, reset to 'pending' and re-execute. Add timeout field to track when task entered in_progress state. Test: create stuck task, verify it retries after 5 min timeout.",
           "agent": "executor",
-          "status": "pending",
+          "status": "completed",
           "priority": "P0",
           "files": [
             "orchestrator/projects_loader.py",
@@ -203,7 +203,8 @@
           "eta_hours": 2,
           "eta_completion": "2026-03-26T20:35:00Z",
           "started_at": "2026-03-26T18:35:00Z",
-          "quality_score": 100.0
+          "quality_score": 100.0,
+          "completed_at": "projects_loader"
         },
         {
           "id": "task-fix-3",
@@ -392,7 +393,7 @@
       "id": "production-upgrade",
       "name": "Production Upgrade: 49% \u2192 95%+ Success (Opus 4.6 Replica)",
       "description": "Complete overhaul to production-grade system with real-time dashboard, auto-execution, 95%+ success rate",
-      "status": "pending",
+      "status": "completed",
       "tasks": [
         {
           "id": "task-fix-dashboard-metrics",
@@ -626,7 +627,7 @@
         }
       ],
       "eta_hours": 18,
-      "eta_completion": "2026-03-28T00:27:01.721710",
+      "eta_completion": "2026-03-27T06:43:52.408045Z",
       "completion_timestamp": null
     }
   ],
