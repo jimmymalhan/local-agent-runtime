@@ -337,6 +337,13 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T08:26:09.414321"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T08:36:11.486755"
       }
     ],
     "rescue_escalated": false,
@@ -350,6 +357,13 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T08:26:09.758476"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T08:36:11.828334"
       }
     ],
     "rescue_escalated": false,
@@ -363,9 +377,42 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T08:26:10.106105"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T08:36:12.181106"
       }
     ],
     "rescue_escalated": false,
     "first_attempt_at": "2026-03-27T08:26:10.106104"
+  },
+  "task-knowledge-sharing": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T08:36:12.555901"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T08:36:12.555900"
+  },
+  "task-disaster-recovery": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T08:36:12.947120"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T08:36:12.947117"
   }
 }

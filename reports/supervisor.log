@@ -1715,3 +1715,14 @@
   ✓ state_store
   Auto-fixes applied: 1
 [2026-03-27 08:26:08] [INFO] SUPERVISOR: Pre-flight PASS — v1 cleared to run
+[2026-03-27 08:36:10] [INFO] SUPERVISOR: Supervisor started (background)
+[2026-03-27 08:36:10] [INFO] SUPERVISOR: Pre-flight for v1 (5 tasks)
+[2026-03-27 08:36:11] [INFO] SUPERVISOR: Pre-flight checklist:
+  ✓ registry
+  ✗ no_duplicates
+  ✓ hardware
+  ✓ claude_budget
+  ✓ logs_purged
+  ✓ state_store
+  Auto-fixes applied: 1
+[2026-03-27 08:36:11] [INFO] SUPERVISOR: Pre-flight PASS — v1 cleared to run

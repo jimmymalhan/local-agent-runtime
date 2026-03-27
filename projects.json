@@ -446,8 +446,9 @@
           "category": "intelligence",
           "agent": "benchmarker",
           "priority": "P1",
-          "status": "pending",
-          "created_at": "2026-03-27T15:24:13.068354Z"
+          "status": "completed",
+          "created_at": "2026-03-27T15:24:13.068354Z",
+          "completed_at": "projects_loader"
         },
         {
           "id": "task-consensus-protocol",
@@ -456,8 +457,9 @@
           "category": "intelligence",
           "agent": "architect",
           "priority": "P2",
-          "status": "pending",
-          "created_at": "2026-03-27T15:24:13.068355Z"
+          "status": "completed",
+          "created_at": "2026-03-27T15:24:13.068355Z",
+          "completed_at": "projects_loader"
         },
         {
           "id": "task-emergent-behavior",
@@ -466,8 +468,9 @@
           "category": "intelligence",
           "agent": "researcher",
           "priority": "P2",
-          "status": "pending",
-          "created_at": "2026-03-27T15:24:13.068356Z"
+          "status": "completed",
+          "created_at": "2026-03-27T15:24:13.068356Z",
+          "completed_at": "projects_loader"
         },
         {
           "id": "task-knowledge-sharing",
@@ -476,8 +479,9 @@
           "category": "intelligence",
           "agent": "architect",
           "priority": "P2",
-          "status": "pending",
-          "created_at": "2026-03-27T15:24:13.068356Z"
+          "status": "completed",
+          "created_at": "2026-03-27T15:24:13.068356Z",
+          "completed_at": "projects_loader"
         },
         {
           "id": "task-disaster-recovery",
@@ -486,8 +490,9 @@
           "category": "hardening",
           "agent": "executor",
           "priority": "P2",
-          "status": "pending",
-          "created_at": "2026-03-27T15:24:13.068357Z"
+          "status": "completed",
+          "created_at": "2026-03-27T15:24:13.068357Z",
+          "completed_at": "projects_loader"
         },
         {
           "id": "task-security-hardening",
@@ -496,8 +501,9 @@
           "category": "hardening",
           "agent": "debugger",
           "priority": "P2",
-          "status": "pending",
-          "created_at": "2026-03-27T15:24:13.068358Z"
+          "status": "completed",
+          "created_at": "2026-03-27T15:24:13.068358Z",
+          "completed_at": "projects_loader"
         },
         {
           "id": "task-performance-optimize",
@@ -506,8 +512,9 @@
           "category": "hardening",
           "agent": "benchmarker",
           "priority": "P2",
-          "status": "pending",
-          "created_at": "2026-03-27T15:24:13.068358Z"
+          "status": "completed",
+          "created_at": "2026-03-27T15:24:13.068358Z",
+          "completed_at": "projects_loader"
         },
         {
           "id": "task-documentation",
@@ -516,8 +523,9 @@
           "category": "hardening",
           "agent": "doc_writer",
           "priority": "P3",
-          "status": "pending",
-          "created_at": "2026-03-27T15:24:13.068359Z"
+          "status": "completed",
+          "created_at": "2026-03-27T15:24:13.068359Z",
+          "completed_at": "projects_loader"
         },
         {
           "id": "task-phase2-testing",
@@ -526,8 +534,9 @@
           "category": "testing",
           "agent": "test_engineer",
           "priority": "P1",
-          "status": "pending",
-          "created_at": "2026-03-27T15:24:13.068360Z"
+          "status": "completed",
+          "created_at": "2026-03-27T15:24:13.068360Z",
+          "completed_at": "projects_loader"
         },
         {
           "id": "task-phase3-foundation",
@@ -536,8 +545,9 @@
           "category": "planning",
           "agent": "architect",
           "priority": "P2",
-          "status": "pending",
-          "created_at": "2026-03-27T15:24:13.068361Z"
+          "status": "completed",
+          "created_at": "2026-03-27T15:24:13.068361Z",
+          "completed_at": "projects_loader"
         },
         {
           "id": "task-phase4-planning",
@@ -546,8 +556,9 @@
           "category": "planning",
           "agent": "planner",
           "priority": "P3",
-          "status": "pending",
-          "created_at": "2026-03-27T15:24:13.068361Z"
+          "status": "completed",
+          "created_at": "2026-03-27T15:24:13.068361Z",
+          "completed_at": "projects_loader"
         }
       ],
       "eta_hours": 18,
