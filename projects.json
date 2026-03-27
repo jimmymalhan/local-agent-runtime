@@ -732,7 +732,7 @@
           "title": "Update documentation to reflect inline workflow integration",
           "description": "Update WORKFLOW_EDITOR_README.md and related docs to reflect new inline integration (no iframe, single port 3001). Update API documentation with new endpoints. Accept if docs are current and complete.",
           "agent": "executor",
-          "status": "pending",
+          "status": "completed",
           "priority": "P2",
           "files": [
             "WORKFLOW_EDITOR_README.md",
@@ -740,7 +740,8 @@
           ],
           "success_criteria": "Documentation updated and accurate",
           "eta_hours": 1,
-          "quality_target": 85
+          "quality_target": 85,
+          "completed_at": "projects_loader"
         }
       ],
       "eta_hours": 14,

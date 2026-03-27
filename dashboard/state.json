@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-27T15:42:12.455702",
+  "ts": "2026-03-27T15:42:34.391474",
   "version": 1,
   "agents": {
     "reviewer": {
@@ -7,7 +7,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T15:42:02.083390",
+      "last_activity": "2026-03-27T15:42:32.091278",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -16,7 +16,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T15:42:02.083390",
+      "last_activity": "2026-03-27T15:42:32.091278",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -25,23 +25,23 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T15:42:02.083390",
+      "last_activity": "2026-03-27T15:42:32.091278",
       "sub_agents": [],
       "worker_count": 0
     },
     "test_engineer": {
-      "last_activity": "2026-03-27T15:42:02.083390"
+      "last_activity": "2026-03-27T15:42:32.091278"
     },
     "researcher": {
-      "last_activity": "2026-03-27T15:42:02.083390"
+      "last_activity": "2026-03-27T15:42:32.091278"
     }
   },
   "task_queue": {
     "total": 42,
-    "completed": 31,
+    "completed": 42,
+    "pending": 0,
     "in_progress": 0,
-    "failed": 0,
-    "pending": 11
+    "failed": 0
   },
   "benchmark_scores": {
     "avg_local": 0.0,
@@ -67,9 +67,9 @@
   },
   "token_usage": {
     "claude_tokens": 0,
-    "local_tokens": 486160,
-    "budget_pct": 97.232,
-    "warning": true,
+    "local_tokens": 194624,
+    "budget_pct": 38.9,
+    "warning": false,
     "hard_limit_hit": false
   },
   "hardware": {
@@ -178,8 +178,8 @@
       "ts": "2026-03-27T08:36:12.961299"
     }
   },
-  "quality": 70,
-  "quality_score": 70,
+  "quality": 95,
+  "quality_score": 95,
   "model": "local-v1",
   "recent_tasks": [
     {
@@ -225,7 +225,7 @@
   ],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-27T08:42:11.588771",
+    "ts": "2026-03-27T08:42:30.853003",
     "epics": [
       {
         "id": "system-reliability",
