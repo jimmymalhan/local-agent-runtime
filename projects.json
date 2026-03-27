@@ -413,8 +413,9 @@
           "category": "scaling",
           "agent": "architect",
           "priority": "P0",
-          "status": "pending",
-          "created_at": "2026-03-27T15:24:13.068351Z"
+          "status": "completed",
+          "created_at": "2026-03-27T15:24:13.068351Z",
+          "completed_at": "projects_loader"
         },
         {
           "id": "task-advanced-caching",
