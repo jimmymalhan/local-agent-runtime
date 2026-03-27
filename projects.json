@@ -1045,10 +1045,11 @@
           "title": "Implement data export (CSV, JSON, PDF reports)",
           "description": "Export tasks, metrics, reports to various formats with formatting",
           "agent": "frontend_agent",
-          "status": "pending",
+          "status": "completed",
           "priority": "P1",
           "success_criteria": "All formats export correctly, no data loss",
-          "eta_hours": 2
+          "eta_hours": 2,
+          "completed_at": "projects_loader"
         },
         {
           "id": "ultra-dash-5",
@@ -4220,7 +4221,7 @@
     },
     {
       "id": "ui-react-dashboard",
-      "name": "⚡ React Dashboard Ultra-Upgrade",
+      "name": "\u26a1 React Dashboard Ultra-Upgrade",
       "description": "Replace vanilla JS with React 18, build Jira-like Projects & Tasks tab, merge Progress/Workflow, remove CEO tab",
       "status": "pending",
       "priority": "P0",
@@ -4232,7 +4233,11 @@
           "agent": "frontend_engineer",
           "status": "pending",
           "priority": "P0",
-          "files": ["dashboard/package.json", "dashboard/vite.config.js", "dashboard/src/main.jsx"],
+          "files": [
+            "dashboard/package.json",
+            "dashboard/vite.config.js",
+            "dashboard/src/main.jsx"
+          ],
           "success_criteria": "npm run build succeeds, dist/ folder created with index.html, no CDN scripts loaded",
           "eta_hours": 3,
           "quality_target": 90
@@ -4244,7 +4249,11 @@
           "agent": "frontend_engineer",
           "status": "pending",
           "priority": "P0",
-          "files": ["dashboard/src/styles/tokens.css", "dashboard/src/styles/App.css", "dashboard/src/App.jsx"],
+          "files": [
+            "dashboard/src/styles/tokens.css",
+            "dashboard/src/styles/App.css",
+            "dashboard/src/App.jsx"
+          ],
           "success_criteria": "CSS renders identically to original, no styling regressions",
           "eta_hours": 2,
           "quality_target": 95
@@ -4256,7 +4265,11 @@
           "agent": "frontend_engineer",
           "status": "pending",
           "priority": "P0",
-          "files": ["dashboard/src/components/Navbar.jsx", "dashboard/src/context/StateContext.jsx", "dashboard/src/hooks/useRealtime.js"],
+          "files": [
+            "dashboard/src/components/Navbar.jsx",
+            "dashboard/src/context/StateContext.jsx",
+            "dashboard/src/hooks/useRealtime.js"
+          ],
           "success_criteria": "Tab navigation works, state updates on WebSocket messages",
           "eta_hours": 4,
           "quality_target": 90
@@ -4264,11 +4277,14 @@
         {
           "id": "ui-react-b1",
           "title": "Build <EpicSection> component (collapsible epic card)",
-          "description": "Render epic header with: name, description, status badge, progress bar (blue→green), task counts (done/running/pending/blocked), % complete. Clicking header expands to show projects.",
+          "description": "Render epic header with: name, description, status badge, progress bar (blue\u2192green), task counts (done/running/pending/blocked), % complete. Clicking header expands to show projects.",
           "agent": "frontend_engineer",
           "status": "pending",
           "priority": "P0",
-          "files": ["dashboard/src/components/EpicSection.jsx", "dashboard/src/components/EpicDetail.jsx"],
+          "files": [
+            "dashboard/src/components/EpicSection.jsx",
+            "dashboard/src/components/EpicDetail.jsx"
+          ],
           "success_criteria": "Epic expands/collapses, shows correct task counts from state",
           "eta_hours": 3,
           "quality_target": 90
@@ -4276,11 +4292,13 @@
         {
           "id": "ui-react-b2",
           "title": "Build <ProjectCard> component (project with progress bar)",
-          "description": "Show project: name, description, agent, priority badge, animated progress bar, task breakdown, ETA. Click → detail modal.",
+          "description": "Show project: name, description, agent, priority badge, animated progress bar, task breakdown, ETA. Click \u2192 detail modal.",
           "agent": "frontend_engineer",
           "status": "pending",
           "priority": "P0",
-          "files": ["dashboard/src/components/ProjectCard.jsx"],
+          "files": [
+            "dashboard/src/components/ProjectCard.jsx"
+          ],
           "success_criteria": "Projects render under epics with correct data from projects.json",
           "eta_hours": 2,
           "quality_target": 90
@@ -4288,11 +4306,13 @@
         {
           "id": "ui-react-b3",
           "title": "Build <TaskRow> component (compact task display)",
-          "description": "Show: checkbox (done/pending), task ID (NX-xxx), title, agent badge, priority, quality score, status pill, ETA. Click → detail modal.",
+          "description": "Show: checkbox (done/pending), task ID (NX-xxx), title, agent badge, priority, quality score, status pill, ETA. Click \u2192 detail modal.",
           "agent": "frontend_engineer",
           "status": "pending",
           "priority": "P0",
-          "files": ["dashboard/src/components/TaskRow.jsx"],
+          "files": [
+            "dashboard/src/components/TaskRow.jsx"
+          ],
           "success_criteria": "Tasks render in grid with all fields visible",
           "eta_hours": 2,
           "quality_target": 90
@@ -4304,7 +4324,10 @@
           "agent": "frontend_engineer",
           "status": "pending",
           "priority": "P1",
-          "files": ["dashboard/src/components/KanbanBoard.jsx", "dashboard/src/components/KanbanColumn.jsx"],
+          "files": [
+            "dashboard/src/components/KanbanBoard.jsx",
+            "dashboard/src/components/KanbanColumn.jsx"
+          ],
           "success_criteria": "Drag-drop works between columns, task count updates immediately",
           "eta_hours": 5,
           "quality_target": 85
@@ -4312,11 +4335,13 @@
         {
           "id": "ui-react-b5",
           "title": "Build <ProgressSummary> bar (top status bar)",
-          "description": "Show: Total tasks (365), Completed, In Progress, Blocked, % complete with animated gradient bar (blue→green→purple).",
+          "description": "Show: Total tasks (365), Completed, In Progress, Blocked, % complete with animated gradient bar (blue\u2192green\u2192purple).",
           "agent": "frontend_engineer",
           "status": "pending",
           "priority": "P1",
-          "files": ["dashboard/src/components/ProgressSummary.jsx"],
+          "files": [
+            "dashboard/src/components/ProgressSummary.jsx"
+          ],
           "success_criteria": "Progress bar updates in real-time on state change",
           "eta_hours": 2,
           "quality_target": 90
@@ -4328,7 +4353,9 @@
           "agent": "frontend_engineer",
           "status": "pending",
           "priority": "P1",
-          "files": ["dashboard/src/components/FilterSidebar.jsx"],
+          "files": [
+            "dashboard/src/components/FilterSidebar.jsx"
+          ],
           "success_criteria": "Filters work, kanban updates instantly on filter change",
           "eta_hours": 3,
           "quality_target": 85
@@ -4336,11 +4363,13 @@
         {
           "id": "ui-react-b7",
           "title": "Build <WorkflowStages> (pipeline visualization)",
-          "description": "Inline horizontal pipeline: Agent Assignment → Execution → Validation → Commit → Merge. Show % complete per stage, current active stage highlighted.",
+          "description": "Inline horizontal pipeline: Agent Assignment \u2192 Execution \u2192 Validation \u2192 Commit \u2192 Merge. Show % complete per stage, current active stage highlighted.",
           "agent": "frontend_engineer",
           "status": "pending",
           "priority": "P1",
-          "files": ["dashboard/src/components/WorkflowStages.jsx"],
+          "files": [
+            "dashboard/src/components/WorkflowStages.jsx"
+          ],
           "success_criteria": "Stages render, active stage highlights on state update",
           "eta_hours": 2,
           "quality_target": 85
@@ -4352,7 +4381,9 @@
           "agent": "frontend_engineer",
           "status": "pending",
           "priority": "P1",
-          "files": ["dashboard/src/components/TaskDetailModal.jsx"],
+          "files": [
+            "dashboard/src/components/TaskDetailModal.jsx"
+          ],
           "success_criteria": "Modal opens on task click, shows all task fields correctly",
           "eta_hours": 3,
           "quality_target": 85
@@ -4364,7 +4395,9 @@
           "agent": "frontend_engineer",
           "status": "pending",
           "priority": "P1",
-          "files": ["dashboard/src/components/EpicDetailPanel.jsx"],
+          "files": [
+            "dashboard/src/components/EpicDetailPanel.jsx"
+          ],
           "success_criteria": "Panel slides in/out smoothly, shows all epic data",
           "eta_hours": 3,
           "quality_target": 85
@@ -4376,7 +4409,10 @@
           "agent": "frontend_engineer",
           "status": "pending",
           "priority": "P0",
-          "files": ["dashboard/src/components/Navbar.jsx", "dashboard/src/components/OverviewTab.jsx"],
+          "files": [
+            "dashboard/src/components/Navbar.jsx",
+            "dashboard/src/components/OverviewTab.jsx"
+          ],
           "success_criteria": "CEO tab gone, Overview shows all KPIs in header",
           "eta_hours": 1,
           "quality_target": 95
@@ -4388,7 +4424,9 @@
           "agent": "frontend_engineer",
           "status": "pending",
           "priority": "P0",
-          "files": ["dashboard/src/components/ProjectsAndTasksTab.jsx"],
+          "files": [
+            "dashboard/src/components/ProjectsAndTasksTab.jsx"
+          ],
           "success_criteria": "Progress summary visible in Projects tab, Progress tab removed",
           "eta_hours": 2,
           "quality_target": 90
@@ -4400,7 +4438,9 @@
           "agent": "frontend_engineer",
           "status": "pending",
           "priority": "P0",
-          "files": ["dashboard/src/components/ProjectsAndTasksTab.jsx"],
+          "files": [
+            "dashboard/src/components/ProjectsAndTasksTab.jsx"
+          ],
           "success_criteria": "Workflow stages visible in Projects tab, Workflow tab removed",
           "eta_hours": 1,
           "quality_target": 90
@@ -4412,7 +4452,11 @@
           "agent": "qa_engineer",
           "status": "pending",
           "priority": "P1",
-          "files": ["dashboard/playwright.config.js", "dashboard/tests/", "dashboard/package.json"],
+          "files": [
+            "dashboard/playwright.config.js",
+            "dashboard/tests/",
+            "dashboard/package.json"
+          ],
           "success_criteria": "npx playwright install runs without error, config validates",
           "eta_hours": 1,
           "quality_target": 95
@@ -4420,11 +4464,13 @@
         {
           "id": "ui-react-e2",
           "title": "Write Playwright test: Tab navigation",
-          "description": "Test: Click each tab (Overview, Agents, Projects, Logs, Chat) → verify tab content loads. No JS errors.",
+          "description": "Test: Click each tab (Overview, Agents, Projects, Logs, Chat) \u2192 verify tab content loads. No JS errors.",
           "agent": "qa_engineer",
           "status": "pending",
           "priority": "P1",
-          "files": ["dashboard/tests/tabs.spec.js"],
+          "files": [
+            "dashboard/tests/tabs.spec.js"
+          ],
           "success_criteria": "Test passes: all 5 tabs navigate without errors",
           "eta_hours": 2,
           "quality_target": 90
@@ -4432,11 +4478,13 @@
         {
           "id": "ui-react-e3",
           "title": "Write Playwright test: Projects & Tasks renders epics",
-          "description": "Test: Go to Projects tab → verify 3 epics render with correct names/descriptions → click epic → verify expansion works.",
+          "description": "Test: Go to Projects tab \u2192 verify 3 epics render with correct names/descriptions \u2192 click epic \u2192 verify expansion works.",
           "agent": "qa_engineer",
           "status": "pending",
           "priority": "P1",
-          "files": ["dashboard/tests/projects-tab.spec.js"],
+          "files": [
+            "dashboard/tests/projects-tab.spec.js"
+          ],
           "success_criteria": "Test passes: epics expand/collapse, projects show correct count",
           "eta_hours": 2,
           "quality_target": 85
@@ -4448,7 +4496,9 @@
           "agent": "qa_engineer",
           "status": "pending",
           "priority": "P1",
-          "files": ["dashboard/tests/kanban.spec.js"],
+          "files": [
+            "dashboard/tests/kanban.spec.js"
+          ],
           "success_criteria": "Test passes: column counts match expected values",
           "eta_hours": 2,
           "quality_target": 85
@@ -4456,11 +4506,13 @@
         {
           "id": "ui-react-e5",
           "title": "Write Playwright test: Real-time WebSocket updates",
-          "description": "Test: Mock WebSocket message → verify DOM updates within 2 seconds (task count changes, progress bar updates).",
+          "description": "Test: Mock WebSocket message \u2192 verify DOM updates within 2 seconds (task count changes, progress bar updates).",
           "agent": "qa_engineer",
           "status": "pending",
           "priority": "P1",
-          "files": ["dashboard/tests/realtime.spec.js"],
+          "files": [
+            "dashboard/tests/realtime.spec.js"
+          ],
           "success_criteria": "Test passes: DOM updates within 2s of state change",
           "eta_hours": 3,
           "quality_target": 80
@@ -4468,11 +4520,13 @@
         {
           "id": "ui-react-e6",
           "title": "Write Playwright test: Task detail modal",
-          "description": "Test: Click task → modal opens → shows title, description, agent, quality, error log → close button works.",
+          "description": "Test: Click task \u2192 modal opens \u2192 shows title, description, agent, quality, error log \u2192 close button works.",
           "agent": "qa_engineer",
           "status": "pending",
           "priority": "P1",
-          "files": ["dashboard/tests/modal.spec.js"],
+          "files": [
+            "dashboard/tests/modal.spec.js"
+          ],
           "success_criteria": "Test passes: modal opens/closes correctly, shows all fields",
           "eta_hours": 2,
           "quality_target": 85
@@ -4484,7 +4538,9 @@
           "agent": "qa_engineer",
           "status": "pending",
           "priority": "P1",
-          "files": ["dashboard/package.json"],
+          "files": [
+            "dashboard/package.json"
+          ],
           "success_criteria": "npm run test:ui passes 7/7 tests",
           "eta_hours": 1,
           "quality_target": 95
@@ -4492,11 +4548,13 @@
         {
           "id": "ui-react-server-api",
           "title": "Update dashboard/server.py for React build + new API endpoints",
-          "description": "1. Serve /dist/ as static (React build output)\n2. Add POST /api/task/move {task_id, from_column, to_column} → update projects.json + state.json\n3. Add POST /api/agent/restart {agent_id} → restart agent process\n4. Add POST /api/agent/prompt {agent_id, prompt_text} → save agent prompt upgrade",
+          "description": "1. Serve /dist/ as static (React build output)\n2. Add POST /api/task/move {task_id, from_column, to_column} \u2192 update projects.json + state.json\n3. Add POST /api/agent/restart {agent_id} \u2192 restart agent process\n4. Add POST /api/agent/prompt {agent_id, prompt_text} \u2192 save agent prompt upgrade",
           "agent": "backend_engineer",
           "status": "pending",
           "priority": "P0",
-          "files": ["dashboard/server.py"],
+          "files": [
+            "dashboard/server.py"
+          ],
           "success_criteria": "All 3 new endpoints work, tasks persist on board refresh",
           "eta_hours": 3,
           "quality_target": 90
@@ -4507,7 +4565,7 @@
     },
     {
       "id": "epic1-ui-enhancements",
-      "name": "🚀 E1: Production-Grade UI Enhancements",
+      "name": "\ud83d\ude80 E1: Production-Grade UI Enhancements",
       "description": "Advanced UI features for Nexus dashboard: benchmark chart, agent detail modal, quality heatmap, prompt editor",
       "status": "pending",
       "priority": "P0",
@@ -4519,19 +4577,23 @@
           "agent": "frontend_engineer",
           "status": "pending",
           "priority": "P1",
-          "files": ["dashboard/src/components/BenchmarkChart.jsx"],
+          "files": [
+            "dashboard/src/components/BenchmarkChart.jsx"
+          ],
           "success_criteria": "Chart animates on mount, shows correct data, responsive to window resize",
           "eta_hours": 4,
           "quality_target": 85
         },
         {
           "id": "e1-ui-agent-modal",
-          "title": "Build agent detail modal (click agent → see full history + quality chart)",
-          "description": "Click any agent card → modal shows: agent name, current task, all completed tasks list, quality score histogram over versions, success rate trend line.",
+          "title": "Build agent detail modal (click agent \u2192 see full history + quality chart)",
+          "description": "Click any agent card \u2192 modal shows: agent name, current task, all completed tasks list, quality score histogram over versions, success rate trend line.",
           "agent": "frontend_engineer",
           "status": "pending",
           "priority": "P1",
-          "files": ["dashboard/src/components/AgentDetailModal.jsx"],
+          "files": [
+            "dashboard/src/components/AgentDetailModal.jsx"
+          ],
           "success_criteria": "Modal shows agent history + quality chart on click",
           "eta_hours": 4,
           "quality_target": 85
@@ -4543,19 +4605,23 @@
           "agent": "frontend_engineer",
           "status": "pending",
           "priority": "P1",
-          "files": ["dashboard/src/components/QualityHeatmap.jsx"],
+          "files": [
+            "dashboard/src/components/QualityHeatmap.jsx"
+          ],
           "success_criteria": "Heatmap renders with correct colors, tooltip on hover",
           "eta_hours": 3,
           "quality_target": 85
         },
         {
           "id": "e1-ui-prompt-editor",
-          "title": "Build in-UI agent prompt editor (textarea + save → POST /api/agent/prompt)",
+          "title": "Build in-UI agent prompt editor (textarea + save \u2192 POST /api/agent/prompt)",
           "description": "Modal with: agent selector, large textarea for prompt text, save button (POST /api/agent/prompt), version history dropdown to see past prompts.",
           "agent": "frontend_engineer",
           "status": "pending",
           "priority": "P1",
-          "files": ["dashboard/src/components/PromptEditorModal.jsx"],
+          "files": [
+            "dashboard/src/components/PromptEditorModal.jsx"
+          ],
           "success_criteria": "Save button works, prompt persists to state.json, version history loads",
           "eta_hours": 3,
           "quality_target": 80
@@ -4566,7 +4632,7 @@
     },
     {
       "id": "epic2-cost-optimization",
-      "name": "⚡ E2: Token Efficiency & Cost Optimization Dashboard",
+      "name": "\u26a1 E2: Token Efficiency & Cost Optimization Dashboard",
       "description": "Advanced cost tracking: budget ring, token cost per task, rescue timeline, model routing analytics",
       "status": "pending",
       "priority": "P0",
@@ -4578,31 +4644,37 @@
           "agent": "frontend_engineer",
           "status": "pending",
           "priority": "P1",
-          "files": ["dashboard/src/components/BudgetRing.jsx"],
+          "files": [
+            "dashboard/src/components/BudgetRing.jsx"
+          ],
           "success_criteria": "Donut renders, color changes on budget increase, tooltip shows tokens",
           "eta_hours": 2,
           "quality_target": 90
         },
         {
           "id": "e2-cost-breakdown",
-          "title": "Build sortable cost breakdown table (task → tokens → model → quality/cost ratio)",
-          "description": "Table columns: task_id, task_title, tokens_used, model (local/claude), quality_score, cost_ratio (quality/tokens). Sortable. Click task → detail modal.",
+          "title": "Build sortable cost breakdown table (task \u2192 tokens \u2192 model \u2192 quality/cost ratio)",
+          "description": "Table columns: task_id, task_title, tokens_used, model (local/claude), quality_score, cost_ratio (quality/tokens). Sortable. Click task \u2192 detail modal.",
           "agent": "frontend_engineer",
           "status": "pending",
           "priority": "P1",
-          "files": ["dashboard/src/components/CostBreakdownTable.jsx"],
+          "files": [
+            "dashboard/src/components/CostBreakdownTable.jsx"
+          ],
           "success_criteria": "Table renders, sort works, cost_ratio calculates correctly",
           "eta_hours": 3,
           "quality_target": 85
         },
         {
           "id": "e2-cost-timeline",
-          "title": "Build rescue event timeline (rescue # → tokens → timestamp → outcome)",
+          "title": "Build rescue event timeline (rescue # \u2192 tokens \u2192 timestamp \u2192 outcome)",
           "description": "Vertical timeline: each rescue event shows timestamp, agent that triggered rescue, tokens used, outcome (success/failed/retry). Hover = full details.",
           "agent": "frontend_engineer",
           "status": "pending",
           "priority": "P1",
-          "files": ["dashboard/src/components/RescueTimeline.jsx"],
+          "files": [
+            "dashboard/src/components/RescueTimeline.jsx"
+          ],
           "success_criteria": "Timeline renders, events ordered by timestamp, tooltips on hover",
           "eta_hours": 2,
           "quality_target": 85
@@ -4613,7 +4685,7 @@
     },
     {
       "id": "epic3-resilience-dashboards",
-      "name": "🔄 E3: 24/7 Autonomous Resilience & Observability",
+      "name": "\ud83d\udd04 E3: 24/7 Autonomous Resilience & Observability",
       "description": "Health monitoring: CPU/RAM sparklines, agent restart button, failure analysis, self-heal log",
       "status": "pending",
       "priority": "P0",
@@ -4625,7 +4697,9 @@
           "agent": "frontend_engineer",
           "status": "pending",
           "priority": "P1",
-          "files": ["dashboard/src/components/HealthCards.jsx"],
+          "files": [
+            "dashboard/src/components/HealthCards.jsx"
+          ],
           "success_criteria": "Sparklines update every 5s, correct colors based on thresholds",
           "eta_hours": 3,
           "quality_target": 85
@@ -4633,11 +4707,13 @@
         {
           "id": "e3-agent-restart",
           "title": "Add agent restart button (POST /api/agent/restart {agent_id})",
-          "description": "Button on each agent card. Click → confirm dialog → POST /api/agent/restart → show status 'restarting...' → update UI when agent comes back up.",
+          "description": "Button on each agent card. Click \u2192 confirm dialog \u2192 POST /api/agent/restart \u2192 show status 'restarting...' \u2192 update UI when agent comes back up.",
           "agent": "frontend_engineer",
           "status": "pending",
           "priority": "P1",
-          "files": ["dashboard/src/components/AgentCard.jsx"],
+          "files": [
+            "dashboard/src/components/AgentCard.jsx"
+          ],
           "success_criteria": "Button works, restart completes, agent status updates",
           "eta_hours": 2,
           "quality_target": 85
@@ -4645,11 +4721,13 @@
         {
           "id": "e3-failure-analysis",
           "title": "Build failure analysis panel (failures grouped by agent + error type + trend)",
-          "description": "Panel shows: failures by agent (dropdown/filter), by error type (network/timeout/validation/etc), trend line (failures over last 7 days). Click failure → detail with logs.",
+          "description": "Panel shows: failures by agent (dropdown/filter), by error type (network/timeout/validation/etc), trend line (failures over last 7 days). Click failure \u2192 detail with logs.",
           "agent": "frontend_engineer",
           "status": "pending",
           "priority": "P1",
-          "files": ["dashboard/src/components/FailureAnalysisPanel.jsx"],
+          "files": [
+            "dashboard/src/components/FailureAnalysisPanel.jsx"
+          ],
           "success_criteria": "Panel renders, grouping works, trend line shows correct data",
           "eta_hours": 4,
           "quality_target": 80
@@ -4661,7 +4739,9 @@
           "agent": "frontend_engineer",
           "status": "pending",
           "priority": "P1",
-          "files": ["dashboard/src/components/SelfHealLog.jsx"],
+          "files": [
+            "dashboard/src/components/SelfHealLog.jsx"
+          ],
           "success_criteria": "Feed populates from state.json, newest first, expandable rows",
           "eta_hours": 2,
           "quality_target": 85

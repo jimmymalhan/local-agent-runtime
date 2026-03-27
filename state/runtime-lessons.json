@@ -612,11 +612,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:03:56.989211"
+      },
+      {
+        "attempt": 6,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:07:14.230903"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T11:27:03.877746",
-    "rescue_escalated_at": "2026-03-27T12:03:56.990404"
+    "rescue_escalated_at": "2026-03-27T12:07:14.234885"
   },
   "ultra-dash-5": {
     "attempts": [
@@ -647,11 +654,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:03:57.428125"
+      },
+      {
+        "attempt": 5,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:07:14.610416"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T11:37:06.947671",
-    "rescue_escalated_at": "2026-03-27T12:03:57.429218"
+    "rescue_escalated_at": "2026-03-27T12:07:14.613016"
   },
   "agent-intel-1": {
     "attempts": [
@@ -675,11 +689,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:03:57.906443"
+      },
+      {
+        "attempt": 4,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:07:14.988750"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T11:47:09.830351",
-    "rescue_escalated_at": "2026-03-27T12:03:57.907090"
+    "rescue_escalated_at": "2026-03-27T12:07:14.991266"
   },
   "agent-intel-2": {
     "attempts": [
@@ -696,10 +717,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:03:58.346088"
+      },
+      {
+        "attempt": 3,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:07:15.377853"
       }
     ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T11:57:12.724376"
+    "rescue_escalated": true,
+    "first_attempt_at": "2026-03-27T11:57:12.724376",
+    "rescue_escalated_at": "2026-03-27T12:07:15.380621"
   },
   "agent-intel-3": {
     "attempts": [
@@ -709,6 +738,13 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:03:58.773350"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:07:15.772433"
       }
     ],
     "rescue_escalated": false,
