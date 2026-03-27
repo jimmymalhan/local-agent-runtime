@@ -763,12 +763,14 @@ def run_version(version: int, tasks: list, local_only: bool = False,
             if local_result is None:
                 error_msg = "Agent returned None (crashed or timed out)"
             elif isinstance(local_result, dict):
-                error_msg = local_result.get("error", local_result.get("status", "failed"))
+                error_msg = (local_result.get("error") or
+                            local_result.get("status") or
+                            "failed")
             else:
                 error_msg = str(local_result)
 
             log_failure(agent_name_hint, title[:80], task_id, 1,
-                        error_msg[:200] if error_msg else "unknown error")
+                        (error_msg[:200] if isinstance(error_msg, str) else str(error_msg)[:200]) if error_msg else "unknown error")
 
         # ── Update adaptive budgeting with task outcome ──
         if ab:
