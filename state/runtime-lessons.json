@@ -273,11 +273,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T10:36:46.799949"
+      },
+      {
+        "attempt": 5,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T10:46:49.313798"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T10:06:39.380640",
-    "rescue_escalated_at": "2026-03-27T10:36:46.800436"
+    "rescue_escalated_at": "2026-03-27T10:46:49.314523"
   },
   "phase3-concurrent-execution": {
     "attempts": [
@@ -301,11 +308,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T10:36:47.169390"
+      },
+      {
+        "attempt": 4,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T10:46:49.679288"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T10:16:42.173660",
-    "rescue_escalated_at": "2026-03-27T10:36:47.169916"
+    "rescue_escalated_at": "2026-03-27T10:46:49.679791"
   },
   "phase3-self-healing": {
     "attempts": [
@@ -322,10 +336,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T10:36:47.515148"
+      },
+      {
+        "attempt": 3,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T10:46:50.048961"
       }
     ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T10:26:45.099672"
+    "rescue_escalated": true,
+    "first_attempt_at": "2026-03-27T10:26:45.099672",
+    "rescue_escalated_at": "2026-03-27T10:46:50.049408"
   },
   "phase3-quality-gates": {
     "attempts": [
@@ -335,9 +357,29 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T10:36:47.864611"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T10:46:50.415229"
       }
     ],
     "rescue_escalated": false,
     "first_attempt_at": "2026-03-27T10:36:47.864609"
+  },
+  "phase3-performance-tuning": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T10:46:50.776657"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T10:46:50.776654"
   }
 }

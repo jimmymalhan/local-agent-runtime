@@ -941,12 +941,13 @@
           "id": "phase3-advanced-routing",
           "title": "Implement advanced task routing",
           "agent": "architect",
-          "status": "pending",
+          "status": "completed",
           "priority": "P0",
           "files": [],
           "success_criteria": "Complete: Implement advanced task routing",
           "eta_hours": 4,
-          "eta_completion": "2026-03-27T16:36:38.442249Z"
+          "eta_completion": "2026-03-27T16:36:38.442249Z",
+          "completed_at": "projects_loader"
         },
         {
           "id": "phase3-concurrent-execution",

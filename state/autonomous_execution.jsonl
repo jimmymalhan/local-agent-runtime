@@ -845,3 +845,8 @@
 {"ts": "2026-03-27T10:36:47.168918", "action": "execute_failed", "agent": "executor", "task_id": "phase3-concurrent-execution", "attempts": 3, "last_error": "Unknown error"}
 {"ts": "2026-03-27T10:36:47.514751", "action": "execute_failed", "agent": "executor", "task_id": "phase3-self-healing", "attempts": 3, "last_error": "Unknown error"}
 {"ts": "2026-03-27T10:36:47.864250", "action": "execute_failed", "agent": "executor", "task_id": "phase3-quality-gates", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T10:46:49.313234", "action": "execute_failed", "agent": "executor", "task_id": "phase3-advanced-routing", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T10:46:49.678809", "action": "execute_failed", "agent": "executor", "task_id": "phase3-concurrent-execution", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T10:46:50.048628", "action": "execute_failed", "agent": "executor", "task_id": "phase3-self-healing", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T10:46:50.414863", "action": "execute_failed", "agent": "executor", "task_id": "phase3-quality-gates", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-27T10:46:50.776300", "action": "execute_failed", "agent": "executor", "task_id": "phase3-performance-tuning", "attempts": 3, "last_error": "Unknown error"}
