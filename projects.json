@@ -10,7 +10,7 @@
           "id": "task-1",
           "title": "System health check \u2014 verify orchestrator/dashboard/agents running",
           "description": "Verify all runtime components are operational: orchestrator/main.py, dashboard server, agents, watchdog, cron jobs",
-          "agent": "orchestrator",
+          "agent": "executor",
           "status": "in_progress",
           "priority": "P0",
           "files": [
@@ -38,7 +38,7 @@
           "id": "task-2",
           "title": "Fix dashboard state \u2014 implement missing quality/model fields",
           "description": "Implement schema validation for dashboard/state.json. Add defaults for missing fields: quality, model, recent_tasks, changelog, research_feed",
-          "agent": "frontend_agent",
+          "agent": "test_engineer",
           "status": "in_progress",
           "priority": "P1",
           "files": [
@@ -65,7 +65,7 @@
           "id": "task-3",
           "title": "Policy enforcement \u2014 wire token/rescue budget limits",
           "description": "Implement token_enforcer.py, rescue_enforcer.py, update providers/router.py to enforce 10% token budget and model routing rules",
-          "agent": "orchestrator",
+          "agent": "executor",
           "status": "pending",
           "priority": "P1",
           "files": [
@@ -94,7 +94,7 @@
           "id": "task-4",
           "title": "Optimize multi-loop execution \u2014 DAG + parallel + memory + self-improve",
           "description": "Wire DAG dependency tracking, parallel task execution, semantic memory, and self-improvement loop into orchestrator/continuous_loop.py",
-          "agent": "orchestrator",
+          "agent": "executor",
           "status": "pending",
           "priority": "P0",
           "files": [
@@ -122,7 +122,7 @@
           "id": "task-5",
           "title": "Set up local agent handoff \u2014 document all work for agents/__init__.py router",
           "description": "Verify agents/__init__.py router picks up tasks from projects.json, update projects.json with all 5 tasks, prepare for autonomous execution",
-          "agent": "orchestrator",
+          "agent": "executor",
           "status": "pending",
           "priority": "P0",
           "files": [
@@ -141,15 +141,15 @@
     },
     {
       "id": "blocker-fixes",
-      "name": "P0 Blockers — Unblock Task Execution (URGENT)",
+      "name": "P0 Blockers \u2014 Unblock Task Execution (URGENT)",
       "description": "Fix 6 critical blockers preventing local agents from executing tasks. Must complete within 12 hours.",
       "status": "in_progress",
       "tasks": [
         {
           "id": "task-fix-1",
-          "title": "P0: Fix task state persistence — results must update projects.json",
+          "title": "P0: Fix task state persistence \u2014 results must update projects.json",
           "description": "After each agent completes a task, orchestrator must persist: status='completed', quality_score, elapsed_time, result summary. Currently agent results are lost and tasks never transition from in_progress. Test: run_version() with any pending task, verify projects.json status updates and quality is non-zero.",
-          "agent": "orchestrator",
+          "agent": "executor",
           "status": "pending",
           "priority": "P0",
           "files": [
@@ -157,16 +157,16 @@
             "orchestrator/projects_loader.py",
             "projects.json"
           ],
-          "success_criteria": "At least 1 task transitions from pending→completed in projects.json; quality_score is non-zero",
+          "success_criteria": "At least 1 task transitions from pending\u2192completed in projects.json; quality_score is non-zero",
           "eta_hours": 3,
           "eta_completion": "2026-03-26T21:35:00Z",
           "started_at": "2026-03-26T18:35:00Z"
         },
         {
           "id": "task-fix-2",
-          "title": "P0: Fix task router stuck-task logic — retry in_progress > 5 min",
+          "title": "P0: Fix task router stuck-task logic \u2014 retry in_progress > 5 min",
           "description": "Currently projects_loader.py skips all in_progress tasks forever, so they get stuck. Must add: if task status='in_progress' AND elapsed > 300s, reset to 'pending' and re-execute. Add timeout field to track when task entered in_progress state. Test: create stuck task, verify it retries after 5 min timeout.",
-          "agent": "orchestrator",
+          "agent": "executor",
           "status": "pending",
           "priority": "P0",
           "files": [
@@ -180,9 +180,9 @@
         },
         {
           "id": "task-fix-3",
-          "title": "P0: Wire quality score pipeline — executor → projects.json → dashboard",
-          "description": "Quality metric completely broken: executor returns quality=85 but dashboard shows 0. Trace: agents/executor.py → orchestrator/main.py → orchestrator/projects_loader.py → dashboard/state.json. Add logging at each step. Ensure quality_score is normalized and persisted. Test: executor returns quality=85, verify it appears in projects.json AND dashboard/state.json.",
-          "agent": "orchestrator",
+          "title": "P0: Wire quality score pipeline \u2014 executor \u2192 projects.json \u2192 dashboard",
+          "description": "Quality metric completely broken: executor returns quality=85 but dashboard shows 0. Trace: agents/executor.py \u2192 orchestrator/main.py \u2192 orchestrator/projects_loader.py \u2192 dashboard/state.json. Add logging at each step. Ensure quality_score is normalized and persisted. Test: executor returns quality=85, verify it appears in projects.json AND dashboard/state.json.",
+          "agent": "executor",
           "status": "pending",
           "priority": "P0",
           "files": [
@@ -198,9 +198,9 @@
         },
         {
           "id": "task-fix-4",
-          "title": "P0: Dashboard state writer — enforce schema validation",
+          "title": "P0: Dashboard state writer \u2014 enforce schema validation",
           "description": "state.json has null/empty fields: quality, model, recent_tasks, changelog, research_feed. Writer must validate: (1) no null values allowed, (2) missing fields get defaults, (3) types validated. Test: attempt to write invalid state, verify schema correction.",
-          "agent": "frontend_agent",
+          "agent": "test_engineer",
           "status": "pending",
           "priority": "P0",
           "files": [
@@ -216,7 +216,7 @@
           "id": "task-fix-5",
           "title": "P0: Wire token enforcer module into orchestrator",
           "description": "Module exists (orchestrator/token_enforcer.py) but not connected to execution flow. Must wire: (1) Check is_rescue_allowed() before any rescue decision, (2) Deduct tokens on rescue, (3) Block rescue if limit exceeded (10% budget), (4) Log all decisions to reports/token_decisions.jsonl. Test: hit token limit, verify rescue is blocked.",
-          "agent": "orchestrator",
+          "agent": "executor",
           "status": "pending",
           "priority": "P0",
           "files": [
@@ -231,9 +231,9 @@
         },
         {
           "id": "task-fix-6",
-          "title": "P0: System health check baseline — all 5 checks pass",
+          "title": "P0: System health check baseline \u2014 all 5 checks pass",
           "description": "Establish baseline: Verify orchestrator running, dashboard server alive, agents responsive, watchdog active, cron jobs executing. Create reports/system_health.json with results. Test: run each check independently, document expected values, add to CI/CD health monitoring.",
-          "agent": "orchestrator",
+          "agent": "executor",
           "status": "pending",
           "priority": "P0",
           "files": [
@@ -260,7 +260,7 @@
           "id": "incident-1774572089",
           "title": "P0: Task dispatch broken",
           "description": "All 5 tasks pending, none executing. Orchestrator not picking up tasks from projects.json.",
-          "agent": "orchestrator",
+          "agent": "executor",
           "status": "in_progress",
           "priority": "P0",
           "files": [
@@ -275,7 +275,7 @@
           "id": "incident-1774575243",
           "title": "P0: Tasks not executing",
           "description": "No tasks executing (all pending). Orchestrator may not be dispatching tasks from projects.json.",
-          "agent": "orchestrator",
+          "agent": "executor",
           "status": "in_progress",
           "priority": "P0",
           "files": [
@@ -298,7 +298,7 @@
     "total_tasks": 13,
     "total_epics": 7,
     "updated": "2026-03-26T18:44:00Z",
-    "critical_path": "blocker-fixes (16h) → system-reliability (6h) → dashboard-quality (12h) → policy-governance (18h) → execution-optimization (30h)",
+    "critical_path": "blocker-fixes (16h) \u2192 system-reliability (6h) \u2192 dashboard-quality (12h) \u2192 policy-governance (18h) \u2192 execution-optimization (30h)",
     "eta_all_complete": "2026-03-28T18:35:00Z",
     "token_budget": {
       "total": 200,
