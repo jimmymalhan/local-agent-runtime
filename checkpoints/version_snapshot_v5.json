@@ -1,8 +1,8 @@
 {
   "version": 5,
-  "ts": "2026-03-27T03:40:30",
+  "ts": "2026-03-27T03:50:30",
   "state": {
-    "ts": "2026-03-26T20:40:29.164292",
+    "ts": "2026-03-26T20:50:26.428552",
     "version": {
       "current": 1,
       "total": 100,
@@ -12,10 +12,10 @@
     "agents": {
       "executor": {
         "status": "blocked",
-        "task": "[0/100] Policy enforcement \u2014 wire token/rescue budget limi",
-        "task_id": "task-3",
+        "task": "[0/100] System health check \u2014 verify orchestrator/dashboar",
+        "task_id": "task-1",
         "elapsed_s": 0.0,
-        "last_activity": "2026-03-26T20:39:36.546373",
+        "last_activity": "2026-03-26T20:48:54.062768",
         "sub_agents": [
           {
             "id": 0,
@@ -49,7 +49,7 @@
         "task": "",
         "task_id": null,
         "elapsed_s": 0.0,
-        "last_activity": "2026-03-26T20:39:36.550975",
+        "last_activity": "2026-03-26T20:48:54.067397",
         "sub_agents": [],
         "worker_count": 0
       }
@@ -67,7 +67,7 @@
         "opus": 70.0,
         "gap": -70.0,
         "win_rate": 0.0,
-        "ts": "2026-03-26T20:39:36.554747"
+        "ts": "2026-03-26T20:48:54.070458"
       }
     },
     "token_usage": {
@@ -78,13 +78,69 @@
       "hard_limit_hit": false
     },
     "hardware": {
-      "cpu_pct": 44.5,
-      "ram_pct": 54.0,
+      "cpu_pct": 43.2,
+      "ram_pct": 71.8,
       "disk_pct": 0.0,
       "gpu_pct": null,
       "alert_level": "ok"
     },
     "failures": [
+      {
+        "ts": "2026-03-26T20:48:54.060895",
+        "agent": "executor",
+        "task": "System health check \u2014 verify orchestrator/dashboard/agents r",
+        "task_id": "task-1",
+        "attempt": 1,
+        "tried": "No module named 'agent_runner'"
+      },
+      {
+        "ts": "2026-03-26T20:45:19.084320",
+        "agent": "executor",
+        "task": "System health check \u2014 verify orchestrator/dashboard/agents r",
+        "task_id": "task-1",
+        "attempt": 1,
+        "tried": "No module named 'agent_runner'"
+      },
+      {
+        "ts": "2026-03-26T20:42:56.755777",
+        "agent": "executor",
+        "task": "Set up local agent handoff \u2014 document all work for agents/__",
+        "task_id": "task-5",
+        "attempt": 1,
+        "tried": "No module named 'agent_runner'"
+      },
+      {
+        "ts": "2026-03-26T20:42:54.342809",
+        "agent": "executor",
+        "task": "Optimize multi-loop execution \u2014 DAG + parallel + memory + se",
+        "task_id": "task-4",
+        "attempt": 1,
+        "tried": "No module named 'agent_runner'"
+      },
+      {
+        "ts": "2026-03-26T20:42:51.927020",
+        "agent": "executor",
+        "task": "Policy enforcement \u2014 wire token/rescue budget limits",
+        "task_id": "task-3",
+        "attempt": 1,
+        "tried": "No module named 'agent_runner'"
+      },
+      {
+        "ts": "2026-03-26T20:42:49.500053",
+        "agent": "executor",
+        "task": "Fix dashboard state \u2014 implement missing quality/model fields",
+        "task_id": "task-2",
+        "attempt": 1,
+        "tried": "No module named 'agent_runner'"
+      },
+      {
+        "ts": "2026-03-26T20:42:47.078945",
+        "agent": "executor",
+        "task": "System health check \u2014 verify orchestrator/dashboard/agents r",
+        "task_id": "task-1",
+        "attempt": 1,
+        "tried": "No module named 'agent_runner'"
+      },
       {
         "ts": "2026-03-26T20:39:36.544419",
         "agent": "executor",
@@ -108,25 +164,24 @@
         "task_id": "task-3",
         "attempt": 1,
         "tried": "No module named 'agent_runner'"
-      },
-      {
-        "ts": "2026-03-26T20:34:07.151038",
-        "agent": "executor",
-        "task": "Policy enforcement \u2014 wire token/rescue budget limits",
-        "task_id": "task-3",
-        "attempt": 1,
-        "tried": "No module named 'agent_runner'"
-      },
-      {
-        "ts": "2026-03-26T20:33:22.883790",
-        "agent": "executor",
-        "task": "P0: Fix task router stuck-task logic \u2014 retry in_progress > 5",
-        "task_id": "task-fix-2",
-        "attempt": 1,
-        "tried": "unknown error"
       }
     ],
     "research_feed": [
+      {
+        "ts": "2026-03-26T20:50:29.842075",
+        "finding": "v5: Model produces code that fails assertion tests silently",
+        "source": ""
+      },
+      {
+        "ts": "2026-03-26T20:50:29.841336",
+        "finding": "v5: Model writes wrong import paths for multi-file projects",
+        "source": ""
+      },
+      {
+        "ts": "2026-03-26T20:50:29.840446",
+        "finding": "v5: Model truncates code in the middle of a function",
+        "source": ""
+      },
       {
         "ts": "2026-03-26T20:40:30.116267",
         "finding": "v5: Model produces code that fails assertion tests silently",
@@ -155,7 +210,7 @@
         "before_score": 70.0,
         "after_score": 0.0,
         "delta": -70.0,
-        "ts": "2026-03-26T20:39:36.555368"
+        "ts": "2026-03-26T20:48:54.071336"
       }
     },
     "quality": 0,
@@ -163,8 +218,8 @@
     "model": "local-v1",
     "recent_tasks": [
       {
-        "task_id": "task-3",
-        "title": "Policy enforcement \u2014 wire token/rescue budget limits",
+        "task_id": "task-1",
+        "title": "System health check \u2014 verify orchestrator/dashboard/agents running",
         "category": "project",
         "agent_used": "executor",
         "status": "blocked",
@@ -173,7 +228,7 @@
     ],
     "changelog": [],
     "epic_board": {
-      "ts": "2026-03-26T20:40:29.164150",
+      "ts": "2026-03-26T20:50:26.428355",
       "epics": [
         {
           "id": "system-reliability",
@@ -182,8 +237,8 @@
           "status": "in_progress",
           "total_tasks": 1,
           "completed": 0,
-          "in_progress": 1,
-          "pending": 0,
+          "in_progress": 0,
+          "pending": 1,
           "blocked": 0,
           "progress_pct": 0.0,
           "agents": [
@@ -198,8 +253,8 @@
           "status": "in_progress",
           "total_tasks": 1,
           "completed": 0,
-          "in_progress": 1,
-          "pending": 0,
+          "in_progress": 0,
+          "pending": 1,
           "blocked": 0,
           "progress_pct": 0.0,
           "agents": [
@@ -261,11 +316,11 @@
           "track": "infrastructure",
           "status": "in_progress",
           "total_tasks": 6,
-          "completed": 0,
+          "completed": 6,
           "in_progress": 0,
-          "pending": 6,
+          "pending": 0,
           "blocked": 0,
-          "progress_pct": 0.0,
+          "progress_pct": 100.0,
           "agents": [
             "executor",
             "test_engineer"
@@ -279,8 +334,8 @@
           "status": "active",
           "total_tasks": 2,
           "completed": 0,
-          "in_progress": 2,
-          "pending": 0,
+          "in_progress": 0,
+          "pending": 2,
           "blocked": 0,
           "progress_pct": 0.0,
           "agents": [
@@ -309,8 +364,8 @@
           "agent": "executor",
           "tasks": [
             {
-              "task_id": "task-3",
-              "title": "Policy enforcement \u2014 wire token/rescue budget limits",
+              "task_id": "task-1",
+              "title": "System health check \u2014 verify orchestrator/dashboard/agents running",
               "difficulty": "hard",
               "status": "blocked",
               "agent": "executor",
@@ -326,7 +381,7 @@
           "pct": 0.0
         }
       ],
-      "initialized_at": "2026-03-26T20:39:34.151334",
+      "initialized_at": "2026-03-26T20:48:51.658086",
       "status": "planned"
     },
     "business_summary": {
@@ -335,10 +390,10 @@
       "projects_active": 0,
       "blockers_open": 1,
       "version": 1,
-      "updated_at": "2026-03-26T20:39:36.548279"
+      "updated_at": "2026-03-26T20:48:54.064905"
     },
     "auto_heal_status": {
-      "ts": "2026-03-27T03:40:30",
+      "ts": "2026-03-27T03:50:29",
       "issues_this_cycle": [],
       "healthy": true,
       "dashboard_alive": true,
@@ -346,10 +401,10 @@
     },
     "calibration": {
       "version": 1,
-      "ts": "2026-03-27T03:39:34",
+      "ts": "2026-03-27T03:48:51",
       "results": {
         "reviewer": {
-          "ts": "2026-03-27T03:37:20",
+          "ts": "2026-03-27T03:46:33",
           "version": 1,
           "agent": "reviewer",
           "avg_score": 0.0,
@@ -379,7 +434,7 @@
           ]
         },
         "executor": {
-          "ts": "2026-03-27T03:37:20",
+          "ts": "2026-03-27T03:46:33",
           "version": 1,
           "agent": "executor",
           "avg_score": 0.0,
@@ -409,7 +464,7 @@
           ]
         },
         "benchmarker": {
-          "ts": "2026-03-27T03:37:20",
+          "ts": "2026-03-27T03:46:33",
           "version": 1,
           "agent": "benchmarker",
           "avg_score": 80.0,
@@ -439,7 +494,7 @@
           ]
         },
         "researcher": {
-          "ts": "2026-03-27T03:37:20",
+          "ts": "2026-03-27T03:46:33",
           "version": 1,
           "agent": "researcher",
           "avg_score": 100.0,
@@ -452,24 +507,54 @@
               "title": "Find top 3 Python HTTP libraries",
               "score": 100,
               "status": "done",
-              "elapsed": 0.04
+              "elapsed": 0.06
             },
             {
               "title": "Research best practices for retry logic",
               "score": 100,
               "status": "done",
-              "elapsed": 0.03
+              "elapsed": 0.04
             },
             {
               "title": "Summarise SWE-bench top agent techniques 2025",
               "score": 100,
               "status": "done",
-              "elapsed": 0.06
+              "elapsed": 0.08
+            }
+          ]
+        },
+        "debugger": {
+          "ts": "2026-03-27T03:47:21",
+          "version": 1,
+          "agent": "debugger",
+          "avg_score": 80.0,
+          "prev_score": 0.0,
+          "regressed": false,
+          "pass": true,
+          "patched": false,
+          "tasks": [
+            {
+              "title": "Fix: AttributeError on NoneType",
+              "score": 70,
+              "status": "done",
+              "elapsed": 17.32
+            },
+            {
+              "title": "Fix: off-by-one in binary search",
+              "score": 100,
+              "status": "done",
+              "elapsed": 14.23
+            },
+            {
+              "title": "Debug race condition in thread-safe queue",
+              "score": 70,
+              "status": "done",
+              "elapsed": 16.56
             }
           ]
         },
         "doc_writer": {
-          "ts": "2026-03-27T03:39:21",
+          "ts": "2026-03-27T03:47:44",
           "version": 1,
           "agent": "doc_writer",
           "avg_score": 100.0,
@@ -482,49 +567,19 @@
               "title": "Write docstring for a 5-line function",
               "score": 100,
               "status": "done",
-              "elapsed": 63.51
+              "elapsed": 24.52
             },
             {
               "title": "Write README for a CLI tool",
               "score": 100,
               "status": "done",
-              "elapsed": 16.61
+              "elapsed": 21.74
             },
             {
               "title": "Write API reference for 5 endpoints",
               "score": 100,
               "status": "done",
-              "elapsed": 40.45
-            }
-          ]
-        },
-        "test_engineer": {
-          "ts": "2026-03-27T03:39:34",
-          "version": 1,
-          "agent": "test_engineer",
-          "avg_score": 68.3,
-          "prev_score": 0.0,
-          "regressed": false,
-          "pass": true,
-          "patched": false,
-          "tasks": [
-            {
-              "title": "Write pytest for add(a,b)",
-              "score": 75,
-              "status": "done",
-              "elapsed": 69.82
-            },
-            {
-              "title": "Write tests for a REST endpoint handler",
-              "score": 65,
-              "status": "done",
-              "elapsed": 26.72
-            },
-            {
-              "title": "Write integration test for DB migration",
-              "score": 65,
-              "status": "done",
-              "elapsed": 36.75
+              "elapsed": 24.46
             }
           ]
         }
@@ -532,8 +587,8 @@
       "passing": [
         "benchmarker",
         "researcher",
-        "doc_writer",
-        "test_engineer"
+        "debugger",
+        "doc_writer"
       ],
       "patched": []
     },
@@ -561,6 +616,34 @@
       },
       {
         "ts": "2026-03-27T03:40:30",
+        "level": "INFO",
+        "event": "started",
+        "detail": "Auto-heal monitor started (checks every 10s)",
+        "agent": ""
+      },
+      {
+        "ts": "2026-03-27T03:42:16",
+        "level": "INFO",
+        "event": "started",
+        "detail": "Auto-heal monitor started (checks every 10s)",
+        "agent": ""
+      },
+      {
+        "ts": "2026-03-27T03:46:33",
+        "level": "INFO",
+        "event": "started",
+        "detail": "Auto-heal monitor started (checks every 10s)",
+        "agent": ""
+      },
+      {
+        "ts": "2026-03-27T03:50:14",
+        "level": "INFO",
+        "event": "started",
+        "detail": "Auto-heal monitor started (checks every 10s)",
+        "agent": ""
+      },
+      {
+        "ts": "2026-03-27T03:50:29",
         "level": "INFO",
         "event": "started",
         "detail": "Auto-heal monitor started (checks every 10s)",
