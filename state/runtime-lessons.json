@@ -605,11 +605,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T11:57:11.575750"
+      },
+      {
+        "attempt": 5,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:03:56.989211"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T11:27:03.877746",
-    "rescue_escalated_at": "2026-03-27T11:57:11.576301"
+    "rescue_escalated_at": "2026-03-27T12:03:56.990404"
   },
   "ultra-dash-5": {
     "attempts": [
@@ -633,11 +640,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T11:57:11.955850"
+      },
+      {
+        "attempt": 4,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:03:57.428125"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T11:37:06.947671",
-    "rescue_escalated_at": "2026-03-27T11:57:11.956530"
+    "rescue_escalated_at": "2026-03-27T12:03:57.429218"
   },
   "agent-intel-1": {
     "attempts": [
@@ -654,10 +668,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T11:57:12.335565"
+      },
+      {
+        "attempt": 3,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:03:57.906443"
       }
     ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T11:47:09.830351"
+    "rescue_escalated": true,
+    "first_attempt_at": "2026-03-27T11:47:09.830351",
+    "rescue_escalated_at": "2026-03-27T12:03:57.907090"
   },
   "agent-intel-2": {
     "attempts": [
@@ -667,9 +689,3118 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T11:57:12.724378"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:03:58.346088"
       }
     ],
     "rescue_escalated": false,
     "first_attempt_at": "2026-03-27T11:57:12.724376"
+  },
+  "agent-intel-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:03:58.773350"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:03:58.773348"
+  },
+  "agent-intel-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:03:59.170840"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:03:59.170837"
+  },
+  "agent-intel-5": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:03:59.586316"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:03:59.586313"
+  },
+  "state-adv-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:00.013293"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:00.013289"
+  },
+  "state-adv-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:00.440555"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:00.440552"
+  },
+  "state-adv-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:00.870432"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:00.870430"
+  },
+  "state-adv-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:01.295981"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:01.295979"
+  },
+  "state-adv-5": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:01.704763"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:01.704761"
+  },
+  "prod-hard-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:02.139492"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:02.139489"
+  },
+  "prod-hard-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:02.578157"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:02.578154"
+  },
+  "prod-hard-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:03.016852"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:03.016849"
+  },
+  "prod-hard-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:03.581757"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:03.581754"
+  },
+  "prod-hard-5": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:03.994890"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:03.994888"
+  },
+  "prod-hard-6": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:04.430235"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:04.430233"
+  },
+  "ml-ai-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:04.865339"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:04.865337"
+  },
+  "ml-ai-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:05.304158"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:05.304155"
+  },
+  "ml-ai-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:05.718494"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:05.718491"
+  },
+  "ml-ai-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:06.130425"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:06.130423"
+  },
+  "e1-opt-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:06.569186"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:06.569183"
+  },
+  "e1-opt-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:07.006732"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:07.006729"
+  },
+  "e1-opt-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:07.441290"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:07.441287"
+  },
+  "e1-opt-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:07.849175"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:07.849173"
+  },
+  "e1-opt-5": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:08.255758"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:08.255756"
+  },
+  "e1-prompt-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:08.688498"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:08.688495"
+  },
+  "e1-prompt-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:09.149922"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:09.149920"
+  },
+  "e1-prompt-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:09.593763"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:09.593761"
+  },
+  "e1-prompt-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:10.014862"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:10.014860"
+  },
+  "e1-prompt-5": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:10.411717"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:10.411715"
+  },
+  "e1-rag-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:10.838000"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:10.837998"
+  },
+  "e1-rag-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:11.274560"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:11.274558"
+  },
+  "e1-rag-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:11.710103"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:11.710101"
+  },
+  "e1-rag-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:12.146335"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:12.146332"
+  },
+  "e1-rag-5": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:12.551051"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:12.551049"
+  },
+  "e1-cache-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:12.967849"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:12.967847"
+  },
+  "e1-cache-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:13.402378"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:13.402376"
+  },
+  "e1-cache-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:13.847724"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:13.847722"
+  },
+  "e1-cache-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:14.318668"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:14.318665"
+  },
+  "e2-route-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:14.739274"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:33.969569"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:14.739272"
+  },
+  "e2-route-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:15.137869"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:34.318523"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:15.137867"
+  },
+  "e2-route-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:15.562210"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:34.682572"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:15.562207"
+  },
+  "e2-route-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:16.005716"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:16.005714"
+  },
+  "e2-comp-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:16.442392"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:20.825699"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:16.442390"
+  },
+  "e2-comp-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:16.847405"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:21.183225"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:16.847403"
+  },
+  "e2-comp-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:17.255123"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:21.560623"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:17.255121"
+  },
+  "e2-comp-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:17.685730"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:21.942620"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:17.685728"
+  },
+  "e2-budget-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:18.121954"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:18.121952"
+  },
+  "e2-budget-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:18.555651"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:18.555649"
+  },
+  "e2-budget-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:18.968226"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:18.968225"
+  },
+  "e2-budget-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:19.372770"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:19.372768"
+  },
+  "e2-eff-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:19.848451"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:19.848450"
+  },
+  "e2-eff-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:20.285783"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:20.285781"
+  },
+  "e2-eff-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:20.719437"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:20.719435"
+  },
+  "e3-heal-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:21.133011"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:21.133009"
+  },
+  "e3-heal-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:21.535995"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:21.535993"
+  },
+  "e3-heal-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:21.961198"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:21.961196"
+  },
+  "e3-heal-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:22.390813"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:22.390811"
+  },
+  "e3-heal-5": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:22.836268"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:22.836265"
+  },
+  "e3-perf-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:23.248884"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:23.248882"
+  },
+  "e3-perf-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:23.654599"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:23.654597"
+  },
+  "e3-perf-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:24.103205"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:24.103203"
+  },
+  "e3-perf-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:24.546726"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:24.546724"
+  },
+  "e3-perf-5": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:24.980432"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:24.980430"
+  },
+  "e3-scale-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:25.425118"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:25.425117"
+  },
+  "e3-scale-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:25.825200"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:25.825198"
+  },
+  "e3-scale-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:26.256057"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:26.256055"
+  },
+  "e3-scale-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:26.691902"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:26.691900"
+  },
+  "e3-mon-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:27.139203"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:27.139201"
+  },
+  "e3-mon-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:27.493434"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:27.493432"
+  },
+  "e3-mon-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:27.840788"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:27.840787"
+  },
+  "e3-mon-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:28.208025"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:28.208023"
+  },
+  "prem-multi-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:28.582368"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:28.582366"
+  },
+  "prem-multi-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:28.971987"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:28.971986"
+  },
+  "prem-multi-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:29.358341"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:29.358339"
+  },
+  "prem-multi-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:29.714587"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:29.714585"
+  },
+  "prem-model-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:30.061488"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:30.061487"
+  },
+  "prem-model-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:30.438037"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:30.438035"
+  },
+  "prem-model-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:30.851878"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:30.851876"
+  },
+  "prem-model-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:31.241121"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:31.241119"
+  },
+  "prem-collab-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:31.617785"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:31.617783"
+  },
+  "prem-collab-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:31.968093"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:31.968091"
+  },
+  "prem-collab-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:32.322689"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:32.322687"
+  },
+  "prem-collab-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:32.699811"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:32.699809"
+  },
+  "prem-api-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:33.081495"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:33.081493"
+  },
+  "prem-api-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:33.466489"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:33.466487"
+  },
+  "prem-api-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:33.842390"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:33.842389"
+  },
+  "prem-api-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:34.189875"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:34.189873"
+  },
+  "prem-analytics-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:34.549767"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:34.549766"
+  },
+  "prem-analytics-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:34.931153"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:34.931151"
+  },
+  "prem-analytics-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:35.318131"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:35.318129"
+  },
+  "prem-analytics-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:35.705903"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:35.705901"
+  },
+  "prem-sla-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:36.112475"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:36.112473"
+  },
+  "prem-sla-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:36.465775"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:36.465773"
+  },
+  "prem-sla-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:36.834842"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:36.834840"
+  },
+  "prem-sla-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:37.225279"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:37.225277"
+  },
+  "prem-sec-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:37.613847"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:37.613845"
+  },
+  "prem-sec-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:38.007147"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:38.007146"
+  },
+  "prem-sec-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:38.367910"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:38.367908"
+  },
+  "prem-sec-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:38.727884"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:38.727882"
+  },
+  "prem-plugin-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:39.115582"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:39.115581"
+  },
+  "prem-plugin-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:39.515768"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:39.515766"
+  },
+  "prem-plugin-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:39.907494"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:39.907492"
+  },
+  "prem-plugin-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:40.304986"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:40.304984"
+  },
+  "ultra-multi-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:40.655219"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:40.655217"
+  },
+  "ultra-multi-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:41.012738"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:41.012737"
+  },
+  "ultra-multi-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:41.413451"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:41.413449"
+  },
+  "ultra-multi-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:41.816936"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:41.816934"
+  },
+  "ultra-vision-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:42.206361"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:42.206359"
+  },
+  "ultra-vision-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:42.589157"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:42.589155"
+  },
+  "ultra-vision-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:42.958879"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:42.958876"
+  },
+  "ultra-vision-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:43.334254"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:43.334252"
+  },
+  "ultra-reason-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:43.722691"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:43.722689"
+  },
+  "ultra-reason-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:44.114156"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:44.114155"
+  },
+  "ultra-reason-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:44.508920"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:44.508919"
+  },
+  "ultra-reason-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:44.888407"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:44.888405"
+  },
+  "ultra-stream-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:45.244581"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:12.174323"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:45.244579"
+  },
+  "ultra-stream-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:45.618806"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:12.551189"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:45.618804"
+  },
+  "ultra-stream-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:46.010368"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:12.935560"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:46.010366"
+  },
+  "ultra-stream-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:46.413240"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:13.319135"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:46.413238"
+  },
+  "ultra-comp-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:46.821112"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:46.821110"
+  },
+  "ultra-comp-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:47.203294"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:47.203292"
+  },
+  "ultra-comp-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:47.561386"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:47.561384"
+  },
+  "ultra-comp-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:47.938412"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:47.938410"
+  },
+  "ultra-wl-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:48.326950"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:48.326947"
+  },
+  "ultra-wl-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:48.719483"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:48.719481"
+  },
+  "ultra-wl-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:49.118774"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:49.118772"
+  },
+  "ultra-wl-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:49.478466"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:49.478464"
+  },
+  "ultra-int-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:49.836126"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:49.836124"
+  },
+  "ultra-int-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:50.214542"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:50.214540"
+  },
+  "ultra-int-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:50.599998"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:50.599996"
+  },
+  "ultra-int-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:50.984190"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:50.984187"
+  },
+  "ultra-mobile-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:51.364125"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:51.364123"
+  },
+  "ultra-mobile-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:51.712460"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:51.712459"
+  },
+  "ultra-mobile-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:52.074979"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:52.074978"
+  },
+  "ultra-mobile-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:52.476797"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:52.476796"
+  },
+  "ultra-dw-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:52.860535"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:52.860533"
+  },
+  "ultra-dw-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:53.251960"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:53.251958"
+  },
+  "ultra-dw-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:53.627248"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:53.627246"
+  },
+  "ultra-dw-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:53.993327"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:53.993325"
+  },
+  "ultra-search-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:54.360767"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:54.360765"
+  },
+  "ultra-search-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:54.752540"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:54.752539"
+  },
+  "ultra-search-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:55.134068"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:55.134066"
+  },
+  "ultra-search-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:55.524239"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:55.524237"
+  },
+  "ultra-govt-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:55.891162"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:55.891160"
+  },
+  "ultra-govt-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:56.240162"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:56.240160"
+  },
+  "ultra-govt-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:56.607498"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:56.607496"
+  },
+  "ultra-govt-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:56.986020"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:56.986018"
+  },
+  "ultra-govt-5": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:57.375310"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:57.375308"
+  },
+  "ultra-perf-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:57.781368"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:57.781365"
+  },
+  "ultra-perf-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:58.157115"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:58.157113"
+  },
+  "ultra-perf-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:58.508136"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:58.508134"
+  },
+  "ultra-perf-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:58.868457"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:58.868456"
+  },
+  "ultra-perf-5": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:59.252586"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:59.252584"
+  },
+  "ultra-infra-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:04:59.645515"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:04:59.645513"
+  },
+  "ultra-infra-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:00.029407"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:00.029405"
+  },
+  "ultra-infra-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:00.398353"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:00.398351"
+  },
+  "ultra-infra-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:00.749710"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:00.749709"
+  },
+  "ultra-infra-5": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:01.114605"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:01.114603"
+  },
+  "ultra-devops-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:01.496901"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:01.496898"
+  },
+  "ultra-devops-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:01.885709"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:01.885708"
+  },
+  "ultra-devops-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:02.272853"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:02.272851"
+  },
+  "ultra-devops-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:02.643992"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:02.643990"
+  },
+  "ultra-devops-5": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:03.004313"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:03.004311"
+  },
+  "ultra-av-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:03.385830"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:03.385828"
+  },
+  "ultra-av-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:03.767546"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:03.767544"
+  },
+  "ultra-av-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:04.148821"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:04.148819"
+  },
+  "ultra-av-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:04.531348"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:04.531346"
+  },
+  "ultra-money-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:04.901025"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:04.901023"
+  },
+  "ultra-money-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:05.245863"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:05.245861"
+  },
+  "ultra-money-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:05.615370"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:05.615367"
+  },
+  "ultra-money-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:05.997995"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:05.997994"
+  },
+  "ultra-money-5": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:06.380022"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:06.380020"
+  },
+  "ultra-ml-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:06.770819"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:06.770817"
+  },
+  "ultra-ml-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:07.136857"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:07.136855"
+  },
+  "ultra-ml-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:07.484452"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:07.484451"
+  },
+  "ultra-ml-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:07.845905"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:07.845903"
+  },
+  "ultra-ml-5": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:08.230635"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:08.230633"
+  },
+  "ultra-db-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:08.797137"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:08.797135"
+  },
+  "ultra-db-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:09.181428"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:09.181426"
+  },
+  "ultra-db-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:09.552553"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:09.552551"
+  },
+  "ultra-db-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:09.905037"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:09.905035"
+  },
+  "ultra-db-5": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:10.272286"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:10.272284"
+  },
+  "ultra-report-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:10.661485"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:10.661483"
+  },
+  "ultra-report-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:11.052095"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:11.052093"
+  },
+  "ultra-report-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:11.442509"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:11.442507"
+  },
+  "ultra-report-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:11.813960"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:11.813959"
+  },
+  "e1-inf-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:13.707288"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:13.707286"
+  },
+  "e1-inf-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:14.086412"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:14.086410"
+  },
+  "e1-inf-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:14.448428"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:14.448427"
+  },
+  "e1-inf-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:14.835627"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:14.835625"
+  },
+  "e1-inf-5": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:15.221899"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:15.221897"
+  },
+  "e1-qa-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:15.602337"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:32.074754"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:15.602335"
+  },
+  "e1-qa-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:15.987273"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:32.438489"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:15.987272"
+  },
+  "e1-qa-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:16.341655"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:32.823393"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:16.341653"
+  },
+  "e1-qa-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:16.698828"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:33.215626"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:16.698826"
+  },
+  "e1-qa-5": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:17.068159"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:33.596387"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:17.068156"
+  },
+  "e1-custom-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:17.448945"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:17.448943"
+  },
+  "e1-custom-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:17.833042"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:17.833040"
+  },
+  "e1-custom-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:18.218133"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:18.218131"
+  },
+  "e1-custom-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:18.566060"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:18.566058"
+  },
+  "e2-batch-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:18.921279"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:18.921277"
+  },
+  "e2-batch-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:19.298492"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:19.298489"
+  },
+  "e2-batch-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:19.713380"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:19.713376"
+  },
+  "e2-batch-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:20.098143"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:20.098141"
+  },
+  "e2-batch-5": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:20.474583"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:20.474582"
+  },
+  "e2-analytics-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:22.323524"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:22.323522"
+  },
+  "e2-analytics-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:22.703961"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:22.703959"
+  },
+  "e2-analytics-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:23.052564"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:23.052563"
+  },
+  "e2-analytics-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:23.407815"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:23.407813"
+  },
+  "e3-pred-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:23.785518"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:23.785516"
+  },
+  "e3-pred-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:24.164785"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:24.164783"
+  },
+  "e3-pred-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:24.544734"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:24.544733"
+  },
+  "e3-pred-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:24.943540"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:24.943538"
+  },
+  "e3-pred-5": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:25.295070"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:25.295069"
+  },
+  "e3-tune-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:25.650515"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:25.650513"
+  },
+  "e3-tune-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:26.028033"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:26.028031"
+  },
+  "e3-tune-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:26.423883"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:26.423881"
+  },
+  "e3-tune-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:26.814293"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:26.814291"
+  },
+  "e3-tune-5": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:27.195255"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:27.195253"
+  },
+  "e3-res-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:27.546777"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:27.546775"
+  },
+  "e3-res-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:27.906651"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:27.906649"
+  },
+  "e3-res-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:28.287936"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:28.287934"
+  },
+  "e3-res-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:28.676781"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:28.676779"
+  },
+  "e1-inf-opt-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:29.060516"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:29.060514"
+  },
+  "e1-inf-opt-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:29.444082"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:29.444080"
+  },
+  "e1-inf-opt-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:29.815893"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:29.815890"
+  },
+  "e1-inf-opt-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:30.190250"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:30.190248"
+  },
+  "e1-inf-opt-5": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:30.579353"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:30.579351"
+  },
+  "e1-inf-opt-6": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:30.964273"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:30.964271"
+  },
+  "e1-inf-opt-7": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:31.349468"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:31.349466"
+  },
+  "e1-inf-opt-8": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T12:05:31.726979"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T12:05:31.726977"
   }
 }
