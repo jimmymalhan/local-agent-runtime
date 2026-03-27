@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-26T21:32:30.630915",
+  "ts": "2026-03-26T21:32:49.871050",
   "version": {
     "current": 1,
     "total": 100,
@@ -277,7 +277,7 @@
   ],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-26T21:32:30.630872",
+    "ts": "2026-03-26T21:32:49.871010",
     "epics": [
       {
         "id": "system-reliability",
@@ -291,7 +291,7 @@
         "blocked": 0,
         "progress_pct": 0.0,
         "agents": [
-          "executor"
+          "test_engineer"
         ],
         "agent_count": 1
       },
@@ -323,7 +323,7 @@
         "blocked": 0,
         "progress_pct": 0.0,
         "agents": [
-          "executor"
+          "test_engineer"
         ],
         "agent_count": 1
       },
@@ -339,7 +339,7 @@
         "blocked": 0,
         "progress_pct": 0.0,
         "agents": [
-          "executor"
+          "test_engineer"
         ],
         "agent_count": 1
       },
@@ -355,7 +355,7 @@
         "blocked": 0,
         "progress_pct": 0.0,
         "agents": [
-          "executor"
+          "test_engineer"
         ],
         "agent_count": 1
       },
@@ -478,7 +478,7 @@
     "updated_at": "2026-03-26T21:32:14.443199"
   },
   "auto_heal_status": {
-    "ts": "2026-03-27T04:32:12",
+    "ts": "2026-03-27T04:32:49",
     "issues_this_cycle": [],
     "healthy": true,
     "dashboard_alive": true,
@@ -830,6 +830,13 @@
     },
     {
       "ts": "2026-03-27T04:30:02",
+      "level": "INFO",
+      "event": "started",
+      "detail": "Auto-heal monitor started (checks every 10s)",
+      "agent": ""
+    },
+    {
+      "ts": "2026-03-27T04:32:49",
       "level": "INFO",
       "event": "started",
       "detail": "Auto-heal monitor started (checks every 10s)",
