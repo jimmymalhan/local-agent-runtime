@@ -2683,3 +2683,17 @@
 {"ts": "2026-03-27T04:33:49.730162", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.check.ts", "value": 1774586029.73015}
 {"ts": "2026-03-27T04:33:49.739786", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.alive", "value": true}
 {"ts": "2026-03-27T04:33:49.739794", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.hb", "value": 1774586029.739794}
+{"ts": "2026-03-27T04:34:04.744514", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.alive", "value": true}
+{"ts": "2026-03-27T04:34:04.744544", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.hb", "value": 1774586044.744543}
+{"ts": "2026-03-27T04:34:19.749156", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.alive", "value": true}
+{"ts": "2026-03-27T04:34:19.749272", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.hb", "value": 1774586059.749268}
+{"ts": "2026-03-27T04:34:20.172310", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.alive", "value": true}
+{"ts": "2026-03-27T04:34:20.172326", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.hb", "value": 1774586060.1723251}
+{"ts": "2026-03-27T04:34:20.172336", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.check.ts", "value": 1774586060.1677701}
+{"ts": "2026-03-27T04:34:20.563204", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.alive", "value": true}
+{"ts": "2026-03-27T04:34:20.563383", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.preflight.v", "value": 5}
+{"ts": "2026-03-27T04:34:20.563390", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.preflight.ts", "value": 1774586060.5633888}
+{"ts": "2026-03-27T04:34:34.754438", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.alive", "value": true}
+{"ts": "2026-03-27T04:34:34.754480", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.hb", "value": 1774586074.754478}
+{"ts": "2026-03-27T04:34:35.172945", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.alive", "value": true}
+{"ts": "2026-03-27T04:34:35.172979", "ns": "default", "agent": "supervisor", "action": "set", "key": "supervisor.hb", "value": 1774586075.172978}
