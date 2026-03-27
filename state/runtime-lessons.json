@@ -11,5 +11,31 @@
     ],
     "rescue_escalated": false,
     "first_attempt_at": "2026-03-26T23:43:31.791746"
+  },
+  "task-fix-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-26T23:43:37.576604"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-26T23:43:37.576603"
+  },
+  "task-fix-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-26T23:43:37.952631"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-26T23:43:37.952629"
   }
 }

@@ -2654,3 +2654,10 @@
 2026-03-26 23:43:35,741 [INFO]    Timestamp: 2026-03-27T06:43:35.740245
 2026-03-26 23:43:35,741 [INFO]    executor: blocked
 2026-03-26 23:43:35,741 [INFO]    reviewer: idle
+2026-03-26 23:43:40,835 [INFO] 📊 Updating dashboard state...
+2026-03-26 23:43:40,836 [WARNING] ⚠️  Executor health low: 48.0% success
+2026-03-26 23:43:40,836 [INFO] ✅ Dashboard updated
+2026-03-26 23:43:40,836 [INFO]    Timestamp: 2026-03-27T06:43:40.835991
+2026-03-26 23:43:40,836 [INFO]    executor: blocked
+2026-03-26 23:43:40,836 [INFO]    reviewer: idle
+2026-03-26 23:43:40,836 [INFO]    architect: running

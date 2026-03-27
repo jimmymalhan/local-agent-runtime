@@ -463,3 +463,7 @@
 {"ts": "2026-03-26T23:43:16.253708", "action": "execute_failed", "agent": "executor", "task_id": "test-1", "attempts": 3, "last_error": "Unknown error"}
 {"ts": "2026-03-26T23:43:31.791002", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 48%"}
 {"ts": "2026-03-26T23:43:31.791405", "action": "execute_failed", "agent": "executor", "task_id": "test-complete", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T23:43:37.575607", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 48%"}
+{"ts": "2026-03-26T23:43:37.576280", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T23:43:37.952217", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "trivial", "reason": "Success rate 48%"}
+{"ts": "2026-03-26T23:43:37.952341", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-2", "attempts": 3, "last_error": "Unknown error"}
