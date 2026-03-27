@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-27T08:03:56.003453",
+  "ts": "2026-03-27T01:03:56.294512",
   "version": {
     "current": 1,
     "total": 100,
@@ -56,9 +56,9 @@
   "task_queue": {
     "total": 30,
     "completed": 25,
-    "pending": 5,
     "in_progress": 0,
-    "failed": 0
+    "failed": 0,
+    "pending": 5
   },
   "benchmark_scores": {
     "v1": {
@@ -228,7 +228,7 @@
   ],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-27T01:03:51.474900",
+    "ts": "2026-03-27T01:03:56.294374",
     "epics": [
       {
         "id": "system-reliability",
@@ -349,11 +349,11 @@
         "track": "infrastructure",
         "status": "in_progress",
         "total_tasks": 14,
-        "completed": 8,
+        "completed": 9,
         "in_progress": 0,
-        "pending": 6,
+        "pending": 5,
         "blocked": 0,
-        "progress_pct": 57.1,
+        "progress_pct": 64.3,
         "agents": [
           "architect",
           "executor",
