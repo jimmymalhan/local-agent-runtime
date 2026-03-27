@@ -498,11 +498,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T09:06:21.458329"
+      },
+      {
+        "attempt": 4,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T09:16:23.990973"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T08:46:15.548155",
-    "rescue_escalated_at": "2026-03-27T09:06:21.471345"
+    "rescue_escalated_at": "2026-03-27T09:16:23.991653"
   },
   "impl-agent-autorecovery": {
     "attempts": [
@@ -526,11 +533,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T09:06:21.833223"
+      },
+      {
+        "attempt": 4,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T09:16:24.360441"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T08:46:15.929337",
-    "rescue_escalated_at": "2026-03-27T09:06:21.833783"
+    "rescue_escalated_at": "2026-03-27T09:16:24.361058"
   },
   "verify-no-external-crons": {
     "attempts": [
@@ -547,10 +561,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T09:06:22.213220"
+      },
+      {
+        "attempt": 3,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T09:16:24.696755"
       }
     ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T08:56:19.252054"
+    "rescue_escalated": true,
+    "first_attempt_at": "2026-03-27T08:56:19.252054",
+    "rescue_escalated_at": "2026-03-27T09:16:24.697335"
   },
   "impl-auto-pr-merge": {
     "attempts": [
@@ -560,9 +582,29 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T09:06:22.585131"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T09:16:25.054049"
       }
     ],
     "rescue_escalated": false,
     "first_attempt_at": "2026-03-27T09:06:22.585129"
+  },
+  "impl-workflow-autodispatch": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T09:16:25.430864"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-27T09:16:25.430862"
   }
 }

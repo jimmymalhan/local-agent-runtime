@@ -807,7 +807,7 @@
           "title": "[P0] Implement continuous work generation (never run out of tasks)",
           "description": "Create task_generator.py that monitors pending queue. If pending < 3 tasks, auto-create 5 new tasks (based on project needs). Keep queue always full. Accept if queue never empty.",
           "agent": "executor",
-          "status": "pending",
+          "status": "completed",
           "priority": "P0",
           "eta_hours": 2,
           "quality_target": 85,
@@ -815,7 +815,8 @@
             "orchestrator/task_generator.py",
             "projects.json"
           ],
-          "success_criteria": "Pending queue always has 3+ tasks, auto-generated as needed"
+          "success_criteria": "Pending queue always has 3+ tasks, auto-generated as needed",
+          "completed_at": "projects_loader"
         },
         {
           "id": "impl-agent-autorecovery",
