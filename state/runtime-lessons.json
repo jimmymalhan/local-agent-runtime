@@ -200,6 +200,13 @@
         "error": "No module named 'agent_runner'",
         "success": false,
         "timestamp": "2026-03-26T20:42:51.924284"
+      },
+      {
+        "attempt": 27,
+        "strategy": "autonomous",
+        "error": "No module named 'agent_runner'",
+        "success": false,
+        "timestamp": "2026-03-26T20:52:39.017076"
       }
     ],
     "rescue_escalated": true,
@@ -312,6 +319,13 @@
         "error": "No module named 'agent_runner'",
         "success": false,
         "timestamp": "2026-03-26T20:42:54.339794"
+      },
+      {
+        "attempt": 16,
+        "strategy": "autonomous",
+        "error": "No module named 'agent_runner'",
+        "success": false,
+        "timestamp": "2026-03-26T20:52:41.437547"
       }
     ],
     "rescue_escalated": true,
@@ -410,6 +424,13 @@
         "error": "No module named 'agent_runner'",
         "success": false,
         "timestamp": "2026-03-26T20:42:56.754475"
+      },
+      {
+        "attempt": 14,
+        "strategy": "autonomous",
+        "error": "No module named 'agent_runner'",
+        "success": false,
+        "timestamp": "2026-03-26T20:52:43.854732"
       }
     ],
     "rescue_escalated": true,
@@ -830,6 +851,20 @@
         "error": "No module named 'agent_runner'",
         "success": false,
         "timestamp": "2026-03-26T20:48:54.058545"
+      },
+      {
+        "attempt": 4,
+        "strategy": "autonomous",
+        "error": "No module named 'agent_runner'",
+        "success": false,
+        "timestamp": "2026-03-26T20:52:34.187013"
+      },
+      {
+        "attempt": 5,
+        "strategy": "autonomous",
+        "error": "No module named 'agent_runner'",
+        "success": false,
+        "timestamp": "2026-03-26T20:52:53.582043"
       }
     ],
     "rescue_escalated": false,
@@ -843,6 +878,13 @@
         "error": "No module named 'agent_runner'",
         "success": false,
         "timestamp": "2026-03-26T20:42:49.497885"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": "No module named 'agent_runner'",
+        "success": false,
+        "timestamp": "2026-03-26T20:52:36.592657"
       }
     ],
     "rescue_escalated": false,
