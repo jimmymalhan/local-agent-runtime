@@ -965,12 +965,13 @@
           "id": "phase3-self-healing",
           "title": "Implement self-healing agent recovery",
           "agent": "debugger",
-          "status": "pending",
+          "status": "completed",
           "priority": "P0",
           "files": [],
           "success_criteria": "Complete: Implement self-healing agent recovery",
           "eta_hours": 4,
-          "eta_completion": "2026-03-27T16:36:38.442626Z"
+          "eta_completion": "2026-03-27T16:36:38.442626Z",
+          "completed_at": "projects_loader"
         },
         {
           "id": "phase3-quality-gates",
