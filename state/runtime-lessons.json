@@ -1200,10 +1200,25 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:50:51.815735"
+      },
+      {
+        "attempt": 3,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T13:19:12.774797"
+      },
+      {
+        "attempt": 4,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T13:20:50.773185"
       }
     ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T12:04:02.139489"
+    "rescue_escalated": true,
+    "first_attempt_at": "2026-03-27T12:04:02.139489",
+    "rescue_escalated_at": "2026-03-27T13:20:50.776844"
   },
   "prod-hard-2": {
     "attempts": [
@@ -1220,10 +1235,25 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T12:50:52.245862"
+      },
+      {
+        "attempt": 3,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T13:21:28.587298"
+      },
+      {
+        "attempt": 4,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T13:22:44.106726"
       }
     ],
-    "rescue_escalated": false,
-    "first_attempt_at": "2026-03-27T12:04:02.578154"
+    "rescue_escalated": true,
+    "first_attempt_at": "2026-03-27T12:04:02.578154",
+    "rescue_escalated_at": "2026-03-27T13:22:44.109958"
   },
   "prod-hard-3": {
     "attempts": [
@@ -1808,11 +1838,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T13:18:34.750097"
+      },
+      {
+        "attempt": 7,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T13:29:06.887469"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T12:04:14.739272",
-    "rescue_escalated_at": "2026-03-27T13:18:34.753604"
+    "rescue_escalated_at": "2026-03-27T13:29:06.891110"
   },
   "e2-route-2": {
     "attempts": [

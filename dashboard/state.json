@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-27T13:19:00.631806",
+  "ts": "2026-03-27T13:29:34.384333",
   "version": {
     "current": 5,
     "total": 100,
@@ -12,7 +12,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T20:18:36.969467",
+      "last_activity": "2026-03-27T20:29:07.260468",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -21,18 +21,18 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T20:18:36.969467",
+      "last_activity": "2026-03-27T20:29:07.260468",
       "sub_agents": [],
       "worker_count": 0
     },
     "architect": {
-      "last_activity": "2026-03-27T20:18:36.969467"
+      "last_activity": "2026-03-27T20:29:07.260468"
     },
     "test_engineer": {
-      "last_activity": "2026-03-27T20:18:36.969467"
+      "last_activity": "2026-03-27T20:29:07.260468"
     },
     "researcher": {
-      "last_activity": "2026-03-27T20:18:36.969467"
+      "last_activity": "2026-03-27T20:29:07.260468"
     }
   },
   "task_queue": {
@@ -51,13 +51,53 @@
     "hard_limit_hit": false
   },
   "hardware": {
-    "cpu_pct": 36.9,
-    "ram_pct": 57.1,
+    "cpu_pct": 40.5,
+    "ram_pct": 56.8,
     "disk_pct": 0.0,
     "gpu_pct": null,
     "alert_level": "ok"
   },
   "failures": [
+    {
+      "ts": "2026-03-27T13:29:06.893905",
+      "agent": "executor",
+      "task": "Build cost-aware routing (pick cheapest model that works)",
+      "task_id": "e2-route-1",
+      "attempt": 1,
+      "tried": "blocked"
+    },
+    {
+      "ts": "2026-03-27T13:22:44.112774",
+      "agent": "executor",
+      "task": "Add rate limiting & DDoS protection",
+      "task_id": "prod-hard-2",
+      "attempt": 1,
+      "tried": "blocked"
+    },
+    {
+      "ts": "2026-03-27T13:21:28.593164",
+      "agent": "executor",
+      "task": "Add rate limiting & DDoS protection",
+      "task_id": "prod-hard-2",
+      "attempt": 1,
+      "tried": "blocked"
+    },
+    {
+      "ts": "2026-03-27T13:20:50.779672",
+      "agent": "executor",
+      "task": "Implement comprehensive input validation & sanitization",
+      "task_id": "prod-hard-1",
+      "attempt": 1,
+      "tried": "blocked"
+    },
+    {
+      "ts": "2026-03-27T13:19:12.780681",
+      "agent": "executor",
+      "task": "Implement comprehensive input validation & sanitization",
+      "task_id": "prod-hard-1",
+      "attempt": 1,
+      "tried": "blocked"
+    },
     {
       "ts": "2026-03-27T13:18:34.756445",
       "agent": "executor",
@@ -97,49 +137,24 @@
       "task_id": "state-adv-4",
       "attempt": 1,
       "tried": "blocked"
-    },
-    {
-      "ts": "2026-03-27T13:12:35.813773",
-      "agent": "executor",
-      "task": "Add distributed event log (WAL - write-ahead logging)",
-      "task_id": "state-adv-3",
-      "attempt": 1,
-      "tried": "blocked"
-    },
-    {
-      "ts": "2026-03-27T13:12:17.644700",
-      "agent": "executor",
-      "task": "Implement CQRS pattern (Command Query Responsibility Segrega",
-      "task_id": "state-adv-2",
-      "attempt": 1,
-      "tried": "blocked"
-    },
-    {
-      "ts": "2026-03-27T13:09:26.153141",
-      "agent": "executor",
-      "task": "Add distributed event log (WAL - write-ahead logging)",
-      "task_id": "state-adv-3",
-      "attempt": 1,
-      "tried": "blocked"
-    },
-    {
-      "ts": "2026-03-27T13:08:29.025404",
-      "agent": "executor",
-      "task": "Implement predictive token estimation",
-      "task_id": "e2-route-2",
-      "attempt": 1,
-      "tried": "blocked"
-    },
-    {
-      "ts": "2026-03-27T13:08:10.023738",
-      "agent": "executor",
-      "task": "Implement CQRS pattern (Command Query Responsibility Segrega",
-      "task_id": "state-adv-2",
-      "attempt": 1,
-      "tried": "blocked"
     }
   ],
   "research_feed": [
+    {
+      "ts": "2026-03-27T13:29:06.057584",
+      "finding": "v5: Model produces code that fails assertion tests silently",
+      "source": ""
+    },
+    {
+      "ts": "2026-03-27T13:29:06.054766",
+      "finding": "v5: Model writes wrong import paths for multi-file projects",
+      "source": ""
+    },
+    {
+      "ts": "2026-03-27T13:29:06.051860",
+      "finding": "v5: Model truncates code in the middle of a function",
+      "source": ""
+    },
     {
       "ts": "2026-03-27T13:18:33.902129",
       "finding": "v5: Model produces code that fails assertion tests silently",
@@ -173,16 +188,6 @@
     {
       "ts": "2026-03-27T12:57:29.600948",
       "finding": "v5: Model produces code that fails assertion tests silently",
-      "source": ""
-    },
-    {
-      "ts": "2026-03-27T12:57:29.599876",
-      "finding": "v5: Model writes wrong import paths for multi-file projects",
-      "source": ""
-    },
-    {
-      "ts": "2026-03-27T12:57:29.598695",
-      "finding": "v5: Model truncates code in the middle of a function",
       "source": ""
     }
   ],
@@ -1170,7 +1175,7 @@
   ],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-27T13:19:00.631146",
+    "ts": "2026-03-27T13:29:34.384073",
     "epics": [
       {
         "id": "system-reliability",
@@ -3696,11 +3701,11 @@
         "pct": 0
       }
     ],
-    "initialized_at": "2026-03-27T13:18:34.349062",
+    "initialized_at": "2026-03-27T13:29:06.490103",
     "status": "planned"
   },
   "auto_heal_status": {
-    "ts": "2026-03-27T20:18:57",
+    "ts": "2026-03-27T20:29:29",
     "issues_this_cycle": [],
     "healthy": true,
     "dashboard_alive": true,
@@ -3727,6 +3732,13 @@
       "event": "started",
       "detail": "Auto-heal monitor started (checks every 10s)",
       "agent": ""
+    },
+    {
+      "ts": "2026-03-27T20:29:06",
+      "level": "INFO",
+      "event": "started",
+      "detail": "Auto-heal monitor started (checks every 10s)",
+      "agent": ""
     }
   ],
   "auto_heal_counts": {
@@ -3736,10 +3748,10 @@
   },
   "calibration": {
     "version": 5,
-    "ts": "2026-03-27T20:18:34",
+    "ts": "2026-03-27T20:29:06",
     "results": {
       "executor": {
-        "ts": "2026-03-27T20:18:34",
+        "ts": "2026-03-27T20:29:06",
         "version": 5,
         "agent": "executor",
         "avg_score": 0.0,
@@ -3769,7 +3781,7 @@
         ]
       },
       "planner": {
-        "ts": "2026-03-27T20:18:34",
+        "ts": "2026-03-27T20:29:06",
         "version": 5,
         "agent": "planner",
         "avg_score": 0.0,
@@ -3798,38 +3810,8 @@
           }
         ]
       },
-      "refactor": {
-        "ts": "2026-03-27T20:18:34",
-        "version": 5,
-        "agent": "refactor",
-        "avg_score": 0.0,
-        "prev_score": 0.0,
-        "regressed": false,
-        "pass": false,
-        "patched": false,
-        "tasks": [
-          {
-            "title": "Extract helper from 10-line function",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Rename variables for clarity in a module",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Split 200-line class into clean modules",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          }
-        ]
-      },
       "reviewer": {
-        "ts": "2026-03-27T20:18:34",
+        "ts": "2026-03-27T20:29:06",
         "version": 5,
         "agent": "reviewer",
         "avg_score": 0.0,
@@ -3858,8 +3840,38 @@
           }
         ]
       },
+      "refactor": {
+        "ts": "2026-03-27T20:29:06",
+        "version": 5,
+        "agent": "refactor",
+        "avg_score": 0.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": false,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Extract helper from 10-line function",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Rename variables for clarity in a module",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Split 200-line class into clean modules",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          }
+        ]
+      },
       "benchmarker": {
-        "ts": "2026-03-27T20:18:34",
+        "ts": "2026-03-27T20:29:06",
         "version": 5,
         "agent": "benchmarker",
         "avg_score": 0.0,
@@ -3889,7 +3901,7 @@
         ]
       },
       "debugger": {
-        "ts": "2026-03-27T20:18:34",
+        "ts": "2026-03-27T20:29:06",
         "version": 5,
         "agent": "debugger",
         "avg_score": 0.0,
@@ -3918,38 +3930,8 @@
           }
         ]
       },
-      "architect": {
-        "ts": "2026-03-27T20:18:34",
-        "version": 5,
-        "agent": "architect",
-        "avg_score": 0.0,
-        "prev_score": 0.0,
-        "regressed": false,
-        "pass": false,
-        "patched": false,
-        "tasks": [
-          {
-            "title": "Design schema for a todo app",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Design microservice boundary for auth + billing",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          },
-          {
-            "title": "Design distributed task queue system",
-            "score": 0,
-            "status": "error: signal only works in main thread of the main interpreter",
-            "elapsed": 0.0
-          }
-        ]
-      },
       "researcher": {
-        "ts": "2026-03-27T20:18:34",
+        "ts": "2026-03-27T20:29:06",
         "version": 5,
         "agent": "researcher",
         "avg_score": 0.0,
@@ -3978,8 +3960,38 @@
           }
         ]
       },
+      "test_engineer": {
+        "ts": "2026-03-27T20:29:06",
+        "version": 5,
+        "agent": "test_engineer",
+        "avg_score": 0.0,
+        "prev_score": 0.0,
+        "regressed": false,
+        "pass": false,
+        "patched": false,
+        "tasks": [
+          {
+            "title": "Write pytest for add(a,b)",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Write tests for a REST endpoint handler",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          },
+          {
+            "title": "Write integration test for DB migration",
+            "score": 0,
+            "status": "error: signal only works in main thread of the main interpreter",
+            "elapsed": 0.0
+          }
+        ]
+      },
       "doc_writer": {
-        "ts": "2026-03-27T20:18:34",
+        "ts": "2026-03-27T20:29:06",
         "version": 5,
         "agent": "doc_writer",
         "avg_score": 0.0,
@@ -4008,10 +4020,10 @@
           }
         ]
       },
-      "test_engineer": {
-        "ts": "2026-03-27T20:18:34",
+      "architect": {
+        "ts": "2026-03-27T20:29:06",
         "version": 5,
-        "agent": "test_engineer",
+        "agent": "architect",
         "avg_score": 0.0,
         "prev_score": 0.0,
         "regressed": false,
@@ -4019,19 +4031,19 @@
         "patched": false,
         "tasks": [
           {
-            "title": "Write pytest for add(a,b)",
+            "title": "Design schema for a todo app",
             "score": 0,
             "status": "error: signal only works in main thread of the main interpreter",
             "elapsed": 0.0
           },
           {
-            "title": "Write tests for a REST endpoint handler",
+            "title": "Design microservice boundary for auth + billing",
             "score": 0,
             "status": "error: signal only works in main thread of the main interpreter",
             "elapsed": 0.0
           },
           {
-            "title": "Write integration test for DB migration",
+            "title": "Design distributed task queue system",
             "score": 0,
             "status": "error: signal only works in main thread of the main interpreter",
             "elapsed": 0.0
@@ -4048,6 +4060,6 @@
     "projects_active": 0,
     "blockers_open": 1,
     "version": 5,
-    "updated_at": "2026-03-27T13:18:34.764959"
+    "updated_at": "2026-03-27T13:29:06.903006"
   }
 }
