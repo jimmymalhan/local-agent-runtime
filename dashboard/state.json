@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-26T23:48:11.087152",
+  "ts": "2026-03-27T06:49:08.206947",
   "version": {
     "current": 1,
     "total": 100,
@@ -12,7 +12,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0,
-      "last_activity": "2026-03-27T06:47:52.254049",
+      "last_activity": "2026-03-27T06:48:52.267150",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -21,7 +21,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T06:47:52.254049",
+      "last_activity": "2026-03-27T06:48:52.267150",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -30,7 +30,7 @@
       "task": "",
       "task_id": 3,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T06:47:52.254049",
+      "last_activity": "2026-03-27T06:48:52.267150",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -39,7 +39,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0,
-      "last_activity": "2026-03-27T06:47:52.254049",
+      "last_activity": "2026-03-27T06:48:52.267150",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -48,17 +48,17 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0,
-      "last_activity": "2026-03-27T06:47:52.254049",
+      "last_activity": "2026-03-27T06:48:52.267150",
       "sub_agents": [],
       "worker_count": 0
     }
   },
   "task_queue": {
     "total": 30,
-    "completed": 30,
+    "completed": 17,
+    "pending": 13,
     "in_progress": 0,
-    "failed": 0,
-    "pending": 0
+    "failed": 0
   },
   "benchmark_scores": {
     "v1": {
@@ -71,8 +71,8 @@
   },
   "token_usage": {
     "claude_tokens": 0,
-    "local_tokens": 197801,
-    "budget_pct": 39.5602,
+    "local_tokens": 194624,
+    "budget_pct": 38.9,
     "warning": false,
     "hard_limit_hit": false
   },
@@ -125,8 +125,8 @@
       "ts": "2026-03-26T23:44:47.000362"
     }
   },
-  "quality": 95,
-  "quality_score": 95,
+  "quality": 53,
+  "quality_score": 53,
   "model": "local-v1",
   "recent_tasks": [
     {
@@ -172,7 +172,7 @@
   ],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-26T23:48:11.087005",
+    "ts": "2026-03-26T23:49:04.070119",
     "epics": [
       {
         "id": "system-reliability",
