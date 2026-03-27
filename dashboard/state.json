@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-27T07:23:54.305088",
+  "ts": "2026-03-27T07:33:49.389272",
   "version": {
     "current": 1,
     "total": 100,
@@ -12,7 +12,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T07:23:52.853611",
+      "last_activity": "2026-03-27T07:33:23.013644",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -21,7 +21,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T07:23:52.853611",
+      "last_activity": "2026-03-27T07:33:23.013644",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -30,7 +30,7 @@
       "task": "",
       "task_id": 3,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T07:23:52.853611",
+      "last_activity": "2026-03-27T07:33:23.013644",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -39,7 +39,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0,
-      "last_activity": "2026-03-27T07:23:52.853611",
+      "last_activity": "2026-03-27T07:33:23.013644",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -48,7 +48,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0,
-      "last_activity": "2026-03-27T07:23:52.853611",
+      "last_activity": "2026-03-27T07:33:23.013644",
       "sub_agents": [],
       "worker_count": 0
     }
@@ -56,9 +56,9 @@
   "task_queue": {
     "total": 30,
     "completed": 21,
-    "pending": 9,
     "in_progress": 0,
-    "failed": 0
+    "failed": 0,
+    "pending": 9
   },
   "benchmark_scores": {
     "v1": {
@@ -71,8 +71,8 @@
   },
   "token_usage": {
     "claude_tokens": 0,
-    "local_tokens": 194624,
-    "budget_pct": 38.9,
+    "local_tokens": 197801,
+    "budget_pct": 39.5602,
     "warning": false,
     "hard_limit_hit": false
   },
@@ -228,7 +228,7 @@
   ],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-27T00:23:50.990433",
+    "ts": "2026-03-27T00:33:48.775603",
     "epics": [
       {
         "id": "system-reliability",
@@ -349,11 +349,11 @@
         "track": "infrastructure",
         "status": "in_progress",
         "total_tasks": 14,
-        "completed": 4,
+        "completed": 5,
         "in_progress": 0,
-        "pending": 10,
+        "pending": 9,
         "blocked": 0,
-        "progress_pct": 28.6,
+        "progress_pct": 35.7,
         "agents": [
           "architect",
           "executor",
