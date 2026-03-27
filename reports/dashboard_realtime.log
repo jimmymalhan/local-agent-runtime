@@ -14061,3 +14061,12 @@
 2026-03-27 01:33:55,907 [INFO]    architect: idle
 2026-03-27 01:33:55,907 [INFO]    test_engineer: idle
 2026-03-27 01:33:55,907 [INFO]    researcher: idle
+2026-03-27 01:34:02,850 [INFO] 📊 Updating dashboard state...
+2026-03-27 01:34:02,850 [WARNING] ⚠️  Executor health low: 43.0% success
+2026-03-27 01:34:02,851 [INFO] ✅ Dashboard updated
+2026-03-27 01:34:02,851 [INFO]    Timestamp: 2026-03-27T08:34:02.850726
+2026-03-27 01:34:02,851 [INFO]    executor: idle
+2026-03-27 01:34:02,851 [INFO]    reviewer: idle
+2026-03-27 01:34:02,851 [INFO]    architect: idle
+2026-03-27 01:34:02,851 [INFO]    test_engineer: idle
+2026-03-27 01:34:02,851 [INFO]    researcher: idle
