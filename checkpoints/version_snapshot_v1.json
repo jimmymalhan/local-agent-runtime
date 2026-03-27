@@ -1,59 +1,29 @@
 {
   "version": 1,
-  "ts": "2026-03-27T09:04:16",
+  "ts": "2026-03-27T09:14:19",
   "state": {
-    "ts": "2026-03-27T09:04:12.760629",
+    "ts": "2026-03-27T09:14:18.966271",
     "version": {
-      "current": 1,
+      "current": 0,
       "total": 100,
-      "pct_complete": 1.0,
-      "label": "v1 complete \u2014 win_rate=100.0%"
+      "pct_complete": 0.0,
+      "label": "v0 \u2192 v100"
     },
     "agents": {
       "executor": {
-        "status": "idle",
-        "task": "",
-        "task_id": null,
-        "elapsed_s": 0.0,
-        "last_activity": "2026-03-27T09:03:54.710796",
-        "sub_agents": [],
-        "worker_count": 0
-      },
-      "reviewer": {
-        "status": "idle",
-        "task": "",
-        "task_id": null,
-        "elapsed_s": 0.0,
-        "last_activity": "2026-03-27T09:03:54.710796",
-        "sub_agents": [],
-        "worker_count": 0
+        "last_activity": "2026-03-27T09:13:54.910330"
       },
       "architect": {
-        "status": "idle",
-        "task": "",
-        "task_id": null,
-        "elapsed_s": 0.0,
-        "last_activity": "2026-03-27T09:03:54.710796",
-        "sub_agents": [],
-        "worker_count": 0
+        "last_activity": "2026-03-27T09:13:54.910330"
       },
       "test_engineer": {
-        "status": "idle",
-        "task": "",
-        "task_id": null,
-        "elapsed_s": 0,
-        "last_activity": "2026-03-27T09:03:54.710796",
-        "sub_agents": [],
-        "worker_count": 0
+        "last_activity": "2026-03-27T09:13:54.910330"
+      },
+      "reviewer": {
+        "last_activity": "2026-03-27T09:13:54.910330"
       },
       "researcher": {
-        "status": "idle",
-        "task": "",
-        "task_id": null,
-        "elapsed_s": 0,
-        "last_activity": "2026-03-27T09:03:54.710796",
-        "sub_agents": [],
-        "worker_count": 0
+        "last_activity": "2026-03-27T09:13:54.910330"
       }
     },
     "task_queue": {
@@ -63,175 +33,30 @@
       "failed": 0,
       "pending": 0
     },
-    "benchmark_scores": {
-      "v1": {
-        "local": 100.0,
-        "opus": 70.0,
-        "gap": 30.0,
-        "win_rate": 100.0,
-        "ts": "2026-03-27T01:56:35.237569"
-      }
-    },
+    "benchmark_scores": {},
     "token_usage": {
       "claude_tokens": 0,
-      "local_tokens": 219864,
-      "budget_pct": 43.9728,
+      "local_tokens": 226393,
+      "budget_pct": 45.278600000000004,
       "warning": true,
       "hard_limit_hit": false
     },
     "hardware": {
-      "cpu_pct": 27.7,
-      "ram_pct": 71.2,
+      "cpu_pct": 0.0,
+      "ram_pct": 0.0,
       "disk_pct": 0.0,
       "gpu_pct": null,
       "alert_level": "ok"
     },
-    "failures": [
-      {
-        "ts": "2026-03-27T01:44:10.882288",
-        "agent": "executor",
-        "task": "P3: Performance validation (24-hour test)",
-        "task_id": "task-performance-validation",
-        "attempt": 1,
-        "tried": "unknown error"
-      },
-      {
-        "ts": "2026-03-27T01:34:08.530541",
-        "agent": "executor",
-        "task": "P3: Performance validation (24-hour test)",
-        "task_id": "task-performance-validation",
-        "attempt": 1,
-        "tried": "unknown error"
-      },
-      {
-        "ts": "2026-03-27T01:34:08.181380",
-        "agent": "executor",
-        "task": "P3: Comprehensive test suite",
-        "task_id": "task-test-suite",
-        "attempt": 1,
-        "tried": "unknown error"
-      },
-      {
-        "ts": "2026-03-27T01:24:06.139925",
-        "agent": "executor",
-        "task": "P3: Performance validation (24-hour test)",
-        "task_id": "task-performance-validation",
-        "attempt": 1,
-        "tried": "unknown error"
-      },
-      {
-        "ts": "2026-03-27T01:24:05.766961",
-        "agent": "executor",
-        "task": "P3: Comprehensive test suite",
-        "task_id": "task-test-suite",
-        "attempt": 1,
-        "tried": "unknown error"
-      },
-      {
-        "ts": "2026-03-27T01:24:05.415067",
-        "agent": "executor",
-        "task": "P2: Dynamic sub-agent management",
-        "task_id": "task-subagent-scaling",
-        "attempt": 1,
-        "tried": "unknown error"
-      },
-      {
-        "ts": "2026-03-27T01:14:03.607213",
-        "agent": "executor",
-        "task": "P3: Performance validation (24-hour test)",
-        "task_id": "task-performance-validation",
-        "attempt": 1,
-        "tried": "unknown error"
-      },
-      {
-        "ts": "2026-03-27T01:14:03.231053",
-        "agent": "executor",
-        "task": "P3: Comprehensive test suite",
-        "task_id": "task-test-suite",
-        "attempt": 1,
-        "tried": "unknown error"
-      },
-      {
-        "ts": "2026-03-27T01:14:02.844048",
-        "agent": "executor",
-        "task": "P2: Dynamic sub-agent management",
-        "task_id": "task-subagent-scaling",
-        "attempt": 1,
-        "tried": "unknown error"
-      },
-      {
-        "ts": "2026-03-27T01:14:02.464094",
-        "agent": "executor",
-        "task": "P2: Complete automation (zero manual intervention)",
-        "task_id": "task-complete-automation",
-        "attempt": 1,
-        "tried": "unknown error"
-      }
-    ],
+    "failures": [],
     "research_feed": [],
-    "version_changelog": {
-      "v1": {
-        "changes": [
-          "win_rate=100.0%",
-          "local_avg=100.0",
-          "opus_avg=70.0",
-          "rescued=0.0%",
-          "tasks=5"
-        ],
-        "before_score": 70.0,
-        "after_score": 100.0,
-        "delta": 30.0,
-        "ts": "2026-03-27T01:56:35.238479"
-      }
-    },
+    "version_changelog": {},
     "quality": 95,
-    "quality_score": 95,
     "model": "local-v1",
-    "recent_tasks": [
-      {
-        "task_id": 1,
-        "title": "Build a production FastAPI REST API with JWT auth",
-        "category": "scaffold",
-        "agent_used": "architect",
-        "status": "done",
-        "local_quality": 100
-      },
-      {
-        "task_id": 2,
-        "title": "Build a CLI deployment tool with subcommands",
-        "category": "scaffold",
-        "agent_used": "architect",
-        "status": "done",
-        "local_quality": 100
-      },
-      {
-        "task_id": 3,
-        "title": "Build a real-time WebSocket chat server",
-        "category": "scaffold",
-        "agent_used": "architect",
-        "status": "done",
-        "local_quality": 100
-      },
-      {
-        "task_id": 4,
-        "title": "Build a data pipeline with ETL + validation",
-        "category": "scaffold",
-        "agent_used": "architect",
-        "status": "done",
-        "local_quality": 100
-      },
-      {
-        "task_id": 5,
-        "title": "Build a Markdown blog static site generator",
-        "category": "scaffold",
-        "agent_used": "architect",
-        "status": "done",
-        "local_quality": 100
-      }
-    ],
+    "recent_tasks": [],
     "changelog": [],
     "epic_board": {
-      "ts": "2026-03-27T02:04:12.369014",
+      "ts": "2026-03-27T02:14:14.960355",
       "epics": [
         {
           "id": "system-reliability",
@@ -350,7 +175,7 @@
           "id": "production-upgrade",
           "name": "Production Upgrade: 49% \u2192 95%+ Success (Opus 4.6 Replica)",
           "track": "infrastructure",
-          "status": "in_progress",
+          "status": "completed",
           "total_tasks": 14,
           "completed": 14,
           "in_progress": 0,
@@ -373,196 +198,11 @@
         "works_24_7": true
       }
     },
-    "board_plan": {
-      "version": 1,
-      "total_tasks": 5,
-      "total_projects": 1,
-      "projects": [
-        {
-          "id": "proj-scaffold",
-          "name": "Scaffolding",
-          "category": "scaffold",
-          "agent": "architect",
-          "tasks": [
-            {
-              "task_id": 1,
-              "title": "Build a production FastAPI REST API with JWT auth",
-              "difficulty": "hard",
-              "status": "done",
-              "agent": "architect",
-              "quality": 100,
-              "elapsed_s": 35.1
-            },
-            {
-              "task_id": 2,
-              "title": "Build a CLI deployment tool with subcommands",
-              "difficulty": "hard",
-              "status": "done",
-              "agent": "architect",
-              "quality": 100,
-              "elapsed_s": 19.4
-            },
-            {
-              "task_id": 3,
-              "title": "Build a real-time WebSocket chat server",
-              "difficulty": "hard",
-              "status": "done",
-              "agent": "architect",
-              "quality": 100,
-              "elapsed_s": 28.6
-            },
-            {
-              "task_id": 4,
-              "title": "Build a data pipeline with ETL + validation",
-              "difficulty": "hard",
-              "status": "done",
-              "agent": "architect",
-              "quality": 100,
-              "elapsed_s": 40.4
-            },
-            {
-              "task_id": 5,
-              "title": "Build a Markdown blog static site generator",
-              "difficulty": "hard",
-              "status": "done",
-              "agent": "architect",
-              "quality": 100,
-              "elapsed_s": 16.5
-            }
-          ],
-          "total": 5,
-          "done": 5,
-          "in_progress": 0,
-          "failed": 0,
-          "status": "done",
-          "pct": 100.0
-        }
-      ],
-      "initialized_at": "2026-03-27T01:54:13.345635",
-      "status": "planned"
-    },
+    "quality_score": 95,
+    "board_plan": {},
     "auto_heal_feed": [
       {
-        "ts": "2026-03-27T06:42:35",
-        "level": "INFO",
-        "event": "started",
-        "detail": "Auto-heal monitor started (checks every 10s)",
-        "agent": ""
-      },
-      {
-        "ts": "2026-03-27T06:43:15",
-        "level": "INFO",
-        "event": "started",
-        "detail": "Auto-heal monitor started (checks every 10s)",
-        "agent": ""
-      },
-      {
-        "ts": "2026-03-27T06:43:31",
-        "level": "INFO",
-        "event": "started",
-        "detail": "Auto-heal monitor started (checks every 10s)",
-        "agent": ""
-      },
-      {
-        "ts": "2026-03-27T06:43:36",
-        "level": "INFO",
-        "event": "started",
-        "detail": "Auto-heal monitor started (checks every 10s)",
-        "agent": ""
-      },
-      {
-        "ts": "2026-03-27T06:53:39",
-        "level": "INFO",
-        "event": "started",
-        "detail": "Auto-heal monitor started (checks every 10s)",
-        "agent": ""
-      },
-      {
-        "ts": "2026-03-27T07:03:42",
-        "level": "INFO",
-        "event": "started",
-        "detail": "Auto-heal monitor started (checks every 10s)",
-        "agent": ""
-      },
-      {
-        "ts": "2026-03-27T07:13:45",
-        "level": "INFO",
-        "event": "started",
-        "detail": "Auto-heal monitor started (checks every 10s)",
-        "agent": ""
-      },
-      {
-        "ts": "2026-03-27T07:23:48",
-        "level": "INFO",
-        "event": "started",
-        "detail": "Auto-heal monitor started (checks every 10s)",
-        "agent": ""
-      },
-      {
-        "ts": "2026-03-27T07:33:50",
-        "level": "INFO",
-        "event": "started",
-        "detail": "Auto-heal monitor started (checks every 10s)",
-        "agent": ""
-      },
-      {
-        "ts": "2026-03-27T07:43:53",
-        "level": "INFO",
-        "event": "started",
-        "detail": "Auto-heal monitor started (checks every 10s)",
-        "agent": ""
-      },
-      {
-        "ts": "2026-03-27T07:53:56",
-        "level": "INFO",
-        "event": "started",
-        "detail": "Auto-heal monitor started (checks every 10s)",
-        "agent": ""
-      },
-      {
-        "ts": "2026-03-27T08:03:59",
-        "level": "INFO",
-        "event": "started",
-        "detail": "Auto-heal monitor started (checks every 10s)",
-        "agent": ""
-      },
-      {
-        "ts": "2026-03-27T08:14:01",
-        "level": "INFO",
-        "event": "started",
-        "detail": "Auto-heal monitor started (checks every 10s)",
-        "agent": ""
-      },
-      {
-        "ts": "2026-03-27T08:24:04",
-        "level": "INFO",
-        "event": "started",
-        "detail": "Auto-heal monitor started (checks every 10s)",
-        "agent": ""
-      },
-      {
-        "ts": "2026-03-27T08:34:07",
-        "level": "INFO",
-        "event": "started",
-        "detail": "Auto-heal monitor started (checks every 10s)",
-        "agent": ""
-      },
-      {
-        "ts": "2026-03-27T08:44:10",
-        "level": "INFO",
-        "event": "started",
-        "detail": "Auto-heal monitor started (checks every 10s)",
-        "agent": ""
-      },
-      {
-        "ts": "2026-03-27T08:54:12",
-        "level": "INFO",
-        "event": "started",
-        "detail": "Auto-heal monitor started (checks every 10s)",
-        "agent": ""
-      },
-      {
-        "ts": "2026-03-27T09:04:15",
+        "ts": "2026-03-27T09:14:18",
         "level": "INFO",
         "event": "started",
         "detail": "Auto-heal monitor started (checks every 10s)",
@@ -575,327 +215,11 @@
       "retrains": 0
     },
     "auto_heal_status": {
-      "ts": "2026-03-27T09:04:15",
+      "ts": "2026-03-27T09:14:18",
       "issues_this_cycle": [],
       "healthy": true,
       "dashboard_alive": true,
       "disk_ok": true
-    },
-    "calibration": {
-      "version": 1,
-      "ts": "2026-03-27T08:54:13",
-      "results": {
-        "test_engineer": {
-          "ts": "2026-03-27T08:54:13",
-          "version": 1,
-          "agent": "test_engineer",
-          "avg_score": 0.0,
-          "prev_score": 0.0,
-          "regressed": false,
-          "pass": false,
-          "patched": false,
-          "tasks": [
-            {
-              "title": "Write pytest for add(a,b)",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Write tests for a REST endpoint handler",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Write integration test for DB migration",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            }
-          ]
-        },
-        "benchmarker": {
-          "ts": "2026-03-27T08:54:13",
-          "version": 1,
-          "agent": "benchmarker",
-          "avg_score": 0.0,
-          "prev_score": 0.0,
-          "regressed": false,
-          "pass": false,
-          "patched": false,
-          "tasks": [
-            {
-              "title": "Score output quality 0-100 with rubric",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Compare two solutions: which is better?",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Identify top 3 failure patterns in task batch",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            }
-          ]
-        },
-        "planner": {
-          "ts": "2026-03-27T08:54:13",
-          "version": 1,
-          "agent": "planner",
-          "avg_score": 0.0,
-          "prev_score": 0.0,
-          "regressed": false,
-          "pass": false,
-          "patched": false,
-          "tasks": [
-            {
-              "title": "Break 'build a REST API' into 5 atomic steps",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Decompose database migration into sub-tasks",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Plan a refactor of a 500-line module",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            }
-          ]
-        },
-        "executor": {
-          "ts": "2026-03-27T08:54:13",
-          "version": 1,
-          "agent": "executor",
-          "avg_score": 0.0,
-          "prev_score": 0.0,
-          "regressed": false,
-          "pass": false,
-          "patched": false,
-          "tasks": [
-            {
-              "title": "Two Sum \u2014 return indices",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "FizzBuzz 1-100",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Reverse a linked list",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            }
-          ]
-        },
-        "architect": {
-          "ts": "2026-03-27T08:54:13",
-          "version": 1,
-          "agent": "architect",
-          "avg_score": 0.0,
-          "prev_score": 0.0,
-          "regressed": false,
-          "pass": false,
-          "patched": false,
-          "tasks": [
-            {
-              "title": "Design schema for a todo app",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Design microservice boundary for auth + billing",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Design distributed task queue system",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            }
-          ]
-        },
-        "researcher": {
-          "ts": "2026-03-27T08:54:13",
-          "version": 1,
-          "agent": "researcher",
-          "avg_score": 0.0,
-          "prev_score": 0.0,
-          "regressed": false,
-          "pass": false,
-          "patched": false,
-          "tasks": [
-            {
-              "title": "Find top 3 Python HTTP libraries",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Research best practices for retry logic",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Summarise SWE-bench top agent techniques 2025",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            }
-          ]
-        },
-        "debugger": {
-          "ts": "2026-03-27T08:54:13",
-          "version": 1,
-          "agent": "debugger",
-          "avg_score": 0.0,
-          "prev_score": 0.0,
-          "regressed": false,
-          "pass": false,
-          "patched": false,
-          "tasks": [
-            {
-              "title": "Fix: AttributeError on NoneType",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Fix: off-by-one in binary search",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Debug race condition in thread-safe queue",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            }
-          ]
-        },
-        "reviewer": {
-          "ts": "2026-03-27T08:54:13",
-          "version": 1,
-          "agent": "reviewer",
-          "avg_score": 0.0,
-          "prev_score": 0.0,
-          "regressed": false,
-          "pass": false,
-          "patched": false,
-          "tasks": [
-            {
-              "title": "Score this function: def add(a,b): return a+b",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Review a 20-line Python class for quality",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Rate correctness/completeness/style of a module",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            }
-          ]
-        },
-        "refactor": {
-          "ts": "2026-03-27T08:54:13",
-          "version": 1,
-          "agent": "refactor",
-          "avg_score": 0.0,
-          "prev_score": 0.0,
-          "regressed": false,
-          "pass": false,
-          "patched": false,
-          "tasks": [
-            {
-              "title": "Extract helper from 10-line function",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Rename variables for clarity in a module",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Split 200-line class into clean modules",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            }
-          ]
-        },
-        "doc_writer": {
-          "ts": "2026-03-27T08:54:13",
-          "version": 1,
-          "agent": "doc_writer",
-          "avg_score": 0.0,
-          "prev_score": 0.0,
-          "regressed": false,
-          "pass": false,
-          "patched": false,
-          "tasks": [
-            {
-              "title": "Write docstring for a 5-line function",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Write README for a CLI tool",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Write API reference for 5 endpoints",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            }
-          ]
-        }
-      },
-      "passing": [],
-      "patched": []
-    },
-    "business_summary": {
-      "headline": "5 of 5 engineering tasks complete",
-      "pct_complete": 100.0,
-      "projects_active": 0,
-      "blockers_open": 0,
-      "version": 1,
-      "updated_at": "2026-03-27T01:56:35.226532"
     }
   }
 }
