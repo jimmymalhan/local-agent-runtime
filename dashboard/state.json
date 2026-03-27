@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-26T23:45:08.088602",
+  "ts": "2026-03-26T23:48:11.087152",
   "version": {
     "current": 1,
     "total": 100,
@@ -8,37 +8,12 @@
   },
   "agents": {
     "executor": {
-      "status": "blocked",
-      "task": "[0/100] P0: Fix task router stuck-task logic \u2014 retry in_pr",
-      "task_id": "task-fix-2",
-      "elapsed_s": 0.0,
-      "last_activity": "2026-03-26T23:43:37.953926",
-      "sub_agents": [
-        {
-          "id": 0,
-          "status": "done",
-          "task": "\ud83d\udea8 CRITICAL: Detect and restart stale agents (",
-          "model": "",
-          "elapsed_s": 0.0,
-          "quality": 75
-        },
-        {
-          "id": 1,
-          "status": "done",
-          "task": "\ud83d\udea8 CRITICAL: Detect and restart stale agents (",
-          "model": "",
-          "elapsed_s": 0.0,
-          "quality": 75
-        },
-        {
-          "id": 2,
-          "status": "done",
-          "task": "\ud83d\udea8 CRITICAL: Detect and restart stale agents (",
-          "model": "",
-          "elapsed_s": 0.0,
-          "quality": 75
-        }
-      ],
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": "2026-03-27T06:47:52.254049",
+      "sub_agents": [],
       "worker_count": 0
     },
     "reviewer": {
@@ -46,25 +21,43 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-26T23:44:46.987802",
+      "last_activity": "2026-03-27T06:47:52.254049",
       "sub_agents": [],
       "worker_count": 0
     },
     "architect": {
-      "status": "done",
-      "task": "[100/100] Build a real-time WebSocket chat server",
+      "status": "idle",
+      "task": "",
       "task_id": 3,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-26T23:44:46.977008",
+      "last_activity": "2026-03-27T06:47:52.254049",
+      "sub_agents": [],
+      "worker_count": 0
+    },
+    "test_engineer": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": "2026-03-27T06:47:52.254049",
+      "sub_agents": [],
+      "worker_count": 0
+    },
+    "researcher": {
+      "status": "idle",
+      "task": "",
+      "task_id": null,
+      "elapsed_s": 0,
+      "last_activity": "2026-03-27T06:47:52.254049",
       "sub_agents": [],
       "worker_count": 0
     }
   },
   "task_queue": {
-    "total": 5,
-    "completed": 3,
+    "total": 30,
+    "completed": 30,
     "in_progress": 0,
-    "failed": 2,
+    "failed": 0,
     "pending": 0
   },
   "benchmark_scores": {
@@ -179,7 +172,7 @@
   ],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-26T23:45:08.088463",
+    "ts": "2026-03-26T23:48:11.087005",
     "epics": [
       {
         "id": "system-reliability",
@@ -298,13 +291,13 @@
         "id": "production-upgrade",
         "name": "Production Upgrade: 49% \u2192 95%+ Success (Opus 4.6 Replica)",
         "track": "infrastructure",
-        "status": "completed",
+        "status": "in_progress",
         "total_tasks": 14,
-        "completed": 14,
+        "completed": 0,
         "in_progress": 0,
-        "pending": 0,
+        "pending": 14,
         "blocked": 0,
-        "progress_pct": 100.0,
+        "progress_pct": 0.0,
         "agents": [
           "architect",
           "executor",
