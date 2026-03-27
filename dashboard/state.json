@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-27T17:52:39.943237",
+  "ts": "2026-03-27T10:56:48.785372",
   "version": {
     "current": 1,
     "total": 100,
@@ -12,7 +12,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T17:52:33.993018",
+      "last_activity": "2026-03-27T17:56:34.042628",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -21,7 +21,7 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T17:52:33.993018",
+      "last_activity": "2026-03-27T17:56:34.042628",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -30,18 +30,18 @@
       "task": "",
       "task_id": null,
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T17:52:33.993018",
+      "last_activity": "2026-03-27T17:56:34.042628",
       "sub_agents": [],
       "worker_count": 0
     },
     "test_engineer": {
-      "last_activity": "2026-03-27T17:52:33.993018",
+      "last_activity": "2026-03-27T17:56:34.042628",
       "status": "idle",
       "task": "",
       "task_id": null
     },
     "researcher": {
-      "last_activity": "2026-03-27T17:52:33.993018",
+      "last_activity": "2026-03-27T17:56:34.042628",
       "status": "idle",
       "task": "",
       "task_id": null
@@ -50,9 +50,9 @@
   "task_queue": {
     "total": 58,
     "completed": 54,
-    "pending": 4,
     "in_progress": 0,
-    "failed": 0
+    "failed": 0,
+    "pending": 4
   },
   "benchmark_scores": {
     "avg_local": 0.0,
@@ -85,9 +85,9 @@
   },
   "token_usage": {
     "claude_tokens": 0,
-    "local_tokens": 194624,
-    "budget_pct": 38.9,
-    "warning": false,
+    "local_tokens": 486160,
+    "budget_pct": 97.232,
+    "warning": true,
     "hard_limit_hit": false
   },
   "hardware": {
@@ -242,7 +242,7 @@
   ],
   "changelog": [],
   "epic_board": {
-    "ts": "2026-03-27T10:52:38.365461",
+    "ts": "2026-03-27T10:56:48.785020",
     "epics": [
       {
         "id": "system-reliability",
@@ -421,11 +421,11 @@
         "track": "infrastructure",
         "status": "pending",
         "total_tasks": 5,
-        "completed": 0,
+        "completed": 1,
         "in_progress": 0,
-        "pending": 5,
+        "pending": 4,
         "blocked": 0,
-        "progress_pct": 0.0,
+        "progress_pct": 20.0,
         "agents": [
           "architect",
           "benchmarker",
