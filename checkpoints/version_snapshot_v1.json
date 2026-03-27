@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "ts": "2026-03-27T18:37:05",
+  "ts": "2026-03-27T18:47:07",
   "state": {
-    "ts": "2026-03-27T18:37:04.656448",
+    "ts": "2026-03-27T18:47:05.167056",
     "version": {
       "current": 1,
       "total": 100,
@@ -15,7 +15,7 @@
         "task": "",
         "task_id": null,
         "elapsed_s": 0.0,
-        "last_activity": "2026-03-27T18:37:04.656448",
+        "last_activity": "2026-03-27T18:47:04.863833",
         "sub_agents": [],
         "worker_count": 0
       },
@@ -24,7 +24,7 @@
         "task": "",
         "task_id": null,
         "elapsed_s": 0.0,
-        "last_activity": "2026-03-27T18:37:04.656448",
+        "last_activity": "2026-03-27T18:47:04.863833",
         "sub_agents": [],
         "worker_count": 0
       },
@@ -33,29 +33,29 @@
         "task": "",
         "task_id": null,
         "elapsed_s": 0.0,
-        "last_activity": "2026-03-27T18:37:04.656448",
+        "last_activity": "2026-03-27T18:47:04.863833",
         "sub_agents": [],
         "worker_count": 0
       },
       "test_engineer": {
-        "last_activity": "2026-03-27T18:37:04.656448",
+        "last_activity": "2026-03-27T18:47:04.863833",
         "status": "idle",
         "task": "",
         "task_id": null
       },
       "researcher": {
-        "last_activity": "2026-03-27T18:37:04.656448",
+        "last_activity": "2026-03-27T18:47:04.863833",
         "status": "idle",
         "task": "",
         "task_id": null
       }
     },
     "task_queue": {
-      "total": 167,
-      "completed": 58,
-      "pending": 109,
+      "total": 254,
+      "completed": 59,
       "in_progress": 0,
-      "failed": 0
+      "failed": 0,
+      "pending": 195
     },
     "benchmark_scores": {
       "avg_local": 0.0,
@@ -83,24 +83,64 @@
         "opus": 70.0,
         "gap": -70.0,
         "win_rate": 0.0,
-        "ts": "2026-03-27T11:27:03.887155"
+        "ts": "2026-03-27T11:37:06.957924"
       }
     },
     "token_usage": {
       "claude_tokens": 0,
-      "local_tokens": 194624,
-      "budget_pct": 38.9,
-      "warning": false,
+      "local_tokens": 492885,
+      "budget_pct": 98.577,
+      "warning": true,
       "hard_limit_hit": false
     },
     "hardware": {
-      "cpu_pct": 44.4,
-      "ram_pct": 57.5,
+      "cpu_pct": 32.4,
+      "ram_pct": 57.8,
       "disk_pct": 0.0,
       "gpu_pct": null,
       "alert_level": "ok"
     },
     "failures": [
+      {
+        "ts": "2026-03-27T11:37:06.948593",
+        "agent": "executor",
+        "task": "Add notifications & alert system (toast, badges, sound)",
+        "task_id": "ultra-dash-5",
+        "attempt": 1,
+        "tried": "unknown error"
+      },
+      {
+        "ts": "2026-03-27T11:37:06.600097",
+        "agent": "executor",
+        "task": "Implement data export (CSV, JSON, PDF reports)",
+        "task_id": "ultra-dash-4",
+        "attempt": 1,
+        "tried": "unknown error"
+      },
+      {
+        "ts": "2026-03-27T11:37:06.229081",
+        "agent": "executor",
+        "task": "Add advanced task search/filtering/sorting UI",
+        "task_id": "ultra-dash-3",
+        "attempt": 1,
+        "tried": "unknown error"
+      },
+      {
+        "ts": "2026-03-27T11:37:05.841102",
+        "agent": "executor",
+        "task": "Implement dark mode with smooth transitions",
+        "task_id": "ultra-dash-2",
+        "attempt": 1,
+        "tried": "unknown error"
+      },
+      {
+        "ts": "2026-03-27T11:37:05.462063",
+        "agent": "executor",
+        "task": "Add real-time metrics dashboard (CPU, memory, request latenc",
+        "task_id": "ultra-dash-1",
+        "attempt": 1,
+        "tried": "unknown error"
+      },
       {
         "ts": "2026-03-27T11:27:03.878283",
         "agent": "executor",
@@ -140,46 +180,6 @@
         "task_id": "phase3-performance-tuning",
         "attempt": 1,
         "tried": "unknown error"
-      },
-      {
-        "ts": "2026-03-27T11:16:59.746090",
-        "agent": "executor",
-        "task": "Optimize execution performance",
-        "task_id": "phase3-performance-tuning",
-        "attempt": 1,
-        "tried": "unknown error"
-      },
-      {
-        "ts": "2026-03-27T11:16:59.401864",
-        "agent": "executor",
-        "task": "Add quality gates to task execution",
-        "task_id": "phase3-quality-gates",
-        "attempt": 1,
-        "tried": "unknown error"
-      },
-      {
-        "ts": "2026-03-27T11:06:55.604324",
-        "agent": "executor",
-        "task": "Optimize execution performance",
-        "task_id": "phase3-performance-tuning",
-        "attempt": 1,
-        "tried": "unknown error"
-      },
-      {
-        "ts": "2026-03-27T11:06:55.269227",
-        "agent": "executor",
-        "task": "Add quality gates to task execution",
-        "task_id": "phase3-quality-gates",
-        "attempt": 1,
-        "tried": "unknown error"
-      },
-      {
-        "ts": "2026-03-27T11:06:54.937087",
-        "agent": "executor",
-        "task": "Implement self-healing agent recovery",
-        "task_id": "phase3-self-healing",
-        "attempt": 1,
-        "tried": "unknown error"
       }
     ],
     "research_feed": [],
@@ -195,21 +195,13 @@
         "before_score": 70.0,
         "after_score": 0.0,
         "delta": -70.0,
-        "ts": "2026-03-27T11:27:03.888105"
+        "ts": "2026-03-27T11:37:06.959013"
       }
     },
-    "quality": 32,
-    "quality_score": 32,
+    "quality": 22,
+    "quality_score": 22,
     "model": "local-v1",
     "recent_tasks": [
-      {
-        "task_id": "phase3-performance-tuning",
-        "title": "Optimize execution performance",
-        "category": "project",
-        "agent_used": "executor",
-        "status": "blocked",
-        "local_quality": 0
-      },
       {
         "task_id": "ultra-dash-1",
         "title": "Add real-time metrics dashboard (CPU, memory, request latency)",
@@ -241,11 +233,19 @@
         "agent_used": "executor",
         "status": "blocked",
         "local_quality": 0
+      },
+      {
+        "task_id": "ultra-dash-5",
+        "title": "Add notifications & alert system (toast, badges, sound)",
+        "category": "project",
+        "agent_used": "executor",
+        "status": "blocked",
+        "local_quality": 0
       }
     ],
     "changelog": [],
     "epic_board": {
-      "ts": "2026-03-27T11:37:02.463284",
+      "ts": "2026-03-27T11:47:05.074379",
       "epics": [
         {
           "id": "system-reliability",
@@ -444,11 +444,11 @@
           "track": "infrastructure",
           "status": "pending",
           "total_tasks": 5,
-          "completed": 0,
+          "completed": 1,
           "in_progress": 0,
-          "pending": 5,
+          "pending": 4,
           "blocked": 0,
-          "progress_pct": 0.0,
+          "progress_pct": 20.0,
           "agents": [
             "frontend_agent"
           ],
@@ -840,6 +840,329 @@
             "frontend_agent"
           ],
           "agent_count": 2
+        },
+        {
+          "id": "ultra-multimodel-orchestration",
+          "name": "\ud83e\udd16 Ultra Multi-Model Orchestration Engine (Tier 1)",
+          "track": "infrastructure",
+          "status": "pending",
+          "total_tasks": 4,
+          "completed": 0,
+          "in_progress": 0,
+          "pending": 4,
+          "blocked": 0,
+          "progress_pct": 0.0,
+          "agents": [
+            "backend_engineer"
+          ],
+          "agent_count": 1
+        },
+        {
+          "id": "ultra-vision-audio-multimodal",
+          "name": "\ud83d\udc41\ufe0f\ud83d\udd0a Vision & Audio Multimodal Support (Tier 1)",
+          "track": "infrastructure",
+          "status": "pending",
+          "total_tasks": 4,
+          "completed": 0,
+          "in_progress": 0,
+          "pending": 4,
+          "blocked": 0,
+          "progress_pct": 0.0,
+          "agents": [
+            "backend_engineer"
+          ],
+          "agent_count": 1
+        },
+        {
+          "id": "ultra-reasoning-engine",
+          "name": "\ud83e\udde0 Ultra Reasoning & Logic Engine (Tier 1)",
+          "track": "infrastructure",
+          "status": "pending",
+          "total_tasks": 4,
+          "completed": 0,
+          "in_progress": 0,
+          "pending": 4,
+          "blocked": 0,
+          "progress_pct": 0.0,
+          "agents": [
+            "backend_engineer"
+          ],
+          "agent_count": 1
+        },
+        {
+          "id": "ultra-realtime-streaming",
+          "name": "\u26a1 Ultra Real-Time Streaming & WebSocket (Tier 1)",
+          "track": "infrastructure",
+          "status": "pending",
+          "total_tasks": 4,
+          "completed": 0,
+          "in_progress": 0,
+          "pending": 4,
+          "blocked": 0,
+          "progress_pct": 0.0,
+          "agents": [
+            "backend_engineer"
+          ],
+          "agent_count": 1
+        },
+        {
+          "id": "ultra-enterprise-compliance",
+          "name": "\u2705 Ultra Enterprise Compliance & Governance (Tier 1)",
+          "track": "infrastructure",
+          "status": "pending",
+          "total_tasks": 4,
+          "completed": 0,
+          "in_progress": 0,
+          "pending": 4,
+          "blocked": 0,
+          "progress_pct": 0.0,
+          "agents": [
+            "backend_engineer"
+          ],
+          "agent_count": 1
+        },
+        {
+          "id": "ultra-white-label",
+          "name": "\ud83c\udfa8 Ultra White-Label & Custom Branding (Tier 1)",
+          "track": "infrastructure",
+          "status": "pending",
+          "total_tasks": 4,
+          "completed": 0,
+          "in_progress": 0,
+          "pending": 4,
+          "blocked": 0,
+          "progress_pct": 0.0,
+          "agents": [
+            "backend_engineer",
+            "frontend_agent"
+          ],
+          "agent_count": 2
+        },
+        {
+          "id": "ultra-integrations-ecosystem",
+          "name": "\ud83d\udd17 Ultra Integrations Ecosystem (Tier 1)",
+          "track": "infrastructure",
+          "status": "pending",
+          "total_tasks": 4,
+          "completed": 0,
+          "in_progress": 0,
+          "pending": 4,
+          "blocked": 0,
+          "progress_pct": 0.0,
+          "agents": [
+            "backend_engineer",
+            "frontend_agent"
+          ],
+          "agent_count": 2
+        },
+        {
+          "id": "ultra-mobile-apps",
+          "name": "\ud83d\udcf1 Ultra Native Mobile Apps (Tier 1)",
+          "track": "infrastructure",
+          "status": "pending",
+          "total_tasks": 4,
+          "completed": 0,
+          "in_progress": 0,
+          "pending": 4,
+          "blocked": 0,
+          "progress_pct": 0.0,
+          "agents": [
+            "backend_engineer"
+          ],
+          "agent_count": 1
+        },
+        {
+          "id": "ultra-data-warehouse",
+          "name": "\ud83c\udfed Ultra Data Warehouse & Analytics (Tier 1)",
+          "track": "infrastructure",
+          "status": "pending",
+          "total_tasks": 4,
+          "completed": 0,
+          "in_progress": 0,
+          "pending": 4,
+          "blocked": 0,
+          "progress_pct": 0.0,
+          "agents": [
+            "backend_engineer"
+          ],
+          "agent_count": 1
+        },
+        {
+          "id": "ultra-advanced-search",
+          "name": "\ud83d\udd0d Ultra Advanced Search & Discovery (Tier 1)",
+          "track": "infrastructure",
+          "status": "pending",
+          "total_tasks": 4,
+          "completed": 0,
+          "in_progress": 0,
+          "pending": 4,
+          "blocked": 0,
+          "progress_pct": 0.0,
+          "agents": [
+            "backend_engineer"
+          ],
+          "agent_count": 1
+        },
+        {
+          "id": "ultra-govt-compliance",
+          "name": "\ud83c\udfdb\ufe0f Government & Advanced Compliance (Tier 2)",
+          "track": "infrastructure",
+          "status": "pending",
+          "total_tasks": 5,
+          "completed": 0,
+          "in_progress": 0,
+          "pending": 5,
+          "blocked": 0,
+          "progress_pct": 0.0,
+          "agents": [
+            "backend_engineer"
+          ],
+          "agent_count": 1
+        },
+        {
+          "id": "ultra-advanced-performance",
+          "name": "\u26a1 Advanced Performance & GPU Computing (Tier 2)",
+          "track": "infrastructure",
+          "status": "pending",
+          "total_tasks": 5,
+          "completed": 0,
+          "in_progress": 0,
+          "pending": 5,
+          "blocked": 0,
+          "progress_pct": 0.0,
+          "agents": [
+            "backend_engineer"
+          ],
+          "agent_count": 1
+        },
+        {
+          "id": "ultra-advanced-infrastructure",
+          "name": "\ud83c\udfd7\ufe0f Advanced Infrastructure & Multi-Cloud (Tier 2)",
+          "track": "infrastructure",
+          "status": "pending",
+          "total_tasks": 5,
+          "completed": 0,
+          "in_progress": 0,
+          "pending": 5,
+          "blocked": 0,
+          "progress_pct": 0.0,
+          "agents": [
+            "backend_engineer"
+          ],
+          "agent_count": 1
+        },
+        {
+          "id": "ultra-advanced-devops",
+          "name": "\ud83d\ude80 Advanced DevOps & CI/CD (Tier 2)",
+          "track": "infrastructure",
+          "status": "pending",
+          "total_tasks": 5,
+          "completed": 0,
+          "in_progress": 0,
+          "pending": 5,
+          "blocked": 0,
+          "progress_pct": 0.0,
+          "agents": [
+            "backend_engineer"
+          ],
+          "agent_count": 1
+        },
+        {
+          "id": "ultra-voice-video",
+          "name": "\ud83c\udf99\ufe0f\ud83d\udcf9 Voice & Video Communication (Tier 2)",
+          "track": "infrastructure",
+          "status": "pending",
+          "total_tasks": 4,
+          "completed": 0,
+          "in_progress": 0,
+          "pending": 4,
+          "blocked": 0,
+          "progress_pct": 0.0,
+          "agents": [
+            "backend_engineer"
+          ],
+          "agent_count": 1
+        },
+        {
+          "id": "ultra-advanced-monetization",
+          "name": "\ud83d\udcb0 Advanced Monetization & Metering (Tier 2)",
+          "track": "infrastructure",
+          "status": "pending",
+          "total_tasks": 5,
+          "completed": 0,
+          "in_progress": 0,
+          "pending": 5,
+          "blocked": 0,
+          "progress_pct": 0.0,
+          "agents": [
+            "backend_engineer"
+          ],
+          "agent_count": 1
+        },
+        {
+          "id": "ultra-advanced-ml",
+          "name": "\ud83e\udde0 Advanced ML/AI Continuous Learning (Tier 2)",
+          "track": "infrastructure",
+          "status": "pending",
+          "total_tasks": 5,
+          "completed": 0,
+          "in_progress": 0,
+          "pending": 5,
+          "blocked": 0,
+          "progress_pct": 0.0,
+          "agents": [
+            "backend_engineer"
+          ],
+          "agent_count": 1
+        },
+        {
+          "id": "ultra-advanced-databases",
+          "name": "\ud83d\uddc4\ufe0f Advanced Database & Caching (Tier 2)",
+          "track": "infrastructure",
+          "status": "pending",
+          "total_tasks": 5,
+          "completed": 0,
+          "in_progress": 0,
+          "pending": 5,
+          "blocked": 0,
+          "progress_pct": 0.0,
+          "agents": [
+            "backend_engineer"
+          ],
+          "agent_count": 1
+        },
+        {
+          "id": "ultra-reporting-export",
+          "name": "\ud83d\udccb Advanced Reporting & Data Export (Tier 2)",
+          "track": "infrastructure",
+          "status": "pending",
+          "total_tasks": 4,
+          "completed": 0,
+          "in_progress": 0,
+          "pending": 4,
+          "blocked": 0,
+          "progress_pct": 0.0,
+          "agents": [
+            "backend_engineer",
+            "frontend_agent"
+          ],
+          "agent_count": 2
+        },
+        {
+          "id": "ultra-streaming-media",
+          "name": "\ud83c\udfac Advanced Streaming & Media (Tier 2)",
+          "track": "infrastructure",
+          "status": "pending",
+          "total_tasks": 4,
+          "completed": 0,
+          "in_progress": 0,
+          "pending": 4,
+          "blocked": 0,
+          "progress_pct": 0.0,
+          "agents": [
+            "backend_engineer"
+          ],
+          "agent_count": 1
         }
       ],
       "operations": {
@@ -861,15 +1184,6 @@
           "category": "project",
           "agent": "executor",
           "tasks": [
-            {
-              "task_id": "phase3-performance-tuning",
-              "title": "Optimize execution performance",
-              "difficulty": "hard",
-              "status": "blocked",
-              "agent": "executor",
-              "quality": 0,
-              "elapsed_s": 0.0
-            },
             {
               "task_id": "ultra-dash-1",
               "title": "Add real-time metrics dashboard (CPU, memory, request latency)",
@@ -905,6 +1219,15 @@
               "agent": "executor",
               "quality": 0,
               "elapsed_s": 0.0
+            },
+            {
+              "task_id": "ultra-dash-5",
+              "title": "Add notifications & alert system (toast, badges, sound)",
+              "difficulty": "hard",
+              "status": "blocked",
+              "agent": "executor",
+              "quality": 0,
+              "elapsed_s": 0.0
             }
           ],
           "total": 5,
@@ -915,7 +1238,7 @@
           "pct": 0.0
         }
       ],
-      "initialized_at": "2026-03-27T11:27:01.986132",
+      "initialized_at": "2026-03-27T11:37:05.086298",
       "status": "planned"
     },
     "business_summary": {
@@ -924,10 +1247,10 @@
       "projects_active": 0,
       "blockers_open": 1,
       "version": 1,
-      "updated_at": "2026-03-27T11:27:03.881310"
+      "updated_at": "2026-03-27T11:37:06.952040"
     },
     "auto_heal_status": {
-      "ts": "2026-03-27T18:37:04",
+      "ts": "2026-03-27T18:47:07",
       "issues_this_cycle": [],
       "healthy": true,
       "dashboard_alive": true,
@@ -1087,6 +1410,13 @@
         "event": "started",
         "detail": "Auto-heal monitor started (checks every 10s)",
         "agent": ""
+      },
+      {
+        "ts": "2026-03-27T18:47:07",
+        "level": "INFO",
+        "event": "started",
+        "detail": "Auto-heal monitor started (checks every 10s)",
+        "agent": ""
       }
     ],
     "auto_heal_counts": {
@@ -1096,10 +1426,10 @@
     },
     "calibration": {
       "version": 1,
-      "ts": "2026-03-27T18:27:01",
+      "ts": "2026-03-27T18:37:05",
       "results": {
         "executor": {
-          "ts": "2026-03-27T18:27:01",
+          "ts": "2026-03-27T18:37:05",
           "version": 1,
           "agent": "executor",
           "avg_score": 0.0,
@@ -1128,128 +1458,8 @@
             }
           ]
         },
-        "researcher": {
-          "ts": "2026-03-27T18:27:01",
-          "version": 1,
-          "agent": "researcher",
-          "avg_score": 0.0,
-          "prev_score": 0.0,
-          "regressed": false,
-          "pass": false,
-          "patched": false,
-          "tasks": [
-            {
-              "title": "Find top 3 Python HTTP libraries",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Research best practices for retry logic",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Summarise SWE-bench top agent techniques 2025",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            }
-          ]
-        },
-        "debugger": {
-          "ts": "2026-03-27T18:27:01",
-          "version": 1,
-          "agent": "debugger",
-          "avg_score": 0.0,
-          "prev_score": 0.0,
-          "regressed": false,
-          "pass": false,
-          "patched": false,
-          "tasks": [
-            {
-              "title": "Fix: AttributeError on NoneType",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Fix: off-by-one in binary search",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Debug race condition in thread-safe queue",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            }
-          ]
-        },
-        "reviewer": {
-          "ts": "2026-03-27T18:27:01",
-          "version": 1,
-          "agent": "reviewer",
-          "avg_score": 0.0,
-          "prev_score": 0.0,
-          "regressed": false,
-          "pass": false,
-          "patched": false,
-          "tasks": [
-            {
-              "title": "Score this function: def add(a,b): return a+b",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Review a 20-line Python class for quality",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Rate correctness/completeness/style of a module",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            }
-          ]
-        },
-        "benchmarker": {
-          "ts": "2026-03-27T18:27:01",
-          "version": 1,
-          "agent": "benchmarker",
-          "avg_score": 0.0,
-          "prev_score": 0.0,
-          "regressed": false,
-          "pass": false,
-          "patched": false,
-          "tasks": [
-            {
-              "title": "Score output quality 0-100 with rubric",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Compare two solutions: which is better?",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            },
-            {
-              "title": "Identify top 3 failure patterns in task batch",
-              "score": 0,
-              "status": "error: signal only works in main thread of the main interpreter",
-              "elapsed": 0.0
-            }
-          ]
-        },
         "planner": {
-          "ts": "2026-03-27T18:27:01",
+          "ts": "2026-03-27T18:37:05",
           "version": 1,
           "agent": "planner",
           "avg_score": 0.0,
@@ -1278,10 +1488,10 @@
             }
           ]
         },
-        "refactor": {
-          "ts": "2026-03-27T18:27:01",
+        "reviewer": {
+          "ts": "2026-03-27T18:37:05",
           "version": 1,
-          "agent": "refactor",
+          "agent": "reviewer",
           "avg_score": 0.0,
           "prev_score": 0.0,
           "regressed": false,
@@ -1289,29 +1499,29 @@
           "patched": false,
           "tasks": [
             {
-              "title": "Extract helper from 10-line function",
+              "title": "Score this function: def add(a,b): return a+b",
               "score": 0,
               "status": "error: signal only works in main thread of the main interpreter",
               "elapsed": 0.0
             },
             {
-              "title": "Rename variables for clarity in a module",
+              "title": "Review a 20-line Python class for quality",
               "score": 0,
               "status": "error: signal only works in main thread of the main interpreter",
               "elapsed": 0.0
             },
             {
-              "title": "Split 200-line class into clean modules",
+              "title": "Rate correctness/completeness/style of a module",
               "score": 0,
               "status": "error: signal only works in main thread of the main interpreter",
               "elapsed": 0.0
             }
           ]
         },
-        "architect": {
-          "ts": "2026-03-27T18:27:01",
+        "debugger": {
+          "ts": "2026-03-27T18:37:05",
           "version": 1,
-          "agent": "architect",
+          "agent": "debugger",
           "avg_score": 0.0,
           "prev_score": 0.0,
           "regressed": false,
@@ -1319,19 +1529,79 @@
           "patched": false,
           "tasks": [
             {
-              "title": "Design schema for a todo app",
+              "title": "Fix: AttributeError on NoneType",
               "score": 0,
               "status": "error: signal only works in main thread of the main interpreter",
               "elapsed": 0.0
             },
             {
-              "title": "Design microservice boundary for auth + billing",
+              "title": "Fix: off-by-one in binary search",
               "score": 0,
               "status": "error: signal only works in main thread of the main interpreter",
               "elapsed": 0.0
             },
             {
-              "title": "Design distributed task queue system",
+              "title": "Debug race condition in thread-safe queue",
+              "score": 0,
+              "status": "error: signal only works in main thread of the main interpreter",
+              "elapsed": 0.0
+            }
+          ]
+        },
+        "researcher": {
+          "ts": "2026-03-27T18:37:05",
+          "version": 1,
+          "agent": "researcher",
+          "avg_score": 0.0,
+          "prev_score": 0.0,
+          "regressed": false,
+          "pass": false,
+          "patched": false,
+          "tasks": [
+            {
+              "title": "Find top 3 Python HTTP libraries",
+              "score": 0,
+              "status": "error: signal only works in main thread of the main interpreter",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Research best practices for retry logic",
+              "score": 0,
+              "status": "error: signal only works in main thread of the main interpreter",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Summarise SWE-bench top agent techniques 2025",
+              "score": 0,
+              "status": "error: signal only works in main thread of the main interpreter",
+              "elapsed": 0.0
+            }
+          ]
+        },
+        "benchmarker": {
+          "ts": "2026-03-27T18:37:05",
+          "version": 1,
+          "agent": "benchmarker",
+          "avg_score": 0.0,
+          "prev_score": 0.0,
+          "regressed": false,
+          "pass": false,
+          "patched": false,
+          "tasks": [
+            {
+              "title": "Score output quality 0-100 with rubric",
+              "score": 0,
+              "status": "error: signal only works in main thread of the main interpreter",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Compare two solutions: which is better?",
+              "score": 0,
+              "status": "error: signal only works in main thread of the main interpreter",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Identify top 3 failure patterns in task batch",
               "score": 0,
               "status": "error: signal only works in main thread of the main interpreter",
               "elapsed": 0.0
@@ -1339,7 +1609,7 @@
           ]
         },
         "test_engineer": {
-          "ts": "2026-03-27T18:27:01",
+          "ts": "2026-03-27T18:37:05",
           "version": 1,
           "agent": "test_engineer",
           "avg_score": 0.0,
@@ -1368,8 +1638,68 @@
             }
           ]
         },
+        "architect": {
+          "ts": "2026-03-27T18:37:05",
+          "version": 1,
+          "agent": "architect",
+          "avg_score": 0.0,
+          "prev_score": 0.0,
+          "regressed": false,
+          "pass": false,
+          "patched": false,
+          "tasks": [
+            {
+              "title": "Design schema for a todo app",
+              "score": 0,
+              "status": "error: signal only works in main thread of the main interpreter",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Design microservice boundary for auth + billing",
+              "score": 0,
+              "status": "error: signal only works in main thread of the main interpreter",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Design distributed task queue system",
+              "score": 0,
+              "status": "error: signal only works in main thread of the main interpreter",
+              "elapsed": 0.0
+            }
+          ]
+        },
+        "refactor": {
+          "ts": "2026-03-27T18:37:05",
+          "version": 1,
+          "agent": "refactor",
+          "avg_score": 0.0,
+          "prev_score": 0.0,
+          "regressed": false,
+          "pass": false,
+          "patched": false,
+          "tasks": [
+            {
+              "title": "Extract helper from 10-line function",
+              "score": 0,
+              "status": "error: signal only works in main thread of the main interpreter",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Rename variables for clarity in a module",
+              "score": 0,
+              "status": "error: signal only works in main thread of the main interpreter",
+              "elapsed": 0.0
+            },
+            {
+              "title": "Split 200-line class into clean modules",
+              "score": 0,
+              "status": "error: signal only works in main thread of the main interpreter",
+              "elapsed": 0.0
+            }
+          ]
+        },
         "doc_writer": {
-          "ts": "2026-03-27T18:27:01",
+          "ts": "2026-03-27T18:37:05",
           "version": 1,
           "agent": "doc_writer",
           "avg_score": 0.0,
