@@ -1023,10 +1023,11 @@
           "title": "Implement dark mode with smooth transitions",
           "description": "Add theme toggle, localStorage persistence, smooth CSS transitions",
           "agent": "frontend_agent",
-          "status": "pending",
+          "status": "completed",
           "priority": "P0",
           "success_criteria": "Dark mode fully functional, no layout shift on toggle",
-          "eta_hours": 2
+          "eta_hours": 2,
+          "completed_at": "projects_loader"
         },
         {
           "id": "ultra-dash-3",
