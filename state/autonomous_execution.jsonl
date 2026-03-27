@@ -79,3 +79,15 @@
 {"ts": "2026-03-26T18:38:17.441373", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "Unknown error"}
 {"ts": "2026-03-26T18:44:54.147254", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "expert", "reason": "Success rate 93%"}
 {"ts": "2026-03-26T18:44:54.163114", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:55:31.480794", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "expert", "reason": "Success rate 92%"}
+{"ts": "2026-03-26T18:55:31.505231", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:55:31.568872", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "expert", "reason": "Success rate 90%"}
+{"ts": "2026-03-26T18:55:31.583865", "action": "execute_failed", "agent": "executor", "task_id": "task-3", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:55:31.899029", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "expert", "reason": "Success rate 89%"}
+{"ts": "2026-03-26T18:55:31.906764", "action": "execute_failed", "agent": "executor", "task_id": "task-4", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:55:32.287332", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "expert", "reason": "Success rate 88%"}
+{"ts": "2026-03-26T18:55:32.294230", "action": "execute_failed", "agent": "executor", "task_id": "task-5", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:55:32.663714", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "expert", "reason": "Success rate 86%"}
+{"ts": "2026-03-26T18:55:32.670831", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-1", "attempts": 3, "last_error": "Unknown error"}
+{"ts": "2026-03-26T18:55:33.049413", "action": "adjust_difficulty", "agent": "executor", "from": "moderate", "to": "expert", "reason": "Success rate 85%"}
+{"ts": "2026-03-26T18:55:33.056995", "action": "execute_failed", "agent": "executor", "task_id": "task-fix-2", "attempts": 3, "last_error": "Unknown error"}

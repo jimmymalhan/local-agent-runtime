@@ -16,5 +16,77 @@
       "learned_at": "2026-03-16T23:47:10",
       "applied_count": 0
     }
-  ]
+  ],
+  "task-3": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-26T18:55:31.505849"
+      },
+      {
+        "attempt": 2,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-26T18:55:31.584241"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-26T18:55:31.505847"
+  },
+  "task-4": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-26T18:55:31.907228"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-26T18:55:31.907226"
+  },
+  "task-5": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-26T18:55:32.294570"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-26T18:55:32.294569"
+  },
+  "task-fix-1": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-26T18:55:32.671209"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-26T18:55:32.671207"
+  },
+  "task-fix-2": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-26T18:55:33.057364"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-26T18:55:33.057363"
+  }
 }
