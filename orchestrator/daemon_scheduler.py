@@ -40,6 +40,7 @@ import time
 import subprocess
 import argparse
 import logging
+import threading
 from pathlib import Path
 from datetime import datetime
 
@@ -241,6 +242,27 @@ def run_forever():
     logger.info("   Replace cron with: python3 orchestrator/daemon_scheduler.py --auto")
     logger.info(f"   Logs: {LOG_FILE}")
     logger.info("")
+
+    # Start real-time dashboard updater in background
+    import subprocess
+    import threading
+
+    def start_dashboard_monitor():
+        """Start dashboard monitor in background."""
+        try:
+            subprocess.Popen(
+                ["python3", os.path.join(BASE_DIR, "orchestrator", "dashboard_realtime.py"), "--monitor"],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                cwd=BASE_DIR,
+            )
+            logger.info("✅ Real-time dashboard monitor started (background)")
+        except Exception as e:
+            logger.warning(f"⚠️  Could not start dashboard monitor: {e}")
+
+    # Start in background thread
+    monitor_thread = threading.Thread(target=start_dashboard_monitor, daemon=True)
+    monitor_thread.start()
 
     cycle_count = 0
     while True:
