@@ -1,0 +1,25 @@
+{
+  "ts": "2026-03-27T18:45:09.933272",
+  "issue": "All agents idle - empty task queue",
+  "root_cause": "Persistence layer not syncing dashboard state with projects.json",
+  "executor_success_rate": 0.26,
+  "failed_tasks": 1057,
+  "recovered_tasks": 8,
+  "action": "Recovery sync completed",
+  "queue_status": {
+    "pending": 8,
+    "in_progress": 0,
+    "completed": 0
+  },
+  "next_steps": [
+    "Agents should resume picking up tasks from queue",
+    "Monitor executor success rate for improvement",
+    "Run diagnostics on executor failures"
+  ],
+  "backlog_summary": {
+    "total_projects": 68,
+    "completed": 10,
+    "pending": 58,
+    "total_eta_hours": 1867
+  }
+}
