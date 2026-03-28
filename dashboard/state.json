@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-27T18:48:25.864358",
+  "ts": "2026-03-27T18:50:04.776410",
   "quality": 93,
   "quality_score": 93,
   "model": "local-v1",
@@ -126,8 +126,8 @@
     "total": 8,
     "completed": 0,
     "in_progress": 0,
-    "failed": 5,
-    "pending": 3
+    "failed": 4,
+    "pending": 4
   },
   "epic_board": {
     "epics": [],
@@ -231,19 +231,19 @@
   "agents": {
     "reviewer": {
       "status": "reviewing",
-      "task": "Opus 4.6 \u2190 Build active-active geo-replication",
-      "task_id": "e3-res-1",
+      "task": "Opus 4.6 \u2190 Implement information-dense representati",
+      "task_id": "e2-comp-4",
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T18:48:25.865136",
+      "last_activity": "2026-03-27T18:50:04.777159",
       "sub_agents": [],
       "worker_count": 0
     },
     "executor": {
       "status": "blocked",
-      "task": "[0/100] Build active-active geo-replication",
-      "task_id": "e3-res-1",
+      "task": "[0/100] Implement information-dense representations",
+      "task_id": "e2-comp-4",
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T18:48:25.862768",
+      "last_activity": "2026-03-27T18:50:04.774947",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -281,13 +281,21 @@
     "hard_limit_hit": false
   },
   "hardware": {
-    "cpu_pct": 25.1,
-    "ram_pct": 54.2,
+    "cpu_pct": 35.9,
+    "ram_pct": 53.3,
     "disk_pct": 0.0,
     "gpu_pct": null,
     "alert_level": "ok"
   },
   "failures": [
+    {
+      "ts": "2026-03-27T18:50:04.774040",
+      "agent": "executor",
+      "task": "Implement information-dense representations",
+      "task_id": "e2-comp-4",
+      "attempt": 1,
+      "tried": "blocked"
+    },
     {
       "ts": "2026-03-27T18:48:25.861648",
       "agent": "executor",
@@ -359,14 +367,6 @@
       "task_id": "e4-blocked-tasks",
       "attempt": 1,
       "tried": "blocked"
-    },
-    {
-      "ts": "2026-03-27T14:42:19.125194",
-      "agent": "executor",
-      "task": "Implement lossless text compression (LZ4, zstd)",
-      "task_id": "e2-comp-1",
-      "attempt": 1,
-      "tried": "blocked"
     }
   ],
   "version_changelog": {
@@ -403,10 +403,10 @@
     "projects_active": 0,
     "blockers_open": 1,
     "version": 5,
-    "updated_at": "2026-03-27T18:48:25.864356"
+    "updated_at": "2026-03-27T18:50:04.776409"
   },
   "auto_heal_status": {
-    "ts": "2026-03-28T01:48:46",
+    "ts": "2026-03-28T01:50:27",
     "issues_this_cycle": [],
     "healthy": true,
     "dashboard_alive": true,

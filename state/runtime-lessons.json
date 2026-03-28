@@ -2389,11 +2389,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T18:46:22.370757"
+      },
+      {
+        "attempt": 11,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T18:50:04.764765"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T12:04:17.685728",
-    "rescue_escalated_at": "2026-03-27T18:46:22.375382"
+    "rescue_escalated_at": "2026-03-27T18:50:04.769979"
   },
   "e2-budget-1": {
     "attempts": [
