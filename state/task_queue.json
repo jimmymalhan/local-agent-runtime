@@ -1,0 +1,69 @@
+{
+  "tasks": [
+    {
+      "project_id": "epic2-compression",
+      "task_id": "e2-comp-1",
+      "title": "Implement lossless text compression (LZ4, zstd)",
+      "status": "pending",
+      "priority": "P1",
+      "retries": 0
+    },
+    {
+      "project_id": "epic2-compression",
+      "task_id": "e2-comp-2",
+      "title": "Build smart summarization (extract key info)",
+      "status": "pending",
+      "priority": "P0",
+      "retries": 0
+    },
+    {
+      "project_id": "epic2-compression",
+      "task_id": "e2-comp-3",
+      "title": "Add entropy-based token filtering",
+      "status": "pending",
+      "priority": "P1",
+      "retries": 0
+    },
+    {
+      "project_id": "epic2-compression",
+      "task_id": "e2-comp-4",
+      "title": "Implement information-dense representations",
+      "status": "pending",
+      "priority": "P1",
+      "retries": 0
+    },
+    {
+      "project_id": "epic3-resilience",
+      "task_id": "e3-res-1",
+      "title": "Build active-active geo-replication",
+      "status": "pending",
+      "priority": "P0",
+      "retries": 0
+    },
+    {
+      "project_id": "epic3-resilience",
+      "task_id": "e3-res-2",
+      "title": "Implement automatic failover (<5s)",
+      "status": "pending",
+      "priority": "P0",
+      "retries": 0
+    },
+    {
+      "project_id": "epic3-resilience",
+      "task_id": "e3-res-3",
+      "title": "Add read replicas & consistency protocols",
+      "status": "pending",
+      "priority": "P0",
+      "retries": 0
+    },
+    {
+      "project_id": "epic3-resilience",
+      "task_id": "e3-res-4",
+      "title": "Build backup + restore system (<1h RTO)",
+      "status": "pending",
+      "priority": "P1",
+      "retries": 0
+    }
+  ],
+  "last_updated": "2026-03-27T18:44:39.578273"
+}
