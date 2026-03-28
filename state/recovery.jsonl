@@ -1,3 +1,46 @@
 {"ts": "2026-03-27T18:44:39.578215", "msg": "Recovered 8 tasks from projects.json"}
 {"ts": "2026-03-27T18:44:39.578470", "msg": "Synced 8 tasks from dashboard"}
 {"ts": "2026-03-27T18:55:52.541311", "msg": "Synced 8 tasks from dashboard"}
+{"ts": "2026-03-27T18:56:56.377312", "msg": "Synced 8 tasks from dashboard"}
+{"event": "restore", "timestamp": "2026-03-28T02:01:20.267494", "backup_id": "backup_20260328_020120_full_test_full", "files_restored": 18, "errors": 0, "duration_seconds": 0.01}
+{"event": "restore", "timestamp": "2026-03-28T02:01:20.272756", "backup_id": "backup_20260328_020120_full_test_full", "files_restored": 1, "errors": 0, "duration_seconds": 0.0}
+{"ts": "2026-03-27T19:01:56.384510", "msg": "Synced 8 tasks from dashboard"}
+{"ts": "2026-03-27T19:06:56.391818", "msg": "Synced 8 tasks from dashboard"}
+{"event": "restore", "timestamp": "2026-03-28T02:09:58.476628", "backup_id": "backup_20260328_020958_full_test_full", "files_restored": 18, "errors": 0, "duration_seconds": 0.01}
+{"event": "restore", "timestamp": "2026-03-28T02:09:58.481938", "backup_id": "backup_20260328_020958_full_test_full", "files_restored": 1, "errors": 0, "duration_seconds": 0.0}
+{"ts": "2026-03-27T19:11:56.413829", "msg": "Synced 8 tasks from dashboard"}
+{"event": "restore", "timestamp": "2026-03-28T02:12:32.453775", "backup_id": "backup_20260328_021232_full_test_full", "files_restored": 18, "errors": 0, "duration_seconds": 0.01}
+{"event": "restore", "timestamp": "2026-03-28T02:12:32.458926", "backup_id": "backup_20260328_021232_full_test_full", "files_restored": 1, "errors": 0, "duration_seconds": 0.0}
+{"ts": "2026-03-27T19:16:56.430266", "msg": "Synced 8 tasks from dashboard"}
+{"event": "restore", "timestamp": "2026-03-28T02:21:14.845557", "backup_id": "backup_20260328_022114_full_test_full", "files_restored": 18, "errors": 0, "duration_seconds": 0.01}
+{"event": "restore", "timestamp": "2026-03-28T02:21:14.851243", "backup_id": "backup_20260328_022114_full_test_full", "files_restored": 1, "errors": 0, "duration_seconds": 0.0}
+{"ts": "2026-03-27T19:21:56.436001", "msg": "Synced 8 tasks from dashboard"}
+{"event": "restore", "timestamp": "2026-03-28T02:23:43.233606", "backup_id": "backup_20260328_022343_full_test_full", "files_restored": 18, "errors": 0, "duration_seconds": 0.01}
+{"event": "restore", "timestamp": "2026-03-28T02:23:43.239383", "backup_id": "backup_20260328_022343_full_test_full", "files_restored": 1, "errors": 0, "duration_seconds": 0.0}
+{"ts": "2026-03-27T19:26:56.452168", "msg": "Synced 8 tasks from dashboard"}
+{"event": "restore", "timestamp": "2026-03-28T02:30:34.782676", "backup_id": "backup_20260328_023034_full_test_full", "files_restored": 18, "errors": 0, "duration_seconds": 0.01}
+{"event": "restore", "timestamp": "2026-03-28T02:30:34.788530", "backup_id": "backup_20260328_023034_full_test_full", "files_restored": 1, "errors": 0, "duration_seconds": 0.0}
+{"event": "restore", "timestamp": "2026-03-28T02:30:41.529109", "backup_id": "backup_20260328_023041_full_test_full", "files_restored": 18, "errors": 0, "duration_seconds": 0.01}
+{"event": "restore", "timestamp": "2026-03-28T02:30:41.534165", "backup_id": "backup_20260328_023041_full_test_full", "files_restored": 1, "errors": 0, "duration_seconds": 0.0}
+{"event": "restore", "timestamp": "2026-03-28T02:31:43.441015", "backup_id": "backup_20260328_023143_full_test_full", "files_restored": 18, "errors": 0, "duration_seconds": 0.01}
+{"event": "restore", "timestamp": "2026-03-28T02:31:43.446653", "backup_id": "backup_20260328_023143_full_test_full", "files_restored": 1, "errors": 0, "duration_seconds": 0.0}
+{"ts": "2026-03-27T19:31:56.468279", "msg": "Synced 8 tasks from dashboard"}
+{"ts": "2026-03-27T19:36:56.484609", "msg": "Synced 8 tasks from dashboard"}
+{"event": "restore", "timestamp": "2026-03-28T02:38:59.017343", "backup_id": "backup_20260328_023858_full_test_full", "files_restored": 18, "errors": 0, "duration_seconds": 0.01}
+{"event": "restore", "timestamp": "2026-03-28T02:38:59.022619", "backup_id": "backup_20260328_023858_full_test_full", "files_restored": 1, "errors": 0, "duration_seconds": 0.0}
+{"event": "restore", "timestamp": "2026-03-28T02:41:31.088173", "backup_id": "backup_20260328_024131_full_test_full", "files_restored": 18, "errors": 0, "duration_seconds": 0.01}
+{"event": "restore", "timestamp": "2026-03-28T02:41:31.094003", "backup_id": "backup_20260328_024131_full_test_full", "files_restored": 1, "errors": 0, "duration_seconds": 0.0}
+{"ts": "2026-03-27T19:41:56.490420", "msg": "Synced 8 tasks from dashboard"}
+{"event": "restore", "timestamp": "2026-03-28T02:46:55.625117", "backup_id": "backup_20260328_024655_full_test_full", "files_restored": 18, "errors": 0, "duration_seconds": 0.01}
+{"event": "restore", "timestamp": "2026-03-28T02:46:55.630359", "backup_id": "backup_20260328_024655_full_test_full", "files_restored": 1, "errors": 0, "duration_seconds": 0.0}
+{"ts": "2026-03-27T19:46:56.503253", "msg": "Synced 8 tasks from dashboard"}
+{"event": "restore", "timestamp": "2026-03-28T02:48:09.831222", "backup_id": "backup_20260328_024809_full_test_full", "files_restored": 18, "errors": 0, "duration_seconds": 0.01}
+{"event": "restore", "timestamp": "2026-03-28T02:48:09.836760", "backup_id": "backup_20260328_024809_full_test_full", "files_restored": 1, "errors": 0, "duration_seconds": 0.0}
+{"ts": "2026-03-27T19:51:56.506943", "msg": "Synced 8 tasks from dashboard"}
+{"event": "restore", "timestamp": "2026-03-28T02:52:04.662019", "backup_id": "backup_20260328_025204_full_test_full", "files_restored": 18, "errors": 0, "duration_seconds": 0.01}
+{"event": "restore", "timestamp": "2026-03-28T02:52:04.667688", "backup_id": "backup_20260328_025204_full_test_full", "files_restored": 1, "errors": 0, "duration_seconds": 0.0}
+{"event": "restore", "timestamp": "2026-03-28T02:54:08.265707", "backup_id": "backup_20260328_025408_full_test_full", "files_restored": 18, "errors": 0, "duration_seconds": 0.01}
+{"event": "restore", "timestamp": "2026-03-28T02:54:08.271021", "backup_id": "backup_20260328_025408_full_test_full", "files_restored": 1, "errors": 0, "duration_seconds": 0.0}
+{"ts": "2026-03-27T19:56:56.511392", "msg": "Synced 8 tasks from dashboard"}
+{"event": "restore", "timestamp": "2026-03-28T02:57:04.682194", "backup_id": "backup_20260328_025704_full_test_full", "files_restored": 18, "errors": 0, "duration_seconds": 0.01}
+{"event": "restore", "timestamp": "2026-03-28T02:57:04.687418", "backup_id": "backup_20260328_025704_full_test_full", "files_restored": 1, "errors": 0, "duration_seconds": 0.0}
