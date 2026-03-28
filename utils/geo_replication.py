@@ -57,7 +57,7 @@ class VectorClock:
         merged = dict(self._clock)
         for k, v in other._clock.items():
             merged[k] = max(merged.get(k, 0), v)
-        return merged
+        return VectorClock(merged)
 
     def __ge__(self, other: "VectorClock") -> bool:
         for k, v in other._clock.items():
