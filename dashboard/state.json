@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-27T18:50:04.776410",
+  "ts": "2026-03-27T18:52:35.994568",
   "quality": 93,
   "quality_score": 93,
   "model": "local-v1",
@@ -49,7 +49,7 @@
       "title": "Implement automatic failover (<5s)",
       "category": "project",
       "agent_used": "executor",
-      "status": "todo",
+      "status": "blocked",
       "local_quality": 0
     },
     {
@@ -126,8 +126,8 @@
     "total": 8,
     "completed": 0,
     "in_progress": 0,
-    "failed": 4,
-    "pending": 4
+    "failed": 5,
+    "pending": 3
   },
   "epic_board": {
     "epics": [],
@@ -193,10 +193,10 @@
             "task_id": "e3-res-2",
             "title": "Implement automatic failover (<5s)",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "blocked",
             "agent": "executor",
             "quality": 0,
-            "elapsed_s": 0
+            "elapsed_s": 0.0
           },
           {
             "task_id": "e3-res-3",
@@ -220,7 +220,7 @@
         "total": 8,
         "done": 0,
         "in_progress": 0,
-        "failed": 5,
+        "failed": 6,
         "status": "blocked",
         "pct": 0.0
       }
@@ -231,19 +231,19 @@
   "agents": {
     "reviewer": {
       "status": "reviewing",
-      "task": "Opus 4.6 \u2190 Implement information-dense representati",
-      "task_id": "e2-comp-4",
+      "task": "Opus 4.6 \u2190 Build active-active geo-replication",
+      "task_id": "e3-res-1",
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T18:50:04.777159",
+      "last_activity": "2026-03-27T18:52:35.995235",
       "sub_agents": [],
       "worker_count": 0
     },
     "executor": {
       "status": "blocked",
-      "task": "[0/100] Implement information-dense representations",
-      "task_id": "e2-comp-4",
+      "task": "[0/100] Build active-active geo-replication",
+      "task_id": "e3-res-1",
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T18:50:04.774947",
+      "last_activity": "2026-03-27T18:52:35.993211",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -281,13 +281,29 @@
     "hard_limit_hit": false
   },
   "hardware": {
-    "cpu_pct": 35.9,
-    "ram_pct": 53.3,
+    "cpu_pct": 32.5,
+    "ram_pct": 53.7,
     "disk_pct": 0.0,
     "gpu_pct": null,
     "alert_level": "ok"
   },
   "failures": [
+    {
+      "ts": "2026-03-27T18:52:35.992355",
+      "agent": "executor",
+      "task": "Build active-active geo-replication",
+      "task_id": "e3-res-1",
+      "attempt": 1,
+      "tried": "blocked"
+    },
+    {
+      "ts": "2026-03-27T18:51:01.697112",
+      "agent": "executor",
+      "task": "Implement automatic failover (<5s)",
+      "task_id": "e3-res-2",
+      "attempt": 1,
+      "tried": "blocked"
+    },
     {
       "ts": "2026-03-27T18:50:04.774040",
       "agent": "executor",
@@ -351,22 +367,6 @@
       "task_id": "e2-comp-1",
       "attempt": 1,
       "tried": "blocked"
-    },
-    {
-      "ts": "2026-03-27T18:39:34.976425",
-      "agent": "executor",
-      "task": "Implement lossless text compression (LZ4, zstd)",
-      "task_id": "e2-comp-1",
-      "attempt": 1,
-      "tried": "blocked"
-    },
-    {
-      "ts": "2026-03-27T14:44:05.674500",
-      "agent": "executor",
-      "task": "Blocked task detector",
-      "task_id": "e4-blocked-tasks",
-      "attempt": 1,
-      "tried": "blocked"
     }
   ],
   "version_changelog": {
@@ -403,10 +403,10 @@
     "projects_active": 0,
     "blockers_open": 1,
     "version": 5,
-    "updated_at": "2026-03-27T18:50:04.776409"
+    "updated_at": "2026-03-27T18:52:35.994566"
   },
   "auto_heal_status": {
-    "ts": "2026-03-28T01:50:27",
+    "ts": "2026-03-28T01:53:37",
     "issues_this_cycle": [],
     "healthy": true,
     "dashboard_alive": true,

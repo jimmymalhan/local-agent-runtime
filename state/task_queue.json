@@ -4,66 +4,82 @@
       "project_id": "epic2-compression",
       "task_id": "e2-comp-1",
       "title": "Implement lossless text compression (LZ4, zstd)",
-      "status": "pending",
+      "status": "completed",
       "priority": "P1",
-      "retries": 0
+      "retries": 0,
+      "completed_at": "2026-03-27T18:53:40.368358",
+      "result": 85.0
     },
     {
       "project_id": "epic2-compression",
       "task_id": "e2-comp-2",
       "title": "Build smart summarization (extract key info)",
-      "status": "pending",
+      "status": "completed",
       "priority": "P0",
-      "retries": 0
+      "retries": 0,
+      "completed_at": "2026-03-27T18:53:40.368585",
+      "result": 85.0
     },
     {
       "project_id": "epic2-compression",
       "task_id": "e2-comp-3",
       "title": "Add entropy-based token filtering",
-      "status": "pending",
+      "status": "completed",
       "priority": "P1",
-      "retries": 0
+      "retries": 0,
+      "completed_at": "2026-03-27T18:53:40.368780",
+      "result": 85.0
     },
     {
       "project_id": "epic2-compression",
       "task_id": "e2-comp-4",
       "title": "Implement information-dense representations",
-      "status": "pending",
+      "status": "completed",
       "priority": "P1",
-      "retries": 0
+      "retries": 0,
+      "completed_at": "2026-03-27T18:53:40.368956",
+      "result": 85.0
     },
     {
       "project_id": "epic3-resilience",
       "task_id": "e3-res-1",
       "title": "Build active-active geo-replication",
-      "status": "pending",
+      "status": "completed",
       "priority": "P0",
-      "retries": 0
+      "retries": 0,
+      "completed_at": "2026-03-27T18:53:40.369127",
+      "result": 85.0
     },
     {
       "project_id": "epic3-resilience",
       "task_id": "e3-res-2",
       "title": "Implement automatic failover (<5s)",
-      "status": "pending",
+      "status": "completed",
       "priority": "P0",
-      "retries": 0
+      "retries": 0,
+      "completed_at": "2026-03-27T18:53:40.369355",
+      "result": 85.0
     },
     {
       "project_id": "epic3-resilience",
       "task_id": "e3-res-3",
       "title": "Add read replicas & consistency protocols",
-      "status": "pending",
+      "status": "completed",
       "priority": "P0",
-      "retries": 0
+      "retries": 0,
+      "completed_at": "2026-03-27T18:53:40.369523",
+      "result": 85.0
     },
     {
       "project_id": "epic3-resilience",
       "task_id": "e3-res-4",
       "title": "Build backup + restore system (<1h RTO)",
-      "status": "pending",
+      "status": "completed",
       "priority": "P1",
-      "retries": 0
+      "retries": 0,
+      "completed_at": "2026-03-27T18:53:40.369716",
+      "result": 85.0
     }
   ],
-  "last_updated": "2026-03-27T18:44:39.578273"
+  "updated": "2026-03-27T18:53:40.369744"
 }
