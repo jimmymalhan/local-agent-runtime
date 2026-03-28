@@ -4,18 +4,24 @@ Information-dense representations: encode more information per token.
 Provides multiple strategies for compacting structured data into minimal
 token footprints while preserving lossless round-trip fidelity:
 
-1. BitPackedStruct  - pack typed fields into a minimal byte string
-2. DictCodec        - dictionary-coded compression for repeated string values
-3. DeltaEncoder     - delta + varint encoding for sorted/monotonic integers
-4. TrieCompressor   - prefix-deduplication for string lists
-5. ColumnarStore    - column-oriented encoding for record batches
-6. HybridEncoder    - auto-selects best strategy per field type
+1.  BitPackedStruct   - pack typed fields into a minimal byte string
+2.  DictCodec         - dictionary-coded compression for repeated string values
+3.  DeltaEncoder      - delta + varint encoding for sorted/monotonic integers
+4.  TrieCompressor    - prefix-deduplication for string lists
+5.  ColumnarStore     - column-oriented encoding for record batches
+6.  HybridEncoder     - auto-selects best strategy per field type
+7.  RunLengthEncoder  - RLE for sequences with long runs of identical values
+8.  BloomSketch       - probabilistic set membership in constant space
+9.  CompactJSON       - schema-separated JSON (header + values, no key repetition)
+10. MessagePacker     - fixed-schema agent message encoding (role+ts+payload)
 """
 
 import base64
+import hashlib
 import json
 import math
 import struct
+import time
 from collections import Counter, defaultdict
 from io import BytesIO
 from typing import Any, Optional
@@ -441,6 +447,242 @@ def density_report(original: Any, encoded: bytes) -> dict:
     }
 
 
+# ---------------------------------------------------------------------------
+# 10. RunLengthEncoder - RLE for repetitive sequences
+# ---------------------------------------------------------------------------
+
+class RunLengthEncoder:
+    """
+    Run-length encode a sequence of hashable values.
+    Format: varint(num_runs) then for each run: varint(length) + value.
+    Values are serialized as JSON fragments (compact).
+    """
+
+    @staticmethod
+    def encode(values: list) -> bytes:
+        if not values:
+            return encode_varint(0)
+        runs: list[tuple[Any, int]] = []
+        cur, count = values[0], 1
+        for v in values[1:]:
+            if v == cur:
+                count += 1
+            else:
+                runs.append((cur, count))
+                cur, count = v, 1
+        runs.append((cur, count))
+
+        buf = BytesIO()
+        buf.write(encode_varint(len(runs)))
+        for val, cnt in runs:
+            buf.write(encode_varint(cnt))
+            vb = json.dumps(val, separators=(",", ":")).encode("utf-8")
+            buf.write(encode_varint(len(vb)))
+            buf.write(vb)
+        return buf.getvalue()
+
+    @staticmethod
+    def decode(data: bytes) -> list:
+        off = 0
+        num_runs, off = decode_varint(data, off)
+        result = []
+        for _ in range(num_runs):
+            cnt, off = decode_varint(data, off)
+            vlen, off = decode_varint(data, off)
+            val = json.loads(data[off : off + vlen].decode("utf-8"))
+            off += vlen
+            result.extend([val] * cnt)
+        return result
+
+
+# ---------------------------------------------------------------------------
+# 11. BloomSketch - probabilistic set membership in constant space
+# ---------------------------------------------------------------------------
+
+class BloomSketch:
+    """
+    Space-efficient probabilistic set.  Useful for encoding "which items are
+    present" in far fewer bytes than listing them, at the cost of a tunable
+    false-positive rate (no false negatives).
+
+    Bit array is stored as raw bytes. k independent hashes derived from
+    double-hashing with MD5 + SHA1.
+    """
+
+    def __init__(self, capacity: int, fp_rate: float = 0.01):
+        self.n = capacity
+        self.fp = fp_rate
+        self.m = self._optimal_bits(capacity, fp_rate)
+        self.k = self._optimal_hashes(self.m, capacity)
+        self._bits = bytearray((self.m + 7) // 8)
+        self._count = 0
+
+    @staticmethod
+    def _optimal_bits(n: int, p: float) -> int:
+        return max(8, int(-n * math.log(p) / (math.log(2) ** 2)))
+
+    @staticmethod
+    def _optimal_hashes(m: int, n: int) -> int:
+        return max(1, int((m / n) * math.log(2)))
+
+    def _hashes(self, item: str) -> list[int]:
+        raw = item.encode("utf-8")
+        h1 = int(hashlib.md5(raw).hexdigest(), 16)
+        h2 = int(hashlib.sha1(raw).hexdigest(), 16)
+        return [(h1 + i * h2) % self.m for i in range(self.k)]
+
+    def add(self, item: str) -> None:
+        for pos in self._hashes(item):
+            self._bits[pos >> 3] |= 1 << (pos & 7)
+        self._count += 1
+
+    def __contains__(self, item: str) -> bool:
+        return all(
+            self._bits[pos >> 3] & (1 << (pos & 7))
+            for pos in self._hashes(item)
+        )
+
+    def to_bytes(self) -> bytes:
+        buf = BytesIO()
+        buf.write(encode_varint(self.m))
+        buf.write(encode_varint(self.k))
+        buf.write(encode_varint(self._count))
+        buf.write(bytes(self._bits))
+        return buf.getvalue()
+
+    @classmethod
+    def from_bytes(cls, data: bytes) -> "BloomSketch":
+        off = 0
+        m, off = decode_varint(data, off)
+        k, off = decode_varint(data, off)
+        count, off = decode_varint(data, off)
+        nbytes = (m + 7) // 8
+        obj = cls.__new__(cls)
+        obj.m = m
+        obj.k = k
+        obj._count = count
+        obj.n = count
+        obj.fp = 0.01
+        obj._bits = bytearray(data[off : off + nbytes])
+        return obj
+
+    @property
+    def size_bytes(self) -> int:
+        return len(self._bits)
+
+
+# ---------------------------------------------------------------------------
+# 12. CompactJSON - schema-separated JSON encoding
+# ---------------------------------------------------------------------------
+
+class CompactJSON:
+    """
+    For lists of dicts sharing the same keys, store the key schema once
+    then pack values row-by-row. Output is valid JSON but ~40-60% smaller
+    than naive json.dumps for typical agent state records.
+
+    Wire format (JSON string):
+      {"_s": ["key1","key2",...], "_v": [[val1,val2,...], ...]}
+    """
+
+    @staticmethod
+    def encode(records: list[dict[str, Any]]) -> str:
+        if not records:
+            return json.dumps({"_s": [], "_v": []}, separators=(",", ":"))
+        keys = list(records[0].keys())
+        rows = [[r[k] for k in keys] for r in records]
+        return json.dumps({"_s": keys, "_v": rows}, separators=(",", ":"))
+
+    @staticmethod
+    def decode(text: str) -> list[dict[str, Any]]:
+        obj = json.loads(text)
+        keys = obj["_s"]
+        return [{k: v for k, v in zip(keys, row)} for row in obj["_v"]]
+
+
+# ---------------------------------------------------------------------------
+# 13. MessagePacker - fixed-schema agent message encoding
+# ---------------------------------------------------------------------------
+
+class MessagePacker:
+    """
+    Encode agent runtime messages (role, timestamp, payload) into a compact
+    binary format. Roles are dict-coded; timestamps are delta-encoded;
+    payloads are UTF-8 with length-prefix.
+
+    This is purpose-built for the local-agent-runtime message log format.
+    """
+
+    ROLES = ["system", "router", "retriever", "skeptic", "verifier",
+             "executor", "planner", "monitor", "rescue", "user"]
+
+    @classmethod
+    def encode(cls, messages: list[dict[str, Any]]) -> bytes:
+        """Encode list of {role, ts, payload} dicts."""
+        buf = BytesIO()
+        buf.write(encode_varint(len(messages)))
+
+        # Build role index (known roles get short codes, unknown get fallback)
+        role_map = {r: i for i, r in enumerate(cls.ROLES)}
+
+        prev_ts = 0
+        for msg in messages:
+            role = msg.get("role", "system")
+            ts = msg.get("ts", 0)
+            payload = msg.get("payload", "")
+
+            # Role: 1 byte (0-9 known, 0xFF = custom with inline string)
+            if role in role_map:
+                buf.write(bytes([role_map[role]]))
+            else:
+                buf.write(b"\xff")
+                rb = role.encode("utf-8")
+                buf.write(encode_varint(len(rb)))
+                buf.write(rb)
+
+            # Timestamp: delta-varint from previous
+            delta = ts - prev_ts
+            buf.write(encode_varint(zigzag_encode(delta)))
+            prev_ts = ts
+
+            # Payload: length-prefixed UTF-8
+            pb = payload.encode("utf-8")
+            buf.write(encode_varint(len(pb)))
+            buf.write(pb)
+
+        return buf.getvalue()
+
+    @classmethod
+    def decode(cls, data: bytes) -> list[dict[str, Any]]:
+        off = 0
+        count, off = decode_varint(data, off)
+        messages = []
+        prev_ts = 0
+
+        for _ in range(count):
+            role_byte = data[off]
+            off += 1
+            if role_byte == 0xFF:
+                rlen, off = decode_varint(data, off)
+                role = data[off : off + rlen].decode("utf-8")
+                off += rlen
+            else:
+                role = cls.ROLES[role_byte]
+
+            zz, off = decode_varint(data, off)
+            delta = zigzag_decode(zz)
+            ts = prev_ts + delta
+            prev_ts = ts
+
+            plen, off = decode_varint(data, off)
+            payload = data[off : off + plen].decode("utf-8")
+            off += plen
+
+            messages.append({"role": role, "ts": ts, "payload": payload})
+
+        return messages
+
+
 # ===================================================================
 # __main__: comprehensive assertions
 # ===================================================================
@@ -598,6 +840,99 @@ if __name__ == "__main__":
           f"byte_ratio={report['byte_ratio']}  "
           f"text_ratio={report['text_ratio']}")
 
+    # --- RunLengthEncoder ---
+    rle_input = [0] * 50 + [1] * 30 + [0] * 20 + [2] * 100
+    rle_enc = RunLengthEncoder.encode(rle_input)
+    rle_dec = RunLengthEncoder.decode(rle_enc)
+    assert rle_dec == rle_input, "RLE roundtrip failed"
+    raw_rle = json.dumps(rle_input, separators=(",", ":")).encode()
+    assert len(rle_enc) < len(raw_rle) * 0.15, (
+        f"RLE not dense enough: {len(rle_enc)} vs {len(raw_rle)}"
+    )
+    print(f"[RunLengthEncoder] passed  ({len(rle_enc)} vs {len(raw_rle)} raw JSON bytes)")
+
+    # RLE with strings
+    rle_str = ["ok"] * 100 + ["err"] * 5 + ["ok"] * 50
+    assert RunLengthEncoder.decode(RunLengthEncoder.encode(rle_str)) == rle_str
+    print("[RunLengthEncoder strings] passed")
+
+    # RLE empty
+    assert RunLengthEncoder.decode(RunLengthEncoder.encode([])) == []
+    print("[RunLengthEncoder empty] passed")
+
+    # --- BloomSketch ---
+    bloom = BloomSketch(capacity=1000, fp_rate=0.01)
+    items = [f"agent_{i}" for i in range(500)]
+    for item in items:
+        bloom.add(item)
+    # No false negatives
+    for item in items:
+        assert item in bloom, f"BloomSketch false negative: {item}"
+    # False positive rate within bounds
+    fp_count = sum(1 for i in range(5000, 6000) if f"agent_{i}" in bloom)
+    assert fp_count < 50, f"BloomSketch FP rate too high: {fp_count}/1000"
+    # Serialization roundtrip
+    bloom_bytes = bloom.to_bytes()
+    bloom2 = BloomSketch.from_bytes(bloom_bytes)
+    for item in items:
+        assert item in bloom2, f"BloomSketch deserialized false negative: {item}"
+    # Size is much smaller than listing all items
+    raw_items = json.dumps(items, separators=(",", ":")).encode()
+    assert bloom.size_bytes < len(raw_items) * 0.25, (
+        f"BloomSketch not dense: {bloom.size_bytes} vs {len(raw_items)}"
+    )
+    print(f"[BloomSketch] passed  (filter={bloom.size_bytes}B vs list={len(raw_items)}B, "
+          f"fp={fp_count}/1000)")
+
+    # --- CompactJSON ---
+    cj_records = [
+        {"task_id": f"t-{i:04d}", "status": ["pending", "done", "fail"][i % 3],
+         "score": i * 0.1, "agent": "executor"}
+        for i in range(100)
+    ]
+    cj_text = CompactJSON.encode(cj_records)
+    cj_dec = CompactJSON.decode(cj_text)
+    assert cj_dec == cj_records
+    raw_cj = json.dumps(cj_records, separators=(",", ":"))
+    savings = (1 - len(cj_text) / len(raw_cj)) * 100
+    assert savings > 25, f"CompactJSON savings too low: {savings:.1f}%"
+    print(f"[CompactJSON] passed  ({len(cj_text)} vs {len(raw_cj)} chars, "
+          f"{savings:.1f}% saved)")
+
+    # CompactJSON empty
+    assert CompactJSON.decode(CompactJSON.encode([])) == []
+    print("[CompactJSON empty] passed")
+
+    # --- MessagePacker ---
+    base_ts = 1711500000
+    messages = [
+        {"role": "router", "ts": base_ts, "payload": "classify: db timeout"},
+        {"role": "retriever", "ts": base_ts + 2, "payload": "found 3 similar incidents"},
+        {"role": "skeptic", "ts": base_ts + 5, "payload": "alternative: network partition"},
+        {"role": "verifier", "ts": base_ts + 8, "payload": "confirmed: connection pool exhaustion"},
+        {"role": "custom_agent", "ts": base_ts + 10, "payload": "escalated to oncall"},
+    ]
+    msg_enc = MessagePacker.encode(messages)
+    msg_dec = MessagePacker.decode(msg_enc)
+    assert msg_dec == messages, f"MessagePacker roundtrip failed: {msg_dec}"
+    raw_msg = json.dumps(messages, separators=(",", ":")).encode()
+    msg_savings = (1 - len(msg_enc) / len(raw_msg)) * 100
+    assert msg_savings > 30, f"MessagePacker savings too low: {msg_savings:.1f}%"
+    print(f"[MessagePacker] passed  ({len(msg_enc)} vs {len(raw_msg)} bytes, "
+          f"{msg_savings:.1f}% saved)")
+
+    # MessagePacker empty
+    assert MessagePacker.decode(MessagePacker.encode([])) == []
+    print("[MessagePacker empty] passed")
+
+    # MessagePacker with all known roles
+    all_role_msgs = [
+        {"role": r, "ts": base_ts + i, "payload": f"test {r}"}
+        for i, r in enumerate(MessagePacker.ROLES)
+    ]
+    assert MessagePacker.decode(MessagePacker.encode(all_role_msgs)) == all_role_msgs
+    print("[MessagePacker all roles] passed")
+
     # --- Overall density comparison ---
     print("\n=== Density Summary ===")
     test_cases = [
@@ -606,6 +941,10 @@ if __name__ == "__main__":
         ("500 timestamps (delta)", timestamps, DeltaEncoder.encode(timestamps)),
         ("10 file paths (trie)", paths, TrieCompressor.encode(paths)),
         ("100 bitpacked records", records, bp.pack_many(records)),
+        ("200 RLE ints", rle_input, rle_enc),
+        ("500 bloom items", items, bloom.to_bytes()),
+        ("100 compact JSON records", cj_records, cj_text.encode()),
+        ("5 agent messages", messages, msg_enc),
     ]
     for label, orig, enc in test_cases:
         r = density_report(orig, enc)

@@ -63,15 +63,27 @@ class AgentDispatcher:
     def execute_task(self, task: Dict) -> Dict:
         """Execute a task through its assigned agent."""
         try:
-            # Make sure task has required fields
+            # CRITICAL: Normalize task format (required fields for executor)
             if not task.get("id"):
                 task["id"] = task.get("task_id", "unknown")
             if not task.get("title"):
                 task["title"] = "Untitled"
             if not task.get("description"):
-                task["description"] = task.get("title", "")
+                # Generate description from title if missing
+                task["description"] = task.get("title", "") + " - Auto-generated description"
             if not task.get("category"):
-                task["category"] = "code_gen"
+                # Infer category from title keywords
+                title_lower = task.get("title", "").lower()
+                if any(word in title_lower for word in ["test", "tdd", "unit"]):
+                    task["category"] = "tdd"
+                elif any(word in title_lower for word in ["refactor", "optimize"]):
+                    task["category"] = "refactor"
+                elif any(word in title_lower for word in ["doc", "write", "readme"]):
+                    task["category"] = "doc"
+                elif any(word in title_lower for word in ["fix", "bug", "patch"]):
+                    task["category"] = "bug_fix"
+                else:
+                    task["category"] = "code_gen"  # Default
 
             # Execute via agent router
             print(f"🚀 Executing: {task.get('title')} (via {task.get('assigned_to', 'executor')})")

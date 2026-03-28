@@ -6,3 +6,9 @@
 [2026-03-27T18:48:13.356758] [SUCCESS] ✅ Execution complete
 [2026-03-27T18:48:13.357083] [WARN] ⚠️  executor low success rate: 26.0%
 [2026-03-27T18:48:13.357130] [CYCLE] ╚══ Cycle #1 done. Next in 5min ══════════════════════
+[2026-03-27T18:53:13.358696] [CYCLE] ╔══ Cycle #2 ══════════════════════════════════════
+[2026-03-27T18:53:13.359561] [STATUS] 📊 Queue: 8/8 pending
+[2026-03-27T18:53:13.359671] [ACTION] ⚙️  Executing tasks...
+[2026-03-27T18:53:13.396531] [SUCCESS] ✅ Execution complete
+[2026-03-27T18:53:13.396860] [WARN] ⚠️  executor low success rate: 25.9%
+[2026-03-27T18:53:13.396912] [CYCLE] ╚══ Cycle #2 done. Next in 5min ══════════════════════
