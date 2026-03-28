@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-27T18:52:35.994568",
+  "ts": "2026-03-27T18:55:31.777334",
   "quality": 93,
   "quality_score": 93,
   "model": "local-v1",
@@ -57,7 +57,7 @@
       "title": "Add read replicas & consistency protocols",
       "category": "project",
       "agent_used": "executor",
-      "status": "todo",
+      "status": "blocked",
       "local_quality": 0
     },
     {
@@ -126,8 +126,8 @@
     "total": 8,
     "completed": 0,
     "in_progress": 0,
-    "failed": 5,
-    "pending": 3
+    "failed": 6,
+    "pending": 2
   },
   "epic_board": {
     "epics": [],
@@ -202,10 +202,10 @@
             "task_id": "e3-res-3",
             "title": "Add read replicas & consistency protocols",
             "difficulty": "hard",
-            "status": "pending",
+            "status": "blocked",
             "agent": "executor",
             "quality": 0,
-            "elapsed_s": 0
+            "elapsed_s": 0.0
           },
           {
             "task_id": "e3-res-4",
@@ -220,7 +220,7 @@
         "total": 8,
         "done": 0,
         "in_progress": 0,
-        "failed": 6,
+        "failed": 7,
         "status": "blocked",
         "pct": 0.0
       }
@@ -231,19 +231,19 @@
   "agents": {
     "reviewer": {
       "status": "reviewing",
-      "task": "Opus 4.6 \u2190 Build active-active geo-replication",
-      "task_id": "e3-res-1",
+      "task": "Opus 4.6 \u2190 Implement automatic failover (<5s)",
+      "task_id": "e3-res-2",
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T18:52:35.995235",
+      "last_activity": "2026-03-27T18:55:31.778045",
       "sub_agents": [],
       "worker_count": 0
     },
     "executor": {
       "status": "blocked",
-      "task": "[0/100] Build active-active geo-replication",
-      "task_id": "e3-res-1",
+      "task": "[0/100] Implement automatic failover (<5s)",
+      "task_id": "e3-res-2",
       "elapsed_s": 0.0,
-      "last_activity": "2026-03-27T18:52:35.993211",
+      "last_activity": "2026-03-27T18:55:31.775812",
       "sub_agents": [],
       "worker_count": 0
     },
@@ -281,13 +281,29 @@
     "hard_limit_hit": false
   },
   "hardware": {
-    "cpu_pct": 32.5,
-    "ram_pct": 53.7,
+    "cpu_pct": 49.4,
+    "ram_pct": 54.1,
     "disk_pct": 0.0,
     "gpu_pct": null,
     "alert_level": "ok"
   },
   "failures": [
+    {
+      "ts": "2026-03-27T18:55:31.774846",
+      "agent": "executor",
+      "task": "Implement automatic failover (<5s)",
+      "task_id": "e3-res-2",
+      "attempt": 1,
+      "tried": "blocked"
+    },
+    {
+      "ts": "2026-03-27T18:55:05.303692",
+      "agent": "executor",
+      "task": "Add read replicas & consistency protocols",
+      "task_id": "e3-res-3",
+      "attempt": 1,
+      "tried": "blocked"
+    },
     {
       "ts": "2026-03-27T18:52:35.992355",
       "agent": "executor",
@@ -351,22 +367,6 @@
       "task_id": "e2-comp-3",
       "attempt": 1,
       "tried": "blocked"
-    },
-    {
-      "ts": "2026-03-27T18:44:35.266362",
-      "agent": "executor",
-      "task": "Build smart summarization (extract key info)",
-      "task_id": "e2-comp-2",
-      "attempt": 1,
-      "tried": "blocked"
-    },
-    {
-      "ts": "2026-03-27T18:44:27.172151",
-      "agent": "executor",
-      "task": "Implement lossless text compression (LZ4, zstd)",
-      "task_id": "e2-comp-1",
-      "attempt": 1,
-      "tried": "blocked"
     }
   ],
   "version_changelog": {
@@ -403,10 +403,10 @@
     "projects_active": 0,
     "blockers_open": 1,
     "version": 5,
-    "updated_at": "2026-03-27T18:52:35.994566"
+    "updated_at": "2026-03-27T18:55:31.777333"
   },
   "auto_heal_status": {
-    "ts": "2026-03-28T01:53:37",
+    "ts": "2026-03-28T01:56:17",
     "issues_this_cycle": [],
     "healthy": true,
     "dashboard_alive": true,

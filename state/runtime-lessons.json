@@ -5180,11 +5180,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T18:51:01.687168"
+      },
+      {
+        "attempt": 8,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T18:55:31.765585"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T12:05:27.906649",
-    "rescue_escalated_at": "2026-03-27T18:51:01.692915"
+    "rescue_escalated_at": "2026-03-27T18:55:31.770793"
   },
   "e3-res-3": {
     "attempts": [
@@ -5229,11 +5236,18 @@
         "error": null,
         "success": false,
         "timestamp": "2026-03-27T14:21:41.244654"
+      },
+      {
+        "attempt": 7,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-27T18:55:05.294034"
       }
     ],
     "rescue_escalated": true,
     "first_attempt_at": "2026-03-27T12:05:28.287934",
-    "rescue_escalated_at": "2026-03-27T14:21:41.249671"
+    "rescue_escalated_at": "2026-03-27T18:55:05.299663"
   },
   "e3-res-4": {
     "attempts": [
