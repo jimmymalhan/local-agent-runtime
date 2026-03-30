@@ -300,10 +300,20 @@ def _get_agent(name: str):
 
 
 def route_task(task: dict):
-    """Return the agent module for this task's category."""
-    category = task.get("category", "code_gen")
+    """Return the agent module for this task's category.
+    Always resolves to a valid agent — never crashes silently.
+    """
+    # Treat None/missing category as code_gen (safe default)
+    category = task.get("category") or "code_gen"
     agent_name = CATEGORY_AGENT_MAP.get(category, "executor")
-    return _get_agent(agent_name), agent_name
+
+    # Guard: if agent_name doesn't exist as a module, fall back to executor
+    try:
+        return _get_agent(agent_name), agent_name
+    except (ImportError, ModuleNotFoundError):
+        print(f"  [ROUTE] WARNING: agent '{agent_name}' not found for category "
+              f"'{category}' (task={task.get('id','?')}) — falling back to executor")
+        return _get_agent("executor"), "executor"
 
 
 def _check_claude_rescue_eligible(task: dict, fail_count: int,

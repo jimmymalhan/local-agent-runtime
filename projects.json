@@ -4120,41 +4120,45 @@
           "id": "e2-comp-1",
           "title": "Implement lossless text compression (LZ4, zstd)",
           "description": "Compress tokens for transmission/storage",
-          "agent": "backend_engineer",
+          "agent": "executor",
           "status": "pending",
           "priority": "P1",
           "success_criteria": "Compression 50-70%, decompression fast",
-          "eta_hours": 4
+          "eta_hours": 4,
+          "category": "code_gen"
         },
         {
           "id": "e2-comp-2",
           "title": "Build smart summarization (extract key info)",
           "description": "Summarize long texts, keep important info",
-          "agent": "backend_engineer",
+          "agent": "executor",
           "status": "pending",
           "priority": "P0",
           "success_criteria": "Summarization reduces tokens 30-50%, info loss <5%",
-          "eta_hours": 6
+          "eta_hours": 6,
+          "category": "code_gen"
         },
         {
           "id": "e2-comp-3",
           "title": "Add entropy-based token filtering",
           "description": "Remove low-information tokens",
-          "agent": "backend_engineer",
+          "agent": "executor",
           "status": "pending",
           "priority": "P1",
           "success_criteria": "Filtering removes 10-20% tokens, quality maintained",
-          "eta_hours": 4
+          "eta_hours": 4,
+          "category": "code_gen"
         },
         {
           "id": "e2-comp-4",
           "title": "Implement information-dense representations",
           "description": "Encode more info per token",
-          "agent": "backend_engineer",
+          "agent": "executor",
           "status": "pending",
           "priority": "P1",
           "success_criteria": "Info density improved 20%+",
-          "eta_hours": 5
+          "eta_hours": 5,
+          "category": "code_gen"
         }
       ],
       "eta_hours": 19
@@ -4364,41 +4368,45 @@
           "id": "e3-res-1",
           "title": "Build active-active geo-replication",
           "description": "Customers served from nearest region",
-          "agent": "backend_engineer",
+          "agent": "executor",
           "status": "pending",
           "priority": "P0",
           "success_criteria": "Multi-region active-active, latency <50ms",
-          "eta_hours": 8
+          "eta_hours": 8,
+          "category": "code_gen"
         },
         {
           "id": "e3-res-2",
           "title": "Implement automatic failover (<5s)",
           "description": "Seamless failover to backup region",
-          "agent": "backend_engineer",
+          "agent": "executor",
           "status": "pending",
           "priority": "P0",
           "success_criteria": "Failover automatic, <5s, zero data loss",
-          "eta_hours": 6
+          "eta_hours": 6,
+          "category": "code_gen"
         },
         {
           "id": "e3-res-3",
           "title": "Add read replicas & consistency protocols",
           "description": "Distribute reads, maintain consistency",
-          "agent": "backend_engineer",
+          "agent": "executor",
           "status": "pending",
           "priority": "P0",
           "success_criteria": "Read scaling 5-10x, consistency guaranteed",
-          "eta_hours": 7
+          "eta_hours": 7,
+          "category": "code_gen"
         },
         {
           "id": "e3-res-4",
           "title": "Build backup + restore system (<1h RTO)",
           "description": "Daily backups, test restores",
-          "agent": "backend_engineer",
+          "agent": "executor",
           "status": "pending",
           "priority": "P1",
           "success_criteria": "RTO <1h, restores tested, zero data loss",
-          "eta_hours": 5
+          "eta_hours": 5,
+          "category": "code_gen"
         }
       ],
       "eta_hours": 26

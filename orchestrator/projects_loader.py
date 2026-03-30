@@ -92,13 +92,40 @@ def load_projects_tasks() -> List[Dict[str, Any]]:
                 print(f"[PROJECTS_LOADER] Skipping {task_id} (status={status})")
                 continue
 
+            # Infer category from title when missing/null — prevents silent routing failure
+            raw_cat = task.get("category") or project_category
+            if not raw_cat:
+                title_lower = task.get("title", "").lower()
+                if any(x in title_lower for x in ["test", "verify", "tdd", "spec"]):
+                    raw_cat = "tdd"
+                elif any(x in title_lower for x in ["refactor", "optimiz", "clean"]):
+                    raw_cat = "refactor"
+                elif any(x in title_lower for x in ["doc", "readme", "write up"]):
+                    raw_cat = "doc"
+                elif any(x in title_lower for x in ["design", "architect", "scaffold", "blueprint"]):
+                    raw_cat = "arch"
+                elif any(x in title_lower for x in ["research", "investigate", "analyz"]):
+                    raw_cat = "research"
+                else:
+                    raw_cat = "code_gen"  # safe default for all impl tasks
+
+            # Map unknown agent names to existing executor to prevent ImportError
+            KNOWN_AGENTS = {
+                "executor", "architect", "researcher", "planner", "refactor",
+                "test_engineer", "debugger", "reviewer", "doc_writer",
+                "benchmarker", "subagent_pool"
+            }
+            raw_agent = task.get("agent", "executor")
+            if raw_agent not in KNOWN_AGENTS:
+                raw_agent = "executor"
+
             # Convert to orchestrator task format
             orch_task = {
                 "id": task.get("id", f"task-{len(tasks)}"),
                 "title": task.get("title", ""),
                 "description": task.get("description", ""),
-                "category": task.get("category", project_category),
-                "agent": task.get("agent", "executor"),  # default to executor
+                "category": raw_cat,
+                "agent": raw_agent,
                 "priority": task.get("priority", "P2"),
                 "project_id": project_id,
                 "project_name": project_name,
