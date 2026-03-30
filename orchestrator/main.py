@@ -633,7 +633,7 @@ def _update_projects_json_task(task_id: str, status: str, quality_score: float,
         return False
 
 
-def run_version(version: int, tasks: list, local_only: bool = False,
+def run_version(version: int, tasks: list, local_only: bool = True,
                 quick: int = 0) -> dict:
     """Run one benchmark version. Returns version summary."""
     # ── 0. Start auto-heal monitor (idempotent — won't double-start) ──────────
@@ -790,20 +790,24 @@ def run_version(version: int, tasks: list, local_only: bool = False,
             _update_task_status(task_id, status_after, local_quality,
                                 local_result.get("elapsed_s", 0.0), agent_name_hint)
 
-        # Run Opus 4.6 baseline (skip if local_only)
+        # Run Opus 4.6 baseline — HARD BLOCKED by default.
+        # Requires explicit --with-opus flag AND OPUS_ALLOW_TODAY=1 env var.
+        # Daily limit: 1 run per day. Never triggered automatically.
         opus_quality = 0
         opus_result  = {}
         if not local_only:
             try:
                 update_agent("reviewer", "reviewing", f"Opus 4.6 ← {title[:40]}", task_id)
-                from opus_runner import run_opus_task
+                from scripts.opus_runner import run_opus_task
                 opus_result  = run_opus_task(task, version)
                 opus_quality = opus_result.get("quality", 0)
+                if opus_result.get("status") == "blocked_daily_limit":
+                    opus_quality = 0  # treat as skipped, not 70
                 update_agent("reviewer", "idle", "", None)
             except Exception as e:
                 print(f"    [OPUS] Error: {e}")
                 update_agent("reviewer", "idle", "", None)
-                opus_quality = 70  # assume Opus would score ~70 on average
+                opus_quality = 0  # never assume Opus score to avoid inflating baseline
 
         total_local_qual += local_quality
         total_opus_qual  += opus_quality
@@ -948,7 +952,8 @@ def auto_loop(start_version: int):
             except Exception as e:
                 print(f"[RESEARCH] Error at v{version}: {e}")
 
-        summary = run_version(version, tasks)
+        # auto_loop NEVER runs Opus — local-only always. Use --with-opus flag manually.
+        summary = run_version(version, tasks, local_only=True)
         _write_version_file(version)  # sync VERSION file with current runtime version
 
         # Self-improving prompt engine: auto-upgrade agents from this version's failures
@@ -1009,8 +1014,10 @@ def main():
                     help="Full auto loop from START to v100")
     ap.add_argument("--quick",   type=int, default=0, metavar="N",
                     help="Run only N tasks (for testing)")
-    ap.add_argument("--local-only", action="store_true",
-                    help="Skip Opus 4.6 comparison (free run)")
+    ap.add_argument("--local-only", action="store_true", default=True,
+                    help="Skip Opus 4.6 comparison (default: True — free run)")
+    ap.add_argument("--with-opus", action="store_true", default=False,
+                    help="Enable Opus baseline (requires OPUS_ALLOW_TODAY=1 env, max 1/day)")
     args = ap.parse_args()
 
     if args.auto:
@@ -1035,7 +1042,9 @@ def main():
     tasks.extend(suite_tasks)
     print(f"[PROJECTS] Total task queue: {len(project_tasks)} projects + {len(suite_tasks)} suite = {len(tasks)} tasks")
 
-    run_version(args.version, tasks, local_only=args.local_only, quick=args.quick)
+    # --with-opus overrides --local-only; still gated by daily limit in opus_runner
+    use_local_only = not args.with_opus
+    run_version(args.version, tasks, local_only=use_local_only, quick=args.quick)
 
 
 if __name__ == "__main__":

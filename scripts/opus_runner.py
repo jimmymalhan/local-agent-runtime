@@ -17,7 +17,7 @@ Usage (standalone test):
   python3 opus_runner.py --task-id codegen_01 --version 4
 """
 import os, sys, json, time, subprocess, re, argparse
-from datetime import datetime
+from datetime import datetime, date
 from pathlib import Path
 
 BASE_DIR    = str(Path(__file__).resolve().parent.parent)
@@ -28,6 +28,43 @@ OPUS_MODEL      = "claude-opus-4-6"
 RETRY_MAX       = 3
 RETRY_BACKOFF   = [30, 60, 120]   # seconds between retries on rate limit
 TASK_TIMEOUT    = 300             # 5 min per task max
+
+# ── Daily gate: 1 Opus test per day, explicit opt-in only ──────────────────
+DAILY_GATE_FILE = os.path.join(BASE_DIR, "state", "opus_daily_gate.json")
+
+def _check_daily_gate(force: bool = False) -> bool:
+    """
+    Returns True (allowed) only if:
+      1. OPUS_ALLOW_TODAY env var is set to '1' (explicit CLI opt-in), OR
+      2. force=True is passed explicitly by the user
+
+    Blocks all automatic/daemon-triggered Opus calls.
+    Logs each allowed run; rejects any second run on the same calendar day.
+    """
+    if not force and os.environ.get("OPUS_ALLOW_TODAY") != "1":
+        return False  # blocked — requires explicit user opt-in
+
+    today = str(date.today())
+    gate = {}
+    if os.path.exists(DAILY_GATE_FILE):
+        try:
+            with open(DAILY_GATE_FILE) as f:
+                gate = json.load(f)
+        except Exception:
+            gate = {}
+
+    if gate.get("last_run_date") == today:
+        print(f"[OPUS-GATE] Already ran today ({today}). Daily limit = 1. Skipping.")
+        return False
+
+    # Record this run
+    gate["last_run_date"] = today
+    gate["run_count"] = gate.get("run_count", 0) + 1
+    os.makedirs(os.path.dirname(DAILY_GATE_FILE), exist_ok=True)
+    with open(DAILY_GATE_FILE, "w") as f:
+        json.dump(gate, f, indent=2)
+    print(f"[OPUS-GATE] Approved for today ({today}). Total runs: {gate['run_count']}")
+    return True
 
 RATE_LIMIT_SIGNALS = [
     "rate limit", "too many requests", "overloaded",
@@ -89,11 +126,20 @@ def summarize_by_category(results: list) -> dict:
     return dict(summary)
 
 
-def run_opus_task(task: dict, version: int) -> dict:
+def run_opus_task(task: dict, version: int, force: bool = False) -> dict:
     """
     Run a single task through the Claude CLI with opus-4-6 model.
     Returns: {status, quality, elapsed_s, tokens, stdout, stderr}
+
+    HARD LIMIT: 1 run per day. Requires OPUS_ALLOW_TODAY=1 env var OR force=True.
+    Agents must NEVER call this automatically — user must opt in via CLI.
     """
+    # Daily gate — blocks all automatic/daemon calls
+    if not _check_daily_gate(force=force):
+        print(f"  [OPUS-BLOCKED] Automatic Opus call blocked. "
+              f"Run manually: OPUS_ALLOW_TODAY=1 python3 scripts/opus_runner.py --task-id {task.get('id','?')}")
+        return {"status": "blocked_daily_limit", "quality": 0, "elapsed_s": 0, "tokens": 0}
+
     task_id = task.get("id", "unknown")
     title = task.get("title", "")
     description = task.get("description", title)
