@@ -1252,7 +1252,7 @@ main{position:relative;z-index:1;padding-top:52px;}
   <div class="sec" style="padding-top:40px;max-width:800px;">
     <div class="sh">
       <h2 class="st">Nexus Chat</h2>
-      <span class="ss" id="chat-model-lbl">local · qwen2.5-coder:7b</span>
+      <span class="ss" id="chat-model-lbl">local · llama3.1:8b</span>
     </div>
     <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;">
       <!-- Messages -->
@@ -1260,7 +1260,7 @@ main{position:relative;z-index:1;padding-top:52px;}
            scrollbar-width:thin;scrollbar-color:var(--t4) transparent;">
         <div class="chat-msg nexus" data-testid="chat-welcome">
           <div class="cm-name">Nexus</div>
-          <div class="cm-text">Hi — I'm Nexus. Ask me what the system is doing, why an agent is blocked, what the last benchmark showed, or anything about this repo.</div>
+          <div class="cm-text">Hi — I'm Nexus. I know this entire codebase, all 84 epics, every agent, and why things are blocked. Ask me anything — system state, architecture, Python, distributed systems, or what to do next.</div>
         </div>
       </div>
       <!-- Input -->
@@ -1280,7 +1280,7 @@ main{position:relative;z-index:1;padding-top:52px;}
       </div>
     </div>
     <div style="margin-top:10px;font-size:10.5px;color:var(--t3);">
-      Nexus routes to the best available local model. Provider: <span id="chat-provider-lbl">auto</span>.
+      Powered by local LLMs (llama3.1:8b for chat, qwen2.5-coder:7b for code). Provider: <span id="chat-provider-lbl">ollama · llama3.1:8b</span>.
       <a href="#" style="color:var(--blue);text-decoration:none;" onclick="clearChat();return false;">Clear</a>
     </div>
   </div>
@@ -3632,7 +3632,8 @@ async function sendChat(){
     const reply=data.reply||'(no response)';
     addChatMsg('nexus',reply,`${data.provider||'nexus'} · ${new Date(data.ts||Date.now()).toLocaleTimeString('en',{hour12:false,hour:'2-digit',minute:'2-digit'})}`);
     _chatHistory.push({role:'assistant',content:reply});
-    const pl=document.getElementById('chat-provider-lbl');if(pl)pl.textContent=data.provider||'local';
+    const pl=document.getElementById('chat-provider-lbl');if(pl)pl.textContent=data.provider||'ollama · llama3.1:8b';
+    const ml=document.getElementById('chat-model-lbl');if(ml)ml.textContent=`local · ${data.model||'llama3.1:8b'}`;
   }catch(e){
     if(typing&&typing.parentNode)typing.parentNode.removeChild(typing);
     addChatMsg('nexus','I\'m Nexus. Dashboard is live. Check the Overview tab for current system state.','fallback');
