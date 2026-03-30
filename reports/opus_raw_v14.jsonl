@@ -1,3 +1,0 @@
-{"ts": "2026-03-27T19:58:53.090731", "task_id": "e2-comp-1", "category": "project", "title": "Implement lossless text compression (LZ4, zstd)", "version": 14, "status": "partial", "quality": 15, "elapsed_s": 3.3, "tokens": 14, "returncode": 1, "attempt": 1}
-{"ts": "2026-03-27T19:58:56.694628", "task_id": "e2-comp-2", "category": "project", "title": "Build smart summarization (extract key info)", "version": 14, "status": "partial", "quality": 15, "elapsed_s": 3.3, "tokens": 14, "returncode": 1, "attempt": 1}
-{"ts": "2026-03-27T19:59:00.237252", "task_id": "e2-comp-3", "category": "project", "title": "Add entropy-based token filtering", "version": 14, "status": "partial", "quality": 15, "elapsed_s": 3.3, "tokens": 14, "returncode": 1, "attempt": 1}
