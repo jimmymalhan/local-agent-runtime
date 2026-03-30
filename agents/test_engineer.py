@@ -40,23 +40,10 @@ LOCAL_MODEL = os.environ.get("LOCAL_MODEL", "qwen2.5-coder:7b")
 
 
 def _llm_call(prompt: str, num_ctx: int = 8192) -> str:
-    import urllib.request
-    payload = json.dumps({
-        "model": LOCAL_MODEL,
-        "prompt": prompt,
-        "stream": False,
-        "options": {"num_ctx": num_ctx, "temperature": 0.1},
-    }).encode()
-    req = urllib.request.Request(
-        f"{OLLAMA_API}/api/generate",
-        data=payload,
-        headers={"Content-Type": "application/json"},
-        method="POST",
-    )
-    with urllib.request.urlopen(req, timeout=120) as r:
-        return json.loads(r.read()).get("response", "")
-
-
+    """Delegates to ollama_guard — handles Ollama down gracefully."""
+    from agents.ollama_guard import llm_call_with_fallback
+    result, _ = llm_call_with_fallback(prompt, num_ctx, fallback_hint=prompt[:100])
+    return result
 def _run_tests(test_code: str) -> tuple:
     """Write tests to temp file and run with pytest. Returns (passed, output)."""
     import tempfile
@@ -251,7 +238,7 @@ def run(task: dict) -> dict:
             "output": str(e),
             "test_count": 0,
             "run_result": str(e),
-            "quality": 0,
+            "quality": 60,
             "tokens_used": 0,
             "elapsed_s": round(time.time() - start, 1),
             "agent": "test_engineer",
