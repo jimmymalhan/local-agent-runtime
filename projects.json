@@ -6325,6 +6325,86 @@
       ],
       "eta_hours": 34,
       "eta_completion": "2026-03-28T22:54:53.161503Z"
+    },
+    {
+      "id": "epic-nexus-chat",
+      "name": "Nexus Chat \u2014 Wide Knowledge & Live Context",
+      "description": "Make Nexus chat work like Claude with full repo/agent/task awareness",
+      "status": "in_progress",
+      "tasks": [
+        {
+          "id": "nc-1",
+          "title": "Switch chat model to llama3.1:8b for wider general knowledge",
+          "description": "Chat endpoint now uses llama3.1:8b (general) instead of qwen2.5-coder:7b (coding only). Routed via _via_rest with system prompt.",
+          "status": "completed",
+          "category": "code_gen",
+          "agent": "executor",
+          "priority": "P0"
+        },
+        {
+          "id": "nc-2",
+          "title": "Fix providers ImportError in async chat endpoint",
+          "description": "Pre-import providers at module load time with _PROVIDERS_OK flag. Direct REST fallback if providers unavailable. Eliminates 'No module named providers' error.",
+          "status": "completed",
+          "category": "code_gen",
+          "agent": "executor",
+          "priority": "P0"
+        },
+        {
+          "id": "nc-3",
+          "title": "Build rich live context for Nexus chat (_build_nexus_context)",
+          "description": "Context includes: task counts, active/idle agents, ETA, pending epics, benchmark scores, hardware, recent failures. Replaces thin 2-line context.",
+          "status": "completed",
+          "category": "code_gen",
+          "agent": "executor",
+          "priority": "P0"
+        },
+        {
+          "id": "nc-4",
+          "title": "Write comprehensive Nexus system prompt with full repo knowledge",
+          "description": "System prompt covers all 15 agents, orchestrator, persistence, provider routing, benchmarks, token budget, Ollama models. Nexus answers as itself, not as model brand.",
+          "status": "completed",
+          "category": "code_gen",
+          "agent": "executor",
+          "priority": "P0"
+        },
+        {
+          "id": "nc-5",
+          "title": "Add multi-turn conversation history to Nexus chat",
+          "description": "Pass last 6 messages as chat history to Ollama /api/chat. Nexus remembers context across turns in a session.",
+          "status": "completed",
+          "category": "code_gen",
+          "agent": "executor",
+          "priority": "P1"
+        },
+        {
+          "id": "nc-6",
+          "title": "Stream Nexus chat responses for faster perceived response",
+          "description": "Switch /api/chat to use Ollama streaming=True and SSE to frontend. Show tokens as they arrive instead of waiting for full response.",
+          "status": "pending",
+          "category": "code_gen",
+          "agent": "executor",
+          "priority": "P1"
+        },
+        {
+          "id": "nc-7",
+          "title": "Add Nexus slash-commands: /status /agents /epics /why /help",
+          "description": "Parse message for / commands before sending to LLM. /status = live task counts, /agents = all agent states, /epics = pending epics + ETA, /why <task> = failure reason.",
+          "status": "pending",
+          "category": "code_gen",
+          "agent": "executor",
+          "priority": "P1"
+        },
+        {
+          "id": "nc-8",
+          "title": "Persist Nexus chat sessions to disk, reload on dashboard open",
+          "description": "Save chat history to state/nexus_chat_history.jsonl. Reload last 10 messages on page load so conversations survive refreshes.",
+          "status": "pending",
+          "category": "code_gen",
+          "agent": "executor",
+          "priority": "P2"
+        }
+      ]
     }
   ]
 }

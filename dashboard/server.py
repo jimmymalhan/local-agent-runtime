@@ -26,7 +26,18 @@ REPORTS    = str(BASE_DIR / "reports")
 RESCUE_LOG = os.path.join(REPORTS, "claude_rescue_upgrades.jsonl")
 TOKEN_LOG  = os.path.join(REPORTS, "claude_token_log.jsonl")
 
-sys.path.insert(0, BASE_DIR)
+_base_str = str(BASE_DIR)
+if _base_str not in sys.path:
+    sys.path.insert(0, _base_str)
+
+# Pre-import providers at module load so async handlers never hit ImportError
+try:
+    from providers.router import get_provider as _get_provider
+    _PROVIDERS_OK = True
+    _PROVIDERS_ERR = ""
+except Exception as _pe:
+    _PROVIDERS_OK = False
+    _PROVIDERS_ERR = str(_pe)
 
 
 def find_free_port(start: int = 3001) -> int:
@@ -391,65 +402,224 @@ async def get_todo():
     return {"updated_at": datetime.now().isoformat(), "items": items, "counts": counts}
 
 
+def _build_nexus_context() -> str:
+    """Build rich live context for Nexus chat — agents, tasks, epics, blockers, recent logs."""
+    lines = []
+    try:
+        state = read_state()
+        tq    = state.get("task_queue", {})
+        agents_map = state.get("agents", {})
+        bs    = state.get("benchmark_scores", {})
+        hw    = state.get("hardware", {})
+        eta   = state.get("eta", {})
+
+        lines.append(f"=== NEXUS RUNTIME LIVE STATE ===")
+        lines.append(f"Tasks: {tq.get('completed',0)}/{tq.get('total',423)} done "
+                     f"({tq.get('pct_complete',0)}%) | Pending: {tq.get('pending',0)} | "
+                     f"Failed: {tq.get('failed',0)}")
+
+        # Agents
+        active = [(n, a) for n, a in agents_map.items() if a.get("status") not in ("idle","")]
+        idle   = [n for n, a in agents_map.items() if a.get("status") in ("idle","")]
+        if active:
+            lines.append(f"Active agents ({len(active)}): " +
+                         ", ".join(f"{n}[{a.get('status')}]" for n,a in active[:6]))
+        lines.append(f"Idle agents: {len(idle)}")
+
+        # ETA
+        if eta:
+            lines.append(f"ETA: {eta.get('eta_human','?')} — complete by {eta.get('complete_by','?')}")
+            for ep in (eta.get("epics_remaining") or [])[:3]:
+                lines.append(f"  Pending epic: {ep.get('name','')} ({ep.get('pending',0)} tasks)")
+
+        # Benchmark
+        if bs:
+            lines.append(f"Benchmark: local={bs.get('avg_local',0):.1f} vs opus={bs.get('avg_opus',0):.1f} "
+                         f"win_rate={bs.get('win_rate',0):.0f}%")
+
+        # Hardware
+        if hw:
+            lines.append(f"Hardware: CPU={hw.get('cpu_pct',0):.0f}% RAM={hw.get('ram_pct',0):.0f}% "
+                         f"free={hw.get('free_gb',0):.1f}GB")
+
+        # Projects/epics from projects.json
+        try:
+            proj_path = os.path.join(str(BASE_DIR), "projects.json")
+            with open(proj_path) as f:
+                pdata = json.load(f)
+            projects = pdata.get("projects", [])
+            pending_epics = [p for p in projects
+                             if any(t.get("status")=="pending" for t in p.get("tasks",[]))]
+            done_epics    = [p for p in projects
+                             if all(t.get("status") in ("completed","done")
+                                    for t in p.get("tasks",[])) and p.get("tasks")]
+            lines.append(f"Epics: {len(done_epics)}/{len(projects)} complete")
+            for p in pending_epics[:4]:
+                pending_n = sum(1 for t in p.get("tasks",[]) if t.get("status")=="pending")
+                lines.append(f"  Blocked epic [{p.get('id')}]: {p.get('name','')[:50]} "
+                              f"— {pending_n} tasks pending")
+        except Exception:
+            pass
+
+        # Recent failures from runtime-lessons
+        try:
+            rl_path = os.path.join(str(BASE_DIR), "state", "runtime-lessons.json")
+            with open(rl_path) as f:
+                rl = json.load(f)
+            recent_fails = [(tid, v) for tid, v in list(rl.items())[-5:]
+                            if not v.get("rescue_escalated")]
+            if recent_fails:
+                lines.append(f"Recent failures (last 5): " +
+                              ", ".join(tid for tid,_ in recent_fails))
+        except Exception:
+            pass
+
+    except Exception as e:
+        lines.append(f"[context error: {e}]")
+
+    return "\n".join(lines)
+
+
+_NEXUS_SYSTEM = """You are Nexus — the autonomous local agent runtime for this engineering project.
+
+You have FULL KNOWLEDGE of:
+- This repo's architecture: 15 specialized agents (executor, architect, researcher, planner, refactor, test_engineer, debugger, reviewer, doc_writer, benchmarker + more)
+- The orchestrator loop (orchestrator/main.py), persistence layer (agents/persistence.py), provider routing (providers/router.py)
+- All 84 epics, 423 tasks tracked in projects.json
+- The 24/7 daemon (orchestrator/main.py --auto), watchdog, supervisor health checks
+- Benchmark system comparing local agents vs Opus 4.6 (goal: beat Opus with local-only)
+- Token budget: 10% rescue cap, 200-token hard limit per Claude call
+- Ollama running locally with qwen2.5-coder:7b, llama3.1:8b, gemma3:4b, deepseek-r1:8b
+
+You can answer questions about:
+- Why an agent is blocked or failing
+- What each epic/task is doing and its status
+- How to fix routing, persistence, or provider issues
+- Architecture decisions and trade-offs
+- Benchmarks, quality scores, success rates
+- How to start/stop Ollama, the daemon, or the dashboard
+- General software engineering, Python, distributed systems, AI/ML concepts
+
+Rules:
+- Be concise and direct — no filler, no "I'm just an AI" disclaimers
+- Use the live context provided to give accurate current state
+- If asked about code, give real code answers
+- Respond as Nexus, not as any model brand name
+- For wide-knowledge questions (not runtime-specific), answer from your training knowledge"""
+
+
 @app.post("/api/chat")
 async def chat_endpoint(request: dict):
     """
-    Nexus chat API — routes to best available local provider.
+    Nexus chat API — wide knowledge + live runtime context.
     Request: {message: str, history: [{role, content}]}
-    Response: {reply: str, provider: str, ts: str}
+    Response: {reply: str, provider: str, model: str, ts: str}
     """
     message = request.get("message", "").strip()
     history = request.get("history", [])
     if not message:
-        return {"reply": "No message provided.", "provider": "none", "ts": datetime.now().isoformat()}
+        return {"reply": "Ask me anything.", "provider": "none",
+                "ts": datetime.now().isoformat()}
 
-    # Add live state context
-    state = read_state()
-    tq    = state.get("task_queue", {})
-    agents = state.get("agents", {})
-    active = [n for n, a in agents.items() if a.get("status") not in ("idle", "")]
-    bs    = state.get("benchmark_scores", {})
-    context = (
-        f"Current runtime state: "
-        f"Tasks {tq.get('completed',0)}/{tq.get('total',100)} done, "
-        f"{tq.get('failed',0)} failed. "
-        f"Active agents: {', '.join(active) if active else 'none'}. "
-        f"Nexus score: {bs.get('avg_local',0)}, win rate: {bs.get('win_rate',0)}%."
-    )
+    # Build rich live context
+    live_ctx = _build_nexus_context()
+    # Use conversation history for multi-turn
+    messages = []
+    for h in history[-6:]:
+        role = h.get("role", "user")
+        messages.append({"role": role, "content": h.get("content", "")})
+    messages.append({"role": "user", "content": f"{live_ctx}\n\nUser question: {message}"})
 
-    system = (
-        "You are Nexus — a local-first autonomous agent runtime. "
-        "Answer questions about what the system is doing, why decisions were made, "
-        "task status, repo structure, failures, benchmarks and upgrades. "
-        "Be concise and direct. Answer as Nexus, not as any model brand."
-    )
-
-    full_prompt = f"{context}\n\nUser: {message}"
-
-    # Try to route to local provider
-    provider_name = "local"
+    provider_name = "ollama"
+    model_used    = "llama3.1:8b"   # general knowledge model, better than coder for chat
     reply = ""
-    try:
-        import sys
-        sys.path.insert(0, BASE_DIR)
-        from providers.router import get_provider
-        provider = get_provider("chat")
-        provider_name = provider.name
-        result = provider.complete(
-            full_prompt, system=system, max_tokens=300, temperature=0.3, timeout=30
-        )
-        reply = result.text.strip() if result.ok else (result.error or "No response.")
-    except Exception as e:
-        reply = (
-            f"I'm Nexus. System state: {tq.get('completed',0)}/{tq.get('total',100)} tasks done, "
-            f"{len(active)} agents active. Dashboard: http://localhost:3001 "
-            f"(Chat backend unavailable: {str(e)[:60]})"
-        )
-        provider_name = "fallback"
+
+    if not _PROVIDERS_OK:
+        # Direct REST fallback — bypass provider abstraction entirely
+        try:
+            import urllib.request as _ur
+            # prefer llama3.1:8b for wide knowledge; fall back to qwen2.5-coder:7b
+            for _model in ("llama3.1:8b", "qwen2.5-coder:7b", "gemma3:4b"):
+                try:
+                    _payload = json.dumps({
+                        "model": _model,
+                        "messages": [{"role": "system", "content": _NEXUS_SYSTEM}] + messages,
+                        "stream": False,
+                        "options": {"temperature": 0.4, "num_predict": 512},
+                    }).encode()
+                    _req = _ur.Request("http://localhost:11434/api/chat",
+                                       data=_payload,
+                                       headers={"Content-Type": "application/json"},
+                                       method="POST")
+                    with _ur.urlopen(_req, timeout=45) as _r:
+                        _d = json.loads(_r.read())
+                    reply = _d.get("message", {}).get("content", "").strip()
+                    model_used = _model
+                    if reply:
+                        break
+                except Exception:
+                    continue
+            if not reply:
+                reply = f"Nexus here. {live_ctx[:300]}"
+                provider_name = "fallback"
+        except Exception as e:
+            reply = f"Nexus here. Providers unavailable ({e}). {live_ctx[:200]}"
+            provider_name = "fallback"
+    else:
+        try:
+            # Use provider router — prefers Ollama, falls back to Claude CLI
+            provider = _get_provider("chat")
+            provider_name = provider.name
+            # Override model to llama3.1:8b for wider knowledge
+            result = provider.complete(
+                prompt=f"{live_ctx}\n\nUser: {message}",
+                system=_NEXUS_SYSTEM,
+                model="llama3.1:8b",
+                max_tokens=512,
+                temperature=0.4,
+                timeout=45,
+            )
+            if result.ok:
+                reply = result.text.strip()
+                model_used = result.model or "llama3.1:8b"
+            else:
+                # Try direct REST as fallback
+                raise RuntimeError(result.error or "empty response")
+        except Exception as e:
+            # Direct REST fallback
+            try:
+                import urllib.request as _ur
+                for _model in ("llama3.1:8b", "qwen2.5-coder:7b"):
+                    try:
+                        _payload = json.dumps({
+                            "model": _model,
+                            "messages": [{"role": "system", "content": _NEXUS_SYSTEM}] + messages,
+                            "stream": False,
+                            "options": {"temperature": 0.4, "num_predict": 512},
+                        }).encode()
+                        _req = _ur.Request("http://localhost:11434/api/chat",
+                                           data=_payload,
+                                           headers={"Content-Type": "application/json"},
+                                           method="POST")
+                        with _ur.urlopen(_req, timeout=45) as _r:
+                            _d = json.loads(_r.read())
+                        reply = _d.get("message", {}).get("content", "").strip()
+                        model_used = _model
+                        provider_name = "ollama-direct"
+                        if reply:
+                            break
+                    except Exception:
+                        continue
+            except Exception:
+                pass
+            if not reply:
+                reply = f"Nexus here. {live_ctx[:300]}"
+                provider_name = "fallback"
 
     return {
-        "reply":    reply,
-        "provider": provider_name,
+        "reply":    reply or "I didn't get a response. Try again.",
+        "provider": f"{provider_name} · {model_used}",
+        "model":    model_used,
         "ts":       datetime.now().isoformat(),
     }
 
