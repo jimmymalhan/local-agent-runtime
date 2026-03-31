@@ -8,7 +8,7 @@
 - `codex` → real Codex CLI
 - `cursor` → Cursor IDE
 
-Use `./local-claude`, `./local-codex`, or `./Local` **only when you explicitly want** the local Ollama agent.
+Use `./local-claude`, `./local-codex`, or `./Local` **only when you explicitly want** the local Nexus engine runtime.
 
 ## Opening Codex, Claude, or Cursor
 
@@ -60,7 +60,7 @@ source scripts/use_real_claude.sh
 
 ## Local Agent (Opt-In Only)
 
-Use `Local`, `local-codex`, or `local-claude` **only when you explicitly want** the local Ollama runtime:
+Use `Local`, `local-codex`, or `local-claude` **only when you explicitly want** the local Nexus engine runtime:
 
 ```bash
 bash ./Local
