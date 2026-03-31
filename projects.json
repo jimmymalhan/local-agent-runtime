@@ -6623,9 +6623,10 @@
           "id": "ru-3",
           "title": "Epic header cards with progress bars and ETAs",
           "description": "Each epic shown as expandable card with: completion %, task breakdown by status, estimated completion time, assigned agents, velocity sparkline.",
-          "status": "pending",
+          "status": "completed",
           "priority": "critical",
-          "agent": "executor"
+          "agent": "executor",
+          "completed_at": "projects_loader"
         },
         {
           "id": "ru-4",
