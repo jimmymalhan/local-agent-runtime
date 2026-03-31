@@ -17,7 +17,7 @@ AGENT_META = {
     "name": "executor",
     "version": 4,
     "capabilities": ["code_gen", "bug_fix", "tdd"],
-    "model": "qwen2.5-coder:7b",
+    "model": "nexus-local",
     "input_schema": {
         "id": "int",
         "title": "str",
@@ -67,7 +67,7 @@ def _single_run(task: dict) -> dict:
 
 def run(task: dict) -> dict:
     """
-    Run a code task via local Ollama agents.
+    Run a code task via Nexus local inference.
 
     Delegates to agent_implementations for actual code generation.
     This respects EXTREME CLAUDE SESSION RULES by keeping agent logic separate.

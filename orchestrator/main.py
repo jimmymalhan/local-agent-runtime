@@ -890,25 +890,37 @@ def _write_version_file(version: int):
 
 
 def auto_loop(start_version: int):
-    """Full autonomous v{start}→v1000 loop. Self-improves until beating Opus 4.6."""
-    # Load tasks from projects.json (single source of truth)
+    """Full autonomous v{start}→v1000 loop. Reloads pending tasks each version."""
     from orchestrator.projects_loader import load_projects_tasks
 
-    # Load projects.json tasks ONLY (drop legacy task_suite for consistency)
-    project_tasks = load_projects_tasks()
-
-    tasks = project_tasks if project_tasks else []
-    print(f"[PROJECTS] Loaded {len(tasks)} tasks from projects.json (single source of truth)")
+    # Initial load for watchdog sizing
+    initial_tasks = load_projects_tasks()
 
     # Start 1-minute rescue watchdog in background
     state_path   = os.path.join(BASE_DIR, "dashboard", "state.json")
-    version_ref  = [start_version]   # mutable ref so watchdog sees current version
+    version_ref  = [start_version]
     rescued_ref  = [0]
-    start_rescue_watchdog(state_path, version_ref, rescued_ref, len(tasks))
+    start_rescue_watchdog(state_path, version_ref, rescued_ref, max(len(initial_tasks), 1))
     print(f"[WATCHDOG] Rescue watchdog active — checks every {_WATCHDOG_INTERVAL}s")
+
+    _idle_versions = 0  # consecutive versions with 0 pending tasks
 
     for version in range(start_version, 1001):
         version_ref[0] = version
+
+        # PERSISTENCE FIX: Reload tasks from projects.json each version
+        # so newly added tasks are picked up without restarting the daemon
+        tasks = load_projects_tasks()
+        if not tasks:
+            _idle_versions += 1
+            print(f"[AUTO-LOOP] No pending tasks (idle_versions={_idle_versions}). Sleeping 60s...")
+            import time as _t; _t.sleep(60)
+            if _idle_versions >= 5:
+                print("[AUTO-LOOP] No pending tasks for 5+ versions. Daemon staying alive — will pick up new tasks when added.")
+                _idle_versions = 0  # reset so it keeps looping and picking up new tasks
+            continue
+        _idle_versions = 0
+        print(f"[PROJECTS] v{version}: Loaded {len(tasks)} pending tasks from projects.json")
         # Every 5 versions: frustration research
         if version % 5 == 0:
             try:

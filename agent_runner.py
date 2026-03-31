@@ -20,12 +20,10 @@ import logging
 from pathlib import Path
 from datetime import datetime
 
-# ── RESEARCH PATCHES (v440) ─────────────────────────────────
+# ── RESEARCH PATCHES (v5) ─────────────────────────────────
 # Applied from frustration research on 2026-03-30
   # [truncation] CRITICAL: NEVER truncate code. Write the COMPLETE file every time. If output would be too long, split into multiple WRITE_FILE directives. Never use '...' or '# rest of code here'.
-  # [context_repeat] Read ALL prior messages before responding. Do not repeat work already done. Check what files already exist before writing.
   # [imports] Always verify import paths before writing them. Use relative imports for local modules. Test every import mentally.
-  # [global_state] You may use global state when the task explicitly requires it (caches, registries, etc.).
   # [assertions] After writing code, mentally trace through it with example inputs. Verify assertions would pass.
 # ── END RESEARCH PATCHES ──────────────────────────────────────────
 from concurrent.futures import ThreadPoolExecutor, as_completed
