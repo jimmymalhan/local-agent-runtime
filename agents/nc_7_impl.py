@@ -1,38 +1,42 @@
 ```python
-# This script parses incoming messages for specific slash-commands and handles them accordingly before sending the rest of the message to the LLM.
+# This script parses incoming messages for specific slash-commands and handles them accordingly before sending the rest of the message to an LLM.
 
-def parse_command(message):
-    if message.startswith('/status'):
-        return handle_status()
-    elif message.startswith('/agents'):
-        return handle_agents()
-    elif message.startswith('/epics'):
-        return handle_epics()
-    elif message.startswith('/why'):
-        parts = message.split(' ', 1)
-        if len(parts) > 1:
-            task = parts[1]
+def parse_slash_command(message):
+    if message.startswith('/'):
+        command = message.split()[0]
+        args = message.split()[1:]
+        
+        if command == '/status':
+            return handle_status()
+        elif command == '/agents':
+            return handle_agents()
+        elif command == '/epics':
+            return handle_epics()
+        elif command.startswith('/why'):
+            task = ' '.join(args)
             return handle_why(task)
-    elif message.startswith('/help'):
-        return handle_help()
+        elif command == '/help':
+            return handle_help()
+        else:
+            return None
     else:
-        return None
+        return message
 
 def handle_status():
     # Implement logic to get live task counts
-    return "Live task counts: [insert count]"
+    return "Live task counts: [insert data]"
 
 def handle_agents():
     # Implement logic to get all agent states
-    return "Agent states: [insert states]"
+    return "Agent states: [insert data]"
 
 def handle_epics():
     # Implement logic to get pending epics and ETA
-    return "Pending epics with ETA: [insert details]"
+    return "Pending epics with ETA: [insert data]"
 
 def handle_why(task):
     # Implement logic to get failure reason for a specific task
-    return f"Failure reason for {task}: [insert reason]"
+    return f"Failure reason for '{task}': [insert data]"
 
 def handle_help():
     # Implement logic to provide help information

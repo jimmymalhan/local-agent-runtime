@@ -343,6 +343,77 @@ class UnifiedDaemon:
         except Exception as e:
             logger.warning(f"Phase progression failed: {e}")
 
+    def task_branch_cycle(self):
+        """Every 30min: Create feature branch for pending work, execute, merge back."""
+        try:
+            import json, subprocess as sp
+            from datetime import datetime
+
+            # Load pending tasks
+            projects_file = str(PROJECTS_FILE)
+            with open(projects_file) as f:
+                pdata = json.load(f)
+
+            pending = [t for p in pdata.get("projects", [])
+                       for t in p.get("tasks", [])
+                       if t.get("status") == "pending"]
+
+            if not pending:
+                logger.info("[BRANCH-CYCLE] No pending tasks — skipping branch cycle")
+                return
+
+            # Create a timestamped feature branch for this batch
+            ts = datetime.utcnow().strftime("%Y%m%d-%H%M")
+            branch = f"auto/nexus-{ts}"
+            base_branch = "feature/geo-replication"
+
+            # Create branch
+            sp.run(["git", "checkout", "-b", branch, base_branch],
+                   cwd=BASE_DIR, capture_output=True, timeout=15)
+
+            # Execute up to 3 pending tasks via quick_dispatcher
+            result = sp.run(
+                ["python3", "orchestrator/quick_dispatcher.py", "--tasks", "3"],
+                cwd=BASE_DIR, capture_output=True, text=True, timeout=300,
+            )
+            logger.info(f"[BRANCH-CYCLE] Dispatcher: {result.stdout[-200:].strip()}")
+
+            # Stage + commit results
+            sp.run(["git", "add", "-A"], cwd=BASE_DIR, capture_output=True)
+            status = sp.run(["git", "status", "--porcelain"], cwd=BASE_DIR,
+                            capture_output=True, text=True).stdout.strip()
+            if status:
+                sp.run(["git", "commit", "-m",
+                        f"auto: nexus agent batch {ts} — {len(pending[:3])} tasks"],
+                       cwd=BASE_DIR, capture_output=True)
+
+                # Push branch
+                sp.run(["git", "push", "origin", branch],
+                       cwd=BASE_DIR, capture_output=True, timeout=30)
+
+                # Merge back to base via fast-forward
+                sp.run(["git", "checkout", base_branch],
+                       cwd=BASE_DIR, capture_output=True)
+                merge = sp.run(["git", "merge", "--ff-only", branch],
+                               cwd=BASE_DIR, capture_output=True, text=True)
+                if merge.returncode == 0:
+                    sp.run(["git", "push", "origin", base_branch],
+                           cwd=BASE_DIR, capture_output=True, timeout=30)
+                    # Delete merged branch
+                    sp.run(["git", "branch", "-d", branch], cwd=BASE_DIR, capture_output=True)
+                    sp.run(["git", "push", "origin", "--delete", branch],
+                           cwd=BASE_DIR, capture_output=True, timeout=15)
+                    logger.info(f"[BRANCH-CYCLE] ✅ Branch {branch} merged and cleaned up")
+                else:
+                    logger.warning(f"[BRANCH-CYCLE] Merge conflict — branch {branch} kept for review")
+            else:
+                sp.run(["git", "checkout", base_branch], cwd=BASE_DIR, capture_output=True)
+                sp.run(["git", "branch", "-d", branch], cwd=BASE_DIR, capture_output=True)
+                logger.info("[BRANCH-CYCLE] No file changes — branch cleaned up")
+
+        except Exception as e:
+            logger.warning(f"[BRANCH-CYCLE] Error: {e}")
+
     def _check_process(self, name: str) -> str:
         """Check if a process is running."""
         try:
@@ -386,6 +457,9 @@ def main():
     daemon.register_task(
         "epic-status-update", 1800, daemon.task_update_epic_status
     )  # Every 30min
+    daemon.register_task(
+        "branch-cycle", 1800, daemon.task_branch_cycle
+    )  # Every 30min: create branch → execute tasks → merge
 
     # Start the daemon
     logger.info("=" * 70)

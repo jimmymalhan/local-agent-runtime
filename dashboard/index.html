@@ -496,24 +496,41 @@ main{position:relative;z-index:1;padding-top:52px;}
 .reveal{opacity:0;transform:translateY(32px) scale(.98);transition:opacity .7s ease,transform .7s ease;}
 .reveal.visible{opacity:1;transform:none;}
 
-/* ── Chat tab ───────────────────────────────────────────────── */
+/* ── Chat tab (legacy, kept for compat) ─────────────────────── */
 .chat-msg{display:flex;flex-direction:column;gap:3px;max-width:88%;}
 .chat-msg.user{align-self:flex-end;align-items:flex-end;}
 .chat-msg.nexus{align-self:flex-start;}
-.cm-name{font-size:9.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
-  color:var(--t3);margin-bottom:2px;}
+.cm-name{font-size:9.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--t3);margin-bottom:2px;}
 .chat-msg.user .cm-name{color:var(--blue);}
-.cm-text{
-  padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.55;color:var(--t1);
-  background:var(--card);border:1px solid var(--bd);
-  box-shadow:0 1px 4px rgba(0,0,0,.05);
-  animation:fu .25s ease;
-}
-.chat-msg.user .cm-text{
-  background:var(--blue);color:#fff;border-color:transparent;
-}
+.cm-text{padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.55;color:var(--t1);background:var(--card);border:1px solid var(--bd);box-shadow:0 1px 4px rgba(0,0,0,.05);animation:fu .25s ease;}
+.chat-msg.user .cm-text{background:var(--blue);color:#fff;border-color:transparent;}
 .cm-meta{font-size:9px;color:var(--t3);}
-.chat-typing{display:flex;gap:4px;align-items:center;padding:8px 0;}
+/* ── Nexus chat v2 ───────────────────────────────────────────── */
+.nx-cmd-btn{font-size:11px;padding:4px 10px;border:1px solid var(--bd);border-radius:8px;
+  background:var(--card);color:var(--t2);cursor:pointer;font-family:var(--mono);
+  transition:background .15s,border-color .15s;}
+.nx-cmd-btn:hover{background:var(--bg2);border-color:var(--blue);color:var(--blue);}
+.nx-msg{display:flex;gap:10px;animation:fu .22s ease;}
+.nx-msg-user{flex-direction:row-reverse;}
+.nx-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;flex-shrink:0;margin-top:2px;}
+.nx-msg-nexus .nx-avatar{background:var(--blue);color:#fff;}
+.nx-msg-user .nx-avatar{background:var(--t4);color:var(--t1);}
+.nx-bubble{max-width:82%;display:flex;flex-direction:column;gap:4px;}
+.nx-bubble-name{font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--t3);}
+.nx-msg-user .nx-bubble-name{text-align:right;color:var(--blue);}
+.nx-bubble-text{padding:11px 15px;border-radius:14px;font-size:13.5px;line-height:1.6;
+  background:var(--card);border:1px solid var(--bd);color:var(--t1);
+  box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.nx-msg-user .nx-bubble-text{background:var(--blue);color:#fff;border-color:transparent;}
+.nx-bubble-text code{font-family:var(--mono);font-size:12px;background:rgba(0,0,0,.06);
+  padding:1px 5px;border-radius:4px;}
+.nx-msg-user .nx-bubble-text code{background:rgba(255,255,255,.2);}
+.nx-bubble-text strong{font-weight:600;}
+.nx-action-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;
+  background:rgba(52,199,89,.12);color:var(--green);border:1px solid rgba(52,199,89,.25);
+  border-radius:6px;padding:2px 8px;margin-top:4px;font-weight:600;}
+@keyframes nx-dot{0%,80%,100%{opacity:.3;transform:scale(.8)}40%{opacity:1;transform:scale(1)}}
 .chat-typing span{width:5px;height:5px;border-radius:50%;background:var(--t3);
   animation:tdot .9s ease-in-out infinite;}
 .chat-typing span:nth-child(2){animation-delay:.15s;}
@@ -1249,39 +1266,87 @@ main{position:relative;z-index:1;padding-top:52px;}
 
 <!-- ═══ CHAT TAB ══════════════════════════════════════════════ -->
 <div id="tab-chat" class="tab-panel" role="tabpanel">
-  <div class="sec" style="padding-top:40px;max-width:800px;">
-    <div class="sh">
-      <h2 class="st">Nexus Chat</h2>
-      <span class="ss" id="chat-model-lbl">Nexus</span>
+  <div class="sec" style="padding-top:24px;max-width:900px;margin:0 auto;">
+
+    <!-- Header -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <div>
+        <h2 class="st" style="margin:0;font-size:22px;">Nexus</h2>
+        <div style="font-size:11px;color:var(--t3);margin-top:2px;">Autonomous agent · Talk &amp; execute tasks · Full codebase knowledge</div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span id="chat-status-dot" style="width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;"></span>
+        <span id="chat-model-lbl" style="font-size:11px;color:var(--t3);">Nexus</span>
+        <button onclick="clearChat()" style="font-size:11px;color:var(--t3);background:none;border:1px solid var(--bd);border-radius:6px;padding:4px 10px;cursor:pointer;">Clear</button>
+      </div>
     </div>
-    <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;">
+
+    <!-- Quick commands bar -->
+    <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;">
+      <button class="nx-cmd-btn" onclick="insertCmd('/status')"><span style="opacity:.6">/</span>status</button>
+      <button class="nx-cmd-btn" onclick="insertCmd('/agents')"><span style="opacity:.6">/</span>agents</button>
+      <button class="nx-cmd-btn" onclick="insertCmd('/epics')"><span style="opacity:.6">/</span>epics</button>
+      <button class="nx-cmd-btn" onclick="insertCmd('/tasks')"><span style="opacity:.6">/</span>tasks</button>
+      <button class="nx-cmd-btn" onclick="insertCmd('/health')"><span style="opacity:.6">/</span>health</button>
+      <button class="nx-cmd-btn" onclick="insertCmd('/help')"><span style="opacity:.6">/</span>help</button>
+      <button class="nx-cmd-btn" onclick="insertCmd('/do ')" style="border-color:var(--blue);color:var(--blue);">⚡ /do task</button>
+    </div>
+
+    <!-- Chat window -->
+    <div style="background:var(--card);border:1px solid var(--bd);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;">
+
       <!-- Messages -->
-      <div id="chat-msgs" style="height:380px;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px;
-           scrollbar-width:thin;scrollbar-color:var(--t4) transparent;">
-        <div class="chat-msg nexus" data-testid="chat-welcome">
-          <div class="cm-name">Nexus</div>
-          <div class="cm-text">Hi — I'm Nexus. I know this entire codebase, all 84 epics, every agent, and why things are blocked. Ask me anything — system state, architecture, Python, distributed systems, or what to do next.</div>
+      <div id="chat-msgs" style="height:460px;overflow-y:auto;padding:24px 24px 16px;display:flex;flex-direction:column;gap:16px;
+           scrollbar-width:thin;scrollbar-color:var(--bd) transparent;" data-testid="chat-messages">
+
+        <!-- Welcome -->
+        <div class="nx-msg nx-msg-nexus">
+          <div class="nx-avatar">N</div>
+          <div class="nx-bubble">
+            <div class="nx-bubble-name">Nexus</div>
+            <div class="nx-bubble-text">I'm Nexus — your autonomous local agent runtime. I know every file, all 86 epics, every agent, and can execute tasks on your behalf.<br><br>
+            <strong>Talk:</strong> Ask me anything — architecture, code, why something is blocked.<br>
+            <strong>Execute:</strong> Say "do X" or use <code>/do task description</code> to dispatch to the agent queue.<br><br>
+            Try <code>/status</code> to see live state, or <code>/help</code> for all commands.</div>
+          </div>
         </div>
       </div>
-      <!-- Input -->
-      <div style="border-top:1px solid var(--bd);padding:14px 20px;display:flex;gap:10px;align-items:flex-end;">
-        <textarea id="chat-input" data-testid="chat-input"
-          placeholder="Ask Nexus anything..."
-          style="flex:1;border:1px solid var(--bd);border-radius:var(--rsm);padding:10px 14px;
-                 font-family:inherit;font-size:13px;color:var(--t1);background:var(--bg);
-                 resize:none;outline:none;height:42px;line-height:1.5;
-                 transition:border-color .2s,box-shadow .2s;"
-          rows="1"></textarea>
-        <button id="chat-send" data-testid="chat-send"
-          style="background:var(--blue);color:#fff;border:none;border-radius:var(--rsm);
-                 padding:10px 18px;font-size:13px;font-weight:600;cursor:pointer;
-                 white-space:nowrap;transition:background .15s,transform .1s;"
-          onclick="sendChat()">Send</button>
+
+      <!-- Typing indicator (hidden by default) -->
+      <div id="chat-typing" style="display:none;padding:0 24px 12px;align-items:center;gap:8px;">
+        <div style="width:28px;height:28px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:700;flex-shrink:0;">N</div>
+        <div style="display:flex;gap:4px;align-items:center;">
+          <span style="width:6px;height:6px;border-radius:50%;background:var(--t3);animation:nx-dot 1.2s infinite 0s;"></span>
+          <span style="width:6px;height:6px;border-radius:50%;background:var(--t3);animation:nx-dot 1.2s infinite .2s;"></span>
+          <span style="width:6px;height:6px;border-radius:50%;background:var(--t3);animation:nx-dot 1.2s infinite .4s;"></span>
+        </div>
+      </div>
+
+      <!-- Input row -->
+      <div style="border-top:1px solid var(--bd);padding:14px 16px;display:flex;gap:10px;align-items:flex-end;background:var(--bg);">
+        <div style="flex:1;position:relative;">
+          <textarea id="chat-input" data-testid="chat-input"
+            placeholder="Ask anything or /do create a metrics dashboard..."
+            style="width:100%;box-sizing:border-box;border:1.5px solid var(--bd);border-radius:10px;
+                   padding:11px 44px 11px 14px;font-family:inherit;font-size:13.5px;
+                   color:var(--t1);background:var(--card);resize:none;outline:none;
+                   max-height:140px;line-height:1.6;transition:border-color .2s,box-shadow .2s;"
+            rows="1" oninput="autoResize(this)"></textarea>
+          <button onclick="sendChat()" id="chat-send" data-testid="chat-send"
+            title="Send (Enter)"
+            style="position:absolute;right:8px;bottom:8px;width:30px;height:30px;border-radius:8px;
+                   background:var(--blue);border:none;cursor:pointer;display:flex;align-items:center;
+                   justify-content:center;transition:background .15s,transform .1s;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+        </div>
       </div>
     </div>
-    <div style="margin-top:10px;font-size:10.5px;color:var(--t3);">
-      Powered by Nexus local engine. Provider: <span id="chat-provider-lbl">nexus</span>.
-      <a href="#" style="color:var(--blue);text-decoration:none;" onclick="clearChat();return false;">Clear</a>
+
+    <!-- Footer -->
+    <div style="margin-top:8px;font-size:10.5px;color:var(--t4);display:flex;justify-content:space-between;">
+      <span>Provider: <span id="chat-provider-lbl">nexus</span></span>
+      <span>Enter to send · Shift+Enter for newline · /help for commands</span>
     </div>
   </div>
 </div>
@@ -3586,79 +3651,133 @@ function buildTodoFromData(board){
 }
 </script>
 
-<!-- Chat -->
+<!-- Chat v2 — ultra advanced -->
 <script>
 let _chatHistory=[];
+let _chatSending=false;
 
-function addChatMsg(role,text,meta){
+/* ─ Markdown-lite renderer ─ */
+function renderMd(text){
+  if(!text)return'';
+  // Code blocks
+  text=text.replace(/```[\w]*\n?([\s\S]*?)```/g,'<pre style="background:rgba(0,0,0,.06);border-radius:8px;padding:10px 12px;font-size:12px;overflow-x:auto;margin:6px 0;font-family:var(--mono)">$1</pre>');
+  // Inline code
+  text=text.replace(/`([^`]+)`/g,'<code>$1</code>');
+  // Bold
+  text=text.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
+  // Newlines
+  text=text.replace(/\n/g,'<br>');
+  return text;
+}
+
+/* ─ Add message bubble ─ */
+function addNxMsg(role,text,action){
   const msgs=document.getElementById('chat-msgs');if(!msgs)return;
   const d=document.createElement('div');
-  d.className='chat-msg '+(role==='user'?'user':'nexus');
-  const ts=new Date().toLocaleTimeString('en',{hour12:false,hour:'2-digit',minute:'2-digit'});
-  d.innerHTML=`<div class="cm-name">${role==='user'?'You':'Nexus'}</div>
-<div class="cm-text">${esc(text)}</div>
-${meta?`<div class="cm-meta">${esc(meta)}</div>`:''}`;
+  d.className='nx-msg '+(role==='user'?'nx-msg-user':'nx-msg-nexus');
+  const initial=role==='user'?'U':'N';
+  const name=role==='user'?'You':'Nexus';
+  const badge=action&&action==='dispatch'?'<div class="nx-action-badge">⚡ Task dispatched</div>':
+               action&&action==='command'?'<div class="nx-action-badge" style="background:rgba(0,113,227,.1);color:var(--blue);border-color:rgba(0,113,227,.2)">⌘ Command</div>':'';
+  d.innerHTML=`<div class="nx-avatar">${initial}</div>
+<div class="nx-bubble">
+  <div class="nx-bubble-name">${name}</div>
+  <div class="nx-bubble-text">${renderMd(text)}</div>
+  ${badge}
+</div>`;
   msgs.appendChild(d);
   msgs.scrollTop=msgs.scrollHeight;
-  return d;
 }
 
-function addTyping(){
-  const msgs=document.getElementById('chat-msgs');if(!msgs)return null;
-  const d=document.createElement('div');d.className='chat-msg nexus';d.id='chat-typing-ind';
-  d.innerHTML='<div class="cm-name">Nexus</div><div class="chat-typing"><span></span><span></span><span></span></div>';
-  msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
-  return d;
+/* ─ Show/hide typing indicator ─ */
+function showTyping(show){
+  const t=document.getElementById('chat-typing');
+  if(t)t.style.display=show?'flex':'none';
+  const msgs=document.getElementById('chat-msgs');
+  if(show&&msgs)msgs.scrollTop=msgs.scrollHeight;
 }
 
-async function sendChat(){
+/* ─ Auto-resize textarea ─ */
+function autoResize(el){
+  el.style.height='auto';
+  el.style.height=Math.min(el.scrollHeight,140)+'px';
+}
+
+/* ─ Insert slash command ─ */
+function insertCmd(cmd){
   const inp=document.getElementById('chat-input');
   if(!inp)return;
-  const msg=inp.value.trim();if(!msg)return;
-  inp.value='';inp.style.height='42px';
-  addChatMsg('user',msg);
+  inp.value=cmd;
+  inp.focus();
+  if(cmd.endsWith(' '))inp.setSelectionRange(cmd.length,cmd.length);
+  else{inp.value=cmd;sendChat();}
+}
+
+/* ─ Main send ─ */
+async function sendChat(){
+  if(_chatSending)return;
+  const inp=document.getElementById('chat-input');
+  if(!inp)return;
+  const msg=inp.value.trim();
+  if(!msg)return;
+  inp.value='';
+  autoResize(inp);
+
+  addNxMsg('user',msg);
   _chatHistory.push({role:'user',content:msg});
-  const typing=addTyping();
+
+  _chatSending=true;
   const sendBtn=document.getElementById('chat-send');
   if(sendBtn)sendBtn.disabled=true;
+  showTyping(true);
+
   try{
     const r=await fetch('/api/chat',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({message:msg,history:_chatHistory.slice(-6)}),
+      body:JSON.stringify({message:msg,history:_chatHistory.slice(-8)}),
     });
-    const data=r.ok?await r.json():{reply:'(server error)',provider:'error'};
-    if(typing&&typing.parentNode)typing.parentNode.removeChild(typing);
-    const reply=data.reply||'(no response)';
-    addChatMsg('nexus',reply,`${data.provider||'nexus'} · ${new Date(data.ts||Date.now()).toLocaleTimeString('en',{hour12:false,hour:'2-digit',minute:'2-digit'})}`);
+    showTyping(false);
+    const data=r.ok?await r.json():{reply:'Server error — Nexus engine may be starting up.',provider:'error'};
+    const reply=data.reply||'No response.';
+    addNxMsg('nexus',reply,data.action);
     _chatHistory.push({role:'assistant',content:reply});
     const pl=document.getElementById('chat-provider-lbl');if(pl)pl.textContent=data.provider||'nexus';
     const ml=document.getElementById('chat-model-lbl');if(ml)ml.textContent='Nexus';
+    // Flash status dot green on success
+    const dot=document.getElementById('chat-status-dot');
+    if(dot){dot.style.background='var(--green)';setTimeout(()=>{if(dot)dot.style.background='var(--green)';},1000);}
   }catch(e){
-    if(typing&&typing.parentNode)typing.parentNode.removeChild(typing);
-    addChatMsg('nexus','I\'m Nexus. Dashboard is live. Check the Overview tab for current system state.','fallback');
+    showTyping(false);
+    addNxMsg('nexus','Nexus engine is starting up. Dashboard is still live — check Overview for system state.');
+    const dot=document.getElementById('chat-status-dot');
+    if(dot)dot.style.background='var(--orange)';
   }finally{
+    _chatSending=false;
     if(sendBtn)sendBtn.disabled=false;
+    inp.focus();
   }
 }
 
 function clearChat(){
   _chatHistory=[];
   const msgs=document.getElementById('chat-msgs');if(!msgs)return;
-  msgs.innerHTML='<div class="chat-msg nexus" data-testid="chat-welcome"><div class="cm-name">Nexus</div><div class="cm-text">Chat cleared. Ask me anything about the system.</div></div>';
+  msgs.innerHTML=`<div class="nx-msg nx-msg-nexus">
+<div class="nx-avatar">N</div>
+<div class="nx-bubble">
+  <div class="nx-bubble-name">Nexus</div>
+  <div class="nx-bubble-text">Chat cleared. I'm Nexus — ask anything or use <code>/help</code> for commands.</div>
+</div></div>`;
 }
 
-// Enter to send, Shift+Enter for newline
+/* ─ Keyboard: Enter=send, Shift+Enter=newline ─ */
 document.addEventListener('DOMContentLoaded',()=>{
   const inp=document.getElementById('chat-input');
   if(!inp)return;
   inp.addEventListener('keydown',e=>{
     if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat();}
   });
-  inp.addEventListener('input',()=>{
-    inp.style.height='42px';
-    inp.style.height=Math.min(inp.scrollHeight,120)+'px';
-  });
+  inp.addEventListener('input',()=>autoResize(inp));
 });
 </script>
 
