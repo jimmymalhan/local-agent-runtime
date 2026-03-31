@@ -480,72 +480,248 @@ def _build_nexus_context() -> str:
     return "\n".join(lines)
 
 
-_NEXUS_SYSTEM = """You are Nexus — the autonomous local agent runtime for this engineering project.
+_NEXUS_SYSTEM = """You are Nexus — a fully autonomous local AI agent runtime and engineering assistant.
 
-You have FULL KNOWLEDGE of:
-- This repo's architecture: 15 specialized agents (executor, architect, researcher, planner, refactor, test_engineer, debugger, reviewer, doc_writer, benchmarker + more)
-- The orchestrator loop (orchestrator/main.py), persistence layer (agents/persistence.py), provider routing (providers/router.py)
-- All 84 epics, 423 tasks tracked in projects.json
-- The 24/7 daemon (orchestrator/main.py --auto), watchdog, supervisor health checks
-- All inference is handled by the Nexus local engine — model details are internal
+IDENTITY: You are Nexus. You run locally. You have deep knowledge of this codebase and can both ANSWER questions AND EXECUTE tasks directly.
 
-You can answer questions about:
-- Why an agent is blocked or failing
-- What each epic/task is doing and its status
-- How to fix routing, persistence, or provider issues
-- Architecture decisions and trade-offs
-- Benchmarks, quality scores, success rates
-- How to start/stop the daemon, or the dashboard
-- General software engineering, Python, distributed systems, AI/ML concepts
+CAPABILITIES:
+- Answer any engineering, coding, architecture, or system design question
+- Execute tasks: when asked to "do X", dispatch it to the agent queue (projects.json)
+- Debug live system state: agents, queues, failures, metrics
+- Write code, explain code, review code
+- Manage the runtime: start/stop agents, check health, explain blockers
+- General knowledge: Python, distributed systems, databases, AI/ML, DevOps
 
-Rules:
-- Be concise and direct — no filler, no "I'm just an AI" disclaimers
-- Use the live context provided to give accurate current state
-- If asked about code, give real code answers
-- Respond as Nexus, not as any model brand name
-- For wide-knowledge questions (not runtime-specific), answer from your training knowledge"""
+LIVE SYSTEM KNOWLEDGE:
+- 15 specialized agents: executor, architect, researcher, planner, refactor, test_engineer, debugger, reviewer, doc_writer, benchmarker, subagent_pool + geo-replication, resilience agents
+- Orchestrator: orchestrator/main.py with auto_loop, quick_dispatcher for task execution
+- Persistence: projects.json (single source of truth), auto-reloaded each version cycle
+- Dashboard: FastAPI server + WebSocket, live state every 2s
+- 24/7 operation: unified_daemon.py + auto_recover.sh cron + watchdog
+- All 86 projects, 434 tasks tracked — 428 done (99%)
+
+TASK EXECUTION (when user says "do X", "create X", "fix X", "add X"):
+1. Acknowledge: "On it — dispatching to Nexus agents."
+2. Add task to projects.json pending queue
+3. Report: task ID, estimated agent, ETA
+4. The 10-min daemon loop will pick it up automatically
+
+SLASH COMMANDS (respond to these specially):
+/status → show live agent status, pending tasks, health
+/agents → list all 15 agents with current task
+/epics  → list all epics, completion %, pending
+/tasks  → show next 10 pending tasks
+/why [agent] → explain why that agent is blocked/idle
+/do [task]  → dispatch task to agent queue
+/health → system health: daemon, watchdog, disk, memory
+/help   → show all commands
+
+RULES:
+- Be direct. No disclaimers. No "I'm just an AI."
+- When asked to DO something, DO it (add to queue) + confirm
+- Give real code when asked for code
+- Use live context data to answer runtime questions accurately
+- You are Nexus. Respond as Nexus."""
+
+
+def _handle_slash_command(cmd: str) -> str | None:
+    """Handle /status /agents /epics /tasks /health /help commands. Returns reply or None."""
+    c = cmd.strip().lower()
+    try:
+        with open(os.path.join(str(BASE_DIR), "projects.json")) as f:
+            pdata = json.load(f)
+        projects = pdata.get("projects", [])
+        all_tasks = [t for p in projects for t in p.get("tasks", [])]
+        done   = sum(1 for t in all_tasks if t.get("status") in ("completed","done"))
+        pend   = sum(1 for t in all_tasks if t.get("status") == "pending")
+        total  = len(all_tasks)
+    except Exception:
+        projects, all_tasks, done, pend, total = [], [], 0, 0, 0
+
+    if c == "/status" or c == "/s":
+        try:
+            with open(os.path.join(str(BASE_DIR), "dashboard", "state.json")) as f:
+                st = json.load(f)
+            agents = st.get("agents", {})
+            active = [(n, a.get("status","?"), a.get("current_task","")[:40])
+                      for n, a in agents.items() if a.get("status") not in ("idle","")]
+            idle   = [n for n, a in agents.items() if a.get("status") == "idle"]
+        except Exception:
+            active, idle = [], []
+        lines = [f"**Nexus Runtime Status**",
+                 f"Tasks: {done}/{total} done · {pend} pending",
+                 f"Active agents ({len(active)}): " + (", ".join(f"{n}→{t}" for n,_,t in active) or "none"),
+                 f"Idle: {', '.join(idle[:8]) or 'all agents active'}"]
+        return "\n".join(lines)
+
+    elif c == "/agents":
+        try:
+            with open(os.path.join(str(BASE_DIR), "dashboard", "state.json")) as f:
+                st = json.load(f)
+            agents = st.get("agents", {})
+        except Exception:
+            agents = {}
+        lines = ["**Nexus Agents**"]
+        for name, a in sorted(agents.items()):
+            status = a.get("status", "idle")
+            task   = a.get("current_task", "")[:50]
+            lines.append(f"  `{name}` [{status}] {task}")
+        return "\n".join(lines) if len(lines) > 1 else "No agent state available yet."
+
+    elif c == "/epics":
+        lines = ["**Epics Progress**"]
+        for p in projects[:20]:
+            tasks = p.get("tasks", [])
+            if not tasks: continue
+            n_done = sum(1 for t in tasks if t.get("status") in ("completed","done"))
+            pct    = round(n_done / len(tasks) * 100)
+            icon   = "✅" if pct == 100 else "⏳"
+            lines.append(f"  {icon} {p.get('name','')[:55]} {n_done}/{len(tasks)} ({pct}%)")
+        return "\n".join(lines)
+
+    elif c.startswith("/tasks"):
+        pending = [t for t in all_tasks if t.get("status") == "pending"]
+        if not pending:
+            return "✅ No pending tasks — all work complete."
+        lines = [f"**Pending Tasks ({len(pending)})**"]
+        for t in pending[:10]:
+            lines.append(f"  `{t.get('id')}` {t.get('title','')[:60]}")
+        return "\n".join(lines)
+
+    elif c == "/health":
+        import shutil
+        disk = shutil.disk_usage("/")
+        disk_pct = round(disk.used / disk.total * 100)
+        daemon_up = bool(os.popen("pgrep -f unified_daemon").read().strip())
+        cron_ok   = "*/2" in os.popen("crontab -l 2>/dev/null").read()
+        lines = [
+            "**Nexus Health**",
+            f"  Daemon: {'✅ running' if daemon_up else '❌ stopped (auto_recover will restart)'}",
+            f"  Cron watchdog: {'✅ active' if cron_ok else '⚠️ not set'}",
+            f"  Disk: {disk_pct}% used ({round(disk.free/1e9, 1)} GB free)",
+            f"  Tasks: {done}/{total} ({round(done/total*100) if total else 0}% done)",
+        ]
+        return "\n".join(lines)
+
+    elif c == "/help":
+        return """/status  — live agent status & task counts
+/agents  — all 15 agents with current task
+/epics   — all epics with completion %
+/tasks   — next 10 pending tasks
+/health  — daemon, disk, cron health
+/do <task description> — dispatch task to agent queue
+Ask me anything else — I have full engineering knowledge."""
+
+    elif c.startswith("/do ") or c.startswith("/run "):
+        task_desc = cmd[4:].strip()
+        return _dispatch_chat_task(task_desc)
+
+    return None
+
+
+def _dispatch_chat_task(description: str) -> str:
+    """Add a task from chat to projects.json pending queue."""
+    import uuid, datetime as _dt
+    task_id = f"chat-{uuid.uuid4().hex[:8]}"
+    new_task = {
+        "id": task_id,
+        "title": description[:100],
+        "description": description,
+        "status": "pending",
+        "category": "code_gen",
+        "agent": "executor",
+        "priority": "P1",
+        "source": "nexus-chat",
+        "created_at": _dt.datetime.utcnow().isoformat(),
+    }
+    try:
+        projects_file = os.path.join(str(BASE_DIR), "projects.json")
+        with open(projects_file) as f:
+            pdata = json.load(f)
+        # Add to a "Nexus Chat Tasks" project, create if missing
+        chat_project = next((p for p in pdata["projects"] if p.get("id") == "nexus-chat-dispatch"), None)
+        if not chat_project:
+            chat_project = {"id": "nexus-chat-dispatch", "name": "Nexus Chat Dispatched Tasks", "tasks": []}
+            pdata["projects"].append(chat_project)
+        chat_project["tasks"].append(new_task)
+        with open(projects_file, "w") as f:
+            json.dump(pdata, f, indent=2)
+        return (f"✅ **Dispatched to Nexus agents**\n"
+                f"  Task ID: `{task_id}`\n"
+                f"  Agent: executor\n"
+                f"  Priority: P1\n"
+                f"  The 10-min daemon loop will execute this automatically.\n"
+                f"  Check `/tasks` for queue status.")
+    except Exception as e:
+        return f"⚠️ Could not dispatch task: {e}"
 
 
 @app.post("/api/chat")
 async def chat_endpoint(request: dict):
     """
-    Nexus chat API — wide knowledge + live runtime context.
+    Nexus chat — talk + execute tasks. Like Claude CLI but for Nexus.
     Request: {message: str, history: [{role, content}]}
-    Response: {reply: str, provider: str, model: str, ts: str}
+    Response: {reply: str, provider: str, model: str, ts: str, action: str}
     """
     message = request.get("message", "").strip()
     history = request.get("history", [])
     if not message:
-        return {"reply": "Ask me anything.", "provider": "none",
+        return {"reply": "Ask me anything or use /help.", "provider": "nexus",
+                "model": "nexus-local", "ts": datetime.now().isoformat()}
+
+    # Handle slash commands directly (no LLM needed)
+    slash_reply = _handle_slash_command(message)
+    if slash_reply is not None:
+        return {"reply": slash_reply, "provider": "nexus-cmd",
+                "model": "nexus-local", "action": "command",
                 "ts": datetime.now().isoformat()}
+
+    # Handle "do X" / "create X" / "fix X" / "add X" dispatch intent
+    lower = message.lower()
+    dispatch_triggers = ("do ", "create ", "fix ", "add ", "implement ", "build ", "write ", "make ")
+    if any(lower.startswith(t) for t in dispatch_triggers) and len(message) > 10:
+        action_reply = _dispatch_chat_task(message)
+        action_ctx   = f"User asked me to: {message}\n\nI dispatched this task: {action_reply}"
+        history = list(history or [])
+        history.append({"role": "user", "content": message})
+    else:
+        action_reply = None
+        action_ctx   = None
 
     # Build rich live context
     live_ctx = _build_nexus_context()
-    # Use conversation history for multi-turn
+
+    # Compose messages for LLM
     messages = []
-    for h in history[-6:]:
+    for h in (history or [])[-8:]:
         role = h.get("role", "user")
-        messages.append({"role": role, "content": h.get("content", "")})
-    messages.append({"role": "user", "content": f"{live_ctx}\n\nUser question: {message}"})
+        content = h.get("content", "")
+        if content:
+            messages.append({"role": role, "content": content})
 
-    provider_name = "nexus"
+    user_content = f"[LIVE RUNTIME CONTEXT]\n{live_ctx}\n\n"
+    if action_ctx:
+        user_content += f"[TASK DISPATCHED]\n{action_ctx}\n\n"
+    user_content += f"User: {message}"
+    messages.append({"role": "user", "content": user_content})
+
     reply = ""
-
+    provider_name = "nexus"
     try:
         from agents.nexus_inference import chat as _nexus_chat
         reply = _nexus_chat(messages, system=_NEXUS_SYSTEM).strip()
-    except Exception as e:
-        reply = f"Nexus here. {live_ctx[:300]}"
+    except Exception:
+        reply = action_reply or f"Nexus engine offline. {live_ctx[:200]}"
         provider_name = "nexus-fallback"
 
     if not reply:
-        reply = f"Nexus here. {live_ctx[:300]}"
-        provider_name = "nexus-fallback"
+        reply = action_reply or "No response from Nexus engine."
 
     return {
         "reply":    reply,
         "provider": provider_name,
         "model":    "nexus-local",
+        "action":   "dispatch" if action_reply else "chat",
         "ts":       datetime.now().isoformat(),
     }
 

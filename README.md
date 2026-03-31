@@ -1,328 +1,209 @@
-# Nexus — Local-First Autonomous Agent Runtime
+# Nexus — Autonomous Local Agent Runtime
 
-> **Dashboard (live runtime truth):** `http://localhost:3001` — starts automatically with `./nexus init`
-> **Documentation truth:** this README
+> **Live Dashboard:** `http://localhost:3001`
+> **Chat with Nexus:** Dashboard → Chat tab or `nexus chat`
 
-Nexus is a local-first autonomous coding runtime. It runs real engineering work across one repo, many repos, or distributed workspaces. It self-heals, self-improves version by version, and benchmarks itself against strong baselines. **Local agents own 90% of work. Remote rescue is capped at 10%.**
+Nexus is a fully autonomous, local-first AI agent runtime. It runs real engineering work 24/7, self-heals, self-improves version by version, and executes tasks without any external API dependencies. **You talk to Nexus. Nexus handles everything else.**
 
 ---
 
-## Quick Start (Under 2 Minutes)
+## Quick Start
 
 ```bash
-# 1. Install local model
-ollama pull qwen2.5-coder:7b
-
-# 2. Clone and start
+# 1. Clone
 git clone <this-repo>
 cd local-agent-runtime
 
-# 3. Start Nexus (auto-launches dashboard)
-./nexus init       # scan workspace, check health, open dashboard
+# 2. Start Nexus (launches dashboard + daemon)
+./nexus init
 
-# 4. Run a task
-./nexus run "Build a rate limiter with sliding window"
-
-# 5. Open dashboard
+# 3. Open dashboard
 open http://localhost:3001
+
+# 4. Chat with Nexus
+nexus chat
+# or open the Chat tab in the dashboard
 ```
 
 ---
 
-## Nexus Is the Wrapper
+## What Nexus Does
 
-Nexus is the **only public interface**. Ollama, Claude, and other backends are internal provider details.
-
-| What you see | What it hides |
+| Capability | Description |
 |---|---|
-| `nexus run "task"` | Routes to Ollama (90%) or Claude rescue (≤10%) |
-| `nexus chat` | Chat with Nexus via best local model |
-| `nexus eval` | Benchmarks local agents vs baseline |
-| `nexus dashboard` | Opens live control plane at port 3001 |
-
-**Never use Ollama or Claude commands directly in normal workflows.** All model access goes through `local-agents/providers/`.
-
----
-
-## Public Commands
-
-```
-nexus init                     scan workspace, detect stack, initialize state
-nexus doctor                   check all runtime health (Ollama, deps, config)
-nexus sync                     refresh workspace map and dashboard state
-nexus map                      show full repo / workspace map
-nexus plan "<task>"            generate a plan without executing
-nexus run "<task>"             run a task end-to-end with best available agents
-nexus test [-n N]              run N benchmark tasks local-only (default: 5)
-nexus eval [-n N]              evaluate local agents vs remote baseline
-nexus replay <trace_id>        replay a run from its stored trace
-nexus repair <failure_id>      attempt auto-repair of a recorded failure
-nexus chat                     interactive chat with Nexus
-nexus dashboard                start (or open) the live dashboard
-nexus status                   current runtime status summary
-nexus version                  show version
-```
+| **Talk** | Chat with Nexus in the dashboard — ask questions, get code, debug issues |
+| **Execute** | Say "do X" or `/do create a rate limiter` — Nexus dispatches to agent queue |
+| **Run 24/7** | Autonomous daemon processes tasks continuously, commits results, merges branches |
+| **Self-heal** | Detects stuck/failed agents, auto-restarts, retries with different strategies |
+| **Self-improve** | Learns from failures, upgrades agent prompts, tracks quality version over version |
 
 ---
 
-## Dashboard — Live Runtime Truth
+## Nexus Chat — Talk & Execute
 
-The dashboard is the **primary operating surface**, not the terminal.
+Nexus chat works like a terminal assistant — you can both **ask questions** and **dispatch tasks**.
 
-```bash
-# Auto-launched by ./nexus init and ./Local
-# Or start directly:
-python3 local-agents/dashboard/server.py --port 3001
-# Open: http://localhost:3001
+```
+# In dashboard Chat tab or terminal:
+nexus chat
+
+# Ask anything:
+> /status
+> /agents
+> /epics
+> /health
+> why is the executor agent blocked?
+> explain the persistence layer
+
+# Execute tasks:
+> /do build a Redis cache wrapper with TTL support
+> /do add rate limiting to the API
+> create a metrics aggregator for the dashboard
 ```
 
-**Dashboard panels:**
-| Panel | What it shows |
-|---|---|
-| Overview | Agent cards, benchmark race, pool meter, rescue budget |
-| Agents | All 10 agents with live status, task, sub-agents |
-| Sub-Agents | Per-agent worker thread pool (up to 1000 workers) |
-| Projects | Workspace cards with progress |
-| Tasks | Jira-style board: Backlog / Running / Done / Blocked |
-| CEO | Strategic directives, KPI metrics |
-| Chat | Talk to Nexus directly through the dashboard |
-
-**Dashboard freshness rules:**
-- Every state write flows through `local-agents/dashboard/state.json` first
-- Server pushes WebSocket updates within 800ms of any change
-- Hardware (CPU/RAM) refreshes every 5s via live psutil polling
-- Stale data is actively prevented — if dashboard and runtime disagree, fix immediately
+**Slash commands:**
+```
+/status   — live agent status, task counts, health
+/agents   — all 15 agents with current task
+/epics    — all epics with completion %
+/tasks    — next pending tasks in queue
+/health   — daemon, watchdog, disk, memory
+/do <x>  — dispatch task to agent queue (auto-executes in 10min)
+/help     — all commands
+```
 
 ---
 
 ## Architecture
 
 ```
-┌──────────────────────────────────────────────────────────────┐
-│                         nexus CLI                            │
-│   nexus run / plan / chat / eval / dashboard / doctor        │
-├──────────────────────────────────────────────────────────────┤
-│                    Provider Router                           │
-│   providers/router.py → OllamaProvider (90%) | Claude (≤10%)│
-├─────────────────────────────┬────────────────────────────────┤
-│  LOCAL INFERENCE (90%)      │  REMOTE RESCUE (≤10%)          │
-│  Ollama: qwen2.5-coder:7b   │  Claude Sonnet/Opus 4.6        │
-│  deepseek-r1:8b (optional)  │  200-token cap per rescue call │
-│  Any Ollama-compatible model│  Only when local fails 3×      │
-└─────────────────────────────┴────────────────────────────────┘
-         │                                    │
-         ▼                                    ▼
-┌──────────────────────────────────────────────────────────────┐
-│              10 Specialized Agents (Layer 3)                 │
-│  Executor · Planner · Reviewer · Debugger · Researcher       │
-│  Benchmarker · Architect · Refactor · TestEngineer · DocKeeper│
-├──────────────────────────────────────────────────────────────┤
-│              Sub-Agent Pool (up to 1000 workers)             │
-│  Hardware-aware: scales on free RAM, caps at 1000 workers    │
-├──────────────────────────────────────────────────────────────┤
-│              Orchestrator (Layer 2)                          │
-│  Supervisor · Resource Guard · Rescue Watchdog (60s)         │
-│  Auto-heal · Checkpoint Manager · Version Upgrade Loop       │
-├──────────────────────────────────────────────────────────────┤
-│              Dashboard (Live Control Plane)                  │
-│  FastAPI + WebSocket · state.json · port 3001                │
-└──────────────────────────────────────────────────────────────┘
-```
-
-### 4-Layer Model
-| Layer | Owns | Files |
-|---|---|---|
-| L1 Meta | Docs, policy, repo rules | README.md, AGENTS.md, CLAUDE.md |
-| L2 Supervisor | Pre-flight, heartbeat, stall detection, restarts | orchestrator/main.py, resource_guard.py |
-| L3 Execution | 10 specialized agents do the actual work | agents/*.py |
-| L4 Learning | Failure detection, A/B prompt tests, auto-upgrade | orchestrator/main.py auto_upgrade logic |
-
----
-
-## Folder Contract
-
-```
-nexus                           ← public CLI entry point
-local-agents/
-  agents/                       ← 10 specialized agents
-  providers/                    ← Ollama + Claude adapters (internal)
-    base.py                     ← abstract NexusProvider interface
-    ollama.py                   ← local inference adapter
-    claude.py                   ← remote rescue adapter
-    router.py                   ← routing logic (local vs rescue)
-  orchestrator/                 ← main.py, resource_guard.py
-  dashboard/                    ← server.py, index.html, state.json
-  tasks/                        ← 100-task benchmark suite
-  benchmarks/                   ← benchmark suites and results
-  registry/                     ← agents.json (versions + scores)
-  reports/                      ← runtime logs (gitignored)
-  agent_runner.py               ← core Ollama iterative loop
-  opus_runner.py                ← baseline comparison runner
-  deploy.py                     ← deploy Nexus to any project
-scripts/                        ← intentional ops scripts only
-tests/                          ← persistent test suites
-state/                          ← runtime state files
-config/                         ← runtime configuration
-```
-
-**Root contract:** Only `nexus`, `Local`, `README.md`, `AGENTS.md`, `CLAUDE.md`, `VERSION`, `.gitignore`, approved top-level dirs.
-**Agent outputs go to `~/local-agents-work/` (BOS) — never to project root.**
-**Temp artifacts go to `.nexus_tmp/` and are cleaned after use.**
-
----
-
-## Self-Heal
-
-Always on. When any failure occurs:
-1. Capture full context → `local-agents/reports/`
-2. Classify failure type (truncated_code, stub_functions, missing_assertions, etc.)
-3. Attempt auto-fix with different approach (max 3 tries)
-4. If fix works → promote to durable agent prompt improvement
-5. If fix fails → Claude rescue (if budget allows)
-6. Reflect failure + repair status in dashboard immediately
-
-**8 known failure patterns auto-fixed:**
-`truncated_code` · `placeholder_path` · `missing_assertions` · `syntax_error`
-`stub_functions` · `no_main_guard` · `hallucinated_import` · `wrong_command`
-
----
-
-## Self-Improve Loop
-
-After each version:
-```
-1. Run full benchmark suite → capture traces
-2. Score: correctness, safety, completeness, speed, rescue usage
-3. Find top 3 failure patterns
-4. Generate targeted fix for each
-5. A/B test: 5 sub-agents on old prompt vs 5 on new
-6. If new wins by ≥5pts → commit permanently to agent file
-7. Increment version, update dashboard benchmark panel
-8. Update README if behavior changed
-```
-
-No version bump without evidence. No self-improvement without replayable traces.
-
----
-
-## Benchmark Policy
-
-Real engineering work — not just algorithmic puzzles:
-- Bug fixes in unfamiliar codebases
-- Multi-file feature implementation
-- Refactors with dependency chains
-- CI pipeline repair
-- Documentation sync
-- Release prep
-- Production debugging
-- Cross-repo changes
-
-Honesty: Nexus is designed to handle the same broad classes of engineering work as frontier models, benchmark itself against stronger models on identical tasks, and improve version by version through replayable traces, repair loops and benchmark-driven upgrades.
-
----
-
-## Claude Hard Guardrails
-
-```
-Before ANY Claude rescue call — all 3 must be true:
-  1. Task failed 3+ times with different approaches
-  2. Rescue count still < 10% of total tasks
-  3. Category is rescue-eligible (not research/doc)
-
-Per call: 200-token hard cap. Agent prompt upgrade only. Never fixes tasks directly.
-Budget logged: local-agents/reports/claude_token_log.jsonl
-Rescue log:    local-agents/reports/claude_rescue_upgrades.jsonl
+┌─────────────────────────────────────────────────────────────┐
+│                    Nexus Interface                           │
+│         CLI (nexus chat/run) · Dashboard UI (port 3001)     │
+├─────────────────────────────────────────────────────────────┤
+│                   Nexus Inference Engine                     │
+│         agents/nexus_inference.py — model routing internal  │
+├────────────────────────────┬────────────────────────────────┤
+│   15 Specialized Agents    │   Orchestrator / Daemon        │
+│   executor · architect     │   unified_daemon.py (24/7)     │
+│   researcher · planner     │   quick_dispatcher.py          │
+│   debugger · reviewer      │   auto_recover.sh (cron 2min)  │
+│   doc_writer · benchmarker │   projects.json (task queue)   │
+│   + resilience agents      │   30-min branch/merge cycle    │
+├────────────────────────────┴────────────────────────────────┤
+│                   Dashboard (Live State)                     │
+│   FastAPI · WebSocket · state.json · port 3001              │
+└─────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Resource Limits
+## 24/7 Operation
 
-| Threshold | Action |
+Nexus runs continuously without human intervention:
+
+| Cycle | What happens |
 |---|---|
-| RAM < 50% | Scale to 1000 sub-agents |
-| RAM 50–70% | Scale to 500 sub-agents |
-| RAM 70–80% | Scale to 128 sub-agents |
-| RAM > 80% | Stop spawning new agents |
-| RAM > 85% | Kill lowest-priority agent |
-| CPU > 90% | Single agent at a time |
+| Every 5s | Dashboard state refreshed |
+| Every 2min | Auto-recovery: restart stuck agents |
+| Every 10min | Execute pending tasks, commit, push |
+| Every 30min | Create feature branch → execute batch → merge back |
+| Every 60min | Health check, resource monitoring |
 
----
-
-## Workspace Support
-
-Works across:
-- Single repo
-- Monorepo
-- Multiple repos
-- Mixed stacks (Python, Node.js, Go, Rust)
-- Distributed project workspaces
-
+**Start the daemon:**
 ```bash
-# Deploy Nexus to any project (5 minutes)
-python3 local-agents/deploy.py all --to /path/to/your/project
-python3 /path/to/your/project/.local-agents/runner.py "Write a Redis cache wrapper"
+python3 orchestrator/unified_daemon.py &
+# or via ./nexus init which starts everything
+```
+
+**Watchdog (cron):**
+```bash
+crontab -l  # shows: */2 * * * * bash scripts/auto_recover.sh
 ```
 
 ---
 
-## 10 Specialized Agents
+## 15 Specialized Agents
 
-| Agent | Handles | File |
-|---|---|---|
-| Nexus-Executor | code_gen, bug_fix | agents/executor.py |
-| Nexus-Planner | task decomposition | agents/planner.py |
-| Nexus-Reviewer | quality scoring | agents/reviewer.py |
-| Nexus-Debugger | error diagnosis | agents/debugger.py |
-| Nexus-Researcher | code + web search | agents/researcher.py |
-| Nexus-Benchmarker | gap analysis | agents/benchmarker.py |
-| Nexus-Architect | scaffold, arch, e2e | agents/architect.py |
-| Nexus-Refactor | code transformation | agents/refactor.py |
-| Nexus-TestEngineer | pytest generation | agents/test_engineer.py |
-| Nexus-DocKeeper | documentation | agents/doc_writer.py |
-
-Plus Nexus-Frontend, Nexus-Backend, Nexus-AIML (see `.claude/roles/`).
-
----
-
-## Key Files — Source of Truth
-
-| File | What it controls |
+| Agent | Role |
 |---|---|
-| `AGENTS.md` | Runtime operating rules, agent roster, folder contract |
-| `CLAUDE.md` | AI session rules |
-| `local-agents/agents/config.yaml` | Model, timeouts, quality threshold |
-| `local-agents/registry/agents.json` | Agent versions, capabilities, scores |
-| `local-agents/dashboard/state.json` | Live runtime state (source of truth for dashboard) |
-| `local-agents/providers/router.py` | Provider routing logic |
-| `nexus` | Public CLI entry point |
+| Executor | Code generation, bug fixes, feature implementation |
+| Architect | System design, scaffolding, blueprints |
+| Researcher | Code search, web research, analysis |
+| Planner | Task decomposition, roadmaps |
+| Debugger | Error diagnosis, root cause analysis |
+| Reviewer | Quality scoring, code review |
+| Refactor | Code transformation, optimization |
+| TestEngineer | Test generation, coverage |
+| DocWriter | Documentation, README updates |
+| Benchmarker | Quality measurement, gap analysis |
+| SubagentPool | Parallel worker threads (scales with RAM) |
+| GeoReplication | Active-active replication |
+| AutoFailover | Automatic failover (<5s) |
+| ReadReplicas | Read replica management |
+| BackupRestore | Backup and restore (<1h RTO) |
 
 ---
 
-## Branch Protection
+## Business Features Built
 
-- `main` is protected. No direct pushes. PR-only merges.
-- PRs auto-merge when CI passes and no conflicts
-- Run `bash scripts/merge_gate.sh "$PWD"` before any merge
+**99% of 434 tasks complete** across 86 epics:
 
----
-
-## Current Benchmark
-
-| Version | Nexus Score | Baseline | Win Rate | Claude Tokens |
-|---|---|---|---|---|
-| v5 | 100.0/100 | 0.0/100 | 100% | 10 total |
-
-*Scores update automatically after each benchmark run. See `local-agents/reports/` for details.*
-
----
-
-## Adding Skills / Prompt Packs
-
-Skills live in `.claude/skills/` (local, gitignored).
-To add a skill: create `nexus-<name>.md` in `.claude/skills/` following the frontmatter format.
-Roles live in `.claude/roles/`. Agent identity files (SOUL.md equivalents).
+| Epic | Status |
+|---|---|
+| System Reliability & Health | ✅ Complete |
+| Dashboard Quality & State Management | ✅ Complete |
+| Policy Enforcement & Budget Control | ✅ Complete |
+| Multi-Loop Execution & Self-Improvement | ✅ Complete |
+| Local Agent Autonomy (15 agents) | ✅ Complete |
+| Advanced Token Compression | ✅ Complete |
+| Advanced Resilience (geo-replication, failover) | ✅ Complete |
+| Nexus Chat (wide knowledge + task execution) | ✅ Complete |
+| 24/7 Daemon + Auto-Recovery | ✅ Complete |
+| Dashboard Log Monitoring | ⏳ In Progress |
 
 ---
 
-*Last updated: 2026-03-25 — README is documentation truth. Dashboard is live runtime truth.*
+## Project Structure
+
+```
+nexus                      ← CLI entry point
+agent_runner.py            ← core agent execution loop
+agent_implementations/     ← task routing and execution
+agents/                    ← 15 specialized agents
+  nexus_inference.py       ← inference engine (internal, model-agnostic)
+  ollama_guard.py          ← backward-compat shim
+orchestrator/
+  main.py                  ← orchestration loop
+  unified_daemon.py        ← 24/7 daemon with internal scheduler
+  quick_dispatcher.py      ← fast task dispatcher
+  projects_loader.py       ← task queue from projects.json
+providers/                 ← inference adapters (internal, never exposed)
+dashboard/
+  server.py                ← FastAPI + chat API
+  index.html               ← live dashboard UI
+projects.json              ← single source of truth for all tasks
+state/                     ← runtime state (gitignored)
+reports/                   ← agent output logs (gitignored)
+```
+
+---
+
+## Branch Policy
+
+- `main` protected — PR-only merges
+- Feature branches: `feature/<name>`
+- Auto branches: `auto/nexus-<timestamp>` (created every 30min by daemon)
+- All auto branches merge back after task execution
+
+---
+
+## ETA
+
+- **428/434 tasks complete (99%)**
+- 6 remaining tasks executing autonomously
+- Full completion: ~30 minutes at current rate
+
+---
+
+*Last updated: 2026-03-30 — Dashboard is live runtime truth. README is documentation truth.*
