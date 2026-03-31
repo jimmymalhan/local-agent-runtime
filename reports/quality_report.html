@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quality Dashboard — Agent Runtime</title>
+<style>
+  :root { --bg: #0f172a; --card: #1e293b; --border: #334155; --text: #e2e8f0;
+           --accent: #38bdf8; --green: #22c55e; --yellow: #eab308; --red: #ef4444; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); padding: 24px; }
+  h1 { color: var(--accent); margin-bottom: 8px; font-size: 28px; }
+  h2 { color: var(--accent); margin: 24px 0 12px; font-size: 20px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+  .subtitle { color: #94a3b8; font-size: 14px; margin-bottom: 24px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .stat-card .label { color: #94a3b8; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+  .stat-card .value { font-size: 32px; font-weight: 700; margin-top: 4px; }
+  table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 12px; overflow: hidden; margin-bottom: 16px; }
+  th { background: #0f172a; padding: 10px 14px; text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; }
+  td { padding: 10px 14px; border-top: 1px solid var(--border); }
+  .bar-bg { background: #334155; border-radius: 4px; height: 12px; width: 100%; min-width: 120px; }
+  .bar { height: 12px; border-radius: 4px; transition: width 0.3s; }
+  .alert-critical td { background: rgba(239,68,68,0.1); }
+  .alert-warning td { background: rgba(234,179,8,0.1); }
+  canvas { background: var(--card); border-radius: 12px; padding: 16px; border: 1px solid var(--border); max-width: 100%; }
+  .chart-container { margin-bottom: 24px; }
+</style>
+</head>
+<body>
+
+<h1>Quality Dashboard</h1>
+<p class="subtitle">Generated 2026-03-27T13:58:01 &mdash; 26 evaluations, 390 executions</p>
+
+<!-- KPI Cards -->
+<div class="grid">
+  <div class="stat-card">
+    <div class="label">Overall Avg Score</div>
+    <div class="value" style="color:#22c55e">92.75</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Local Win Rate</div>
+    <div class="value" style="color:#ef4444">29.6%</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">p95 Latency</div>
+    <div class="value">5.8s</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Active Alerts</div>
+    <div class="value" style="color:var(--red)">4</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Total Evaluations</div>
+    <div class="value">26</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Avg Gap vs Opus</div>
+    <div class="value" style="color:var(--red)">+42.2</div>
+  </div>
+</div>
+
+<!-- Agent Performance -->
+<h2>Agent Performance</h2>
+<table>
+  <thead><tr><th>Agent</th><th>Success Rate</th><th>Rate</th><th>Tasks</th><th>Avg Score</th><th>Tokens</th></tr></thead>
+  <tbody>
+        <tr>
+          <td>architect</td>
+          <td><div class="bar-bg"><div class="bar" style="width:100.0%;background:#22c55e"></div></div></td>
+          <td>100.0%</td>
+          <td>294/294</td>
+          <td style="color:#ef4444">0.0</td>
+          <td>420,452</td>
+        </tr>
+        <tr>
+          <td>debugger</td>
+          <td><div class="bar-bg"><div class="bar" style="width:100.0%;background:#22c55e"></div></div></td>
+          <td>100.0%</td>
+          <td>10/10</td>
+          <td style="color:#22c55e">94.8</td>
+          <td>4,738</td>
+        </tr>
+        <tr>
+          <td>executor</td>
+          <td><div class="bar-bg"><div class="bar" style="width:2.0%;background:#ef4444"></div></div></td>
+          <td>2.0%</td>
+          <td>18/736</td>
+          <td style="color:#eab308">89.5</td>
+          <td>5,119</td>
+        </tr>
+        <tr>
+          <td>planner</td>
+          <td><div class="bar-bg"><div class="bar" style="width:50.0%;background:#ef4444"></div></div></td>
+          <td>50.0%</td>
+          <td>5/10</td>
+          <td style="color:#22c55e">93.7</td>
+          <td>1,000</td>
+        </tr>
+        <tr>
+          <td>refactor</td>
+          <td><div class="bar-bg"><div class="bar" style="width:100.0%;background:#22c55e"></div></div></td>
+          <td>100.0%</td>
+          <td>40/40</td>
+          <td style="color:#ef4444">0.0</td>
+          <td>50,042</td>
+        </tr>
+        <tr>
+          <td>researcher</td>
+          <td><div class="bar-bg"><div class="bar" style="width:60.0%;background:#ef4444"></div></div></td>
+          <td>60.0%</td>
+          <td>9/15</td>
+          <td style="color:#22c55e">93.8</td>
+          <td>1,000</td>
+        </tr>
+        <tr>
+          <td>test_engineer</td>
+          <td><div class="bar-bg"><div class="bar" style="width:100.0%;background:#22c55e"></div></div></td>
+          <td>100.0%</td>
+          <td>15/15</td>
+          <td style="color:#ef4444">0.0</td>
+          <td>13,534</td>
+        </tr></tbody>
+</table>
+
+<!-- Category Scores -->
+<h2>Scores by Category</h2>
+<table>
+  <thead><tr><th>Category</th><th>Score Distribution</th><th>Average</th></tr></thead>
+  <tbody>
+        <tr>
+          <td>code_gen</td>
+          <td><div class="bar-bg"><div class="bar" style="width:89.5%;background:#eab308"></div></div></td>
+          <td style="color:#eab308">89.5</td>
+        </tr>
+        <tr>
+          <td>debugging</td>
+          <td><div class="bar-bg"><div class="bar" style="width:94.8%;background:#22c55e"></div></div></td>
+          <td style="color:#22c55e">94.8</td>
+        </tr>
+        <tr>
+          <td>planning</td>
+          <td><div class="bar-bg"><div class="bar" style="width:93.7%;background:#22c55e"></div></div></td>
+          <td style="color:#22c55e">93.7</td>
+        </tr>
+        <tr>
+          <td>research</td>
+          <td><div class="bar-bg"><div class="bar" style="width:93.8%;background:#22c55e"></div></div></td>
+          <td style="color:#22c55e">93.8</td>
+        </tr>
+        <tr>
+          <td>review</td>
+          <td><div class="bar-bg"><div class="bar" style="width:93.0%;background:#22c55e"></div></div></td>
+          <td style="color:#22c55e">93.0</td>
+        </tr></tbody>
+</table>
+
+<!-- Latency -->
+<h2>Latency Profile</h2>
+<div class="grid">
+  <div class="stat-card"><div class="label">p50</div><div class="value">4.3s</div></div>
+  <div class="stat-card"><div class="label">p95</div><div class="value">5.8s</div></div>
+  <div class="stat-card"><div class="label">p99</div><div class="value">5.8s</div></div>
+  <div class="stat-card"><div class="label">Mean</div><div class="value">4.37s</div></div>
+</div>
+
+<!-- Quality Over Time Chart -->
+<h2>Quality Over Time</h2>
+<div class="chart-container">
+  <canvas id="qualityChart" height="100"></canvas>
+</div>
+
+<!-- Agent Radar -->
+<h2>Agent Score Comparison</h2>
+<div class="chart-container">
+  <canvas id="agentChart" height="80"></canvas>
+</div>
+
+<!-- Local vs Opus -->
+<h2>Local vs Opus 4.6</h2>
+<div class="grid">
+  <div class="stat-card"><div class="label">Total Comparisons</div><div class="value">426</div></div>
+  <div class="stat-card"><div class="label">Local Wins</div><div class="value" style="color:var(--green)">126</div></div>
+  <div class="stat-card"><div class="label">Win Rate</div><div class="value" style="color:#ef4444">29.6%</div></div>
+</div>
+<table>
+  <thead><tr><th>Category</th><th>Local Avg</th><th>Opus Avg</th><th>Win Rate</th><th>Count</th></tr></thead>
+  <tbody>
+        <tr>
+          <td>agent-setup</td>
+          <td>0.0</td>
+          <td>68.9</td>
+          <td style="color:#ef4444">0.0%</td>
+          <td>14</td>
+        </tr>
+        <tr>
+          <td>arch</td>
+          <td>100.0</td>
+          <td>70.0</td>
+          <td style="color:#22c55e">100.0%</td>
+          <td>10</td>
+        </tr>
+        <tr>
+          <td>code_gen</td>
+          <td>0.0</td>
+          <td>70.0</td>
+          <td style="color:#ef4444">0.0%</td>
+          <td>20</td>
+        </tr>
+        <tr>
+          <td>dashboard</td>
+          <td>0.0</td>
+          <td>70.0</td>
+          <td style="color:#ef4444">0.0%</td>
+          <td>7</td>
+        </tr>
+        <tr>
+          <td>debug</td>
+          <td>97.0</td>
+          <td>70.0</td>
+          <td style="color:#22c55e">100.0%</td>
+          <td>10</td>
+        </tr>
+        <tr>
+          <td>project</td>
+          <td>0.0</td>
+          <td>69.2</td>
+          <td style="color:#ef4444">0.8%</td>
+          <td>256</td>
+        </tr>
+        <tr>
+          <td>refactor</td>
+          <td>83.9</td>
+          <td>70.0</td>
+          <td style="color:#22c55e">97.5%</td>
+          <td>40</td>
+        </tr>
+        <tr>
+          <td>research</td>
+          <td>100.0</td>
+          <td>70.0</td>
+          <td style="color:#22c55e">100.0%</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>scaffold</td>
+          <td>99.4</td>
+          <td>70.0</td>
+          <td style="color:#22c55e">100.0%</td>
+          <td>49</td>
+        </tr>
+        <tr>
+          <td>tdd</td>
+          <td>62.0</td>
+          <td>70.0</td>
+          <td style="color:#eab308">73.3%</td>
+          <td>15</td>
+        </tr></tbody>
+</table>
+
+<!-- Alerts -->
+<h2>Alerts</h2>
+<table><thead><tr><th>Severity</th><th>Agent</th><th>Metric</th><th>Current</th><th>Baseline</th><th>Delta</th></tr></thead><tbody>
+        <tr class="alert-critical">
+          <td>CRITICAL</td>
+          <td>all</td>
+          <td>avg_score</td>
+          <td>60.0</td>
+          <td>80.0</td>
+          <td>-25.0%</td>
+        </tr>
+        <tr class="alert-critical">
+          <td>CRITICAL</td>
+          <td>executor</td>
+          <td>agent_score</td>
+          <td>55.0</td>
+          <td>80.0</td>
+          <td>-31.2%</td>
+        </tr>
+        <tr class="alert-critical">
+          <td>CRITICAL</td>
+          <td>planner</td>
+          <td>agent_score</td>
+          <td>65.0</td>
+          <td>80.0</td>
+          <td>-18.8%</td>
+        </tr>
+        <tr class="alert-critical">
+          <td>CRITICAL</td>
+          <td>all</td>
+          <td>p95_latency</td>
+          <td>7.0</td>
+          <td>3.0</td>
+          <td>+133.3%</td>
+        </tr></tbody></table>
+
+<!-- Charts (Chart.js CDN) -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<script>
+const qLabels = ["12:00", "13:00", "17:00", "19:00", "21:00", "22:00", "23:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "10:00", "11:00"];
+const qAvg = [76.7, 91.5, 99.0, 99.1, 98.3, 89.6, 100.0, 99.3, 100.0, 99.7, 100.0, 99.7, 100.0, 99.7, 99.0, 100.0, 100.0];
+const qMin = [75.0, 55.0, 90.0, 90.0, 90.0, 30.0, 100.0, 90.0, 100.0, 90.0, 100.0, 90.0, 100.0, 90.0, 90.0, 100.0, 100.0];
+const qMax = [85.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0];
+
+if (qLabels.length > 0) {
+  new Chart(document.getElementById('qualityChart'), {
+    type: 'line',
+    data: {
+      labels: qLabels,
+      datasets: [
+        { label: 'Avg Quality', data: qAvg, borderColor: '#38bdf8', backgroundColor: 'rgba(56,189,248,0.1)', fill: true, tension: 0.3 },
+        { label: 'Min', data: qMin, borderColor: '#ef4444', borderDash: [4,4], pointRadius: 0, tension: 0.3 },
+        { label: 'Max', data: qMax, borderColor: '#22c55e', borderDash: [4,4], pointRadius: 0, tension: 0.3 },
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { labels: { color: '#e2e8f0' } } },
+      scales: {
+        x: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' } },
+        y: { min: 0, max: 100, ticks: { color: '#94a3b8' }, grid: { color: '#334155' } }
+      }
+    }
+  });
+}
+
+const aLabels = ["debugger", "executor", "planner", "researcher", "reviewer"];
+const aValues = [94.8, 89.5, 93.7, 93.8, 93.0];
+
+if (aLabels.length > 0) {
+  new Chart(document.getElementById('agentChart'), {
+    type: 'bar',
+    data: {
+      labels: aLabels,
+      datasets: [{ label: 'Avg Score', data: aValues, backgroundColor: aValues.map(v => v >= 90 ? '#22c55e' : v >= 70 ? '#eab308' : '#ef4444'), borderRadius: 6 }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { labels: { color: '#e2e8f0' } } },
+      scales: {
+        x: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' } },
+        y: { min: 0, max: 100, ticks: { color: '#94a3b8' }, grid: { color: '#334155' } }
+      }
+    }
+  });
+}
+</script>
+
+</body>
+</html>

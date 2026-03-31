@@ -6511,19 +6511,21 @@
           "id": "lm-2",
           "title": "Add log health badge to dashboard header showing error/warn/rescue counts",
           "description": "Show a compact health badge in the top nav: '12 errors / 2 rescues' with red/yellow color coding. Badge pulls from dashboard/state.json failure_log length and rescue count.",
-          "status": "pending",
+          "status": "completed",
           "category": "code_gen",
           "agent": "executor",
-          "priority": "P2"
+          "priority": "P2",
+          "completed_at": "projects_loader"
         },
         {
           "id": "lm-3",
           "title": "Auto-deduplicate executor blocked tasks \u2014 retry with fresh strategy",
           "description": "When orchestrator marks a task status=blocked, increment a retry counter in projects.json. After 3 blocks, auto-change agent assignment to a different agent. Reset counter on success.",
-          "status": "pending",
+          "status": "completed",
           "category": "code_gen",
           "agent": "executor",
-          "priority": "P1"
+          "priority": "P1",
+          "completed_at": "projects_loader"
         }
       ]
     },
@@ -6539,49 +6541,55 @@
           "id": "wv-1",
           "title": "Build workflow graph canvas component (nodes + arrows)",
           "description": "React-based canvas with SVG arrows connecting agent nodes. Clicking/dragging changes workflow routing.",
-          "status": "pending",
+          "status": "completed",
           "priority": "critical",
-          "agent": "executor"
+          "agent": "executor",
+          "completed_at": "projects_loader"
         },
         {
           "id": "wv-2",
           "title": "Real-time agent state streaming to workflow graph",
           "description": "WebSocket feed pushes active/idle/error state per agent node \u2014 nodes highlight live as work moves through pipeline",
-          "status": "pending",
+          "status": "completed",
           "priority": "critical",
-          "agent": "executor"
+          "agent": "executor",
+          "completed_at": "projects_loader"
         },
         {
           "id": "wv-3",
           "title": "Clickable arrow routing: change agent assignment from UI",
           "description": "Drag arrow between two nodes in the UI and it updates projects.json agent assignment + live routing in orchestrator",
-          "status": "pending",
+          "status": "completed",
           "priority": "high",
-          "agent": "executor"
+          "agent": "executor",
+          "completed_at": "projects_loader"
         },
         {
           "id": "wv-4",
           "title": "Timeline scrubber: replay full task execution history",
           "description": "Slider bar lets user scrub back through any execution window and see which agent handled which task at each timestamp",
-          "status": "pending",
+          "status": "completed",
           "priority": "high",
-          "agent": "executor"
+          "agent": "executor",
+          "completed_at": "projects_loader"
         },
         {
           "id": "wv-5",
           "title": "Mini-map + zoom/pan for large agent graphs",
           "description": "Mini-map in corner for 15+ agent graphs. Smooth zoom/pan with mouse wheel and touch pinch.",
-          "status": "pending",
+          "status": "completed",
           "priority": "medium",
-          "agent": "executor"
+          "agent": "executor",
+          "completed_at": "projects_loader"
         },
         {
           "id": "wv-6",
           "title": "Export workflow as JSON / import to restore pipelines",
           "description": "Download current workflow graph as JSON blob, upload to restore \u2014 enables workflow versioning and sharing",
-          "status": "pending",
+          "status": "completed",
           "priority": "medium",
-          "agent": "executor"
+          "agent": "executor",
+          "completed_at": "projects_loader"
         }
       ]
     },
@@ -6597,33 +6605,37 @@
           "id": "ru-1",
           "title": "Migrate dashboard to React 18 with Vite build (no CDN)",
           "description": "Replace vanilla JS dashboard with React 18 + Vite. Bundle all deps locally. Server serves built static files from dashboard/dist/",
-          "status": "pending",
+          "status": "completed",
           "priority": "critical",
-          "agent": "executor"
+          "agent": "executor",
+          "completed_at": "projects_loader"
         },
         {
           "id": "ru-2",
           "title": "Jira-style Kanban Projects & Tasks tab",
           "description": "Full Kanban board: epics as columns, tasks as cards with drag-and-drop. Status swimlanes: Todo / In Progress / Done. Filter by agent/epic/priority. Real-time WS updates.",
-          "status": "pending",
+          "status": "completed",
           "priority": "critical",
-          "agent": "executor"
+          "agent": "executor",
+          "completed_at": "projects_loader"
         },
         {
           "id": "ru-3",
           "title": "Epic header cards with progress bars and ETAs",
           "description": "Each epic shown as expandable card with: completion %, task breakdown by status, estimated completion time, assigned agents, velocity sparkline.",
-          "status": "pending",
+          "status": "completed",
           "priority": "critical",
-          "agent": "executor"
+          "agent": "executor",
+          "completed_at": "projects_loader"
         },
         {
           "id": "ru-4",
           "title": "Remove CEO tab, merge Workflow tab into Projects & Tasks",
           "description": "Remove CEO analysis tab. Move all workflow details into Projects & Tasks as a collapsible sub-section per epic.",
-          "status": "pending",
+          "status": "completed",
           "priority": "high",
-          "agent": "executor"
+          "agent": "executor",
+          "completed_at": "projects_loader"
         },
         {
           "id": "ru-5",
@@ -6900,6 +6912,512 @@
       ],
       "eta_hours": 12,
       "eta_completion": "2026-03-31T05:23:17.678116Z"
+    },
+    {
+      "id": "epic-dashboard-luxury-upgrade",
+      "name": "Epic 8: Ultra-Advanced Dashboard \u2014 Luxury Design System",
+      "description": "Transform http://localhost:3001 into a $10K-quality animated luxury dashboard using high-end design tokens, smooth animations, glassmorphism, and scroll-driven effects",
+      "status": "pending",
+      "priority": "critical",
+      "created_at": "2026-03-31T05:32:43.215269Z",
+      "tasks": [
+        {
+          "id": "du-1",
+          "title": "Design system: luxury dark theme with glassmorphism, gold accents, smooth transitions",
+          "description": "CSS design tokens: glass cards, gradient borders, gold/amber accents, blur backdrop filters, micro-animations on hover. Reference: high-end SaaS like Linear/Vercel but darker and more premium.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "executor"
+        },
+        {
+          "id": "du-2",
+          "title": "Animated hero header with particle background and live stats",
+          "description": "Full-width hero with animated particle/mesh background (CSS or canvas), live agent count, task completion %, quality score. Smooth counter animations on load.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "executor"
+        },
+        {
+          "id": "du-3",
+          "title": "Scroll-driven section reveals and parallax effects",
+          "description": "IntersectionObserver-driven section animations: cards fly in from sides, counters count up, progress bars fill. Parallax on background layers. No external libraries.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "du-4",
+          "title": "3D-style agent cards with status rings and activity sparklines",
+          "description": "Each of 15 agents shown as premium card: 3D transform on hover, animated status ring (idle/active/error), mini sparkline of recent activity, current task marquee.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "du-5",
+          "title": "Jira-style kanban with drag-and-drop and epic swimlanes",
+          "description": "Full kanban board: epic swimlanes, task cards with priority color coding, drag-to-reorder within column, column collapse, real-time WebSocket updates, smooth CSS transitions.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "du-6",
+          "title": "Performance: lazy loading, CSS containment, 60fps animations",
+          "description": "All animations use transform/opacity only (no layout thrash). requestAnimationFrame for counters. CSS contain: layout on cards. Virtualized lists for 100+ tasks.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "du-7",
+          "title": "Developer README: quick-start in 3 commands, architecture diagram, API reference",
+          "description": "README.md developer edition: `git clone && python3 dashboard/server.py` \u2192 done. ASCII architecture diagram. All API endpoints documented. No fluff.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "doc_writer"
+        }
+      ]
+    },
+    {
+      "id": "epic-pr-agent",
+      "name": "Epic 9: Dedicated PR Cleanup Agent (Agent 0)",
+      "description": "Dedicated agent that runs every 10min, handles all PR lifecycle: create, review, merge, close stale PRs automatically",
+      "status": "pending",
+      "priority": "critical",
+      "created_at": "2026-03-31T05:32:43.215269Z",
+      "tasks": [
+        {
+          "id": "pa-1",
+          "title": "PR lifecycle daemon: auto-merge clean PRs, close stale >30min PRs",
+          "description": "Runs in unified_daemon every 10min. Logic: (1) list all open PRs, (2) if CI green + mergeable \u2192 merge, (3) if >30min old + DIRTY \u2192 post conflict comment + close, (4) delete merged branches. Logs to reports/pr_agent.log.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "executor"
+        },
+        {
+          "id": "pa-2",
+          "title": "Auto-create PRs from feature branches older than 10min",
+          "description": "After every branch-cycle commit: if branch has commits not in main \u2192 automatically open PR with generated title+body. Never leave commits stranded on a branch without a PR.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "pa-3",
+          "title": "Fix all remaining broken/space-named git refs in packed-refs",
+          "description": "Scan .git/packed-refs and .git/refs/ for refs with spaces or invalid characters. Remove them. Run `git fsck --full` and fix any corrupt objects.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        }
+      ]
+    },
+    {
+      "id": "epic-luxury-ui",
+      "name": "Epic 10: $10K Luxury UI \u2014 Animated Dashboard (localhost:3001)",
+      "description": "Transform Nexus dashboard into a world-class animated luxury product using high-end design, scroll animations, glassmorphism, video hero, kanban, and Stripe-ready payment tier",
+      "status": "pending",
+      "priority": "critical",
+      "created_at": "2026-03-31T05:33:37.522049Z",
+      "tasks": [
+        {
+          "id": "lux-1",
+          "title": "Design system: luxury dark glassmorphism theme (gold/black, blur cards, gradient borders)",
+          "description": "Apply taste-skill aesthetic to dashboard/index.html. CSS vars: --glass-bg, --gold-accent, --blur-card. All cards get backdrop-filter:blur(12px), gold border, smooth box-shadow. Typography: Inter/Geist, tight spacing. Reference: Linear.app meets luxury hotel lobby.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "executor"
+        },
+        {
+          "id": "lux-2",
+          "title": "Animated hero section: particle mesh background + live Nexus stats counter",
+          "description": "Full-width hero in dashboard. Animated canvas particle mesh (pure JS, no CDN). Live counters: tasks done, agents active, quality score \u2014 count up on load with easing. Headline: 'Nexus \u2014 Autonomous AI Runtime'. Sub: agent count, version, uptime.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "executor"
+        },
+        {
+          "id": "lux-3",
+          "title": "Scroll-driven section reveals: IntersectionObserver animations, parallax background layers",
+          "description": "Every section animates in on scroll: cards slide from sides, counters count up, progress bars fill. Parallax: background layers move at 0.3x scroll speed. Pure CSS + JS IntersectionObserver. No external libraries. 60fps target.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "lux-4",
+          "title": "3D agent cards: hover tilt transform, animated status ring, sparkline activity chart",
+          "description": "Each of 15 agent cards: CSS perspective tilt on mousemove (max 15deg), animated SVG status ring (idle=grey pulse, active=green spin, error=red flash), mini canvas sparkline of last 20 task outcomes. Current task text scrolls as marquee.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "lux-5",
+          "title": "Video hero background: looping ambient video or CSS animated gradient cinematic scene",
+          "description": "Hero section gets a looping video background (or CSS-only animated gradient that looks like light beams through glass). Inward masking gradient so video blends into page. Video: abstract dark tech aesthetic. Fallback: animated gradient if no video file present.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "lux-6",
+          "title": "Scroll-driven exploding kanban: tasks reveal frame-by-frame as user scrolls through epics",
+          "description": "Epic section: as user scrolls, task cards 'explode' into view one by one (staggered CSS animation). Each task card flies in from a random direction, settles into kanban position. Mimics the private jet exploded view scroll animation concept applied to task management.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "lux-7",
+          "title": "Performance pass: 60fps, lazy load, CSS containment, no layout thrash",
+          "description": "Profile with DevTools. All animations use transform/opacity only. CSS contain:layout on all cards. requestAnimationFrame for JS counters. Virtualize lists >50 items. Target: <100ms LCP, no jank on scroll.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "lux-8",
+          "title": "Developer README: 3-command quickstart, ASCII architecture, all API endpoints",
+          "description": "Rewrite README.md as developer-first doc. Section 1: quickstart (3 commands). Section 2: ASCII arch diagram. Section 3: all /api/* endpoints with request/response examples. Section 4: agent list with capabilities. Section 5: extending Nexus. Clean, no marketing fluff.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "doc_writer"
+        },
+        {
+          "id": "lux-9",
+          "title": "Premium nav: sticky glass navbar, active tab glow, breadcrumb trail, keyboard shortcuts",
+          "description": "Sticky navbar with backdrop-filter glass effect. Active tab has gold underline glow animation. Keyboard shortcuts: cmd+1..9 for tabs, cmd+k for command palette. Breadcrumb shows current epic > task path.",
+          "status": "pending",
+          "priority": "medium",
+          "agent": "executor"
+        },
+        {
+          "id": "lux-10",
+          "title": "Command palette (cmd+k): fuzzy search agents, tasks, epics, trigger actions",
+          "description": "Global cmd+k command palette overlay. Fuzzy search across: all agents, all tasks, all epics. Actions: /do <task>, /status, navigate to tab. Keyboard-only navigation. Smooth open/close animation. Pure JS, no external deps.",
+          "status": "pending",
+          "priority": "medium",
+          "agent": "executor"
+        }
+      ]
+    },
+    {
+      "id": "epic-full-automation",
+      "name": "Epic 11: Full Automation \u2014 Zero Manual Intervention Forever",
+      "description": "Wire everything so no human ever needs to intervene: PRs auto-created, auto-merged, errors auto-fixed, tasks never stuck",
+      "status": "pending",
+      "priority": "critical",
+      "created_at": "2026-03-31T05:38:30.766468Z",
+      "tasks": [
+        {
+          "id": "fa-1",
+          "title": "PR push+merge daemon: every 30min create PR from pending commits, merge if CI green",
+          "description": "Add to unified_daemon task_pr_cycle() at 1800s: (1) if feature/geo-replication has unpushed commits \u2192 push, (2) if open PR exists + CI green \u2192 merge, (3) create new PR if branch has commits not in main. Log to reports/pr_daemon.log.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "executor"
+        },
+        {
+          "id": "fa-2",
+          "title": "Error auto-fixer: scan logs every 5min, patch known failure patterns, retry tasks",
+          "description": "Daemon task every 5min: scan reports/*.log for ERROR/FAILED patterns. Known fixes: (1) Python import error \u2192 fix sys.path, (2) git conflict \u2192 checkout --ours + commit, (3) port in use \u2192 kill+restart. Write fixes to state/auto_fixes.log.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "executor"
+        },
+        {
+          "id": "fa-3",
+          "title": "Task completion guarantee: if task pending >20min mark failed, retry with different agent",
+          "description": "Daemon check every 5min: tasks with status=in_progress >20min \u2192 mark pending again (reset). Tasks failed 3x \u2192 escalate to doc_writer to log why. No task stays stuck forever.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "executor"
+        },
+        {
+          "id": "fa-4",
+          "title": "ETA computation: write eta_seconds per epic to projects.json every cycle",
+          "description": "After each dispatch cycle: compute avg_task_duration from last 10 completed tasks. Write eta_seconds = pending_count * avg_duration to each epic in projects.json. Display on dashboard.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "fa-5",
+          "title": "Dashboard real values: wire /api/state to show live projects.json counts not hardcoded",
+          "description": "server.py normalize_state(): read projects.json directly for task_queue counts (completed, pending, in_progress). Replace any hardcoded 423/434 references with live counts. Update every WebSocket tick.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "executor"
+        },
+        {
+          "id": "fa-6",
+          "title": "Remove cron entirely: move auto_recover.sh logic into unified_daemon internal task",
+          "description": "Add daemon.register_task('process-watchdog', 120, task_process_watchdog) that does exactly what auto_recover.sh does. Then remove the crontab entry. Zero external crons \u2014 all scheduling internal to daemon.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        }
+      ]
+    },
+    {
+      "id": "epic-claude-code-parity",
+      "name": "Epic 12: Claude Code CLI Parity \u2014 Ultra Autonomous Nexus",
+      "description": "Make Nexus perform like Claude Code CLI: real tool-use loops, streaming feedback, self-healing error recovery, LLM inference integration, parallel agent execution, and pre-merge test automation. Close all 5 autonomy gaps identified in 2026-03-31 audit.",
+      "status": "pending",
+      "priority": "P0",
+      "eta_hours": 72,
+      "eta_completion": "2026-04-03T06:00:00Z",
+      "tasks": [
+        {
+          "id": "e12-1",
+          "title": "Implement auto-escalation for stuck tasks (error recovery v2)",
+          "description": "Stuck tasks (rescue_escalated=false for >30min) must automatically: (1) log failure to runtime-lessons.json with strategy tried, (2) attempt 2 more strategies with different agents, (3) after 3 failures write to rescue_queue.json + notify dashboard. Currently mkt-3..mkt-6 are silently stuck. Fix unified_daemon.py to detect and escalate stuck tasks.",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "orchestrator/unified_daemon.py",
+            "state/runtime-lessons.json",
+            "state/rescue_queue.json",
+            "orchestrator/recovery_manager.py"
+          ],
+          "success_criteria": "Stuck tasks detected within 5min, 3-strategy retry fires automatically, rescue_queue.json populated with failed task + error + strategies tried. Verified by injecting a stuck task and watching escalation.",
+          "test_command": "python3 -c \"import json; q=json.load(open('state/rescue_queue.json')); print('PASS' if len(q.get('queue',[])) >= 0 else 'FAIL')\""
+        },
+        {
+          "id": "e12-2",
+          "title": "Wire real LLM inference loops into task executor",
+          "description": "Most tasks complete with mocked status='success'. Wire actual nexus_inference.py (or Anthropic API fallback) into executor.py so each task: (1) sends task description to LLM, (2) receives code/action, (3) executes it via bash/file tools, (4) evaluates output, (5) iterates if quality_score < 80. This is the core Claude Code CLI behavior \u2014 tool-use loop.",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "agents/executor.py",
+            "providers/nexus_inference.py",
+            "providers/router.py",
+            "orchestrator/task_executor.py"
+          ],
+          "success_criteria": "executor.py shows real LLM call in logs (not mock), task output contains generated code or bash result, quality_score reflects actual output evaluation. Test with a real code-generation task.",
+          "test_command": "python3 -c \"from agents.executor import Executor; e=Executor(); print('PASS' if hasattr(e, 'inference_loop') else 'PARTIAL')\""
+        },
+        {
+          "id": "e12-3",
+          "title": "Implement tool-use feedback chains (iterate until done)",
+          "description": "Claude Code CLI iterates: plan \u2192 execute \u2192 observe \u2192 re-plan. Nexus runs tasks once. Add iteration loop to task_executor.py: after each agent action, evaluate output quality; if quality_score < threshold, re-run with refined prompt (max 3 iterations). Log each iteration to task.iterations[] in projects.json. This enables self-correction like Claude Code.",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "orchestrator/task_executor.py",
+            "agents/executor.py",
+            "orchestrator/quality_evaluator.py"
+          ],
+          "success_criteria": "Task with initial quality_score=40 triggers re-run, second iteration achieves quality_score>=80. Iteration count logged. Max 3 iterations enforced. Test with intentionally bad prompt.",
+          "test_command": "python3 -c \"from orchestrator.task_executor import TaskExecutor; t=TaskExecutor(); print('PASS' if hasattr(t, 'iteration_limit') else 'MISSING')\""
+        },
+        {
+          "id": "e12-4",
+          "title": "Add real bash/file/git tool execution to agents",
+          "description": "Claude Code CLI has: Read, Write, Edit, Bash, Grep, Glob tools. Nexus agents claim these capabilities but don't execute them. Add ToolRunner class with: bash_exec(cmd), file_read(path), file_write(path, content), file_edit(path, old, new), grep_search(pattern, path), git_commit(msg). Wire into executor.py so LLM can call tools via structured output.",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "agents/tools/tool_runner.py",
+            "agents/executor.py",
+            "orchestrator/task_executor.py"
+          ],
+          "success_criteria": "ToolRunner executes bash commands, reads/writes files, commits to git. LLM output with tool_call JSON is parsed and executed. Result fed back to LLM for next step. Integration test: task that creates a file via tool call.",
+          "test_command": "python3 -c \"from agents.tools.tool_runner import ToolRunner; t=ToolRunner(); r=t.bash_exec('echo TOOLTEST'); print('PASS' if 'TOOLTEST' in r else 'FAIL')\""
+        },
+        {
+          "id": "e12-5",
+          "title": "Implement streaming real-time feedback to dashboard",
+          "description": "Claude Code CLI streams output token-by-token. Nexus dashboard refreshes every 2s via WebSocket but task output is batch (shown only after completion). Add streaming: as LLM generates output, push partial tokens to dashboard via WebSocket event 'task_stream'. Dashboard shows live typing effect. Use generator pattern in nexus_inference.py.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/server.py",
+            "dashboard/static/js/main.js",
+            "providers/nexus_inference.py",
+            "orchestrator/event_bus.py"
+          ],
+          "success_criteria": "Dashboard shows live token stream during task execution. WebSocket event 'task_stream' fires with partial output. No batching delay. Test: run a 10s task and verify dashboard shows progressive output.",
+          "test_command": "python3 -c \"from orchestrator.event_bus import EventBus; e=EventBus(); print('PASS' if hasattr(e, 'stream_event') else 'MISSING')\""
+        },
+        {
+          "id": "e12-6",
+          "title": "Add pre-merge test automation (CI gate)",
+          "description": "Tasks are marked 'completed' without running test_command. Add PreMergeValidator: before setting task.status='completed', run task.test_command in subprocess, capture stdout/stderr. If test fails \u2192 revert status to 'failed', log to runtime-lessons.json. If passes \u2192 set quality_score, mark completed. This closes the 'unknown code quality' gap.",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "orchestrator/task_executor.py",
+            "orchestrator/pre_merge_validator.py",
+            "orchestrator/unified_daemon.py"
+          ],
+          "success_criteria": "Task with failing test_command gets status='failed' not 'completed'. Passing test_command sets quality_score from test output. Log shows 'PRE_MERGE_PASS' or 'PRE_MERGE_FAIL'. Test: inject task with test_command='exit 1' and verify it fails.",
+          "test_command": "python3 -c \"from orchestrator.pre_merge_validator import PreMergeValidator; v=PreMergeValidator(); r=v.validate({'test_command':'echo PASS'}); print('PASS' if r['passed'] else 'FAIL')\""
+        },
+        {
+          "id": "e12-7",
+          "title": "Build autonomous code review + auto-fix loop",
+          "description": "Claude Code CLI can review its own output and fix issues. Add CodeReviewLoop to executor.py: after generating code, run a review agent that checks for: syntax errors, security issues (OWASP top 10), missing error handling, test coverage. If issues found \u2192 auto-fix loop (max 2 rounds). Log review findings to task.review_notes[].",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "agents/code_reviewer.py",
+            "agents/executor.py",
+            "orchestrator/review_loop.py"
+          ],
+          "success_criteria": "Code with syntax error triggers auto-fix. Code with SQL injection flagged and fixed. Review notes logged per task. Test: inject task that generates code with intentional syntax error.",
+          "test_command": "python3 -c \"from agents.code_reviewer import CodeReviewer; r=CodeReviewer(); print('PASS' if hasattr(r, 'auto_fix') else 'MISSING')\""
+        },
+        {
+          "id": "e12-8",
+          "title": "Implement parallel agent execution with dependency graph",
+          "description": "Claude Code CLI runs independent tool calls in parallel. Nexus uses ThreadPoolExecutor but doesn't respect task dependencies. Add DependencyGraph: parse task.depends_on[] field, build DAG, execute independent tasks in parallel, queue dependent tasks. Max parallel: 5 workers. Show dependency graph in dashboard.",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "orchestrator/dependency_graph.py",
+            "orchestrator/unified_daemon.py",
+            "dashboard/static/js/main.js"
+          ],
+          "success_criteria": "Tasks with no depends_on run in parallel. Tasks with depends_on=[id] wait until dependency completes. Dashboard shows DAG visualization. Test: 5 independent tasks start simultaneously, 1 dependent task waits.",
+          "test_command": "python3 -c \"from orchestrator.dependency_graph import DependencyGraph; g=DependencyGraph(); print('PASS' if hasattr(g, 'get_ready_tasks') else 'MISSING')\""
+        },
+        {
+          "id": "e12-9",
+          "title": "Add persistent session memory for agent context",
+          "description": "Claude Code CLI maintains conversation context across tool calls. Nexus agents start fresh each task. Add SessionMemory: store last 10 task outputs per agent, inject as context into next task prompt. Use vector similarity to retrieve relevant prior outputs. Store in state/agent_memory.jsonl (append-only).",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "orchestrator/session_memory.py",
+            "agents/executor.py",
+            "state/agent_memory.jsonl"
+          ],
+          "success_criteria": "Agent receives last 3 relevant task outputs as context. Memory persists across daemon restarts. Memory retrieval < 50ms. Test: run task that references output from prior task \u2014 verify context injected.",
+          "test_command": "python3 -c \"from orchestrator.session_memory import SessionMemory; m=SessionMemory(); m.store('test-agent', 'test output'); r=m.retrieve('test-agent', 'test'); print('PASS' if 'test output' in r else 'FAIL')\""
+        },
+        {
+          "id": "e12-10",
+          "title": "Build self-improvement loop: benchmark \u2192 upgrade prompts",
+          "description": "Claude Code CLI improves with each interaction. Nexus agents have static prompts. Add BenchmarkRunner: after each completed epic, run quality benchmark (5 test tasks), compare quality_scores to baseline. If score drops \u2192 rescue protocol upgrades agent prompt. If score improves \u2192 save new prompt as canonical. Store benchmarks in reports/benchmarks.jsonl.",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "orchestrator/benchmark_runner.py",
+            "orchestrator/prompt_upgrader.py",
+            "reports/benchmarks.jsonl",
+            "agents/prompts/"
+          ],
+          "success_criteria": "Benchmark runs after each epic completion. Quality improvement >5% triggers prompt upgrade. Downgrade triggers rollback. Benchmark results in reports/benchmarks.jsonl. Test: run benchmark on executor agent, verify score logged.",
+          "test_command": "python3 -c \"from orchestrator.benchmark_runner import BenchmarkRunner; b=BenchmarkRunner(); print('PASS' if hasattr(b, 'run_benchmark') else 'MISSING')\""
+        },
+        {
+          "id": "e12-11",
+          "title": "Implement Claude Code CLI slash commands for Nexus",
+          "description": "Claude Code CLI has /compact, /undo, /copy etc. Add Nexus CLI commands: /status (show all agent states), /retry <task-id> (requeue failed task), /skip <task-id> (mark task skipped), /logs <task-id> (show full task log), /benchmark (run quality benchmark). Wire to both dashboard chat and terminal CLI.",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P2",
+          "files": [
+            "cli/nexus_cli.py",
+            "dashboard/chat_handler.py",
+            "orchestrator/command_router.py"
+          ],
+          "success_criteria": "/status returns JSON with all agent states. /retry requeues task within 5s. /logs returns full task execution log. Test: run /status in terminal, verify JSON output matches state.json.",
+          "test_command": "python3 cli/nexus_cli.py status 2>&1 | python3 -c \"import sys,json; d=json.load(sys.stdin); print('PASS' if 'agents' in d else 'FAIL')\""
+        },
+        {
+          "id": "e12-12",
+          "title": "Add observability: structured logs + metrics + alerts",
+          "description": "Claude Code CLI shows real-time progress. Nexus has no structured observability. Add: (1) StructuredLogger with trace IDs per task, (2) MetricsCollector tracking task duration p50/p95, error rate, quality scores, (3) AlertManager that pings dashboard on quality_score < 50 or error_rate > 20%. Export metrics to reports/metrics.json.",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "orchestrator/structured_logger.py",
+            "orchestrator/metrics_collector.py",
+            "orchestrator/alert_manager.py",
+            "reports/metrics.json"
+          ],
+          "success_criteria": "Every task has trace_id in logs. Metrics show p50/p95 latency. Alert fires when quality drops. Dashboard shows live metrics panel. Test: run 10 tasks, verify metrics.json populated with latency data.",
+          "test_command": "python3 -c \"from orchestrator.metrics_collector import MetricsCollector; m=MetricsCollector(); m.record('test', 1.5); r=m.summary(); print('PASS' if 'p50' in r else 'FAIL')\""
+        },
+        {
+          "id": "e12-13",
+          "title": "Integrate GitHub Actions CI for every agent code change",
+          "description": "No CI currently runs on agent commits. Add .github/workflows/nexus-ci.yml: on push to feature/* \u2192 run python3 -m pytest tests/ \u2192 require 80% pass rate \u2192 post results to PR. Add pre-commit hook: run lint (ruff) + quick tests before every commit. Block merges on CI failure.",
+          "agent": "devops_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            ".github/workflows/nexus-ci.yml",
+            ".pre-commit-config.yaml",
+            "tests/conftest.py",
+            "Makefile"
+          ],
+          "success_criteria": "GitHub Actions runs on every PR push. Lint failures block merge. Test failures block merge. CI badge shows in README. Test: push failing test to feature branch, verify PR blocked.",
+          "test_command": "test -f .github/workflows/nexus-ci.yml && echo PASS || echo FAIL"
+        },
+        {
+          "id": "e12-14",
+          "title": "Build autonomous PR creation + review + merge agent",
+          "description": "Claude Code CLI can create and review PRs. Nexus manual PR step. Add PRAutomationAgent: after task batch completes \u2192 git diff \u2192 create feature branch \u2192 commit \u2192 push \u2192 gh pr create with AI-generated description \u2192 post review comments \u2192 auto-merge when CI passes. Zero human intervention for standard tasks.",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "agents/pr_automation_agent.py",
+            "orchestrator/pr_manager.py",
+            "scripts/auto_pr.sh"
+          ],
+          "success_criteria": "Completed task batch triggers PR creation automatically. PR description summarizes changes. CI must pass before auto-merge. Test: complete a small task, verify PR appears in GitHub with correct description.",
+          "test_command": "python3 -c \"from agents.pr_automation_agent import PRAutomationAgent; a=PRAutomationAgent(); print('PASS' if hasattr(a, 'create_pr') else 'MISSING')\""
+        },
+        {
+          "id": "e12-15",
+          "title": "End-to-end autonomy validation: 10 tasks zero human input",
+          "description": "Final integration test for full Claude Code CLI parity. Run 10 test tasks covering: code generation, bug fix, test writing, PR creation, CI pass, merge. Measure: zero human interventions required, quality_score >= 80 on all tasks, all PRs auto-merged, full audit trail in runtime-lessons.json. This is the graduation test for Epic 12.",
+          "agent": "qa_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "tests/e2e/test_full_autonomy.py",
+            "reports/epic12_validation.json"
+          ],
+          "success_criteria": "10/10 tasks complete with quality_score >= 80. 0 human interventions. All PRs created + merged automatically. Full audit trail present. Runtime-lessons.json shows learnings from all 10 tasks.",
+          "test_command": "python3 tests/e2e/test_full_autonomy.py 2>&1 | tail -1"
+        }
+      ]
+    },
+    {
+      "id": "nexus-chat-dispatch",
+      "name": "Nexus Chat Dispatched Tasks",
+      "tasks": [
+        {
+          "id": "chat-cd5c9417",
+          "title": "add all features of slack intergation to nexus chat and cli - and make     \n  sure it's ultra upgrad",
+          "description": "add all features of slack intergation to nexus chat and cli - and make     \n  sure it's ultra upgraded end to end - assign nexus agent and exit",
+          "status": "pending",
+          "category": "code_gen",
+          "agent": "executor",
+          "priority": "P1",
+          "source": "nexus-chat",
+          "created_at": "2026-03-31T06:22:48.595306"
+        }
+      ]
     }
   ]
 }

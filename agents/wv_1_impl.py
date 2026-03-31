@@ -9,37 +9,38 @@ const WorkflowCanvas = () => {
   const [arrows, setArrows] = useState([]);
 
   const addNode = (x, y) => {
-    setNodes([...nodes, { id: nodes.length, x, y }]);
+    setNodes([...nodes, { id: Date.now(), x, y }]);
   };
 
-  const connectNodes = (fromId, toId) => {
-    setArrows([...arrows, { from: fromId, to: toId }]);
+  const connectNodes = (fromNodeId, toNodeId) => {
+    setArrows([...arrows, { from: fromNodeId, to: toNodeId }]);
   };
 
   return (
-    <div>
-      <svg width="800" height="600">
-        {nodes.map(node => (
-          <circle
-            key={node.id}
-            cx={node.x}
-            cy={node.y}
-            r="10"
-            fill="blue"
-            onClick={() => addNode(node.x, node.y)}
-          />
-        ))}
-        {arrows.map((arrow, index) => (
+    <div style={{ position: 'relative', width: '100%', height: '600px' }}>
+      <svg width="100%" height="100%">
+        {arrows.map((arrow) => (
           <line
-            key={index}
-            x1={nodes.find(n => n.id === arrow.from).x}
-            y1={nodes.find(n => n.id === arrow.from).y}
-            x2={nodes.find(n => n.id === arrow.to).x}
-            y2={nodes.find(n => n.id === arrow.to).y}
+            key={arrow.from + '-' + arrow.to}
+            x1={nodes.find(node => node.id === arrow.from).x}
+            y1={nodes.find(node => node.id === arrow.from).y}
+            x2={nodes.find(node => node.id === arrow.to).x}
+            y2={nodes.find(node => node.id === arrow.to).y}
             stroke="black"
           />
         ))}
       </svg>
+      <div
+        style={{
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+          cursor: 'crosshair',
+        }}
+        onClick={(e) => addNode(e.clientX, e.clientY)}
+      >
+        {/* Nodes will be rendered here dynamically */}
+      </div>
     </div>
   );
 };
