@@ -17,7 +17,7 @@ AGENT_META = {
     "name": "reviewer",
     "version": 1,
     "capabilities": ["review", "quality_check", "scoring"],
-    "model": "qwen2.5-coder:7b",
+    "model": "nexus-local",
     "input_schema": {
         "id": "int", "title": "str", "description": "str",
         "category": "str", "code": "str",  # code to review
@@ -35,8 +35,8 @@ AGENT_META = {
     "benchmark_score": None,
 }
 
-OLLAMA_API  = os.environ.get("OLLAMA_API_BASE", "http://127.0.0.1:11434")
-LOCAL_MODEL = os.environ.get("LOCAL_MODEL", "qwen2.5-coder:7b")
+NEXUS_API   = os.environ.get("NEXUS_API", "")
+LOCAL_MODEL = os.environ.get("LOCAL_MODEL", "nexus-local")
 
 
 def _static_score(code: str, task_title: str) -> dict:

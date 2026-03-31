@@ -69,9 +69,6 @@ class ClaudeProvider(NexusProvider):
         m = model or self._model
         start = time.time()
         try:
-            runner_path = os.path.join(BASE_DIR, "opus_runner.py")
-            if os.path.exists(runner_path):
-                return self._via_opus_runner(prompt, system, m, effective_cap, timeout, start)
             return self._via_cli(prompt, system, m, effective_cap, timeout, start)
         except Exception as e:
             return CompletionResult(
@@ -79,26 +76,6 @@ class ClaudeProvider(NexusProvider):
                 elapsed_s=round(time.time() - start, 1),
                 error=str(e),
             )
-
-    def _via_opus_runner(self, prompt, system, model, max_tokens, timeout, start):
-        """Use existing opus_runner.py for rescue calls."""
-        task = {
-            "title": prompt[:80],
-            "description": prompt,
-            "category": "code_gen",
-            "type": "code_gen",
-        }
-        from opus_runner import run_opus_task
-        result = run_opus_task(task=task, max_tokens=max_tokens, timeout=timeout)
-        return CompletionResult(
-            text=result.get("output", ""),
-            model=model,
-            provider="claude",
-            tokens_used=result.get("tokens_used", 0),
-            quality=result.get("quality", 0.0),
-            elapsed_s=round(time.time() - start, 1),
-            metadata={"status": result.get("status", "")},
-        )
 
     def _via_cli(self, prompt, system, model, max_tokens, timeout, start):
         """Fallback: direct claude CLI call."""

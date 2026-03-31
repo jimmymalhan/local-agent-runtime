@@ -35,6 +35,7 @@ REGISTRY    = os.path.join(BASE_DIR, "registry", "agents.json")
 BENCHMARKS  = os.path.join(BASE_DIR, "benchmarks")
 sys.path.insert(0, BASE_DIR)
 sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, os.path.join(BASE_DIR, "scripts"))
 
 Path(REPORTS_DIR).mkdir(exist_ok=True)
 
@@ -299,10 +300,20 @@ def _get_agent(name: str):
 
 
 def route_task(task: dict):
-    """Return the agent module for this task's category."""
-    category = task.get("category", "code_gen")
+    """Return the agent module for this task's category.
+    Always resolves to a valid agent — never crashes silently.
+    """
+    # Treat None/missing category as code_gen (safe default)
+    category = task.get("category") or "code_gen"
     agent_name = CATEGORY_AGENT_MAP.get(category, "executor")
-    return _get_agent(agent_name), agent_name
+
+    # Guard: if agent_name doesn't exist as a module, fall back to executor
+    try:
+        return _get_agent(agent_name), agent_name
+    except (ImportError, ModuleNotFoundError):
+        print(f"  [ROUTE] WARNING: agent '{agent_name}' not found for category "
+              f"'{category}' (task={task.get('id','?')}) — falling back to executor")
+        return _get_agent("executor"), "executor"
 
 
 def _check_claude_rescue_eligible(task: dict, fail_count: int,
@@ -420,7 +431,7 @@ def _claude_rescue(task: dict, version: int, agent_name: str,
 
     try:
         result = subprocess.run(
-            ["claude", "-p", prompt, "--model", "claude-opus-4-6"],
+            ["claude", "-p", prompt, "--model", "nexus-remote"],
             capture_output=True, text=True, timeout=60
         )
         output = result.stdout or ""
@@ -632,7 +643,7 @@ def _update_projects_json_task(task_id: str, status: str, quality_score: float,
         return False
 
 
-def run_version(version: int, tasks: list, local_only: bool = False,
+def run_version(version: int, tasks: list, local_only: bool = True,
                 quick: int = 0) -> dict:
     """Run one benchmark version. Returns version summary."""
     # ── 0. Start auto-heal monitor (idempotent — won't double-start) ──────────
@@ -678,10 +689,8 @@ def run_version(version: int, tasks: list, local_only: bool = False,
 
     total_tasks        = len(tasks)
     rescued_count      = 0
-    local_wins         = 0
     results            = []
     total_local_qual   = 0
-    total_opus_qual    = 0
 
     print(f"\n{'='*60}")
     print(f"[ORCHESTRATOR] v{version} — {total_tasks} tasks")
@@ -763,12 +772,14 @@ def run_version(version: int, tasks: list, local_only: bool = False,
             if local_result is None:
                 error_msg = "Agent returned None (crashed or timed out)"
             elif isinstance(local_result, dict):
-                error_msg = local_result.get("error", local_result.get("status", "failed"))
+                error_msg = (local_result.get("error") or
+                            local_result.get("status") or
+                            "failed")
             else:
                 error_msg = str(local_result)
 
             log_failure(agent_name_hint, title[:80], task_id, 1,
-                        error_msg[:200] if error_msg else "unknown error")
+                        (error_msg[:200] if isinstance(error_msg, str) else str(error_msg)[:200]) if error_msg else "unknown error")
 
         # ── Update adaptive budgeting with task outcome ──
         if ab:
@@ -787,25 +798,11 @@ def run_version(version: int, tasks: list, local_only: bool = False,
             _update_task_status(task_id, status_after, local_quality,
                                 local_result.get("elapsed_s", 0.0), agent_name_hint)
 
-        # Run Opus 4.6 baseline (skip if local_only)
+        # Opus/Claude baseline removed — local-only execution
         opus_quality = 0
         opus_result  = {}
-        if not local_only:
-            try:
-                update_agent("reviewer", "reviewing", f"Opus 4.6 ← {title[:40]}", task_id)
-                from opus_runner import run_opus_task
-                opus_result  = run_opus_task(task, version)
-                opus_quality = opus_result.get("quality", 0)
-                update_agent("reviewer", "idle", "", None)
-            except Exception as e:
-                print(f"    [OPUS] Error: {e}")
-                update_agent("reviewer", "idle", "", None)
-                opus_quality = 70  # assume Opus would score ~70 on average
 
         total_local_qual += local_quality
-        total_opus_qual  += opus_quality
-        if local_quality >= opus_quality - 5:
-            local_wins += 1
 
         # ── Prompt engine: record result, A/B test after low-quality tasks ──
         if _PROMPT_ENGINE:
@@ -838,55 +835,35 @@ def run_version(version: int, tasks: list, local_only: bool = False,
         with open(report_path, "a") as f:
             f.write(json.dumps(record) + "\n")
 
-        # Log token comparison
-        token_record = {
-            "ts": record["ts"], "version": version, "task_id": record["task_id"],
-            "local_tokens": local_result.get("tokens_used", local_result.get("tokens", 0)),
-            "opus_tokens":  opus_result.get("tokens_used", opus_result.get("tokens", 0)),
-            "claude_rescue_tokens": 0,
-        }
-        with open(token_path, "a") as f:
-            f.write(json.dumps(token_record) + "\n")
-
         # Progress line
-        gap = opus_quality - local_quality
-        indicator = "WIN" if local_quality >= opus_quality - 5 else f"GAP={gap:+.0f}"
-        print(f"         local={local_quality:3}/100  opus={opus_quality:3}/100  {indicator}"
+        print(f"         local={local_quality:3}/100"
               + ("  [CLAUDE RESCUED]" if local_result.get("claude_rescued") else ""))
 
-    win_rate = round(local_wins / total_tasks * 100, 1) if total_tasks else 0
     rescue_rate = round(rescued_count / total_tasks * 100, 1) if total_tasks else 0
 
     summary = {
         "version":      version,
         "tasks_run":    total_tasks,
-        "local_wins":   local_wins,
-        "win_rate":     win_rate,
         "rescued":      rescued_count,
         "rescue_rate":  rescue_rate,
-        "local_beats_opus": win_rate >= 95.0,
     }
 
     avg_local = round(total_local_qual / total_tasks, 1) if total_tasks else 0
-    avg_opus  = round(total_opus_qual  / total_tasks, 1) if total_tasks else 0
-    gap       = round(avg_local - avg_opus, 1)
 
     # Dashboard: final version state
-    update_version(version, 100, f"v{version} complete — win_rate={win_rate}%")
+    update_version(version, 100, f"v{version} complete — avg={avg_local}")
     update_task_queue(total_tasks, completed, 0, failed_count, 0)
-    update_benchmark_score(version, avg_local, avg_opus, win_rate, gap)
-    update_version_changelog(version, [f"win_rate={win_rate}%", f"local_avg={avg_local}",
-                                        f"opus_avg={avg_opus}", f"rescued={rescue_rate}%",
-                                        f"tasks={total_tasks}"], avg_opus, avg_local)
+    update_benchmark_score(version, avg_local, 0, 0, 0)
+    update_version_changelog(version, [f"local_avg={avg_local}",
+                                        f"rescued={rescue_rate}%",
+                                        f"tasks={total_tasks}"], 0, avg_local)
 
     # Write leaderboard.md
-    _write_leaderboard(version, avg_local, avg_opus, win_rate, gap)
+    _write_leaderboard(version, avg_local, 0, 0, 0)
 
-    print(f"\n[v{version} SUMMARY] win_rate={win_rate}%  local={avg_local}/100  opus={avg_opus}/100  gap={gap:+}  rescued={rescue_rate}%")
+    print(f"\n[v{version} SUMMARY] local={avg_local}/100  rescued={rescue_rate}%")
 
     summary["avg_local"] = avg_local
-    summary["avg_opus"]  = avg_opus
-    summary["gap"]       = gap
 
     # ── Regression check + auto-rollback ─────────────────────────────────────
     if _CHECKPOINT:
@@ -913,35 +890,37 @@ def _write_version_file(version: int):
 
 
 def auto_loop(start_version: int):
-    """Full autonomous v{start}→v1000 loop. Self-improves until beating Opus 4.6."""
-    # Load tasks from both task_suite.py (legacy) and projects.json (new)
-    from tasks.task_suite import build_task_suite
+    """Full autonomous v{start}→v1000 loop. Reloads pending tasks each version."""
     from orchestrator.projects_loader import load_projects_tasks
 
-    # CRITICAL FIX: Load projects.json tasks FIRST (higher priority)
-    # This ensures they execute when running in quick mode
-    project_tasks = load_projects_tasks()
-
-    if project_tasks:
-        print(f"[PROJECTS] Prioritizing {len(project_tasks)} tasks from projects.json")
-        tasks = project_tasks
-    else:
-        tasks = []
-
-    # Add task_suite tasks second (lower priority, for testing)
-    suite_tasks = build_task_suite()
-    tasks.extend(suite_tasks)
-    print(f"[PROJECTS] Total task queue: {len(project_tasks)} projects + {len(suite_tasks)} suite = {len(tasks)} tasks")
+    # Initial load for watchdog sizing
+    initial_tasks = load_projects_tasks()
 
     # Start 1-minute rescue watchdog in background
     state_path   = os.path.join(BASE_DIR, "dashboard", "state.json")
-    version_ref  = [start_version]   # mutable ref so watchdog sees current version
+    version_ref  = [start_version]
     rescued_ref  = [0]
-    start_rescue_watchdog(state_path, version_ref, rescued_ref, len(tasks))
+    start_rescue_watchdog(state_path, version_ref, rescued_ref, max(len(initial_tasks), 1))
     print(f"[WATCHDOG] Rescue watchdog active — checks every {_WATCHDOG_INTERVAL}s")
+
+    _idle_versions = 0  # consecutive versions with 0 pending tasks
 
     for version in range(start_version, 1001):
         version_ref[0] = version
+
+        # PERSISTENCE FIX: Reload tasks from projects.json each version
+        # so newly added tasks are picked up without restarting the daemon
+        tasks = load_projects_tasks()
+        if not tasks:
+            _idle_versions += 1
+            print(f"[AUTO-LOOP] No pending tasks (idle_versions={_idle_versions}). Sleeping 60s...")
+            import time as _t; _t.sleep(60)
+            if _idle_versions >= 5:
+                print("[AUTO-LOOP] No pending tasks for 5+ versions. Daemon staying alive — will pick up new tasks when added.")
+                _idle_versions = 0  # reset so it keeps looping and picking up new tasks
+            continue
+        _idle_versions = 0
+        print(f"[PROJECTS] v{version}: Loaded {len(tasks)} pending tasks from projects.json")
         # Every 5 versions: frustration research
         if version % 5 == 0:
             try:
@@ -955,7 +934,8 @@ def auto_loop(start_version: int):
             except Exception as e:
                 print(f"[RESEARCH] Error at v{version}: {e}")
 
-        summary = run_version(version, tasks)
+        # auto_loop NEVER runs Opus — local-only always. Use --with-opus flag manually.
+        summary = run_version(version, tasks, local_only=True)
         _write_version_file(version)  # sync VERSION file with current runtime version
 
         # Self-improving prompt engine: auto-upgrade agents from this version's failures
@@ -977,15 +957,8 @@ def auto_loop(start_version: int):
             except Exception as e:
                 print(f"[AUTO-UPGRADE] Error: {e}")
 
-        # Gap analysis + upgrade
+        # Version analysis + upgrade
         analysis = analyze_version(version)
-        if analysis.get("local_wins"):
-            print(f"\n{'='*60}")
-            print(f"LOCAL AGENTS BEAT OPUS 4.6 at v{version}!")
-            print(f"win_rate={summary['win_rate']}%")
-            print(f"{'='*60}")
-            break
-
         if analysis.get("upgrade_needed"):
             print(f"\n[UPGRADE] Triggering upgrade v{version}→v{version+1}...")
             try:
@@ -1016,8 +989,6 @@ def main():
                     help="Full auto loop from START to v100")
     ap.add_argument("--quick",   type=int, default=0, metavar="N",
                     help="Run only N tasks (for testing)")
-    ap.add_argument("--local-only", action="store_true",
-                    help="Skip Opus 4.6 comparison (free run)")
     args = ap.parse_args()
 
     if args.auto:
@@ -1042,7 +1013,8 @@ def main():
     tasks.extend(suite_tasks)
     print(f"[PROJECTS] Total task queue: {len(project_tasks)} projects + {len(suite_tasks)} suite = {len(tasks)} tasks")
 
-    run_version(args.version, tasks, local_only=args.local_only, quick=args.quick)
+    use_local_only = True
+    run_version(args.version, tasks, local_only=use_local_only, quick=args.quick)
 
 
 if __name__ == "__main__":

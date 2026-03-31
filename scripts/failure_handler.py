@@ -197,7 +197,7 @@ if __name__ == "__main__":
             task_id="test-task-001",
             error="Network timeout after 3 retries",
             strategy="exponential_backoff",
-            context={"agent": "retriever", "model": "qwen2.5:3b"},
+            context={"agent": "retriever", "model": "nexus-local"},
         )
         print(f"[TEST] Blocked tasks: {get_blocked_tasks()}")
         print(f"[TEST] All tests passed ✓")

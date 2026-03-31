@@ -82,5 +82,51 @@ nohup.out
 /observable.py
 /priority_queue.py
 local-agents/dashboard/state.json
-dashboard/state.json    # Live-written by orchestrator, never commit
-.agent_pid             # Runtime process ID file
+dashboard/state.json
+.agent_pid
+
+# ── Runtime-generated files — never commit ─────────────────────────────────
+reports/*.log
+reports/*.jsonl
+reports/*.json
+reports/shared_state*.json
+
+# Benchmark outputs — high-churn, not source code
+benchmarks/frustration_findings_v*.json
+
+# Checkpoints — runtime snapshots, not source code
+checkpoints/version_snapshot_v*.json
+
+# State files written by agents at runtime — all of state/ except source files
+state/
+!state/todo.md
+!state/ledger.md
+!state/org_structure.yaml
+!state/workflow-state.json
+registry/agents.json
+registry/
+
+# Dashboard live state
+dashboard/state*.json
+
+# MacOS Finder duplicates (space-named copies)
+* 2.py
+* 3.py
+* 2.json
+* 3.json
+
+# Root-level agent output leakage (geo-replication feature files go in agents/)
+/auto_failover.py
+/backup_restore.py
+/compression.py
+/dense_repr.py
+/entropy_filter.py
+/geo_replication.py
+/read_replicas.py
+/smart_summarizer.py
+/token_filter.py
+
+# Python cache
+**/__pycache__/
+*.pyc
+*.pyo

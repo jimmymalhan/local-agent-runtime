@@ -1281,7 +1281,7 @@ async def logs_file(name: str = Query(...)):
 async def supervisor_status_endpoint():
     result = []
     services = {
-        "ollama": {"port": 11434, "check": "http://localhost:11434"},
+        "nexus": {"port": 11434, "check": ""},
         "bos-api": {"port": 8000, "check": None},
         "bos-frontend": {"port": 3000, "check": None},
         "bos-openwebui": {"port": 8080, "check": None},
@@ -1311,7 +1311,7 @@ async def supervisor_status_endpoint():
         for proc in psutil.process_iter(["pid", "name", "cmdline", "status"]):
             try:
                 cmdline = " ".join(proc.info.get("cmdline") or [])
-                if proc_name in cmdline or (proc_name == "ollama" and "ollama" in proc.info.get("name", "")):
+                if proc_name in cmdline or (proc_name == "nexus" and "nexus" in proc.info.get("name", "")):
                     entry["pid"] = proc.info["pid"]
                     entry["status"] = proc.info["status"]
                     try:

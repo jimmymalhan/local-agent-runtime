@@ -838,7 +838,7 @@ show_mcp_tools() {
     echo "MCP descriptors:"
     find "$mcp_dir" -name "*.json" -path "*/tools/*" 2>/dev/null | head -20
   else
-    echo "No MCP tools configured (local agents use Ollama only)."
+    echo "No MCP tools configured (local agents use Nexus engine only)."
   fi
 }
 

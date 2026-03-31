@@ -4,13 +4,13 @@ set -euo pipefail
 source ~/.zshrc 2>/dev/null || true
 
 export BOS_HOME="${BOS_HOME:-$HOME/stacky-os}"
-export OLLAMA_API_BASE="http://127.0.0.1:11434"
+export NEXUS_API="${NEXUS_API:-}"
 PORT_API="${PORT_API:-8000}"
 WORKER_ID="${WORKER_ID:-1}"
 PROJECT_SLUG="${PROJECT_SLUG:-stacky}"
 PROJECT_NAME="${PROJECT_NAME:-Stacky}"
-LOCAL_LIGHT="${LOCAL_LIGHT:-qwen2.5-coder:7b}"
-LOCAL_STANDARD="${LOCAL_STANDARD:-llama3.1:8b}"
+LOCAL_LIGHT="${LOCAL_LIGHT:-nexus-local}"
+LOCAL_STANDARD="${LOCAL_STANDARD:-nexus-local}"
 
 log() { echo "[$(date '+%H:%M:%S')] [W$WORKER_ID] $*" | tee -a "$BOS_HOME/logs/agent.log"; }
 task_log() {

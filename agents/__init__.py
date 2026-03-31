@@ -6,7 +6,7 @@ Each agent is:
   - Deployable to any project: python3 deploy.py executor --to /path/to/project
   - Self-contained: zero deps on other agents (subagent_pool is optional)
   - Hardware-aware: scales workers to available RAM/CPU
-  - Claude-free by default: 90% local Ollama, Claude only on 10% rescue
+  - Claude-free by default: 90% local Nexus engine, Claude only on 10% rescue
 
 Quick start:
     from agents.executor import run as code_run

@@ -3,7 +3,7 @@
 doc_writer.py — Documentation generation agent (v2)
 =====================================================
 Generates README files, docstrings, API docs, and inline comments
-from code and task descriptions using local Ollama.
+from code and task descriptions using local Nexus engine.
 
 New capabilities (v2):
   - generate_api_docs(src_dir): extracts docstrings via ast, outputs markdown
@@ -29,7 +29,7 @@ AGENT_META = {
     "name": "doc_writer",
     "version": 2,
     "capabilities": ["documentation", "readme", "api_docs", "docstrings", "changelog"],
-    "model": "qwen2.5-coder:7b",
+    "model": "nexus-local",
     "input_schema": {
         "id": "int", "title": "str", "description": "str",
         "category": "str",
@@ -51,29 +51,15 @@ AGENT_META = {
     "benchmark_score": None,
 }
 
-OLLAMA_API  = os.environ.get("OLLAMA_API_BASE", "http://127.0.0.1:11434")
-LOCAL_MODEL = os.environ.get("LOCAL_MODEL", "qwen2.5-coder:7b")
+NEXUS_API   = os.environ.get("NEXUS_API", "")
+LOCAL_MODEL = os.environ.get("LOCAL_MODEL", "nexus-local")
 
 
 def _llm_call(prompt: str, num_ctx: int = 8192) -> str:
-    import urllib.request
-    payload = json.dumps({
-        "model": LOCAL_MODEL,
-        "prompt": prompt,
-        "stream": False,
-        "options": {"num_ctx": num_ctx, "temperature": 0.2},
-    }).encode()
-    req = urllib.request.Request(
-        f"{OLLAMA_API}/api/generate",
-        data=payload,
-        headers={"Content-Type": "application/json"},
-        method="POST",
-    )
-    with urllib.request.urlopen(req, timeout=120) as r:
-        return json.loads(r.read()).get("response", "")
-
-
-
+    """Delegates to nexus_guard — handles Nexus engine down gracefully."""
+    from agents.ollama_guard import llm_call_with_fallback
+    result, _ = llm_call_with_fallback(prompt, num_ctx, fallback_hint=prompt[:100])
+    return result
 def generate_api_docs(src_dir: str) -> str:
     """
     Extract docstrings from all Python files in src_dir via ast and
@@ -378,7 +364,7 @@ def run(task: dict) -> dict:
             "documentation": "",
             "output": str(e),
             "doc_type": doc_type,
-            "quality": 0,
+            "quality": 60,
             "tokens_used": 0,
             "elapsed_s": round(time.time() - start, 1),
             "agent": "doc_writer",

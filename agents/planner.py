@@ -18,7 +18,7 @@ AGENT_META = {
     "name": "planner",
     "version": 1,
     "capabilities": ["planning", "decomposition", "strategy"],
-    "model": "qwen2.5-coder:7b",
+    "model": "nexus-local",
     "input_schema": {"id": "int", "title": "str", "description": "str", "category": "str"},
     "output_schema": {
         "status": "str",
@@ -31,8 +31,8 @@ AGENT_META = {
     "benchmark_score": None,
 }
 
-OLLAMA_API = os.environ.get("OLLAMA_API_BASE", "http://127.0.0.1:11434")
-LOCAL_MODEL = os.environ.get("LOCAL_MODEL", "qwen2.5-coder:7b")
+NEXUS_API  = os.environ.get("NEXUS_API", "")
+LOCAL_MODEL = os.environ.get("LOCAL_MODEL", "nexus-local")
 
 _COMPLEXITY_KEYWORDS = {
     "ultra": {"distributed", "consensus", "raft", "actor model", "jit compiler", "bytecode"},
@@ -49,24 +49,11 @@ def _estimate_complexity(title: str, description: str) -> str:
     return "simple"
 
 
-def _llm_call(prompt: str) -> str:
-    import urllib.request
-    payload = json.dumps({
-        "model": LOCAL_MODEL,
-        "prompt": prompt,
-        "stream": False,
-        "options": {"num_ctx": 4096, "temperature": 0.1},
-    }).encode()
-    req = urllib.request.Request(
-        f"{OLLAMA_API}/api/generate",
-        data=payload,
-        headers={"Content-Type": "application/json"},
-        method="POST",
-    )
-    with urllib.request.urlopen(req, timeout=60) as r:
-        return json.loads(r.read()).get("response", "")
-
-
+def _llm_call(prompt: str, num_ctx: int = 8192) -> str:
+    """Delegates to nexus_guard — handles Nexus engine down gracefully."""
+    from agents.ollama_guard import llm_call_with_fallback
+    result, _ = llm_call_with_fallback(prompt, num_ctx, fallback_hint=prompt[:100])
+    return result
 def run(task: dict) -> dict:
     start = time.time()
     title = task.get("title", "")

@@ -346,7 +346,7 @@ def installed_models():
         names = [item["name"] for item in data.get("installed_models", []) if item.get("name")]
         if names:
             return names
-    output = run(["ollama", "list"]).stdout.splitlines()
+    output = run(["nexus", "list"]).stdout.splitlines()
     names = []
     for line in output[1:]:
         parts = line.split()
@@ -369,14 +369,14 @@ def provider_preference(runtime):
     preferred = os.environ.get("LOCAL_AGENT_PROVIDER_PREFERENCE", "").strip().lower()
     if preferred:
         return preferred
-    return str(runtime.get("provider_preference", "ollama")).strip().lower() or "ollama"
+    return str(runtime.get("provider_preference", "nexus")).strip().lower() or "nexus"
 
 
 def provider_enabled(runtime, provider_name):
     cfg = provider_config(runtime, provider_name)
     if not cfg:
         return False
-    if provider_name == "ollama":
+    if provider_name == "nexus":
         return True
     if not remote_fallback_allowed(runtime):
         return False
@@ -409,12 +409,12 @@ def provider_order_for_stage(runtime, stage_id, resource_state=None):
     pressure = pressure_level(runtime, resource_state)
     fast_remote = "clawbot" if provider_enabled(runtime, "clawbot") else "openclaw"
     preferred = provider_preference(runtime)
-    base_order = ["ollama", fast_remote, "github_models", "openclaw", "clawbot"]
+    base_order = ["nexus", fast_remote, "github_models", "openclaw", "clawbot"]
     order = []
     if preferred in base_order:
         order.append(preferred)
-    if pressure in {"high", "elevated"} and preferred != "ollama":
-        order.append("ollama")
+    if pressure in {"high", "elevated"} and preferred != "nexus":
+        order.append("nexus")
     for name in base_order:
         if name not in order:
             order.append(name)
@@ -469,23 +469,23 @@ def pressure_level(runtime, resource_state=None):
 
 def downgrade_order_for(stage_id):
     mapping = {
-        "manager": ["qwen2.5-coder:7b", "qwen2.5:3b"],
-        "director": ["qwen2.5-coder:7b", "qwen2.5:3b"],
-        "cto": ["qwen2.5-coder:7b", "qwen2.5:3b"],
-        "ceo": ["qwen2.5-coder:7b", "qwen2.5:3b"],
-        "researcher": ["qwen2.5:3b", "llama3.2:3b"],
-        "retriever": ["qwen2.5:3b", "llama3.2:3b"],
-        "planner": ["qwen2.5-coder:7b", "qwen2.5:3b"],
-        "architect": ["qwen2.5:3b"],
-        "implementer": ["qwen2.5-coder:7b", "qwen2.5:3b"],
-        "tester": ["qwen2.5:3b"],
-        "reviewer": ["qwen2.5-coder:7b", "qwen2.5:3b"],
-        "debugger": ["qwen2.5:3b"],
-        "optimizer": ["qwen2.5:3b"],
-        "benchmarker": ["qwen2.5:3b"],
-        "qa": ["qwen2.5-coder:7b", "qwen2.5:3b"],
-        "user_acceptance": ["qwen2.5:3b", "gemma3:4b"],
-        "summarizer": ["qwen2.5-coder:7b", "qwen2.5:3b"],
+        "manager": ["nexus-local", "nexus-local"],
+        "director": ["nexus-local", "nexus-local"],
+        "cto": ["nexus-local", "nexus-local"],
+        "ceo": ["nexus-local", "nexus-local"],
+        "researcher": ["nexus-local", "nexus-local"],
+        "retriever": ["nexus-local", "nexus-local"],
+        "planner": ["nexus-local", "nexus-local"],
+        "architect": ["nexus-local"],
+        "implementer": ["nexus-local", "nexus-local"],
+        "tester": ["nexus-local"],
+        "reviewer": ["nexus-local", "nexus-local"],
+        "debugger": ["nexus-local"],
+        "optimizer": ["nexus-local"],
+        "benchmarker": ["nexus-local"],
+        "qa": ["nexus-local", "nexus-local"],
+        "user_acceptance": ["nexus-local", "nexus-local"],
+        "summarizer": ["nexus-local", "nexus-local"],
     }
     return mapping.get(stage_id, [])
 
@@ -562,13 +562,13 @@ def effective_model_for_stage(runtime, stage_id, available_models):
 
 
 def execution_mix_for_provider(provider_name):
-    if provider_name == "ollama":
+    if provider_name == "nexus":
         return 100.0, 0.0
     return 20.0, 80.0
 
 
 def provider_uses_local_resources(provider_name):
-    return provider_name == "ollama"
+    return provider_name == "nexus"
 
 
 def update_execution_state(task, target_repo, provider_name):
@@ -588,10 +588,10 @@ def update_execution_state(task, target_repo, provider_name):
 def resolve_execution_target(runtime, stage_id, available_models, resource_state=None):
     provider_order = provider_order_for_stage(runtime, stage_id, resource_state)
     for provider_name in provider_order:
-        if provider_name == "ollama":
+        if provider_name == "nexus":
             return provider_name, effective_model_for_stage(runtime, stage_id, available_models)
         return provider_name, provider_model_for_stage(runtime, provider_name, stage_id)
-    return "ollama", effective_model_for_stage(runtime, stage_id, available_models)
+    return "nexus", effective_model_for_stage(runtime, stage_id, available_models)
 
 
 def write_history(role, content, target_repo):
@@ -826,17 +826,17 @@ def release_lock():
 
 def call_model(runtime, provider_name, model, system_prompt, user_prompt):
     provider = provider_config(runtime, provider_name)
-    if provider_name == "ollama":
-        return call_ollama_model(runtime, model, system_prompt, user_prompt)
+    if provider_name == "nexus":
+        return call_nexus_model(runtime, model, system_prompt, user_prompt)
     return call_openai_compatible_model(runtime, provider_name, provider, model, system_prompt, user_prompt)
 
 
-def call_ollama_model(runtime, model, system_prompt, user_prompt):
+def call_nexus_model(runtime, model, system_prompt, user_prompt):
     opts = {"temperature": runtime["active_temperature"]}
     num_ctx = int(
         runtime.get("active_profile_config", {}).get("num_ctx")
         or runtime.get("num_ctx")
-        or os.environ.get("OLLAMA_NUM_CTX")
+        or os.environ.get("NEXUS_NUM_CTX")
         or 4096
     )
     opts["num_ctx"] = num_ctx
@@ -1518,8 +1518,8 @@ def run_stage(runtime, stage_id, target_repo, base_prompt, prior_outputs, availa
                     }, indent=2))
                     # Step 2: Unload idle models
                     try:
-                        from blocker_resolver import unload_ollama_models
-                        cleanup_msg = unload_ollama_models()
+                        from blocker_resolver import unload_nexus_models
+                        cleanup_msg = unload_nexus_models()
                         progress(["tick", "--stage", stage_id, "--percent", "50",
                                   "--detail", f"Governor: mem {mid_mem:.0f}%>{mem_ceiling:.0f}%, unloaded: {cleanup_msg}"])
                     except Exception:
@@ -1695,12 +1695,12 @@ def main():
 
         # Proactive resource cleanup before pipeline execution
         try:
-            from blocker_resolver import unload_ollama_models
+            from blocker_resolver import unload_nexus_models
             snapshot, res_data = resource_status_snapshot()
             mem_pct = float(res_data.get("memory_percent", 0)) if res_data else 0
             downgrade_thresh = float(runtime["resource_limits"].get("model_downgrade_memory_percent", 75))
             if mem_pct > downgrade_thresh:
-                msg = unload_ollama_models()
+                msg = unload_nexus_models()
                 progress(["tick", "--stage", "preflight", "--percent", "99", "--detail", f"Proactive cleanup: {msg}"])
         except Exception:
             pass
@@ -1713,8 +1713,8 @@ def main():
                 mid_mem = float(mid_data.get("memory_percent", 0)) if mid_data else 0
                 if mid_mem > mem_ceiling:
                     try:
-                        from blocker_resolver import unload_ollama_models
-                        cleanup_msg = unload_ollama_models()
+                        from blocker_resolver import unload_nexus_models
+                        cleanup_msg = unload_nexus_models()
                         progress(["tick", "--stage", group[0], "--percent", "1",
                                   "--detail", f"Memory {mid_mem:.0f}% > {mem_ceiling:.0f}% ceiling, cleanup: {cleanup_msg}"])
                     except Exception:
@@ -1770,12 +1770,12 @@ if __name__ == "__main__":
     try:
         main()
     except urllib.error.URLError as exc:
-        reason = "local ollama runtime unavailable"
+        reason = "local nexus runtime unavailable"
         task = os.environ.get("LOCAL_AGENT_ACTIVE_TASK", "")
         target_repo = os.environ.get("LOCAL_AGENT_TARGET_REPO", REPO_ROOT)
         set_takeover_state(task, target_repo, reason, local_percent=0.0, cloud_percent=100.0)
         record_runtime_lesson("takeover", task, target_repo, reason, str(exc))
-        raise SystemExit(f"Unable to reach local Ollama runtime: {exc}") from exc
+        raise SystemExit(f"Unable to reach local Nexus engine runtime: {exc}") from exc
     except KeyboardInterrupt:
         subprocess.run(["python3", str(SESSION_STATE), "idle"], check=False, stdout=subprocess.DEVNULL)
         release_lock()

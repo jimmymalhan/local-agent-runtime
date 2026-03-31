@@ -19,10 +19,10 @@ values = {
     "DEFAULT_MODEL": cfg["default_model"],
     "CPU_LIMIT_DEFAULT": limits.get("cpu_percent", 70),
     "MEMORY_LIMIT_DEFAULT": limits.get("memory_percent", 70),
-    "OLLAMA_NUM_PARALLEL_DEFAULT": limits.get("ollama_num_parallel", 2),
-    "OLLAMA_MAX_LOADED_MODELS_DEFAULT": limits.get("ollama_max_loaded_models", 2),
-    "OLLAMA_KEEP_ALIVE_DEFAULT": limits.get("ollama_keep_alive", "5m"),
-    "OLLAMA_NUM_CTX_DEFAULT": profile.get("num_ctx", cfg.get("num_ctx", 32768)),
+    "NEXUS_NUM_PARALLEL_DEFAULT": limits.get("nexus_num_parallel", 2),
+    "NEXUS_MAX_LOADED_MODELS_DEFAULT": limits.get("nexus_max_loaded_models", 2),
+    "NEXUS_KEEP_ALIVE_DEFAULT": limits.get("nexus_keep_alive", "5m"),
+    "NEXUS_NUM_CTX_DEFAULT": profile.get("num_ctx", cfg.get("num_ctx", 32768)),
 }
 for key, value in values.items():
     print(f"{key}={shlex.quote(str(value))}")
@@ -30,10 +30,10 @@ PY
 )"
 CPU_LIMIT=${LOCAL_AGENT_MAX_CPU_PERCENT:-$CPU_LIMIT_DEFAULT}
 MEMORY_LIMIT=${LOCAL_AGENT_MAX_MEMORY_PERCENT:-$MEMORY_LIMIT_DEFAULT}
-OLLAMA_NUM_PARALLEL=${OLLAMA_NUM_PARALLEL:-$OLLAMA_NUM_PARALLEL_DEFAULT}
-OLLAMA_MAX_LOADED_MODELS=${OLLAMA_MAX_LOADED_MODELS:-$OLLAMA_MAX_LOADED_MODELS_DEFAULT}
-OLLAMA_KEEP_ALIVE=${OLLAMA_KEEP_ALIVE:-$OLLAMA_KEEP_ALIVE_DEFAULT}
-OLLAMA_NUM_CTX=${OLLAMA_NUM_CTX:-$OLLAMA_NUM_CTX_DEFAULT}
+NEXUS_NUM_PARALLEL=${NEXUS_NUM_PARALLEL:-$NEXUS_NUM_PARALLEL_DEFAULT}
+NEXUS_MAX_LOADED_MODELS=${NEXUS_MAX_LOADED_MODELS:-$NEXUS_MAX_LOADED_MODELS_DEFAULT}
+NEXUS_KEEP_ALIVE=${NEXUS_KEEP_ALIVE:-$NEXUS_KEEP_ALIVE_DEFAULT}
+NEXUS_NUM_CTX=${NEXUS_NUM_CTX:-$NEXUS_NUM_CTX_DEFAULT}
 TEAM_MODELS=$(python3 - "$RUNTIME_JSON" <<'PY'
 import json, sys
 cfg = json.load(open(sys.argv[1]))
@@ -52,17 +52,17 @@ PY
 
 mkdir -p "$REPO_ROOT/logs" "$REPO_ROOT/state" "$REPO_ROOT/memory" "$REPO_ROOT/context"
 
-export OLLAMA_NUM_PARALLEL
-export OLLAMA_MAX_LOADED_MODELS
-export OLLAMA_KEEP_ALIVE
+export NEXUS_NUM_PARALLEL
+export NEXUS_MAX_LOADED_MODELS
+export NEXUS_KEEP_ALIVE
 
-if ! command -v ollama >/dev/null 2>&1; then
-  echo "ollama is required but not installed." >&2
+if ! command -v nexus >/dev/null 2>&1; then
+  echo "nexus is required but not installed." >&2
   exit 1
 fi
 
-if ! ollama list >/dev/null 2>&1; then
-  python3 - "$REPO_ROOT/logs/ollama.log" "$REPO_ROOT/state/ollama.pid" <<'PY'
+if ! nexus list >/dev/null 2>&1; then
+  python3 - "$REPO_ROOT/logs/nexus.log" "$REPO_ROOT/state/nexus.pid" <<'PY'
 import os
 import pathlib
 import subprocess
@@ -73,7 +73,7 @@ pid_path = pathlib.Path(sys.argv[2])
 env = os.environ.copy()
 with log_path.open("ab") as log_handle:
     proc = subprocess.Popen(
-        ["ollama", "serve"],
+        ["nexus", "serve"],
         stdin=subprocess.DEVNULL,
         stdout=log_handle,
         stderr=subprocess.STDOUT,
@@ -87,24 +87,24 @@ fi
 
 while IFS= read -r model; do
   [ -n "$model" ] || continue
-  if ! ollama list | awk '{print $1}' | grep -Fx "$model" >/dev/null 2>&1; then
-    ollama pull "$model" >/dev/null
+  if ! nexus list | awk '{print $1}' | grep -Fx "$model" >/dev/null 2>&1; then
+    nexus pull "$model" >/dev/null
   fi
 done <<< "$TEAM_MODELS"
 
 python3 "$SCRIPT_DIR/model_registry.py" --write >/dev/null 2>&1 || true
 
 cat >"$REPO_ROOT/state/runtime.env" <<EOF
-LOCAL_AGENT_BACKEND=ollama
-LOCAL_AGENT_BASE_URL=http://127.0.0.1:11434
+LOCAL_AGENT_BACKEND=nexus
+LOCAL_AGENT_BASE_URL=${NEXUS_API:-}
 LOCAL_AGENT_DEFAULT_MODEL=$DEFAULT_MODEL
 LOCAL_AGENT_MODE=$ACTIVE_PROFILE
 LOCAL_AGENT_TARGET_REPO=${LOCAL_AGENT_TARGET_REPO:-$PWD}
 LOCAL_AGENT_MAX_CPU_PERCENT=$CPU_LIMIT
 LOCAL_AGENT_MAX_MEMORY_PERCENT=$MEMORY_LIMIT
-OLLAMA_NUM_PARALLEL=$OLLAMA_NUM_PARALLEL
-OLLAMA_MAX_LOADED_MODELS=$OLLAMA_MAX_LOADED_MODELS
-OLLAMA_KEEP_ALIVE=$OLLAMA_KEEP_ALIVE
+NEXUS_NUM_PARALLEL=$NEXUS_NUM_PARALLEL
+NEXUS_MAX_LOADED_MODELS=$NEXUS_MAX_LOADED_MODELS
+NEXUS_KEEP_ALIVE=$NEXUS_KEEP_ALIVE
 EOF
 
 echo "$REPO_ROOT/state/runtime.env"
