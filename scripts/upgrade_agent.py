@@ -255,7 +255,7 @@ def main():
     create_skilled_agents_dir(args.from_v, args.to_v)
 
     print(f"\n[UPGRADE] Complete: {'patches applied' if applied else 'no changes needed'}")
-    print(f"[UPGRADE] Run: python3 bench_compare.py --version {args.to_v}")
+    print(f"[UPGRADE] Run: python3 orchestrator/main.py --version {args.to_v}")
 
 
 if __name__ == "__main__":

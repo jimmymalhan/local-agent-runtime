@@ -3719,22 +3719,7 @@ function clearLogs(){
   ['error','warn','rescue','all'].forEach(k=>{const el=document.getElementById('logs-cnt-'+k);if(el)el.textContent='0';});
 }
 
-// Hook into the addFeed function to mirror events to Logs tab
-const _origAddFeed=window.addFeed;
-// Will be overridden after data layer script runs — patch via interval
-let _logPatchDone=false;
-function _patchAddFeed(){
-  if(_logPatchDone)return;
-  if(typeof addFeed==='function'){
-    const orig=addFeed;
-    window.addFeed=function(type,msg,ts){
-      orig(type,msg,ts);
-      addLog(type,msg,ts);
-    };
-    _logPatchDone=true;
-  }
-}
-setInterval(_patchAddFeed,100);
+// ingestLogs (below) handles all log mirroring with dedup — no addFeed patch needed
 
 // Also ingest failure_log from state
 let _loggedFailures=new Set();
