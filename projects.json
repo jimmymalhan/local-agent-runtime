@@ -7095,6 +7095,64 @@
           "agent": "executor"
         }
       ]
+    },
+    {
+      "id": "epic-full-automation",
+      "name": "Epic 11: Full Automation \u2014 Zero Manual Intervention Forever",
+      "description": "Wire everything so no human ever needs to intervene: PRs auto-created, auto-merged, errors auto-fixed, tasks never stuck",
+      "status": "pending",
+      "priority": "critical",
+      "created_at": "2026-03-31T05:38:30.766468Z",
+      "tasks": [
+        {
+          "id": "fa-1",
+          "title": "PR push+merge daemon: every 30min create PR from pending commits, merge if CI green",
+          "description": "Add to unified_daemon task_pr_cycle() at 1800s: (1) if feature/geo-replication has unpushed commits \u2192 push, (2) if open PR exists + CI green \u2192 merge, (3) create new PR if branch has commits not in main. Log to reports/pr_daemon.log.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "executor"
+        },
+        {
+          "id": "fa-2",
+          "title": "Error auto-fixer: scan logs every 5min, patch known failure patterns, retry tasks",
+          "description": "Daemon task every 5min: scan reports/*.log for ERROR/FAILED patterns. Known fixes: (1) Python import error \u2192 fix sys.path, (2) git conflict \u2192 checkout --ours + commit, (3) port in use \u2192 kill+restart. Write fixes to state/auto_fixes.log.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "executor"
+        },
+        {
+          "id": "fa-3",
+          "title": "Task completion guarantee: if task pending >20min mark failed, retry with different agent",
+          "description": "Daemon check every 5min: tasks with status=in_progress >20min \u2192 mark pending again (reset). Tasks failed 3x \u2192 escalate to doc_writer to log why. No task stays stuck forever.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "executor"
+        },
+        {
+          "id": "fa-4",
+          "title": "ETA computation: write eta_seconds per epic to projects.json every cycle",
+          "description": "After each dispatch cycle: compute avg_task_duration from last 10 completed tasks. Write eta_seconds = pending_count * avg_duration to each epic in projects.json. Display on dashboard.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "fa-5",
+          "title": "Dashboard real values: wire /api/state to show live projects.json counts not hardcoded",
+          "description": "server.py normalize_state(): read projects.json directly for task_queue counts (completed, pending, in_progress). Replace any hardcoded 423/434 references with live counts. Update every WebSocket tick.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "executor"
+        },
+        {
+          "id": "fa-6",
+          "title": "Remove cron entirely: move auto_recover.sh logic into unified_daemon internal task",
+          "description": "Add daemon.register_task('process-watchdog', 120, task_process_watchdog) that does exactly what auto_recover.sh does. Then remove the crontab entry. Zero external crons \u2014 all scheduling internal to daemon.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        }
+      ]
     }
   ]
 }
