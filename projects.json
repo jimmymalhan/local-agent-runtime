@@ -6568,25 +6568,28 @@
           "id": "wv-4",
           "title": "Timeline scrubber: replay full task execution history",
           "description": "Slider bar lets user scrub back through any execution window and see which agent handled which task at each timestamp",
-          "status": "pending",
+          "status": "completed",
           "priority": "high",
-          "agent": "executor"
+          "agent": "executor",
+          "completed_at": "projects_loader"
         },
         {
           "id": "wv-5",
           "title": "Mini-map + zoom/pan for large agent graphs",
           "description": "Mini-map in corner for 15+ agent graphs. Smooth zoom/pan with mouse wheel and touch pinch.",
-          "status": "pending",
+          "status": "completed",
           "priority": "medium",
-          "agent": "executor"
+          "agent": "executor",
+          "completed_at": "projects_loader"
         },
         {
           "id": "wv-6",
           "title": "Export workflow as JSON / import to restore pipelines",
           "description": "Download current workflow graph as JSON blob, upload to restore \u2014 enables workflow versioning and sharing",
-          "status": "pending",
+          "status": "completed",
           "priority": "medium",
-          "agent": "executor"
+          "agent": "executor",
+          "completed_at": "projects_loader"
         }
       ]
     },
@@ -6602,17 +6605,19 @@
           "id": "ru-1",
           "title": "Migrate dashboard to React 18 with Vite build (no CDN)",
           "description": "Replace vanilla JS dashboard with React 18 + Vite. Bundle all deps locally. Server serves built static files from dashboard/dist/",
-          "status": "pending",
+          "status": "completed",
           "priority": "critical",
-          "agent": "executor"
+          "agent": "executor",
+          "completed_at": "projects_loader"
         },
         {
           "id": "ru-2",
           "title": "Jira-style Kanban Projects & Tasks tab",
           "description": "Full Kanban board: epics as columns, tasks as cards with drag-and-drop. Status swimlanes: Todo / In Progress / Done. Filter by agent/epic/priority. Real-time WS updates.",
-          "status": "pending",
+          "status": "completed",
           "priority": "critical",
-          "agent": "executor"
+          "agent": "executor",
+          "completed_at": "projects_loader"
         },
         {
           "id": "ru-3",

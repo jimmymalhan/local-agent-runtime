@@ -1,7 +1,7 @@
 ```python
 # This file implements a Jira-style Kanban board for managing projects and tasks.
-# It includes features such as drag-and-drop task management, status swimlanes (Todo/In Progress/Done),
-# filtering by agent/epic/priority, and real-time WebSocket updates.
+# It includes epics as columns, tasks as draggable cards, and status swimlanes (Todo/In Progress/Done).
+# The system supports filtering by agent, epic, and priority, and real-time WebSocket updates.
 
 from flask import Flask, render_template, request, jsonify
 from flask_socketio import SocketIO, emit
@@ -15,6 +15,14 @@ tasks = {
     "In Progress": [],
     "Done": []
 }
+
+@socketio.on('connect')
+def test_connect():
+    print('Client connected')
+
+@socketio.on('disconnect')
+def test_disconnect():
+    print('Client disconnected')
 
 @socketio.on('move_task')
 def handle_move_task(data):

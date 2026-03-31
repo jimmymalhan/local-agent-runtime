@@ -2,50 +2,29 @@
 # This script provides functionality to export a workflow as a JSON blob and import it to restore pipelines.
 
 import json
-import requests
+from typing import Dict
 
-def export_workflow_as_json(workflow_id):
+def export_workflow_as_json(workflow: Dict) -> str:
     """
-    Export the current workflow graph as a JSON blob.
+    Export the current workflow graph as a JSON string.
     
     Args:
-    workflow_id (str): The ID of the workflow to export.
-    
+        workflow (Dict): The workflow dictionary containing the graph data.
+        
     Returns:
-    str: The JSON representation of the workflow.
+        str: A JSON string representing the workflow.
     """
-    # Simulate fetching the workflow data from an API
-    url = f"https://api.example.com/workflows/{workflow_id}"
-    response = requests.get(url)
-    if response.status_code == 200:
-        return json.dumps(response.json(), indent=4)
-    else:
-        raise Exception(f"Failed to export workflow: {response.status_code}")
+    return json.dumps(workflow, indent=4)
 
-def import_workflow_from_json(json_data):
+def import_workflow_from_json(json_string: str) -> Dict:
     """
-    Import a workflow from a JSON blob.
+    Import a workflow from a JSON string and restore it as a pipeline.
     
     Args:
-    json_data (str): The JSON representation of the workflow.
-    
+        json_string (str): The JSON string representing the workflow.
+        
     Returns:
-    str: Confirmation message.
+        Dict: A dictionary containing the restored workflow graph.
     """
-    # Simulate uploading the workflow data to an API
-    url = "https://api.example.com/workflows"
-    headers = {'Content-Type': 'application/json'}
-    response = requests.post(url, data=json_data, headers=headers)
-    if response.status_code == 201:
-        return "Workflow imported successfully."
-    else:
-        raise Exception(f"Failed to import workflow: {response.status_code}")
-
-# Example usage
-workflow_id = "example_workflow_123"
-json_blob = export_workflow_as_json(workflow_id)
-print("Exported JSON:", json_blob)
-
-import_result = import_workflow_from_json(json_blob)
-print(import_result)
+    return json.loads(json_string)
 ```
