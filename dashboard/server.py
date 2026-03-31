@@ -524,7 +524,7 @@ RULES:
 - You are Nexus. Respond as Nexus."""
 
 
-def _handle_slash_command(cmd: str) -> str | None:
+def _handle_slash_command(cmd: str):
     """Handle /status /agents /epics /tasks /health /help commands. Returns reply or None."""
     c = cmd.strip().lower()
     try:
