@@ -7158,6 +7158,247 @@
           "agent": "executor"
         }
       ]
+    },
+    {
+      "id": "epic-claude-code-parity",
+      "name": "Epic 12: Claude Code CLI Parity \u2014 Ultra Autonomous Nexus",
+      "description": "Make Nexus perform like Claude Code CLI: real tool-use loops, streaming feedback, self-healing error recovery, LLM inference integration, parallel agent execution, and pre-merge test automation. Close all 5 autonomy gaps identified in 2026-03-31 audit.",
+      "status": "pending",
+      "priority": "P0",
+      "eta_hours": 72,
+      "eta_completion": "2026-04-03T06:00:00Z",
+      "tasks": [
+        {
+          "id": "e12-1",
+          "title": "Implement auto-escalation for stuck tasks (error recovery v2)",
+          "description": "Stuck tasks (rescue_escalated=false for >30min) must automatically: (1) log failure to runtime-lessons.json with strategy tried, (2) attempt 2 more strategies with different agents, (3) after 3 failures write to rescue_queue.json + notify dashboard. Currently mkt-3..mkt-6 are silently stuck. Fix unified_daemon.py to detect and escalate stuck tasks.",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "orchestrator/unified_daemon.py",
+            "state/runtime-lessons.json",
+            "state/rescue_queue.json",
+            "orchestrator/recovery_manager.py"
+          ],
+          "success_criteria": "Stuck tasks detected within 5min, 3-strategy retry fires automatically, rescue_queue.json populated with failed task + error + strategies tried. Verified by injecting a stuck task and watching escalation.",
+          "test_command": "python3 -c \"import json; q=json.load(open('state/rescue_queue.json')); print('PASS' if len(q.get('queue',[])) >= 0 else 'FAIL')\""
+        },
+        {
+          "id": "e12-2",
+          "title": "Wire real LLM inference loops into task executor",
+          "description": "Most tasks complete with mocked status='success'. Wire actual nexus_inference.py (or Anthropic API fallback) into executor.py so each task: (1) sends task description to LLM, (2) receives code/action, (3) executes it via bash/file tools, (4) evaluates output, (5) iterates if quality_score < 80. This is the core Claude Code CLI behavior \u2014 tool-use loop.",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "agents/executor.py",
+            "providers/nexus_inference.py",
+            "providers/router.py",
+            "orchestrator/task_executor.py"
+          ],
+          "success_criteria": "executor.py shows real LLM call in logs (not mock), task output contains generated code or bash result, quality_score reflects actual output evaluation. Test with a real code-generation task.",
+          "test_command": "python3 -c \"from agents.executor import Executor; e=Executor(); print('PASS' if hasattr(e, 'inference_loop') else 'PARTIAL')\""
+        },
+        {
+          "id": "e12-3",
+          "title": "Implement tool-use feedback chains (iterate until done)",
+          "description": "Claude Code CLI iterates: plan \u2192 execute \u2192 observe \u2192 re-plan. Nexus runs tasks once. Add iteration loop to task_executor.py: after each agent action, evaluate output quality; if quality_score < threshold, re-run with refined prompt (max 3 iterations). Log each iteration to task.iterations[] in projects.json. This enables self-correction like Claude Code.",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "orchestrator/task_executor.py",
+            "agents/executor.py",
+            "orchestrator/quality_evaluator.py"
+          ],
+          "success_criteria": "Task with initial quality_score=40 triggers re-run, second iteration achieves quality_score>=80. Iteration count logged. Max 3 iterations enforced. Test with intentionally bad prompt.",
+          "test_command": "python3 -c \"from orchestrator.task_executor import TaskExecutor; t=TaskExecutor(); print('PASS' if hasattr(t, 'iteration_limit') else 'MISSING')\""
+        },
+        {
+          "id": "e12-4",
+          "title": "Add real bash/file/git tool execution to agents",
+          "description": "Claude Code CLI has: Read, Write, Edit, Bash, Grep, Glob tools. Nexus agents claim these capabilities but don't execute them. Add ToolRunner class with: bash_exec(cmd), file_read(path), file_write(path, content), file_edit(path, old, new), grep_search(pattern, path), git_commit(msg). Wire into executor.py so LLM can call tools via structured output.",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "agents/tools/tool_runner.py",
+            "agents/executor.py",
+            "orchestrator/task_executor.py"
+          ],
+          "success_criteria": "ToolRunner executes bash commands, reads/writes files, commits to git. LLM output with tool_call JSON is parsed and executed. Result fed back to LLM for next step. Integration test: task that creates a file via tool call.",
+          "test_command": "python3 -c \"from agents.tools.tool_runner import ToolRunner; t=ToolRunner(); r=t.bash_exec('echo TOOLTEST'); print('PASS' if 'TOOLTEST' in r else 'FAIL')\""
+        },
+        {
+          "id": "e12-5",
+          "title": "Implement streaming real-time feedback to dashboard",
+          "description": "Claude Code CLI streams output token-by-token. Nexus dashboard refreshes every 2s via WebSocket but task output is batch (shown only after completion). Add streaming: as LLM generates output, push partial tokens to dashboard via WebSocket event 'task_stream'. Dashboard shows live typing effect. Use generator pattern in nexus_inference.py.",
+          "agent": "frontend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "dashboard/server.py",
+            "dashboard/static/js/main.js",
+            "providers/nexus_inference.py",
+            "orchestrator/event_bus.py"
+          ],
+          "success_criteria": "Dashboard shows live token stream during task execution. WebSocket event 'task_stream' fires with partial output. No batching delay. Test: run a 10s task and verify dashboard shows progressive output.",
+          "test_command": "python3 -c \"from orchestrator.event_bus import EventBus; e=EventBus(); print('PASS' if hasattr(e, 'stream_event') else 'MISSING')\""
+        },
+        {
+          "id": "e12-6",
+          "title": "Add pre-merge test automation (CI gate)",
+          "description": "Tasks are marked 'completed' without running test_command. Add PreMergeValidator: before setting task.status='completed', run task.test_command in subprocess, capture stdout/stderr. If test fails \u2192 revert status to 'failed', log to runtime-lessons.json. If passes \u2192 set quality_score, mark completed. This closes the 'unknown code quality' gap.",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "orchestrator/task_executor.py",
+            "orchestrator/pre_merge_validator.py",
+            "orchestrator/unified_daemon.py"
+          ],
+          "success_criteria": "Task with failing test_command gets status='failed' not 'completed'. Passing test_command sets quality_score from test output. Log shows 'PRE_MERGE_PASS' or 'PRE_MERGE_FAIL'. Test: inject task with test_command='exit 1' and verify it fails.",
+          "test_command": "python3 -c \"from orchestrator.pre_merge_validator import PreMergeValidator; v=PreMergeValidator(); r=v.validate({'test_command':'echo PASS'}); print('PASS' if r['passed'] else 'FAIL')\""
+        },
+        {
+          "id": "e12-7",
+          "title": "Build autonomous code review + auto-fix loop",
+          "description": "Claude Code CLI can review its own output and fix issues. Add CodeReviewLoop to executor.py: after generating code, run a review agent that checks for: syntax errors, security issues (OWASP top 10), missing error handling, test coverage. If issues found \u2192 auto-fix loop (max 2 rounds). Log review findings to task.review_notes[].",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "agents/code_reviewer.py",
+            "agents/executor.py",
+            "orchestrator/review_loop.py"
+          ],
+          "success_criteria": "Code with syntax error triggers auto-fix. Code with SQL injection flagged and fixed. Review notes logged per task. Test: inject task that generates code with intentional syntax error.",
+          "test_command": "python3 -c \"from agents.code_reviewer import CodeReviewer; r=CodeReviewer(); print('PASS' if hasattr(r, 'auto_fix') else 'MISSING')\""
+        },
+        {
+          "id": "e12-8",
+          "title": "Implement parallel agent execution with dependency graph",
+          "description": "Claude Code CLI runs independent tool calls in parallel. Nexus uses ThreadPoolExecutor but doesn't respect task dependencies. Add DependencyGraph: parse task.depends_on[] field, build DAG, execute independent tasks in parallel, queue dependent tasks. Max parallel: 5 workers. Show dependency graph in dashboard.",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "orchestrator/dependency_graph.py",
+            "orchestrator/unified_daemon.py",
+            "dashboard/static/js/main.js"
+          ],
+          "success_criteria": "Tasks with no depends_on run in parallel. Tasks with depends_on=[id] wait until dependency completes. Dashboard shows DAG visualization. Test: 5 independent tasks start simultaneously, 1 dependent task waits.",
+          "test_command": "python3 -c \"from orchestrator.dependency_graph import DependencyGraph; g=DependencyGraph(); print('PASS' if hasattr(g, 'get_ready_tasks') else 'MISSING')\""
+        },
+        {
+          "id": "e12-9",
+          "title": "Add persistent session memory for agent context",
+          "description": "Claude Code CLI maintains conversation context across tool calls. Nexus agents start fresh each task. Add SessionMemory: store last 10 task outputs per agent, inject as context into next task prompt. Use vector similarity to retrieve relevant prior outputs. Store in state/agent_memory.jsonl (append-only).",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "orchestrator/session_memory.py",
+            "agents/executor.py",
+            "state/agent_memory.jsonl"
+          ],
+          "success_criteria": "Agent receives last 3 relevant task outputs as context. Memory persists across daemon restarts. Memory retrieval < 50ms. Test: run task that references output from prior task \u2014 verify context injected.",
+          "test_command": "python3 -c \"from orchestrator.session_memory import SessionMemory; m=SessionMemory(); m.store('test-agent', 'test output'); r=m.retrieve('test-agent', 'test'); print('PASS' if 'test output' in r else 'FAIL')\""
+        },
+        {
+          "id": "e12-10",
+          "title": "Build self-improvement loop: benchmark \u2192 upgrade prompts",
+          "description": "Claude Code CLI improves with each interaction. Nexus agents have static prompts. Add BenchmarkRunner: after each completed epic, run quality benchmark (5 test tasks), compare quality_scores to baseline. If score drops \u2192 rescue protocol upgrades agent prompt. If score improves \u2192 save new prompt as canonical. Store benchmarks in reports/benchmarks.jsonl.",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "orchestrator/benchmark_runner.py",
+            "orchestrator/prompt_upgrader.py",
+            "reports/benchmarks.jsonl",
+            "agents/prompts/"
+          ],
+          "success_criteria": "Benchmark runs after each epic completion. Quality improvement >5% triggers prompt upgrade. Downgrade triggers rollback. Benchmark results in reports/benchmarks.jsonl. Test: run benchmark on executor agent, verify score logged.",
+          "test_command": "python3 -c \"from orchestrator.benchmark_runner import BenchmarkRunner; b=BenchmarkRunner(); print('PASS' if hasattr(b, 'run_benchmark') else 'MISSING')\""
+        },
+        {
+          "id": "e12-11",
+          "title": "Implement Claude Code CLI slash commands for Nexus",
+          "description": "Claude Code CLI has /compact, /undo, /copy etc. Add Nexus CLI commands: /status (show all agent states), /retry <task-id> (requeue failed task), /skip <task-id> (mark task skipped), /logs <task-id> (show full task log), /benchmark (run quality benchmark). Wire to both dashboard chat and terminal CLI.",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P2",
+          "files": [
+            "cli/nexus_cli.py",
+            "dashboard/chat_handler.py",
+            "orchestrator/command_router.py"
+          ],
+          "success_criteria": "/status returns JSON with all agent states. /retry requeues task within 5s. /logs returns full task execution log. Test: run /status in terminal, verify JSON output matches state.json.",
+          "test_command": "python3 cli/nexus_cli.py status 2>&1 | python3 -c \"import sys,json; d=json.load(sys.stdin); print('PASS' if 'agents' in d else 'FAIL')\""
+        },
+        {
+          "id": "e12-12",
+          "title": "Add observability: structured logs + metrics + alerts",
+          "description": "Claude Code CLI shows real-time progress. Nexus has no structured observability. Add: (1) StructuredLogger with trace IDs per task, (2) MetricsCollector tracking task duration p50/p95, error rate, quality scores, (3) AlertManager that pings dashboard on quality_score < 50 or error_rate > 20%. Export metrics to reports/metrics.json.",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            "orchestrator/structured_logger.py",
+            "orchestrator/metrics_collector.py",
+            "orchestrator/alert_manager.py",
+            "reports/metrics.json"
+          ],
+          "success_criteria": "Every task has trace_id in logs. Metrics show p50/p95 latency. Alert fires when quality drops. Dashboard shows live metrics panel. Test: run 10 tasks, verify metrics.json populated with latency data.",
+          "test_command": "python3 -c \"from orchestrator.metrics_collector import MetricsCollector; m=MetricsCollector(); m.record('test', 1.5); r=m.summary(); print('PASS' if 'p50' in r else 'FAIL')\""
+        },
+        {
+          "id": "e12-13",
+          "title": "Integrate GitHub Actions CI for every agent code change",
+          "description": "No CI currently runs on agent commits. Add .github/workflows/nexus-ci.yml: on push to feature/* \u2192 run python3 -m pytest tests/ \u2192 require 80% pass rate \u2192 post results to PR. Add pre-commit hook: run lint (ruff) + quick tests before every commit. Block merges on CI failure.",
+          "agent": "devops_engineer",
+          "status": "pending",
+          "priority": "P1",
+          "files": [
+            ".github/workflows/nexus-ci.yml",
+            ".pre-commit-config.yaml",
+            "tests/conftest.py",
+            "Makefile"
+          ],
+          "success_criteria": "GitHub Actions runs on every PR push. Lint failures block merge. Test failures block merge. CI badge shows in README. Test: push failing test to feature branch, verify PR blocked.",
+          "test_command": "test -f .github/workflows/nexus-ci.yml && echo PASS || echo FAIL"
+        },
+        {
+          "id": "e12-14",
+          "title": "Build autonomous PR creation + review + merge agent",
+          "description": "Claude Code CLI can create and review PRs. Nexus manual PR step. Add PRAutomationAgent: after task batch completes \u2192 git diff \u2192 create feature branch \u2192 commit \u2192 push \u2192 gh pr create with AI-generated description \u2192 post review comments \u2192 auto-merge when CI passes. Zero human intervention for standard tasks.",
+          "agent": "backend_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "agents/pr_automation_agent.py",
+            "orchestrator/pr_manager.py",
+            "scripts/auto_pr.sh"
+          ],
+          "success_criteria": "Completed task batch triggers PR creation automatically. PR description summarizes changes. CI must pass before auto-merge. Test: complete a small task, verify PR appears in GitHub with correct description.",
+          "test_command": "python3 -c \"from agents.pr_automation_agent import PRAutomationAgent; a=PRAutomationAgent(); print('PASS' if hasattr(a, 'create_pr') else 'MISSING')\""
+        },
+        {
+          "id": "e12-15",
+          "title": "End-to-end autonomy validation: 10 tasks zero human input",
+          "description": "Final integration test for full Claude Code CLI parity. Run 10 test tasks covering: code generation, bug fix, test writing, PR creation, CI pass, merge. Measure: zero human interventions required, quality_score >= 80 on all tasks, all PRs auto-merged, full audit trail in runtime-lessons.json. This is the graduation test for Epic 12.",
+          "agent": "qa_engineer",
+          "status": "pending",
+          "priority": "P0",
+          "files": [
+            "tests/e2e/test_full_autonomy.py",
+            "reports/epic12_validation.json"
+          ],
+          "success_criteria": "10/10 tasks complete with quality_score >= 80. 0 human interventions. All PRs created + merged automatically. Full audit trail present. Runtime-lessons.json shows learnings from all 10 tasks.",
+          "test_command": "python3 tests/e2e/test_full_autonomy.py 2>&1 | tail -1"
+        }
+      ]
     }
   ]
 }
