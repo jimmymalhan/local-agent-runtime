@@ -432,11 +432,11 @@ class GradientBoostedPredictor:
 
 # Model tiers with approximate costs per 1K tokens
 _MODEL_TIERS = {
-    "local_small": {"max_tokens": 4096, "cost_per_1k": 0.0, "label": "qwen2.5-coder:7b"},
-    "local_large": {"max_tokens": 16384, "cost_per_1k": 0.0, "label": "deepseek-coder-v2:16b"},
-    "remote_cheap": {"max_tokens": 32768, "cost_per_1k": 0.00025, "label": "claude-haiku-4.5"},
-    "remote_mid": {"max_tokens": 65536, "cost_per_1k": 0.003, "label": "claude-sonnet-4.6"},
-    "remote_expensive": {"max_tokens": 200000, "cost_per_1k": 0.015, "label": "claude-opus-4.6"},
+    "local_small": {"max_tokens": 4096, "cost_per_1k": 0.0, "label": "nexus-local"},
+    "local_large": {"max_tokens": 16384, "cost_per_1k": 0.0, "label": "nexus-local-large"},
+    "remote_cheap": {"max_tokens": 32768, "cost_per_1k": 0.00025, "label": "nexus-remote-fast"},
+    "remote_mid": {"max_tokens": 65536, "cost_per_1k": 0.003, "label": "nexus-remote"},
+    "remote_expensive": {"max_tokens": 200000, "cost_per_1k": 0.015, "label": "nexus-remote-max"},
 }
 
 

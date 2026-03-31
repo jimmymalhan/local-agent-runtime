@@ -18,7 +18,7 @@ AGENT_META = {
     "name": "researcher",
     "version": 1,
     "capabilities": ["research", "code_search", "context_assembly"],
-    "model": "qwen2.5-coder:7b",
+    "model": "nexus-local",
     "input_schema": {
         "id": "int", "title": "str", "description": "str",
         "category": "str",

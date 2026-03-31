@@ -66,13 +66,13 @@ def implement_task(task: Dict[str, Any]) -> Dict[str, Any]:
         elif "test" in intent and ("suite" in intent or "benchmark" in intent):
             return implement_test_suite(task)
         elif "stream" in intent or "sse" in intent or "slash" in intent or "chat" in intent:
-            return implement_with_ollama(task, start_time)
+            return implement_with_nexus(task, start_time)
         elif "log" in intent and ("monitor" in intent or "badge" in intent or "triage" in intent):
-            return implement_with_ollama(task, start_time)
+            return implement_with_nexus(task, start_time)
         elif "retry" in intent or "dedup" in intent:
-            return implement_with_ollama(task, start_time)
+            return implement_with_nexus(task, start_time)
         else:
-            return implement_with_ollama(task, start_time)
+            return implement_with_nexus(task, start_time)
 
     except Exception as e:
         return {
@@ -312,9 +312,9 @@ def implement_test_suite(task):
     return {"status": "completed", "quality": 80, "quality_score": 80, "elapsed_s": 0.01}
 
 
-def implement_with_ollama(task: Dict[str, Any], start_time: float = None) -> Dict[str, Any]:
+def implement_with_nexus(task: Dict[str, Any], start_time: float = None) -> Dict[str, Any]:
     """
-    Use local Ollama (qwen2.5-coder:7b) to implement any task not handled by
+    Use local Nexus engine (nexus-local) to implement any task not handled by
     a specific route. Generates code, writes to agents/ or dashboard/.
     """
     if start_time is None:
@@ -353,13 +353,13 @@ def implement_with_ollama(task: Dict[str, Any], start_time: float = None) -> Dic
             "files_created": [f"agents/{safe_name}"],
         }
     except Exception as e:
-        # Ollama unavailable — mark completed with note so task doesn't block
+        # Nexus engine unavailable — mark completed with note so task doesn't block
         return {
             "status": "completed",
-            "output": f"Ollama unavailable for '{title[:50]}': {str(e)[:80]}. Task logged.",
+            "output": f"Nexus engine unavailable for '{title[:50]}': {str(e)[:80]}. Task logged.",
             "quality": 60.0,
             "quality_score": 60.0,
             "tokens_used": 0,
             "elapsed_s": round(time.time() - start_time, 2),
-            "note": "Run with Ollama active for full implementation",
+            "note": "Run with Nexus engine active for full implementation",
         }

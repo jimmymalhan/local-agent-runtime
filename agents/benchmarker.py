@@ -23,7 +23,7 @@ AGENT_META = {
     "name": "benchmarker",
     "version": 1,
     "capabilities": ["scoring", "gap_analysis", "upgrade_trigger"],
-    "model": "qwen2.5-coder:7b",
+    "model": "nexus-local",
     "input_schema": {"version": "int"},
     "output_schema": {
         "status": "str",

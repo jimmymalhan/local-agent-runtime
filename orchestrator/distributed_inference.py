@@ -105,7 +105,7 @@ class InferenceRequest:
     """A single inference request to be distributed."""
     request_id: str = ""
     prompt: str = ""
-    model: str = "qwen2.5-coder:7b"
+    model: str = "nexus-local"
     max_tokens: int = 4096
     temperature: float = 0.2
     priority: int = 5          # 1=highest, 10=lowest
@@ -213,16 +213,16 @@ class DeviceNode:
         device_type: DeviceType,
         capabilities: DeviceCapabilities,
         inference_fn: Optional[Callable[[InferenceRequest], InferenceResult]] = None,
-        ollama_url: str = "http://localhost:11434",
+        nexus_url: str = "",
     ):
         self.device_id = device_id
         self.device_type = device_type
         self.capabilities = capabilities
         self.status = DeviceStatus.ONLINE
         self.circuit_breaker = CircuitBreaker()
-        self.ollama_url = ollama_url
+        self.nexus_url = nexus_url
 
-        # Custom inference function or default Ollama-based
+        # Custom inference function or default Nexus engine-based
         self._inference_fn = inference_fn or self._default_inference
 
         # Work tracking
@@ -333,7 +333,7 @@ class DeviceNode:
             )
 
     def _default_inference(self, request: InferenceRequest) -> InferenceResult:
-        """Default inference via Ollama REST API."""
+        """Default inference via Nexus engine REST API."""
         import urllib.request
 
         messages = [{"role": "user", "content": request.prompt}]
@@ -348,7 +348,7 @@ class DeviceNode:
         }).encode()
 
         req = urllib.request.Request(
-            f"{self.ollama_url}/api/chat",
+            f"{self.nexus_url}/api/chat",
             data=payload,
             headers={"Content-Type": "application/json"},
             method="POST",
@@ -867,7 +867,7 @@ class ClusterManager:
 
 
 def auto_discover_devices(
-    ollama_url: str = "http://localhost:11434",
+    nexus_url: str = "",
 ) -> List[DeviceNode]:
     """
     Auto-detect available GPU and CPU devices on this machine.
@@ -892,7 +892,7 @@ def auto_discover_devices(
             device_id=f"gpu:{i}",
             device_type=DeviceType.GPU,
             capabilities=cap,
-            ollama_url=ollama_url,
+            nexus_url=nexus_url,
         ))
 
     # Always add CPU device(s) as fallback
@@ -915,7 +915,7 @@ def auto_discover_devices(
         device_id="cpu:0",
         device_type=DeviceType.CPU,
         capabilities=cpu_cap,
-        ollama_url=ollama_url,
+        nexus_url=nexus_url,
     ))
 
     return devices

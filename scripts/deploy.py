@@ -62,7 +62,7 @@ def deploy(agent_names: list, target: str):
     if pool_src.exists():
         shutil.copy2(pool_src, deploy_path / "agents" / "subagent_pool.py")
 
-    # Copy agent_runner.py — core Ollama loop required by executor
+    # Copy agent_runner.py — core Nexus engine loop required by executor
     runner_src = HERE / "agent_runner.py"
     if runner_src.exists():
         shutil.copy2(runner_src, deploy_path / "agent_runner.py")
@@ -165,7 +165,7 @@ if __name__ == "__main__":
         "source": str(HERE),
         "target": str(target_path),
         "agents": deployed,
-        "ollama_model": "qwen2.5-coder:7b",
+        "nexus_model": "nexus-local",
         "claude_rescue_budget": "10%",
     }
     (deploy_path / "manifest.json").write_text(json.dumps(manifest, indent=2))

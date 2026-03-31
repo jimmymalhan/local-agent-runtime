@@ -2,7 +2,7 @@
 """
 agents/subagent_pool.py — 1000-sub-agent parallel execution pool
 =================================================================
-Every agent spawns sub-agents by the thousands. All local. All Ollama.
+Every agent spawns sub-agents by the thousands. All local. All Nexus engine.
 Zero Claude budget. Reads and writes simultaneously — distributed systems style.
 
 Architecture:
@@ -41,7 +41,7 @@ def _hardware_limits() -> Dict[str, Any]:
     """
     Read CPU and RAM right now. Returns safe worker count.
     Auto-scales up to 1000 sub-agents when memory allows.
-    Each Ollama sub-agent needs ~80-150MB RAM; we leave 20% headroom.
+    Each Nexus engine sub-agent needs ~80-150MB RAM; we leave 20% headroom.
     """
     cpu_count = os.cpu_count() or 4
     limits = {"cpu": cpu_count, "ram_workers": cpu_count * 4, "max_workers": cpu_count * 4}

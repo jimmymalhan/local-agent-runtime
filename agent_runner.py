@@ -20,11 +20,13 @@ import logging
 from pathlib import Path
 from datetime import datetime
 
-# ── RESEARCH PATCHES (v5) ─────────────────────────────────
+# ── RESEARCH PATCHES (v20) ─────────────────────────────────
 # Applied from frustration research on 2026-03-30
   # [truncation] CRITICAL: NEVER truncate code. Write the COMPLETE file every time. If output would be too long, split into multiple WRITE_FILE directives. Never use '...' or '# rest of code here'.
   # [imports] Always verify import paths before writing them. Use relative imports for local modules. Test every import mentally.
   # [assertions] After writing code, mentally trace through it with example inputs. Verify assertions would pass.
+  # [error_handling] Every function that can fail must have try/except. Every external call must handle timeout and connection errors.
+  # [integration] Think about how this code will be called from other modules. Verify interfaces are consistent.
 # ── END RESEARCH PATCHES ──────────────────────────────────────────
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Dict, List, Optional

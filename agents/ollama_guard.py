@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-ollama_guard.py — Backward-compatible shim. All logic in nexus_inference.py.
+ollama_guard.py — Backward-compatible shim for nexus_guard. All logic in nexus_inference.py.
 """
 from agents.nexus_inference import is_engine_up, infer as _infer
 

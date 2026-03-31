@@ -17,7 +17,7 @@ AGENT_META = {
     "name": "refactor",
     "version": 1,
     "capabilities": ["refactor", "code_transformation", "cleanup"],
-    "model": "qwen2.5-coder:7b",
+    "model": "nexus-local",
     "input_schema": {
         "id": "int", "title": "str", "description": "str",
         "category": "str",
@@ -34,12 +34,12 @@ AGENT_META = {
     "benchmark_score": None,
 }
 
-OLLAMA_API  = os.environ.get("OLLAMA_API_BASE", "http://127.0.0.1:11434")
-LOCAL_MODEL = os.environ.get("LOCAL_MODEL", "qwen2.5-coder:7b")
+NEXUS_API   = os.environ.get("NEXUS_API", "")
+LOCAL_MODEL = os.environ.get("LOCAL_MODEL", "nexus-local")
 
 
 def _llm_call(prompt: str, num_ctx: int = 8192) -> str:
-    """Delegates to ollama_guard — handles Ollama down gracefully."""
+    """Delegates to nexus_guard — handles Nexus engine down gracefully."""
     from agents.ollama_guard import llm_call_with_fallback
     result, _ = llm_call_with_fallback(prompt, num_ctx, fallback_hint=prompt[:100])
     return result

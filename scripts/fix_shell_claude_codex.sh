@@ -131,7 +131,7 @@ if [ "$APPLIED" -eq 1 ]; then
   echo "  OR open a brand NEW terminal tab/window."
   echo ""
   echo "Then: claude -> real Claude CLI, codex -> real Codex"
-  echo "Use ./local-claude or ./local-codex when you want the local Ollama agent."
+  echo "Use ./local-claude or ./local-codex when you want the local Nexus engine agent."
 fi
 
 # If no changes but claude is a function, warn

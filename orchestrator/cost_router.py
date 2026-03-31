@@ -109,7 +109,7 @@ class RoutingDecision:
 DEFAULT_MODEL_CATALOG: list[ModelSpec] = [
     # Local models (free, lower quality)
     ModelSpec(
-        name="qwen2.5-coder:7b",
+        name="nexus-local",
         provider="local",
         cost_per_1k_input=0.0,
         cost_per_1k_output=0.0,
@@ -120,7 +120,7 @@ DEFAULT_MODEL_CATALOG: list[ModelSpec] = [
         max_complexity="medium",
     ),
     ModelSpec(
-        name="qwen2.5-coder:14b",
+        name="nexus-local-large",
         provider="local",
         cost_per_1k_input=0.0,
         cost_per_1k_output=0.0,
@@ -131,7 +131,7 @@ DEFAULT_MODEL_CATALOG: list[ModelSpec] = [
         max_complexity="medium",
     ),
     ModelSpec(
-        name="deepseek-coder-v2:16b",
+        name="nexus-local-coder",
         provider="local",
         cost_per_1k_input=0.0,
         cost_per_1k_output=0.0,
@@ -142,7 +142,7 @@ DEFAULT_MODEL_CATALOG: list[ModelSpec] = [
         max_complexity="high",
     ),
     ModelSpec(
-        name="codellama:34b",
+        name="nexus-local-xl",
         provider="local",
         cost_per_1k_input=0.0,
         cost_per_1k_output=0.0,
@@ -154,7 +154,7 @@ DEFAULT_MODEL_CATALOG: list[ModelSpec] = [
     ),
     # Remote models (paid, higher quality) — rescue-only per project policy
     ModelSpec(
-        name="claude-haiku-4-5-20251001",
+        name="nexus-remote-fast",
         provider="anthropic",
         cost_per_1k_input=0.001,
         cost_per_1k_output=0.005,
@@ -166,7 +166,7 @@ DEFAULT_MODEL_CATALOG: list[ModelSpec] = [
         max_complexity="high",
     ),
     ModelSpec(
-        name="claude-sonnet-4-6",
+        name="nexus-remote",
         provider="anthropic",
         cost_per_1k_input=0.003,
         cost_per_1k_output=0.015,
@@ -178,7 +178,7 @@ DEFAULT_MODEL_CATALOG: list[ModelSpec] = [
         max_complexity="critical",
     ),
     ModelSpec(
-        name="claude-opus-4-6",
+        name="nexus-remote-max",
         provider="anthropic",
         cost_per_1k_input=0.015,
         cost_per_1k_output=0.075,

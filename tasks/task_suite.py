@@ -913,7 +913,7 @@ def build_task_suite(n: int = 0, category: str = "", difficulty: str = "") -> li
     add("Research local LLM performance on coding tasks vs GPT-4 2025",
         "Search HuggingFace, Papers With Code, r/LocalLLaMA for: "
         "best local models for code generation (SWE-bench scores), "
-        "qwen2.5-coder vs deepseek-coder vs codellama benchmarks, "
+        "nexus-local vs open-source coder models benchmarks, "
         "hardware requirements for each. "
         "Deliver: leaderboard table with SWE-bench scores, "
         "recommendation for this system (running on Mac M-series).",
