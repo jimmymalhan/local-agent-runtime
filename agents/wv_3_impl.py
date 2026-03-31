@@ -1,6 +1,6 @@
 ```python
-# This script handles the clickable arrow routing feature for changing agent assignments in the UI.
-# It updates projects.json with the new agent assignment and triggers live routing in the orchestrator.
+# This script handles the logic for updating agent assignments based on user interactions in the UI.
+# It reads from projects.json, updates the agent assignment, and sends the updated data to the orchestrator.
 
 import json
 
@@ -9,19 +9,20 @@ def update_agent_assignment(source_node, target_node):
     with open('projects.json', 'r') as file:
         projects = json.load(file)
     
-    # Update agent assignment for the source node to point to the target node
-    projects[source_node]['agent'] = target_node
+    # Update the agent assignment for the source node
+    if source_node in projects:
+        projects[source_node]['agent'] = target_node
     
-    # Save updated project data back to projects.json
+    # Save the updated project data back to projects.json
     with open('projects.json', 'w') as file:
         json.dump(projects, file, indent=4)
     
-    # Trigger live routing in the orchestrator (placeholder for actual routing logic)
-    trigger_live_routing(source_node, target_node)
+    # Send updated data to the orchestrator (placeholder for actual implementation)
+    send_to_orchestrator(projects)
 
-def trigger_live_routing(source_node, target_node):
-    # Placeholder function to simulate triggering live routing
-    print(f"Routing {source_node} to {target_node}")
+def send_to_orchestrator(updated_data):
+    # Placeholder function to simulate sending data to the orchestrator
+    print("Sending updated agent assignments to orchestrator:", updated_data)
 
 # Example usage:
 # update_agent_assignment('node1', 'node2')

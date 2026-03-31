@@ -6511,19 +6511,21 @@
           "id": "lm-2",
           "title": "Add log health badge to dashboard header showing error/warn/rescue counts",
           "description": "Show a compact health badge in the top nav: '12 errors / 2 rescues' with red/yellow color coding. Badge pulls from dashboard/state.json failure_log length and rescue count.",
-          "status": "pending",
+          "status": "completed",
           "category": "code_gen",
           "agent": "executor",
-          "priority": "P2"
+          "priority": "P2",
+          "completed_at": "projects_loader"
         },
         {
           "id": "lm-3",
           "title": "Auto-deduplicate executor blocked tasks \u2014 retry with fresh strategy",
           "description": "When orchestrator marks a task status=blocked, increment a retry counter in projects.json. After 3 blocks, auto-change agent assignment to a different agent. Reset counter on success.",
-          "status": "pending",
+          "status": "completed",
           "category": "code_gen",
           "agent": "executor",
-          "priority": "P1"
+          "priority": "P1",
+          "completed_at": "projects_loader"
         }
       ]
     },
@@ -6539,25 +6541,28 @@
           "id": "wv-1",
           "title": "Build workflow graph canvas component (nodes + arrows)",
           "description": "React-based canvas with SVG arrows connecting agent nodes. Clicking/dragging changes workflow routing.",
-          "status": "pending",
+          "status": "completed",
           "priority": "critical",
-          "agent": "executor"
+          "agent": "executor",
+          "completed_at": "projects_loader"
         },
         {
           "id": "wv-2",
           "title": "Real-time agent state streaming to workflow graph",
           "description": "WebSocket feed pushes active/idle/error state per agent node \u2014 nodes highlight live as work moves through pipeline",
-          "status": "pending",
+          "status": "completed",
           "priority": "critical",
-          "agent": "executor"
+          "agent": "executor",
+          "completed_at": "projects_loader"
         },
         {
           "id": "wv-3",
           "title": "Clickable arrow routing: change agent assignment from UI",
           "description": "Drag arrow between two nodes in the UI and it updates projects.json agent assignment + live routing in orchestrator",
-          "status": "pending",
+          "status": "completed",
           "priority": "high",
-          "agent": "executor"
+          "agent": "executor",
+          "completed_at": "projects_loader"
         },
         {
           "id": "wv-4",

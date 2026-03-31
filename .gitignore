@@ -130,3 +130,9 @@ dashboard/state*.json
 **/__pycache__/
 *.pyc
 *.pyo
+
+# macOS Finder duplicate files
+"* 2.md"
+"* 2.py"
+"* 2.json"
+"* 2.sh"
