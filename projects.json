@@ -6463,6 +6463,337 @@
           "priority": "P1"
         }
       ]
+    },
+    {
+      "id": "epic-workflow-viz",
+      "name": "Epic 3: Interactive n8n-Style Workflow Visualizer",
+      "description": "Live visual workflow editor showing agent pipelines with drag-and-drop nodes and arrows like n8n",
+      "status": "pending",
+      "priority": "high",
+      "created_at": "2026-03-31T05:18:37.627688Z",
+      "tasks": [
+        {
+          "id": "wv-1",
+          "title": "Build workflow graph canvas component (nodes + arrows)",
+          "description": "React-based canvas with SVG arrows connecting agent nodes. Clicking/dragging changes workflow routing.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "executor"
+        },
+        {
+          "id": "wv-2",
+          "title": "Real-time agent state streaming to workflow graph",
+          "description": "WebSocket feed pushes active/idle/error state per agent node \u2014 nodes highlight live as work moves through pipeline",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "executor"
+        },
+        {
+          "id": "wv-3",
+          "title": "Clickable arrow routing: change agent assignment from UI",
+          "description": "Drag arrow between two nodes in the UI and it updates projects.json agent assignment + live routing in orchestrator",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "wv-4",
+          "title": "Timeline scrubber: replay full task execution history",
+          "description": "Slider bar lets user scrub back through any execution window and see which agent handled which task at each timestamp",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "wv-5",
+          "title": "Mini-map + zoom/pan for large agent graphs",
+          "description": "Mini-map in corner for 15+ agent graphs. Smooth zoom/pan with mouse wheel and touch pinch.",
+          "status": "pending",
+          "priority": "medium",
+          "agent": "executor"
+        },
+        {
+          "id": "wv-6",
+          "title": "Export workflow as JSON / import to restore pipelines",
+          "description": "Download current workflow graph as JSON blob, upload to restore \u2014 enables workflow versioning and sharing",
+          "status": "pending",
+          "priority": "medium",
+          "agent": "executor"
+        }
+      ]
+    },
+    {
+      "id": "epic-react-ui",
+      "name": "Epic 4: Ultra-Advanced React UI (Jira-style Kanban + Dashboard)",
+      "description": "Migrate from vanilla JS to production React with Jira-style kanban, real-time updates, and enterprise-grade components",
+      "status": "pending",
+      "priority": "critical",
+      "created_at": "2026-03-31T05:18:37.627688Z",
+      "tasks": [
+        {
+          "id": "ru-1",
+          "title": "Migrate dashboard to React 18 with Vite build (no CDN)",
+          "description": "Replace vanilla JS dashboard with React 18 + Vite. Bundle all deps locally. Server serves built static files from dashboard/dist/",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "executor"
+        },
+        {
+          "id": "ru-2",
+          "title": "Jira-style Kanban Projects & Tasks tab",
+          "description": "Full Kanban board: epics as columns, tasks as cards with drag-and-drop. Status swimlanes: Todo / In Progress / Done. Filter by agent/epic/priority. Real-time WS updates.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "executor"
+        },
+        {
+          "id": "ru-3",
+          "title": "Epic header cards with progress bars and ETAs",
+          "description": "Each epic shown as expandable card with: completion %, task breakdown by status, estimated completion time, assigned agents, velocity sparkline.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "executor"
+        },
+        {
+          "id": "ru-4",
+          "title": "Remove CEO tab, merge Workflow tab into Projects & Tasks",
+          "description": "Remove CEO analysis tab. Move all workflow details into Projects & Tasks as a collapsible sub-section per epic.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "ru-5",
+          "title": "Real-time progress bars on all tasks (live % updates via WebSocket)",
+          "description": "Each task card shows live progress bar updated via WebSocket. Shows token usage, step count, elapsed time, quality score.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "ru-6",
+          "title": "Ultra-advanced agent activity feed with filter, search, export",
+          "description": "Infinite scroll activity feed. Filter by agent/epic/status/date. Full-text search. Export to CSV/JSON. Group by time buckets.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "ru-7",
+          "title": "Dark/light theme with glassmorphism design tokens",
+          "description": "Full dark/light mode with CSS vars design tokens. Glassmorphism cards, gradient accents, smooth transitions.",
+          "status": "pending",
+          "priority": "medium",
+          "agent": "executor"
+        },
+        {
+          "id": "ru-8",
+          "title": "Mobile-responsive layout (tablet/desktop breakpoints)",
+          "description": "Responsive grid: sidebar collapses to icon bar on tablet, kanban scrolls horizontally on mobile.",
+          "status": "pending",
+          "priority": "medium",
+          "agent": "executor"
+        },
+        {
+          "id": "ru-9",
+          "title": "Accessibility audit: WCAG AA, keyboard nav, ARIA labels",
+          "description": "All interactive elements keyboard-accessible. ARIA roles on kanban cards. Sufficient contrast. Screen reader tested.",
+          "status": "pending",
+          "priority": "medium",
+          "agent": "executor"
+        },
+        {
+          "id": "ru-10",
+          "title": "About page: full Nexus overview, agent list, architecture diagram",
+          "description": "Dedicated /about page and About tab in nav. Shows: what Nexus does, 15 agents with roles, architecture diagram, business features built, version history.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        }
+      ]
+    },
+    {
+      "id": "epic-workflow-cleanup",
+      "name": "Epic 5: Workflow Cleanup & Production Hardening",
+      "description": "Remove dead code, fix all stale PRs, enforce PR hygiene, harden agent restart loops",
+      "status": "pending",
+      "priority": "high",
+      "created_at": "2026-03-31T05:18:37.627688Z",
+      "tasks": [
+        {
+          "id": "wc-1",
+          "title": "Auto-close or merge all PRs >30min old with no conflicts",
+          "description": "Daemon task every 10min: list all open PRs, auto-merge if mergeable + no conflict. Stale PRs (>30min) without activity get auto-comment + merge or close.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "executor"
+        },
+        {
+          "id": "wc-2",
+          "title": "Remove all dead code: unused imports, orphan files, duplicate modules",
+          "description": "Audit all .py files for unused imports. Remove duplicate implementations (ollama_guard stubs still have dead code). Delete orphan scripts in scripts/.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "wc-3",
+          "title": "Fix .gitignore: stop tracking state/, reports/, benchmarks/ churn",
+          "description": "Add proper .gitignore rules so 1000+ opus_raw_*.jsonl, frustration_findings_*.json, dashboard state copies never get staged.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "executor"
+        },
+        {
+          "id": "wc-4",
+          "title": "Harden agent restart: exponential backoff + health probe before restart",
+          "description": "When daemon restarts an agent: probe health first, use exponential backoff (1min, 2min, 4min). Log restart reason. Max 5 restarts before alerting.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "wc-5",
+          "title": "Add ETA computation to all epics in projects.json",
+          "description": "Compute ETA per epic based on: remaining tasks \u00d7 avg completion time per agent. Write ETAs to projects.json every 10min. Display on dashboard.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "wc-6",
+          "title": "Token efficiency audit: reduce per-task token use by 50%",
+          "description": "Profile token use per task type. Implement: prompt caching, output truncation, context window reuse. Target: avg <2K tokens/task.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "wc-7",
+          "title": "Self-healing agent: continuously find + fix errors, blockers, stale tasks",
+          "description": "Dedicated self-healer agent runs every 5min: scans runtime-lessons.json for failures, logs in reports/ for errors, open PRs for staleness, projects.json for in_progress tasks >10min. Auto-fixes or files sub-tasks. Never stops. Writes fixes to state/auto_heal.log.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "debugger",
+          "created_at": "2026-03-31T05:20:50.646160Z"
+        }
+      ]
+    },
+    {
+      "id": "epic-cas-memory",
+      "name": "Epic 6: CAS Context-Aware Memory (Persistent Agent Memory)",
+      "description": "Implement content-addressed storage for agent memory so context persists across restarts and agents share knowledge",
+      "status": "pending",
+      "priority": "high",
+      "created_at": "2026-03-31T05:18:37.627688Z",
+      "tasks": [
+        {
+          "id": "cas-1",
+          "title": "Design CAS memory schema: content-hash keyed knowledge store",
+          "description": "JSON/SQLite store keyed by SHA-256 of content. Agents write observations, code snippets, learnings. Deduplication automatic.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "architect"
+        },
+        {
+          "id": "cas-2",
+          "title": "Agent memory write hooks: auto-save task outcomes to CAS",
+          "description": "After each task completion: executor saves (task_id, approach, outcome, quality) to CAS. On retry: lookup past approaches to avoid repeating failures.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "executor"
+        },
+        {
+          "id": "cas-3",
+          "title": "Semantic retrieval: find relevant past solutions by keyword",
+          "description": "Simple TF-IDF index over CAS entries. When agent starts a task: retrieve top-3 similar past outcomes and inject into prompt context.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "cas-4",
+          "title": "Cross-agent knowledge sharing: shared CAS namespace",
+          "description": "All 15 agents read/write same CAS. Researcher writes findings \u2192 Executor reads them. Architect decisions propagate to all agents automatically.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "cas-5",
+          "title": "Memory eviction policy: keep top-1000 high-quality entries",
+          "description": "Score entries by quality + recency + usage frequency. Evict bottom 10% when store >1000 entries. Never evict entries with quality >90.",
+          "status": "pending",
+          "priority": "medium",
+          "agent": "executor"
+        },
+        {
+          "id": "cas-6",
+          "title": "Memory dashboard tab: browse, search, export agent knowledge",
+          "description": "New dashboard tab showing CAS entries: search by keyword, filter by agent/date/quality, export as JSON. Shows total knowledge size and top entries.",
+          "status": "pending",
+          "priority": "medium",
+          "agent": "executor"
+        }
+      ]
+    },
+    {
+      "id": "epic-marketing-revenue",
+      "name": "Epic 7: Marketing, Community Growth & Revenue",
+      "description": "Promote Nexus on Reddit/Threads/HackerNews, grow community, set up revenue capture",
+      "status": "pending",
+      "priority": "medium",
+      "created_at": "2026-03-31T05:18:37.627688Z",
+      "tasks": [
+        {
+          "id": "mkt-1",
+          "title": "Research: best subreddits and communities for autonomous AI agent tools",
+          "description": "Research r/MachineLearning, r/LocalLLaMA, r/AIAssistants, r/programming, Hacker News. Find what posts get traction. Document tone, format, best posting times.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "researcher"
+        },
+        {
+          "id": "mkt-2",
+          "title": "Write Reddit launch post: Nexus \u2014 open-source local AI agent runtime",
+          "description": "Compelling post for r/LocalLLaMA and r/MachineLearning. Technical depth, benchmarks vs hosted APIs, privacy angle, demo GIFs. Follow community rules.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "doc_writer"
+        },
+        {
+          "id": "mkt-3",
+          "title": "Create GitHub social preview image and star-worthy README badges",
+          "description": "Design social preview image (1280\u00d7640). Add README badges: license, stars, version, build status. Make the repo star-worthy at first glance.",
+          "status": "pending",
+          "priority": "medium",
+          "agent": "executor"
+        },
+        {
+          "id": "mkt-4",
+          "title": "Set up GitHub Sponsors / Open Collective for revenue capture",
+          "description": "Create GitHub Sponsors profile. Add .github/FUNDING.yml. Add sponsor CTA to README. Research Open Collective setup for team revenue.",
+          "status": "pending",
+          "priority": "medium",
+          "agent": "doc_writer"
+        },
+        {
+          "id": "mkt-5",
+          "title": "Write technical deep-dive blog post: How Nexus beats hosted LLMs at 1/100th the cost",
+          "description": "Long-form post: architecture, benchmarks, cost analysis, privacy benefits. Publishable on dev.to, Medium, personal site.",
+          "status": "pending",
+          "priority": "medium",
+          "agent": "doc_writer"
+        },
+        {
+          "id": "mkt-6",
+          "title": "Create demo video script: 2-min walkthrough of Nexus dashboard + agent execution",
+          "description": "Script + screenshot sequence for a 2-min demo video. Shows: startup, chat commands, real task execution, kanban board, live agent activity.",
+          "status": "pending",
+          "priority": "low",
+          "agent": "doc_writer"
+        }
+      ]
     }
   ]
 }
