@@ -689,10 +689,8 @@ def run_version(version: int, tasks: list, local_only: bool = True,
 
     total_tasks        = len(tasks)
     rescued_count      = 0
-    local_wins         = 0
     results            = []
     total_local_qual   = 0
-    total_opus_qual    = 0
 
     print(f"\n{'='*60}")
     print(f"[ORCHESTRATOR] v{version} — {total_tasks} tasks")
@@ -800,29 +798,11 @@ def run_version(version: int, tasks: list, local_only: bool = True,
             _update_task_status(task_id, status_after, local_quality,
                                 local_result.get("elapsed_s", 0.0), agent_name_hint)
 
-        # Run Opus 4.6 baseline — HARD BLOCKED by default.
-        # Requires explicit --with-opus flag AND OPUS_ALLOW_TODAY=1 env var.
-        # Daily limit: 1 run per day. Never triggered automatically.
+        # Opus/Claude baseline removed — local-only execution
         opus_quality = 0
         opus_result  = {}
-        if not local_only:
-            try:
-                update_agent("reviewer", "reviewing", f"Opus 4.6 ← {title[:40]}", task_id)
-                from scripts.opus_runner import run_opus_task
-                opus_result  = run_opus_task(task, version)
-                opus_quality = opus_result.get("quality", 0)
-                if opus_result.get("status") == "blocked_daily_limit":
-                    opus_quality = 0  # treat as skipped, not 70
-                update_agent("reviewer", "idle", "", None)
-            except Exception as e:
-                print(f"    [OPUS] Error: {e}")
-                update_agent("reviewer", "idle", "", None)
-                opus_quality = 0  # never assume Opus score to avoid inflating baseline
 
         total_local_qual += local_quality
-        total_opus_qual  += opus_quality
-        if local_quality >= opus_quality - 5:
-            local_wins += 1
 
         # ── Prompt engine: record result, A/B test after low-quality tasks ──
         if _PROMPT_ENGINE:
@@ -855,55 +835,35 @@ def run_version(version: int, tasks: list, local_only: bool = True,
         with open(report_path, "a") as f:
             f.write(json.dumps(record) + "\n")
 
-        # Log token comparison
-        token_record = {
-            "ts": record["ts"], "version": version, "task_id": record["task_id"],
-            "local_tokens": local_result.get("tokens_used", local_result.get("tokens", 0)),
-            "opus_tokens":  opus_result.get("tokens_used", opus_result.get("tokens", 0)),
-            "claude_rescue_tokens": 0,
-        }
-        with open(token_path, "a") as f:
-            f.write(json.dumps(token_record) + "\n")
-
         # Progress line
-        gap = opus_quality - local_quality
-        indicator = "WIN" if local_quality >= opus_quality - 5 else f"GAP={gap:+.0f}"
-        print(f"         local={local_quality:3}/100  opus={opus_quality:3}/100  {indicator}"
+        print(f"         local={local_quality:3}/100"
               + ("  [CLAUDE RESCUED]" if local_result.get("claude_rescued") else ""))
 
-    win_rate = round(local_wins / total_tasks * 100, 1) if total_tasks else 0
     rescue_rate = round(rescued_count / total_tasks * 100, 1) if total_tasks else 0
 
     summary = {
         "version":      version,
         "tasks_run":    total_tasks,
-        "local_wins":   local_wins,
-        "win_rate":     win_rate,
         "rescued":      rescued_count,
         "rescue_rate":  rescue_rate,
-        "local_beats_opus": win_rate >= 95.0,
     }
 
     avg_local = round(total_local_qual / total_tasks, 1) if total_tasks else 0
-    avg_opus  = round(total_opus_qual  / total_tasks, 1) if total_tasks else 0
-    gap       = round(avg_local - avg_opus, 1)
 
     # Dashboard: final version state
-    update_version(version, 100, f"v{version} complete — win_rate={win_rate}%")
+    update_version(version, 100, f"v{version} complete — avg={avg_local}")
     update_task_queue(total_tasks, completed, 0, failed_count, 0)
-    update_benchmark_score(version, avg_local, avg_opus, win_rate, gap)
-    update_version_changelog(version, [f"win_rate={win_rate}%", f"local_avg={avg_local}",
-                                        f"opus_avg={avg_opus}", f"rescued={rescue_rate}%",
-                                        f"tasks={total_tasks}"], avg_opus, avg_local)
+    update_benchmark_score(version, avg_local, 0, 0, 0)
+    update_version_changelog(version, [f"local_avg={avg_local}",
+                                        f"rescued={rescue_rate}%",
+                                        f"tasks={total_tasks}"], 0, avg_local)
 
     # Write leaderboard.md
-    _write_leaderboard(version, avg_local, avg_opus, win_rate, gap)
+    _write_leaderboard(version, avg_local, 0, 0, 0)
 
-    print(f"\n[v{version} SUMMARY] win_rate={win_rate}%  local={avg_local}/100  opus={avg_opus}/100  gap={gap:+}  rescued={rescue_rate}%")
+    print(f"\n[v{version} SUMMARY] local={avg_local}/100  rescued={rescue_rate}%")
 
     summary["avg_local"] = avg_local
-    summary["avg_opus"]  = avg_opus
-    summary["gap"]       = gap
 
     # ── Regression check + auto-rollback ─────────────────────────────────────
     if _CHECKPOINT:
@@ -985,15 +945,8 @@ def auto_loop(start_version: int):
             except Exception as e:
                 print(f"[AUTO-UPGRADE] Error: {e}")
 
-        # Gap analysis + upgrade
+        # Version analysis + upgrade
         analysis = analyze_version(version)
-        if analysis.get("local_wins"):
-            print(f"\n{'='*60}")
-            print(f"LOCAL AGENTS BEAT OPUS 4.6 at v{version}!")
-            print(f"win_rate={summary['win_rate']}%")
-            print(f"{'='*60}")
-            break
-
         if analysis.get("upgrade_needed"):
             print(f"\n[UPGRADE] Triggering upgrade v{version}→v{version+1}...")
             try:
@@ -1024,10 +977,6 @@ def main():
                     help="Full auto loop from START to v100")
     ap.add_argument("--quick",   type=int, default=0, metavar="N",
                     help="Run only N tasks (for testing)")
-    ap.add_argument("--local-only", action="store_true", default=True,
-                    help="Skip Opus 4.6 comparison (default: True — free run)")
-    ap.add_argument("--with-opus", action="store_true", default=False,
-                    help="Enable Opus baseline (requires OPUS_ALLOW_TODAY=1 env, max 1/day)")
     args = ap.parse_args()
 
     if args.auto:
@@ -1052,8 +1001,7 @@ def main():
     tasks.extend(suite_tasks)
     print(f"[PROJECTS] Total task queue: {len(project_tasks)} projects + {len(suite_tasks)} suite = {len(tasks)} tasks")
 
-    # --with-opus overrides --local-only; still gated by daily limit in opus_runner
-    use_local_only = not args.with_opus
+    use_local_only = True
     run_version(args.version, tasks, local_only=use_local_only, quick=args.quick)
 
 

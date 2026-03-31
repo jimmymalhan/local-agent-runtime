@@ -6405,6 +6405,40 @@
           "priority": "P2"
         }
       ]
+    },
+    {
+      "id": "epic-log-monitor",
+      "name": "Dashboard Log Monitoring & Auto-Triage",
+      "description": "Continuous monitoring of dashboard logs; auto-file tasks for high-frequency errors",
+      "tasks": [
+        {
+          "id": "lm-1",
+          "title": "Implement log error rate monitor \u2014 alert when same error repeats >5x/hour",
+          "description": "Read dashboard/state.json failure_log every 5min. Group by agent+error pattern. If any pattern repeats >5x, auto-file a task in projects.json to fix the root cause.",
+          "status": "pending",
+          "category": "code_gen",
+          "agent": "executor",
+          "priority": "P1"
+        },
+        {
+          "id": "lm-2",
+          "title": "Add log health badge to dashboard header showing error/warn/rescue counts",
+          "description": "Show a compact health badge in the top nav: '12 errors / 2 rescues' with red/yellow color coding. Badge pulls from dashboard/state.json failure_log length and rescue count.",
+          "status": "pending",
+          "category": "code_gen",
+          "agent": "executor",
+          "priority": "P2"
+        },
+        {
+          "id": "lm-3",
+          "title": "Auto-deduplicate executor blocked tasks \u2014 retry with fresh strategy",
+          "description": "When orchestrator marks a task status=blocked, increment a retry counter in projects.json. After 3 blocks, auto-change agent assignment to a different agent. Reset counter on success.",
+          "status": "pending",
+          "category": "code_gen",
+          "agent": "executor",
+          "priority": "P1"
+        }
+      ]
     }
   ]
 }
