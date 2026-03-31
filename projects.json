@@ -6900,6 +6900,106 @@
       ],
       "eta_hours": 12,
       "eta_completion": "2026-03-31T05:23:17.678116Z"
+    },
+    {
+      "id": "epic-dashboard-luxury-upgrade",
+      "name": "Epic 8: Ultra-Advanced Dashboard \u2014 Luxury Design System",
+      "description": "Transform http://localhost:3001 into a $10K-quality animated luxury dashboard using high-end design tokens, smooth animations, glassmorphism, and scroll-driven effects",
+      "status": "pending",
+      "priority": "critical",
+      "created_at": "2026-03-31T05:32:43.215269Z",
+      "tasks": [
+        {
+          "id": "du-1",
+          "title": "Design system: luxury dark theme with glassmorphism, gold accents, smooth transitions",
+          "description": "CSS design tokens: glass cards, gradient borders, gold/amber accents, blur backdrop filters, micro-animations on hover. Reference: high-end SaaS like Linear/Vercel but darker and more premium.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "executor"
+        },
+        {
+          "id": "du-2",
+          "title": "Animated hero header with particle background and live stats",
+          "description": "Full-width hero with animated particle/mesh background (CSS or canvas), live agent count, task completion %, quality score. Smooth counter animations on load.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "executor"
+        },
+        {
+          "id": "du-3",
+          "title": "Scroll-driven section reveals and parallax effects",
+          "description": "IntersectionObserver-driven section animations: cards fly in from sides, counters count up, progress bars fill. Parallax on background layers. No external libraries.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "du-4",
+          "title": "3D-style agent cards with status rings and activity sparklines",
+          "description": "Each of 15 agents shown as premium card: 3D transform on hover, animated status ring (idle/active/error), mini sparkline of recent activity, current task marquee.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "du-5",
+          "title": "Jira-style kanban with drag-and-drop and epic swimlanes",
+          "description": "Full kanban board: epic swimlanes, task cards with priority color coding, drag-to-reorder within column, column collapse, real-time WebSocket updates, smooth CSS transitions.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "du-6",
+          "title": "Performance: lazy loading, CSS containment, 60fps animations",
+          "description": "All animations use transform/opacity only (no layout thrash). requestAnimationFrame for counters. CSS contain: layout on cards. Virtualized lists for 100+ tasks.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "du-7",
+          "title": "Developer README: quick-start in 3 commands, architecture diagram, API reference",
+          "description": "README.md developer edition: `git clone && python3 dashboard/server.py` \u2192 done. ASCII architecture diagram. All API endpoints documented. No fluff.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "doc_writer"
+        }
+      ]
+    },
+    {
+      "id": "epic-pr-agent",
+      "name": "Epic 9: Dedicated PR Cleanup Agent (Agent 0)",
+      "description": "Dedicated agent that runs every 10min, handles all PR lifecycle: create, review, merge, close stale PRs automatically",
+      "status": "pending",
+      "priority": "critical",
+      "created_at": "2026-03-31T05:32:43.215269Z",
+      "tasks": [
+        {
+          "id": "pa-1",
+          "title": "PR lifecycle daemon: auto-merge clean PRs, close stale >30min PRs",
+          "description": "Runs in unified_daemon every 10min. Logic: (1) list all open PRs, (2) if CI green + mergeable \u2192 merge, (3) if >30min old + DIRTY \u2192 post conflict comment + close, (4) delete merged branches. Logs to reports/pr_agent.log.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "executor"
+        },
+        {
+          "id": "pa-2",
+          "title": "Auto-create PRs from feature branches older than 10min",
+          "description": "After every branch-cycle commit: if branch has commits not in main \u2192 automatically open PR with generated title+body. Never leave commits stranded on a branch without a PR.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "pa-3",
+          "title": "Fix all remaining broken/space-named git refs in packed-refs",
+          "description": "Scan .git/packed-refs and .git/refs/ for refs with spaces or invalid characters. Remove them. Run `git fsck --full` and fix any corrupt objects.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        }
+      ]
     }
   ]
 }
