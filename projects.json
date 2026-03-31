@@ -7000,6 +7000,96 @@
           "agent": "executor"
         }
       ]
+    },
+    {
+      "id": "epic-luxury-ui",
+      "name": "Epic 10: $10K Luxury UI \u2014 Animated Dashboard (localhost:3001)",
+      "description": "Transform Nexus dashboard into a world-class animated luxury product using high-end design, scroll animations, glassmorphism, video hero, kanban, and Stripe-ready payment tier",
+      "status": "pending",
+      "priority": "critical",
+      "created_at": "2026-03-31T05:33:37.522049Z",
+      "tasks": [
+        {
+          "id": "lux-1",
+          "title": "Design system: luxury dark glassmorphism theme (gold/black, blur cards, gradient borders)",
+          "description": "Apply taste-skill aesthetic to dashboard/index.html. CSS vars: --glass-bg, --gold-accent, --blur-card. All cards get backdrop-filter:blur(12px), gold border, smooth box-shadow. Typography: Inter/Geist, tight spacing. Reference: Linear.app meets luxury hotel lobby.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "executor"
+        },
+        {
+          "id": "lux-2",
+          "title": "Animated hero section: particle mesh background + live Nexus stats counter",
+          "description": "Full-width hero in dashboard. Animated canvas particle mesh (pure JS, no CDN). Live counters: tasks done, agents active, quality score \u2014 count up on load with easing. Headline: 'Nexus \u2014 Autonomous AI Runtime'. Sub: agent count, version, uptime.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "executor"
+        },
+        {
+          "id": "lux-3",
+          "title": "Scroll-driven section reveals: IntersectionObserver animations, parallax background layers",
+          "description": "Every section animates in on scroll: cards slide from sides, counters count up, progress bars fill. Parallax: background layers move at 0.3x scroll speed. Pure CSS + JS IntersectionObserver. No external libraries. 60fps target.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "lux-4",
+          "title": "3D agent cards: hover tilt transform, animated status ring, sparkline activity chart",
+          "description": "Each of 15 agent cards: CSS perspective tilt on mousemove (max 15deg), animated SVG status ring (idle=grey pulse, active=green spin, error=red flash), mini canvas sparkline of last 20 task outcomes. Current task text scrolls as marquee.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "lux-5",
+          "title": "Video hero background: looping ambient video or CSS animated gradient cinematic scene",
+          "description": "Hero section gets a looping video background (or CSS-only animated gradient that looks like light beams through glass). Inward masking gradient so video blends into page. Video: abstract dark tech aesthetic. Fallback: animated gradient if no video file present.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "lux-6",
+          "title": "Scroll-driven exploding kanban: tasks reveal frame-by-frame as user scrolls through epics",
+          "description": "Epic section: as user scrolls, task cards 'explode' into view one by one (staggered CSS animation). Each task card flies in from a random direction, settles into kanban position. Mimics the private jet exploded view scroll animation concept applied to task management.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "lux-7",
+          "title": "Performance pass: 60fps, lazy load, CSS containment, no layout thrash",
+          "description": "Profile with DevTools. All animations use transform/opacity only. CSS contain:layout on all cards. requestAnimationFrame for JS counters. Virtualize lists >50 items. Target: <100ms LCP, no jank on scroll.",
+          "status": "pending",
+          "priority": "high",
+          "agent": "executor"
+        },
+        {
+          "id": "lux-8",
+          "title": "Developer README: 3-command quickstart, ASCII architecture, all API endpoints",
+          "description": "Rewrite README.md as developer-first doc. Section 1: quickstart (3 commands). Section 2: ASCII arch diagram. Section 3: all /api/* endpoints with request/response examples. Section 4: agent list with capabilities. Section 5: extending Nexus. Clean, no marketing fluff.",
+          "status": "pending",
+          "priority": "critical",
+          "agent": "doc_writer"
+        },
+        {
+          "id": "lux-9",
+          "title": "Premium nav: sticky glass navbar, active tab glow, breadcrumb trail, keyboard shortcuts",
+          "description": "Sticky navbar with backdrop-filter glass effect. Active tab has gold underline glow animation. Keyboard shortcuts: cmd+1..9 for tabs, cmd+k for command palette. Breadcrumb shows current epic > task path.",
+          "status": "pending",
+          "priority": "medium",
+          "agent": "executor"
+        },
+        {
+          "id": "lux-10",
+          "title": "Command palette (cmd+k): fuzzy search agents, tasks, epics, trigger actions",
+          "description": "Global cmd+k command palette overlay. Fuzzy search across: all agents, all tasks, all epics. Actions: /do <task>, /status, navigate to tab. Keyboard-only navigation. Smooth open/close animation. Pure JS, no external deps.",
+          "status": "pending",
+          "priority": "medium",
+          "agent": "executor"
+        }
+      ]
     }
   ]
 }
