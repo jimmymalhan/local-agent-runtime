@@ -20,7 +20,7 @@ import logging
 from pathlib import Path
 from datetime import datetime
 
-# ── RESEARCH PATCHES (v255) ─────────────────────────────────
+# ── RESEARCH PATCHES (v660) ─────────────────────────────────
 # Applied from frustration research on 2026-03-30
   # [truncation] CRITICAL: NEVER truncate code. Write the COMPLETE file every time. If output would be too long, split into multiple WRITE_FILE directives. Never use '...' or '# rest of code here'.
   # [context_repeat] Read ALL prior messages before responding. Do not repeat work already done. Check what files already exist before writing.
