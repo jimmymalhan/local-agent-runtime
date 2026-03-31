@@ -541,3 +541,17 @@
 2026-03-27 12:42:45,241 [INFO] 📍 BLOCKER MONITOR CYCLE
 2026-03-27 12:42:45,241 [INFO] ======================================================================
 2026-03-27 12:42:45,241 [INFO] ✅ No blocked agents detected
+2026-03-30 22:23:08,292 [INFO] ======================================================================
+2026-03-30 22:23:08,293 [INFO] 📍 BLOCKER MONITOR CYCLE
+2026-03-30 22:23:08,293 [INFO] ======================================================================
+2026-03-30 22:23:08,293 [WARNING] ⚠️  1 blocked agent(s) detected: ['executor']
+2026-03-30 22:23:08,293 [INFO] 
+🔍 Analyzing executor...
+2026-03-30 22:23:08,293 [INFO]    Failure: blocked
+2026-03-30 22:23:08,293 [INFO] 🔄 Restarting agent: executor...
+2026-03-30 22:23:08,295 [INFO]   Reset executor to idle
+2026-03-30 22:23:08,296 [INFO] ✅ Agent executor restarted (state + task cleared)
+2026-03-30 22:23:08,296 [INFO]    ✅ Restarted agent
+2026-03-30 22:23:08,296 [INFO] 
+======================================================================
+2026-03-30 22:23:08,296 [INFO] ✅ Blocker monitor cycle complete

@@ -6405,10 +6405,11 @@
           "id": "nc-6",
           "title": "Stream Nexus chat responses for faster perceived response",
           "description": "Switch /api/chat to use Nexus streaming=True and SSE to frontend. Show tokens as they arrive instead of waiting for full response.",
-          "status": "pending",
+          "status": "completed",
           "category": "code_gen",
           "agent": "executor",
-          "priority": "P1"
+          "priority": "P1",
+          "completed_at": "projects_loader"
         },
         {
           "id": "nc-7",

@@ -8,15 +8,12 @@ app = Flask(__name__)
 
 @app.route('/api/chat', methods=['POST'])
 def chat():
-    def generate():
-        # Assuming 'request' contains the user's input
-        user_input = request.json.get('message')
-        
-        # Use Nexus to process the message with streaming enabled
-        for token in nexus.chat(user_input, stream=True):
+    def generate_response():
+        # Assuming `nexus.chat` is a function that handles the chat logic and yields tokens
+        for token in nexus.chat(stream=True):
             yield f"data: {token}\n\n"
-    
-    return Response(stream_with_context(generate()), content_type='text/event-stream')
+
+    return Response(stream_with_context(generate_response()), content_type='text/event-stream')
 
 if __name__ == '__main__':
     app.run(debug=True)
