@@ -1632,5 +1632,18 @@
     ],
     "rescue_escalated": false,
     "first_attempt_at": "2026-03-30T22:22:47.903700"
+  },
+  "ru-6": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "strategy": "autonomous",
+        "error": null,
+        "success": false,
+        "timestamp": "2026-03-30T22:23:26.689575"
+      }
+    ],
+    "rescue_escalated": false,
+    "first_attempt_at": "2026-03-30T22:23:26.689570"
   }
 }

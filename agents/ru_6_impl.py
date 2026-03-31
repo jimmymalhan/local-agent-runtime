@@ -4,48 +4,47 @@ import pandas as pd
 from datetime import datetime
 
 class ActivityFeed:
-    def __init__(self):
-        self.feed = []
+    def __init__(self, data):
+        self.data = pd.DataFrame(data)
 
-    def add_activity(self, agent, epic, status, date, description):
-        self.feed.append({
-            'agent': agent,
-            'epic': epic,
-            'status': status,
-            'date': date,
-            'description': description
-        })
+    def filter_by_agent(self, agent_name):
+        return self.data[self.data['agent'] == agent_name]
 
-    def filter_feed(self, agent=None, epic=None, status=None, start_date=None, end_date=None):
-        filtered = self.feed.copy()
-        if agent:
-            filtered = [item for item in filtered if item['agent'] == agent]
-        if epic:
-            filtered = [item for item in filtered if item['epic'] == epic]
-        if status:
-            filtered = [item for item in filtered if item['status'] == status]
-        if start_date and end_date:
-            filtered = [item for item in filtered if start_date <= datetime.strptime(item['date'], '%Y-%m-%d') <= end_date]
-        return filtered
+    def filter_by_epic(self, epic_name):
+        return self.data[self.data['epic'] == epic_name]
 
-    def search_feed(self, query):
-        return [item for item in self.feed if query.lower() in item['description'].lower()]
+    def filter_by_status(self, status):
+        return self.data[self.data['status'] == status]
+
+    def filter_by_date_range(self, start_date, end_date):
+        return self.data[(self.data['date'] >= start_date) & (self.data['date'] <= end_date)]
+
+    def search(self, query):
+        return self.data[self.data.apply(lambda row: any(query.lower() in str(cell).lower() for cell in row), axis=1)]
 
     def export_to_csv(self, filename):
-        df = pd.DataFrame(self.feed)
-        df.to_csv(filename, index=False)
+        self.data.to_csv(filename, index=False)
 
     def export_to_json(self, filename):
-        df = pd.DataFrame(self.feed)
-        df.to_json(filename, orient='records')
+        self.data.to_json(filename, orient='records')
+
+    def group_by_time_buckets(self, bucket_size_minutes):
+        bucket_size_seconds = bucket_size_minutes * 60
+        self.data['date'] = pd.to_datetime(self.data['date'])
+        self.data['bucket'] = (self.data['date'].astype(int) // bucket_size_seconds).astype(str)
+        return self.data.groupby('bucket').agg(list)
 
 # Example usage:
-feed = ActivityFeed()
-feed.add_activity('Agent1', 'EpicA', 'Completed', '2023-04-01', 'Task completed successfully')
-feed.add_activity('Agent2', 'EpicB', 'Pending', '2023-04-02', 'Waiting for approval')
-
-filtered_feed = feed.filter_feed(agent='Agent1')
-search_results = feed.search_feed('completed')
-feed.export_to_csv('activity_feed.csv')
-feed.export_to_json('activity_feed.json')
+data = {
+    'agent': ['Alice', 'Bob', 'Alice'],
+    'epic': ['Epic1', 'Epic2', 'Epic1'],
+    'status': ['Completed', 'Pending', 'In Progress'],
+    'date': [datetime(2023, 1, 1), datetime(2023, 1, 2), datetime(2023, 1, 3)]
+}
+feed = ActivityFeed(data)
+filtered_feed = feed.filter_by_agent('Alice')
+search_results = feed.search('Completed')
+csv_export = feed.export_to_csv('activity_feed.csv')
+json_export = feed.export_to_json('activity_feed.json')
+grouped_feed = feed.group_by_time_buckets(24 * 60)  # Group by day
 ```
