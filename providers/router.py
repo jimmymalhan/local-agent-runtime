@@ -11,9 +11,9 @@ Rules:
 Usage:
     from providers.router import get_provider, ProviderRouter
     p = get_provider()                    # auto → best local
-    p = get_provider("rescue")            # → claude if budget allows
-    p = get_provider("benchmark")         # → claude for baseline
-    p = get_provider("chat")              # → ollama, fallback claude
+    p = get_provider("rescue")            # → nexus-remote if budget allows
+    p = get_provider("benchmark")         # → nexus-remote for baseline
+    p = get_provider("chat")              # → nexus-local, fallback nexus-remote
 """
 from __future__ import annotations
 import os, json
@@ -61,14 +61,14 @@ def get_provider(mode: ProviderMode = "auto"):
         return ollama  # no claude CLI available
 
     if mode == "chat":
-        # Prefer local for chat; fall back to claude if Ollama not running
+        # Prefer local for chat; fall back to claude if Nexus engine not running
         if ollama.available():
             return ollama
         if claude.available():
             return claude
         return ollama  # return anyway, will fail gracefully
 
-    # auto: prefer local, fall back to claude only if ollama totally down
+    # auto: prefer local, fall back to claude only if Nexus engine totally down
     if ollama.available():
         return ollama
     if claude.available():

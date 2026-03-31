@@ -265,8 +265,8 @@ async def _seed_db(db: aiosqlite.Connection):
 
     tasks = [
         (project_id, sprint_id, "Set up Business OS infrastructure", "Install and configure all services", "ops", "done", "high", "human", "none", 3, 4.0, 4.0),
-        (project_id, sprint_id, "Build agent loop worker", "Implement autonomous aider agent loop", "code", "todo", "high", "local-agent", "qwen2.5-coder:7b", 5, 8.0, None),
-        (project_id, sprint_id, "Write project documentation", "Create README and CLAUDE.md for the project", "write", "backlog", "medium", "local-agent", "deepseek-r1:14b", 2, 3.0, None),
+        (project_id, sprint_id, "Build agent loop worker", "Implement autonomous aider agent loop", "code", "todo", "high", "local-agent", "nexus-local", 5, 8.0, None),
+        (project_id, sprint_id, "Write project documentation", "Create README and CLAUDE.md for the project", "write", "backlog", "medium", "local-agent", "nexus-local", 2, 3.0, None),
     ]
 
     for i, t in enumerate(tasks):
@@ -307,24 +307,24 @@ async def _seed_db(db: aiosqlite.Connection):
 # ---------------------------------------------------------------------------
 
 MODEL_MAP = {
-    "code": "qwen2.5-coder:7b",
-    "bug": "qwen2.5-coder:7b",
-    "research": "deepseek-r1:14b",
-    "write": "deepseek-r1:14b",
-    "ops": "llama3.1:8b",
-    "design": "llama3.1:8b",
+    "code": "nexus-local",
+    "bug": "nexus-local",
+    "research": "nexus-local",
+    "write": "nexus-local",
+    "ops": "nexus-local",
+    "design": "nexus-local",
 }
 
 
 def resolve_model(task: dict) -> str:
-    """Return the ollama model string for a task dict."""
+    """Return the nexus model string for a task dict."""
     if task.get("assignee") == "opus":
-        return "claude-sonnet-4-6"
+        return "nexus-remote"
     model = task.get("agent_model", "auto")
     if model and model not in ("auto", "none", ""):
         return model
     task_type = task.get("task_type", "code")
-    return MODEL_MAP.get(task_type, "llama3.1:8b")
+    return MODEL_MAP.get(task_type, "nexus-local")
 
 
 # ---------------------------------------------------------------------------

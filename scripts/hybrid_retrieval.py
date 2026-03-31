@@ -2,9 +2,9 @@
 """Hybrid retrieval with dense + sparse search and local/hosted rerank switch.
 
 Supports:
-- Dense retrieval via embedding vectors (Ollama nomic-embed or compatible)
+- Dense retrieval via embedding vectors (Nexus engine nomic-embed or compatible)
 - Sparse retrieval via BM25-style keyword scoring
-- Local reranker using Ollama chat models (e.g. BAAI/bge-reranker via Ollama)
+- Local reranker using Nexus engine chat models (e.g. BAAI/bge-reranker via Nexus engine)
 - Hosted reranker stub for Pinecone-hosted rerankers
 - Score fusion (reciprocal rank fusion) to combine dense and sparse results
 """
@@ -21,9 +21,9 @@ from collections import Counter
 from typing import Optional
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
-OLLAMA_BASE = os.environ.get("OLLAMA_BASE_URL", "http://127.0.0.1:11434")
+NEXUS_BASE  = os.environ.get("NEXUS_API", "")
 EMBED_MODEL = os.environ.get("EMBED_MODEL", "nomic-embed-text")
-RERANK_MODEL = os.environ.get("RERANK_MODEL", "qwen2.5:3b")
+RERANK_MODEL = os.environ.get("RERANK_MODEL", "nexus-local")
 
 
 # ---------------------------------------------------------------------------
@@ -81,12 +81,12 @@ def sparse_retrieve(query: str, documents: list[str],
 
 
 # ---------------------------------------------------------------------------
-# Dense retrieval: embedding-based similarity (requires Ollama embeddings API)
+# Dense retrieval: embedding-based similarity (requires Nexus engine embeddings API)
 # ---------------------------------------------------------------------------
 
 def _embed(texts: list[str], model: str = EMBED_MODEL) -> list[list[float]]:
-    """Get embeddings from Ollama embeddings API."""
-    url = f"{OLLAMA_BASE}/api/embed"
+    """Get embeddings from Nexus engine embeddings API."""
+    url = f"{NEXUS_BASE}/api/embed"
     payload = json.dumps({"model": model, "input": texts}).encode()
     req = urllib.request.Request(url, data=payload,
                                 headers={"Content-Type": "application/json"})
@@ -108,7 +108,7 @@ def _cosine_sim(a: list[float], b: list[float]) -> float:
 
 def dense_retrieve(query: str, documents: list[str],
                    top_k: int = 10) -> list[dict]:
-    """Dense retrieval using embedding similarity via Ollama."""
+    """Dense retrieval using embedding similarity via Nexus engine."""
     all_texts = [query] + documents
     embeddings = _embed(all_texts)
     if len(embeddings) < 2:
@@ -175,13 +175,13 @@ def hybrid_retrieve(query: str, documents: list[str],
 
 
 # ---------------------------------------------------------------------------
-# Local reranker: use Ollama chat model to rerank candidates
+# Local reranker: use Nexus engine chat model to rerank candidates
 # ---------------------------------------------------------------------------
 
 def local_rerank(query: str, candidates: list[dict],
                  model: str = RERANK_MODEL,
                  top_k: int = 5) -> list[dict]:
-    """Rerank candidates using a local Ollama model as a pointwise scorer.
+    """Rerank candidates using a local Nexus engine model as a pointwise scorer.
 
     Asks the model to score each candidate's relevance to the query on 0-10.
     """
@@ -194,7 +194,7 @@ def local_rerank(query: str, candidates: list[dict],
             f"Passage: {text}\n"
             f"Reply with ONLY a number 0-10."
         )
-        url = f"{OLLAMA_BASE}/v1/chat/completions"
+        url = f"{NEXUS_BASE}/v1/chat/completions"
         payload = json.dumps({
             "model": model,
             "messages": [{"role": "user", "content": prompt}],

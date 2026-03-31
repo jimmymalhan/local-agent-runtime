@@ -40,8 +40,8 @@ def _resolve_bos() -> str:
         os.makedirs(fallback, exist_ok=True)
         return fallback
 BOS            = _resolve_bos()
-OLLAMA         = os.environ.get('OLLAMA_API_BASE', 'http://127.0.0.1:11434')
-LOCAL_MODEL    = os.environ.get('LOCAL_MODEL', 'qwen2.5-coder:7b')
+NEXUS_API      = os.environ.get('NEXUS_API', '')
+LOCAL_MODEL    = os.environ.get('LOCAL_MODEL', 'nexus-local')
 MAX_FILE_CHARS = 12_000
 MAX_CTX        = 12288
 MAX_ITERATIONS = 12
@@ -107,10 +107,10 @@ def add_task_log(task_id: int, message: str, level: str = "info"):
     })
 
 
-# ── Ollama LLM call ─────────────────────────────────────────────────────────
+# ── Nexus engine LLM call ───────────────────────────────────────────────────
 
 def llm_call(messages: list, num_ctx: int = MAX_CTX, model: str = None) -> str:
-    """Call Ollama chat API. Returns assistant message content."""
+    """Call Nexus engine chat API. Returns assistant message content."""
     model = model or LOCAL_MODEL
     payload = {
         "model": model,
@@ -124,7 +124,7 @@ def llm_call(messages: list, num_ctx: int = MAX_CTX, model: str = None) -> str:
     }
     body = json.dumps(payload).encode()
     req = urllib.request.Request(
-        f"{OLLAMA}/api/chat",
+        f"{NEXUS_API}/api/chat",
         data=body,
         headers={"Content-Type": "application/json"},
     )
@@ -626,7 +626,7 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser(description="Autonomous agent runner V4")
     ap.add_argument("--task-id", type=int, help="Run a specific task by ID")
     ap.add_argument("--poll", action="store_true", help="Poll board and run tasks")
-    ap.add_argument("--model", default=LOCAL_MODEL, help="Ollama model to use")
+    ap.add_argument("--model", default=LOCAL_MODEL, help="Nexus engine model to use")
     ap.add_argument("--test", action="store_true", help="Run self-test")
     args = ap.parse_args()
 

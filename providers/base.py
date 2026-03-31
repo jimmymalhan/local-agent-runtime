@@ -1,7 +1,7 @@
 """
 providers/base.py — Abstract provider interface
 ================================================
-Every model backend (Ollama, Claude, etc.) implements this interface.
+Every model backend (Nexus engine, Claude, etc.) implements this interface.
 Nexus only speaks to NexusProvider — never to provider internals.
 """
 from __future__ import annotations
@@ -15,7 +15,7 @@ class CompletionResult:
     """Unified output from any provider."""
     text: str                          # generated text
     model: str                         # model name used
-    provider: str                      # "ollama" | "claude" | "mock"
+    provider: str                      # "nexus" | "nexus-remote" | "mock"
     tokens_used: int  = 0
     quality: float    = 0.0            # 0–100 if scorer ran
     elapsed_s: float  = 0.0
@@ -36,12 +36,12 @@ class NexusProvider(ABC):
     @property
     @abstractmethod
     def name(self) -> str:
-        """Provider identifier, e.g. 'ollama' or 'claude'."""
+        """Provider identifier, e.g. 'nexus' or 'nexus-remote'."""
 
     @property
     @abstractmethod
     def is_local(self) -> bool:
-        """True for local inference (Ollama), False for remote (Claude)."""
+        """True for local inference (Nexus engine), False for remote (Nexus remote)."""
 
     @abstractmethod
     def available(self) -> bool:

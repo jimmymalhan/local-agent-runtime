@@ -4,7 +4,7 @@ architect.py — System design and project scaffold agent
 ========================================================
 Handles arch, scaffold, e2e categories.
 Generates directory structures, file skeletons, and schema designs
-using the local Ollama model.
+using the local Nexus engine.
 
 Entry point: run(task) -> dict
 """
@@ -18,7 +18,7 @@ AGENT_META = {
     "name": "architect",
     "version": 1,
     "capabilities": ["arch", "scaffold", "e2e", "system_design"],
-    "model": "qwen2.5-coder:7b",
+    "model": "nexus-local",
     "input_schema": {"id": "int", "title": "str", "description": "str", "category": "str"},
     "output_schema": {
         "status": "str",
@@ -31,13 +31,13 @@ AGENT_META = {
     "benchmark_score": None,
 }
 
-OLLAMA_API  = os.environ.get("OLLAMA_API_BASE", "http://127.0.0.1:11434")
-LOCAL_MODEL = os.environ.get("LOCAL_MODEL", "qwen2.5-coder:7b")
+NEXUS_API   = os.environ.get("NEXUS_API", "")
+LOCAL_MODEL = os.environ.get("LOCAL_MODEL", "nexus-local")
 BOS         = os.environ.get("BOS_HOME", os.path.expanduser("~/local-agents-os"))
 
 
 def _llm_call(prompt: str, num_ctx: int = 8192) -> str:
-    """Delegates to ollama_guard — handles Ollama down gracefully."""
+    """Delegates to nexus_guard — handles Nexus engine down gracefully."""
     from agents.ollama_guard import llm_call_with_fallback
     result, _ = llm_call_with_fallback(prompt, num_ctx, fallback_hint=prompt[:100])
     return result

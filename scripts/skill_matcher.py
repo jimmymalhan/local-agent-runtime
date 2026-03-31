@@ -395,7 +395,7 @@ if __name__ == "__main__":
     matcher = SkillMatcher()
 
     agents_meta = [
-        {"name": "executor",      "version": 4, "capabilities": ["code_gen", "bug_fix", "tdd"],        "model": "qwen2.5-coder:7b"},
+        {"name": "executor",      "version": 4, "capabilities": ["code_gen", "bug_fix", "tdd"],        "model": "nexus-local"},
         {"name": "planner",       "version": 1, "capabilities": ["planning", "decomposition", "strategy"]},
         {"name": "architect",     "version": 1, "capabilities": ["arch", "scaffold", "e2e", "system_design"]},
         {"name": "test_engineer", "version": 1, "capabilities": ["test_gen", "coverage", "tdd"]},

@@ -40,7 +40,7 @@ def active_profile():
 def effective_runtime():
     runtime_env = env_with_runtime()
     runtime = json.loads((REPO_ROOT / "config" / "runtime.json").read_text())
-    runtime["provider_preference"] = runtime_env.get("LOCAL_AGENT_PROVIDER_PREFERENCE", runtime.get("provider_preference", "ollama"))
+    runtime["provider_preference"] = runtime_env.get("LOCAL_AGENT_PROVIDER_PREFERENCE", runtime.get("provider_preference", "nexus"))
     runtime["remote_fallback_allowed"] = runtime_env.get("LOCAL_AGENT_ALLOW_REMOTE_FALLBACK", "0") in {"1", "true", "yes", "on"}
     return runtime
 
@@ -276,7 +276,7 @@ def main():
     oc = openclaw_status()
     print(
         f"openclaw={'configured' if oc.get('configured') else 'missing'} | "
-        f"provider-preference={runtime.get('provider_preference', 'ollama')} | "
+        f"provider-preference={runtime.get('provider_preference', 'nexus')} | "
         f"remote-fallback={'on' if runtime.get('remote_fallback_allowed') else 'off'}"
     )
     for lane in ("local", "cloud", "shared", "general"):

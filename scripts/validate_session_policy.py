@@ -44,7 +44,7 @@ POLICY_RULES = {
     "docs/SESSION_COMMANDS.md": {
         "required": [
             "Codex, Claude, and Cursor run independently",
-            "Use `Local`, `local-codex`, or `local-claude` **only when you explicitly want** the local Ollama runtime",
+            "Use `Local`, `local-codex`, or `local-claude` **only when you explicitly want** the local Nexus engine runtime",
         ],
         "forbidden": [],
     },

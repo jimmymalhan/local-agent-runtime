@@ -22,7 +22,7 @@ EXPLICIT_LANE_RE = re.compile(r"^\[(local|cloud|shared|general)\]\s*", re.IGNORE
 LANE_RULES = {
     "cloud": ("cloud", "codex session", "claude session", "cursor", "paid api", "external api", "rate limit", "takeover", "take over"),
     "shared": ("common plan", "feedback", "coordination", "migration", "review", "qa", "uat", "progress", "session"),
-    "local": ("local", "ollama", "local agent", "local agents", "local runtime", "sglang", "pinecone", "mcp", "rag", "skill", "autopilot"),
+    "local": ("local", "nexus", "local agent", "local agents", "local runtime", "sglang", "pinecone", "mcp", "rag", "skill", "autopilot"),
 }
 USE_CASE_ORDER = ("product", "business", "technical", "general")
 USE_CASE_LABELS = {
@@ -34,7 +34,7 @@ USE_CASE_LABELS = {
 USE_CASE_RULES = {
     "product": ("product", "user", "ux", "session", "response style", "acceptance", "workflow"),
     "business": ("business", "sales", "marketing", "roi", "release", "24*7", "24x7", "free to run"),
-    "technical": ("runtime", "local", "ollama", "sglang", "pinecone", "mcp", "checkpoint", "ci", "review", "qa", "model", "agent"),
+    "technical": ("runtime", "local", "nexus", "sglang", "pinecone", "mcp", "checkpoint", "ci", "review", "qa", "model", "agent"),
 }
 
 

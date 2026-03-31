@@ -16,7 +16,7 @@ Features:
 Usage:
     from orchestrator.model_versioning import ModelVersionManager
     mv = ModelVersionManager()
-    mv.register("executor", "v3", model="qwen2.5-coder:7b", config={...})
+    mv.register("executor", "v3", model="nexus-local", config={...})
     mv.record_metric("executor", "v3", "quality", 82.5)
     mv.promote("executor", "v3")       # canary → active
     mv.rollback("executor")            # active → previous active
@@ -586,7 +586,7 @@ if __name__ == "__main__":
         mv = ModelVersionManager(registry_dir=tmp)
 
         # ── Test 1: Register versions ────────────────────────────────────────
-        v1 = mv.register("executor", "v1", model_id="qwen2.5-coder:7b", config={"temperature": 0.7})
+        v1 = mv.register("executor", "v1", model_id="nexus-local", config={"temperature": 0.7})
         assert v1.model_name == "executor"
         assert v1.version_tag == "v1"
         assert v1.status == "canary"
@@ -594,7 +594,7 @@ if __name__ == "__main__":
         assert v1.parent_version is None
         print("[PASS] Test 1: Register first version")
 
-        v2 = mv.register("executor", "v2", model_id="qwen2.5-coder:7b", config={"temperature": 0.5})
+        v2 = mv.register("executor", "v2", model_id="nexus-local", config={"temperature": 0.5})
         assert v2.parent_version is None  # no active version yet, so no auto-parent
         print("[PASS] Test 2: Register second version (no active parent yet)")
 
@@ -608,7 +608,7 @@ if __name__ == "__main__":
         print("[PASS] Test 3: Promote v1 to active")
 
         # ── Test 4: Register v3 (should auto-parent to active v1) ───────────
-        v3 = mv.register("executor", "v3", model_id="llama3:8b", config={"temperature": 0.3})
+        v3 = mv.register("executor", "v3", model_id="nexus-local", config={"temperature": 0.3})
         assert v3.parent_version == "v1"
         print("[PASS] Test 4: Auto-parent to active version")
 

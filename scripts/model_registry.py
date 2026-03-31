@@ -16,7 +16,7 @@ def run(cmd):
 
 
 def installed_models():
-    output = run(["ollama", "list"]).stdout.splitlines()
+    output = run(["nexus", "list"]).stdout.splitlines()
     models = []
     for line in output[1:]:
         parts = line.split()
@@ -83,5 +83,5 @@ if __name__ == "__main__":
     try:
         main()
     except FileNotFoundError:
-        print("ollama is not installed or not on PATH", file=sys.stderr)
+        print("nexus is not installed or not on PATH", file=sys.stderr)
         raise SystemExit(1)

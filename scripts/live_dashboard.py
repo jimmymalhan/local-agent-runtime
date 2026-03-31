@@ -89,7 +89,7 @@ def model_usage_breakdown(progress: dict, runtime: dict) -> dict[str, dict]:
         detail = stage.get("detail", "")
         status = stage.get("status", "pending")
 
-        provider = "ollama"
+        provider = "nexus"
         model = team.get(stage_id, {}).get("model", "unknown")
 
         if "github_models" in detail:
@@ -145,9 +145,9 @@ def next_decision(progress: dict, resource: dict, roi: dict) -> str:
     if roi.get("kill_switch"):
         return "ROI kill switch: cut scope, re-plan locally, and retry the smallest useful slice."
     if mem > 70:
-        return "Memory high: unload resident Ollama models or downgrade before dispatch."
+        return "Memory high: unload resident Nexus engine models or downgrade before dispatch."
     if cpu > 70:
-        return "CPU high: serialize roles and lower Ollama parallelism."
+        return "CPU high: serialize roles and lower Nexus engine parallelism."
     stages = progress.get("stages", [])
     running = next((stage for stage in stages if stage.get("status") == "running"), None)
     if running:

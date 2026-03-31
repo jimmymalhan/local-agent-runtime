@@ -431,7 +431,7 @@ def _claude_rescue(task: dict, version: int, agent_name: str,
 
     try:
         result = subprocess.run(
-            ["claude", "-p", prompt, "--model", "claude-opus-4-6"],
+            ["claude", "-p", prompt, "--model", "nexus-remote"],
             capture_output=True, text=True, timeout=60
         )
         output = result.stdout or ""

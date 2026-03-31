@@ -17,13 +17,13 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 BLOCKER_STRATEGIES = {
     "memory_ceiling": [
-        {"option": "Unload idle Ollama models", "action": "unload_ollama", "speed": 1, "eta_seconds": 3, "owner": "local", "detail": "Stop resident Ollama models first to recover memory now"},
-        {"option": "Downgrade model to 3b", "action": "model_downgrade", "speed": 2, "eta_seconds": 5, "owner": "local", "detail": "Switch to qwen2.5:3b for current stage"},
+        {"option": "Unload idle Nexus engine models", "action": "unload_nexus", "speed": 1, "eta_seconds": 3, "owner": "local", "detail": "Stop resident Nexus engine models first to recover memory now"},
+        {"option": "Downgrade model to small tier", "action": "model_downgrade", "speed": 2, "eta_seconds": 5, "owner": "local", "detail": "Switch to nexus-local for current stage"},
         {"option": "Serialize local roles", "action": "serialize", "speed": 3, "eta_seconds": 8, "owner": "local", "detail": "Keep the run local and cut parallel pressure immediately"},
     ],
     "cpu_ceiling": [
         {"option": "Serialize parallel roles", "action": "serialize", "speed": 1, "eta_seconds": 5, "owner": "local", "detail": "Run roles sequentially"},
-        {"option": "Reduce Ollama parallelism", "action": "reduce_parallel", "speed": 2, "eta_seconds": 8, "owner": "local", "detail": "Set ollama_num_parallel=1"},
+        {"option": "Reduce Nexus engine parallelism", "action": "reduce_parallel", "speed": 2, "eta_seconds": 8, "owner": "local", "detail": "Set nexus_num_parallel=1"},
         {"option": "Switch to fast local profile", "action": "fast_profile", "speed": 3, "eta_seconds": 12, "owner": "local", "detail": "Use fewer local roles until CPU headroom recovers"},
     ],
     "roi_kill_switch": [
@@ -37,7 +37,7 @@ BLOCKER_STRATEGIES = {
         {"option": "Refresh stale progress", "action": "refresh_progress", "speed": 3, "eta_seconds": 15, "owner": "local", "detail": "Reset stale session files and keep the runtime local"},
     ],
     "generic_output": [
-        {"option": "Retry with stronger local model", "action": "upgrade_model", "speed": 1, "eta_seconds": 15, "owner": "local", "detail": "Use deepseek-r1:8b instead of 3b"},
+        {"option": "Retry with stronger local model", "action": "upgrade_model", "speed": 1, "eta_seconds": 15, "owner": "local", "detail": "Use nexus-local-large instead of small tier"},
         {"option": "Inject more context", "action": "expand_context", "speed": 2, "eta_seconds": 20, "owner": "local", "detail": "Increase prompt budget for this stage"},
         {"option": "Re-plan the current stage", "action": "replan", "speed": 3, "eta_seconds": 25, "owner": "local", "detail": "Tighten the stage scope before retrying locally"},
     ],
@@ -186,10 +186,10 @@ def auto_resolve(context: dict) -> dict:
 
 def execute_resolution(action: str, context: dict) -> str:
     """Execute a resolution action. Returns status message."""
-    if action == "unload_ollama":
-        return unload_ollama_models()
+    if action == "unload_nexus":
+        return unload_nexus_models()
     if action == "model_downgrade":
-        return "Switched to lighter model (qwen2.5:3b)"
+        return "Switched to lighter model (nexus-local)"
     elif action == "serialize":
         return "Serialized parallel work to reduce resource pressure"
     elif action == "takeover":
@@ -227,13 +227,13 @@ def execute_resolution(action: str, context: dict) -> str:
             session_path.write_text(json.dumps(session, indent=2) + "\n")
         return "Stale progress cleared. Ready for a fresh preflight."
     elif action == "reduce_parallel":
-        return "Reduced Ollama parallelism to 1"
+        return "Reduced Nexus engine parallelism to 1"
     elif action == "fast_profile":
         return "Switched to fast profile (5 roles, 8K context)"
     elif action == "skip_roles":
         return "Skipping non-critical roles, jumping to summarizer"
     elif action == "upgrade_model":
-        return "Upgraded to deepseek-r1:8b for retry"
+        return "Upgraded to nexus-local-large for retry"
     elif action == "expand_context":
         return "Expanded prompt budget for current stage"
     elif action == "replan":
@@ -242,23 +242,23 @@ def execute_resolution(action: str, context: dict) -> str:
         return f"Retrying with action: {action}"
 
 
-def unload_ollama_models() -> str:
+def unload_nexus_models() -> str:
     try:
-        result = subprocess.run(["ollama", "ps"], capture_output=True, text=True, check=False)
+        result = subprocess.run(["nexus", "ps"], capture_output=True, text=True, check=False)
     except OSError:
-        return "Ollama CLI unavailable; unable to unload resident models"
+        return "Nexus engine CLI unavailable; unable to unload resident models"
     names = []
     for line in result.stdout.splitlines()[1:]:
         parts = line.split()
         if parts:
             names.append(parts[0])
     if not names:
-        return "No resident Ollama models to unload"
+        return "No resident Nexus engine models to unload"
     stopped = []
     for name in names:
-        subprocess.run(["ollama", "stop", name], capture_output=True, text=True, check=False)
+        subprocess.run(["nexus", "stop", name], capture_output=True, text=True, check=False)
         stopped.append(name)
-    return f"Unloaded Ollama models: {', '.join(stopped)}"
+    return f"Unloaded Nexus engine models: {', '.join(stopped)}"
 
 
 def report(context: dict | None = None) -> str:
