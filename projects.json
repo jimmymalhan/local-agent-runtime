@@ -6632,9 +6632,10 @@
           "id": "ru-4",
           "title": "Remove CEO tab, merge Workflow tab into Projects & Tasks",
           "description": "Remove CEO analysis tab. Move all workflow details into Projects & Tasks as a collapsible sub-section per epic.",
-          "status": "pending",
+          "status": "completed",
           "priority": "high",
-          "agent": "executor"
+          "agent": "executor",
+          "completed_at": "projects_loader"
         },
         {
           "id": "ru-5",
@@ -7398,6 +7399,23 @@
           ],
           "success_criteria": "10/10 tasks complete with quality_score >= 80. 0 human interventions. All PRs created + merged automatically. Full audit trail present. Runtime-lessons.json shows learnings from all 10 tasks.",
           "test_command": "python3 tests/e2e/test_full_autonomy.py 2>&1 | tail -1"
+        }
+      ]
+    },
+    {
+      "id": "nexus-chat-dispatch",
+      "name": "Nexus Chat Dispatched Tasks",
+      "tasks": [
+        {
+          "id": "chat-cd5c9417",
+          "title": "add all features of slack intergation to nexus chat and cli - and make     \n  sure it's ultra upgrad",
+          "description": "add all features of slack intergation to nexus chat and cli - and make     \n  sure it's ultra upgraded end to end - assign nexus agent and exit",
+          "status": "pending",
+          "category": "code_gen",
+          "agent": "executor",
+          "priority": "P1",
+          "source": "nexus-chat",
+          "created_at": "2026-03-31T06:22:48.595306"
         }
       ]
     }
