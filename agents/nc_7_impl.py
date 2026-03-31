@@ -1,32 +1,26 @@
 ```python
-# This script parses incoming messages for specific slash-commands and handles them accordingly before forwarding the message to the LLM.
+# This script parses incoming messages for specific slash-commands and handles them accordingly before sending the rest of the message to an LLM.
 
 def parse_command(message):
     if message.startswith('/status'):
-        return handle_status()
+        return 'live task counts'
     elif message.startswith('/agents'):
-        return handle_agents()
+        return 'all agent states'
     elif message.startswith('/epics'):
-        return handle_epics()
-    elif message.startswith('/why '):
-        task = message.split(' ', 1)[1]
-        return handle_why(task)
-    else:
-        return None
+        return 'pending epics + ETA'
+    elif message.startswith('/why'):
+        parts = message.split(' ', 1)
+        if len(parts) > 1:
+            task = parts[1]
+            return f'failure reason for {task}'
+    elif message.startswith('/help'):
+        return 'available commands: /status, /agents, /epics, /why <task>, /help'
+    
+    # If no command is recognized, return the original message
+    return message
 
-def handle_status():
-    # Implement logic to get live task counts
-    return "Live task counts: [insert count]"
-
-def handle_agents():
-    # Implement logic to get all agent states
-    return "Agent states: [insert states]"
-
-def handle_epics():
-    # Implement logic to get pending epics and ETA
-    return "Pending epics with ETA: [insert details]"
-
-def handle_why(task):
-    # Implement logic to get the failure reason for a specific task
-    return f"Failure reason for {task}: [insert reason]"
+# Example usage:
+user_message = '/status'
+response = parse_command(user_message)
+print(response)  # Output: live task counts
 ```
