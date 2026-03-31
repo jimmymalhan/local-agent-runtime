@@ -97,14 +97,14 @@ benchmarks/frustration_findings_v*.json
 # Checkpoints — runtime snapshots, not source code
 checkpoints/version_snapshot_v*.json
 
-# State files written by agents at runtime
-state/agent_stats.json
-state/agent_success_stats.json
-state/autonomous_execution.jsonl
-state/recovery.jsonl
-state/runtime-lessons.json
-state/opus_daily_gate.json
+# State files written by agents at runtime — all of state/ except source files
+state/
+!state/todo.md
+!state/ledger.md
+!state/org_structure.yaml
+!state/workflow-state.json
 registry/agents.json
+registry/
 
 # Dashboard live state
 dashboard/state*.json
