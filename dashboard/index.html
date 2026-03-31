@@ -961,7 +961,7 @@ main{position:relative;z-index:1;padding-top:52px;}
 
   <div class="chips" data-testid="bottom-chips">
     <div class="chip"><div class="cdot" style="background:var(--green)"></div>Nexus Runtime</div>
-    <div class="chip"><div class="cdot" style="background:var(--blue)"></div>qwen2.5-coder:7b</div>
+    <div class="chip"><div class="cdot" style="background:var(--blue)"></div>Nexus Local Engine</div>
     <div class="chip"><div class="cdot" style="background:var(--orange)"></div>Watchdog 60s</div>
     <div class="chip" id="chip-v"><div class="cdot" style="background:var(--t4)"></div>v1</div>
     <div class="chip"><div class="cdot" style="background:var(--t4)"></div>90% local / ≤10% Claude</div>
@@ -1252,7 +1252,7 @@ main{position:relative;z-index:1;padding-top:52px;}
   <div class="sec" style="padding-top:40px;max-width:800px;">
     <div class="sh">
       <h2 class="st">Nexus Chat</h2>
-      <span class="ss" id="chat-model-lbl">local · llama3.1:8b</span>
+      <span class="ss" id="chat-model-lbl">Nexus</span>
     </div>
     <div style="background:var(--card);border:1px solid var(--bd);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;">
       <!-- Messages -->
@@ -1280,7 +1280,7 @@ main{position:relative;z-index:1;padding-top:52px;}
       </div>
     </div>
     <div style="margin-top:10px;font-size:10.5px;color:var(--t3);">
-      Powered by local LLMs (llama3.1:8b for chat, qwen2.5-coder:7b for code). Provider: <span id="chat-provider-lbl">ollama · llama3.1:8b</span>.
+      Powered by Nexus local engine. Provider: <span id="chat-provider-lbl">nexus</span>.
       <a href="#" style="color:var(--blue);text-decoration:none;" onclick="clearChat();return false;">Clear</a>
     </div>
   </div>
@@ -3276,15 +3276,15 @@ async function seed(){
       version:1,
       agents:{
         executor:{status:'running',task:'URL parser and builder',quality:0,sub_agents:[
-          {id:1,status:'running',task:'Parse query params',model:'qwen2.5'},
-          {id:2,status:'running',task:'Build URL string',model:'qwen2.5'},
+          {id:1,status:'running',task:'Parse query params',model:'nexus'},
+          {id:2,status:'running',task:'Build URL string',model:'nexus'},
         ]},
         planner:{status:'idle',task:'',quality:0,sub_agents:[]},
         reviewer:{status:'idle',task:'',quality:0,sub_agents:[]},
         debugger:{status:'idle',task:'',quality:0,sub_agents:[]},
         researcher:{status:'idle',task:'',quality:0,sub_agents:[]},
         benchmarker:{status:'idle',task:'',quality:0,sub_agents:[
-          {id:1,status:'running',task:'Scoring task batch #3',model:'qwen2.5'},
+          {id:1,status:'running',task:'Scoring task batch #3',model:'nexus'},
         ]},
         architect:{status:'idle',task:'',quality:0,sub_agents:[]},
         refactor:{status:'idle',task:'',quality:0,sub_agents:[]},
@@ -3632,8 +3632,8 @@ async function sendChat(){
     const reply=data.reply||'(no response)';
     addChatMsg('nexus',reply,`${data.provider||'nexus'} · ${new Date(data.ts||Date.now()).toLocaleTimeString('en',{hour12:false,hour:'2-digit',minute:'2-digit'})}`);
     _chatHistory.push({role:'assistant',content:reply});
-    const pl=document.getElementById('chat-provider-lbl');if(pl)pl.textContent=data.provider||'ollama · llama3.1:8b';
-    const ml=document.getElementById('chat-model-lbl');if(ml)ml.textContent=`local · ${data.model||'llama3.1:8b'}`;
+    const pl=document.getElementById('chat-provider-lbl');if(pl)pl.textContent=data.provider||'nexus';
+    const ml=document.getElementById('chat-model-lbl');if(ml)ml.textContent='Nexus';
   }catch(e){
     if(typing&&typing.parentNode)typing.parentNode.removeChild(typing);
     addChatMsg('nexus','I\'m Nexus. Dashboard is live. Check the Overview tab for current system state.','fallback');

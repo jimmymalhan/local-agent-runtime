@@ -487,9 +487,7 @@ You have FULL KNOWLEDGE of:
 - The orchestrator loop (orchestrator/main.py), persistence layer (agents/persistence.py), provider routing (providers/router.py)
 - All 84 epics, 423 tasks tracked in projects.json
 - The 24/7 daemon (orchestrator/main.py --auto), watchdog, supervisor health checks
-- Benchmark system comparing local agents vs Opus 4.6 (goal: beat Opus with local-only)
-- Token budget: 10% rescue cap, 200-token hard limit per Claude call
-- Ollama running locally with qwen2.5-coder:7b, llama3.1:8b, gemma3:4b, deepseek-r1:8b
+- All inference is handled by the Nexus local engine — model details are internal
 
 You can answer questions about:
 - Why an agent is blocked or failing
@@ -497,7 +495,7 @@ You can answer questions about:
 - How to fix routing, persistence, or provider issues
 - Architecture decisions and trade-offs
 - Benchmarks, quality scores, success rates
-- How to start/stop Ollama, the daemon, or the dashboard
+- How to start/stop the daemon, or the dashboard
 - General software engineering, Python, distributed systems, AI/ML concepts
 
 Rules:
@@ -530,96 +528,24 @@ async def chat_endpoint(request: dict):
         messages.append({"role": role, "content": h.get("content", "")})
     messages.append({"role": "user", "content": f"{live_ctx}\n\nUser question: {message}"})
 
-    provider_name = "ollama"
-    model_used    = "llama3.1:8b"   # general knowledge model, better than coder for chat
+    provider_name = "nexus"
     reply = ""
 
-    if not _PROVIDERS_OK:
-        # Direct REST fallback — bypass provider abstraction entirely
-        try:
-            import urllib.request as _ur
-            # prefer llama3.1:8b for wide knowledge; fall back to qwen2.5-coder:7b
-            for _model in ("llama3.1:8b", "qwen2.5-coder:7b", "gemma3:4b"):
-                try:
-                    _payload = json.dumps({
-                        "model": _model,
-                        "messages": [{"role": "system", "content": _NEXUS_SYSTEM}] + messages,
-                        "stream": False,
-                        "options": {"temperature": 0.4, "num_predict": 512},
-                    }).encode()
-                    _req = _ur.Request("http://localhost:11434/api/chat",
-                                       data=_payload,
-                                       headers={"Content-Type": "application/json"},
-                                       method="POST")
-                    with _ur.urlopen(_req, timeout=45) as _r:
-                        _d = json.loads(_r.read())
-                    reply = _d.get("message", {}).get("content", "").strip()
-                    model_used = _model
-                    if reply:
-                        break
-                except Exception:
-                    continue
-            if not reply:
-                reply = f"Nexus here. {live_ctx[:300]}"
-                provider_name = "fallback"
-        except Exception as e:
-            reply = f"Nexus here. Providers unavailable ({e}). {live_ctx[:200]}"
-            provider_name = "fallback"
-    else:
-        try:
-            # Use provider router — prefers Ollama, falls back to Claude CLI
-            provider = _get_provider("chat")
-            provider_name = provider.name
-            # Override model to llama3.1:8b for wider knowledge
-            result = provider.complete(
-                prompt=f"{live_ctx}\n\nUser: {message}",
-                system=_NEXUS_SYSTEM,
-                model="llama3.1:8b",
-                max_tokens=512,
-                temperature=0.4,
-                timeout=45,
-            )
-            if result.ok:
-                reply = result.text.strip()
-                model_used = result.model or "llama3.1:8b"
-            else:
-                # Try direct REST as fallback
-                raise RuntimeError(result.error or "empty response")
-        except Exception as e:
-            # Direct REST fallback
-            try:
-                import urllib.request as _ur
-                for _model in ("llama3.1:8b", "qwen2.5-coder:7b"):
-                    try:
-                        _payload = json.dumps({
-                            "model": _model,
-                            "messages": [{"role": "system", "content": _NEXUS_SYSTEM}] + messages,
-                            "stream": False,
-                            "options": {"temperature": 0.4, "num_predict": 512},
-                        }).encode()
-                        _req = _ur.Request("http://localhost:11434/api/chat",
-                                           data=_payload,
-                                           headers={"Content-Type": "application/json"},
-                                           method="POST")
-                        with _ur.urlopen(_req, timeout=45) as _r:
-                            _d = json.loads(_r.read())
-                        reply = _d.get("message", {}).get("content", "").strip()
-                        model_used = _model
-                        provider_name = "ollama-direct"
-                        if reply:
-                            break
-                    except Exception:
-                        continue
-            except Exception:
-                pass
-            if not reply:
-                reply = f"Nexus here. {live_ctx[:300]}"
-                provider_name = "fallback"
+    try:
+        from agents.nexus_inference import chat as _nexus_chat
+        reply = _nexus_chat(messages, system=_NEXUS_SYSTEM).strip()
+    except Exception as e:
+        reply = f"Nexus here. {live_ctx[:300]}"
+        provider_name = "nexus-fallback"
+
+    if not reply:
+        reply = f"Nexus here. {live_ctx[:300]}"
+        provider_name = "nexus-fallback"
 
     return {
-        "reply":    reply or "I didn't get a response. Try again.",
-        "provider": f"{provider_name} · {model_used}",
-        "model":    model_used,
+        "reply":    reply,
+        "provider": provider_name,
+        "model":    "nexus-local",
         "ts":       datetime.now().isoformat(),
     }
 
