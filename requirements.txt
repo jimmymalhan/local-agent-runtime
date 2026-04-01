@@ -1,0 +1,16 @@
+# Core runtime
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+psutil>=5.9.0
+websockets>=12.0
+
+# Data & async
+httpx>=0.25.0
+aiofiles>=23.2.0
+python-multipart>=0.0.6
+
+# Optional: local LLM (Ollama client)
+# ollama>=0.1.0
+
+# Optional: OpenAI-compatible inference
+# openai>=1.0.0

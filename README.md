@@ -1,83 +1,186 @@
 # Nexus — Autonomous Local AI Agent Runtime
 
-> **Dashboard:** `http://localhost:3001` · **Chat:** Dashboard → Chat tab
+> Run 15 specialized AI agents on your machine. Tell Nexus what to build. It handles everything — executes tasks, commits code, opens PRs, self-heals, and ships continuously.
+
+[![CI](https://github.com/jimmymalhan/local-agent-runtime/actions/workflows/ci.yml/badge.svg)](https://github.com/jimmymalhan/local-agent-runtime/actions/workflows/ci.yml)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
 
-## Quickstart (3 commands)
+## What It Does
+
+```
+You:   /do build a Redis cache wrapper with TTL support
+Nexus: Dispatching to executor agent — task queued
+       → executor writes code → reviewer checks quality
+       → commits to feature branch → opens PR automatically
+```
+
+No cloud. No API keys required. Everything runs on your machine.
+
+---
+
+## Quickstart
+
+**Requirements:** Python 3.9+, [Ollama](https://ollama.ai) (optional, for local LLM)
 
 ```bash
+# 1. Clone
 git clone https://github.com/jimmymalhan/local-agent-runtime
 cd local-agent-runtime
+
+# 2. Install dependencies
+pip install -r requirements.txt
+
+# 3. Start the dashboard
 python3 dashboard/server.py --port 3001
 ```
 
-Open `http://localhost:3001`. That's it.
+Open **http://localhost:3001** — the dashboard is live.
 
-**For 24/7 autonomous operation:**
+**Optional: connect a local LLM**
+```bash
+ollama serve &
+ollama pull llama3.1:8b
+```
+
+**Optional: run the full autonomous daemon (24/7)**
 ```bash
 python3 orchestrator/unified_daemon.py &
 ```
 
 ---
 
-## What It Does
+## Dashboard
 
-Nexus runs 15 specialized AI agents locally. You talk to it. It handles everything else — executes tasks, commits code, merges PRs, self-heals, and upgrades itself continuously.
+The dashboard gives you a real-time view of every agent, task, and quality score.
 
+| Tab | What you see |
+|-----|-------------|
+| **Overview** | Agent health, task queue, success rate |
+| **Tasks** | Live task feed with status and quality scores |
+| **Projects** | All 94 projects with completion % |
+| **Chat** | Talk to Nexus via `/do`, `/status`, `/agents` |
+| **Logs** | Execution logs and agent research feed |
+
+---
+
+## Chat Commands
+
+Type any command in the dashboard Chat tab or `python3 nexus`:
+
+| Command | What it does |
+|---------|-------------|
+| `/do <task>` | Dispatch a task to the agent queue |
+| `/status` | Live agent status and task counts |
+| `/agents` | All 15 agents with current assignment |
+| `/epics` | All projects with completion % and ETA |
+| `/tasks` | Next 10 pending tasks |
+| `/health` | Daemon, disk, memory, Ollama status |
+| `/help` | All commands |
+
+**Examples:**
 ```
-You: /do build a Redis cache wrapper with TTL support
-Nexus: On it — dispatching to executor agent. Task ID: chat-a3f9b2c1
-       Estimated completion: next 10-min cycle
+/do add rate limiting to the API
+/do write tests for agents/executor.py
+/do fix the stale task detection in orchestrator/supervisor.py
+/do create a metrics endpoint for agent performance
 ```
+
+---
+
+## 15 Agents
+
+| Agent | What It Does |
+|-------|-------------|
+| `executor` | Code generation, bug fixes, new features |
+| `architect` | System design, project scaffolding |
+| `researcher` | Search, analysis, technical research |
+| `planner` | Task decomposition, roadmaps |
+| `debugger` | Error diagnosis, self-healing |
+| `reviewer` | Code review, quality scoring (0–100) |
+| `refactor` | Code transformation, cleanup |
+| `test_engineer` | Test generation and coverage analysis |
+| `doc_writer` | Documentation, READMEs, API references |
+| `benchmarker` | Performance measurement and comparison |
+| `subagent_pool` | Parallel worker pool for large tasks |
+| `geo_replication` | Active-active data replication |
+| `auto_failover` | Automatic failover (< 5s detection) |
+| `read_replicas` | Read replica management |
+| `backup_restore` | Snapshot and restore |
 
 ---
 
 ## Architecture
 
 ```
-┌─────────────────────────────────────────┐
-│         Dashboard  :3001                │
-│   FastAPI + WebSocket + Chat API        │
-├──────────────────┬──────────────────────┤
-│  15 Agents       │  Unified Daemon      │
-│  executor        │  task execution      │
-│  architect       │  branch/merge cycle  │
-│  researcher      │  auto-recovery       │
-│  planner         │  health checks       │
-│  debugger        │  PR cleanup          │
-│  reviewer        │                      │
-│  doc_writer      │  Every 10min:        │
-│  benchmarker     │  → run 3 tasks       │
-│  + 7 more        │  → commit + push     │
-├──────────────────┴──────────────────────┤
-│  projects.json  ←  single source of     │
-│  (94 projects, 500+ tasks)              │
-├─────────────────────────────────────────┤
-│  Nexus Inference  (agents/nexus_inference.py)  │
-│  Local LLM — no external API required   │
-└─────────────────────────────────────────┘
+┌──────────────────────────────────────────────────┐
+│              Dashboard  :3001                    │
+│        FastAPI + WebSocket + React UI            │
+│        Chat API · REST API · Live State          │
+├────────────────────────┬─────────────────────────┤
+│   15 Agents            │   Unified Daemon         │
+│   executor             │   ┌─ every 10s           │
+│   architect            │   │  poll projects.json  │
+│   researcher           │   ├─ every 10min         │
+│   planner              │   │  execute 3 tasks     │
+│   debugger             │   │  commit + push       │
+│   reviewer             │   ├─ every 30min         │
+│   + 9 more             │   │  branch/merge/PR     │
+│                        │   └─ every 60min         │
+│                        │      health check        │
+├────────────────────────┴─────────────────────────┤
+│              projects.json                       │
+│    94 projects · 500+ tasks · source of truth    │
+├──────────────────────────────────────────────────┤
+│         agents/nexus_inference.py                │
+│      Local LLM router — no API key needed        │
+└──────────────────────────────────────────────────┘
+```
+
+### How a Task Flows
+
+```
+User types /do <task>
+    → queued in projects.json (status: pending)
+    → daemon polls, picks up task within 10s
+    → routes to correct agent via nexus_inference.py
+    → agent executes, writes result + quality score
+    → projects.json updated (status: completed)
+    → git commit + push every 10min cycle
 ```
 
 ---
 
-## Chat Commands
+## Project Structure
 
 ```
-/status   — live agent status, task counts, health
-/agents   — all 15 agents with current task
-/epics    — all epics, completion %, ETA
-/tasks    — next 10 pending tasks
-/health   — daemon, watchdog, disk, memory
-/do <x>   — dispatch task to agent queue
-/help     — all commands
-```
-
-**Execute anything:**
-```
-/do add rate limiting to the API
-/do create a metrics dashboard for agent performance
-/do fix the stale task detection bug
+local-agent-runtime/
+├── agent_runner.py          # Main orchestration loop
+├── nexus                    # CLI entry point
+├── projects.json            # Task queue — source of truth
+│
+├── agents/
+│   ├── nexus_inference.py   # LLM router (model-agnostic)
+│   ├── executor.py          # Code generation agent
+│   ├── architect.py         # System design agent
+│   └── ...                  # 12 more agents
+│
+├── orchestrator/
+│   ├── unified_daemon.py    # 24/7 task scheduler
+│   ├── quick_dispatcher.py  # Single-task fast runner
+│   ├── supervisor.py        # Health monitor + auto-recovery
+│   └── resource_guard.py    # RAM/CPU guardrails
+│
+├── dashboard/
+│   ├── server.py            # FastAPI + WebSocket server
+│   ├── index.html           # React dashboard UI
+│   └── state_writer.py      # Live state persistence
+│
+├── docs/                    # Full documentation
+├── scripts/                 # Automation helpers
+└── requirements.txt
 ```
 
 ---
@@ -87,112 +190,84 @@ Nexus: On it — dispatching to executor agent. Task ID: chat-a3f9b2c1
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `GET` | `/` | Dashboard UI |
-| `POST` | `/api/chat` | Nexus chat — `{message, history}` |
+| `GET` | `/api/health` | System health check |
 | `GET` | `/api/state` | Full runtime state JSON |
 | `GET` | `/api/projects` | All projects + task status |
-| `GET` | `/api/health` | System health check |
 | `GET` | `/api/status` | Live agent status |
+| `POST` | `/api/chat` | Nexus chat `{"message": "..."}` |
 | `WS` | `/ws` | WebSocket stream (2s updates) |
 
 ```bash
-# Chat
-curl -X POST http://localhost:3001/api/chat \
-  -H "Content-Type: application/json" \
-  -d '{"message": "/status"}'
+# Health check
+curl http://localhost:3001/api/health
 
 # Dispatch a task
 curl -X POST http://localhost:3001/api/chat \
   -H "Content-Type: application/json" \
-  -d '{"message": "do build a JWT auth middleware"}'
+  -d '{"message": "/do build a Redis cache wrapper"}'
+
+# Get all projects
+curl http://localhost:3001/api/projects | python3 -m json.tool
 ```
 
 ---
 
-## 15 Agents
-
-| Agent | Role |
-|-------|------|
-| `executor` | Code generation, bug fixes, features |
-| `architect` | System design, scaffolding |
-| `researcher` | Search, analysis, research |
-| `planner` | Task decomposition, roadmaps |
-| `debugger` | Error diagnosis, self-healing |
-| `reviewer` | Code review, quality scoring |
-| `refactor` | Code transformation |
-| `test_engineer` | Test generation |
-| `doc_writer` | Docs, READMEs, API refs |
-| `benchmarker` | Quality measurement |
-| `subagent_pool` | Parallel workers |
-| `geo_replication` | Active-active replication |
-| `auto_failover` | Failover (<5s) |
-| `read_replicas` | Read replica management |
-| `backup_restore` | Backup and restore |
-
----
-
-## 24/7 Schedule
-
-| Interval | Action |
-|----------|--------|
-| 5s | Dashboard state refresh |
-| 2min | Auto-recovery: reset stuck tasks |
-| 10min | Execute tasks → commit → push |
-| 30min | Branch → batch → merge → cleanup |
-| 30min | Auto-merge PRs, close stale PRs |
-| 60min | System health check |
-
----
-
-## Project Structure
-
-```
-agent_runner.py              core execution loop
-agents/
-  nexus_inference.py         LLM entry point (model-agnostic)
-  executor.py / ...          15 specialized agents
-orchestrator/
-  unified_daemon.py          24/7 scheduler
-  quick_dispatcher.py        fast task runner
-dashboard/
-  server.py                  FastAPI + WebSocket + chat
-  index.html                 dashboard UI
-projects.json                task queue (source of truth)
-scripts/
-  auto_recover.sh            watchdog (cron every 2min)
-```
-
----
-
-## Add Your Own Tasks
+## Add a Task Programmatically
 
 ```python
 import json
+
 with open('projects.json') as f:
     data = json.load(f)
+
 data['projects'][0]['tasks'].append({
-    "id": "my-1",
-    "title": "Build X",
-    "description": "Details...",
+    "id": "my-task-1",
+    "title": "Build a rate limiter",
+    "description": "Token bucket rate limiter with Redis backend, 100 req/min per user",
     "status": "pending",
     "agent": "executor"
 })
+
 with open('projects.json', 'w') as f:
     json.dump(data, f, indent=2)
-# Daemon picks it up within 10 minutes automatically
+
+# Daemon picks it up within 10 seconds automatically
 ```
 
 ---
 
-## Requirements
+## Autonomous Operation Schedule
 
-```bash
-pip install fastapi uvicorn psutil
-ollama serve &           # local LLM (optional)
-ollama pull llama3.1:8b  # or any model
-```
-
-Python 3.9+. No external API keys required.
+| Interval | What happens |
+|----------|-------------|
+| **5s** | Dashboard state pushed via WebSocket |
+| **10s** | Orchestrator polls for pending tasks |
+| **2min** | Auto-recovery: detect and retry stuck tasks |
+| **10min** | Execute tasks → commit → push to GitHub |
+| **30min** | Create branch → batch tasks → merge PRs |
+| **60min** | Full system health check |
 
 ---
 
-*Last updated: 2026-03-31*
+## Configuration
+
+All configuration lives in environment variables or defaults safely:
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `NEXUS_PORT` | `3001` | Dashboard port |
+| `NEXUS_WORKERS` | `5` | Max parallel agents |
+| `NEXUS_POLL_INTERVAL` | `10` | Task poll interval (seconds) |
+| `OLLAMA_HOST` | `http://localhost:11434` | Ollama endpoint |
+
+---
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md). PRs welcome — especially new agents, dashboard improvements, and Ollama model support.
+
+---
+
+## License
+
+MIT — see [LICENSE](LICENSE).
